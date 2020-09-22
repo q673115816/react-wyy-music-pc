@@ -109,6 +109,8 @@ section {
 
 body {
     line-height: 1;
+    font-size: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 ol,
@@ -132,4 +134,9 @@ q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }

@@ -1,0 +1,32 @@
+#header {
+    height: 50px;
+    background-color: #c62f2f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+#logo {
+    font-size: 20px;
+    display: flex;
+    min-width: 200px;
+}
+
+.header__page {
+    display: flex;
+}
+
+.header__page a {
+    width: 26px;
+    height: 22px;
+    border: 1px solid #a82828;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.header__search {
+    flex: 1;
+}

@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "webpack-dev-server --config=./build/webpack.config.js"
+    "start": "webpack-dev-server --env=development --mode=development --config=./build/webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +25,7 @@
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "simple-icons": "^3.9.0",
+    "react-icons": "^3.11.0",
     "styled-components": "^5.2.0"
   }
 }
