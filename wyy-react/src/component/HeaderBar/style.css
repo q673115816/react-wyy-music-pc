@@ -13,11 +13,11 @@
     min-width: 200px;
 }
 
-.header__page {
+.header_page {
     display: flex;
 }
 
-.header__page a {
+.header_page a {
     width: 26px;
     height: 22px;
     border: 1px solid #a82828;
@@ -27,6 +27,28 @@
     font-weight: bold;
 }
 
-.header__search {
-    flex: 1;
+.header_search {
+    position: relative;
+}
+
+.header_search input {
+    width: 210px;
+    height: 24px;
+
+}
+
+.header_search input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #c77373;
+}
+
+.header_search input::-moz-placeholder { /* Firefox 19+ */
+    color: #c77373;
+}
+
+.header_search input:-ms-input-placeholder { /* IE 10+ */
+    color: #c77373;
+}
+
+.header_search input:-moz-placeholder { /* Firefox 18- */
+    color: #c77373;
 }

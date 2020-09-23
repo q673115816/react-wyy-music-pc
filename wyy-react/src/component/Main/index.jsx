@@ -1,16 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
+import './style.css'
 import Aside from '../Aside'
+import View from '../View'
 const Main = () => {
     return (
-        <Ele_Main>
-            <Aside></Aside>
-        </Ele_Main>
+        <div id="main">
+            <Aside/>
+            <View/>
+        </div>
     )
 }
 
-const Ele_Main = styled.div`
-    flex: 1
-`;
 
 export default Main
