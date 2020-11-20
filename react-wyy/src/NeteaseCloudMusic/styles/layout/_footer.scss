@@ -1,0 +1,139 @@
+.domfooter {
+  flex: 0 0 70px;
+  border-top: 1px solid #999;
+  background-color: #f6f6f8;
+  justify-content: space-between;
+  display: flex;
+}
+
+
+.domfooter_left {
+  flex: 1 0 0;
+  display: flex;
+  padding: 10px;
+}
+
+.domfooter_left_img {
+  width: 50px;
+  height: 50px;
+  background-color: #000;
+  border-radius: 4px;
+}
+
+.domfooter_left_info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.domfooter_left_info_name {
+  font-size: 18px;
+  margin-top: 2px;
+  color: #666;
+}
+
+.domfooter_left_info_singer {
+  font-size: 16px;
+  margin-top: 10px;
+  color: #888;
+}
+
+.domfooter_left_like {
+  margin-left: 4px;
+  &:hover {
+    color: #f00;
+  }
+}
+
+.domfooter_center {
+  width: 460px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.domfooter_center_Top {
+  display: flex;
+  padding-top: 10px;
+  align-items: center;
+  & > span {
+    cursor: pointer;
+    margin:0 10px;
+  }
+}
+
+.domfooter_center_bottom {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.domfooter_center_prev {
+  font-size: 32px;
+  &:hover {
+    color: #f00;
+  }
+}
+
+.domfooter_center_play {
+  width: 36px;
+  height: 36px;
+  font-size: 32px;
+  border-radius: 18px;
+  background-color: #e8e8e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background-color: #ccc;
+  }
+}
+
+.domfooter_center_next {
+  font-size: 32px;
+  &:hover {
+    color: #f00;
+  }
+}
+
+.domfooter_center_range {
+  margin: 0 4px;
+  width: 390px;
+  height: 2px;
+  background-color: #c2c2c2;
+}
+
+.domfooter_center_process {
+  position: relative;
+  display: block;
+  background-color: #f00;
+  height: 100%;
+  &:after {
+    opacity: 0;
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color:inherit;
+  }
+}
+
+.domfooter_center_range:hover {
+  .domfooter_center_process {
+    &:after {
+      opacity: 1;
+    }
+  }
+}
+
+.domfooter_right {
+  flex: 1 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 28px;
+}

@@ -1,0 +1,20 @@
+$basered: #EC4141;
+
+@mixin nav_active {
+  position: relative;
+  &::after{
+    opacity: 0;
+    content: '';
+    position: absolute;
+    bottom: -0.3em;
+    left: 0.3em;
+    right: 0.3em;
+    height: 0.1em;
+    background-color: $basered;
+  }
+  &.on {
+    &::after {
+      opacity: 1;
+    }
+  }
+}

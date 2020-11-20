@@ -1,0 +1,85 @@
+.group_select_wrap {
+  flex: 1 0;
+  position: relative;
+}
+
+.group_select_box {
+  position: absolute;
+  top: 100%;
+  padding: 10px;
+  width: 400px;
+  height: 200px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  overflow: auto;
+  //高宽分别对应横竖滚动条的尺寸
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  //内阴影 和 圆角
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  // 内阴影 圆角
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+  }
+}
+
+.group_select_button {
+  font-size: 14px;
+  border: 2px solid #ccc;
+  border-radius: 1000px;
+  margin: 10px 0;
+  padding: 4px 12px;
+  background-color: #fff;
+  outline: none;
+}
+
+.group_select_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.group_select_check {
+  display: block;
+  margin: 6px 0;
+  padding: 10px 0;
+  width: calc(100% / 6);
+  text-align: center;
+  &:hover {
+    color: #f00;
+  }
+  &.on {
+    color: #f00;
+    background-color: rgba(255, 0, 0, 0.2)
+  }
+  border-radius: 1000px;
+}
+
+.video_sort_filter_bar {
+  display: flex;
+  align-items: center;
+}
+
+.recommend_group_list {
+  display: flex;
+  margin-left: auto;
+  margin: 0 -6px;
+}
+
+.recommend_group_list_check {
+  white-space: nowrap;
+  padding: 4px 8px;
+  margin: 0 4px;
+  &:hover {
+    color: rgb(14, 10, 10);
+  }
+  &.on {
+    color: #f00;
+    background-color: rgba(255, 0, 0, 0.2)
+  }
+  border-radius: 1000px;
+}

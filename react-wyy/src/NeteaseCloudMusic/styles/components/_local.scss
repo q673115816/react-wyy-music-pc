@@ -1,0 +1,67 @@
+.domlocal {
+  padding: 24px 30px;
+  &_header {
+    display: flex;
+    align-items: flex-end;
+    &_title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    &_total {
+      color: #999;
+      font-size: 16px;
+      margin-left: 20px;
+    }
+    &_selectFolder {
+      margin-left: auto;
+      color: #50A5D9;
+    }
+  }
+
+  &_nav {
+    margin-top: 20px;
+    font-size: 14px;
+   &_link {
+     position: relative;
+    margin-right: 1em;
+    &:after {
+      opacity: 0;
+      content: '';
+      position: absolute;
+      background-color: #f00;
+      bottom: -0.4em;
+      left: 0.2em;
+      right: 0.2em;
+      height: 3px;
+    }
+     &.on {
+       font-weight: bold;
+       &:after {
+         opacity: 1;
+       }
+     }
+   }  
+  }
+  &_noFolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    &_title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    &_tips {
+      font-size: 20px;
+      margin-top: 1em;
+    }
+    &_button {
+      padding: 0.5em 1em;
+      border-radius: 1000px;
+      color: #fff;
+      font-size: 16px;
+      margin-top: 1em;
+      background-color: #f00;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+.dommain {
+  display: flex;
+  flex: 1;
+}
+
+.dommain_left {
+  width: 200px;
+  background-color: #fff;
+  padding: 10px;
+}
+
+.dommain_left_dt {
+  color: #bbb;
+  margin: 14px 10px;
+  font-size: 16px;
+
+}
+
+.playlist_control {
+  display: flex;
+  align-items: center;
+  .addplaylist {
+    margin-left: auto;
+  }
+  ._toggle {
+    cursor: pointer;
+    flex: 1;
+    &::hover {
+      color: #f00;
+    }
+  }
+}
+
+.dommain_left_link {
+  display: block;
+  font-size: 18px;
+  padding: 10px;
+  &.on {
+    font-weight: bold;
+  }
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+
+.dommain_split {
+  width: 2px;
+  padding: 0 2px;
+  background-color: #999;
+  background-clip: content-box;
+  cursor: w-resize;
+}
+
+.dommain_right {
+  flex: 1;
+}

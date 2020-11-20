@@ -1,0 +1,78 @@
+.domheader {
+  flex: 0 0 60px;
+  padding: 0 20px;
+  background-color: $basered;
+  display: flex;
+  align-items: center;
+  color: #fff;
+} 
+ .domheader_spilt {
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.8);
+    height: 20px;
+    margin-left: 16px;
+  }
+
+
+.domheader_shabox_ico {
+  margin: 0 6px;
+  font-size: 18px;
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.domheader_voice,
+.domheader_page_prev,
+.domheader_page_next {
+  @extend .domheader_shabox_ico
+}
+
+
+
+.domheader ._handle {
+  cursor: pointer;
+}
+
+.domheader_logo {
+  color: #fff;
+  font-size: 22px;
+  width: 220px;
+}
+
+.domheader_search {
+  outline: none;
+  border: none;
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 1000px;
+  height: 36px;
+  padding-left: 36px;
+  color: #fff;
+  &_ico {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translate(0, -50%);
+    fill:#fff;
+
+  }
+  &::-webkit-input-placeholder { /* Chrome/Opera/Safari */ 
+    color: #e55959;
+}
+}
+
+.domheader_user {
+  margin-left: auto;
+}
+
+.domheader_control {
+}
+
+.domheader_ico {
+  margin-left: 16px;
+  font-size: 24px;
+}
