@@ -1,11 +1,26 @@
+const htmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-const root = path.join(__dirname, '../')
-const src = path.join(__dirname, '../src')
+const { src, root } = require('./util')
+
 module.exports = {
+    target: 'web',
     entry: path.join(src, 'index.js'),
     output: {
+        publicPath: '/',
         path: path.join(root, 'dist'),
-        filename: 'bundle.js'
+        filename: '[name].[chunkhash:8].js'
+    },
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+        },
     },
     resolve: {
         alias: {
@@ -15,6 +30,13 @@ module.exports = {
             '.jsx',
             '.js'
         ]
+    },
+    externals: {
+        // 'react': 'React',
+        // 'react-dom': 'ReactDOM',
+        // 'react-redux': 'react-redux',
+        // 'react-router-dom': 'react-router-dom',
+        // 'redux': 'redux',
     },
     module: {
         rules: [
@@ -41,5 +63,11 @@ module.exports = {
                 ]
             },
         ]
-    }
+    },
+    plugins: [
+        new htmlWebpackPlugin({
+            template: path.join(__dirname, '../public/index.html'),
+            // publicPath: '/'
+        })
+    ],
 }

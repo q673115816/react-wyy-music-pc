@@ -17,10 +17,10 @@
 .domheader_shabox_ico {
   margin: 0 6px;
   font-size: 18px;
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.05);
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -47,9 +47,10 @@
 .domheader_search {
   outline: none;
   border: none;
-  background-color: rgba(0,0,0,0.1);
+  width: 160px;
+  height: 30px;
+  background-color: rgba(0,0,0,0.05);
   border-radius: 1000px;
-  height: 36px;
   padding-left: 36px;
   color: #fff;
   &_ico {

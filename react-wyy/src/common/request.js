@@ -17,7 +17,7 @@ export const get = async (url, params) => {
 };
 
 export const post = async (url, params, head) => {
-  return await fetch(`${baseurl}${url}`, {
+  return await fetch(`${baseurl}${url}?timestamp=${Date.now()}`, {
     method: "POST",
     body: params,
     head

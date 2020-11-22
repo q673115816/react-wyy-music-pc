@@ -1,12 +1,35 @@
 import React from "react";
-import NeteaseCloudMusic from "./NeteaseCloudMusic";
 import "./styles.css";
 
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import "./styles/index.scss";
+import DomHeader from "./components/Header";
+import DomMain from "./components/Main";
+import DomFooter from "./components/Footer";
+import useDrop from "./custom/useDrop";
+
+import DialogLogin from './components/Dialog/Login'
+
 export default function App() {
+  const { mousedown, x, y, Drag, dragger } = useDrop();
+
   return (
-    <div className="App">
-      2020/11/11
-      <NeteaseCloudMusic />
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <Router>
+          <div id="NeteaseCloudMusic"
+            className="domwrapper"
+            style={{ transform: `translate(${x}px, ${y}px)` }}>
+            <DomHeader {...{ mousedown }} />
+            <DomMain />
+            <DomFooter />
+          </div>
+          {dragger && Drag}
+          <DialogLogin />
+        </Router>
+      </div>
+    </Provider>
   );
 }

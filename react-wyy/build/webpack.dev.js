@@ -1,11 +1,15 @@
-const htmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const { content } = require('./util')
+const webpack = require('webpack')
 module.exports = {
-    // mode: 'development',
+    mode: 'development',
+    devServer: {
+        // contentBase: content,
+        hot: true,
+        historyApiFallback: true
+    },
     plugins: [
-        new htmlWebpackPlugin({
-            template: path.join(__dirname, '../public/index.html')
-        })
+        new webpack.HotModuleReplacementPlugin()
     ],
-    devtool: 'cheap-module-source-map'
+    devtool: 'source-map'
 }

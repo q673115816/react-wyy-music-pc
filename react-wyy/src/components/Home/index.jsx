@@ -74,7 +74,7 @@ export default () => {
           <Route path="/home/dj">
             <HomeDj />
           </Route>
-          <Redirect from="/home" to="/home/recommend" />
+          <Redirect to="/home/recommend"/>
         </Switch>
       </div>
     </div>
