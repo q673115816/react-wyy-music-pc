@@ -7,6 +7,14 @@ export function setCookie(c) {
   cookie = c;
 }
 
+function format(obj) {
+  let data = ''
+  for(const key in obj) {
+    data += `${key}=${obj[key]}&`
+  }
+  return data.slice(0, -1)
+}
+
 const defaultOptions = {
   withCredentials: true
 };
@@ -17,9 +25,13 @@ export const get = async (url, params) => {
 };
 
 export const post = async (url, params, head) => {
+  console.log(params);
   return await fetch(`${baseurl}${url}?timestamp=${Date.now()}`, {
     method: "POST",
-    body: params,
-    head
+    body: format(params),
+    headers: new Headers({
+      'content-type': 'application/x-www-form-urlencoded',
+      ...head,
+    })
   }).then((res) => res.json());
 };

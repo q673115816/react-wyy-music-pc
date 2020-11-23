@@ -23,10 +23,9 @@
   }
 
   &_content {
-    padding-top: 16px;
     flex: 1 0 0;
-    overflow: auto;
-
+    display: flex;
+    
     /*滚动条样式*/
     &::-webkit-scrollbar {
       width: 4px;
@@ -51,6 +50,9 @@
   }
 
   &_artist {
+    padding-top: 16px;
+    // 滚动条保持绝对位置
+    overflow-anchor: none;
     &_filter {
       display: flex;
       white-space: nowrap;

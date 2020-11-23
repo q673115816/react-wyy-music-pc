@@ -1,14 +1,23 @@
-import { GET_HOME_TOP_ARTISTS } from "../../actionTypes";
+import {
+  INIT_HOME_TOP_ARTISTS,
+  ADD_HOME_TOP_ARTISTS
+} from "../../actionTypes";
 const initialState = {
   artists: []
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case GET_HOME_TOP_ARTISTS:
+export default (state = initialState, {type, payload}) => {
+  switch (type) {
+    case INIT_HOME_TOP_ARTISTS:
       return {
         ...state,
-        artists: action.payload.artists
+        artists: []
+      };
+    case ADD_HOME_TOP_ARTISTS:
+      console.log(payload);
+      return {
+        ...state,
+        artists: [].concat(state.artists, payload.artists)
       };
     default:
       return state;

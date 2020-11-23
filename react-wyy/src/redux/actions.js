@@ -2,7 +2,8 @@ import {
   ADD_COUNT,
   GET_VIDEO_GROUP_LIST,
   DIALOG_LOGIN_VISIBILTY,
-  GET_HOME_TOP_ARTISTS
+  INIT_HOME_TOP_ARTISTS,
+  ADD_HOME_TOP_ARTISTS,
 } from "./actionTypes";
 export const addplay = () => ({
   type: ADD_COUNT,
@@ -24,9 +25,15 @@ export const dialogloginvisibilty = () => {
   };
 };
 
-export const gethometopartists = (artists) => {
+export const inithometopartists = () => {
   return {
-    type: GET_HOME_TOP_ARTISTS,
+    type: INIT_HOME_TOP_ARTISTS
+  };
+};
+
+export const addhometopartists = (artists) => {
+  return {
+    type: ADD_HOME_TOP_ARTISTS,
     payload: {
       artists
     }

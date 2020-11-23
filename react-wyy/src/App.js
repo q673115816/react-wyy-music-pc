@@ -5,9 +5,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./styles/index.scss";
-import DomHeader from "./components/Header";
-import DomMain from "./components/Main";
-import DomFooter from "./components/Footer";
+import DomHeader from "./pages/Header";
+import DomMain from "./pages/Main";
+import DomFooter from "./pages/Footer";
 import useDrop from "./custom/useDrop";
 
 import DialogLogin from './components/Dialog/Login'
