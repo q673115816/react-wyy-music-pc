@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import LazyLoad from 'react-lazyload'
@@ -7,8 +7,6 @@ import { limit } from '@/config'
 import { artist_list } from '@/api'
 import { addhometopartists, inithometopartists } from '@/redux/actions'
 
-import { HomeContent } from '../../index'
-
 import options from './filter'
 
 const Domitem = ({ item }) => (
@@ -16,7 +14,10 @@ const Domitem = ({ item }) => (
     <div className="img">
       <Link to={`/artist/detail/${item.id}`}>
         <LazyLoad overflow>
-          <img className="containimg" src={item.img1v1Url + '?param=200y200'} alt={item.name} />
+          <img
+            className="containimg"
+            src={item.img1v1Url + '?param=200y200'}
+            alt={item.name} />
         </LazyLoad>
       </Link>
     </div>
@@ -31,9 +32,8 @@ const Domitem = ({ item }) => (
 
 
 export default () => {
-  const isBottom = useContext(HomeContent)
-
   const dispatch = useDispatch()
+  const [isBottom, setIsBottom] = useState(false)
   const [option, setOption] = useState({
     type: -1,
     area: -1,
@@ -53,13 +53,22 @@ export default () => {
     })
   }
 
+  const handleScroll = ({ target }) => {
+    const { scrollHeight, scrollTop, clientHeight } = target
+    if (scrollTop + clientHeight + 300 > scrollHeight) {
+      setIsBottom(true)
+    } else {
+      setIsBottom(false)
+    }
+  }
+
   useEffect(() => {
     setOption({
       ...option,
       offset: option.offset + limit
     })
   }, [isBottom])
-  
+
   const handleGetList = async () => {
     if (isPending) return
     try {
@@ -80,7 +89,7 @@ export default () => {
 
 
   return (
-    <div className="domhome_artist">
+    <div className="domhome_artist" onScroll={handleScroll}>
       <div className="domhome_artist_control">
         {options.map((filter, index) => (
           <div className="domhome_artist_filter" key={index}>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { NavLink, Switch, Route, Redirect } from "react-router-dom";
 import HomeRecommend from "./pages/Recommend";
 import HomeToplist from "./pages/Toplist";
@@ -33,19 +33,7 @@ const nav = [
     name: '最新音乐'
   },
 ]
-
-export const HomeContent = React.createContext()
-
 export default () => {
-  const [isBottom, setIsBottom] = useState(false)
-   const handleScroll = ({ target }) => {
-    const { scrollHeight, scrollTop, clientHeight } = target
-    if (scrollTop + clientHeight + 300 > scrollHeight) {
-      setIsBottom(true)
-    } else {
-      setIsBottom(false)
-    }
-  }
   return (
     <div className="domhome">
       <div className="domhome_nav">
@@ -61,8 +49,7 @@ export default () => {
         ))}
 
       </div>
-      <HomeContent.Provider value={isBottom} >
-        <div className="domhome_content" onScroll={handleScroll}>
+        <div className="domhome_content">
             <Switch>
               <Route path="/home/recommend">
                 <HomeRecommend />
@@ -85,7 +72,6 @@ export default () => {
               <Redirect to="/home/recommend" />
             </Switch>
           </div>
-      </HomeContent.Provider>
     </div>
   );
 };

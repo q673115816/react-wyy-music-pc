@@ -6,7 +6,8 @@ import {
   ADD_HOME_TOP_ARTISTS,
   GET_TOPLIST_ARITST,
   GET_TOPLIST_DETAIL,
-  GET_TOP_SONG
+  GET_TOP_SONG,
+  GET_TOP_ALBUM
 } from "./actionTypes";
 export const addplay = () => ({
   type: ADD_COUNT,
@@ -67,5 +68,13 @@ export const gettopsong = (data) => {
     payload: {
       data
     }
+  }
+}
+
+export const gettopalbum = (data) => {
+  console.log(data);
+  return {
+    type: GET_TOP_ALBUM,
+    payload: data
   }
 }

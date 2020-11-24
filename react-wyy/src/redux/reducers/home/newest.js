@@ -1,7 +1,9 @@
-import {GET_TOP_SONG} from '../../actionTypes'
+import { GET_TOP_SONG, GET_TOP_ALBUM } from '../../actionTypes'
 
 const initialState = {
-    data: []
+    data: [],
+    monthData: [],
+    weekData: [],
 };
 
 export default (state = initialState, action) => {
@@ -10,6 +12,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 data: action.payload.data
+            }
+        case GET_TOP_ALBUM:
+            return {
+                ...state,
+                ...action.payload
             }
         default:
             return state;

@@ -4,6 +4,7 @@
   height: 100%;
 
   &_nav {
+    flex: none;
     height: 60px;
     display: flex;
     align-items: baseline;
@@ -23,9 +24,14 @@
   }
 
   &_content {
-    flex: 1 0 0;
-    overflow: auto;
-    overflow-anchor: none;
+    flex: auto;
+    display: flex;
+    > div {
+      flex: 1;
+      overflow: auto;
+      // 滚动条保持绝对位置
+      overflow-anchor: none;
+    }
   }
 
   &_titlelink {
@@ -37,8 +43,7 @@
 
   &_artist {
     padding-top: 16px;
-    // 滚动条保持绝对位置
-
+    
     &_filter {
       display: flex;
       white-space: nowrap;
@@ -258,7 +263,7 @@
           align-items: center;
           justify-content: center;
           border-radius: 12px;
-
+          cursor: pointer;
         }
 
         .playAll {
@@ -320,12 +325,21 @@
 
     &_album {
       &_list {
-        padding-left: 50px;
+        margin: 0 30px;
         .sign {
           width: 40px;
           height: 40px;
           position: sticky;
-          background-color: #f00;
+          font-size: 20px;
+        }
+      }
+
+      &_weeklist {
+        display: flex;
+        flex-wrap: wrap;
+        .cover {
+          width: 140px;
+          height: 140px;
         }
       }
     }

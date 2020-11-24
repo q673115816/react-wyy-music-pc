@@ -10,7 +10,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --config ./build/webpack.config.js",
     "build": "webpack --mode production --config ./build/webpack.config.js",
-    "serve": "webpack serve --config ./build/webpack.config.js --progress --profile --watch --content-base src/",
+    "serve": "webpack serve --config ./build/webpack.config.js --progress --profile",
     "analyz": "npm run build --mode analyse"
   },
   "browserslist": [
@@ -42,9 +42,9 @@
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",
     "style-loader": "^2.0.0",
-    "webpack": "^5.6.0",
+    "webpack": "^4.44.2",
     "webpack-bundle-analyzer": "^4.1.0",
-    "webpack-cli": "^4.2.0",
+    "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.4.0"
   }

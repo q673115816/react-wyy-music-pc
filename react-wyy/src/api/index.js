@@ -13,3 +13,5 @@ export const toplist_artist = (type) => get(`/toplist/artist?type=${type}`)
 export const toplist_detail = () => get('/toplist/detail')
 
 export const top_song = (type) => get(`/top/song?type=${type}`)
+
+export const top_album = (params) => post('/top/album', params)

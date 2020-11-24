@@ -1,7 +1,12 @@
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+const { dist } = require('./util')
 const config = {
     mode: 'production',
+    output: {
+        publicPath: '/',
+        path: dist,
+        filename: '[name].[chunkhash:8].js'
+    },
     // devtool: 'source-map',
     plugins: [
 

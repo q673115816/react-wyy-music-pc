@@ -12,3 +12,7 @@ ReactDOM.render(
   </React.StrictMode>,
   rootElement
 );
+
+if(module.hot) {
+  module.hot.accept()
+}

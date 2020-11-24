@@ -5,11 +5,7 @@ const { src, root } = require('./util')
 module.exports = {
     target: 'web',
     entry: path.join(src, 'index.js'),
-    output: {
-        publicPath: '/',
-        path: path.join(root, 'dist'),
-        filename: '[name].[chunkhash:8].js'
-    },
+    
     optimization: {
         runtimeChunk: 'single',
         splitChunks: {
