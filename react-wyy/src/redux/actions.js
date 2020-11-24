@@ -4,6 +4,9 @@ import {
   DIALOG_LOGIN_VISIBILTY,
   INIT_HOME_TOP_ARTISTS,
   ADD_HOME_TOP_ARTISTS,
+  GET_TOPLIST_ARITST,
+  GET_TOPLIST_DETAIL,
+  GET_TOP_SONG
 } from "./actionTypes";
 export const addplay = () => ({
   type: ADD_COUNT,
@@ -39,3 +42,30 @@ export const addhometopartists = (artists) => {
     }
   };
 };
+
+export const gettoplistartist = (artist) => {
+  return {
+    type: GET_TOPLIST_ARITST,
+    payload: {
+      artist
+    }
+  }
+}
+
+export const gettoplitsdetail = (list) => {
+  return {
+    type: GET_TOPLIST_DETAIL,
+    payload: {
+      list
+    }
+  }
+}
+
+export const gettopsong = (data) => {
+  return {
+    type: GET_TOP_SONG,
+    payload: {
+      data
+    }
+  }
+}

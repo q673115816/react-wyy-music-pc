@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { NavLink, Switch, Route, Redirect } from "react-router-dom";
 import HomeRecommend from "./pages/Recommend";
 import HomeToplist from "./pages/Toplist";
@@ -34,7 +34,18 @@ const nav = [
   },
 ]
 
+export const HomeContent = React.createContext()
+
 export default () => {
+  const [isBottom, setIsBottom] = useState(false)
+   const handleScroll = ({ target }) => {
+    const { scrollHeight, scrollTop, clientHeight } = target
+    if (scrollTop + clientHeight + 300 > scrollHeight) {
+      setIsBottom(true)
+    } else {
+      setIsBottom(false)
+    }
+  }
   return (
     <div className="domhome">
       <div className="domhome_nav">
@@ -50,29 +61,31 @@ export default () => {
         ))}
 
       </div>
-      <div className="domhome_content">
-          <Switch>
-            <Route path="/home/recommend">
-              <HomeRecommend />
-            </Route>
-            <Route path="/home/toplist">
-              <HomeToplist />
-            </Route>
-            <Route path="/home/playlist">
-              <HomePlaylist />
-            </Route>
-            <Route path="/home/artist">
-            <HomeArtist/>
-            </Route>
-            <Route path="/home/newest">
-              <HomeNewest />
-            </Route>
-            <Route path="/home/dj">
-              <HomeDj />
-            </Route>
-            <Redirect to="/home/recommend" />
-          </Switch>
-        </div>
+      <HomeContent.Provider value={isBottom} >
+        <div className="domhome_content" onScroll={handleScroll}>
+            <Switch>
+              <Route path="/home/recommend">
+                <HomeRecommend />
+              </Route>
+              <Route path="/home/toplist">
+                <HomeToplist />
+              </Route>
+              <Route path="/home/playlist">
+                <HomePlaylist />
+              </Route>
+              <Route path="/home/artist">
+              <HomeArtist/>
+              </Route>
+              <Route path="/home/newest">
+                <HomeNewest />
+              </Route>
+              <Route path="/home/dj">
+                <HomeDj />
+              </Route>
+              <Redirect to="/home/recommend" />
+            </Switch>
+          </div>
+      </HomeContent.Provider>
     </div>
   );
 };

@@ -5,8 +5,8 @@ module.exports = {
     mode: 'development',
     devServer: {
         // contentBase: content,
-        hot: true,
-        historyApiFallback: true
+        // hot: true,
+        historyApiFallback: true,
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()

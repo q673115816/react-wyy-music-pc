@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import LazyLoad from 'react-lazyload'
 
-import { limit } from '@/common'
+import { limit } from '@/config'
 import { artist_list } from '@/api'
 import { addhometopartists, inithometopartists } from '@/redux/actions'
+
+import { HomeContent } from '../../index'
 
 import options from './filter'
 
@@ -26,34 +28,11 @@ const Domitem = ({ item }) => (
   </div>
 )
 
-const Domlist = ({ option, artists }) => (
-  <>
-    {option.area === -1 && option.initial === -1 && <div className="item">
-      <div className="img">
-        <Link to={`/artist/rank`}>
-          <img
-            className="containimg"
-            src="http://p3.music.126.net/1tSJODTpcbZvNTCdsn4RYA==/109951165034950656.jpg?param=200y200"
-            alt=""
-            style={{ filter: "blur(2)" }} />
-          <div className="rankmask">
-            歌手榜
-              </div>
-        </Link>
-      </div>
-      <div className="info">
-        <Link to={`/artist/rank`}>
-          歌手排行榜 &gt;
-            </Link>
-      </div>
-    </div>}
-    {artists.map((item, index) => <Domitem item={item} key={index} />)}
-  </>
-)
-
 
 
 export default () => {
+  const isBottom = useContext(HomeContent)
+
   const dispatch = useDispatch()
   const [option, setOption] = useState({
     type: -1,
@@ -74,18 +53,13 @@ export default () => {
     })
   }
 
-  const handleScroll = ({ target }) => {
-    const { scrollHeight, scrollTop, clientHeight } = target
-    if (scrollTop + clientHeight + 300 > scrollHeight) {
-      if (hasMore && !isPending) {
-        setOption({
-          ...option,
-          offset: option.offset + limit
-        })
-      }
-    }
-  }
-
+  useEffect(() => {
+    setOption({
+      ...option,
+      offset: option.offset + limit
+    })
+  }, [isBottom])
+  
   const handleGetList = async () => {
     if (isPending) return
     try {
@@ -106,7 +80,7 @@ export default () => {
 
 
   return (
-    <div className="domhome_artist overflow-auto" onScroll={handleScroll}>
+    <div className="domhome_artist">
       <div className="domhome_artist_control">
         {options.map((filter, index) => (
           <div className="domhome_artist_filter" key={index}>
@@ -123,7 +97,25 @@ export default () => {
         ))}
       </div>
       <div className="domhome_artist_list">
-        {/* <Domlist {...{ artists, option }} /> */}
+        {option.type === -1 && option.initial === -1 && artists.length > 0 && <div className="item">
+          <div className="img">
+            <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.area)[2]}`}>
+              <img
+                className="containimg"
+                src="http://p3.music.126.net/1tSJODTpcbZvNTCdsn4RYA==/109951165034950656.jpg?param=200y200"
+                alt=""
+                style={{ filter: "blur(2)" }} />
+              <div className="rankmask">
+                歌手榜
+              </div>
+            </Link>
+          </div>
+          <div className="info">
+            <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.type)[2]}`}>
+              歌手排行榜 &gt;
+            </Link>
+          </div>
+        </div>}
         {artists.map((item, index) => <Domitem item={item} key={index} />)}
       </div>
       {hasMore ? <div>加载中</div> : <div>已经到底了</div>}

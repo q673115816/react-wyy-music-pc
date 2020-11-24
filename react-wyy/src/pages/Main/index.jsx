@@ -1,12 +1,7 @@
-import React, { useState, lazy, Suspense } from "react";
-import { Switch, Route, NavLink, Redirect } from "react-router-dom";
+import React from "react";
 
 import DomLeft from './Left'
-
-const Home = lazy(() => import('../Home'))
-const Play = lazy(() => import('../Play'))
-const Local = lazy(() => import('../Local'))
-const Download = lazy(() => import('../Download'))
+import Router from '@/Router'
 
 export default () => {
   return (
@@ -14,23 +9,7 @@ export default () => {
       <DomLeft />
       <div className="dommain_split"></div>
       <div className="dommain_right">
-        <Suspense fallback={<div>Loading...</div>}>
-          <Switch>
-            <Route path="/play">
-              <Play />
-            </Route>
-            <Route path="/local">
-              <Local />
-            </Route>
-            <Route path="/download">
-              <Download />
-            </Route>
-            <Route path="/home">
-              <Home />
-            </Route>
-            <Redirect to="/home" />
-          </Switch>
-        </Suspense>
+        <Router />
       </div>
     </div>
   );
