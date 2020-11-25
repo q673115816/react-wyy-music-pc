@@ -26,7 +26,8 @@
   &_content {
     flex: auto;
     display: flex;
-    > div {
+
+    >div {
       flex: 1;
       overflow: auto;
       // 滚动条保持绝对位置
@@ -43,7 +44,7 @@
 
   &_artist {
     padding-top: 16px;
-    
+
     &_filter {
       display: flex;
       white-space: nowrap;
@@ -242,6 +243,7 @@
 
         &_link {
           margin-right: 20px;
+          cursor: pointer;
 
           &.on {
             font-weight: bold;
@@ -275,6 +277,28 @@
         .subAll {
           @include btn();
           border: 1px solid #f2f2f2;
+        }
+
+        .showtype {
+          color: #333;
+
+          padding: 0 8px;
+          line-height: 20px;
+          border-radius: 10px;
+          cursor: pointer;
+
+          &:hover {
+            opacity: #000;
+          }
+
+          &.on {
+            background-color: #FDF5F5;
+            color: $basered;
+
+            &:hover {
+              background-color: #FDEDED;
+            }
+          }
         }
       }
     }
@@ -325,22 +349,112 @@
 
     &_album {
       &_list {
+        position: relative;
         margin: 0 30px;
+      }
+
+      &_sublist {
+        position: relative;
+        padding-left: 50px;
+        margin-bottom: 50px;
+
         .sign {
           width: 40px;
           height: 40px;
-          position: sticky;
+          position: absolute;
+          top: 0;
+          left: 0;
           font-size: 20px;
         }
-      }
 
-      &_weeklist {
-        display: flex;
-        flex-wrap: wrap;
+        .list {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .item {
+          display: flex;
+          flex-direction: column;
+          width: 140px;
+          margin-right: 40px;
+          margin-bottom: 20px;
+
+          &:nth-child(4n + 4) {
+            margin-right: 0;
+          }
+        }
+
         .cover {
           width: 140px;
           height: 140px;
+          border-radius: 10px;
+          overflow: hidden;
         }
+
+        .name {
+          margin-top: 0.5em;
+          font-size: 14px;
+          @include ellipse();
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+
+        .artist {
+          margin-top: 0.5em;
+          color: #999;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+
+  &_playlist {
+
+    &_list {
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        width: 180px;
+        display: flex;
+        margin-bottom: 20px;
+        flex-direction: column;
+        &:not(:nth-child(4n + 4)) {
+          margin-right: 20px;
+        }
+      }
+
+      .cover {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+
+      .playCount {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #fff;
+      }
+
+      .creator {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        color: #fff;
+      }
+
+      .name {
+        flex: 0 1 auto;
+        word-break: break-all;
+        margin-top: 0.5em;
+        @include ellipse(2);
       }
     }
   }

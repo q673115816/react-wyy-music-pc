@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import { AiOutlineMinus, AiOutlineSearch, AiOutlineMail } from "react-icons/ai";
 import { VscChromeMaximize } from "react-icons/vsc";
 import { CgMiniPlayer } from "react-icons/cg";
@@ -10,18 +12,32 @@ import {
   MdKeyboardArrowRight,
   MdKeyboardVoice
 } from "react-icons/md";
-import { useDispatch } from "react-redux";
 
-import { dialogloginvisibilty } from "../../redux/actions";
-
+import { dialogloginvisibilty, getcountriescodelist } from "@/redux/actions";
+import { countries_code_list } from '@/api'
 export default ({ mousedown }) => {
   const dispatch = useDispatch();
-  const handle_show_login = () => {
-    console.log(111);
+
+  const handleShowLogin = (e) => {
+    console.log('123')
     dispatch(dialogloginvisibilty());
   };
+
+  const handleGetCountriesCodeList = async () => {
+    try {
+      const { data } = await countries_code_list()
+      dispatch(getcountriescodelist(data))
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    handleGetCountriesCodeList()
+  }, [])
+
   return (
-    <div className="domheader" onMouseDown={mousedown}>
+    <div className="domheader" onMouseDown={() => ''}>
       <Link to="/" className="domheader_logo">
         <RiNeteaseCloudMusicFill size="32" />
         首页
@@ -42,7 +58,7 @@ export default ({ mousedown }) => {
         <MdKeyboardVoice />
       </Link>
       <div className="domheader_user">
-        <span className="_handle" onClick={handle_show_login}>
+        <span className="_handle" onClick={handleShowLogin}>
           未登录
         </span>
         <span className="_handle">开通VIP</span>

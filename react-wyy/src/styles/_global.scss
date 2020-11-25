@@ -2,7 +2,8 @@ $basered: #EC4141;
 
 @mixin nav_active {
   position: relative;
-  &::after{
+
+  &::after {
     opacity: 0;
     content: '';
     position: absolute;
@@ -12,6 +13,7 @@ $basered: #EC4141;
     height: 0.1em;
     background-color: $basered;
   }
+
   &.on {
     &::after {
       opacity: 1;
@@ -20,6 +22,7 @@ $basered: #EC4141;
 }
 
 @mixin scrollbar {
+
   /*滚动条样式*/
   &::-webkit-scrollbar {
     width: 4px;
@@ -34,4 +37,13 @@ $basered: #EC4141;
   &::-webkit-scrollbar-track-piece {
     background-color: #fff;
   }
+}
+
+@mixin ellipse($line: 2) {
+  display: -webkit-box;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  -webkit-line-clamp: $line;
+  overflow: hidden;
 }

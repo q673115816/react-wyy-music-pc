@@ -1,23 +1,82 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { top_album } from '@/api'
+import LazyLoad from 'react-lazyload'
+import { top_album, album_new } from '@/api'
 import { gettopalbum } from '@/redux/actions'
+
+import { limit } from '@/config'
+const arealist = [
+    {
+        name: '全部',
+        code: 'ALL'
+    },
+    {
+        name: '华语',
+        code: 'ZH'
+    },
+    {
+        name: '欧美',
+        code: 'EA'
+    },
+    {
+        name: '韩国',
+        code: 'KR'
+    },
+    {
+        name: '日本',
+        code: 'JP'
+    },
+]
+
+const AlbumItem = ({ item }) => (
+    <div className="item">
+        <div className="cover">
+            <Link to="/">
+                <LazyLoad overflow>
+                    <img className="containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />
+                </LazyLoad>
+            </Link>
+        </div>
+        <div className="name">
+            <Link to="/">{item.name}</Link>
+        </div>
+        <div className="artist">
+            <Link to="/artist" key={item.artist.id}>{item.artist.name}</Link>
+        </div>
+    </div>
+)
+
 export default () => {
     const dispatch = useDispatch()
-    const { monthData, weekData } = useSelector(({ home }) => home.newest)
+    const { monthData = [], weekData = [] } = useSelector(({ home }) => home.newest)
     console.log(monthData, weekData)
     const [area, setArea] = useState('ALL')
     const [type, setType] = useState('new')
     const [year, setYear] = useState(new Date().getFullYear())
     const [month, setMonth] = useState(new Date().getMonth())
+    const [offset, setOffset] = useState(0)
+
+    const [showtype, setShowtype] = useState('RECOMMEND')
     const handleGetData = async () => {
         try {
-            const { monthData, weekData } = await top_album({
-                area,
-                type
-            })
-            dispatch(gettopalbum({ monthData, weekData }))
+            if (showtype === 'RECOMMEND') {
+                const { monthData, weekData } = await top_album({
+                    area,
+                    type,
+                    limit,
+                    offset
+                })
+                dispatch(gettopalbum({ monthData: monthData.slice(0, 564), weekData }))
+            } else {
+                const { albums: monthData, weekData } = await album_new({
+                    area,
+                    type,
+                    limit,
+                    offset
+                })
+                dispatch(gettopalbum({ monthData, weekData }))
+            }
         } catch (error) {
             console.log(error)
         }
@@ -25,37 +84,52 @@ export default () => {
 
     useEffect(() => {
         handleGetData()
-    }, [area, type])
+    }, [area, type, showtype])
     return (
         <>
+            <span>{monthData.length}</span>
             <div className="domhome_newest_sub_nav">
-                <span className="domhome_newest_sub_nav_link">全部</span>
-                <span className="domhome_newest_sub_nav_link">华语</span>
-                <span className="domhome_newest_sub_nav_link">欧美</span>
-                <span className="domhome_newest_sub_nav_link">韩国</span>
-                <span className="domhome_newest_sub_nav_link">日本</span>
+                {
+                    arealist.map((item) => (
+                        <span
+                            key={item.name}
+                            className={['domhome_newest_sub_nav_link', area === item.code ? 'on' : null].join(' ')} onClick={() => setArea(item.code)}>{item.name}</span>
+                    ))
+                }
+                <div className="domhome_newest_sub_control_center">
+                    <span
+                        className={["showtype", showtype === 'RECOMMEND' ? 'on' : null].join(' ')}
+                        onClick={() => setShowtype('RECOMMEND')}>推荐</span>
+                    <span
+                        className={["showtype", showtype === 'ALL' ? 'on' : null].join(' ')}
+                        onClick={() => setShowtype('ALL')}>全部</span>
+                </div>
             </div>
             <div className="domhome_newest_album_list">
-                <div className="sign">本周<br />新碟</div>
-                <div className="domhome_newest_album_weeklist">
-                    {weekData.map((item) => (
-                        <div className="item" key={item.id}>
-                            <div className="cover">
-                                <Link>
-                                    <img className="containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />
-                                </Link>
-                            </div>
-                            <div>
-                                <Link>{item.name}</Link>
-                            </div>
-                            <div>
-                                {item.artists.map(artist => (
-                                    <Link to="/artist" key={artist.id}>{artist.name}</Link>
-                                ))}
-                            </div>
+                {
+                    area === "ALL" && showtype !== 'ALL' && weekData.length > 0 &&
+                    <div className="domhome_newest_album_sublist">
+                        <div className="sign">本周<br />新碟</div>
+                        <div className="list">
+                            {weekData.map((item) => (
+                                <AlbumItem item={item} key={item.id} />
+                            ))}
                         </div>
-                    ))}
-                </div>
+                    </div>
+                }
+                {
+                    monthData.length > 0 &&
+                    <div className="domhome_newest_album_sublist">
+                        <div className="sign">本月<br />新碟</div>
+                        <div className="list">
+                            {
+                                monthData.map((item) => (
+                                    <AlbumItem item={item} key={item.id} />
+                                ))
+                            }
+                        </div>
+                    </div>
+                }
             </div>
         </>
     )

@@ -32,3 +32,36 @@
 * {
   @include scrollbar();
 }
+
+.commonpage {
+  display: flex;
+  justify-content: center;
+
+  .btn {
+    margin: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #E6E6E6;
+
+    &:hover {
+      background-color: #F4F4F4;
+    }
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+
+    &.on {
+      background-color: $basered;
+      color: #fff;
+      border-color: $basered;
+    }
+
+    .disabled {
+      color: #E6E6E6;
+    }
+  }
+}

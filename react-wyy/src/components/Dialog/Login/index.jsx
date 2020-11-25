@@ -1,16 +1,35 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { login_cellphone } from "../../../api";
+import { login_cellphone } from "@/api";
 import { useSelector } from "react-redux";
-const len = Array(100).fill(0);
+
 export default () => {
   const [isagree, setIsagree] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loginInfo, setLoginInfo] = useState("");
+  const { countries_code_list } = useSelector(({common}) => common)
+  
   const { dialog_login_visibility: visibility } = useSelector(
     ({ common }) => common
   );
+
+  const handleLogin = async () => {
+    try {
+      const {data, code, msg} = await login_cellphone({
+        phone,
+        password
+      })
+      if(code === 502) {
+        console.log(msg);
+      } else if(code === 200) {
+        
+      }
+    } catch (error) {
+      
+    }
+  }
+  
   const login = (e) => {
     e.preventDefault();
     if (!isagree) {
@@ -23,13 +42,14 @@ export default () => {
     } else if (!/\d{11}/.test(phone)) {
       setLoginInfo("请输入11位数字的手机号");
     } else {
-      setLoginInfo("");
+      handleLogin()
     }
-    console.log(phone, password);
     return;
   };
   return (
-    <div className="dialog_login" style={{ display: visibility ? "" : "none" }}>
+    <div
+      className="dialog_login"
+      style={{ display: visibility ? "" : "none" }}>
       <span className="close">×</span>
       <div className="_inner">
         <div style={{ height: 200 }}></div>
@@ -39,7 +59,13 @@ export default () => {
               <tr>
                 <td>
                   <select name="" id="" defaultValue="中国" className="write">
-                    <option value="中国">+86</option>
+                    {
+                      countries_code_list.map(({ countryList}) => {
+                        return countryList.map((country) => (
+                          <option key={country.zh} value={country.zh}>+{country.code}</option>
+                        ))
+                      })
+                    }
                   </select>
                 </td>
                 <td>
@@ -68,7 +94,10 @@ export default () => {
             </tbody>
           </table>
           <div>{loginInfo}</div>
-          <input type="checkbox" name="auto" />
+          <label>
+            自动登录
+            <input type="checkbox" name="auto" />
+          </label>
           <button type="submit">登录</button>
           <Link to="register">注册</Link>
           <label>
