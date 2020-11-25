@@ -1,11 +1,11 @@
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-const { src, root } = require('./util')
+const {src, root} = require('./util')
 
 module.exports = {
     target: 'web',
     entry: path.join(src, 'index.js'),
-    
+
     optimization: {
         runtimeChunk: 'single',
         splitChunks: {
@@ -14,6 +14,7 @@ module.exports = {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
                     chunks: 'all',
+                    // name: module => `vendor.${module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]}`
                 },
             },
         },
@@ -29,8 +30,8 @@ module.exports = {
         ]
     },
     externals: {
-        // 'react': 'React',
-        // 'react-dom': 'ReactDOM',
+        'react': 'React',
+        'react-dom': 'ReactDOM',
         // 'react-redux': 'react-redux',
         // 'react-router-dom': 'react-router-dom',
         // 'redux': 'redux',

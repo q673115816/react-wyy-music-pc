@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { RiArrowDropRightFill, RiArrowDropDownFill } from "react-icons/ri";
 
 export default () => {
     const [showplaylist, setPlaylist] = useState(true);
@@ -40,11 +39,6 @@ export default () => {
                         onClick={() => setPlaylist(!showplaylist)}
                     >
                         创建的歌单
-              {showplaylist ? (
-                            <RiArrowDropDownFill size="24" />
-                        ) : (
-                                <RiArrowDropRightFill size="24" />
-                            )}
                     </span>
                     <span title="新建歌单" className="addplaylist">
                         +

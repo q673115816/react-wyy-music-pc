@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { toplist_detail } from '@/api'
 import { gettoplitsdetail } from '@/redux/actions'
-import { BsPlay } from 'react-icons/bs'
 
 function transplayCount(playCount) {
   return String(playCount).replace(/(?<=\d{1,})\d{4}$/, '万')
@@ -67,7 +66,9 @@ export default () => {
       {other.map((item) => (
         <div className="item" key={item.id}>
           <Link to="/" className="card">
-            <span className="playCount"><BsPlay size="16" />{transplayCount(item.playCount)}</span>
+            <span className="playCount">
+              {transplayCount(item.playCount)}
+            </span>
             <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
           </Link>
           <Link to="/" className="name">{item.name}</Link>
