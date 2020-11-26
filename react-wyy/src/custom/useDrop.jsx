@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+
 export default () => {
   const [dragger, setDragger] = useState(false);
   const [x, setX] = useState(0);
@@ -20,5 +21,7 @@ export default () => {
   const Drag = (
     <div className="mask" onMouseUp={mouseup} onMouseMove={mousemove} />
   );
-  return { mousedown, x, y, Drag, dragger };
+  return {
+    mousedown, x, y, Drag, dragger,
+  };
 };

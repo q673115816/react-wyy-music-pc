@@ -1,17 +1,17 @@
-import { GET_TOPLIST_ARITST } from '../actionTypes'
+import { SET_TOPLIST_ARITST } from '../actionTypes';
 
 const initialState = {
-    artist: []
-}
+  artist: [],
+};
 
 export default (state = initialState, action) => {
-    switch (action.type) {
-        case GET_TOPLIST_ARITST:
-            return {
-                ...state,
-                artist: action.payload.artist
-            }
-        default:
-            return state
-    }
-}
+  switch (action.type) {
+    case SET_TOPLIST_ARITST:
+      return {
+        ...state,
+        artist: action.payload.artist,
+      };
+    default:
+      return state;
+  }
+};

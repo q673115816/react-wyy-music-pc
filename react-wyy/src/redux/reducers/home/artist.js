@@ -1,23 +1,24 @@
 import {
   INIT_HOME_TOP_ARTISTS,
-  ADD_HOME_TOP_ARTISTS
-} from "../../actionTypes";
+  ADD_HOME_TOP_ARTISTS,
+} from '../../actionTypes';
+
 const initialState = {
-  artists: []
+  artists: [],
 };
 
-export default (state = initialState, {type, payload}) => {
+export default (state = initialState, { type, payload }) => {
   switch (type) {
     case INIT_HOME_TOP_ARTISTS:
       return {
         ...state,
-        artists: []
+        artists: [],
       };
     case ADD_HOME_TOP_ARTISTS:
       console.log(payload);
       return {
         ...state,
-        artists: [].concat(state.artists, payload.artists)
+        artists: [].concat(state.artists, payload.artists),
       };
     default:
       return state;

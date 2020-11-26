@@ -11,7 +11,8 @@
     "start": "webpack-dev-server --mode development --config ./build/webpack.config.js",
     "build": "webpack --mode production --config ./build/webpack.config.js",
     "serve": "webpack serve --config ./build/webpack.config.js --progress --profile",
-    "analyz": "npm run build --mode analyse"
+    "analyz": "npm run build --mode analyse",
+    "lint": "./node_modules/.bin/eslint --fix ./src/**/*"
   },
   "browserslist": [
     ">0.2%",
@@ -37,6 +38,12 @@
     "@webpack-cli/serve": "^1.1.0",
     "babel-loader": "^8.2.1",
     "css-loader": "^5.0.1",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^4.5.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0",

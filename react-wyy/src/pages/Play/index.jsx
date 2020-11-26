@@ -1,10 +1,12 @@
-import React from "react";
-import { NavLink, Switch, Redirect, Route } from "react-router-dom";
-import VideoList from "../VideoList";
-import MvList from "../MvList";
+import React from 'react';
+import {
+  NavLink, Switch, Redirect, Route,
+} from 'react-router-dom';
+import VideoList from '../VideoList';
+import MvList from '../MvList';
 
 export default () => {
-  const relative = "/play";
+  const relative = '/play';
   return (
     <div className="domplay">
       <div>

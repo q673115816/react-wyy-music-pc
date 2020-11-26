@@ -1,0 +1,58 @@
+.domSetting {
+  display: flex;
+  flex-direction: column;
+  &_hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: #ccc;
+    height: 1px;
+  }
+  &_header {
+    flex: none;
+    height: 114px;
+    padding: 20px 30px;
+  }
+
+  &_nav {
+    margin-top: 30px;
+    &_link {
+      margin-right: 1em;
+      @include nav_active();
+    }
+  }
+
+  &_main {
+    width: 100%;
+    flex: 1;
+    padding: 0 30px;
+  }
+
+  &_row {
+    &title {
+      margin-bottom: 6px;
+    }
+    &_check {
+      display: block;
+      input {
+        display: none;
+        &:checked + i {
+          &:before {
+            content: '√';
+          }
+        }
+      }
+
+
+      i {
+        margin-right: 10px;
+        display: inline-block;
+        background-color: #fff;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        vertical-align: text-bottom;
+      }
+    }
+  }
+}

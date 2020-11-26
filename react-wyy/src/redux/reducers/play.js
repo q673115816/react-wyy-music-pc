@@ -1,10 +1,10 @@
-import {} from "react-redux";
-import { ADD_COUNT, GET_VIDEO_GROUP_LIST } from "../actionTypes";
+import {} from 'react-redux';
+import { ADD_COUNT, SET_VIDEO_GROUP_LIST } from '../actionTypes';
 
 const initialState = {
   count: 0,
-  curr_check: "全部视频",
-  group_list: []
+  curr_check: '全部视频',
+  group_list: [],
 };
 
 export default (state = initialState, action) => {
@@ -12,12 +12,12 @@ export default (state = initialState, action) => {
     case ADD_COUNT:
       return {
         ...state,
-        count: state.count + 1
+        count: state.count + 1,
       };
-    case GET_VIDEO_GROUP_LIST:
+    case SET_VIDEO_GROUP_LIST:
       return {
         ...state,
-        group_list: action.payload.list
+        group_list: action.payload.list,
       };
     default:
       return state;

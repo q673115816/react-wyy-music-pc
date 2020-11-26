@@ -152,3 +152,7 @@ html {
 body {
   height: 100%;
 }
+
+.material-icons {
+  font-size: inherit;
+}

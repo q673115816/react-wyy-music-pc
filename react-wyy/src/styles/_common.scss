@@ -33,6 +33,25 @@
   @include scrollbar();
 }
 
+.gray {
+  color: gray;
+}
+
+.ui_btn {
+  display: inline-block;
+  padding: 0 12px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  background-color: $basered;
+}
+
+.h1 {
+  font-size: 22px;
+}
+
 .commonpage {
   display: flex;
   justify-content: center;
