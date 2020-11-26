@@ -1,5 +1,11 @@
 import { get, post } from '../common';
 
+// home
+// 独家放送
+export const apiPersonalizedPrivatecontent = () => get('/personalized/privatecontent');
+// 独家放送列表
+export const apiPersonalizedPrivatecontentList = (params) => get('/personalized/privatecontent/list', params);
+
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');
 

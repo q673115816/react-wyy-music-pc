@@ -27,7 +27,7 @@ export default () => (
     <Route path="/toplistartist/:type">
       <ToplistArtist />
     </Route>
-    <Route to="/settings">
+    <Route path="/settings">
       <Setting />
     </Route>
     <Redirect to="/home" />

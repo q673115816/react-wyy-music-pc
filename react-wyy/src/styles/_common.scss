@@ -29,6 +29,14 @@
   text-overflow: ellipsis;
 }
 
+[unset] {
+  all: unset;
+}
+
+[hidden] {
+  display: none;
+}
+
 * {
   @include scrollbar();
 }

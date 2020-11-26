@@ -1,4 +1,5 @@
 import {
+  SET_HOME_RECOMMEND,
   ADD_COUNT,
   SET_COUNTRIES_CODE_LIST,
   SET_VIDEO_GROUP_LIST,
@@ -12,6 +13,11 @@ import {
   SET_PLAYLIST_CATLIST,
   SET_TOP_PLAYLIST,
 } from './actionTypes';
+
+export const setHomeRecommend = (data) => ({
+  type: SET_HOME_RECOMMEND,
+  payload: data,
+});
 
 export const addplay = () => ({
   type: ADD_COUNT,

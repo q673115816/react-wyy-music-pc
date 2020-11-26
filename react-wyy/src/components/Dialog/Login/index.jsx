@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { apiLoginCellphone } from '@/api';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { dialogLoginVisibilty } from '@/redux/actions';
 
 export default () => {
   const [isagree, setIsagree] = useState(false);
@@ -9,10 +10,16 @@ export default () => {
   const [password, setPassword] = useState('');
   const [loginInfo, setLoginInfo] = useState('');
   const { apiCountriesCodeList } = useSelector(({ common }) => common);
-
-  const { dialog_login_visibility: visibility } = useSelector(
+  const dispatch = useDispatch();
+  const {
+    dialog_login_visibility: visibility,
+  } = useSelector(
     ({ common }) => common,
   );
+
+  const handleToggle = () => {
+    dispatch(dialogLoginVisibilty());
+  };
 
   const handleLogin = async () => {
     try {
@@ -50,7 +57,7 @@ export default () => {
       className="dialog_login"
       style={{ display: visibility ? '' : 'none' }}
     >
-      <span className="close">×</span>
+      <button unset="true" type="button" className="close" onClick={handleToggle}>×</button>
       <div className="_inner">
         <div style={{ height: 200 }} />
         <form action="" onSubmit={login}>
