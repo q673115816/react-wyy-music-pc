@@ -1,0 +1,202 @@
+.domHome {
+  &_newest {
+    &_nav {
+      margin: 0 auto;
+      width: 230px;
+      height: 30px;
+      line-height: 28px;
+      border-radius: 15px;
+      display: flex;
+      border: 1px solid #bbb;
+      overflow: hidden;
+
+      &_link {
+        width: 115px;
+        border-radius: 15px;
+        text-align: center;
+
+        &:hover {
+          background-color: #F4F4F4;
+        }
+
+        &.on {
+          background-color: #BBBBBB;
+          color: #fff;
+        }
+      }
+    }
+
+    &_sub {
+      &_nav {
+        padding: 24px 30px 12px;
+        display: flex;
+
+        &_link {
+          margin-right: 20px;
+          cursor: pointer;
+
+          &.on {
+            font-weight: bold;
+          }
+        }
+
+
+      }
+
+      &_control_center {
+        margin-left: auto;
+        display: flex;
+
+        @mixin btn {
+          margin-left: 10px;
+          width: 90px;
+          height: 24px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 12px;
+          cursor: pointer;
+        }
+
+        .playAll {
+          @include btn();
+          color: #fff;
+          background-color: $basered;
+        }
+
+        .subAll {
+          @include btn();
+          border: 1px solid #f2f2f2;
+        }
+
+        .showtype {
+          color: #333;
+
+          padding: 0 8px;
+          line-height: 20px;
+          border-radius: 10px;
+          cursor: pointer;
+
+          &:hover {
+            opacity: #000;
+          }
+
+          &.on {
+            background-color: #FDF5F5;
+            color: $basered;
+
+            &:hover {
+              background-color: #FDEDED;
+            }
+          }
+        }
+      }
+    }
+
+    &_song {
+
+      &_list {
+        .item {
+          height: 80px;
+          padding: 0 30px;
+          display: flex;
+          align-items: center;
+
+          &:nth-child(odd) {
+            background-color: #F9F9F9;
+          }
+        }
+
+        .ranking {
+          width: 30px;
+          color: #ccc;
+        }
+
+        .cover {
+          width: 60px;
+          height: 60px;
+          overflow: hidden;
+          border-radius: 4px;
+          margin-right: 10px;
+        }
+
+        .name {
+          margin-right: 10px;
+          font-size: 14px;
+          width: 300px;
+          display: flex;
+        }
+
+        .artists {
+          width: 130px;
+        }
+
+        .album {
+          width: 180px;
+        }
+      }
+    }
+
+    &_album {
+      &_list {
+        position: relative;
+        margin: 0 30px;
+      }
+
+      &_sublist {
+        position: relative;
+        padding-left: 50px;
+        margin-bottom: 50px;
+
+        .sign {
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          font-size: 20px;
+        }
+
+        .list {
+          display: grid;
+          column-gap: 40px;
+          row-gap: 40px;
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        .item {
+          display: flex;
+          flex-direction: column;
+          width: 140px;
+        }
+
+        .cover {
+          width: 140px;
+          height: 140px;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 3px 0 3px 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .name {
+          margin-top: 0.5em;
+          font-size: 14px;
+          @include ellipse();
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+
+        .artist {
+          margin-top: 0.5em;
+          color: #999;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}

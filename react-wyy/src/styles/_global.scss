@@ -1,4 +1,5 @@
 $basered: #EC4141;
+$bigScreen: 1300;
 
 @mixin nav_active {
   position: relative;
@@ -21,29 +22,40 @@ $basered: #EC4141;
   }
 }
 
-@mixin scrollbar {
+// @mixin scrollbar {
 
-  /*滚动条样式*/
-  &::-webkit-scrollbar {
-    width: 4px;
-    /*height: 4px;*/
-  }
+//   /*滚动条样式*/
+//   &::-webkit-scrollbar {
+//     width: 4px;
+//     /*height: 4px;*/
+//   }
 
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: #E1E1E1;
-  }
+//   &::-webkit-scrollbar-thumb {
+//     border-radius: 10px;
+//     background: #E1E1E1;
+//   }
 
-  &::-webkit-scrollbar-track-piece {
-    background-color: #fff;
-  }
-}
+//   &::-webkit-scrollbar-track-piece {
+//     background-color: #fff;
+//   }
+// }
 
 @mixin ellipse($line: 2) {
   display: -webkit-box;
-  /* autoprefixer: off */
+  /*! autoprefixer: ignore next */
   -webkit-box-orient: vertical;
-  /* autoprefixer: on */
   -webkit-line-clamp: $line;
   overflow: hidden;
+}
+
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin insetCenter {
+  position: absolute;
+  inset: 0 0 0 0;
+  margin: auto;
 }

@@ -1,0 +1,76 @@
+.domHome {
+  display: flex;
+  flex-direction: column;
+
+  &_artist {
+
+    &_filter {
+      display: flex;
+      white-space: nowrap;
+      align-items: baseline;
+
+      .title {
+        flex: 0 0 40px;
+      }
+
+      .list {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .item {
+        background-color: #fff;
+        padding: 4px 8px;
+        margin: 0.2em 0;
+        margin-right: 2em;
+        cursor: pointer;
+
+        &.on {
+          color: $basered;
+          background-color: rgba(255, 0, 0, 0.05);
+          border-radius: 1000px;
+        }
+      }
+    }
+
+    &_list {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 10px;
+
+      .item {
+        margin-right: 16px;
+        margin-bottom: 16px;
+
+        .img {
+          position: relative;
+          width: 140px;
+          height: 140px;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+
+        .rankmask {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          font-size: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: rgba(188, 124, 218, 0.9);
+          color: #fff;
+        }
+
+        .info {
+          display: flex;
+          font-size: 14px;
+          margin-top: 0.5em;
+        }
+      }
+    }
+  }
+}

@@ -57,7 +57,7 @@ export default () => {
       className="dialog_login"
       style={{ display: visibility ? '' : 'none' }}
     >
-      <button unset="true" type="button" className="close" onClick={handleToggle}>×</button>
+      <button  type="button" className="close" onClick={handleToggle}>×</button>
       <div className="_inner">
         <div style={{ height: 200 }} />
         <form action="" onSubmit={login}>

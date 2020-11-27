@@ -27,17 +27,17 @@ export default ({ mousedown }) => {
   }, []);
 
   return (
-    <div className="domheader" onMouseDown={() => ''}>
+    <div role="" className="domheader" onMouseDown={() => ''}>
       <Link to="/" className="domheader_logo">
         首页
       </Link>
       <div>
-        <span onClick={() => goBack()} className="domheader_page_prev">
+        <button type="button" onClick={() => goBack()} className="domheader_page_prev">
           <i className="material-icons">arrow_back_ios</i>
-        </span>
-        <span onClick={() => goForward()} className="domheader_page_next">
+        </button>
+        <button type="button" onClick={() => goForward()} className="domheader_page_next">
           <i className="material-icons">arrow_forward_ios</i>
-        </span>
+        </button>
       </div>
       <form style={{ position: 'relative' }}>
         <input type="text" placeholder="搜索" className="domheader_search" />
@@ -46,9 +46,9 @@ export default ({ mousedown }) => {
         <i className="material-icons">mic</i>
       </Link>
       <div className="domheader_user">
-        <span className="_handle" onClick={handleShowLogin}>
+        <button type="button" className="_handle" onClick={handleShowLogin}>
           未登录
-        </span>
+        </button>
         <span className="_handle">开通VIP</span>
         <Link to="/settings" className="_handle domheader_ico" title="设置">
           <i className="material-icons">settings</i>

@@ -2,6 +2,9 @@ import { SET_HOME_RECOMMEND } from '../../actionTypes';
 
 const initialState = {
   privatecontent: [],
+  newsong: [],
+  mv: [],
+  djprogram: [],
 };
 
 export default (state = initialState, action) => {

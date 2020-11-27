@@ -9,7 +9,7 @@ import { addHomeTopArtists, initHomeTopArtists } from '@/redux/actions';
 
 import options from './filter';
 
-const Domitem = ({ item }) => (
+const Domitem = ({ item = {} }) => (
   <div className="item">
     <div className="img">
       <Link to={`/artist/detail/${item.id}`}>
@@ -106,7 +106,7 @@ export default () => {
           </div>
         ))}
       </div>
-      <div className="domHome_apiArtistList">
+      <div className="domHome_artist_list">
         {option.type === -1 && option.initial === -1 && artists.length > 0 && (
         <div className="item">
           <div className="img">
@@ -129,7 +129,7 @@ export default () => {
           </div>
         </div>
         )}
-        {artists.map((item, index) => <Domitem item={item} key={index} />)}
+        {artists.map((item) => <Domitem item={item} key={item.id} />)}
       </div>
       {hasMore ? <div>加载中</div> : <div>已经到底了</div>}
     </div>

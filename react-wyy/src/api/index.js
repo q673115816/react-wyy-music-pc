@@ -5,6 +5,9 @@ import { get, post } from '../common';
 export const apiPersonalizedPrivatecontent = () => get('/personalized/privatecontent');
 // 独家放送列表
 export const apiPersonalizedPrivatecontentList = (params) => get('/personalized/privatecontent/list', params);
+export const apiPersonalizedNewsong = (params) => post('/personalized/newsong', params);
+export const apiPersonalizedMv = () => get('/personalized/mv');
+export const apiPersonalizedDjprogram = () => get('/personalized/djprogram');
 
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');

@@ -1,0 +1,93 @@
+.domHome {
+  &_toplist {
+    padding: 14px 30px;
+
+    &_title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    &_official {
+
+      .official_rank {
+        display: flex;
+        margin-bottom: 30px;
+
+        &_cover {
+          // flex: 0;
+          width: 170px;
+          height: 170px;
+          border-radius: 10px;
+          overflow: hidden;
+          margin-right: 36px;
+        }
+
+        &_content {
+          flex: 1;
+        }
+
+        &_list {
+          flex: 1;
+          height: 170px;
+
+          .item {
+            height: 34px;
+            padding: 0 10px;
+            display: flex;
+            align-items: center;
+
+            &:nth-child(odd) {
+              background-color: #F9F9F9;
+            }
+
+            &:hover {
+              background-color: #f4f4f4;
+            }
+
+            &.on {
+              background-color: #EFEFEF;
+            }
+
+            .artist {
+              margin-left: auto;
+            }
+          }
+        }
+      }
+    }
+
+    &_cardlist {
+      display: grid;
+      row-gap: 20px;
+      column-gap: 20px;
+      grid-template-columns: repeat(5, 1fr);
+
+      .item {
+        display: flex;
+        flex-direction: column;
+
+        .card {
+          position: relative;
+          width: 140px;
+          height: 140px;
+          overflow: hidden;
+          border-radius: 10px;
+        }
+
+        .playCount {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          color: #fff;
+        }
+
+        .name {
+          margin-top: 0.4em;
+        }
+      }
+
+    }
+  }
+
+}

@@ -1,4 +1,4 @@
-const htmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const { src, root } = require('./util');
 
@@ -63,7 +63,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new htmlWebpackPlugin({
+    new HtmlWebpackPlugin({
       template: path.join(__dirname, '../public/index.html'),
       // publicPath: '/'
     }),

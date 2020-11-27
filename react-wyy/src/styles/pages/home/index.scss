@@ -1,0 +1,50 @@
+@import 'recommend';
+@import 'playlist';
+@import 'toplist';
+@import 'artist';
+@import 'newest';
+.domHome {
+  &_nav {
+    flex: none;
+    height: 44px;
+    display: flex;
+    align-items: baseline;
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    &_link {
+      font-size: 16px;
+      margin-right: 1em;
+      @include nav_active();
+
+      &.on {
+        font-weight: bold;
+      }
+    }
+  }
+
+  @mixin content {
+    padding: 24px;
+  }
+
+  &_content {
+    flex: auto;
+    display: flex;
+
+    >div {
+      flex: 1;
+      overflow: auto;
+      // 滚动条保持绝对位置
+      overflow-anchor: none;
+      @include content();
+    }
+  }
+
+  &_titlelink {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0.4em 0;
+  }
+}

@@ -1,3 +1,6 @@
+body {
+  overflow: hidden;
+}
 .mask {
   position: fixed;
   top: 0;
@@ -29,16 +32,12 @@
   text-overflow: ellipsis;
 }
 
-[unset] {
+button {
   all: unset;
 }
 
 [hidden] {
   display: none;
-}
-
-* {
-  @include scrollbar();
 }
 
 .gray {
@@ -54,6 +53,14 @@
   text-align: center;
   color: #fff;
   background-color: $basered;
+}
+
+.SQ {
+  display: inline-block;
+  border: 1px solid;
+  padding: 0 0.1em;
+  color: $basered;
+  letter-spacing: 0.1em;
 }
 
 .h1 {
@@ -77,6 +84,7 @@
     &:hover {
       background-color: #F4F4F4;
     }
+
     &:not(.disabled) {
       cursor: pointer;
     }
@@ -91,4 +99,19 @@
       color: #E6E6E6;
     }
   }
+}
+
+/*滚动条样式*/
+::-webkit-scrollbar {
+  width: 4px;
+  /*height: 4px;*/
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #E1E1E1;
+}
+
+::-webkit-scrollbar-track-piece {
+  background-color: #fff;
 }
