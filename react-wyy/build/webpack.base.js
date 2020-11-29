@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const { src, root } = require('./util');
+const { src, img } = require('./util');
 
 module.exports = {
   target: 'web',
@@ -22,19 +22,12 @@ module.exports = {
   resolve: {
     alias: {
       '@': src,
-      root,
+      '@img': img,
     },
     extensions: [
       '.jsx',
       '.js',
     ],
-  },
-  externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    // 'react-redux': 'react-redux',
-    // 'react-router-dom': 'react-router-dom',
-    // 'redux': 'redux',
   },
   module: {
     rules: [
@@ -53,12 +46,44 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/,
-        exclude: /(node_modules|bower_components)/,
+        // exclude: /(node_modules|bower_components)/,
         use: [
           'style-loader',
           'css-loader',
           'sass-loader',
         ],
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
+      {
+        test: /\.(eot|woff|ttf|woff2|appcache|svg)\??.*$/,
+        // exclude: [/^node_modules$/, path.resolve(__dirname, '../src/svg')],
+        use: [{
+          loader: 'file-loader',
+          // options: {
+          //   name: "[name].[ext]",
+          //   outputPath: "static/fonts/"
+          // }
+        }],
       },
     ],
   },

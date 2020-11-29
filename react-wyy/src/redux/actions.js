@@ -1,5 +1,6 @@
 import {
   SET_HOME_RECOMMEND,
+  SET_HOME_DJ,
   ADD_COUNT,
   SET_COUNTRIES_CODE_LIST,
   SET_VIDEO_GROUP_LIST,
@@ -12,10 +13,16 @@ import {
   SET_TOP_ALBUM,
   SET_PLAYLIST_CATLIST,
   SET_TOP_PLAYLIST,
+
 } from './actionTypes';
 
 export const setHomeRecommend = (data) => ({
   type: SET_HOME_RECOMMEND,
+  payload: data,
+});
+
+export const setHomeDj = (data) => ({
+  type: SET_HOME_DJ,
   payload: data,
 });
 

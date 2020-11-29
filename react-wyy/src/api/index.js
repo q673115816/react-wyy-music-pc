@@ -8,6 +8,15 @@ export const apiPersonalizedPrivatecontentList = (params) => get('/personalized/
 export const apiPersonalizedNewsong = (params) => post('/personalized/newsong', params);
 export const apiPersonalizedMv = () => get('/personalized/mv');
 export const apiPersonalizedDjprogram = () => get('/personalized/djprogram');
+// dj
+// dj - banner
+export const apiDjBanner = () => get('/dj/banner');
+// dj - 类别
+export const apiDjCategoryRecommend = () => get('/dj/category/recommend');
+// dj - 电台个性推荐
+export const apiDjPersonalizeRecommend = () => get('/dj/personalize/recommend');
+// dj - 类别热门电台
+export const apiDjRadioHot = (params) => post('/dj/radio/hot', params);
 
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');

@@ -9,6 +9,11 @@ import {
 } from '@/api';
 import { setHomeRecommend } from '@/redux/actions';
 import Lazyload from 'react-lazyload';
+import kankanimg from '@img/kankan.jpg';
+
+import DOMtingting from '@/components/AdLook';
+
+const kankan = 'https://look.163.com/hot?livetype=2';
 
 export default () => {
   const {
@@ -47,17 +52,18 @@ export default () => {
   }, []);
   return (
     <div className="domHome_recommend">
-      <div>广告</div>
-      <div>
-        <Link className="domHome_titlelink" to="/home/playlist">
+
+      <div className="domHome_item">广告</div>
+      <div className="domHome_item">
+        <Link className="domHome_linktitle" to="/home/playlist">
           推荐歌单 &gt;
         </Link>
         <div>
           {isLogin ? '已经登录' : <div>需要登录</div>}
         </div>
       </div>
-      <div>
-        <Link className="domHome_titlelink" to="/privatecontent">
+      <div className="domHome_item">
+        <Link className="domHome_linktitle" to="/privatecontent">
           独家放送 &gt;
         </Link>
         <div className="domHome_recommend_privatecontent">
@@ -82,8 +88,8 @@ export default () => {
           }
         </div>
       </div>
-      <div>
-        <Link className="domHome_titlelink" to="/home/playlist">
+      <div className="domHome_item">
+        <Link className="domHome_linktitle" to="/home/playlist">
           最新音乐 &gt;
         </Link>
         <div className="domHome_recommend_newsong">
@@ -124,8 +130,8 @@ export default () => {
           }
         </div>
       </div>
-      <div>
-        <Link className="domHome_titlelink" to="/home/playlist">
+      <div className="domHome_item">
+        <Link className="domHome_linktitle" to="/home/playlist">
           推荐mv &gt;
         </Link>
         <div className="domHome_recommend_mv">
@@ -156,40 +162,80 @@ export default () => {
           }
         </div>
       </div>
-      <div>
-        <Link className="domHome_titlelink" to="/home/playlist">
+      <div className="domHome_item">
+        <Link className="domHome_linktitle" to="/home/playlist">
           主播电台 &gt;
         </Link>
-        <div className="domHome_recommend_djprogram">
+        <div className="domHome_recommend_djprogram ui_grid_square">
           {
-            djprogram.map((item) => (
+            djprogram.slice(0, 5).map((item) => (
               <div className="item" key={item.id}>
                 <div className="cover">
-                  <Link to="/dj">
-                    <Lazyload>
-                      <img className="containimg" src={`${item.program.coverUrl}?param=200y200`} alt="" />
-                    </Lazyload>
-                    <div className="name text-overflow">{item.name}</div>
+                  <div className="inner">
+                    <Link to="/dj">
+                      <Lazyload>
+                        <img className="containimg" src={`${item.program.coverUrl}?param=200y200`} alt="" />
+                      </Lazyload>
+                      <div className="mask" />
+                      <div className="lb">
+                        <div className="name text-overflow">{item.name}</div>
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+                <div className="name">
+                  <Link to="/">
+                    {item.name}
                   </Link>
                 </div>
-                <div>
-                  <Link to="/dj" className="description">{item.description}</Link>
-                </div>
-                {item.name}
               </div>
             ))
           }
         </div>
       </div>
-      <div>
-        <Link className="domHome_titlelink" to="https://look.163.com/hot?livetype=2">
+      <div className="domHome_item">
+        <Link className="domHome_linktitle" to={kankan}>
           听听 &gt;
         </Link>
+        <div className="domHome_recommend_tingting ui_grid_square">
+          {
+            Object.keys(Array(5).fill(0))
+              .map((item) => <DOMtingting key={item} />)
+          }
+        </div>
       </div>
-      <div>
-        <Link className="domHome_titlelink" to="https://look.163.com/hot?livetype=1">
+      <div className="domHome_item">
+        <Link className="domHome_linktitle" to={kankan}>
           看看 &gt;
         </Link>
+        <div className="domHome_recommend_kankan">
+          {
+            Object.keys(Array(4).fill(0))
+              .map((item) => (
+                <div className="item" key={item}>
+                  <div className="cover">
+                    <Link to={kankan}>
+                      <Lazyload>
+                        <img className="containimg" src={kankanimg} alt="" />
+                      </Lazyload>
+                      <span className="playCount">playCount</span>
+                      <span className="artist">artist</span>
+                    </Link>
+                  </div>
+                  <div className="artist text-overflow gary">
+                    <Link to={kankan}>name</Link>
+                  </div>
+                </div>
+              ))
+          }
+        </div>
+      </div>
+      <div className="domHome_recommend_diy">
+        <div className="gary">
+          现在可以根据个人喜好，自由调整首页栏目顺序啦~
+        </div>
+        <br />
+        <button type="button" className="btn">调整栏目顺序</button>
       </div>
     </div>
   );

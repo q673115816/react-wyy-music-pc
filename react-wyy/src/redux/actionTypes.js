@@ -1,5 +1,7 @@
 // home - recommend
-export const SET_HOME_RECOMMEND = 'SET_PERSONALIZED_PRIVATECONTENT';
+export const SET_HOME_RECOMMEND = 'SET_HOME_RECOMMEND';
+// home -dj
+export const SET_HOME_DJ = 'SET_HOME_DJ';
 
 export const SET_COUNTRIES_CODE_LIST = 'SET_COUNTRIES_CODE_LIST';
 

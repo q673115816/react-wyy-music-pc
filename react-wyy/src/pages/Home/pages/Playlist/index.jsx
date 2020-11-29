@@ -34,7 +34,7 @@ export default () => {
       });
       dispatch(setTopPlaylist({ playlists, total }));
     } catch (error) {
-      throw error;
+      console.log(error);
     }
   };
 
@@ -56,41 +56,51 @@ export default () => {
           <span />
           <div>
             {
-            Object.keys(categories).map((item) => {
-              <div>
-                <span>{categories[item]}</span>
+              Object.keys(categories).map((item) => {
                 <div>
-                  {
-                    sub
-                      .filter(({ category }) => category == item)
-                      .map((s) => (
-                        <div key={s.name}>{s.name}</div>
-                      ))
-                  }
-                </div>
-              </div>;
-            })
-          }
+                  <span>{categories[item]}</span>
+                  <div>
+                    {
+                      sub
+                        .filter(({ category }) => category == item)
+                        .map((s) => (
+                          <div key={s.name}>{s.name}</div>
+                        ))
+                    }
+                  </div>
+                </div>;
+              })
+            }
           </div>
         </div>
       </div>
-      <div className="domHome_playlist_list">
+      <div className="domHome_playlist_list ui_grid_square col_4">
         {
-        playlists.map((item) => (
-          <div className="item" key={item.id}>
-            <div className="cover">
-              <span className="playCount">{item.playCount}</span>
-              <Link to="/">
-                <Lazyload overflow>
-                  <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
-                </Lazyload>
-              </Link>
-              <Link className="creator" to="/">{item.creator.nickname}</Link>
+          playlists.map((item) => (
+            <div className="item" key={item.id}>
+              <div className="cover">
+                <div className="inner">
+                  <Link to="/">
+                    <Lazyload overflow>
+                      <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+                    </Lazyload>
+                  </Link>
+                  <div className="rt">
+                    <div className="playCount">{item.playCount}</div>
+                  </div>
+                  <div className="lb">
+                    <Link to="/">
+                      <div className="creator">
+                        {item.creator.nickname}
+                      </div>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+              <Link className="name" to="/">{item.name}</Link>
             </div>
-            <Link className="name" to="/">{item.name}</Link>
-          </div>
-        ))
-      }
+          ))
+        }
       </div>
       {/* <CommonPage total={total} size={100} curr={offer / 100} /> */}
       <div style={{ height: 50 }} />

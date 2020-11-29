@@ -1,6 +1,7 @@
 body {
   overflow: hidden;
 }
+
 .mask {
   position: fixed;
   top: 0;
@@ -24,6 +25,14 @@ body {
 
 .overflow-auto {
   overflow: auto;
+}
+
+.animate-zoomin {
+  transition: ease 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .text-overflow {
@@ -114,4 +123,101 @@ button {
 
 ::-webkit-scrollbar-track-piece {
   background-color: #fff;
+}
+
+.bigScreen {
+  .ui_grid_square {
+    grid-template-columns: repeat(6, 1fr);
+    &.col_4 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+}
+
+.ui_grid_square {
+  display: grid;
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  &.row_1 {
+    grid-template-rows: 1fr;
+    .item:nth-child(n + 6) {
+      display: none;
+    }
+  }
+  &.col_4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .item {
+
+    .cover {
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+
+      .whitetext {
+        display: block;
+        padding: 10px;
+        color: #fff;
+        @extend .text-overflow;
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+      }
+
+      .inner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+      }
+
+      .lt {
+        position: absolute;
+        top: 0;
+        left: 0;
+        max-width: 100%;
+      }
+
+      .lb {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        max-width: 100%;
+      }
+
+      .rt {
+        position: absolute;
+        top: 0;
+        right: 0;
+        max-width: 100%;
+      }
+
+      .rb {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        max-width: 100%;
+      }
+    }
+
+    .footer {
+      font-size: 14px;
+      margin-top: 0.5em;
+      line-height: 1.5;
+    }
+  }
+}
+
+.lt_tag {
+  display: block;
+  padding: 4px;
+  color: #fff;
+  background-color: #FF2C55;
+  border-bottom-right-radius: 6px;
 }

@@ -1,3 +1,22 @@
 .domHome {
-
+    &_dj {
+        &_banner {
+            .cover {
+                position: relative;
+                // width: 540px;
+                // height: 210px;
+                border-radius: 10px;
+                overflow: hidden;
+                .typeTitle {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    color: #fff;
+                    padding: 10px;
+                    background-color: #CC4A4A;
+                    border-top-left-radius: 10px;
+                }
+            }
+        }
+    }
 }

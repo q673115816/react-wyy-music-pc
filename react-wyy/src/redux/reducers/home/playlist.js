@@ -1,4 +1,4 @@
-import { SET_TOP_PLAYLIST, SET_PLAYLIST_CATLIST } from '../../actionTypes';
+import { SET_TOP_PLAYLIST, SET_PLAYLIST_CATLIST } from '@/redux/actionTypes';
 
 const initialState = {
   playlists: [],

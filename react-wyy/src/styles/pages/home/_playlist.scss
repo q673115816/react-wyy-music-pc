@@ -1,36 +1,21 @@
 .domHome {
   &_playlist {
     &_list {
-      display: grid;
-      column-gap: 20px;
-      row-gap: 20px;
-      grid-template-columns: repeat(4, 1fr);
-
       .item {
-        width: 180px;
         display: flex;
         flex-direction: column;
       }
 
       .cover {
-        position: relative;
-        width: 180px;
-        height: 180px;
-        overflow: hidden;
-        border-radius: 10px;
       }
 
       .playCount {
-        position: absolute;
-        top: 10px;
-        right: 10px;
+        padding: 10px;
         color: #fff;
       }
 
       .creator {
-        position: absolute;
-        left: 10px;
-        bottom: 10px;
+        padding: 10px;
         color: #fff;
       }
 

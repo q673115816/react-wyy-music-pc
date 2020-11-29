@@ -8,6 +8,13 @@ const config = {
     path: dist,
     filename: '[name].[chunkhash:8].js',
   },
+  externals: {
+    // react: 'React',
+    // 'react-dom': 'ReactDOM',
+    // 'react-redux': 'react-redux',
+    // 'react-router-dom': 'react-router-dom',
+    // 'redux': 'redux',
+  },
   module: {
     rules: [
       {

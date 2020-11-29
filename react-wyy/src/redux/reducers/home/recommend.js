@@ -1,4 +1,4 @@
-import { SET_HOME_RECOMMEND } from '../../actionTypes';
+import { SET_HOME_RECOMMEND } from '@/redux/actionTypes';
 
 const initialState = {
   privatecontent: [],

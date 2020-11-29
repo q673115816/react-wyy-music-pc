@@ -1,7 +1,7 @@
 import {
   INIT_HOME_TOP_ARTISTS,
   ADD_HOME_TOP_ARTISTS,
-} from '../../actionTypes';
+} from '@/redux/actionTypes';
 
 const initialState = {
   artists: [],

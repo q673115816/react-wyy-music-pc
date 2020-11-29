@@ -1,12 +1,18 @@
 @import 'recommend';
 @import 'playlist';
+@import 'dj';
 @import 'toplist';
 @import 'artist';
 @import 'newest';
+
 .domHome {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
   &_nav {
     flex: none;
-    height: 44px;
+    height: 60px;
     display: flex;
     align-items: baseline;
     padding-top: 20px;
@@ -24,10 +30,6 @@
     }
   }
 
-  @mixin content {
-    padding: 24px;
-  }
-
   &_content {
     flex: auto;
     display: flex;
@@ -37,14 +39,18 @@
       overflow: auto;
       // 滚动条保持绝对位置
       overflow-anchor: none;
-      @include content();
+      padding: 24px;
     }
   }
 
-  &_titlelink {
+   &_item {
+     margin-bottom: 36px;
+   }
+
+  &_linktitle {
     display: inline-block;
     font-size: 18px;
     font-weight: bold;
-    margin: 0.4em 0;
+    margin-bottom: 10px;
   }
 }

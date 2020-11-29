@@ -1,9 +1,11 @@
 .domwrapper {
+  --WIDTH: 1022px;
+  --HEIGHT: 670px;
   position: absolute;
   display: flex;
   flex-direction: column;
-  width: 1022px;
-  height: 670px;
+  width: var(--WIDTH);
+  height: var(--HEIGHT);
   background-color: #fff;
   transform: translate(0, 0);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

@@ -39,12 +39,12 @@
       display: grid;
       row-gap: 20px;
       column-gap: 10px;
-      grid-template-columns: repeat(3, calc(100% / 3 - 20px * 2 / 3));
+      grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(4, 50px);
       grid-auto-flow: column;
 
       .item {
-        display: flex;
+        display: table-row;
 
         &:hover {
           background-color: #EAEAEA;
@@ -52,8 +52,8 @@
       }
 
       .cover {
+        float: left;
         cursor: pointer;
-        flex: none;
         position: relative;
         width: 50px;
         height: 50px;
@@ -73,6 +73,8 @@
       }
 
       .content {
+        display: flex;
+        flex-direction: column;
         padding: 4px 8px;
         min-width: 1px;
       }
@@ -89,7 +91,7 @@
     &_mv {
       display: grid;
       column-gap: 20px;
-      grid-template-columns: repeat(3, calc(100% / 3 - 20px * 2 / 3));
+      grid-template-columns: repeat(3, 1fr);
 
       .item:last-child {
         display: none;
@@ -151,25 +153,105 @@
     }
 
     &_djprogram {
-      display: grid;
-      column-gap: 18px;
-      grid-template-columns: repeat(5, calc(100% / 5 - 18px * 4 / 5));
 
       .cover {
-        position: relative;
-        border-radius: 4px;
         border: 1px solid #ccc;
-        overflow: hidden;
       }
 
-      .name {
+      .mask {
         position: absolute;
+        top: 66%;
         left: 0;
         right: 0;
         bottom: 0;
+        background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+        z-index: 0;
+      }
+
+      .name {
+        // max-width: 100%;
         padding: 10px;
         color: #fff;
-        background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+      }
+    }
+
+    &_tingting {
+
+      .item {}
+
+      .name {
+        margin-top: 0.3em;
+        font-size: 16px;
+      }
+
+      .artist {
+        margin-top: 0.3em;
+      }
+    }
+
+    &_kankan {
+      display: grid;
+      column-gap: 20px;
+      grid-template-columns: repeat(4, 1fr);
+
+      .item {}
+
+      .cover {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        &::before {
+          content: '';
+          display: block;
+          padding-top: 133.3333333%;
+        }
+
+        >a {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+        }
+        img {
+          transition: ease 0.2s;
+        }
+        &:hover {
+          img {
+            transform: scale(1.1);
+          }
+        }
+      }
+
+      .playCount {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        color: #fff;
+      }
+
+      .artist {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        color: #fff;
+      }
+
+      .name {
+        margin-top: 0.4em;
+      }
+    }
+
+    &_diy {
+      text-align: center;
+      padding-bottom: 40px;
+
+      .btn {
+        width: 124px;
+        height: 30px;
+        border: 1px solid;
+        color: $basered;
+        border-radius: 4px;
       }
     }
   }

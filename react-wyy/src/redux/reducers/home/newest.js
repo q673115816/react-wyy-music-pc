@@ -1,4 +1,4 @@
-import { SET_TOP_SONG, SET_TOP_ALBUM } from '../../actionTypes';
+import { SET_TOP_SONG, SET_TOP_ALBUM } from '@/redux/actionTypes';
 
 const initialState = {
   data: [],
