@@ -1,5 +1,5 @@
 import {} from 'react-redux';
-import { ADD_COUNT, SET_VIDEO_GROUP_LIST } from '../actionTypes';
+import { ADD_COUNT, SET_VIDEO_GROUP_LIST } from '@/redux/actionTypes';
 
 const initialState = {
   count: 0,

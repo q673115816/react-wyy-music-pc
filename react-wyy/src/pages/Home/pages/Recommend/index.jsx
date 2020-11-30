@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  apiBanner,
   apiPersonalizedPrivatecontent,
   apiPersonalizedNewsong,
   apiPersonalizedMv,
@@ -9,6 +10,8 @@ import {
 } from '@/api';
 import { setHomeRecommend } from '@/redux/actions';
 import Lazyload from 'react-lazyload';
+import DomSwiper from '@/components/DomSwiper';
+
 import kankanimg from '@img/kankan.jpg';
 
 import DOMtingting from '@/components/AdLook';
@@ -17,17 +20,23 @@ const kankan = 'https://look.163.com/hot?livetype=2';
 
 export default () => {
   const {
-    privatecontent, newsong, mv, djprogram,
+    banners,
+    privatecontent,
+    newsong,
+    mv,
+    djprogram,
   } = useSelector(({ home }) => home.recommend);
   const { isLogin } = useSelector(({ common }) => common);
   const dispatch = useDispatch();
   const handleGet = async () => {
     try {
       const [
+        { banners },
         PersonalizedPrivatecontent,
         PersonalizedNewsong,
         PersonalizedMv,
         PersonalizedDjprogram] = await Promise.all([
+        apiBanner(),
         apiPersonalizedPrivatecontent(),
         apiPersonalizedNewsong({
           limit: 12,
@@ -36,6 +45,7 @@ export default () => {
         apiPersonalizedDjprogram(),
       ]);
       dispatch(setHomeRecommend({
+        banners,
         privatecontent: PersonalizedPrivatecontent.result,
         newsong: PersonalizedNewsong.result,
         mv: PersonalizedMv.result,
@@ -53,7 +63,11 @@ export default () => {
   return (
     <div className="domHome_recommend">
 
-      <div className="domHome_item">广告</div>
+      <div className="domHome_item">
+        {
+          banners.length > 0 && <DomSwiper list={banners} coverSrc="imageUrl" />
+        }
+      </div>
       <div className="domHome_item">
         <Link className="domHome_linktitle" to="/home/playlist">
           推荐歌单 &gt;

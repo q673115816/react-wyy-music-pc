@@ -8,8 +8,8 @@
 .domHome {
   display: flex;
   flex-direction: column;
-  flex: 1;
-
+  // flex: 1;
+  height: 100%;
   &_nav {
     flex: none;
     height: 60px;
@@ -31,15 +31,17 @@
   }
 
   &_content {
+    --contentpadding: 24px;
     flex: auto;
     display: flex;
-
+    width: var(--rightwidth);
     >div {
+      width: var(--rightwidth);
       flex: 1;
       overflow: auto;
       // 滚动条保持绝对位置
       overflow-anchor: none;
-      padding: 24px;
+      padding: var(--contentpadding);
     }
   }
 

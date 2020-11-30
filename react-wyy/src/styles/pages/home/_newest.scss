@@ -61,7 +61,7 @@
         .playAll {
           @include btn();
           color: #fff;
-          background-color: $basered;
+          background-color: var(--basered);
         }
 
         .subAll {
@@ -83,7 +83,7 @@
 
           &.on {
             background-color: #FDF5F5;
-            color: $basered;
+            color: var(--basered);
 
             &:hover {
               background-color: #FDEDED;

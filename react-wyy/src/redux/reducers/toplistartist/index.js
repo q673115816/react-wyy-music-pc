@@ -1,4 +1,4 @@
-import { SET_TOPLIST_ARITST } from '../actionTypes';
+import { SET_TOPLIST_ARITST } from '@/redux/actionTypes';
 
 const initialState = {
   artist: [],

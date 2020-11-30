@@ -1,22 +1,30 @@
 .domHome {
-    &_dj {
-        &_banner {
-            .cover {
-                position: relative;
-                // width: 540px;
-                // height: 210px;
-                border-radius: 10px;
-                overflow: hidden;
-                .typeTitle {
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                    color: #fff;
-                    padding: 10px;
-                    background-color: #CC4A4A;
-                    border-top-left-radius: 10px;
-                }
-            }
-        }
+  &_dj {
+    &_banner {
+      width: calc(var(--rightwidth) - var(--contentpadding) * 2);
     }
+
+    &_nav {
+      margin-top: 10px;
+      padding: 0 20px;
+      .item {
+        width: 50px;
+        text-align: center;
+        .btn {
+          margin: 0 auto;
+          width: 50px;
+          height: 50px;
+          background-color: #FCEBEB;
+          border-radius: 25px;
+          &:hover {
+            background-color: #FAD8D8;
+          }
+        }
+        .name {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
 }

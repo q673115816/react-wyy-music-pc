@@ -1,16 +1,13 @@
-import { SET_HOME_RECOMMEND } from '@/redux/actionTypes';
+import { SET_PLAYLIST_DETAIL } from '@/redux/actionTypes';
 
 const initialState = {
-  banners: [],
-  privatecontent: [],
-  newsong: [],
-  mv: [],
-  djprogram: [],
+  playlist: [],
+  privileges: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_HOME_RECOMMEND:
+    case SET_PLAYLIST_DETAIL:
       return {
         ...state,
         ...action.payload,

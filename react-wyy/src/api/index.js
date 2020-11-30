@@ -1,6 +1,8 @@
 import { get, post } from '../common';
 
 // home
+// recommend - banner
+export const apiBanner = () => get('/banner');
 // 独家放送
 export const apiPersonalizedPrivatecontent = () => get('/personalized/privatecontent');
 // 独家放送列表
@@ -17,6 +19,10 @@ export const apiDjCategoryRecommend = () => get('/dj/category/recommend');
 export const apiDjPersonalizeRecommend = () => get('/dj/personalize/recommend');
 // dj - 类别热门电台
 export const apiDjRadioHot = (params) => post('/dj/radio/hot', params);
+
+// 歌单
+// 歌单 - 详情
+export const apiPlaylistDetail = (params) => post('/playlist/detail', params);
 
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');
@@ -38,5 +44,3 @@ export const apiAlbumNew = (params) => post('/album/new', params);
 export const apiPlaylistCatlist = () => get('/playlist/catlist');
 
 export const apiTopPlaylist = (params) => post('/top/playlist', params);
-
-export const apiBanner = (type) => get(`/banner?type=${type}`);

@@ -1,23 +1,16 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Lazyload from 'react-lazyload';
 
 import DOMtingting from '@/components/AdLook';
 
-import { setHomeDj } from '@/redux/actions';
-
-import {
-  apiDjBanner, apiDjCategoryRecommend, apiDjPersonalizeRecommend, apiDjRadioHot,
-} from '@/api';
+import DomSwiper from '@/components/DomSwiper';
 
 // import Swiper core and required components
 import SwiperCore, {
-  Navigation, Pagination, A11y,
-  EffectCoverflow,
-  Autoplay,
-  Mousewheel,
+  Navigation, A11y,
 } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -25,17 +18,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/swiper.scss';
 import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/effect-coverflow/effect-coverflow.scss';
+
+import handleInit from './init';
 
 // install Swiper components
 SwiperCore.use([
   Navigation,
-  Pagination,
-  A11y,
-  EffectCoverflow,
-  Mousewheel,
-  Autoplay]);
+  A11y]);
 
 const DomDjNormal = ({ item = {} }) => (
   <div className="item">
@@ -58,7 +47,7 @@ const DomDjNormal = ({ item = {} }) => (
 );
 
 export default () => {
-  const disPatch = useDispatch();
+  const dispatch = useDispatch();
   const {
     DjBanner,
     category,
@@ -75,95 +64,61 @@ export default () => {
     ['音乐故事', 音乐故事],
     ['情感调频', 情感调频],
     ['声音恋人', 声音恋人]];
-  const handleInit = async () => {
-    try {
-      const [
-        DjBanner,
-        category,
-        DjPersonalizeRecommend,
-        创作翻唱,
-        声之剧场,
-        音乐故事,
-        情感调频,
-        声音恋人] = await Promise.all([
-        apiDjBanner(),
-        apiDjCategoryRecommend(),
-        apiDjPersonalizeRecommend(),
-        apiDjRadioHot({
-          cateId: 2001,
-          limit: 6,
-        }),
-        apiDjRadioHot({
-          cateId: 10001,
-          limit: 6,
-        }),
-        apiDjRadioHot({
-          cateId: 2,
-          limit: 6,
-        }),
-        apiDjRadioHot({
-          cateId: 3,
-          limit: 6,
-        }),
-        apiDjRadioHot({
-          cateId: 3001,
-          limit: 6,
-        }),
-      ]);
-      disPatch(setHomeDj({
-        DjBanner: DjBanner.data,
-        category: category.data,
-        DjPersonalizeRecommend: DjPersonalizeRecommend.data,
-        创作翻唱: 创作翻唱.djRadios,
-        声之剧场: 声之剧场.djRadios,
-        音乐故事: 音乐故事.djRadios,
-        情感调频: 情感调频.djRadios,
-        声音恋人: 声音恋人.djRadios,
-      }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
-    handleInit();
+    handleInit({ dispatch });
   }, []);
 
+  // const random = (height) => Math.random() * height >> 0;
+  // const randomrgb = () => `rgb(${random(255)},${random(255)},${random(255)})`;
   return (
     <div className="domHome_dj">
       <div className="domHome_dj_banner">
-        <Swiper effect="coverflow">
-          {[1, 2, 3].map((i, el) => (
-            <SwiperSlide>
-              Slide
-              {el}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        {/* <Swiper>
-          {DjBanner.map((item) => (
-            <SwiperSlide key={item.targetId}>
-              <img className="containimg" src={item.pic} alt="" />
-              <div className="typeTitle">{item.typeTitle}</div>
-            </SwiperSlide>
-          ))}
-        </Swiper> */}
+        {
+          DjBanner.length > 0 && (
+            <DomSwiper list={DjBanner} coverSrc="pic" />
+          )
+        }
       </div>
       <div className="domHome_item">
-        <div className="domHome_dj_nav">
-          <Link to="/">排行榜</Link>
-          {
-            category.map((item) => (
-              <Link to="/" key={item.categoryId}>
-                <div className="item">
-                  <div className="btn">
-                    <i className="ico" />
-                  </div>
-                  <div className="name">{item.categoryName}</div>
-                </div>
-              </Link>
-            ))
-          }
-        </div>
+        {category.length > 0
+          && (
+            <div className="domHome_dj_nav">
+              <Swiper
+                navigation
+                spaceBetween={40}
+                slidesPerView="7"
+                slidesPerGroup="8"
+              >
+                <SwiperSlide className="item">
+                  <Link to="/">
+                    <div className="inner">
+                      <div className="btn">
+                        <i className="ico" />
+                      </div>
+                      <div className="name">
+                        排行榜
+                      </div>
+                    </div>
+                  </Link>
+                </SwiperSlide>
+                {
+                  category.map((item) => (
+                    <SwiperSlide className="item" key={item.categoryId}>
+                      <Link to="/">
+                        <div className="inner">
+                          <div className="btn">
+                            <i className="ico" />
+                          </div>
+                          <div className="name gary">{item.categoryName}</div>
+                        </div>
+                      </Link>
+                    </SwiperSlide>
+                  ))
+                }
+              </Swiper>
+            </div>
+          )}
       </div>
       <div className="domHome_item">
         <Link className="domHome_linktitle" to="/">听听 &gt;</Link>

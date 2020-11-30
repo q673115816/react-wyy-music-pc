@@ -13,7 +13,7 @@ import {
   SET_TOP_ALBUM,
   SET_PLAYLIST_CATLIST,
   SET_TOP_PLAYLIST,
-
+  SET_PLAYLIST_DETAIL,
 } from './actionTypes';
 
 export const setHomeRecommend = (data) => ({
@@ -93,5 +93,10 @@ export const setPlaylistCatlist = (catlist) => ({
 
 export const setTopPlaylist = (data) => ({
   type: SET_TOP_PLAYLIST,
+  payload: data,
+});
+
+export const setPlaylistDetail = (data) => ({
+  type: SET_PLAYLIST_DETAIL,
   payload: data,
 });

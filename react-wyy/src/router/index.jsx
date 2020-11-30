@@ -9,6 +9,7 @@ import Local from '@/pages/Local';
 import Download from '@/pages/Download';
 
 import ToplistArtist from '@/pages/ToplistArtist';
+import PlaylistDetail from '@/pages/PlaylistDetail';
 
 export default () => (
   <Switch>
@@ -26,6 +27,9 @@ export default () => (
     </Route>
     <Route path="/toplistartist/:type">
       <ToplistArtist />
+    </Route>
+    <Route path="/playlistdetail/:id">
+      <PlaylistDetail />
     </Route>
     <Route path="/settings">
       <Setting />

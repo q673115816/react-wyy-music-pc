@@ -80,7 +80,7 @@ export default () => {
             <div className="item" key={item.id}>
               <div className="cover">
                 <div className="inner">
-                  <Link to="/">
+                  <Link to={`/playlistdetail/${item.id}`}>
                     <Lazyload overflow>
                       <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
                     </Lazyload>
@@ -89,7 +89,7 @@ export default () => {
                     <div className="playCount">{item.playCount}</div>
                   </div>
                   <div className="lb">
-                    <Link to="/">
+                    <Link to={`/user/${item.creator.id}`}>
                       <div className="creator">
                         {item.creator.nickname}
                       </div>
@@ -97,7 +97,7 @@ export default () => {
                   </div>
                 </div>
               </div>
-              <Link className="name" to="/">{item.name}</Link>
+              <Link className="name" to={`/playlistdetail/${item.id}`}>{item.name}</Link>
             </div>
           ))
         }

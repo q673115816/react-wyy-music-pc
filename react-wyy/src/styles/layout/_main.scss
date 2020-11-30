@@ -1,11 +1,13 @@
 .dommain {
   display: flex;
   flex: 1;
+  width: 100%;
 }
 
 .dommain_left {
+  --leftwidth: 200px;
   flex: none;
-  width: 200px;
+  width: var(--leftwidth);
   background-color: #fff;
   padding: 10px;
 }
@@ -20,12 +22,15 @@
 .playlist_control {
   display: flex;
   align-items: center;
+
   .addplaylist {
     margin-left: auto;
   }
+
   ._toggle {
     cursor: pointer;
     flex: 1;
+
     &::hover {
       color: #f00;
     }
@@ -34,11 +39,14 @@
 
 .dommain_left_link {
   display: block;
-  font-size: 18px;
+  font-size: 14px;
   padding: 10px;
+
   &.on {
     font-weight: bold;
+    font-size: 18px;
   }
+
   &:hover {
     background-color: #f5f5f5;
   }
@@ -46,15 +54,16 @@
 
 
 .dommain_split {
+  flex: none;
   width: 2px;
-  padding: 0 2px;
   background-color: #999;
-  background-clip: content-box;
   cursor: w-resize;
 }
 
 .dommain_right {
+  --rightwidth: 820px;
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  width: var(--rightwidth);
+  // display: flex;
+  // flex-direction: column;
 }

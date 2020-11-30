@@ -60,17 +60,10 @@ module.exports = {
           {
             loader: 'url-loader',
             options: {
+              name: '[name].[ext]',
               limit: 8192,
+              outputPath: 'assets/images',
             },
-          },
-        ],
-      },
-      {
-        test: /\.(png|jpe?g|gif)$/i,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'file-loader',
           },
         ],
       },
