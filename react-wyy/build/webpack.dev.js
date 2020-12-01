@@ -1,8 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
+const { merge } = require('webpack-merge');
+const base = require('./webpack.base.js');
 const { content, root } = require('./util');
 
-module.exports = {
+console.log('entry webpack dev');
+
+const dev = {
   mode: 'development',
   output: {
     publicPath: '/',
@@ -14,8 +18,24 @@ module.exports = {
     hotOnly: true,
     historyApiFallback: true,
   },
+  module: {
+    rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        // exclude: /(node_modules|bower_components)/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
+    ],
+  },
   plugins: [
     // new webpack.HotModuleReplacementPlugin()
   ],
   devtool: 'source-map',
 };
+
+module.exports = merge(base, dev);

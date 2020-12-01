@@ -16,8 +16,8 @@ import SwiperCore, {
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
+// import 'swiper/swiper.scss';
+// import 'swiper/components/navigation/navigation.scss';
 
 import handleInit from './init';
 

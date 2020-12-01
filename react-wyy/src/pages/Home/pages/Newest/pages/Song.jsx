@@ -2,21 +2,33 @@ import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useParams, NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { apiTopSong } from '@/api';
-import { setTopSong } from '@/redux/actions';
+import { apiTopSong, apiSongUrl } from '@/api';
+import { setTopSong, addSongUrl } from '@/redux/actions';
 
 export default () => {
   const { type: currentType } = useParams();
   const type = ['0', '7', '96', '8', '16'].includes(currentType) ? currentType : 0;
   const dispatch = useDispatch();
   const { data = [] } = useSelector(({ home }) => home.newest);
-  console.log(data);
+
   const handleGetSong = async () => {
     try {
       const { data } = await apiTopSong(type);
       dispatch(setTopSong(data));
     } catch (error) {
-      console.log(error);
+      console.warn(error);
+    }
+  };
+
+  const handleAddSong = async (id) => {
+    try {
+      const { data } = await apiSongUrl({
+        id,
+      });
+      console.log(data);
+      dispatch(addSongUrl(data));
+    } catch (error) {
+      console.warn(error);
     }
   };
 
@@ -39,20 +51,31 @@ export default () => {
       <div className="domHome_newest_song_list">
         {data.map((item, index) => (
           <div className="item" key={item.id}>
-            <span className="ranking">{index}</span>
-            <span className="cover">
-              <img className="containimg" src={`${item.album.blurPicUrl}?param=100y100`} alt="" />
-            </span>
+            <span className="ranking">{index + 1}</span>
+            <button
+              onClick={() => handleAddSong(item.id)}
+              type="button"
+              className="cover"
+            >
+              <img
+                className="containimg"
+                src={`${item.album.blurPicUrl}?param=100y100`}
+                alt=""
+              />
+              <span className="ico">
+                <i className="material-icons">play_arrow</i>
+              </span>
+            </button>
             <span className="name">
               <div className="text-overflow">{item.name}</div>
-              <div>SQ</div>
+              <div className="SQ">SQ</div>
             </span>
             <span className="artists">
               {
-                                item.artists.map((artist) => (
-                                  <Link to="artist" key={artist.id}>{artist.name}</Link>
-                                ))
-                            }
+                item.artists.map((artist) => (
+                  <Link to="artist" key={artist.id}>{artist.name}</Link>
+                ))
+              }
             </span>
             <span className="album"><Link to="album">{item.album.name}</Link></span>
             <span className="duration">{dayjs(item.duration).format('mm:ss')}</span>

@@ -8,7 +8,7 @@ export default () => {
     <div className="dommain_left">
       <ul>
         <li>
-          <NavLink className="dommain_left_link" activeClassName="on" to="/home">发现音乐</NavLink>
+          <NavLink className="dommain_left_link" activeClassName="on" to="/home">发现音乐1</NavLink>
         </li>
         <li>
           <NavLink className="dommain_left_link" activeClassName="on" to="/play">视频</NavLink>

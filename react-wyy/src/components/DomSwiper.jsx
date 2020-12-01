@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import Swiper core and required components
 import SwiperCore, {
   Navigation, Pagination, A11y,
@@ -11,10 +12,10 @@ import SwiperCore, {
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/swiper.scss';
-import 'swiper/components/navigation/navigation.scss';
-import 'swiper/components/pagination/pagination.scss';
-import 'swiper/components/effect-coverflow/effect-coverflow.scss';
+// import 'swiper/swiper.scss';
+// import 'swiper/components/navigation/navigation.scss';
+// import 'swiper/components/pagination/pagination.scss';
+// import 'swiper/components/effect-coverflow/effect-coverflow.scss';
 
 // install Swiper components
 SwiperCore.use([
@@ -54,8 +55,10 @@ export default ({ list = [], coverSrc = '' }) => (
       {
         list.map((item) => (
           <SwiperSlide className="cover" key={item[coverSrc]}>
-            <img className="coverimg" src={item[coverSrc]} alt="" />
-            <div className={['typeTitle', item.titleColor === 'blue' ? 'blue' : null].join(' ')}>{item.typeTitle}</div>
+            <Link to="/">
+              <img className="coverimg" src={item[coverSrc]} alt="" />
+              <div className={['typeTitle', item.titleColor === 'blue' ? 'blue' : null].join(' ')}>{item.typeTitle}</div>
+            </Link>
           </SwiperSlide>
         ))
 

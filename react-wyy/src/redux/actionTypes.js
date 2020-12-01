@@ -1,3 +1,6 @@
+// common
+export const ADD_SONG_URL = 'ADD_SONG_URL';
+
 // home - recommend
 export const SET_HOME_RECOMMEND = 'SET_HOME_RECOMMEND';
 // home -dj

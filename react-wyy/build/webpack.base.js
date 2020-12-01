@@ -1,11 +1,51 @@
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const { src, img } = require('./util');
+const webpack = require('webpack');
+const HappyPack = require('happypack');
+
+const { src, img, dist } = require('./util');
+
+const devMode = process.env.NODE_ENV !== 'production';
+
+const plugins = [
+  new CleanWebpackPlugin(),
+  new HtmlWebpackPlugin({
+    template: path.join(__dirname, '../public/index.html'),
+    // publicPath: '/'
+  }),
+  // new webpack.DllPlugin({
+  //   name: '[name]_[fullhash]',
+  //   path: path.join(dist, '[name]-manifest.json'),
+  //   context: __dirname,
+  // }),
+  // new webpack.DllReferencePlugin({
+  //   context: __dirname,
+  //   manifest: require('../dist/vendor-manifest.json'),
+  // }),
+  // new HappyPack({
+  //   id: 'js',
+  //   loaders: ['babel-loader?cacheDirectory'],
+  // }),
+];
 
 module.exports = {
-  target: 'web',
+  // target: 'web',
   entry: path.join(src, 'index.js'),
-
+  // entry: {
+  //   index: path.join(src, 'index.js'),
+  // vendor: [
+  //   'react',
+  //   'react-dom',
+  //   'react-router-dom',
+  // ],
+  // },
+  output: {
+    publicPath: '/',
+    path: dist,
+    filename: '[name].[chunkhash:8].js',
+    // library: '[name]_[fullhash]',
+  },
   optimization: {
     runtimeChunk: 'single',
     splitChunks: {
@@ -34,24 +74,12 @@ module.exports = {
       {
         test: /\.[jt]sx?$/,
         exclude: /(node_modules|bower_components)/,
-        use: ['babel-loader'],
-      },
-      {
-        test: /\.css$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
-      },
-      {
-        test: /\.s[ac]ss$/,
-        // exclude: /(node_modules|bower_components)/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader',
-        ],
+        // 缓存
+        use: ['babel-loader?cacheDirectory=true'],
+        // happypack
+        // loader: 'happypack/loader?id=js',
+        // use: 'happypack/loader?id=js',
+
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -80,10 +108,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, '../public/index.html'),
-      // publicPath: '/'
-    }),
-  ],
+  plugins,
 };

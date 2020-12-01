@@ -1,4 +1,5 @@
 import {
+  ADD_SONG_URL,
   SET_HOME_RECOMMEND,
   SET_HOME_DJ,
   ADD_COUNT,
@@ -15,6 +16,11 @@ import {
   SET_TOP_PLAYLIST,
   SET_PLAYLIST_DETAIL,
 } from './actionTypes';
+
+export const addSongUrl = (songs) => ({
+  type: ADD_SONG_URL,
+  payload: { songs },
+});
 
 export const setHomeRecommend = (data) => ({
   type: SET_HOME_RECOMMEND,

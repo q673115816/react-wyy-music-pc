@@ -1,5 +1,7 @@
 import { get, post } from '../common';
 
+// 音乐
+export const apiSongUrl = (params) => post('/song/url', params);
 // home
 // recommend - banner
 export const apiBanner = () => get('/banner');
