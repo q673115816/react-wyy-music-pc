@@ -1,13 +1,12 @@
-import { SET_USER_DETAIL } from '@/redux/actionTypes';
+import { SET_LOGIN_INFO } from '@/redux/actionTypes';
 
 const initialState = {
-  profile: {},
-  level: 0,
+
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER_DETAIL:
+    case SET_LOGIN_INFO:
       return {
         ...state,
         ...action.payload,

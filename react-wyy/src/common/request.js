@@ -19,19 +19,19 @@ const defaultOptions = {
   withCredentials: true,
 };
 export const get = async (url) => await fetch(`${currentUrl}${url}`, {
-  headers: {
-    Cookie: '',
-  },
+  // headers: {
+  //   Cookie: cookie,
+  // },
 }).then((res) => res.json());
 
 export const post = async (url, params) => {
   console.log(params);
   return await fetch(`${currentUrl}${url}?timestamp=${Date.now()}`, {
     method: 'POST',
-    body: format(params),
+    body: format({ cookie, ...params }),
     headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      Cookie: '11',
+      // Cookie: cookie,
     },
   }).then((res) => res.json());
 };

@@ -1,6 +1,7 @@
 import {
   SET_IS_LOGIN,
   SET_NOT_LOGIN,
+  SET_USER_DETAIL,
   ADD_SONG_URL,
   SET_HOME_RECOMMEND,
   SET_HOME_DJ,
@@ -33,6 +34,11 @@ export const setLoginInfo = (profile) => ({
   payload: {
     profile,
   },
+});
+
+export const setUserDetail = (detail) => ({
+  type: SET_USER_DETAIL,
+  payload: detail,
 });
 
 export const addSongUrl = (songs) => ({

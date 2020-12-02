@@ -4,6 +4,8 @@ export const SET_NOT_LOGIN = 'SET_NOT_LOGIN';
 export const SET_LOGIN_INFO = 'SET_LOGIN_INFO';
 export const ADD_SONG_URL = 'ADD_SONG_URL';
 
+// user
+export const SET_USER_DETAIL = 'SET_USER_DETAIL';
 // home - recommend
 export const SET_HOME_RECOMMEND = 'SET_HOME_RECOMMEND';
 // home -dj

@@ -28,8 +28,9 @@ export const apiPlaylistDetail = (params) => post('/playlist/detail', params);
 // user
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');
-export const apiUserAccount = () => get('/user/account');
-
+export const apiUserAccount = () => post('/user/account');
+export const apiUserDetail = (uid) => get(`/user/detail?uid=${uid}`);
+export const apiUserPlaylist = (uid) => get(`/user/playlist?uid=${uid}`);
 export const apiVideoGroupList = () => get('/video/group/list');
 
 export const apiArtistList = (params) => post('/artist/list', params);

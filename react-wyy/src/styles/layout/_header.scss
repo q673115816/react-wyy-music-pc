@@ -85,6 +85,18 @@
       display: flex;
       align-items: center;
     }
+
+    &_profile {
+      display: flex;
+      align-items: center;
+      .avator {
+        margin-right: 6px;
+        border-radius: 15px;
+        overflow: hidden;
+        width: 30px;
+        height: 30px;
+      }
+    }
   }
 
   &_control {}

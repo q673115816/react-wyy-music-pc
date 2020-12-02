@@ -1,0 +1,24 @@
+.domUser {
+    padding: 30px;
+    display: flex;
+    &_header {
+        display: flex;
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 90px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+        }
+
+        .content {
+            margin-left: 20px;
+        }
+
+        .name {
+            font-weight: bold;
+            font-size: 22px;
+        }
+    }
+}

@@ -35,7 +35,8 @@ const dev = {
   plugins: [
     // new webpack.HotModuleReplacementPlugin()
   ],
-  devtool: 'source-map',
+  // devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
 };
 
 module.exports = merge(base, dev);

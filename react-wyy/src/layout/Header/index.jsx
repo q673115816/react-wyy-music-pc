@@ -61,30 +61,30 @@ export default ({ mousedown }) => {
         <i className="material-icons">mic</i>
       </Link>
       <div className="domheader_user">
-        <button
-          type="button"
-          className="_handle domheader_user_login"
-          onClick={handleShowLogin}
-        >
-          {isLogin
-            ? (
-              <>
-                <span>
-                  <img src={profile.avatarUrl} alt="" />
-                </span>
-                <span>未登录</span>
+        {isLogin
+          ? (
+            <div className="domheader_user_profile">
+              <Link to={`/user/${profile.userId}`} className="avator">
+                <img className="containimg" src={profile.avatarUrl} alt="" />
+              </Link>
+              <button type="button" className="_handle ">
+                <span>{profile.nickname}</span>
                 <i className="material-icons">arrow_drop_down</i>
-              </>
-            )
-            : (
-              <>
-                <i className="material-icons gary">account_circle</i>
-                <span>未登录</span>
-                <i className="material-icons">arrow_drop_down</i>
-              </>
-            )}
+              </button>
+            </div>
+          )
+          : (
+            <button
+              type="button"
+              className="_handle domheader_user_login"
+              onClick={handleShowLogin}
+            >
+              <i className="material-icons gary">account_circle</i>
+              <span>未登录</span>
+              <i className="material-icons">arrow_drop_down</i>
+            </button>
+          )}
 
-        </button>
         <button type="button" className="_handle">开通VIP</button>
       </div>
       <div className="domheader_function">
