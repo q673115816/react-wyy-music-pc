@@ -1,4 +1,6 @@
-import { ADD_SONG_URL, DIALOG_LOGIN_VISIBILTY, SET_COUNTRIES_CODE_LIST } from '@/redux/actionTypes';
+import {
+  ADD_SONG_URL, DIALOG_LOGIN_VISIBILTY, SET_COUNTRIES_CODE_LIST, SET_IS_LOGIN, SET_NOT_LOGIN,
+} from '@/redux/actionTypes';
 
 const initialState = {
   currentSong: {},
@@ -10,6 +12,18 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SET_IS_LOGIN:
+      return {
+        ...state,
+        isLogin: true,
+      };
+
+    case SET_NOT_LOGIN:
+      return {
+        ...state,
+        isLogin: false,
+      };
+
     case ADD_SONG_URL:
       return {
         ...state,

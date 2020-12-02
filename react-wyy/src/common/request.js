@@ -1,4 +1,4 @@
-import { devUrl as currentUrl } from '@/config';
+import { devUrl as currentUrl } from './config';
 
 let cookie = window.localStorage.getItem('cookie');
 
@@ -18,18 +18,20 @@ function format(obj) {
 const defaultOptions = {
   withCredentials: true,
 };
-export const get = async (url, params) => await fetch(`${currentUrl}${url}`, {
-  ...params,
+export const get = async (url) => await fetch(`${currentUrl}${url}`, {
+  headers: {
+    Cookie: '',
+  },
 }).then((res) => res.json());
 
-export const post = async (url, params, head) => {
+export const post = async (url, params) => {
   console.log(params);
   return await fetch(`${currentUrl}${url}?timestamp=${Date.now()}`, {
     method: 'POST',
     body: format(params),
-    headers: new Headers({
+    headers: {
       'content-type': 'application/x-www-form-urlencoded',
-      ...head,
-    }),
+      Cookie: '11',
+    },
   }).then((res) => res.json());
 };

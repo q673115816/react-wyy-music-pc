@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Lazyload from 'react-lazyload';
+import LazyloadImg from '@/components/LazyloadImg';
 import { apiTopPlaylist, apiPlaylistCatlist } from '@/api';
 import { setTopPlaylist, setPlaylistCatlist } from '@/redux/actions';
 import CommonPage from '@/components/Page';
+import { transplayCount } from '@/common/utils';
 
 export default () => {
   const [order, setOrder] = useState('');
@@ -81,12 +83,12 @@ export default () => {
               <div className="cover">
                 <div className="inner">
                   <Link to={`/playlistdetail/${item.id}`}>
-                    <Lazyload overflow>
+                    <LazyloadImg overflow>
                       <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
-                    </Lazyload>
+                    </LazyloadImg>
                   </Link>
                   <div className="rt">
-                    <div className="playCount">{item.playCount}</div>
+                    <div className="playCount">{transplayCount(item.playCount)}</div>
                   </div>
                   <div className="lb">
                     <Link to={`/user/${item.creator.id}`}>

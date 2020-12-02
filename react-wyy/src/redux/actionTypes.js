@@ -1,4 +1,7 @@
 // common
+export const SET_IS_LOGIN = 'SET_IS_LOGIN';
+export const SET_NOT_LOGIN = 'SET_NOT_LOGIN';
+export const SET_LOGIN_INFO = 'SET_LOGIN_INFO';
 export const ADD_SONG_URL = 'ADD_SONG_URL';
 
 // home - recommend

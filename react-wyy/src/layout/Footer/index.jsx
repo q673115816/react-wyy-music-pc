@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -8,15 +8,15 @@ export default () => {
   const [currentProcess, setCurrentProcess] = useState(60);
   const audio = useRef();
   const handleToggle = () => {
-    if (isPlay === true) {
-      audio.current.pause();
-      setIsPlay(false);
-    } else {
-      setIsPlay(true);
-
-      playlist.length > 0 && audio.current.play();
-    }
+    setIsPlay(!isPlay);
   };
+  useEffect(() => {
+    if (isPlay) {
+      audio.current.pause();
+    } else {
+      audio.current.play();
+    }
+  }, [isPlay]);
   return (
     <div className="domfooter">
       <div hidden>
@@ -26,6 +26,9 @@ export default () => {
           onLoadedData={({ target }) => isPlay && target.play()}
         />
       </div>
+      {
+
+      }
       <div className="domfooter_left">
         <Link to="/" className="domfooter_left_img">
           <img src="" alt="" />

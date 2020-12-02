@@ -1,15 +1,24 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import loadable from '@loadable/component';
+// import Setting from '@/pages/Setting';
 
-import Setting from '@/pages/setting';
+// import Home from '@/pages/Home';
+// import Play from '@/pages/Play';
+// import Local from '@/pages/Local';
+// import Download from '@/pages/Download';
 
-import Home from '@/pages/Home';
-import Play from '@/pages/Play';
-import Local from '@/pages/Local';
-import Download from '@/pages/Download';
+// import ToplistArtist from '@/pages/ToplistArtist';
+// import PlaylistDetail from '@/pages/PlaylistDetail';
 
-import ToplistArtist from '@/pages/ToplistArtist';
-import PlaylistDetail from '@/pages/PlaylistDetail';
+const Setting = loadable(() => import(/* webpackChunkName: "Setting" */'@/pages/Setting'));
+const Home = loadable(() => import(/* webpackChunkName: "Home" */'@/pages/Home'));
+const Play = loadable(() => import(/* webpackChunkName: "Play" */'@/pages/Play'));
+const Local = loadable(() => import(/* webpackChunkName: "Local" */'@/pages/Local'));
+const Download = loadable(() => import(/* webpackChunkName: "Download" */'@/pages/Download'));
+
+const ToplistArtist = loadable(() => import(/* webpackChunkName: "ToplistArtist" */'@/pages/ToplistArtist'));
+const PlaylistDetail = loadable(() => import(/* webpackChunkName: "PlaylistDetail" */'@/pages/PlaylistDetail'));
 
 export default () => (
   <Switch>

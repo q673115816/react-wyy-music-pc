@@ -3,14 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { apiToplistDetail } from '@/api';
 import { setTopListsDetail } from '@/redux/actions';
-
-function transplayCount(playCount) {
-  return String(playCount).replace(/(?<=\d{1,})\d{4}$/, '万');
-}
+import { transplayCount } from '@/common/utils';
 
 export default () => {
   const { list = [] } = useSelector(({ home }) => home.toplist);
-  console.log(list);
+
   const top4 = list.slice(0, 4);
   const other = list.slice(4);
   const dispatch = useDispatch();

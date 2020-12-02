@@ -2,12 +2,20 @@ import React from 'react';
 import {
   NavLink, Switch, Route, Redirect,
 } from 'react-router-dom';
-import HomeRecommend from './pages/Recommend';
-import HomeToplist from './pages/Toplist';
-import HomePlaylist from './pages/Playlist';
-import HomeArtist from './pages/Artist';
-import HomeNewest from './pages/Newest';
-import HomeDj from './pages/Dj';
+import loadable from '@loadable/component';
+// import HomeRecommend from './pages/Recommend';
+// import HomeToplist from './pages/Toplist';
+// import HomePlaylist from './pages/Playlist';
+// import HomeArtist from './pages/Artist';
+// import HomeNewest from './pages/Newest';
+// import HomeDj from './pages/Dj';
+
+const HomeRecommend = loadable(() => import(/* webpackChunkName: "Home_Recommend" */'./pages/Recommend'));
+const HomeToplist = loadable(() => import(/* webpackChunkName: "Home_Toplist" */'./pages/Toplist'));
+const HomePlaylist = loadable(() => import(/* webpackChunkName: "Home_Playlist" */'./pages/Playlist'));
+const HomeArtist = loadable(() => import(/* webpackChunkName: "Home_Artist" */'./pages/Artist'));
+const HomeNewest = loadable(() => import(/* webpackChunkName: "Home_Newest" */'./pages/Newest'));
+const HomeDj = loadable(() => import(/* webpackChunkName: "Home_Dj" */'./pages/Dj'));
 
 const nav = [
   {
@@ -52,24 +60,12 @@ export default () => (
     </div>
     <div className="domHome_content">
       <Switch>
-        <Route path="/home/recommend">
-          <HomeRecommend />
-        </Route>
-        <Route path="/home/toplist">
-          <HomeToplist />
-        </Route>
-        <Route path="/home/playlist">
-          <HomePlaylist />
-        </Route>
-        <Route path="/home/artist">
-          <HomeArtist />
-        </Route>
-        <Route path="/home/newest">
-          <HomeNewest />
-        </Route>
-        <Route path="/home/dj">
-          <HomeDj />
-        </Route>
+        <Route path="/home/recommend" component={HomeRecommend} />
+        <Route path="/home/toplist" component={HomeToplist} />
+        <Route path="/home/playlist" component={HomePlaylist} />
+        <Route path="/home/artist" component={HomeArtist} />
+        <Route path="/home/newest" component={HomeNewest} />
+        <Route path="/home/dj" component={HomeDj} />
         <Redirect to="/home/recommend" />
       </Switch>
     </div>

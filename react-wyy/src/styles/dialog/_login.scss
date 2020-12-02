@@ -4,7 +4,7 @@
   height: 530px;
   background-color: #fff;
   color: #f00;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
   z-index: 2;
 
   .close {
@@ -36,5 +36,15 @@
     input {
       border: none;
     }
+  }
+
+  .submit {
+    width: 100%;
+    border-radius: 4px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+    background-color: var(--basered);
   }
 }

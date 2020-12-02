@@ -29,10 +29,10 @@ const prod = {
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
-            // options: {
-            // publicPath: path.join(dist, 'assets/css'),
-            // publicPath: 'assets/css',
-            // },
+            options: {
+              // publicPath: path.join(dist, 'assets/css'),
+              // publicPath: 'assets/css',
+            },
           },
           'css-loader',
           'postcss-loader',
@@ -47,7 +47,7 @@ const prod = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: '[name].[contenthash:8].css',
-      chunkFilename: '[id].[contenthash:8].css',
+      chunkFilename: '[name].[contenthash:8].css',
       // publicPath: path.join(dist, 'assets/css'),
     }),
   ],

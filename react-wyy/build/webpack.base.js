@@ -44,19 +44,49 @@ module.exports = {
     publicPath: '/',
     path: dist,
     filename: '[name].[chunkhash:8].js',
+    chunkFilename: 'chunk~[name].[chunkhash:8].js',
     // library: '[name]_[fullhash]',
   },
   optimization: {
     runtimeChunk: 'single',
+    // splitChunks: {
+    //   cacheGroups: {
+    //     vendor: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: 'vendors',
+    //       chunks: 'all',
+    //       // name: module => `vendor.${module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]}`
+    //     },
+    //   },
+    // },
     splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-          // name: module => `vendor.${module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]}`
-        },
-      },
+      chunks: 'all',
+      name: 'vendors',
+      minSize: 0,
+      // cacheGroups: {
+      //   defaultVendors: {
+      //     test: /[\\/]node_modules[\\/]/,
+      //     priority: -10,
+      //     reuseExistingChunk: true,
+      //   },
+      //   default: {
+      //     minChunks: 2,
+      //     priority: -20,
+      //     reuseExistingChunk: true,
+      //   },
+      // },
+      // cacheGroups: {
+      //   commons: {
+      //     test: /[\\/]node_modules[\\/]/,
+      //     // cacheGroupKey here is `commons` as the key of the cacheGroup
+      //     name(module, chunks, cacheGroupKey) {
+      //       const moduleFileName = module.identifier().split('/').reduceRight((item) => item);
+      //       const allChunksNames = chunks.map((item) => item.name).join('~');
+      //       return `${cacheGroupKey}-${allChunksNames}-${moduleFileName}`;
+      //     },
+      //     chunks: 'all',
+      //   },
+      // },
     },
   },
   resolve: {

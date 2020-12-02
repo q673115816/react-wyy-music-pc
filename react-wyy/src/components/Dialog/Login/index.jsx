@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { apiLoginCellphone } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { dialogLoginVisibilty } from '@/redux/actions';
+import { dialogLoginVisibilty, setIsLogin } from '@/redux/actions';
+import { setCookie } from '@/common/request';
 
 export default () => {
   const [isagree, setIsagree] = useState(false);
@@ -23,17 +24,23 @@ export default () => {
 
   const handleLogin = async () => {
     try {
-      const { data, code, msg } = await apiLoginCellphone({
+      const {
+        data, code, msg, cookie, token,
+        profile,
+      } = await apiLoginCellphone({
         phone,
         password,
       });
       if (code === 502) {
         console.log(msg);
       } else if (code === 200) {
-
+        setCookie(cookie);
+        handleToggle();
+        dispatch(setLoginInfo(profile));
+        dispatch(setIsLogin());
       }
     } catch (error) {
-
+      console.log(error);
     }
   };
 
@@ -57,7 +64,7 @@ export default () => {
       className="dialog_login"
       style={{ display: visibility ? '' : 'none' }}
     >
-      <button  type="button" className="close" onClick={handleToggle}>×</button>
+      <button type="button" className="close" onClick={handleToggle}>×</button>
       <div className="_inner">
         <div style={{ height: 200 }} />
         <form action="" onSubmit={login}>
@@ -82,6 +89,7 @@ export default () => {
                     name="phone"
                     placeholder="请输入手机号"
                     className="write"
+                    autoComplete="new-psword"
                     value={phone}
                     onChange={({ target }) => setPhone(target.value)}
                   />
@@ -95,6 +103,7 @@ export default () => {
                     placeholder="请输入密码"
                     className="write"
                     value={password}
+                    autoComplete="new-psword"
                     onChange={({ target }) => setPassword(target.value)}
                   />
                 </td>
@@ -106,19 +115,25 @@ export default () => {
             自动登录
             <input type="checkbox" name="auto" />
           </label>
-          <button type="submit">登录</button>
-          <Link to="register">注册</Link>
-          <label>
-            <input
-              type="checkBox"
-              name="agreement"
-              value={isagree}
-              onChange={({ target }) => setIsagree(target.value)}
-            />
-            <Link to="/">《服务条款》</Link>
-            <Link to="/">《服务条款》</Link>
-            <Link to="/">《服务条款》</Link>
-          </label>
+          <div>
+            <button type="submit" className="submit">登录</button>
+          </div>
+          <div>
+            <Link to="register">注册</Link>
+          </div>
+          <div>
+            <label>
+              <input
+                type="checkBox"
+                name="agreement"
+                value={isagree}
+                onChange={({ target }) => setIsagree(target.value)}
+              />
+              <Link to="/">《服务条款》</Link>
+              <Link to="/">《服务条款》</Link>
+              <Link to="/">《服务条款》</Link>
+            </label>
+          </div>
         </form>
       </div>
     </div>

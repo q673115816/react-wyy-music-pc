@@ -25,9 +25,10 @@ export const apiDjRadioHot = (params) => post('/dj/radio/hot', params);
 // 歌单
 // 歌单 - 详情
 export const apiPlaylistDetail = (params) => post('/playlist/detail', params);
-
+// user
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');
+export const apiUserAccount = () => get('/user/account');
 
 export const apiVideoGroupList = () => get('/video/group/list');
 

@@ -5,7 +5,7 @@ import LazyLoad from 'react-lazyload';
 import { apiTopAlbum, apiAlbumNew } from '@/api';
 import { setTopAlbum } from '@/redux/actions';
 
-import { limit } from '@/config';
+import { limit } from '@/common/config';
 
 const arealist = [
   {

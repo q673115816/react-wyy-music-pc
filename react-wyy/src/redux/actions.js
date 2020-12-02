@@ -1,4 +1,6 @@
 import {
+  SET_IS_LOGIN,
+  SET_NOT_LOGIN,
   ADD_SONG_URL,
   SET_HOME_RECOMMEND,
   SET_HOME_DJ,
@@ -15,7 +17,23 @@ import {
   SET_PLAYLIST_CATLIST,
   SET_TOP_PLAYLIST,
   SET_PLAYLIST_DETAIL,
+  SET_LOGIN_INFO,
 } from './actionTypes';
+
+export const setIsLogin = () => ({
+  type: SET_IS_LOGIN,
+});
+
+export const setNotLogin = () => ({
+  type: SET_NOT_LOGIN,
+});
+
+export const setLoginInfo = (profile) => ({
+  type: SET_LOGIN_INFO,
+  payload: {
+    profile,
+  },
+});
 
 export const addSongUrl = (songs) => ({
   type: ADD_SONG_URL,
