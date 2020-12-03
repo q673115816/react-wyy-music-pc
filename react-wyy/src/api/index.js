@@ -32,7 +32,8 @@ export const apiUserAccount = () => post('/user/account');
 export const apiUserDetail = (uid) => get(`/user/detail?uid=${uid}`);
 export const apiUserPlaylist = (uid) => get(`/user/playlist?uid=${uid}`);
 export const apiVideoGroupList = () => get('/video/group/list');
-
+// 播放记录
+export const apiUserRecord = (params) => post('/user/record', params);
 export const apiArtistList = (params) => post('/artist/list', params);
 
 export const apiToplistArtist = (type) => get(`/toplist/artist?type=${type}`);

@@ -1,16 +1,31 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, Redirect } from 'react-router-dom';
 import { apiUserDetail, apiUserPlaylist } from '@/api';
 import { setUserDetail } from '@/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import loadable from '@loadable/component';
+
+const RainbowCat = loadable(() => import(/* webpackChunkName: "RainbowCat" */'./RainbowCat'));
 
 export default () => {
+  const {
+    account,
+    user: { profile, level, playlist },
+    common: { isLogin },
+  } = useSelector((state) => state);
+
   const { uid } = useParams();
+  const isSelf = isLogin ? String(account.profile.userId) === uid : false;
+
   const dispatch = useDispatch();
-  const { profile, level, playlist } = useSelector(({ user }) => user);
+  const ownPlaylist = playlist.filter((item) => String(item.userId) === uid);
+
+  const savePlaylist = playlist.filter((item) => String(item.userId) !== uid);
   const handleGetUserInfo = async () => {
     try {
-      const [{ profile, level }, { playlist }] = await Promise.all([
+      const [
+        { profile, level },
+        { playlist }] = await Promise.all([
         apiUserDetail(uid),
         apiUserPlaylist(uid),
       ]);
@@ -23,9 +38,14 @@ export default () => {
   useEffect(() => {
     handleGetUserInfo();
   }, []);
+  if (!isLogin) {
+    return (
+      <div>查看个人信息请先登录</div>
+    );
+  }
   return (
-    <div className="domUser">
-      <div className="overflow-auto">
+    <div className="overflow-auto">
+      <div className="domUser">
 
         <div className="domUser_header">
           <div className="avatar">
@@ -80,22 +100,61 @@ export default () => {
               歌单
             </span>
             <div>
-              <button type="button" />
-              <button type="button" />
-              <button type="button" />
+              <button type="button" title="大图模式">
+                <i className="material-icons">widgets</i>
+              </button>
+              <button type="button" title="列表模式">
+                <i className="material-icons">menu</i>
+              </button>
+              <button type="button" title="图列模式">
+                <i className="material-icons">list</i>
+              </button>
             </div>
           </div>
-          <div>
+          <div className="domUser_list ui_grid_square col_4">
             {
-              playlist.map((item) => (
-                <div key={item.id}>
-                  <div>
-                    <img src={item.coverImgUrl} className="containimg" alt="" />
+              isSelf
+              && (
+              <div className="item">
+                <Link to="/">
+                  <div className="cover">
+                    <div className="inner">
+                      <RainbowCat />
+                    </div>
+                    <div className="rb">
+                      <span className="ico">
+                        <i className="material-icons">play_arrow</i>
+                      </span>
+                    </div>
                   </div>
-                  <div>{item.name}</div>
+                </Link>
+                <div className="footer">
+                  <Link to="/" className="name">我的听歌排行</Link>
                 </div>
-              ))
+              </div>
+              )
             }
+            {ownPlaylist.map((item) => (
+              <div className="item" key={item.id}>
+                <Link to="/">
+                  <div className="cover">
+                    <div className="inner">
+                      <img src={item.coverImgUrl} className="containimg" alt="" />
+                    </div>
+                    <div className="rb">
+                      <span className="ico">
+                        <i className="material-icons">play_arrow</i>
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+                <div className="footer">
+                  <Link to="/">
+                    {item.name}
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
