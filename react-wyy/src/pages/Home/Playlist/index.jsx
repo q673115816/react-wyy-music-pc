@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Lazyload from 'react-lazyload';
+import './style.scss';
 import LazyloadImg from '@/components/LazyloadImg';
+
 import { apiTopPlaylist, apiPlaylistCatlist } from '@/api';
 import { setTopPlaylist, setPlaylistCatlist } from '@/redux/actions';
 import CommonPage from '@/components/Page';
@@ -91,7 +92,7 @@ export default () => {
                     <div className="playCount">{transplayCount(item.playCount)}</div>
                   </div>
                   <div className="lb">
-                    <Link to={`/user/${item.creator.id}`}>
+                    <Link to={`/user/${item.userId}/detail`}>
                       <div className="creator">
                         {item.creator.nickname}
                       </div>

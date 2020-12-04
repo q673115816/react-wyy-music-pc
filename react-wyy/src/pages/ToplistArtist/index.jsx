@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { NavLink, Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
+import './style.scss';
 import { apiToplistArtist } from '@/api';
 import { setTopListArtist } from '@/redux/actions';
 

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import { apiPlaylistDetail } from '@/api';
 import { setPlaylistDetail } from '@/redux/actions';
+import './style.scss';
 
 export default () => {
   const [fulfilled, setFulfilled] = useState(false);

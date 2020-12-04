@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const base = require('./webpack.base.js');
-const { content, root } = require('./util');
+const { content, root, src } = require('./util');
 
 console.log('entry webpack dev');
 
@@ -20,16 +20,6 @@ const dev = {
   },
   module: {
     rules: [
-      {
-        test: /\.(sa|sc|c)ss$/,
-        // exclude: /(node_modules|bower_components)/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
-        ],
-      },
     ],
   },
   plugins: [

@@ -1,9 +1,10 @@
-import { SET_USER_DETAIL } from '@/redux/actionTypes';
+import { SET_USER_DETAIL, SET_USER_RECORD } from '@/redux/actionTypes';
 
 const initialState = {
   profile: {},
   level: 0,
   playlist: [],
+  record: [],
 };
 
 export default (state = initialState, action) => {
@@ -12,6 +13,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case SET_USER_RECORD:
+      return {
+        ...state,
+        record: action.payload.record,
       };
     default:
       return state;

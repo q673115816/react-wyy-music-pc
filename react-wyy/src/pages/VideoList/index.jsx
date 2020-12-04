@@ -3,6 +3,7 @@ import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { apiVideoGroupList } from '../../api';
 import { setVideoGroupList } from '../../redux/actions';
+import './style.scss';
 
 const recommendGroupList = [
   {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import './style.scss';
 import { apiToplistDetail } from '@/api';
 import { setTopListsDetail } from '@/redux/actions';
 import { transplayCount } from '@/common/utils';

@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import VideoList from '../VideoList';
 import MvList from '../MvList';
+import './style.scss';
 
 export default () => {
   const relative = '/play';

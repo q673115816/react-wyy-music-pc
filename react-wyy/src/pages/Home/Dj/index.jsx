@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Lazyload from 'react-lazyload';
-
+import './style.scss';
 import DOMtingting from '@/components/AdLook';
 
 import DomSwiper from '@/components/DomSwiper';

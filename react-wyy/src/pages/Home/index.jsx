@@ -3,6 +3,7 @@ import {
   NavLink, Switch, Route, Redirect,
 } from 'react-router-dom';
 import loadable from '@loadable/component';
+import './index.scss';
 // import HomeRecommend from './pages/Recommend';
 // import HomeToplist from './pages/Toplist';
 // import HomePlaylist from './pages/Playlist';
@@ -10,12 +11,12 @@ import loadable from '@loadable/component';
 // import HomeNewest from './pages/Newest';
 // import HomeDj from './pages/Dj';
 
-const HomeRecommend = loadable(() => import(/* webpackChunkName: "Home_Recommend" */'./pages/Recommend'));
-const HomeToplist = loadable(() => import(/* webpackChunkName: "Home_Toplist" */'./pages/Toplist'));
-const HomePlaylist = loadable(() => import(/* webpackChunkName: "Home_Playlist" */'./pages/Playlist'));
-const HomeArtist = loadable(() => import(/* webpackChunkName: "Home_Artist" */'./pages/Artist'));
-const HomeNewest = loadable(() => import(/* webpackChunkName: "Home_Newest" */'./pages/Newest'));
-const HomeDj = loadable(() => import(/* webpackChunkName: "Home_Dj" */'./pages/Dj'));
+const HomeRecommend = loadable(() => import(/* webpackChunkName: "Home_Recommend" */'./Recommend'));
+const HomeToplist = loadable(() => import(/* webpackChunkName: "Home_Toplist" */'./Toplist'));
+const HomePlaylist = loadable(() => import(/* webpackChunkName: "Home_Playlist" */'./Playlist'));
+const HomeArtist = loadable(() => import(/* webpackChunkName: "Home_Artist" */'./Artist'));
+const HomeNewest = loadable(() => import(/* webpackChunkName: "Home_Newest" */'./Newest'));
+const HomeDj = loadable(() => import(/* webpackChunkName: "Home_Dj" */'./Dj'));
 
 const nav = [
   {

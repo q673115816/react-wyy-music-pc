@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
-
+import './style.scss';
 import { limit } from '@/common/config';
 import { apiArtistList } from '@/api';
 import { addHomeTopArtists, initHomeTopArtists } from '@/redux/actions';

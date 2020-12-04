@@ -19,7 +19,7 @@ const Download = loadable(() => import(/* webpackChunkName: "Download" */'@/page
 
 const ToplistArtist = loadable(() => import(/* webpackChunkName: "ToplistArtist" */'@/pages/ToplistArtist'));
 const PlaylistDetail = loadable(() => import(/* webpackChunkName: "PlaylistDetail" */'@/pages/PlaylistDetail'));
-const UserDetail = loadable(() => import(/* webpackChunkName: "UserDetail" */'@/pages/UserDetail'));
+const User = loadable(() => import(/* webpackChunkName: "User" */'@/pages/User'));
 
 export default () => (
   <Switch>
@@ -39,7 +39,7 @@ export default () => (
     <Route path="/playlistdetail/:id">
       <PlaylistDetail />
     </Route>
-    <Route path="/user/:uid" component={UserDetail} />
+    <Route path="/user" component={User} />
     <Route path="/settings">
       <Setting />
     </Route>

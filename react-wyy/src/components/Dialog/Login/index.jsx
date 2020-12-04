@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './_login.scss';
 import { apiLoginCellphone } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { dialogLoginVisibilty, setIsLogin } from '@/redux/actions';

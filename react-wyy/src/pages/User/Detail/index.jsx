@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
-import { useParams, Link, Redirect } from 'react-router-dom';
+import {
+  useParams, Link, Redirect, useRouteMatch,
+} from 'react-router-dom';
 import { apiUserDetail, apiUserPlaylist } from '@/api';
 import { setUserDetail } from '@/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import loadable from '@loadable/component';
+import './style.scss';
 
 const RainbowCat = loadable(() => import(/* webpackChunkName: "RainbowCat" */'./RainbowCat'));
 
@@ -13,7 +16,7 @@ export default () => {
     user: { profile, level, playlist },
     common: { isLogin },
   } = useSelector((state) => state);
-
+  const { url } = useRouteMatch();
   const { uid } = useParams();
   const isSelf = isLogin ? String(account.profile.userId) === uid : false;
 
@@ -49,7 +52,7 @@ export default () => {
 
         <div className="domUser_header">
           <div className="avatar">
-            <img src={profile.avatarUrl} alt="" className="containimg" />
+            <img src={`${profile.avatarUrl}?param=200y200`} alt="" className="containimg" />
           </div>
           <div className="content">
             <div className="name">{profile.nickname}</div>
@@ -112,34 +115,29 @@ export default () => {
             </div>
           </div>
           <div className="domUser_list ui_grid_square col_4">
-            {
-              isSelf
-              && (
-              <div className="item">
-                <Link to="/">
-                  <div className="cover">
-                    <div className="inner">
-                      <RainbowCat />
-                    </div>
-                    <div className="rb">
-                      <span className="ico">
-                        <i className="material-icons">play_arrow</i>
-                      </span>
-                    </div>
+            <div className="item">
+              <Link to={`${url}/record`}>
+                <div className="cover">
+                  <div className="inner">
+                    <RainbowCat />
                   </div>
-                </Link>
-                <div className="footer">
-                  <Link to="/" className="name">我的听歌排行</Link>
+                  <div className="rb">
+                    <span className="ico">
+                      <i className="material-icons">play_arrow</i>
+                    </span>
+                  </div>
                 </div>
+              </Link>
+              <div className="footer">
+                <Link to="/" className="name">我的听歌排行</Link>
               </div>
-              )
-            }
+            </div>
             {ownPlaylist.map((item) => (
               <div className="item" key={item.id}>
                 <Link to="/">
                   <div className="cover">
                     <div className="inner">
-                      <img src={item.coverImgUrl} className="containimg" alt="" />
+                      <img src={`${item.coverImgUrl}?param=200y200`} className="containimg" alt="" />
                     </div>
                     <div className="rb">
                       <span className="ico">

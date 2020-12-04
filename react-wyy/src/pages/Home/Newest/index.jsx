@@ -2,8 +2,10 @@ import React from 'react';
 import {
   NavLink, Switch, Redirect, Route,
 } from 'react-router-dom';
-import DomSong from './pages/Song';
-import DomAlbum from './pages/Album';
+import './style.scss';
+
+import DomSong from './Song';
+import DomAlbum from './Album';
 
 export default () => (
   <div className="domHome_newest">

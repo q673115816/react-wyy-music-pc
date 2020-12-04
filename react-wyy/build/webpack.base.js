@@ -1,5 +1,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const path = require('path');
 const webpack = require('webpack');
 const HappyPack = require('happypack');
@@ -13,6 +15,13 @@ const plugins = [
   new HtmlWebpackPlugin({
     template: path.join(__dirname, '../public/index.html'),
     // publicPath: '/'
+  }),
+  new MiniCssExtractPlugin({
+    // Options similar to the same options in webpackOptions.output
+    // both options are optional
+    filename: '[name].[contenthash:8].css',
+    chunkFilename: '[name].[contenthash:8].css',
+    // publicPath: path.join(dist, 'assets/css'),
   }),
   // new webpack.DllPlugin({
   //   name: '[name]_[fullhash]',
@@ -44,7 +53,7 @@ module.exports = {
     publicPath: '/',
     path: dist,
     filename: '[name].[chunkhash:8].js',
-    chunkFilename: 'chunk~[name].[chunkhash:8].js',
+    chunkFilename: '[name].[chunkhash:8].js',
     // library: '[name]_[fullhash]',
   },
   optimization: {
@@ -99,6 +108,14 @@ module.exports = {
       '.js',
     ],
   },
+  externals: {
+    // swiper: 'Swiper',
+    react: 'React',
+    'react-dom': 'ReactDOM',
+    // 'react-redux': 'react-redux',
+    // 'react-router-dom': 'react-router-dom',
+    // redux: 'redux',
+  },
   module: {
     rules: [
       {
@@ -110,6 +127,24 @@ module.exports = {
         // loader: 'happypack/loader?id=js',
         // use: 'happypack/loader?id=js',
 
+      },
+      {
+        test: /\.(sa|sc|c)ss$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          process.env.NODE_ENV !== 'production'
+            ? 'style-loader'
+            : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: path.join(src, 'styles/_global.scss'),
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpg|gif)$/,
