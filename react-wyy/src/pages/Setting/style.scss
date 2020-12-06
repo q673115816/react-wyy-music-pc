@@ -1,12 +1,15 @@
 .domSetting {
   display: flex;
   flex-direction: column;
+  height: 100%;
+
   &_hr {
     margin-top: 30px;
     margin-bottom: 30px;
     background-color: #ccc;
     height: 1px;
   }
+
   &_header {
     flex: none;
     height: 114px;
@@ -15,6 +18,7 @@
 
   &_nav {
     margin-top: 30px;
+
     &_link {
       margin-right: 1em;
       @include nav_active();
@@ -27,31 +31,81 @@
     padding: 0 30px;
   }
 
-  &_row {
-    &title {
-      margin-bottom: 6px;
-    }
-    &_check {
-      display: block;
-      input {
-        display: none;
-        &:checked + i {
-          &:before {
-            content: '√';
-          }
-        }
+  &_select {
+    border: 1px solid #E0E0E0;
+    height: 24px;
+  }
+
+  &_check {
+    display: inline-block;
+
+    input {
+      display: none;
+
+      &:checked+i {
+        background-color: var(--basered);
+        color: #fff;
+        border-color:var(--basered);
       }
+    }
 
 
-      i {
-        margin-right: 10px;
-        display: inline-block;
-        background-color: #fff;
-        width: 16px;
-        height: 16px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        vertical-align: text-bottom;
+    i {
+      margin-right: 10px;
+      display: inline-block;
+      background-color: #fff;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      vertical-align: text-bottom;
+      text-align: center;
+      line-height: 14px;
+      color: transparent;
+    }
+  }
+
+  &_radio {
+    display: inline-block;
+    input {
+      display: none;
+      &:checked+i {
+        color: var(--basered);
+        border: none;
+      }
+    }
+
+    i {
+      margin-right: 10px;
+      display: inline-flex;
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      color: transparent;
+      vertical-align: text-bottom;
+      font-size: 18px;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  &_block {
+    &_title {
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+
+  &_subBlock {
+    margin-top: 24px;
+
+    &_title {
+      margin-bottom: 10px;
+    }
+    &_content {
+      .item {
+        margin-top: 6px;
       }
     }
   }

@@ -14,7 +14,7 @@ export const SET_HOME_DJ = 'SET_HOME_DJ';
 
 export const SET_COUNTRIES_CODE_LIST = 'SET_COUNTRIES_CODE_LIST';
 
-export const SET_VIDEO_GROUP_LIST = 'SET_VIDEO_GROUP_LIST';
+export const SET_PLAY_INIT = 'SET_PLAY_INIT';
 
 export const ADD_COUNT = 'ADD_COUNT';
 

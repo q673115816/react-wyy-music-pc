@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
 import {
   apiBanner,
+  apiRecommendResource,
   apiPersonalizedPrivatecontent,
   apiPersonalizedNewsong,
   apiPersonalizedMv,
@@ -17,11 +18,18 @@ import kankanimg from '@img/kankan.jpg';
 
 import DOMtingting from '@/components/AdLook';
 
+import RecommendPlaylist from './playlist';
+import RecommendPrivatecontent from './Privatecontent';
+import RecommendNewsong from './Newsong';
+import RecommendDjprogram from './Djprogram';
+import RecommendMv from './Mv';
+
 const kankan = 'https://look.163.com/hot?livetype=2';
 
 export default () => {
   const {
     banners,
+    playlist,
     privatecontent,
     newsong,
     mv,
@@ -33,11 +41,13 @@ export default () => {
     try {
       const [
         { banners },
+        { recommend: playlist },
         PersonalizedPrivatecontent,
         PersonalizedNewsong,
         PersonalizedMv,
         PersonalizedDjprogram] = await Promise.all([
         apiBanner(),
+        apiRecommendResource(),
         apiPersonalizedPrivatecontent(),
         apiPersonalizedNewsong({
           limit: 12,
@@ -47,6 +57,7 @@ export default () => {
       ]);
       dispatch(setHomeRecommend({
         banners,
+        playlist,
         privatecontent: PersonalizedPrivatecontent.result,
         newsong: PersonalizedNewsong.result,
         mv: PersonalizedMv.result,
@@ -74,139 +85,34 @@ export default () => {
           推荐歌单 &gt;
         </Link>
         <div>
-          {isLogin ? '已经登录' : <div>需要登录</div>}
+          {isLogin ? (
+            <RecommendPlaylist playlist={playlist} />
+          ) : <div>需要登录</div>}
         </div>
       </div>
       <div className="domHome_item">
         <Link className="domHome_linktitle" to="/privatecontent">
           独家放送 &gt;
         </Link>
-        <div className="domHome_recommend_privatecontent">
-          {
-            privatecontent.map((item) => (
-              <div className="item" key={item.id}>
-                <div className="cover">
-                  <Link to="/">
-                    <span className="ico">
-                      <i className="material-icons">play_arrow</i>
-                    </span>
-                    <Lazyload>
-                      <img className="containimg" src={item.sPicUrl} alt="" />
-                    </Lazyload>
-                  </Link>
-                </div>
-                <div className="name">
-                  <Link to="/">{item.name}</Link>
-                </div>
-              </div>
-            ))
-          }
-        </div>
+        <RecommendPrivatecontent privatecontent={privatecontent} />
       </div>
       <div className="domHome_item">
         <Link className="domHome_linktitle" to="/home/playlist">
           最新音乐 &gt;
         </Link>
-        <div className="domHome_recommend_newsong">
-          {
-            newsong.map((item) => (
-              <div key={item.id} className="item">
-                <button type="button" onClick={() => console.log(item.id)} className="cover">
-                  <span className="ico">
-                    <i className="material-icons">play_arrow</i>
-                  </span>
-                  <Lazyload overflow>
-                    <img className="containimg" src={`${item.picUrl}?param=100y100`} alt="" />
-                  </Lazyload>
-                </button>
-                <div className="content">
-                  <div className="name text-overflow">
-                    {item.name}
-                  </div>
-                  <div className="artist text-overflow">
-                    <span className="SQ">SQ</span>
-                    &nbsp;
-                    {
-                      item.song.artists.map((artist) => (
-                        <Link
-                          to={`/artist/${artist.id}`}
-                          className="gray"
-                          key={artist.id}
-                        >
-                          {artist.name}
-
-                        </Link>
-                      ))
-                    }
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-        </div>
+        <RecommendNewsong newsong={newsong} />
       </div>
       <div className="domHome_item">
         <Link className="domHome_linktitle" to="/home/playlist">
           推荐mv &gt;
         </Link>
-        <div className="domHome_recommend_mv">
-          {
-            mv.map((item) => (
-              <div className="item" key={item.id}>
-                <div className="cover">
-                  <Link to="/mv/:id">
-                    <div className="copywriter">{item.copywriter}</div>
-                    <div className="playCount">{item.playCount}</div>
-                    <Lazyload>
-                      <img className="containimg" src={item.picUrl} alt="" />
-                    </Lazyload>
-                  </Link>
-                </div>
-                <div className="name text-overflow">
-                  <Link className="" to="/mv/:id">
-                    {item.name}
-                  </Link>
-                </div>
-                <div className="artist text-overflow">
-                  {
-                    item.artists.map((artist) => <Link to="/artist/:id" key={artist.id}>{artist.name}</Link>)
-                  }
-                </div>
-              </div>
-            ))
-          }
-        </div>
+        <RecommendMv mv={mv} />
       </div>
       <div className="domHome_item">
         <Link className="domHome_linktitle" to="/home/playlist">
           主播电台 &gt;
         </Link>
-        <div className="domHome_recommend_djprogram ui_grid_square">
-          {
-            djprogram.slice(0, 5).map((item) => (
-              <div className="item" key={item.id}>
-                <div className="cover">
-                  <div className="inner">
-                    <Link to="/dj">
-                      <Lazyload>
-                        <img className="containimg" src={`${item.program.coverUrl}?param=200y200`} alt="" />
-                      </Lazyload>
-                      <div className="mask" />
-                      <div className="lb">
-                        <div className="name text-overflow">{item.name}</div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="name">
-                  <Link to="/">
-                    {item.name}
-                  </Link>
-                </div>
-              </div>
-            ))
-          }
-        </div>
+        <RecommendDjprogram djprogram={djprogram} />
       </div>
       <div className="domHome_item">
         <Link className="domHome_linktitle" to={kankan}>

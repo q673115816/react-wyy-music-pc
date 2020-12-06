@@ -25,13 +25,16 @@ export const apiDjRadioHot = (params) => post('/dj/radio/hot', params);
 // 歌单
 // 歌单 - 详情
 export const apiPlaylistDetail = (params) => post('/playlist/detail', params);
+// 推荐歌单 > 登录
+export const apiRecommendResource = () => post('/recommend/resource');
+// 推荐歌曲 > 登录
+export const apiRecommendSongs = () => post('/recommend/songs');
 // user
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');
 export const apiUserAccount = () => post('/user/account');
 export const apiUserDetail = (uid) => get(`/user/detail?uid=${uid}`);
 export const apiUserPlaylist = (uid) => get(`/user/playlist?uid=${uid}`);
-export const apiVideoGroupList = () => get('/video/group/list');
 // 播放记录
 export const apiUserRecord = (params) => post('/user/record', params);
 
@@ -50,3 +53,7 @@ export const apiAlbumNew = (params) => post('/album/new', params);
 export const apiPlaylistCatlist = () => get('/playlist/catlist');
 
 export const apiTopPlaylist = (params) => post('/top/playlist', params);
+// 视频 - 获取视频标签列表
+export const apiVideoGroupList = () => get('/video/group/list');
+export const apiVideoCategoryList = () => post('/video/category/list');
+export const apiVideoTimelineRecommend = () => post('/video/timeline/recommend');

@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 // import play from './play';
 // import home from './home';
 // import toplistartist from './toplistartist';
-// import playlistdetail from './playlistdetail';
+// import playlistdetail from './playlist';
 
 const requireContext = require.context('./reducers', true, /^\.\/.*\/index\.js$/);
 const modules = {};

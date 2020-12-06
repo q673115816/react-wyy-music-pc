@@ -91,7 +91,7 @@
     &_mv {
       display: grid;
       column-gap: 20px;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, calc((100% - 40px) /3));
 
       .item:last-child {
         display: none;
@@ -200,6 +200,7 @@
         position: relative;
         border-radius: 10px;
         overflow: hidden;
+
         &::before {
           content: '';
           display: block;
@@ -213,9 +214,11 @@
           right: 0;
           bottom: 0;
         }
+
         img {
           transition: ease 0.2s;
         }
+
         &:hover {
           img {
             transform: scale(1.1);

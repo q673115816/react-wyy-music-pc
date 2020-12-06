@@ -9,6 +9,7 @@ import { setCookie } from '@/common/request';
 
 export default ({ mousedown }) => {
   const { goBack, goForward } = useHistory();
+
   const dispatch = useDispatch();
   const { isLogin, profile } = useSelector(({ common, account }) => ({ ...common, ...account }));
   const handleShowLogin = () => {

@@ -1,18 +1,20 @@
 @mixin nav_active {
   position: relative;
-
+  font-size: 16px;
   &::after {
     opacity: 0;
     content: '';
     position: absolute;
-    bottom: -0.3em;
-    left: 0.3em;
-    right: 0.3em;
-    height: 0.1em;
+    bottom: -0.4em;
+    left: 0.4em;
+    right: 0.4em;
+    height: 0.15em;
     background-color: var(--basered);
   }
 
   &.on {
+    font-size: 20px;
+    font-weight: bold;
     &::after {
       opacity: 1;
     }

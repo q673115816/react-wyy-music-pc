@@ -1,10 +1,12 @@
 import {} from 'react-redux';
-import { ADD_COUNT, SET_VIDEO_GROUP_LIST } from '@/redux/actionTypes';
+import { ADD_COUNT, SET_PLAY_INIT } from '@/redux/actionTypes';
 
 const initialState = {
   count: 0,
   curr_check: '全部视频',
-  group_list: [],
+  VideoGroupList: [],
+  VideoCategoryList: [],
+  VideoTimelineRecommend: [],
 };
 
 export default (state = initialState, action) => {
@@ -14,10 +16,10 @@ export default (state = initialState, action) => {
         ...state,
         count: state.count + 1,
       };
-    case SET_VIDEO_GROUP_LIST:
+    case SET_PLAY_INIT:
       return {
         ...state,
-        group_list: action.payload.list,
+        ...action.payload,
       };
     default:
       return state;

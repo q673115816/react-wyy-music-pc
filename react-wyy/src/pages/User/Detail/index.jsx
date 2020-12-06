@@ -122,7 +122,7 @@ export default () => {
                     <RainbowCat />
                   </div>
                   <div className="rb">
-                    <span className="ico">
+                    <span className="playArrow">
                       <i className="material-icons">play_arrow</i>
                     </span>
                   </div>
@@ -140,7 +140,7 @@ export default () => {
                       <img src={`${item.coverImgUrl}?param=200y200`} className="containimg" alt="" />
                     </div>
                     <div className="rb">
-                      <span className="ico">
+                      <span className="playArrow">
                         <i className="material-icons">play_arrow</i>
                       </span>
                     </div>

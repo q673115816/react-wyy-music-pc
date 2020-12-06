@@ -7,7 +7,7 @@ import LazyloadImg from '@/components/LazyloadImg';
 import { apiTopPlaylist, apiPlaylistCatlist } from '@/api';
 import { setTopPlaylist, setPlaylistCatlist } from '@/redux/actions';
 import CommonPage from '@/components/Page';
-import { transplayCount } from '@/common/utils';
+import { transPlayCount } from '@/common/utils';
 
 export default () => {
   const [order, setOrder] = useState('');
@@ -83,13 +83,13 @@ export default () => {
             <div className="item" key={item.id}>
               <div className="cover">
                 <div className="inner">
-                  <Link to={`/playlistdetail/${item.id}`}>
+                  <Link to={`/playlist/${item.id}`}>
                     <LazyloadImg overflow>
                       <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
                     </LazyloadImg>
                   </Link>
                   <div className="rt">
-                    <div className="playCount">{transplayCount(item.playCount)}</div>
+                    <div className="playCount">{transPlayCount(item.playCount)}</div>
                   </div>
                   <div className="lb">
                     <Link to={`/user/${item.userId}/detail`}>
@@ -98,9 +98,14 @@ export default () => {
                       </div>
                     </Link>
                   </div>
+                  <div className="rb">
+                    <span className="playArrow">
+                      <i className="material-icons">play_arrow</i>
+                    </span>
+                  </div>
                 </div>
               </div>
-              <Link className="name" to={`/playlistdetail/${item.id}`}>{item.name}</Link>
+              <Link className="name" to={`/playlist/${item.id}`}>{item.name}</Link>
             </div>
           ))
         }

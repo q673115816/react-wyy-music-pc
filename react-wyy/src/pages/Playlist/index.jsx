@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 import { apiPlaylistDetail } from '@/api';
 import { setPlaylistDetail } from '@/redux/actions';
 import './style.scss';
@@ -11,7 +12,7 @@ export default () => {
   const {
     playlist,
     privileges,
-  } = useSelector(({ playlistdetail }) => playlistdetail);
+  } = useSelector(({ playlist }) => playlist);
   const dispatch = useDispatch();
   const handleGet = async () => {
     try {
@@ -55,6 +56,11 @@ export default () => {
                 <img className="containimg" src={`${playlist.creator.avatarUrl}?params=50y50`} alt="" />
               </Link>
               <Link to="/" className="nickname gray">{playlist.creator.nickname}</Link>
+              &nbsp;
+              <span className="gray">
+                {dayjs(playlist.createTime).format('YYYY-MM-DD')}
+                创建
+              </span>
             </div>
             <div className="actions">
               <button type="button" className="btn play">
@@ -88,7 +94,7 @@ export default () => {
             </div>
             <div className="tags">
               <span>标签</span>
-              {playlist.creator.expertTags.map((tag) => (
+              {playlist.tags.map((tag) => (
                 <Link to="/" className="tag gray">{tag}</Link>
               ))}
             </div>

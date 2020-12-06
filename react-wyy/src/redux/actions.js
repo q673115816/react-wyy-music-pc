@@ -8,7 +8,7 @@ import {
   SET_HOME_DJ,
   ADD_COUNT,
   SET_COUNTRIES_CODE_LIST,
-  SET_VIDEO_GROUP_LIST,
+  SET_PLAY_INIT,
   DIALOG_LOGIN_VISIBILTY,
   INIT_HOME_TOP_ARTISTS,
   ADD_HOME_TOP_ARTISTS,
@@ -76,11 +76,9 @@ export const setContriesCodeList = (data) => ({
   },
 });
 
-export const setVideoGroupList = (list) => ({
-  type: SET_VIDEO_GROUP_LIST,
-  payload: {
-    list,
-  },
+export const setVideoGroupList = (data) => ({
+  type: SET_PLAY_INIT,
+  payload: data,
 });
 
 export const dialogLoginVisibilty = () => ({

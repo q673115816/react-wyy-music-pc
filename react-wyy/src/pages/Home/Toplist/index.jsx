@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './style.scss';
 import { apiToplistDetail } from '@/api';
 import { setTopListsDetail } from '@/redux/actions';
-import { transplayCount } from '@/common/utils';
+import { transPlayCount } from '@/common/utils';
 
 export default () => {
   const { list = [] } = useSelector(({ home }) => home.toplist);
@@ -66,7 +66,7 @@ export default () => {
           <div className="item" key={item.id}>
             <Link to="/" className="card">
               <span className="playCount">
-                {transplayCount(item.playCount)}
+                {transPlayCount(item.playCount)}
               </span>
               <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
             </Link>

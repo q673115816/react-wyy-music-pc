@@ -2,6 +2,7 @@ import { SET_HOME_RECOMMEND } from '@/redux/actionTypes';
 
 const initialState = {
   banners: [],
+  playlist: [],
   privatecontent: [],
   newsong: [],
   mv: [],

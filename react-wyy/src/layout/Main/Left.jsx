@@ -11,7 +11,7 @@ export default () => {
           <NavLink className="dommain_left_link" activeClassName="on" to="/home">发现音乐</NavLink>
         </li>
         <li>
-          <NavLink className="dommain_left_link" activeClassName="on" to="/play">视频</NavLink>
+          <NavLink className="dommain_left_link" activeClassName="on" to="/video">视频</NavLink>
         </li>
         <li>
           <NavLink className="dommain_left_link" activeClassName="on" to="/friend">朋友</NavLink>

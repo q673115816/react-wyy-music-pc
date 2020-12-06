@@ -20,27 +20,4 @@
             font-size: 22px;
         }
     }
-
-    &_list {
-      .ico {
-        transition: ease 0.4s;
-        opacity: 0;
-        margin: 10px;
-        width: 40px;
-        height: 40px;
-        display: block;
-        font-size: 24px;
-        background-color: #fff;
-        border-radius: 50%;
-        @include center();
-        color: var(--basered);
-      }
-      .item {
-        .cover:hover {
-          .ico {
-            opacity: 1;
-          }
-        }
-      }
-    }
 }
