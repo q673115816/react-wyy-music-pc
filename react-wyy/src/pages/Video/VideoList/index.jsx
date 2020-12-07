@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useRef, useState, useMemo,
+} from 'react';
 import {
   useParams, NavLink, Link, useRouteMatch,
 } from 'react-router-dom';
@@ -6,19 +8,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import { transPlayCount } from '@/common/utils';
 import { apiVideoTimelineRecommend, apiVideoGroupList, apiVideoCategoryList } from '@/api';
-import { setVideoGroupList } from '@/redux/actions';
+import { setVideoGroupList, addVideoGroupList } from '@/redux/actions';
 import './style.scss';
 
 export default () => {
   const { id } = useParams();
-  const { url } = useRouteMatch();
-  console.log(url);
+  console.log(id);
   const [group_list_show, setGroup_list_show] = useState(false);
   const {
     VideoGroupList, curr_check, VideoCategoryList, VideoTimelineRecommend,
-  } = useSelector(({ play }) => play);
+  } = useSelector(({ video }) => video);
   const dispatch = useDispatch();
-
+  const scrolldom = useRef();
   const handleInit = async () => {
     try {
       const [
@@ -35,16 +36,38 @@ export default () => {
         VideoGroupList: VideoGroupList.data,
         VideoCategoryList: VideoCategoryList.data,
       }));
+      scrollBybottom(scrolldom.current);
     } catch (e) {
       console.log(e);
     }
   };
+
+  const handleAddVideoTimelineRecommend = async () => {
+    try {
+      const { datas } = await apiVideoTimelineRecommend();
+      dispatch(addVideoGroupList(datas));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleScroll = ({ target }) => {
+    scrollBybottom(target);
+  };
+
+  const scrollBybottom = (dom) => {
+    if (dom.scrollTop + dom.clientHeight + 300 > dom.scrollHeight) {
+      handleAddVideoTimelineRecommend();
+      console.log('add next page');
+    }
+  };
+
   useEffect(() => {
     handleInit();
   }, []);
 
   return (
-    <>
+    <div className="inner overflow-auto" ref={scrolldom} onScroll={handleScroll}>
       <div className="video_sort_filter_bar">
         <div className="group_select_wrap">
           <button
@@ -63,7 +86,7 @@ export default () => {
               <NavLink
                 className="group_select_check"
                 activeClassName="on"
-                to="/play/videolist/all"
+                to="/play/videolist"
               >
                 全部视频
               </NavLink>
@@ -100,23 +123,23 @@ export default () => {
         {VideoTimelineRecommend.map(({ data }) => (
           <div className="item" key={data.id}>
             <div className="cover">
-              <Link to="/">
+              <Link to={`/video/${data.vid}`}>
                 <img className="coverimg" src={data.coverUrl} alt="" />
                 <div className="playTime">{transPlayCount(data.playTime)}</div>
                 <div className="durationms">{dayjs(data.durationms).format('mm:ss')}</div>
               </Link>
             </div>
             <div className="title">
-              <Link to="/" className="text-overflow">{data.title}</Link>
+              <Link to={`/video/${data.vid}`} className="text-overflow">{data.title}</Link>
             </div>
             <div className="creator gray">
-              <Link to="/">
+              <Link to={`/user/${data.creator.userId}`}>
                 {data.creator.nickname}
               </Link>
             </div>
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };

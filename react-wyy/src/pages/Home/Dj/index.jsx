@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Lazyload from 'react-lazyload';
 import './style.scss';
-import DOMtingting from '@/components/AdLook';
+import DOMtingting from '@/components/AdLookSquare';
 
 import DomSwiper from '@/components/DomSwiper';
 
@@ -122,7 +122,7 @@ export default () => {
       </div>
       <div className="domHome_item">
         <Link className="domHome_linktitle" to="/">听听 &gt;</Link>
-        <div className="domHome_dj_tingting ui_grid_square">
+        <div className="domHome_dj_tingting ui_grid square">
           {
             Object.keys(Array(5).fill(0))
               .map((item) => <DOMtingting key={item} />)
@@ -131,7 +131,7 @@ export default () => {
       </div>
       <div className="domHome_item">
         <div className="domHome_linktitle">电台个性推荐</div>
-        <div className="domHome_dj_tingting ui_grid_square row_1">
+        <div className="domHome_dj_tingting ui_grid square row_1">
           {
             DjPersonalizeRecommend
               .map((item) => (
@@ -148,7 +148,7 @@ export default () => {
 
               &gt;
             </Link>
-            <div className="domHome_dj_tingting ui_grid_square row_1">
+            <div className="domHome_dj_tingting ui_grid square row_1">
               {
                 subitem[1]
                   .map((item) => (

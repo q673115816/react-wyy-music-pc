@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { transPlayCount } from '@/common/utils';
 
 export default ({ playlist = [] }) => (
-  <div className="domHome_recommend_playlist ui_grid_square col_5">
+  <div className="domHome_recommend_playlist ui_grid square col_5">
     <div className="item">
       <div className="cover">
         <div className="inner">

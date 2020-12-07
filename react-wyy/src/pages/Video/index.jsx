@@ -15,27 +15,25 @@ export default () => {
         <NavLink
           className="domplay_link"
           activeClassName="on"
-          to={`${url}/videolist/all`}
+          to={`${url}/videolist`}
         >
           视频
         </NavLink>
         <NavLink
           className="domplay_link"
           activeClassName="on"
-          to={`${url}/mvlist/all`}
+          to={`${url}/mvlist`}
         >
           mv
         </NavLink>
       </div>
-      <div className="domplay_content overflow-auto">
+      <div className="domplay_content">
         <Switch>
-          <Route path={`${url}/videolist/:id`}>
-            <VideoList />
-          </Route>
-          <Route path={`${url}/mvlist/:id`}>
-            <MvList />
-          </Route>
-          <Redirect from={`${url}`} to={`${url}/videolist`} />
+          <Route path={`${url}/videolist/:id`} component={VideoList} />
+          <Route path={`${url}/videolist`} component={VideoList} />
+          <Route path={`${url}/mvlist/:id`} component={MvList} />
+          <Route path={`${url}/mvlist`} component={MvList} />
+          <Redirect to={`${url}/videolist`} />
         </Switch>
       </div>
     </div>

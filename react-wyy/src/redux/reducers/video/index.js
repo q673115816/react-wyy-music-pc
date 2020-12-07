@@ -1,5 +1,5 @@
 import {} from 'react-redux';
-import { ADD_COUNT, SET_PLAY_INIT } from '@/redux/actionTypes';
+import { ADD_COUNT, SET_VIDEO_INIT, ADD_VIDEO_GROUP_LIST } from '@/redux/actionTypes';
 
 const initialState = {
   count: 0,
@@ -16,10 +16,15 @@ export default (state = initialState, action) => {
         ...state,
         count: state.count + 1,
       };
-    case SET_PLAY_INIT:
+    case SET_VIDEO_INIT:
       return {
         ...state,
         ...action.payload,
+      };
+    case ADD_VIDEO_GROUP_LIST:
+      return {
+        ...state,
+        VideoTimelineRecommend: [...state.VideoTimelineRecommend, ...action.payload],
       };
     default:
       return state;

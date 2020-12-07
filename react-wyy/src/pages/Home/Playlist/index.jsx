@@ -77,7 +77,7 @@ export default () => {
           </div>
         </div>
       </div>
-      <div className="domHome_playlist_list ui_grid_square col_4">
+      <div className="domHome_playlist_list ui_grid square col_4">
         {
           playlists.map((item) => (
             <div className="item" key={item.id}>

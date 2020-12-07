@@ -57,6 +57,7 @@ body {
 
 button {
   all: unset;
+  box-sizing: inherit;
 }
 
 // input:-webkit-autofill,
@@ -73,7 +74,7 @@ button {
   color: gray;
 }
 
-.ui_btn {
+.ui_btn_small {
   display: inline-block;
   padding: 0 12px;
   height: 24px;
@@ -82,6 +83,20 @@ button {
   text-align: center;
   color: #fff;
   background-color: var(--basered);
+}
+
+.ui_btn {
+  min-width: 80px;
+  padding: 0 12px;
+  height: 32px;
+  border-radius: 16px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid #999;
+  &.red {
+    border-color: var(--basered);
+    background-color: var(--basered);
+  }
 }
 
 .SQ {
@@ -93,7 +108,8 @@ button {
 }
 
 .h1 {
-  font-size: 22px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .commonpage {
@@ -155,15 +171,15 @@ button {
   }
 }
 
-@import './square';
-
-.lt_tag {
-  display: block;
-  padding: 4px;
-  color: #fff;
-  background-color: #FF2C55;
-  border-bottom-right-radius: 6px;
+.center {
+  @include center();
 }
+
+.insetCenter {
+  @include insetCenter();
+}
+
+@import './grid';
 
 .ui_swiper {
   --swiper-pagination-color: var(--basered);

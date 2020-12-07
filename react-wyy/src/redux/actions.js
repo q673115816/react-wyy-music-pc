@@ -8,7 +8,8 @@ import {
   SET_HOME_DJ,
   ADD_COUNT,
   SET_COUNTRIES_CODE_LIST,
-  SET_PLAY_INIT,
+  SET_VIDEO_INIT,
+  ADD_VIDEO_GROUP_LIST,
   DIALOG_LOGIN_VISIBILTY,
   INIT_HOME_TOP_ARTISTS,
   ADD_HOME_TOP_ARTISTS,
@@ -20,6 +21,7 @@ import {
   SET_TOP_PLAYLIST,
   SET_PLAYLIST_DETAIL,
   SET_LOGIN_INFO,
+  SET_FRIEND_INIT,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -77,7 +79,12 @@ export const setContriesCodeList = (data) => ({
 });
 
 export const setVideoGroupList = (data) => ({
-  type: SET_PLAY_INIT,
+  type: SET_VIDEO_INIT,
+  payload: data,
+});
+
+export const addVideoGroupList = (data) => ({
+  type: ADD_VIDEO_GROUP_LIST,
   payload: data,
 });
 
@@ -134,5 +141,10 @@ export const setTopPlaylist = (data) => ({
 
 export const setPlaylistDetail = (data) => ({
   type: SET_PLAYLIST_DETAIL,
+  payload: data,
+});
+
+export const setFriendInit = (data) => ({
+  type: SET_FRIEND_INIT,
   payload: data,
 });

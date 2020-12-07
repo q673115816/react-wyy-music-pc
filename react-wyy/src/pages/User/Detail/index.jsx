@@ -114,7 +114,7 @@ export default () => {
               </button>
             </div>
           </div>
-          <div className="domUser_list ui_grid_square col_4">
+          <div className="domUser_list ui_grid square col_4">
             <div className="item">
               <Link to={`${url}/record`}>
                 <div className="cover">

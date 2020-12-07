@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Lazyload from 'react-lazyload';
 
 export default ({ djprogram = [] }) => (
-  <div className="domHome_recommend_djprogram ui_grid_square">
+  <div className="domHome_recommend_djprogram ui_grid square">
     {
       djprogram.slice(0, 5).map((item) => (
         <div className="item" key={item.id}>

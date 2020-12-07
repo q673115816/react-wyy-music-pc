@@ -1,5 +1,6 @@
-.ui_grid_square {
+.ui_grid {
   --arrowsize: 20px;
+  --cover: 100%;
   display: grid;
   column-gap: 20px;
   row-gap: 20px;
@@ -17,7 +18,9 @@
     --arrowsize: 25px;
     grid-template-columns: repeat(4, 1fr);
   }
-
+  &.rectangle_height {
+    --cover: 133.3333333%;
+  }
   .item {
 
     .cover {
@@ -25,6 +28,14 @@
       overflow: hidden;
       border-radius: 6px;
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+
+      .tag {
+        display: block;
+        padding: 4px;
+        color: #fff;
+        background-color: #FF2C55;
+        border-bottom-right-radius: 6px;
+      }
 
       .whitetext {
         display: block;
@@ -36,7 +47,7 @@
       &::before {
         content: '';
         display: block;
-        padding-top: 100%;
+        padding-top: var(--cover);
       }
 
       .inner {
@@ -103,3 +114,4 @@
     }
   }
 }
+

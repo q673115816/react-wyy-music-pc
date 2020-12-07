@@ -17,7 +17,7 @@ export default () => {
           <NavLink className="dommain_left_link" activeClassName="on" to="/friend">朋友</NavLink>
         </li>
         <li>
-          <NavLink className="dommain_left_link" activeClassName="on" to="/live">直播</NavLink>
+          <NavLink className="dommain_left_link" activeClassName="on" to="/look">直播</NavLink>
         </li>
         <li>
           <NavLink className="dommain_left_link" activeClassName="on" to="/fm">私人FM</NavLink>

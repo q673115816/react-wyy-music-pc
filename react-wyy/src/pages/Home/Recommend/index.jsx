@@ -11,20 +11,16 @@ import {
   apiPersonalizedDjprogram,
 } from '@/api';
 import { setHomeRecommend } from '@/redux/actions';
-import Lazyload from 'react-lazyload';
 import DomSwiper from '@/components/DomSwiper';
 
-import kankanimg from '@img/kankan.jpg';
-
-import DOMtingting from '@/components/AdLook';
+import DOMtingting from '@/components/AdLookSquare';
+import DOMkankan from '@/components/AdLookRectangle';
 
 import RecommendPlaylist from './playlist';
 import RecommendPrivatecontent from './Privatecontent';
 import RecommendNewsong from './Newsong';
 import RecommendDjprogram from './Djprogram';
 import RecommendMv from './Mv';
-
-const kankan = 'https://look.163.com/hot?livetype=2';
 
 export default () => {
   const {
@@ -115,38 +111,25 @@ export default () => {
         <RecommendDjprogram djprogram={djprogram} />
       </div>
       <div className="domHome_item">
-        <Link className="domHome_linktitle" to={kankan}>
+        <Link className="domHome_linktitle" to="https://look.163.com/hot?livetype=1">
           听听 &gt;
         </Link>
-        <div className="domHome_recommend_tingting ui_grid_square">
+        <div className="domHome_recommend_tingting ui_grid square">
           {
             Object.keys(Array(5).fill(0))
-              .map((item) => <DOMtingting key={item} />)
+              .map((item) => <DOMtingting key={item} tag />)
           }
         </div>
       </div>
       <div className="domHome_item">
-        <Link className="domHome_linktitle" to={kankan}>
+        <Link className="domHome_linktitle" to="https://look.163.com/hot?livetype=2">
           看看 &gt;
         </Link>
-        <div className="domHome_recommend_kankan">
+        <div className="domHome_recommend_kankan ui_grid rectangle_height col_4">
           {
             Object.keys(Array(4).fill(0))
               .map((item) => (
-                <div className="item" key={item}>
-                  <div className="cover">
-                    <Link to={kankan}>
-                      <Lazyload>
-                        <img className="containimg" src={kankanimg} alt="" />
-                      </Lazyload>
-                      <span className="playCount">playCount</span>
-                      <span className="artist">artist</span>
-                    </Link>
-                  </div>
-                  <div className="artist text-overflow gary">
-                    <Link to={kankan}>name</Link>
-                  </div>
-                </div>
+                <DOMkankan key={item} />
               ))
           }
         </div>

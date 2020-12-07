@@ -1,6 +1,5 @@
 @mixin nav_active {
   position: relative;
-  font-size: 16px;
   &::after {
     opacity: 0;
     content: '';
@@ -13,7 +12,6 @@
   }
 
   &.on {
-    font-size: 20px;
     font-weight: bold;
     &::after {
       opacity: 1;

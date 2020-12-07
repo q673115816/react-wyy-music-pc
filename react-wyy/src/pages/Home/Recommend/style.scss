@@ -190,59 +190,7 @@
     }
 
     &_kankan {
-      display: grid;
-      column-gap: 20px;
-      grid-template-columns: repeat(4, 1fr);
 
-      .item {}
-
-      .cover {
-        position: relative;
-        border-radius: 10px;
-        overflow: hidden;
-
-        &::before {
-          content: '';
-          display: block;
-          padding-top: 133.3333333%;
-        }
-
-        >a {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-        }
-
-        img {
-          transition: ease 0.2s;
-        }
-
-        &:hover {
-          img {
-            transform: scale(1.1);
-          }
-        }
-      }
-
-      .playCount {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        color: #fff;
-      }
-
-      .artist {
-        position: absolute;
-        bottom: 10px;
-        left: 10px;
-        color: #fff;
-      }
-
-      .name {
-        margin-top: 0.4em;
-      }
     }
 
     &_diy {
