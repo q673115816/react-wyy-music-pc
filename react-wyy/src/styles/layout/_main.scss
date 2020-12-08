@@ -56,12 +56,13 @@
 .dommain_split {
   flex: none;
   width: 2px;
-  background-color: #999;
+  background-color: #ccc;
   cursor: w-resize;
 }
 
 .dommain_right {
   --rightwidth: 820px;
+  position: relative;
   flex: 1;
   width: var(--rightwidth);
   // display: flex;

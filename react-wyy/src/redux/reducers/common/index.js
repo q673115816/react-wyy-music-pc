@@ -7,7 +7,7 @@ const initialState = {
   playlist: [],
   apiCountriesCodeList: [],
   dialog_login_visibility: false,
-  isLogin: false,
+  isLogin: window.localStorage.getItem('cookie') !== null,
 };
 
 export default (state = initialState, action) => {

@@ -99,6 +99,13 @@ button {
   }
 }
 
+.ui_link {
+  color: #507DAF;
+  &:hover {
+    color: #5E58C1;
+  }
+}
+
 .SQ {
   display: inline-block;
   border: 1px solid;

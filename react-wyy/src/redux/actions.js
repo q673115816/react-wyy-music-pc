@@ -22,6 +22,8 @@ import {
   SET_PLAYLIST_DETAIL,
   SET_LOGIN_INFO,
   SET_FRIEND_INIT,
+  SET_FRIEND_EVENT,
+  SET_COMMENT_EVENT,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -39,9 +41,9 @@ export const setLoginInfo = (profile) => ({
   },
 });
 
-export const setUserDetail = (detail) => ({
+export const setUserDetail = (payload) => ({
   type: SET_USER_DETAIL,
-  payload: detail,
+  payload,
 });
 
 export const setUserRecord = (record) => ({
@@ -56,14 +58,14 @@ export const addSongUrl = (songs) => ({
   payload: { songs },
 });
 
-export const setHomeRecommend = (data) => ({
+export const setHomeRecommend = (payload) => ({
   type: SET_HOME_RECOMMEND,
-  payload: data,
+  payload,
 });
 
-export const setHomeDj = (data) => ({
+export const setHomeDj = (payload) => ({
   type: SET_HOME_DJ,
-  payload: data,
+  payload,
 });
 
 export const addplay = () => ({
@@ -124,27 +126,37 @@ export const setTopSong = (data) => ({
   },
 });
 
-export const setTopAlbum = (data) => ({
+export const setTopAlbum = (payload) => ({
   type: SET_TOP_ALBUM,
-  payload: data,
+  payload,
 });
 
-export const setPlaylistCatlist = (catlist) => ({
+export const setPlaylistCatlist = (payload) => ({
   type: SET_PLAYLIST_CATLIST,
-  payload: catlist,
+  payload,
 });
 
-export const setTopPlaylist = (data) => ({
+export const setTopPlaylist = (payload) => ({
   type: SET_TOP_PLAYLIST,
-  payload: data,
+  payload,
 });
 
-export const setPlaylistDetail = (data) => ({
+export const setPlaylistDetail = (payload) => ({
   type: SET_PLAYLIST_DETAIL,
-  payload: data,
+  payload,
 });
 
-export const setFriendInit = (data) => ({
+export const setFriendInit = (payload) => ({
   type: SET_FRIEND_INIT,
-  payload: data,
+  payload,
+});
+
+export const setFriendEvent = (payload) => ({
+  type: SET_FRIEND_EVENT,
+  payload,
+});
+
+export const setCommentEvent = (payload) => ({
+  type: SET_COMMENT_EVENT,
+  payload,
 });

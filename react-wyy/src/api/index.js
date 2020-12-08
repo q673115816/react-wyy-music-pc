@@ -61,3 +61,6 @@ export const apiVideoTimelineRecommend = () => post('/video/timeline/recommend')
 // 朋友
 // 朋友 - 热门话题
 export const apiHotTopic = (params) => post('/hot/topic', params);
+// 朋友 - 动态消息
+export const apiEvent = (params) => post('/event', params);
+export const apiCommentEvent = (params) => post('/comment/event', params);

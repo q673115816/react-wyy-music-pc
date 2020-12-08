@@ -31,7 +31,6 @@ export default ({ mousedown }) => {
     try {
       const { profile } = await apiUserAccount();
       dispatch(setLoginInfo(profile));
-      dispatch(setIsLogin());
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +61,7 @@ export default ({ mousedown }) => {
         <i className="material-icons">mic</i>
       </Link>
       <div className="domheader_user">
-        {isLogin
+        {isLogin && profile
           ? (
             <div className="domheader_user_profile">
               <Link to={`/user/${profile.userId}`} className="avator">
