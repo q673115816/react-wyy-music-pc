@@ -1,15 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setPopup } from '@/redux/actions';
 
 export default () => {
-  const { currentSong, playlist } = useSelector(({ common }) => common);
+  const dispatch = useDispatch();
+  const { currentSong, playlist, popupStatus } = useSelector(({ common }) => common);
   const [isPlay, setIsPlay] = useState(false);
   const [currentProcess, setCurrentProcess] = useState(60);
   const audio = useRef();
   const handleToggle = () => {
     setIsPlay(!isPlay);
   };
+
+  const handlesetPopup = () => {
+    if (popupStatus === 'playlist') {
+      dispatch(setPopup({ popupStatus: '' }));
+    } else {
+      dispatch(setPopup({ popupStatus: 'playlist' }));
+    }
+  };
+
   useEffect(() => {
     if (isPlay) {
       audio.current.pause();
@@ -85,7 +96,7 @@ export default () => {
           <i className="material-icons">volume_mute</i>
         </button>
         <span title="音量调节" className="volume_value" />
-        <button type="button">
+        <button type="button" onClick={handlesetPopup}>
           <i className="material-icons">list</i>
         </button>
       </div>

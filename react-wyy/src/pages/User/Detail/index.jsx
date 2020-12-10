@@ -40,7 +40,7 @@ export default () => {
 
   useEffect(() => {
     handleGetUserInfo();
-  }, []);
+  }, [uid]);
   if (!isLogin) {
     return (
       <div>查看个人信息请先登录</div>
@@ -129,7 +129,7 @@ export default () => {
                 </div>
               </Link>
               <div className="footer">
-                <Link to="/" className="name">我的听歌排行</Link>
+                <Link to="/" className="name">{isSelf ? '我的听歌排行' : '听歌排行'}</Link>
               </div>
             </div>
             {ownPlaylist.map((item) => (

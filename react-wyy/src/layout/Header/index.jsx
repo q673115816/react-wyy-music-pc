@@ -3,15 +3,19 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   dialogLoginVisibilty, setContriesCodeList, setLoginInfo, setIsLogin,
+  setMsgPrivate,
+  setPopup,
 } from '@/redux/actions';
-import { apiCountriesCodeList, apiUserAccount } from '@/api';
+import { apiCountriesCodeList, apiUserAccount, apiMsgPrivate } from '@/api';
 import { setCookie } from '@/common/request';
 
 export default ({ mousedown }) => {
   const { goBack, goForward } = useHistory();
 
   const dispatch = useDispatch();
-  const { isLogin, profile } = useSelector(({ common, account }) => ({ ...common, ...account }));
+  const {
+    isLogin, profile, popupStatus, newMsgCount,
+  } = useSelector(({ common, account }) => ({ ...common, ...account }));
   const handleShowLogin = () => {
     dispatch(dialogLoginVisibilty());
   };
@@ -36,9 +40,28 @@ export default ({ mousedown }) => {
     }
   };
 
+  const handleGetPrivateLetter = async () => {
+    if (!isLogin) return;
+    try {
+      const { msgs, newMsgCount } = await apiMsgPrivate();
+      dispatch(setMsgPrivate({ playlist: msgs, newMsgCount }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlesetPopup = () => {
+    if (popupStatus === 'privateLetter') {
+      dispatch(setPopup({ popupStatus: '' }));
+    } else {
+      dispatch(setPopup({ popupStatus: 'privateLetter' }));
+    }
+  };
+
   useEffect(() => {
     handleGetCountriesCodeList();
     handleCookieInit();
+    handleGetPrivateLetter();
   }, []);
 
   return (
@@ -94,9 +117,15 @@ export default ({ mousedown }) => {
         <span className="_handle domheader_ico" title="换肤">
           <i className="material-icons">palette</i>
         </span>
-        <span className="_handle domheader_ico" title="私信">
+        <button
+          type="button"
+          className="_handle domheader_ico"
+          onClick={handlesetPopup}
+          title="私信"
+        >
           <i className="material-icons">mail_outline</i>
-        </span>
+          <span className="rt_ico">{newMsgCount}</span>
+        </button>
       </div>
       <span className="domheader_spilt" />
       <div className="domheader_control">

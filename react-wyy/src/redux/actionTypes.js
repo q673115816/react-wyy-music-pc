@@ -7,6 +7,7 @@ export const ADD_SONG_URL = 'ADD_SONG_URL';
 // user
 export const SET_USER_DETAIL = 'SET_USER_DETAIL';
 export const SET_USER_RECORD = 'SET_USER_RECORD';
+export const SET_MSG_PRIVATE = 'SET_MSG_PRIVATE';
 // home - recommend
 export const SET_HOME_RECOMMEND = 'SET_HOME_RECOMMEND';
 // home -dj
@@ -43,3 +44,7 @@ export const SET_PLAYLIST_DETAIL = 'SET_PLAYLIST_DETAIL';
 export const SET_FRIEND_INIT = 'SET_FRIEND_INIT';
 export const SET_FRIEND_EVENT = 'SET_FRIEND_EVENT';
 export const SET_COMMENT_EVENT = 'SET_COMMENT_EVENT';
+
+// common
+
+export const SET_POPUP = 'SET_POPUP';

@@ -102,8 +102,21 @@
   &_control {}
 
   &_ico {
+    position: relative;
     margin-left: 16px;
     font-size: 24px;
+
+    .rt_ico {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(50%, 0);
+      color: var(--basered);
+      background-color: #fff;
+      font-size: 12px;
+      border-radius: 1000px;
+      padding: 0px 4px;
+    }
   }
 
 }

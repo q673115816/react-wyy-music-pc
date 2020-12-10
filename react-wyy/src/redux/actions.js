@@ -3,6 +3,7 @@ import {
   SET_NOT_LOGIN,
   SET_USER_DETAIL,
   SET_USER_RECORD,
+  SET_MSG_PRIVATE,
   ADD_SONG_URL,
   SET_HOME_RECOMMEND,
   SET_HOME_DJ,
@@ -24,6 +25,7 @@ import {
   SET_FRIEND_INIT,
   SET_FRIEND_EVENT,
   SET_COMMENT_EVENT,
+  SET_POPUP,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -43,6 +45,11 @@ export const setLoginInfo = (profile) => ({
 
 export const setUserDetail = (payload) => ({
   type: SET_USER_DETAIL,
+  payload,
+});
+
+export const setMsgPrivate = (payload) => ({
+  type: SET_MSG_PRIVATE,
   payload,
 });
 
@@ -158,5 +165,11 @@ export const setFriendEvent = (payload) => ({
 
 export const setCommentEvent = (payload) => ({
   type: SET_COMMENT_EVENT,
+  payload,
+});
+
+// common
+export const setPopup = (payload) => ({
+  type: SET_POPUP,
   payload,
 });

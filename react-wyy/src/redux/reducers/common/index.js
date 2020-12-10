@@ -1,10 +1,14 @@
 import {
   ADD_SONG_URL, DIALOG_LOGIN_VISIBILTY, SET_COUNTRIES_CODE_LIST, SET_IS_LOGIN, SET_NOT_LOGIN,
+  SET_POPUP,
+  SET_MSG_PRIVATE,
 } from '@/redux/actionTypes';
 
 const initialState = {
   currentSong: {},
   playlist: [],
+  popupStatus: 'false',
+  newMsgCount: 0,
   apiCountriesCodeList: [],
   dialog_login_visibility: false,
   isLogin: window.localStorage.getItem('cookie') !== null,
@@ -17,7 +21,16 @@ export default (state = initialState, action) => {
         ...state,
         isLogin: true,
       };
-
+    case SET_MSG_PRIVATE:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_POPUP:
+      return {
+        ...state,
+        ...action.payload,
+      };
     case SET_NOT_LOGIN:
       return {
         ...state,
