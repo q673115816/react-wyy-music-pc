@@ -11,7 +11,7 @@ export default () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [loginInfo, setLoginInfo] = useState('');
-  const { apiCountriesCodeList } = useSelector(({ common }) => common);
+  const { countriesCodeList } = useSelector(({ common }) => common);
   const dispatch = useDispatch();
   const {
     dialog_login_visibility: visibility,
@@ -75,7 +75,7 @@ export default () => {
                 <td>
                   <select name="" id="" defaultValue="中国" className="write">
                     {
-                      apiCountriesCodeList.map(({ countryList }) => countryList.map((country) => (
+                      countriesCodeList.map(({ countryList }) => countryList.map((country) => (
                         <option key={country.zh} value={country.zh}>
                           +
                           {country.code}

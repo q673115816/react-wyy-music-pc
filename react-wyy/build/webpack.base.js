@@ -14,6 +14,7 @@ const plugins = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
     template: path.join(__dirname, '../public/index.html'),
+    title: '网易云音乐',
     // publicPath: '/'
   }),
   new MiniCssExtractPlugin({

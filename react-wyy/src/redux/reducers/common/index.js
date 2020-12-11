@@ -7,9 +7,10 @@ import {
 const initialState = {
   currentSong: {},
   playlist: [],
+  msgs: [],
   popupStatus: 'false',
   newMsgCount: 0,
-  apiCountriesCodeList: [],
+  countriesCodeList: [],
   dialog_login_visibility: false,
   isLogin: window.localStorage.getItem('cookie') !== null,
 };
@@ -46,7 +47,7 @@ export default (state = initialState, action) => {
     case SET_COUNTRIES_CODE_LIST:
       return {
         ...state,
-        apiCountriesCodeList: action.payload.data,
+        ...action.payload,
       };
     case DIALOG_LOGIN_VISIBILTY:
       return {

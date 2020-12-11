@@ -80,11 +80,9 @@ export const addplay = () => ({
   payload: {},
 });
 
-export const setContriesCodeList = (data) => ({
+export const setContriesCodeList = (payload) => ({
   type: SET_COUNTRIES_CODE_LIST,
-  payload: {
-    data,
-  },
+  payload,
 });
 
 export const setVideoGroupList = (data) => ({

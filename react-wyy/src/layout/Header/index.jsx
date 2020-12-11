@@ -23,7 +23,7 @@ export default ({ mousedown }) => {
   const handleGetCountriesCodeList = async () => {
     try {
       const { data } = await apiCountriesCodeList();
-      dispatch(setContriesCodeList(data));
+      dispatch(setContriesCodeList({ countriesCodeList: data }));
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +44,7 @@ export default ({ mousedown }) => {
     if (!isLogin) return;
     try {
       const { msgs, newMsgCount } = await apiMsgPrivate();
-      dispatch(setMsgPrivate({ playlist: msgs, newMsgCount }));
+      dispatch(setMsgPrivate({ msgs, newMsgCount }));
     } catch (error) {
       console.log(error);
     }
