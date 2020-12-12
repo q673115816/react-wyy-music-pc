@@ -1,0 +1,2 @@
+依照网易云windows端开发的页面
+使用react+redux 基本没做优化
