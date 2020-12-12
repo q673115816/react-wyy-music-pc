@@ -2,14 +2,13 @@ const { merge } = require('webpack-merge');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const path = require('path');
 const base = require('./webpack.base.js');
-const { dist } = require('./util');
 
 console.log('entry webpack prod');
 const prod = {
   mode: 'production',
   output: {
     publicPath: '/',
-    path: dist,
+    path: path.join(__dirname, '../docs'),
     filename: '[name].[chunkhash:8].js',
     // library: '[name]_[fullhash]',
   },

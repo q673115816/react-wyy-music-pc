@@ -6,7 +6,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HappyPack = require('happypack');
 
-const { src, img, dist } = require('./util');
+const { src, img } = require('./util');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
