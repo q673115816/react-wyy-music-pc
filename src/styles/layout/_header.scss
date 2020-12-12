@@ -1,0 +1,119 @@
+.domheader {
+  flex: 0 0 60px;
+  padding: 0 20px;
+  background-color: var(--basered);
+  display: flex;
+  align-items: center;
+  color: #fff;
+
+  &_spilt {
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.8);
+    height: 20px;
+    margin-left: 16px;
+  }
+
+  @mixin domheader_shabox_ico {
+    margin: 0 6px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+
+  &_voice {
+    font-size: 20px;
+    @include domheader_shabox_ico()
+  }
+
+  &_page_prev,
+  &_page_next {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.3);
+    @include domheader_shabox_ico();
+
+    &.on {
+      color: #fff;
+    }
+  }
+
+  &_logo {
+    color: #fff;
+    font-size: 22px;
+    width: 220px;
+  }
+
+  &_search {
+    outline: none;
+    border: none;
+    width: 160px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 1000px;
+    padding-left: 36px;
+    color: #fff;
+
+    &_ico {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translate(0, -50%);
+      fill: #fff;
+
+    }
+
+    &::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: #e55959;
+    }
+  }
+
+  &_user {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    &_login {
+      display: flex;
+      align-items: center;
+    }
+
+    &_profile {
+      display: flex;
+      align-items: center;
+      .avator {
+        margin-right: 6px;
+        border-radius: 15px;
+        overflow: hidden;
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+
+  &_control {}
+
+  &_ico {
+    position: relative;
+    margin-left: 16px;
+    font-size: 24px;
+
+    .rt_ico {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(50%, 0);
+      color: var(--basered);
+      background-color: #fff;
+      font-size: 12px;
+      border-radius: 1000px;
+      padding: 0px 4px;
+    }
+  }
+
+}
+
+
