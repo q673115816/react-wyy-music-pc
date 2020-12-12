@@ -1,5 +1,8 @@
-import { devUrl as currentUrl } from './config';
+export const prodUrl = 'https://neteasecloudmusicapi.herokuapp.com';
 
+export const devUrl = 'http://localhost:3000';
+
+const baseUrl = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
 let cookie = window.localStorage.getItem('cookie');
 
 export function setCookie(c) {
@@ -18,7 +21,7 @@ function format(obj) {
 const defaultOptions = {
   withCredentials: true,
 };
-export const get = async (url) => await fetch(`${currentUrl}${url}`, {
+export const get = async (url) => await fetch(`${baseUrl}${url}`, {
   // headers: {
   //   Cookie: cookie,
   // },
@@ -26,7 +29,7 @@ export const get = async (url) => await fetch(`${currentUrl}${url}`, {
 
 export const post = async (url, params) => {
   console.log(params);
-  return await fetch(`${currentUrl}${url}?timestamp=${Date.now()}`, {
+  return await fetch(`${baseUrl}${url}?timestamp=${Date.now()}`, {
     method: 'POST',
     body: format({ cookie, ...params }),
     headers: {

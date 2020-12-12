@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[19],{83:function(e,t,n){"use strict";n.r(t);n(11),n(17);var c=n(9),a=n.n(c),s=n(0),u=n.n(s),i=n(10),o=(n(21),n(15),n(12));t.default=function(){var e=Object(i.h)().uid,t=Object(s.useState)(1),n=a()(t,2);n[0],n[1],Object(o.b)();return Object(s.useEffect)((function(){}),[]),u.a.createElement("div",{className:"domUser"},e)}}}]);

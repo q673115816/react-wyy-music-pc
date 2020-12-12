@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \" ci run success \"",
     "start": "webpack-dev-server --config ./build/webpack.dev.js",
-    "build": "webpack --config ./build/webpack.prod.js",
+    "build": "cross-env NODE_ENV=production webpack --config ./build/webpack.prod.js",
     "serve": "webpack serve --config ./build/webpack.dev.js --progress --profile --watch --content-base src/",
     "analyz": "npm run build --mode analyse",
     "lint": "./node_modules/.bin/eslint --fix ./src/**/*"

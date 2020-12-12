@@ -7,11 +7,12 @@ const { dist } = require('./util');
 console.log('entry webpack prod');
 const prod = {
   mode: 'production',
-  // output: {
-  //   publicPath: '/',
-  //   path: dist,
-  //   filename: '[name].[chunkhash:8].js',
-  // },
+  output: {
+    publicPath: '/',
+    path: dist,
+    filename: '[name].[chunkhash:8].js',
+    // library: '[name]_[fullhash]',
+  },
 
   module: {
     rules: [

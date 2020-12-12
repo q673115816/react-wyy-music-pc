@@ -50,13 +50,7 @@ module.exports = {
   //   'react-router-dom',
   // ],
   // },
-  output: {
-    publicPath: '/',
-    path: dist,
-    filename: '[name].[chunkhash:8].js',
-    chunkFilename: '[name].[chunkhash:8].js',
-    // library: '[name]_[fullhash]',
-  },
+
   optimization: {
     runtimeChunk: 'single',
     // splitChunks: {
@@ -133,9 +127,9 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         exclude: /(node_modules|bower_components)/,
         use: [
-          process.env.NODE_ENV !== 'production'
-            ? 'style-loader'
-            : MiniCssExtractPlugin.loader,
+          process.env.NODE_ENV === 'production'
+            ? MiniCssExtractPlugin.loader
+            : 'style-loader',
           'css-loader',
           'postcss-loader',
           'sass-loader',

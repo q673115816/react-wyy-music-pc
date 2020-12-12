@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],{85:function(n,e,o){"use strict";o.r(e);var t=o(0),a=o.n(t);e.default=function(){return a.a.createElement("div",null,"download")}}}]);
