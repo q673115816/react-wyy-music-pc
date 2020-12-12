@@ -14,7 +14,7 @@
     "serve": "webpack serve --config ./build/webpack.dev.js --progress --profile --watch --content-base src/",
     "analyz": "npm run build --mode analyse",
     "lint": "./node_modules/.bin/eslint --fix ./src/**/*",
-    "pubilc": "git subtree push --prefix=dist origin gh-pages"
+    "public": "git subtree push --prefix=dist origin gh-pages"
   },
   "browserslist": [
     ">0.2%",
