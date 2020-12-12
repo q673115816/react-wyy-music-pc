@@ -8,7 +8,7 @@ const prod = {
   mode: 'production',
   output: {
     publicPath: '/',
-    path: path.join(__dirname, '../docs'),
+    path: path.join(__dirname, '../dist'),
     filename: '[name].[chunkhash:8].js',
     // library: '[name]_[fullhash]',
   },
