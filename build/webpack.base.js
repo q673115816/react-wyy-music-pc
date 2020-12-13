@@ -41,15 +41,16 @@ const plugins = [
 
 module.exports = {
   // target: 'web',
-  entry: path.join(src, 'index.js'),
-  // entry: {
-  //   index: path.join(src, 'index.js'),
-  // vendor: [
-  //   'react',
-  //   'react-dom',
-  //   'react-router-dom',
-  // ],
-  // },
+  // entry: path.join(src, 'index.js'),
+  entry: {
+    index: path.join(src, 'index.js'),
+    vendor: [
+      'swiper',
+      // 'react',
+      // 'react-dom',
+      // 'react-router-dom',
+    ],
+  },
 
   optimization: {
     runtimeChunk: 'single',
@@ -105,11 +106,12 @@ module.exports = {
   },
   externals: {
     // swiper: 'Swiper',
+    'react-router': 'ReactRouter',
+    'react-router-dom': 'ReactRouterDOM',
     react: 'React',
     'react-dom': 'ReactDOM',
-    // 'react-redux': 'react-redux',
-    // 'react-router-dom': 'react-router-dom',
-    // redux: 'redux',
+    'react-redux': 'ReactRedux',
+    redux: 'Redux',
   },
   module: {
     rules: [

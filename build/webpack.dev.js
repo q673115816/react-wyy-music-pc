@@ -14,8 +14,8 @@ const dev = {
   devServer: {
     // contentBase: content,
     // hot: true,
-    hotOnly: true,
-    historyApiFallback: true,
+    // hotOnly: true,
+    // historyApiFallback: true,
   },
   module: {
     rules: [
