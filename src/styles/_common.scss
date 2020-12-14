@@ -187,14 +187,14 @@ button {
 }
 
 .center {
-  @include center();
+  @include flex-center();
 }
 
 .insetCenter {
-  @include insetCenter();
+  @include inset-center();
 }
 
-@import './grid';
+@import 'components';
 
 .ui_swiper {
   --swiper-pagination-color: var(--basered);

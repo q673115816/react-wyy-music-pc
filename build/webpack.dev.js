@@ -13,7 +13,7 @@ const dev = {
   },
   devServer: {
     // contentBase: content,
-    // hot: true,
+    hot: true,
     // hotOnly: true,
     // historyApiFallback: true,
   },

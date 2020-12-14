@@ -16,8 +16,8 @@ export default () => {
   console.log(id);
   const [group_list_show, setGroup_list_show] = useState(false);
   const {
-    VideoGroupList, curr_check, VideoCategoryList, VideoTimelineRecommend,
-  } = useSelector(({ video }) => video);
+    VideoGroupList, curr_check, VideoCategoryList, VideoTimelineRecommend, isLogin,
+  } = useSelector(({ video, common }) => ({ ...video, ...common }));
   const dispatch = useDispatch();
   const scrolldom = useRef();
   const handleInit = async () => {
@@ -120,25 +120,32 @@ export default () => {
         </div>
       </div>
       <div className="domplay_list">
-        {VideoTimelineRecommend.map(({ data }) => (
-          <div className="item" key={data.id}>
-            <div className="cover">
-              <Link to={`/video/${data.vid}`}>
-                <img className="coverimg" src={data.coverUrl} alt="" />
-                <div className="playTime">{transPlayCount(data.playTime)}</div>
-                <div className="durationms">{dayjs(data.durationms).format('mm:ss')}</div>
-              </Link>
-            </div>
-            <div className="title">
-              <Link to={`/video/${data.vid}`} className="text-overflow">{data.title}</Link>
-            </div>
-            <div className="creator gray">
-              <Link to={`/user/${data.creator.userId}`}>
-                {data.creator.nickname}
-              </Link>
-            </div>
-          </div>
-        ))}
+        {
+          isLogin ? <div>未登录</div>
+            : (
+              <>
+                {VideoTimelineRecommend.map(({ data }) => (
+                  <div className="item" key={data.id}>
+                    <div className="cover">
+                      <Link to={`/video/${data.vid}`}>
+                        <img className="coverimg" src={data.coverUrl} alt="" />
+                        <div className="playTime">{transPlayCount(data.playTime)}</div>
+                        <div className="durationms">{dayjs(data.durationms).format('mm:ss')}</div>
+                      </Link>
+                    </div>
+                    <div className="title">
+                      <Link to={`/video/${data.vid}`} className="text-overflow">{data.title}</Link>
+                    </div>
+                    <div className="creator gray">
+                      <Link to={`/user/${data.creator.userId}`}>
+                        {data.creator.nickname}
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )
+        }
       </div>
     </div>
   );

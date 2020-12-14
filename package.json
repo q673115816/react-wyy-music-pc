@@ -16,7 +16,7 @@
     "lint": "./node_modules/.bin/eslint --fix ./src/**/*",
     "public": "git subtree push --prefix=dist origin gh-pages",
     "deleteremote": "git push origin --delete gh-pages",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "browserslist": [
     ">0.2%",

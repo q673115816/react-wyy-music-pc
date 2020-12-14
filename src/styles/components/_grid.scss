@@ -68,7 +68,7 @@
         font-size: var(--arrowsize);
         background-color: #fff;
         border-radius: 50%;
-        @include center();
+        @include flex-center();
         color: var(--basered);
       }
       &:hover {

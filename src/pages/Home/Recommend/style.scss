@@ -24,7 +24,7 @@
           border-radius: 10px;
           color: #fff;
           font-size: 16px;
-          @include center()
+          @include flex-center();
         }
       }
 
@@ -62,8 +62,8 @@
       }
 
       .ico {
-        @include insetCenter();
-        @include center();
+        @include inset-center();
+        @include flex-center();
         width: 28px;
         height: 28px;
         color: var(--basered);

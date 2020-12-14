@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  dialogLoginVisibilty, setContriesCodeList, setLoginInfo, setIsLogin,
+  dialogLoginVisibilty,
+  setContriesCodeList,
+  setLoginInfo,
+  setIsLogin,
   setMsgPrivate,
   setPopup,
 } from '@/redux/actions';

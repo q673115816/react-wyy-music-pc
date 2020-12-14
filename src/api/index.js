@@ -38,6 +38,7 @@ export const apiUserPlaylist = (uid) => get(`/user/playlist?uid=${uid}`);
 // 私信
 export const apiMsgPrivate = () => post('/msg/private');
 export const apiMsgPrivateHistory = (params) => post('/msg/private/history', params);
+export const apiSendText = (params) => post('/send/text', params);
 // 播放记录
 export const apiUserRecord = (params) => post('/user/record', params);
 

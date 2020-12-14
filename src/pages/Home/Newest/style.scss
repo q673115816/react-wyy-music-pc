@@ -122,8 +122,8 @@
           margin-right: 10px;
 
           .ico {
-            @include insetCenter();
-            @include center();
+            @include inset-center();
+            @include flex-center();
             font-size: 24px;
             color: var(--basered);
             width: 30px;
