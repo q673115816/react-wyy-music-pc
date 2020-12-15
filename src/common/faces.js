@@ -131,11 +131,11 @@ const kv_face = [
   },
 ];
 // 做成一个kv对象
-const allkvfaces = kv_face.reduce((prev, curr) => Object.assign(prev, curr), {});
+const hashfaces = kv_face.reduce((prev, curr) => Object.assign(prev, curr), {});
 // 导出做map循环
 const faces = kv_face.map((obj) => Object.keys(obj).map((key) => [key, obj[key]]));
 //
 const reg = kv_face.reduce((prev, obj) => prev += Object.keys(obj).reduce((prev, key) => `${prev + key}|`, ''), '').slice(0, -1);
 
-export const transTextEmoji = (text) => text.replace(new RegExp(`\\[(${reg})\\]`, 'g'), (reg, $1) => allkvfaces[$1]);
+export const transTextEmoji = (text) => text.replace(new RegExp(`\\[(${reg})\\]`, 'g'), (reg, $1) => hashfaces[$1]);
 export default faces;

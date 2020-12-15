@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './style.scss';
 
-import { useDispatch, useSelector } from 'react-redux';
-import DomNormal from './Normal';
-import DomPlay from './Play';
-import DomMessage from './Message';
-import DomKeyboard from './Keyboard';
-import DomDownload from './Download';
-import DomLyric from './Lyric';
-import DomTool from './Tool';
-import DomAbout from './About';
+import { useSelector } from 'react-redux';
+import classnames from 'classnames';
+import Target from './components/Hoc';
+import DomNormal from './components/Normal';
+import DomPlay from './components/Play';
+import DomMessage from './components/Message';
+import DomKeyboard from './components/Keyboard';
+import DomDownload from './components/Download';
+import DomLyric from './components/Lyric';
+import DomTool from './components/Tool';
+import DomAbout from './components/About';
 
 const nav = [
   '账号',
@@ -24,13 +26,42 @@ const nav = [
 ];
 
 export default () => {
-  const dispatch = useDispatch();
   const { isLogin } = useSelector(({ common }) => common);
+  const main = useRef();
   const [activeSetting, setActiveSetting] = useState('账号');
-  const handleScrollToActive = (active) => {
-    setActiveSetting(active);
+
+  // const [scrollWatch] = useState(
+  //   new IntersectionObserver((entries) => {
+  //     let active = null;
+  //     entries.reverse().forEach((entry) => {
+  //       if (entry.intersectionRatio > 0) {
+  //         if (!active) {
+  //           active = entry;
+  //         } else if (entry.boundingClientRect.top < active.boundingClientRect.top) {
+  //           active = entry;
+  //         }
+  //       }
+  //     });
+  //     console.log(active);
+  //     setActiveSetting(active.target.dataset.title);
+  //   }, {
+  //     root: main.current,
+  //     threshold: [0, 1.0],
+  //   }),
+  // );
+  const handleFollow = ({ target }) => {
+    const hr = target.querySelectorAll('[data-title]');
+    hr.forEach((item) => {
+      if (item.offsetTop <= target.scrollTop) {
+        setActiveSetting(item.dataset.title);
+      }
+    });
   };
-  const handleScrollActive = () => {
+
+  const handleScrollToActive = (active) => {
+    const target = main.current.querySelector(`[data-title="${active}"]`);
+    // main.current.scrollTo(0, target.offsetTop + 30);
+    target.scrollIntoView();
   };
 
   return (
@@ -39,44 +70,51 @@ export default () => {
         <div className="domSetting_title h1">设置</div>
         <div className="domSetting_nav">
           {nav.map((item) => (
-            <a
-              href={`#${item}`}
+            <button
+              type="button"
               onClick={() => handleScrollToActive(item)}
-              className={['domSetting_nav_link', activeSetting === item ? 'on' : null].join(' ')}
+              className={classnames('domSetting_nav_link', { on: activeSetting === item })}
             >
               {item}
-            </a>
+            </button>
           ))}
         </div>
       </div>
-      <div className="domSetting_main overflow-auto" onScroll={handleScrollActive}>
+      <div className="domSetting_main overflow-auto" onScroll={handleFollow} ref={main}>
         {
-          isLogin ? <div>logined</div>
+          isLogin ? <div data-title="账号">logined</div>
 
             : (
-              <div>
+              <div data-title="账号">
                 <div className="gray" style={{ marginBottom: 10 }}>登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
                 <span className="ui_btn_small">立即登录</span>
               </div>
             )
         }
-
-        <div className="domSetting_hr" id="常规" />
-        <DomNormal />
-        <div className="domSetting_hr" id="播放" />
-        <DomPlay />
-        <div className="domSetting_hr" id="消息与隐私" />
-        <DomMessage />
-        <div className="domSetting_hr" id="快捷键" />
-        <DomKeyboard />
-        <div className="domSetting_hr" id="下载设置" />
-        <DomDownload />
-        <div className="domSetting_hr" id="歌词" />
-        <DomLyric />
-        <div className="domSetting_hr" id="工具" />
-        <DomTool />
-        <div className="domSetting_hr" id="关于网易云音乐" />
-        <DomAbout />
+        <Target {... { 'data-title': '常规' }}>
+          <DomNormal />
+        </Target>
+        <Target {... { 'data-title': '播放' }}>
+          <DomPlay />
+        </Target>
+        <Target {... { 'data-title': '消息与隐私' }}>
+          <DomMessage />
+        </Target>
+        <Target {... { 'data-title': '快捷键' }}>
+          <DomKeyboard />
+        </Target>
+        <Target {... { 'data-title': '下载设置' }}>
+          <DomDownload />
+        </Target>
+        <Target {... { 'data-title': '歌词' }}>
+          <DomLyric />
+        </Target>
+        <Target {... { 'data-title': '工具' }}>
+          <DomTool />
+        </Target>
+        <Target {... { 'data-title': '关于网易云音乐' }}>
+          <DomAbout />
+        </Target>
       </div>
 
     </div>

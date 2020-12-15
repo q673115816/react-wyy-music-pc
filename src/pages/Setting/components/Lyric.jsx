@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default () => (
-  <div>
+  <>
     <div className="domSetting_block_title">歌词</div>
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">
@@ -59,5 +59,5 @@ export default () => (
         </div>
       </div>
     </div>
-  </div>
+  </>
 );

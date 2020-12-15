@@ -3,11 +3,10 @@
   flex-direction: column;
   height: 100%;
 
-  &_hr {
+  .nav_target {
     margin-top: 30px;
-    margin-bottom: 30px;
-    background-color: #ccc;
-    height: 1px;
+    padding-top: 30px;
+    border-top: 1px solid #ccc;
   }
 
   &_header {
@@ -26,6 +25,7 @@
   }
 
   &_main {
+    position: relative;
     width: 100%;
     flex: 1;
     padding: 0 30px;

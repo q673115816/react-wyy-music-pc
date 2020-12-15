@@ -121,30 +121,30 @@ export default () => {
       </div>
       <div className="domplay_list">
         {
-          isLogin ? <div>未登录</div>
-            : (
-              <>
-                {VideoTimelineRecommend.map(({ data }) => (
-                  <div className="item" key={data.id}>
-                    <div className="cover">
-                      <Link to={`/video/${data.vid}`}>
-                        <img className="coverimg" src={data.coverUrl} alt="" />
-                        <div className="playTime">{transPlayCount(data.playTime)}</div>
-                        <div className="durationms">{dayjs(data.durationms).format('mm:ss')}</div>
-                      </Link>
-                    </div>
-                    <div className="title">
-                      <Link to={`/video/${data.vid}`} className="text-overflow">{data.title}</Link>
-                    </div>
-                    <div className="creator gray">
-                      <Link to={`/user/${data.creator.userId}`}>
-                        {data.creator.nickname}
-                      </Link>
-                    </div>
+          isLogin ? (
+            <>
+              {VideoTimelineRecommend.map(({ data }) => (
+                <div className="item" key={data.id}>
+                  <div className="cover">
+                    <Link to={`/videodetail/${data.vid}`}>
+                      <img className="coverimg" src={data.coverUrl} alt="" />
+                      <div className="playTime">{transPlayCount(data.playTime)}</div>
+                      <div className="durationms">{dayjs(data.durationms).format('mm:ss')}</div>
+                    </Link>
                   </div>
-                ))}
-              </>
-            )
+                  <div className="title">
+                    <Link to={`/videodetail/${data.vid}`} className="text-overflow">{data.title}</Link>
+                  </div>
+                  <div className="creator gray">
+                    <Link to={`/user/${data.creator.userId}`}>
+                      {data.creator.nickname}
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </>
+          )
+            : <div>未登录</div>
         }
       </div>
     </div>

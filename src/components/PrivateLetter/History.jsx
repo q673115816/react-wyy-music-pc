@@ -146,7 +146,7 @@ export default ({
             className="textarea"
             placeholder={`回复 ${nickname}`}
           />
-          <span className="length gray">{200 - length }</span>
+          <span className={['length', length > 200 ? 'red' : 'gray'].join(' ')}>{200 - length }</span>
         </div>
         <div className="actions">
           <div className="left">

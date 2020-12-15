@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { HashRouter as Router } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import DomVideoDetail from '@/pages/VideoDetail';
 import store from './redux/store';
 import './styles/index.scss';
 import DomHeader from './layout/Header';
@@ -26,8 +27,14 @@ export default function App() {
             style={{ transform: `translate(${x}px, ${y}px)` }}
           >
             <DomHeader {...{ mousedown }} />
-            <DomMain />
-            <DomFooter />
+            <Switch>
+              <Route path="/videodetail/:vid" component={DomVideoDetail} />
+              <Route>
+                <DomMain />
+                <DomFooter />
+              </Route>
+            </Switch>
+
           </div>
           {dragger && Drag}
           <DialogLogin />

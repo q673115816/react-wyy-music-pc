@@ -1,3 +1,27 @@
-language: node_js
+# .travis.yml
+language: node_js # 前端工程所以是JavaScript，编译环境是node_js
+git:
+  depth: 1 # 仅克隆最新的 commit
+node_js:
+  - 'lts/*' # 指定 node.js 版本
+env:
+  global: GITHUB_TOKEN=$GITHUB_TOKEN # 仅克隆最新的 commit
+branchs:
+  only:
+    - master # 指定只有检测到master分支有变动时才执行任务
+install:
+  - npm i # 克隆完项目后，安装
 script:
-  - npm run test
+  - npm run test # 生成测试报告
+  - npm run build # 打包生成静态资源
+after_script:
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./node_modules/.bin/codecov; fi # 执行完 travis 测试任务无报错后上传报告
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN # travis setting 中的环境变量 GITHUB_TOKEN
+  local-dir: ./dist # 根据情况自定义到静态文件输出目录
+  target-branch: gh-pages # 构建后的静态资源提交到这个分支
+  verbose: true
+  on:
+    branch: master

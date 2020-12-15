@@ -1,0 +1,19 @@
+.domVideoDetail {
+  width: 930px;
+  margin: 0 auto;
+  &_container {
+    display: flex;
+    justify-content: space-between;
+    .left {
+      width: 620px;
+    }
+    .right {
+      width: 280px;
+    }
+  }
+  &_header {
+    height: 50px;
+    align-items: center;
+    font-size: 16px;
+  }
+}

@@ -61,7 +61,10 @@ export const apiTopPlaylist = (params) => post('/top/playlist', params);
 export const apiVideoGroupList = () => get('/video/group/list');
 export const apiVideoCategoryList = () => post('/video/category/list');
 export const apiVideoTimelineRecommend = () => post('/video/timeline/recommend');
-
+export const apiMvUrl = (params) => post('/mv/url', params);
+export const apiVideoDetail = (params) => post('/video/detail', params);
+// 相关视频
+export const apiRelatedAllvideo = (params) => post('/related/allvideo', params);
 // 朋友
 // 朋友 - 热门话题
 export const apiHotTopic = (params) => post('/hot/topic', params);

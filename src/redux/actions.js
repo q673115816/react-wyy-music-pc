@@ -11,6 +11,7 @@ import {
   SET_COUNTRIES_CODE_LIST,
   SET_VIDEO_INIT,
   ADD_VIDEO_GROUP_LIST,
+  SET_VIDEODETAIL_RELATED,
   DIALOG_LOGIN_VISIBILTY,
   INIT_HOME_TOP_ARTISTS,
   ADD_HOME_TOP_ARTISTS,
@@ -90,9 +91,14 @@ export const setVideoGroupList = (data) => ({
   payload: data,
 });
 
-export const addVideoGroupList = (data) => ({
+export const addVideoGroupList = (payload) => ({
   type: ADD_VIDEO_GROUP_LIST,
-  payload: data,
+  payload,
+});
+
+export const setVideoDetailRelated = (payload) => ({
+  type: SET_VIDEODETAIL_RELATED,
+  payload,
 });
 
 export const dialogLoginVisibilty = () => ({
