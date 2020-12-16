@@ -56,7 +56,7 @@ export default ({ list = [], coverSrc = '' }) => (
         list.map((item) => (
           <SwiperSlide className="cover" key={item[coverSrc]}>
             <Link to="/">
-              <img className="coverimg" src={item[coverSrc]} alt="" />
+              <img className="ui_coverimg" src={item[coverSrc]} alt="" />
               <div className={['typeTitle', item.titleColor === 'blue' ? 'blue' : null].join(' ')}>{item.typeTitle}</div>
             </Link>
           </SwiperSlide>

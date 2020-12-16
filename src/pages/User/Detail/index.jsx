@@ -52,7 +52,7 @@ export default () => {
 
         <div className="domUser_header">
           <div className="avatar">
-            <img src={`${profile.avatarUrl}?param=200y200`} alt="" className="containimg" />
+            <img src={`${profile.avatarUrl}?param=200y200`} alt="" className="ui_containimg" />
           </div>
           <div className="content">
             <div className="name">{profile.nickname}</div>
@@ -137,7 +137,7 @@ export default () => {
                 <Link to="/">
                   <div className="cover">
                     <div className="inner">
-                      <img src={`${item.coverImgUrl}?param=200y200`} className="containimg" alt="" />
+                      <img src={`${item.coverImgUrl}?param=200y200`} className="ui_containimg" alt="" />
                     </div>
                     <div className="rb">
                       <span className="playArrow">

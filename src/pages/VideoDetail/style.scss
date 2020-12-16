@@ -1,19 +1,169 @@
 .domVideoDetail {
   width: 930px;
   margin: 0 auto;
+
   &_container {
     display: flex;
     justify-content: space-between;
+
     .left {
       width: 620px;
     }
+
     .right {
       width: 280px;
     }
   }
+
   &_header {
     height: 50px;
     align-items: center;
     font-size: 16px;
+  }
+
+  &_creator {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+    .nickname {
+      margin-left: 10px;
+    }
+
+    .follow {
+      margin-left: auto;
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      background-color: #FCF4F4;
+      border-radius: 15px;
+      font-size: 14px;
+      color: var(--basered);
+
+      &.on {
+        background-color: #F8F8F8;
+        color: #9B9B9B;
+      }
+    }
+  }
+
+  &_title {
+    margin-top: 30px;
+  }
+
+  &_info {
+    margin-top: 16px;
+  }
+
+  &_group {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    .group {
+      background-color: #F7F7F7;
+      padding: 4px 8px;
+      border-radius: 1000px;
+    }
+  }
+
+  &_actions {
+    margin-top: 30px;
+  }
+
+  &_related {
+
+    .item {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .cover {
+      width: 140px;
+      height: 80px;
+      flex: none;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .content {
+      padding: 10px;
+      // flex: auto
+      min-width: 1px;
+    }
+
+    .title {
+      @include ellipse(2);
+    }
+
+    .username {
+      margin-top: 1em;
+    }
+  }
+
+  &_comments {
+    .item {
+      display: flex;
+      padding: 16px 0;
+      border-bottom: 1px solid #ccc;
+
+      .jubao {
+        display: none;
+      }
+
+      &:hover {
+        .jubao {
+          display: block;
+        }
+      }
+
+      .avatar {
+        flex: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+
+      .content {
+        padding-left: 16px;
+        flex: auto;
+        min-width: 1px;
+
+        .info {
+          margin-top: 1em;
+          display: flex;
+
+          .actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+
+            span {
+              display: inline-block;
+              width: 1px;
+              height: 10px;
+              background-color: #ccc;
+              margin: 0 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#video {
+  height: 354px;
+
+  video {
+    width: 100%;
   }
 }

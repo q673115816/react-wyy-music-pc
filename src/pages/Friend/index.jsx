@@ -128,7 +128,7 @@ export default () => {
             {hot.map((item) => (
               <Link to="/" key={item.actId} className="item">
                 <div className="cover">
-                  <img className="containimg" src={`${item.sharePicUrl}?param=50y50`} alt="" />
+                  <img className="ui_containimg" src={`${item.sharePicUrl}?param=50y50`} alt="" />
                 </div>
                 <div className="content">
                   <div className="title">

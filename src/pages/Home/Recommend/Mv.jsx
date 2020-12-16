@@ -12,7 +12,7 @@ export default ({ mv = [] }) => (
               <div className="copywriter">{item.copywriter}</div>
               <div className="playCount">{item.playCount}</div>
               <Lazyload>
-                <img className="containimg" src={item.picUrl} alt="" />
+                <img className="ui_containimg" src={item.picUrl} alt="" />
               </Lazyload>
             </Link>
           </div>

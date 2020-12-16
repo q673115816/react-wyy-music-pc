@@ -15,7 +15,7 @@ const Domitem = ({ item = {} }) => (
       <Link to={`/artist/detail/${item.id}`}>
         <LazyLoad overflow>
           <img
-            className="containimg"
+            className="ui_containimg"
             src={`${item.img1v1Url}?param=200y200`}
             alt={item.name}
           />
@@ -112,7 +112,7 @@ export default () => {
           <div className="img">
             <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.area)[2]}`}>
               <img
-                className="containimg"
+                className="ui_containimg"
                 src="http://p3.music.126.net/1tSJODTpcbZvNTCdsn4RYA==/109951165034950656.jpg?param=200y200"
                 alt=""
                 style={{ filter: 'blur(2)' }}

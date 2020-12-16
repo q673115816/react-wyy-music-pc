@@ -3,10 +3,9 @@ import { ADD_COUNT, SET_VIDEO_INIT, ADD_VIDEO_GROUP_LIST } from '@/redux/actionT
 
 const initialState = {
   count: 0,
-  curr_check: '全部视频',
   VideoGroupList: [],
   VideoCategoryList: [],
-  VideoTimelineRecommend: [],
+  VideoList: [],
 };
 
 export default (state = initialState, action) => {
@@ -24,7 +23,7 @@ export default (state = initialState, action) => {
     case ADD_VIDEO_GROUP_LIST:
       return {
         ...state,
-        VideoTimelineRecommend: [...state.VideoTimelineRecommend, ...action.payload],
+        VideoList: [...state.VideoList, ...action.payload],
       };
     default:
       return state;

@@ -20,7 +20,7 @@ export default ({ playlist = [] }) => (
           <div className="cover">
             <div className="inner">
               <Link to={`/playlist/${item.id}`}>
-                <img className="containimg" src={`${item.picUrl}?param=200y200`} alt="" />
+                <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
                 <div className="rt">
                   <span className="whitetext">{transPlayCount(item.playcount)}</span>
                 </div>

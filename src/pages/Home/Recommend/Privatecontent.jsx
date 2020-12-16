@@ -13,7 +13,7 @@ export default ({ privatecontent = [] }) => (
                 <i className="material-icons">play_arrow</i>
               </span>
               <Lazyload>
-                <img className="containimg" src={item.sPicUrl} alt="" />
+                <img className="ui_containimg" src={item.sPicUrl} alt="" />
               </Lazyload>
             </Link>
           </div>

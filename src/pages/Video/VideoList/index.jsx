@@ -7,38 +7,57 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import { transPlayCount } from '@/common/utils';
-import { apiVideoTimelineRecommend, apiVideoGroupList, apiVideoCategoryList } from '@/api';
-import { setVideoGroupList, addVideoGroupList } from '@/redux/actions';
+import {
+  apiVideoTimelineRecommend, apiVideoGroupList, apiVideoCategoryList, apiVideoGroup,
+} from '@/api';
+import { setVideoInit, addVideoGroupList } from '@/redux/actions';
 import './style.scss';
 
 export default () => {
   const { id } = useParams();
   console.log(id);
   const [group_list_show, setGroup_list_show] = useState(false);
+  const [currentNav, setCurrentNav] = useState('全部视频');
   const {
-    VideoGroupList, curr_check, VideoCategoryList, VideoTimelineRecommend, isLogin,
+    VideoGroupList, VideoCategoryList, VideoList, isLogin,
   } = useSelector(({ video, common }) => ({ ...video, ...common }));
   const dispatch = useDispatch();
   const scrolldom = useRef();
   const handleInit = async () => {
     try {
       const [
-        VideoTimelineRecommend,
-        VideoGroupList,
-        VideoCategoryList,
+        { data: VideoGroupList },
+        { data: VideoCategoryList },
       ] = await Promise.all([
-        apiVideoTimelineRecommend(),
         apiVideoGroupList(),
         apiVideoCategoryList(),
       ]);
-      dispatch(setVideoGroupList({
-        VideoTimelineRecommend: VideoTimelineRecommend.datas,
-        VideoGroupList: VideoGroupList.data,
-        VideoCategoryList: VideoCategoryList.data,
+      dispatch(setVideoInit({
+        VideoGroupList,
+        VideoCategoryList,
       }));
+
+      setCurrentNav(
+        VideoGroupList.find((group) => group.id === Number(id))?.name || '全部视频',
+      );
       scrollBybottom(scrolldom.current);
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const handleInitList = async () => {
+    try {
+      const { datas: VideoList } = await (id
+        ? apiVideoGroup({
+          id,
+        })
+        : apiVideoTimelineRecommend());
+      dispatch(setVideoInit({
+        VideoList,
+      }));
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -66,6 +85,10 @@ export default () => {
     handleInit();
   }, []);
 
+  useEffect(() => {
+    handleInitList();
+  }, [id]);
+
   return (
     <div className="inner overflow-auto" ref={scrolldom} onScroll={handleScroll}>
       <div className="video_sort_filter_bar">
@@ -74,7 +97,7 @@ export default () => {
             className="group_select_button"
             onClick={() => setGroup_list_show(!group_list_show)}
           >
-            {curr_check}
+            {currentNav}
             {' '}
             &gt;
           </button>
@@ -86,7 +109,8 @@ export default () => {
               <NavLink
                 className="group_select_check"
                 activeClassName="on"
-                to="/play/videolist"
+                exact
+                to="./"
               >
                 全部视频
               </NavLink>
@@ -98,7 +122,7 @@ export default () => {
                   activeClassName="on"
                   className="group_select_check"
                   key={id}
-                  to={`/play/videolist/${id}`}
+                  to={`./${id}`}
                 >
                   {name}
                 </NavLink>
@@ -123,11 +147,11 @@ export default () => {
         {
           isLogin ? (
             <>
-              {VideoTimelineRecommend.map(({ data }) => (
+              {VideoList?.map(({ data }) => (
                 <div className="item" key={data.id}>
                   <div className="cover">
                     <Link to={`/videodetail/${data.vid}`}>
-                      <img className="coverimg" src={data.coverUrl} alt="" />
+                      <img className="ui_coverimg" src={data.coverUrl} alt="" />
                       <div className="playTime">{transPlayCount(data.playTime)}</div>
                       <div className="durationms">{dayjs(data.durationms).format('mm:ss')}</div>
                     </Link>

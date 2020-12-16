@@ -9,7 +9,7 @@ export default ({ tag = false }) => (
     <div className="cover">
       <div className="inner">
         <Link to={kankan}>
-          <img className="coverimg" src={kankanimg} alt="" />
+          <img className="ui_coverimg" src={kankanimg} alt="" />
           <div className="rt">
             <span className="whitetext">playCount</span>
           </div>

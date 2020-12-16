@@ -32,7 +32,7 @@ const DomDjNormal = ({ item = {} }) => (
       <div className="inner">
         <Link to="/">
           <Lazyload overflow>
-            <img className="containimg" src={item.picUrl} alt="" />
+            <img className="ui_containimg" src={item.picUrl} alt="" />
           </Lazyload>
           <div className="lb">
             <div className="whitetext">{item.name}</div>

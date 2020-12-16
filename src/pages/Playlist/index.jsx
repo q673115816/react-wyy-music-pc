@@ -43,7 +43,7 @@ export default () => {
     <div className="domPlaylistDetail">
       <div className="domPlaylistDetail_header">
         <div className="cover">
-          <img className="containimg" src={`${playlist.coverImgUrl}?params=200y200`} alt="" />
+          <img className="ui_containimg" src={`${playlist.coverImgUrl}?params=200y200`} alt="" />
         </div>
         <div className="info">
           <div className="name">
@@ -53,7 +53,7 @@ export default () => {
           </div>
           <div className="creator">
             <Link to="/" className="avator">
-              <img className="containimg" src={`${playlist.creator.avatarUrl}?params=50y50`} alt="" />
+              <img className="ui_containimg" src={`${playlist.creator.avatarUrl}?params=50y50`} alt="" />
             </Link>
             <Link to="/" className="nickname gray">{playlist.creator.nickname}</Link>
               &nbsp;

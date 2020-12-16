@@ -12,7 +12,7 @@ export default ({
     <div className="item" key={item.id}>
       <div className="avator">
         <img
-          className="containimg"
+          className="ui_containimg"
           src={`${item.user.avatarUrl}?param=100y100`}
           alt=""
         />
@@ -43,7 +43,7 @@ export default ({
               <button type="button" className="song">
                 <div className="img">
                   <img
-                    className="containimg"
+                    className="ui_containimg"
                     src={json.song.img80x80}
                     alt=""
                   />
@@ -126,7 +126,7 @@ export default ({
               {comments.slice(0, 10).map((item) => (
                 <li>
                   <div className="avatar">
-                    <img className="containimg" src={item.user.avatarUrl} alt="" />
+                    <img className="ui_containimg" src={item.user.avatarUrl} alt="" />
                   </div>
                   <div className="commentContent">
                     <div>

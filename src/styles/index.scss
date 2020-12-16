@@ -81,9 +81,17 @@ svg {
   vertical-align: middle;
 }
 
-.material-icons {
-  font-size: inherit;
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+  vertical-align: inherit;
 }
+
+// .material-icons,
+// .material-icons-outlined,
+// .material-icons-round,
+// .material-icons-sharp {
+//   font-size: inherit;
+// }
 
 @import 'common';
 @import 'layout';

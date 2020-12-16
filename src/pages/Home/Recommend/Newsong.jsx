@@ -12,7 +12,7 @@ export default ({ newsong = [] }) => (
               <i className="material-icons">play_arrow</i>
             </span>
             <Lazyload overflow>
-              <img className="containimg" src={`${item.picUrl}?param=100y100`} alt="" />
+              <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
             </Lazyload>
           </button>
           <div className="content">

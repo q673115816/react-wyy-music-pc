@@ -74,28 +74,29 @@ export default ({ mousedown }) => {
       </Link>
       <div>
         <button type="button" onClick={() => goBack()} className="domheader_page_prev">
-          <i className="material-icons">arrow_back_ios</i>
+          <i className="bi-chevron-left" />
+
         </button>
         <button type="button" onClick={() => goForward()} className="domheader_page_next">
-          <i className="material-icons">arrow_forward_ios</i>
+          <i className="bi-chevron-right" />
         </button>
       </div>
       <form style={{ position: 'relative' }}>
         <input type="text" placeholder="搜索" className="domheader_search" />
       </form>
       <Link to="/" className="domheader_voice">
-        <i className="material-icons">mic</i>
+        <i className="bi-mic" />
       </Link>
       <div className="domheader_user">
         {isLogin && profile
           ? (
             <div className="domheader_user_profile">
               <Link to={`/user/${profile.userId}`} className="avator">
-                <img className="containimg" src={profile.avatarUrl} alt="" />
+                <img className="ui_containimg" src={profile.avatarUrl} alt="" />
               </Link>
               <button type="button" className=" ">
                 <span>{profile.nickname}</span>
-                <i className="material-icons">arrow_drop_down</i>
+                <i className="bi-caret-down-fill" />
               </button>
             </div>
           )
@@ -115,35 +116,35 @@ export default ({ mousedown }) => {
       </div>
       <div className="domheader_function">
         <Link to="/settings" className=" domheader_ico" title="设置">
-          <i className="material-icons">settings</i>
+          <i className="bi-gear" />
         </Link>
-        <span className=" domheader_ico" title="换肤">
-          <i className="material-icons">palette</i>
-        </span>
+        <button type="button" className=" domheader_ico" title="换肤">
+          <i className="bi-brush" />
+        </button>
         <button
           type="button"
           className=" domheader_ico"
           onClick={handlesetPopup}
           title="私信"
         >
-          <i className="material-icons">mail_outline</i>
+          <i className="bi-envelope" />
           <span className="rt_ico">{newMsgCount}</span>
         </button>
       </div>
       <span className="domheader_spilt" />
       <div className="domheader_control">
-        <span className=" domheader_ico" title="mini模式">
-          <i className="material-icons">close_fullscreen</i>
-        </span>
-        <span className=" domheader_ico" title="最小化">
-          <i className="material-icons">remove</i>
-        </span>
-        <span className=" domheader_ico" title="最大化">
-          <i className="material-icons">crop_square</i>
-        </span>
-        <span className=" domheader_ico" title="关闭">
-          <i className="material-icons">close</i>
-        </span>
+        <button type="button" className=" domheader_ico" title="mini模式">
+          <i className="bi-arrows-angle-contract" />
+        </button>
+        <button type="button" className=" domheader_ico" title="最小化">
+          <i className="bi-dash" />
+        </button>
+        <button type="button" className=" domheader_ico" title="最大化">
+          <i className="bi-fullscreen" />
+        </button>
+        <button type="button" className=" domheader_ico" title="关闭">
+          <i className="bi-x" />
+        </button>
       </div>
     </div>
   );

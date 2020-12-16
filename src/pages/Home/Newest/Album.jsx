@@ -35,7 +35,7 @@ const AlbumItem = ({ item }) => (
     <div className="cover">
       <Link to="/">
         <LazyLoad overflow>
-          <img className="containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />
+          <img className="ui_containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />
         </LazyLoad>
       </Link>
     </div>

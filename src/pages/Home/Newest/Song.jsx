@@ -58,7 +58,7 @@ export default () => {
               className="cover"
             >
               <img
-                className="containimg"
+                className="ui_containimg"
                 src={`${item.album.blurPicUrl}?param=100y100`}
                 alt=""
               />

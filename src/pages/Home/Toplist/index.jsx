@@ -39,7 +39,7 @@ export default () => {
         {top4.map((item) => (
           <div key={item.id} className="official_rank">
             <Link to="" className="official_rank_cover">
-              <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+              <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
             </Link>
             <div className="official_rank_content">
               <div className="official_rank_list">
@@ -68,7 +68,7 @@ export default () => {
               <span className="playCount">
                 {transPlayCount(item.playCount)}
               </span>
-              <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+              <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
             </Link>
             <Link to="/" className="name">{item.name}</Link>
           </div>

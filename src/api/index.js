@@ -59,12 +59,20 @@ export const apiPlaylistCatlist = () => get('/playlist/catlist');
 export const apiTopPlaylist = (params) => post('/top/playlist', params);
 // 视频 - 获取视频标签列表
 export const apiVideoGroupList = () => get('/video/group/list');
+export const apiVideoGroup = (params) => post('/video/group', params);
 export const apiVideoCategoryList = () => post('/video/category/list');
 export const apiVideoTimelineRecommend = () => post('/video/timeline/recommend');
 export const apiMvUrl = (params) => post('/mv/url', params);
+// 视频评论
+export const apiCommentVideo = (params) => post('/comment/video', params);
+// 视频详情
 export const apiVideoDetail = (params) => post('/video/detail', params);
 // 相关视频
 export const apiRelatedAllvideo = (params) => post('/related/allvideo', params);
+// 视频地址
+export const apiVideoUrl = (params) => post('/video/url', params);
+// 获取视频点赞转发评论数数据
+export const apiVideoDetailInfo = (params) => post('/video/detail/info', params);
 // 朋友
 // 朋友 - 热门话题
 export const apiHotTopic = (params) => post('/hot/topic', params);

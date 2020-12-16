@@ -11,7 +11,7 @@ export default ({ djprogram = [] }) => (
             <div className="inner">
               <Link to="/dj">
                 <Lazyload>
-                  <img className="containimg" src={`${item.program.coverUrl}?param=200y200`} alt="" />
+                  <img className="ui_containimg" src={`${item.program.coverUrl}?param=200y200`} alt="" />
                 </Lazyload>
                 <div className="mask" />
                 <div className="lb">

@@ -9,7 +9,7 @@ export default ({ tag = false }) => (
     <div className="cover">
       <div className="inner">
         <Link to={tingting}>
-          <img className="containimg animate-zoomin" src={tingtingimg} alt="" />
+          <img className="ui_containimg animate-zoomin" src={tingtingimg} alt="" />
           {
             tag
             && Math.random() < 0.67

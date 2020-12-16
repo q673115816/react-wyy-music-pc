@@ -42,9 +42,9 @@ export default ({ handleSeeMsgPrivateHistory, newMsgCount, msgs = [] }) => (
         <div className="item" key={item.lastMsg}>
           <div className="avatar">
             <Link to={`/user/${item.fromUser.userId}`}>
-              <img className="containimg" src={item.fromUser.avatarUrl} alt="" />
+              <img className="ui_containimg" src={item.fromUser.avatarUrl} alt="" />
               <i className="ico">
-                <img className="containimg" src={item.fromUser?.avatarDetail?.identityIconUrl} alt="" />
+                <img className="ui_containimg" src={item.fromUser?.avatarDetail?.identityIconUrl} alt="" />
               </i>
             </Link>
           </div>

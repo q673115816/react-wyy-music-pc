@@ -86,9 +86,9 @@ export const setContriesCodeList = (payload) => ({
   payload,
 });
 
-export const setVideoGroupList = (data) => ({
+export const setVideoInit = (payload) => ({
   type: SET_VIDEO_INIT,
-  payload: data,
+  payload,
 });
 
 export const addVideoGroupList = (payload) => ({

@@ -85,7 +85,7 @@ export default () => {
                 <div className="inner">
                   <Link to={`/playlist/${item.id}`}>
                     <LazyloadImg overflow>
-                      <img className="containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+                      <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
                     </LazyloadImg>
                   </Link>
                   <div className="rt">

@@ -22,7 +22,7 @@ const handleBuildContent = (msg) => {
       {promotion && (
         <a href={promotion.url} _block className="embed">
           <div className="cover">
-            <img className="containimg" src={promotion.coverUrl} alt="" />
+            <img className="ui_containimg" src={promotion.coverUrl} alt="" />
           </div>
           <div className="promotion gray">
             {promotion.title}
@@ -38,7 +38,7 @@ const handleBuildMyContent = (msg) => {
   if (json.hasOwnProperty('picInfo')) {
     return (
       <div className="img">
-        <img src={json.picInfo.picUrl} className="coverimg" alt="" />
+        <img src={json.picInfo.picUrl} className="ui_coverimg" alt="" />
       </div>
     );
   }
@@ -125,7 +125,7 @@ export default ({
                     <div className="msg">
                       <div className="avatar">
                         <img
-                          className="containimg"
+                          className="ui_containimg"
                           src={item.fromUser.avatarUrl}
                           alt=""
                         />

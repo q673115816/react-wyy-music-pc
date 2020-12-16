@@ -44,12 +44,12 @@ module.exports = {
   // entry: path.join(src, 'index.js'),
   entry: {
     index: path.join(src, 'index.js'),
-    vendor: [
-      'swiper',
-      // 'react',
-      // 'react-dom',
-      // 'react-router-dom',
-    ],
+    // vendor: [
+    // 'swiper',
+    // 'react',
+    // 'react-dom',
+    // 'react-router-dom',
+    // ],
   },
 
   optimization: {
