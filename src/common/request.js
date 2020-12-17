@@ -11,11 +11,11 @@ export function setCookie(c) {
 }
 
 function format(obj) {
-  let data = '';
+  const data = new FormData();
   for (const key in obj) {
-    data += `${key}=${obj[key]}&`;
+    data.append(key, obj[key]);
   }
-  return data.slice(0, -1);
+  return data;
 }
 
 const defaultOptions = {
@@ -25,16 +25,20 @@ export const get = async (url) => await fetch(`${baseUrl}${url}`, {
   // headers: {
   //   Cookie: cookie,
   // },
+  // xhrFields: { withCredentials: true },
+  credentials: 'include',
 }).then((res) => res.json());
 
 export const post = async (url, params) => {
   console.log(params);
   return await fetch(`${baseUrl}${url}?timestamp=${Date.now()}`, {
     method: 'POST',
-    body: format({ cookie, ...params }),
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-      // Cookie: cookie,
-    },
+    body: format(params),
+    // xhrFields: { withCredentials: true },
+    credentials: 'include',
+    // headers: {
+    // 'content-type': 'application/x-www-form-urlencoded',
+    // Cookie: cookie,
+    // },
   }).then((res) => res.json());
 };

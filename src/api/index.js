@@ -79,3 +79,5 @@ export const apiHotTopic = (params) => post('/hot/topic', params);
 // 朋友 - 动态消息
 export const apiEvent = (params) => post('/event', params);
 export const apiCommentEvent = (params) => post('/comment/event', params);
+// 关注/取消关注用户
+export const apiFollow = (params) => post('/follow', params);

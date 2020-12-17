@@ -75,6 +75,19 @@
 
   &_actions {
     margin-top: 30px;
+    display: flex;
+    .button {
+      height: 30px;
+      border-radius: 15px;
+      border: 1px solid #ccc;
+      padding: 0 30px;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      &:hover {
+        background-color: #F2F2F2;
+      }
+    }
   }
 
   &_related {
@@ -85,11 +98,24 @@
     }
 
     .cover {
+      position: relative;
       width: 140px;
       height: 80px;
       flex: none;
       border-radius: 6px;
       overflow: hidden;
+      color: #fff;
+
+      .playTime {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .durationms {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
     }
 
     .content {
@@ -107,11 +133,23 @@
     }
   }
 
+  &_main {
+    margin-top: 50px;
+    .title {
+      // margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      margin-top: 30px;
+    }
+  }
+
   &_comments {
     .item {
       display: flex;
       padding: 16px 0;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid #eee;
 
       .jubao {
         display: none;
@@ -135,6 +173,11 @@
         padding-left: 16px;
         flex: auto;
         min-width: 1px;
+
+        .text {
+          user-select: text!important;
+          line-height: 1.5;
+        }
 
         .info {
           margin-top: 1em;

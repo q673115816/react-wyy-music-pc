@@ -79,6 +79,14 @@
     &_login {
       display: flex;
       align-items: center;
+
+      .person {
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        background-color: #E0E0E0;
+      }
     }
 
     &_profile {

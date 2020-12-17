@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { transTextEmoji } from '@/common/faces';
 import { apiSendText } from '@/api';
+import { wordLength } from '@/common/utils';
 import EmojiFaces from '../EmojiFaces';
+import Write from '../Write';
 
 const handleBuildContent = (msg) => {
   const json = JSON.parse(msg);
@@ -54,40 +56,29 @@ export default ({
   setPrivateMsgs,
 }) => {
   const [visibility, setVisibility] = useState(false);
-  const [msg, setMsg] = useState('');
-  const [length, setLenght] = useState(0);
-  // 全角半角判断
-  useEffect(() => {
-    let length = 0;
-    for (const char of msg) {
-      if (char.codePointAt() < 0x080) {
-        length += 0.5;
-      } else {
-        length += 1;
-      }
-    }
-    setLenght(length >> 0);
-  }, [msg]);
+  const [value, setValue] = useState('');
   const clickface = (face) => {
-    setMsg(msg + face);
+    setValue(value + face);
   };
   const handleSend = async () => {
     try {
       const { newMsgs = [] } = await apiSendText({
         user_ids: uid,
-        msg,
+        value,
       });
       setPrivateMsgs(newMsgs.reverse());
     } catch (error) {
       console.log(error);
     }
   };
-  const handleSubmit = async () => {
-    if (msg.length > 200) {
-      return false;
+  const handleSubmit = () => {
+    const length = wordLength(value);
+    if (length <= 200) {
+      handleSend();
+      setValue('');
+    } else {
+      console.log('to long');
     }
-    await handleSend();
-    setMsg('');
   };
   const history = useRef();
   useEffect(() => {
@@ -101,7 +92,7 @@ export default ({
           className="back"
           onClick={() => setShowMsgPrivateHistory(false)}
         >
-          <i className="material-icons">navigate_before</i>
+          <i className="bi-chevron-left" />
         </button>
         <span>{nickname}</span>
       </div>
@@ -139,25 +130,20 @@ export default ({
         {hint && <div className="hint">{hint}</div>}
       </div>
       <div className="feedback">
-        <div className="write">
-          <textarea
-            onChange={({ target }) => setMsg(target.value)}
-            value={msg}
-            className="textarea"
-            placeholder={`回复 ${nickname}`}
-          />
-          <span className={['length', length > 200 ? 'red' : 'gray'].join(' ')}>{200 - length }</span>
-        </div>
+        <Write {...{
+          value, setValue, length: 200, placeholder: `回复 ${nickname}`,
+        }}
+        />
         <div className="actions">
           <div className="left">
             <div className="faces">
               <EmojiFaces {...{ visibility, setVisibility, clickface }} />
             </div>
             <button type="button" className="action" onClick={() => setVisibility(true)}>
-              <i className="material-icons">sentiment_satisfied_alt</i>
+              <i className="bi-emoji-smile" />
             </button>
             <button type="button" className="action">
-              <i className="material-icons">photo_size_select_actual</i>
+              <i className="bi-image" />
             </button>
           </div>
           <div className="right">

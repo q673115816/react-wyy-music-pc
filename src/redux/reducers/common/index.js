@@ -12,7 +12,8 @@ const initialState = {
   newMsgCount: 0,
   countriesCodeList: [],
   dialog_login_visibility: false,
-  isLogin: window.localStorage.getItem('cookie') !== null,
+  // isLogin: window.localStorage.getItem('cookie') !== null,
+  isLogin: false,
 };
 
 export default (state = initialState, action) => {

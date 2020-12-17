@@ -81,11 +81,13 @@ svg {
   vertical-align: middle;
 }
 
-[class^="bi-"]::before,
-[class*=" bi-"]::before {
-  vertical-align: inherit;
+// [class^="bi-"]::before,
+// [class*=" bi-"]::before {
+//   vertical-align: inherit;
+// }
+.icon-tabler {
+  stroke: currentColor;
 }
-
 // .material-icons,
 // .material-icons-outlined,
 // .material-icons-round,

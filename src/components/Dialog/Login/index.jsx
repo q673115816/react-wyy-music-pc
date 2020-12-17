@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import './_login.scss';
 import { apiLoginCellphone } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
-import { dialogLoginVisibilty, setIsLogin } from '@/redux/actions';
+import { dialogLoginVisibilty, setIsLogin, setLoginInfo } from '@/redux/actions';
 import { setCookie } from '@/common/request';
 
 export default () => {
   const [isagree, setIsagree] = useState(false);
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [loginInfo, setLoginInfo] = useState('');
+  const [warn, setWarn] = useState('');
   const { countriesCodeList } = useSelector(({ common }) => common);
   const dispatch = useDispatch();
   const {
@@ -35,7 +35,7 @@ export default () => {
       if (code === 502) {
         console.log(msg);
       } else if (code === 200) {
-        setCookie(cookie);
+        // setCookie(cookie);
         handleToggle();
         dispatch(setLoginInfo(profile));
         dispatch(setIsLogin());
@@ -48,14 +48,13 @@ export default () => {
   const login = (e) => {
     e.preventDefault();
     if (!isagree) {
-      setLoginInfo('请先勾选同意《服务条款》《服务条款》《服务条款》');
-      return false;
-    } if (!phone) {
-      setLoginInfo('请输入手机号');
+      setWarn('请先勾选同意《服务条款》《服务条款》《服务条款》');
+    } else if (!phone) {
+      setWarn('请输入手机号');
     } else if (!password) {
-      setLoginInfo('请输入密码');
+      setWarn('请输入密码');
     } else if (!/\d{11}/.test(phone)) {
-      setLoginInfo('请输入11位数字的手机号');
+      setWarn('请输入11位数字的手机号');
     } else {
       handleLogin();
     }
@@ -111,7 +110,7 @@ export default () => {
               </tr>
             </tbody>
           </table>
-          <div>{loginInfo}</div>
+          <div>{warn}</div>
           <label>
             自动登录
             <input type="checkbox" name="auto" />

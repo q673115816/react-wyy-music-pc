@@ -8,8 +8,13 @@ import { transPlayCount } from '@/common/utils';
 import {
   apiRelatedAllvideo, apiVideoUrl, apiVideoDetail, apiVideoDetailInfo,
   apiCommentVideo,
+  apiFollow,
 } from '@/api';
 import { setVideoDetailRelated } from '@/redux/actions';
+import Write from '@/components/Write';
+
+import DomComments from './Comments';
+import DomRelated from './Related';
 
 export default () => {
   const { vid } = useParams();
@@ -23,6 +28,8 @@ export default () => {
   const [detail, setDetail] = useState({});
   const [videoDetailInfo, setVideoDetailInfo] = useState({});
   const [comments, setComments] = useState({});
+  const [value, setValue] = useState('');
+  const [followed, setFollowed] = useState(false);
   const handleInit = async () => {
     try {
       const [
@@ -30,7 +37,7 @@ export default () => {
         { data: related = [] },
         { data: detail = {} },
         videoDetailInfo = {},
-        comments = [],
+        comments = {},
       ] = await Promise.all([
         apiVideoUrl({
           id: vid,
@@ -61,7 +68,16 @@ export default () => {
       console.log(error);
     }
   };
-
+  const handleFollow = async () => {
+    try {
+      const { } = await apiFollow({
+        id: detail.creator.userId,
+        t: followed ? 0 : 1,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     handleInit();
   }, []);
@@ -72,7 +88,10 @@ export default () => {
         <div className="domVideoDetail_header domVideoDetail_container">
           <div className="left">
             <button type="button" onClick={() => goBack()}>
-              <i className="bi-chevron-left" />
+              <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width="28" height="28" viewBox="0 0 24 24" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <polyline points="15 6 9 12 15 18" />
+              </svg>
               <b>视频详情</b>
             </button>
           </div>
@@ -94,11 +113,17 @@ export default () => {
               <Link className="nickname" to={`/user/${detail?.creator?.userId}`}>
                 {detail?.creator?.nickname}
               </Link>
-              {
-                detail?.creator?.followed
-                  ? <button type="button" className="follow on">+ 已关注</button>
-                  : <button type="button" className="follow">+ 关注</button>
-              }
+              <button
+                onClick={handleFollow}
+                type="button"
+                className={classnames('follow', { on: detail?.creator?.followed })}
+              >
+                {
+                  detail?.creator?.followed
+                    ? '+ 已关注'
+                    : '+ 关注'
+                }
+              </button>
             </div>
             <div className="domVideoDetail_title h1">
               {detail?.title}
@@ -116,102 +141,67 @@ export default () => {
               ))}
             </div>
             <div className="domVideoDetail_actions">
-              <button type="button" className="ui_btn">
-                <i className="bi-hand-thumbs-up" />
+              <button type="button" className="button">
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-thumb-up" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" />
+                </svg>
                 赞
+                (
                 {videoDetailInfo?.likedCount}
+                )
               </button>
-              <button type="button" className="ui_btn">
-                {videoDetailInfo?.likedCount}
+              <button type="button" className="button">
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-folder-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2" />
+                  <line x1="12" y1="10" x2="12" y2="16" />
+                  <line x1="9" y1="13" x2="15" y2="13" />
+                </svg>
+                收藏
+                (
+                {detail?.subscribeCount}
+                )
+              </button>
+              <button type="button" className="button">
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-screen-share" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                  <path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" />
+                  <line x1="7" y1="20" x2="17" y2="20" />
+                  <line x1="9" y1="16" x2="9" y2="20" />
+                  <line x1="15" y1="16" x2="15" y2="20" />
+                  <path d="M17 4h4v4" />
+                  <path d="M16 9l5 -5" />
+                </svg>
+                分享
+                (
+                {videoDetailInfo?.shareCount}
+                )
               </button>
             </div>
-            <div>
-              <div>
+            <div className="domVideoDetail_main">
+              <div className="title">
                 <b className="h1">评论</b>
-                <span>{}</span>
+                &nbsp;
+                <span>
+                  (
+                  {detail.commentCount}
+                  )
+                </span>
               </div>
-              <div>
-                <textarea />
+              <div className="domVideoDetail_feedback">
+                <Write {...{
+                  value,
+                  setValue,
+                  length: 140,
+                }}
+                />
               </div>
-            </div>
-            <div>
-              <div><b>精彩评论</b></div>
-              <div className="domVideoDetail_comments">
-                {
-                  comments?.hotComments?.map((item) => (
-                    <div className="item" key={item.commentId}>
-                      <div className="avatar">
-                        <Link to={`/user/${item.user.userId}`}>
-                          <img className="ui_containimg" src={item.user.avatarUrl} alt="" />
-                        </Link>
-                      </div>
-                      <div className="content">
-                        <div className="text">
-                          <Link className="ui_link" to={`/user/${item.user.userId}`}>
-                            {item.user.nickname}
-                            ：
-                          </Link>
-                          {item.content}
-                        </div>
-                        <div className="info">
-                          <span className="time gray">
-                            {dayjs(item.time).format('YYYY-MM-DD')}
-                          </span>
-                          <div className="actions">
-                            <div className="jubao">
-                              <button type="button">
-                                举报
-                              </button>
-                              <span />
-                            </div>
-                            <button type="button">
-                              <i className="bi-hand-thumbs-up" />
-                              {item.likedCount}
-                            </button>
-                            <span />
-                            <button type="button">
-                              <i className="bi-box-arrow-up-right" />
-                            </button>
-                            <span />
-                            <button type="button">
-                              <i className="bi-chat-text" />
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                }
-              </div>
+              <DomComments comments={comments} />
             </div>
           </div>
           <div className="right">
-            <div className="domVideoDetail_related">
-              {
-              related.map((item) => (
-                <div className="item" key={item.vid}>
-                  <div className="cover">
-                    <Link to={`./${item.vid}`}>
-                      <img className="ui_containimg" src={item.coverUrl} alt="" />
-                    </Link>
-                  </div>
-                  <div className="content">
-                    <div className="title">
-                      <Link to={`./${item.vid}`}>
-                        {item.title}
-                      </Link>
-                    </div>
-                    <div className={classnames('gray', 'username', 'text-overflow')}>
-                      by &nbsp;
-                      <Link to={`/user/${item.creator[0].userId}`}>
-                        {item.creator[0].userName}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))
-            }
-            </div>
+            <DomRelated related={related} />
           </div>
         </div>
       </div>

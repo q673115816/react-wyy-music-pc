@@ -190,11 +190,11 @@ button {
   }
 }
 
-.center {
+.flex-center {
   @include flex-center();
 }
 
-.insetCenter {
+.inset-center {
   @include inset-center();
 }
 
