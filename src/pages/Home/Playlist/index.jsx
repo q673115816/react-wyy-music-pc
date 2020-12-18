@@ -100,7 +100,9 @@ export default () => {
                   </div>
                   <div className="rb">
                     <span className="playArrow">
-                      <i className="material-icons">play_arrow</i>
+                      <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 4v16l13 -8z" />
+                      </svg>
                     </span>
                   </div>
                 </div>

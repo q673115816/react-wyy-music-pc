@@ -37,11 +37,9 @@ export const setNotLogin = () => ({
   type: SET_NOT_LOGIN,
 });
 
-export const setLoginInfo = (profile) => ({
+export const setLoginInfo = (payload) => ({
   type: SET_LOGIN_INFO,
-  payload: {
-    profile,
-  },
+  payload,
 });
 
 export const setUserDetail = (payload) => ({

@@ -1,9 +1,37 @@
 #playlist {
   position: absolute;
-  top: 0;
+  top: var(--HEADER);
   right: 0;
-  bottom: 0;
+  bottom: var(--FOOTER);
   background-color: #fff;
   width: 420px;
   z-index: 10;
+  padding: 0 20px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  @include select-nav(105px);
+
+  .actions {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    &.disabled {
+      color: #ccc;
+    }
+    .right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      span {
+        width: 1px;
+        height: 12px;
+        background-color: #ccc;
+      }
+      .action {
+        margin: 0 20px;
+      }
+    }
+  }
 }

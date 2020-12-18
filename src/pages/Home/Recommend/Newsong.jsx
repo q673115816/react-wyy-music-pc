@@ -9,7 +9,9 @@ export default ({ newsong = [] }) => (
         <div key={item.id} className="item">
           <button type="button" onClick={() => console.log(item.id)} className="cover">
             <span className="ico">
-              <i className="material-icons">play_arrow</i>
+              <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 4v16l13 -8z" />
+              </svg>
             </span>
             <Lazyload overflow>
               <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />

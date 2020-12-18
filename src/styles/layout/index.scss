@@ -1,6 +1,8 @@
 .domwrapper {
   --WIDTH: 1022px;
   --HEIGHT: 670px;
+  --HEADER: 60px;
+  --FOOTER:70px;
   position: absolute;
   display: flex;
   flex-direction: column;

@@ -34,7 +34,7 @@ export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');
 export const apiUserAccount = () => post('/user/account');
 export const apiUserDetail = (uid) => get(`/user/detail?uid=${uid}`);
-export const apiUserPlaylist = (uid) => get(`/user/playlist?uid=${uid}`);
+export const apiUserPlaylist = (params) => post('/user/playlist', params);
 // 私信
 export const apiMsgPrivate = () => post('/msg/private');
 export const apiMsgPrivateHistory = (params) => post('/msg/private/history', params);
@@ -81,3 +81,12 @@ export const apiEvent = (params) => post('/event', params);
 export const apiCommentEvent = (params) => post('/comment/event', params);
 // 关注/取消关注用户
 export const apiFollow = (params) => post('/follow', params);
+
+// 我的收藏 - 专辑列表
+export const apiAlbumSublist = (params) => post('/album/sublist', params);
+// 我的收藏 - 歌手列表
+export const apiArtistSublist = (params) => post('/artist/sublist', params);
+// 我的收藏 - 视频列表
+export const apiMvSublist = (params) => post('/mv/sublist', params);
+// 我的收藏 - 专栏列表
+export const apiTopicSublist = (params) => post('/topic/sublist', params);

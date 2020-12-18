@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+const options1 = [
+  {
+    name: '发现音乐',
+    link: '/home',
+  },
+  {
+    name: '视频',
+    link: '/video',
+  },
+  {
+    name: '朋友',
+    link: '/friend',
+  },
+  {
+    name: '直播',
+    link: '/look',
+  },
+  {
+    name: '私人FM',
+    link: '/fm',
+  },
+];
 export default () => {
   const [showplaylist, setPlaylist] = useState(true);
-
-  const options1 = [
-    {
-      name: '发现音乐',
-      link: '/home',
-    },
-    {
-      name: '视频',
-      link: '/video',
-    },
-    {
-      name: '朋友',
-      link: '/friend',
-    },
-    {
-      name: '直播',
-      link: '/look',
-    },
-    {
-      name: '私人FM',
-      link: '/fm',
-    },
-  ];
-
+  const { profile, playlist } = useSelector(({ account }) => account);
   return (
     <div className="dommain_left">
       <nav>
@@ -47,6 +47,13 @@ export default () => {
       <nav>
         <NavLink className="dommain_left_link" activeClassName="on" to="/local">本地音乐</NavLink>
         <NavLink className="dommain_left_link" activeClassName="on" to="/download">下载管理</NavLink>
+        {profile && (
+          <>
+            <NavLink className="dommain_left_link" activeClassName="on" to="/download">我的音乐云盘</NavLink>
+            <NavLink className="dommain_left_link" activeClassName="on" to="/download">我的电台</NavLink>
+            <NavLink className="dommain_left_link" activeClassName="on" to="/sublist">我的收藏</NavLink>
+          </>
+        )}
       </nav>
       <div className="dommain_left_dt">
         <div className="playlist_control">

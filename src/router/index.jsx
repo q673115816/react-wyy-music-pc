@@ -14,7 +14,8 @@ const Love = loadable(() => import(/* webpackChunkName: "Love" */'@/pages/Love')
 const ToplistArtist = loadable(() => import(/* webpackChunkName: "ToplistArtist" */'@/pages/ToplistArtist'));
 const Playlist = loadable(() => import(/* webpackChunkName: "Playlist" */'@/pages/Playlist'));
 const User = loadable(() => import(/* webpackChunkName: "User" */'@/pages/User'));
-
+const Sublist = loadable(() => import(/* webpackChunkName: "Sublist" */'@/pages/Sublist'));
+const Artist = loadable(() => import(/* webpackChunkName: "Artist" */'@/pages/Artist'));
 export default () => (
   <Switch>
     <Route path="/home" component={Home} />
@@ -24,6 +25,8 @@ export default () => (
     <Route path="/download" component={Download} />
     <Route path="/friend" component={Friend} />
     <Route path="/love" component={Love} />
+    <Route path="/sublist" component={Sublist} />
+    <Route path="/Artist/:id" component={Artist} />
     <Route path="/toplistartist/:type">
       <ToplistArtist />
     </Route>

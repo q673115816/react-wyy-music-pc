@@ -30,43 +30,7 @@
     }
   }
 
-  .nav {
-    flex: none;
-    border-radius: 15px;
-    display: flex;
-    border: 1px solid #BBBBBB;
-    margin: 10px 20px;
-
-    &_link {
-      position: relative;
-      flex: 1;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
-      border-radius: 15px;
-
-      &:hover {
-        background-color: #F5F5F5;
-      }
-
-      &.on {
-        background-color: #BBBBBB;
-        color: #fff;
-      }
-
-      .lt_ico {
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(20%, -50%);
-        border: 1px solid #fff;
-        border-radius: 1000px;
-        background-color: var(--basered);
-        line-height: 1;
-        padding: 2px 4px;
-      }
-    }
-  }
+  @include select-nav();
 
   .list {
     flex: 1;

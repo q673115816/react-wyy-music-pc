@@ -1,7 +1,8 @@
 import { SET_LOGIN_INFO } from '@/redux/actionTypes';
 
 const initialState = {
-
+  profile: {},
+  playlist: [],
 };
 
 export default (state = initialState, action) => {

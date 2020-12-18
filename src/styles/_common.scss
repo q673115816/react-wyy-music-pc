@@ -39,6 +39,7 @@ body {
 .overflow-auto {
   overflow: auto;
   max-height: 100%;
+  flex: auto;
 }
 
 .animate-zoomin {
@@ -72,7 +73,10 @@ button {
 }
 
 .gray {
-  color: gray;
+  color: #9B9B9B;
+  &.hover:hover {
+    color: #616162;
+  }
 }
 
 .red {
