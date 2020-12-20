@@ -2,12 +2,15 @@
 
   &_nav {
     padding: 20px 30px;
+
     &_link {
       font-size: 16px;
       margin-right: 1em;
+
       &.on {
         font-size: 22px;
       }
+
       @include nav-active();
     }
   }
@@ -15,7 +18,9 @@
   &_headerBar {
     display: flex;
     padding: 10px 20px;
+    padding-left: 30px;
     align-items: baseline;
+
     .search {
       position: relative;
       margin-left: auto;
@@ -43,17 +48,21 @@
   &_list {
     .item {
       width: 100%;
-      display: flex;
+      display: grid;
+      grid-template-columns: 60px 2fr 1fr auto;
       height: 80px;
       padding-left: 30px;
       padding-right: 40px;
-      align-items: center;
+      // align-items: center;
+
       &:nth-child(odd) {
         background-color: #F9F9F9;
       }
+
       &:hover {
         background-color: #F0F1F2;
       }
+
       .cover {
         width: 60px;
         height: 60px;
@@ -64,22 +73,30 @@
 
       .name {
         padding: 0 10px;
-        flex: 2;
+        // width: 50%;
+        // flex: 2;
       }
 
-      .artist {
-        flex: 1;
+      // .artist {
+      //   flex: 1;
+      // }
+
+
+      .creator {
+        // width: 20%;
       }
 
-      .albumSize {
-        flex: 1;
-      }
 
       .size {
-        margin-left: auto;
+        // margin-left: auto;
       }
 
     }
+  }
+
+  &_grid {
+    padding: 30px;
+    padding-top: 0;
   }
 }
 

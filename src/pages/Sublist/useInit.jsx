@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
-export default (api) => {
+export default (api, filterRule) => {
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
   const [filter, setFilter] = useState([]);
@@ -22,8 +22,7 @@ export default (api) => {
   const handleFilter = () => {
     if (search.trim()) {
       setFilter(
-        data.filter((item) => item.name.indexOf(search) >= 0
-          || item.artists.find((artist) => artist.name.indexOf(search) >= 0)),
+        filterRule(data, search),
       );
     } else {
       setSearch('');

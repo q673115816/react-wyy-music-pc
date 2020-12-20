@@ -26,7 +26,7 @@ const options1 = [
 ];
 export default () => {
   const [showplaylist, setPlaylist] = useState(true);
-  const { profile, playlist } = useSelector(({ account }) => account);
+  const { profile, playlist, isLogin } = useSelector(({ account, common }) => ({ ...account, ...common }));
   return (
     <div className="dommain_left">
       <nav>
@@ -41,16 +41,16 @@ export default () => {
               {item.name}
             </NavLink>
           ))
-          }
+        }
       </nav>
       <div className="dommain_left_dt">我的音乐</div>
       <nav>
         <NavLink className="dommain_left_link" activeClassName="on" to="/local">本地音乐</NavLink>
         <NavLink className="dommain_left_link" activeClassName="on" to="/download">下载管理</NavLink>
-        {profile && (
+        {isLogin && (
           <>
-            <NavLink className="dommain_left_link" activeClassName="on" to="/download">我的音乐云盘</NavLink>
-            <NavLink className="dommain_left_link" activeClassName="on" to="/download">我的电台</NavLink>
+            <NavLink className="dommain_left_link" activeClassName="on" to="/cloud">我的音乐云盘</NavLink>
+            <NavLink className="dommain_left_link" activeClassName="on" to="/dj">我的电台</NavLink>
             <NavLink className="dommain_left_link" activeClassName="on" to="/sublist">我的收藏</NavLink>
           </>
         )}

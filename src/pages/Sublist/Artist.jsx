@@ -24,6 +24,9 @@ const AliasOrTrans = ({ alias, trans }) => {
   }
 };
 
+const filterRule = (data, search) => data.filter((item) => item.name.indexOf(search) >= 0
+  || item?.trans?.indexOf(search) >= 0 || item.alias.find((alia) => alia.indexOf(search) >= 0));
+
 export default () => {
   const { push } = useHistory();
   const {
@@ -31,7 +34,7 @@ export default () => {
     setSearch,
     search,
     filter,
-  } = useInit(apiArtistSublist);
+  } = useInit(apiArtistSublist, filterRule);
   return (
     <>
       <div className="domSublist_headerBar">

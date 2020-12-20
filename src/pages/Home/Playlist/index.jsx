@@ -83,7 +83,7 @@ export default () => {
             <div className="item" key={item.id}>
               <div className="cover">
                 <div className="inner">
-                  <Link to={`/playlist/${item.id}`}>
+                  <Link to={`/playlist/music/${item.id}`}>
                     <LazyloadImg overflow>
                       <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
                     </LazyloadImg>
@@ -107,7 +107,7 @@ export default () => {
                   </div>
                 </div>
               </div>
-              <Link className="name" to={`/playlist/${item.id}`}>{item.name}</Link>
+              <Link className="name" to={`/playlist/music/${item.id}`}>{item.name}</Link>
             </div>
           ))
         }

@@ -30,6 +30,7 @@ export default () => {
   const [comments, setComments] = useState({});
   const [value, setValue] = useState('');
   const [followed, setFollowed] = useState(false);
+  const [descriptionVisibility, setDescriptionVisibility] = useState(false);
   const handleInit = async () => {
     try {
       const [
@@ -80,7 +81,7 @@ export default () => {
   };
   useEffect(() => {
     handleInit();
-  }, []);
+  }, [vid]);
   if (!pending) return <div>loading</div>;
   return (
     <div className=" overflow-auto">
@@ -102,7 +103,7 @@ export default () => {
         <div className="domVideoDetail_main domVideoDetail_container">
           <div className="left">
             <div id="video">
-              <video src={urls[0]?.url} controls />
+              <video src={urls[0]?.url} controls autoPlay />
             </div>
             <div className="domVideoDetail_creator">
               <Link to={`/user/${detail?.creator?.userId}`}>
@@ -125,9 +126,27 @@ export default () => {
                 }
               </button>
             </div>
-            <div className="domVideoDetail_title h1">
+            <button
+              type="button"
+              className="domVideoDetail_title h1"
+              onClick={() => setDescriptionVisibility(!descriptionVisibility)}
+            >
               {detail?.title}
-            </div>
+              {
+                descriptionVisibility
+                  ? (
+                    <svg className="icon icon-tabler icon-tabler-caret-up" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M18 15l-6 -6l-6 6h12" />
+                    </svg>
+                  )
+                  : (
+                    <svg className="icon icon-tabler icon-tabler-caret-down" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)" />
+                    </svg>
+                  )
+              }
+            </button>
             <div className="domVideoDetail_info gray">
               发布：
               {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
@@ -140,13 +159,35 @@ export default () => {
                 <Link className="group" to={`/video/list/${group.id}`}>{group.name}</Link>
               ))}
             </div>
+            <div
+              style={{ display: descriptionVisibility ? null : 'none' }}
+              className="domVideoDetail_description"
+            >
+              {detail.description}
+            </div>
             <div className="domVideoDetail_actions">
               <button type="button" className="button">
-                <svg className="icon icon-tabler icon-tabler-thumb-up" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" />
-                </svg>
-                赞
+                {
+                  videoDetailInfo.liked
+                    ? (
+                      <>
+                        <svg className="icon icon-tabler icon-tabler-thumb-up" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" fill="#F0CECE" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" stroke="#EC4141" />
+                        </svg>
+                        已赞
+
+                      </>
+                    )
+                    : (
+                      <>
+                        <svg className="icon icon-tabler icon-tabler-thumb-up" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" />
+                        </svg>
+                        赞
+
+                      </>
+                    )
+                }
                 (
                 {videoDetailInfo?.likedCount}
                 )

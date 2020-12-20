@@ -90,7 +90,7 @@ export default () => {
   }, [id]);
 
   return (
-    <div className="inner overflow-auto" ref={scrolldom} onScroll={handleScroll}>
+    <div className="domplay_content overflow-auto" ref={scrolldom} onScroll={handleScroll}>
       <div className="video_sort_filter_bar">
         <div className="group_select_wrap">
           <button
@@ -143,23 +143,25 @@ export default () => {
           ))}
         </div>
       </div>
-      <div className="domplay_list">
+      <div className="domplay_list ui_grid rectangle_width col_3">
         {
           isLogin ? (
             <>
               {VideoList?.map(({ data }) => (
                 <div className="item" key={data.id}>
                   <div className="cover">
-                    <Link to={`/videodetail/${data.vid}`}>
-                      <img className="ui_coverimg" src={data.coverUrl} alt="" />
-                      <div className="playTime">{transPlayCount(data.playTime)}</div>
-                      <div className="durationms">{dayjs(data.durationms).format('mm:ss')}</div>
-                    </Link>
+                    <div className="inner">
+                      <Link to={`/videodetail/${data.vid}`}>
+                        <img className="ui_coverimg" src={data.coverUrl} alt="" />
+                        <div className="rt whitetext">{transPlayCount(data.playTime)}</div>
+                        <div className="rb whitetext">{dayjs(data.durationms).format('mm:ss')}</div>
+                      </Link>
+                    </div>
                   </div>
-                  <div className="title">
-                    <Link to={`/videodetail/${data.vid}`} className="text-overflow">{data.title}</Link>
+                  <div className="footer text-overflow">
+                    <Link to={`/videodetail/${data.vid}`} className="">{data.title}</Link>
                   </div>
-                  <div className="creator gray">
+                  <div className="text creator gray">
                     <Link to={`/user/${data.creator.userId}`}>
                       {data.creator.nickname}
                     </Link>

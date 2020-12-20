@@ -4,7 +4,7 @@ import {
   NavLink,
 } from 'react-router-dom';
 
-import './style.scss';
+// import './style.scss';
 
 import DomAlbum from './Album';
 import DomArtist from './Artist';

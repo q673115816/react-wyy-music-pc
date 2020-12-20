@@ -35,6 +35,8 @@ export const apiCountriesCodeList = () => get('/countries/code/list');
 export const apiUserAccount = () => post('/user/account');
 export const apiUserDetail = (uid) => get(`/user/detail?uid=${uid}`);
 export const apiUserPlaylist = (params) => post('/user/playlist', params);
+// 用户电台 登录
+export const apiUserDj = (params) => post('/user/dj', params);
 // 私信
 export const apiMsgPrivate = () => post('/msg/private');
 export const apiMsgPrivateHistory = (params) => post('/msg/private/history', params);
@@ -54,7 +56,7 @@ export const apiTopAlbum = (params) => post('/top/album', params);
 
 export const apiAlbumNew = (params) => post('/album/new', params);
 
-export const apiPlaylistCatlist = () => get('/playlist/catlist');
+export const apiPlaylistCatlist = () => get('/playlist/music/catlist');
 
 export const apiTopPlaylist = (params) => post('/top/playlist', params);
 // 视频 - 获取视频标签列表
@@ -83,10 +85,12 @@ export const apiCommentEvent = (params) => post('/comment/event', params);
 export const apiFollow = (params) => post('/follow', params);
 
 // 我的收藏 - 专辑列表
-export const apiAlbumSublist = (params) => post('/album/sublist', params);
+export const apiAlbumSublist = () => post('/album/sublist');
 // 我的收藏 - 歌手列表
-export const apiArtistSublist = (params) => post('/artist/sublist', params);
+export const apiArtistSublist = () => post('/artist/sublist');
 // 我的收藏 - 视频列表
-export const apiMvSublist = (params) => post('/mv/sublist', params);
+export const apiMvSublist = () => post('/mv/sublist');
 // 我的收藏 - 专栏列表
-export const apiTopicSublist = (params) => post('/topic/sublist', params);
+export const apiTopicSublist = () => post('/topic/sublist');
+// 我的电台
+export const apiDjSublist = () => post('/dj/sublist');

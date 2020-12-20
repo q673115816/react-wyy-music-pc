@@ -10,7 +10,7 @@ const Look = loadable(() => import(/* webpackChunkName: "Look" */'@/pages/Look')
 const Download = loadable(() => import(/* webpackChunkName: "Download" */'@/pages/Download'));
 const Friend = loadable(() => import(/* webpackChunkName: "Friend" */'@/pages/Friend'));
 const Love = loadable(() => import(/* webpackChunkName: "Love" */'@/pages/Love'));
-
+const Dj = loadable(() => import(/* webpackChunkName: "Dj" */'@/pages/Dj'));
 const ToplistArtist = loadable(() => import(/* webpackChunkName: "ToplistArtist" */'@/pages/ToplistArtist'));
 const Playlist = loadable(() => import(/* webpackChunkName: "Playlist" */'@/pages/Playlist'));
 const User = loadable(() => import(/* webpackChunkName: "User" */'@/pages/User'));
@@ -24,13 +24,14 @@ export default () => (
     <Route path="/local" component={Local} />
     <Route path="/download" component={Download} />
     <Route path="/friend" component={Friend} />
+    <Route path="/dj" component={Dj} />
     <Route path="/love" component={Love} />
     <Route path="/sublist" component={Sublist} />
     <Route path="/Artist/:id" component={Artist} />
     <Route path="/toplistartist/:type">
       <ToplistArtist />
     </Route>
-    <Route path="/playlist/:id" component={Playlist} />
+    <Route path="/playlist/music/:id" component={Playlist} />
     <Route path="/user" component={User} />
     <Route path="/settings" component={Setting} />
     <Redirect to="/home" />

@@ -19,14 +19,14 @@ const ListBuild = (filter, search, push) => {
     );
   } if (filter.length > 0) {
     return filter.map((item) => (
-      <button type="button" className="item" key={item.id} onClick={() => push(`/playlist/${item.id}`)}>
+      <button type="button" className="item" key={item.id} onClick={() => push(`/playlist/music/${item.id}`)}>
         <div className="cover">
-          <Link to={`/playlist/${item.id}`}>
+          <Link to={`/playlist/music/${item.id}`}>
             <img className="containimg" src={`${item.picUrl}?param=100y100`} alt="" />
           </Link>
         </div>
         <div className="name text-overflow">
-          <Link to={`/playlist/${item.id}`}>
+          <Link to={`/playlist/music/${item.id}`}>
             {item.name}
           </Link>
           <span className="gray">
@@ -72,12 +72,9 @@ export default () => {
             {NAME}
           </b>
           &nbsp;
-          {
-            count > 0
-            && (
-              { count }
-            )
-          }
+          (
+          { count }
+          )
 
         </span>
         <Search {...{ search, setSearch, placeholder: `搜索我收藏的${NAME}` }} />

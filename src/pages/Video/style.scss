@@ -25,53 +25,11 @@
 
   &_content {
     flex: 1;
-    display: flex;
-    .inner {
-      padding: 30px;
-      flex: auto
-    }
+    padding: 30px;
   }
 
   &_list {
     margin-top: 20px;
-    display: grid;
-    row-gap: 20px;
-    column-gap: 20px;
-    grid-template-columns: repeat(3, calc((100% - 40px)/ 3));
-
-    .item {
-      .cover {
-        position: relative;
-        overflow: hidden;
-        border-radius: 6px;
-        width: 240px;
-        height: 137px;
-      }
-
-      .title {
-        margin-top: 1em;
-        display: flex;
-      }
-
-      .creator {
-        margin-top: 0.5em;
-      }
-
-      .playTime {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 10px;
-        color: #fff;
-      }
-
-      .durationms {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        padding: 10px;
-        color: #fff;
-      }
-    }
   }
+
 }

@@ -1,9 +1,11 @@
 .ui_grid {
   --arrowsize: 20px;
   --cover: 100%;
+  --columnGap: 20px;
+  --rowGap: 20px;
   display: grid;
-  column-gap: 20px;
-  row-gap: 20px;
+  column-gap: var(--columnGap);
+  row-gap: var(--rowGap);
   grid-template-columns: repeat(5, 1fr);
 
   &.row_1 {
@@ -18,9 +20,19 @@
     --arrowsize: 25px;
     grid-template-columns: repeat(4, 1fr);
   }
-  &.rectangle_height {
-    --cover: 133.3333333%;
+
+  &.col_3 {
+    grid-template-columns: repeat(3, calc(100% / 3 - var(--columnGap) * 2 / 3));
   }
+
+  &.rectangle_height {
+    --cover: calc(240 / 180 * 100%);
+  }
+
+  &.rectangle_width {
+    --cover: calc(136 / 242 * 100%);
+  }
+
   .item {
 
     .cover {
@@ -71,6 +83,7 @@
         @include flex-center();
         color: var(--basered);
       }
+
       &:hover {
         .playArrow {
           opacity: 1;
@@ -112,6 +125,9 @@
       margin-top: 0.5em;
       line-height: 1.5;
     }
+
+    .text {
+      line-height: 1.5;
+    }
   }
 }
-

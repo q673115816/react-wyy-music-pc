@@ -39,13 +39,12 @@
       display: grid;
       row-gap: 20px;
       column-gap: 10px;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, calc( 100% / 3 - 20px / 3));
       grid-template-rows: repeat(4, 50px);
       grid-auto-flow: column;
 
       .item {
-        display: table-row;
-
+        display: flex;
         &:hover {
           background-color: #EAEAEA;
         }
@@ -73,6 +72,7 @@
       }
 
       .content {
+        flex: auto;
         display: flex;
         flex-direction: column;
         padding: 4px 8px;
@@ -101,7 +101,7 @@
 
       .cover {
         position: relative;
-        border-radius: 10px;
+        border-radius: 4px;
         overflow: hidden;
       }
 

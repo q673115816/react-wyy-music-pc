@@ -27,15 +27,13 @@ export default () => {
           mv
         </NavLink>
       </div>
-      <div className="domplay_content">
-        <Switch>
-          <Route path={`${url}/videolist/:id`} component={VideoList} />
-          <Route path={`${url}/videolist`} component={VideoList} />
-          <Route path={`${url}/mvlist/:id`} component={MvList} />
-          <Route path={`${url}/mvlist`} component={MvList} />
-          <Redirect to={`${url}/videolist`} />
-        </Switch>
-      </div>
+      <Switch>
+        <Route path={`${url}/videolist/:id`} component={VideoList} />
+        <Route path={`${url}/videolist`} component={VideoList} />
+        <Route path={`${url}/mvlist/:id`} component={MvList} />
+        <Route path={`${url}/mvlist`} component={MvList} />
+        <Redirect to={`${url}/videolist`} />
+      </Switch>
     </div>
   );
 };

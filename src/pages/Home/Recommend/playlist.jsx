@@ -19,7 +19,7 @@ export default ({ playlist = [] }) => (
         <div key={item.id} className="item">
           <div className="cover">
             <div className="inner">
-              <Link to={`/playlist/${item.id}`}>
+              <Link to={`/playlist/music/${item.id}`}>
                 <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
                 <div className="rt">
                   <span className="whitetext">{transPlayCount(item.playcount)}</span>
@@ -35,7 +35,7 @@ export default ({ playlist = [] }) => (
             </div>
           </div>
           <div className="footer">
-            <Link to={`/playlist/${item.id}`}>{item.name}</Link>
+            <Link to={`/playlist/music/${item.id}`}>{item.name}</Link>
           </div>
         </div>
       ))
