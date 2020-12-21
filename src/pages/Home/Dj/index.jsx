@@ -72,16 +72,18 @@ export default () => {
   // const random = (height) => Math.random() * height >> 0;
   // const randomrgb = () => `rgb(${random(255)},${random(255)},${random(255)})`;
   return (
-    <div className="domHome_dj">
-      <div className="domHome_dj_banner">
-        {
+    <div className="domHome_content overflow-auto">
+
+      <div className="domHome_dj">
+        <div className="domHome_dj_banner">
+          {
           DjBanner.length > 0 && (
             <DomSwiper list={DjBanner} coverSrc="pic" />
           )
         }
-      </div>
-      <div className="domHome_item">
-        {category.length > 0
+        </div>
+        <div className="domHome_item">
+          {category.length > 0
           && (
             <div className="domHome_dj_nav">
               <Swiper
@@ -119,28 +121,28 @@ export default () => {
               </Swiper>
             </div>
           )}
-      </div>
-      <div className="domHome_item">
-        <Link className="domHome_linktitle" to="/">听听 &gt;</Link>
-        <div className="domHome_dj_tingting ui_grid square">
-          {
+        </div>
+        <div className="domHome_item">
+          <Link className="domHome_linktitle" to="/">听听 &gt;</Link>
+          <div className="domHome_dj_tingting ui_grid square">
+            {
             Object.keys(Array(5).fill(0))
               .map((item) => <DOMtingting key={item} />)
           }
+          </div>
         </div>
-      </div>
-      <div className="domHome_item">
-        <div className="domHome_linktitle">电台个性推荐</div>
-        <div className="domHome_dj_tingting ui_grid square row_1">
-          {
+        <div className="domHome_item">
+          <div className="domHome_linktitle">电台个性推荐</div>
+          <div className="domHome_dj_tingting ui_grid square row_1">
+            {
             DjPersonalizeRecommend
               .map((item) => (
                 <DomDjNormal item={item} key={item.id} />
               ))
           }
+          </div>
         </div>
-      </div>
-      {
+        {
         restlist.map((subitem) => (
           <div key={subitem[0]} className="domHome_item">
             <Link className="domHome_linktitle" to="/">
@@ -159,6 +161,8 @@ export default () => {
           </div>
         ))
       }
+      </div>
+
     </div>
   );
 };

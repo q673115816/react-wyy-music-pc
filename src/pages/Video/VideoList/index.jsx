@@ -1,46 +1,60 @@
 import React, {
-  useEffect, useRef, useState, useMemo,
+  useEffect, useRef, useState, useLayoutEffect,
 } from 'react';
 import {
-  useParams, NavLink, Link, useRouteMatch,
+  useParams, NavLink, Link,
 } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import { transPlayCount } from '@/common/utils';
 import {
-  apiVideoTimelineRecommend, apiVideoGroupList, apiVideoCategoryList, apiVideoGroup,
+  apiVideoTimelineRecommend,
+  apiVideoGroupList,
+  apiVideoCategoryList,
+  apiVideoGroup,
 } from '@/api';
-import { setVideoInit, addVideoGroupList } from '@/redux/actions';
 import './style.scss';
 
 export default () => {
   const { id } = useParams();
-  console.log(id);
-  const [group_list_show, setGroup_list_show] = useState(false);
-  const [currentNav, setCurrentNav] = useState('全部视频');
+  const [videoList, setVideoList] = useState([]);
+  const [groupList, setGroupList] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+  const [groupListVisibility, setGroupListVisibility] = useState(false);
+  const [currentNav, setCurrentNav] = useState(() => groupList.find((group) => group.id === Number(id))?.name || '全部视频');
   const {
-    VideoGroupList, VideoCategoryList, VideoList, isLogin,
-  } = useSelector(({ video, common }) => ({ ...video, ...common }));
-  const dispatch = useDispatch();
+    isLogin,
+  } = useSelector(({ common }) => common);
   const scrolldom = useRef();
+  const observerdom = useRef();
+  const io = useRef(
+    new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        console.log(entry);
+        if (entry.isIntersecting) {
+          handleAddList();
+        }
+      });
+    }, {
+      root: scrolldom.current,
+      rootMargin: '0px 0px 20px 0px', // 懵懵懂懂
+      threshold: [0, 1],
+    }),
+  );
   const handleInit = async () => {
     try {
       const [
-        { data: VideoGroupList },
-        { data: VideoCategoryList },
+        { data: groupList },
+        { data: categoryList },
       ] = await Promise.all([
         apiVideoGroupList(),
         apiVideoCategoryList(),
       ]);
-      dispatch(setVideoInit({
-        VideoGroupList,
-        VideoCategoryList,
-      }));
-
+      setGroupList(groupList);
+      setCategoryList(categoryList);
       setCurrentNav(
-        VideoGroupList.find((group) => group.id === Number(id))?.name || '全部视频',
+        groupList.find((group) => group.id === Number(id))?.name || '全部视频',
       );
-      scrollBybottom(scrolldom.current);
     } catch (e) {
       console.log(e);
     }
@@ -48,36 +62,27 @@ export default () => {
 
   const handleInitList = async () => {
     try {
-      const { datas: VideoList } = await (id
+      const { datas: videoList } = await (id
         ? apiVideoGroup({
           id,
         })
         : apiVideoTimelineRecommend());
-      dispatch(setVideoInit({
-        VideoList,
-      }));
+      setVideoList(videoList);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleAddVideoTimelineRecommend = async () => {
+  const handleAddList = async () => {
     try {
-      const { datas } = await apiVideoTimelineRecommend();
-      dispatch(addVideoGroupList(datas));
+      const { datas: videoList } = await (id
+        ? apiVideoGroup({
+          id,
+        })
+        : apiVideoTimelineRecommend());
+      setVideoList((prevList) => [...prevList, ...videoList]);
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const handleScroll = ({ target }) => {
-    scrollBybottom(target);
-  };
-
-  const scrollBybottom = (dom) => {
-    if (dom.scrollTop + dom.clientHeight + 300 > dom.scrollHeight) {
-      handleAddVideoTimelineRecommend();
-      console.log('add next page');
     }
   };
 
@@ -87,15 +92,24 @@ export default () => {
 
   useEffect(() => {
     handleInitList();
+    setCurrentNav(
+      groupList.find((group) => group.id === Number(id))?.name || '全部视频',
+    );
+    setGroupListVisibility(false);
   }, [id]);
 
+  useLayoutEffect(() => {
+    observerdom.current && io.current.observe(observerdom.current);
+  }, [observerdom.current]);
+
   return (
-    <div className="domplay_content overflow-auto" ref={scrolldom} onScroll={handleScroll}>
+    <div className="domplay_content overflow-auto" ref={scrolldom}>
       <div className="video_sort_filter_bar">
         <div className="group_select_wrap">
           <button
+            type="button"
             className="group_select_button"
-            onClick={() => setGroup_list_show(!group_list_show)}
+            onClick={() => setGroupListVisibility(!groupListVisibility)}
           >
             {currentNav}
             {' '}
@@ -103,26 +117,26 @@ export default () => {
           </button>
           <div
             className="group_select_box"
-            style={{ display: group_list_show ? null : 'none' }}
+            style={{ display: groupListVisibility ? null : 'none' }}
           >
             <div>
               <NavLink
                 className="group_select_check"
                 activeClassName="on"
                 exact
-                to="./"
+                to="/video/videolist"
               >
                 全部视频
               </NavLink>
             </div>
             <hr style={{ marginTop: '10px' }} />
             <div className="group_select_list">
-              {VideoGroupList.map(({ id, name }) => (
+              {groupList.map(({ id, name }) => (
                 <NavLink
                   activeClassName="on"
                   className="group_select_check"
                   key={id}
-                  to={`./${id}`}
+                  to={`/video/videolist/${id}`}
                 >
                   {name}
                 </NavLink>
@@ -131,12 +145,12 @@ export default () => {
           </div>
         </div>
         <div className="recommend_group_list">
-          {VideoCategoryList.map(({ name, id }) => (
+          {categoryList.map(({ name, id }) => (
             <NavLink
               className="recommend_group_list_check"
               activeClassName="on"
               key={id}
-              to={`/play/videolist/${id}`}
+              to={`/video/videolist/${id}`}
             >
               {name}
             </NavLink>
@@ -147,7 +161,7 @@ export default () => {
         {
           isLogin ? (
             <>
-              {VideoList?.map(({ data }) => (
+              {videoList.map(({ data }) => (
                 <div className="item" key={data.id}>
                   <div className="cover">
                     <div className="inner">
@@ -168,6 +182,7 @@ export default () => {
                   </div>
                 </div>
               ))}
+              <div ref={observerdom} className="item infiniteWatch" />
             </>
           )
             : <div>未登录</div>

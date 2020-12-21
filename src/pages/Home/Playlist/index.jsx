@@ -50,70 +50,72 @@ export default () => {
   }, [order, cat]);
 
   return (
-    <div className="domHome_playlist">
-      <div className="domHome_playlist_banner">
-        <Link to="/" />
-      </div>
-      <div className="domHome_playlist_nav">
-        <div>
-          <span />
+    <div className="domHome_content overflow-auto">
+      <div className="domHome_playlist">
+        <div className="domHome_playlist_banner">
+          <Link to="/" />
+        </div>
+        <div className="domHome_playlist_nav">
           <div>
-            {
-              Object.keys(categories).map((item) => {
-                <div>
-                  <span>{categories[item]}</span>
+            <span />
+            <div>
+              {
+                Object.keys(categories).map((item) => {
                   <div>
-                    {
-                      sub
-                        .filter(({ category }) => category == item)
-                        .map((s) => (
-                          <div key={s.name}>{s.name}</div>
-                        ))
-                    }
-                  </div>
-                </div>;
-              })
-            }
+                    <span>{categories[item]}</span>
+                    <div>
+                      {
+                        sub
+                          .filter(({ category }) => category == item)
+                          .map((s) => (
+                            <div key={s.name}>{s.name}</div>
+                          ))
+                      }
+                    </div>
+                  </div>;
+                })
+              }
+            </div>
           </div>
         </div>
-      </div>
-      <div className="domHome_playlist_list ui_grid square col_4">
-        {
-          playlists.map((item) => (
-            <div className="item" key={item.id}>
-              <div className="cover">
-                <div className="inner">
-                  <Link to={`/playlist/music/${item.id}`}>
-                    <Lazyload overflow>
-                      <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
-                    </Lazyload>
-                  </Link>
-                  <div className="rt">
-                    <div className="playCount">{transPlayCount(item.playCount)}</div>
-                  </div>
-                  <div className="lb">
-                    <Link to={`/user/${item.userId}/detail`}>
-                      <div className="creator">
-                        {item.creator.nickname}
-                      </div>
+        <div className="domHome_playlist_list ui_grid square col_4">
+          {
+            playlists.map((item) => (
+              <div className="item" key={item.id}>
+                <div className="cover">
+                  <div className="inner">
+                    <Link to={`/playlist/music/${item.id}`}>
+                      <Lazyload overflow>
+                        <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+                      </Lazyload>
                     </Link>
-                  </div>
-                  <div className="rb">
-                    <span className="playArrow">
-                      <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M7 4v16l13 -8z" />
-                      </svg>
-                    </span>
+                    <div className="rt">
+                      <div className="playCount">{transPlayCount(item.playCount)}</div>
+                    </div>
+                    <div className="lb">
+                      <Link to={`/user/${item.userId}/detail`}>
+                        <div className="creator">
+                          {item.creator.nickname}
+                        </div>
+                      </Link>
+                    </div>
+                    <div className="rb">
+                      <span className="playArrow">
+                        <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M7 4v16l13 -8z" />
+                        </svg>
+                      </span>
+                    </div>
                   </div>
                 </div>
+                <Link className="name" to={`/playlist/music/${item.id}`}>{item.name}</Link>
               </div>
-              <Link className="name" to={`/playlist/music/${item.id}`}>{item.name}</Link>
-            </div>
-          ))
-        }
+            ))
+          }
+        </div>
+        {/* <CommonPage total={total} size={100} curr={offer / 100} /> */}
+        <div style={{ height: 50 }} />
       </div>
-      {/* <CommonPage total={total} size={100} curr={offer / 100} /> */}
-      <div style={{ height: 50 }} />
     </div>
   );
 };

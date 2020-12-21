@@ -59,16 +59,14 @@ export default () => (
       ))}
 
     </div>
-    <div className="domHome_content">
-      <Switch>
-        <Route path="/home/recommend" component={HomeRecommend} />
-        <Route path="/home/toplist" component={HomeToplist} />
-        <Route path="/home/playlist" component={HomePlaylist} />
-        <Route path="/home/artist" component={HomeArtist} />
-        <Route path="/home/newest" component={HomeNewest} />
-        <Route path="/home/dj" component={HomeDj} />
-        <Redirect to="/home/recommend" />
-      </Switch>
-    </div>
+    <Switch>
+      <Route path="/home/recommend" component={HomeRecommend} />
+      <Route path="/home/toplist" component={HomeToplist} />
+      <Route path="/home/playlist" component={HomePlaylist} />
+      <Route path="/home/artist" component={HomeArtist} />
+      <Route path="/home/newest" component={HomeNewest} />
+      <Route path="/home/dj" component={HomeDj} />
+      <Redirect to="/home/recommend" />
+    </Switch>
   </div>
 );

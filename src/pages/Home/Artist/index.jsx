@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
 import './style.scss';
+import classnames from 'classnames';
 import { limit } from '@/common/config';
 import { apiArtistList } from '@/api';
 import { addHomeTopArtists, initHomeTopArtists } from '@/redux/actions';
@@ -87,51 +88,55 @@ export default () => {
   }, [option]);
 
   return (
-    <div className="domHome_artist" onScroll={handleScroll}>
-      <div className="domHome_artist_control">
-        {options.map((filter, index) => (
-          <div className="domHome_artist_filter" key={index}>
-            <div className="title">{filter[1]}</div>
-            <ul className="list">
-              {filter[2].map((item) => (
-                <li
-                  className={['item', filter[0], option[filter[0]] === item[0] ? 'on' : ''].join(' ')}
-                  key={item[0]}
-                  onClick={() => handleChangeOption({ [filter[0]]: item[0] })}
-                >
-                  {item[1]}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-      <div className="domHome_artist_list">
-        {option.type === -1 && option.initial === -1 && artists.length > 0 && (
-        <div className="item">
-          <div className="img">
-            <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.area)[2]}`}>
-              <img
-                className="ui_containimg"
-                src="http://p3.music.126.net/1tSJODTpcbZvNTCdsn4RYA==/109951165034950656.jpg?param=200y200"
-                alt=""
-                style={{ filter: 'blur(2)' }}
-              />
-              <div className="rankmask">
-                歌手榜
-              </div>
-            </Link>
-          </div>
-          <div className="info">
-            <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.type)[2]}`}>
-              歌手排行榜 &gt;
-            </Link>
-          </div>
+    <div className="domHome_content overflow-auto" style={{ paddingTop: 0 }} onScroll={handleScroll}>
+      <div className="domHome_artist">
+        <div className="domHome_artist_control">
+          {options.map((filter) => (
+            <div className="domHome_artist_filter" key={filter[0]}>
+              <div className="title">{filter[1]}</div>
+              <nav className={classnames('list', filter[0])}>
+                {filter[2].map((item) => (
+                  <div className="item flex-center" key={item[0]}>
+                    <button
+                      type="button"
+                      className={classnames('btn', filter[0], { on: option[filter[0]] === item[0] })}
+                      onClick={() => handleChangeOption({ [filter[0]]: item[0] })}
+                    >
+                      {item[1]}
+                    </button>
+                  </div>
+                ))}
+              </nav>
+            </div>
+          ))}
         </div>
-        )}
-        {artists.map((item) => <Domitem item={item} key={item.id} />)}
+        <div className="domHome_artist_list">
+          {option.type === -1 && option.initial === -1 && artists.length > 0 && (
+          <div className="item">
+            <div className="img">
+              <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.area)[2]}`}>
+                <img
+                  className="ui_containimg"
+                  src="http://p3.music.126.net/1tSJODTpcbZvNTCdsn4RYA==/109951165034950656.jpg?param=200y200"
+                  alt=""
+                  style={{ filter: 'blur(2)' }}
+                />
+                <div className="rankmask">
+                  歌手榜
+                </div>
+              </Link>
+            </div>
+            <div className="info">
+              <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.type)[2]}`}>
+                歌手排行榜 &gt;
+              </Link>
+            </div>
+          </div>
+          )}
+          {artists.map((item) => <Domitem item={item} key={item.id} />)}
+        </div>
+        {hasMore ? <div>加载中</div> : <div>已经到底了</div>}
       </div>
-      {hasMore ? <div>加载中</div> : <div>已经到底了</div>}
     </div>
   );
 };

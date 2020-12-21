@@ -24,7 +24,7 @@ export default () => {
           activeClassName="on"
           to={`${url}/mvlist`}
         >
-          mv
+          MV
         </NavLink>
       </div>
       <Switch>

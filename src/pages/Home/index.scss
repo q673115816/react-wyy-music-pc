@@ -1,7 +1,8 @@
 .domHome {
   display: flex;
   flex-direction: column;
-  // flex: 1;
+  flex: 1;
+  min-width: 1px;
   height: 100%;
   &_nav {
     flex: none;
@@ -16,7 +17,7 @@
       margin-right: 1em;
       font-size: 16px;
       &.on {
-        font-size: 22px;
+        font-size: 20px;
       }
       @include nav_active();
     }
@@ -25,16 +26,17 @@
   &_content {
     --contentpadding: 24px;
     flex: auto;
-    display: flex;
-    width: var(--rightwidth);
-    >div {
-      width: var(--rightwidth);
-      flex: 1;
-      overflow: auto;
-      // 滚动条保持绝对位置
-      overflow-anchor: none;
-      padding: var(--contentpadding);
-    }
+    padding: var(--contentpadding);
+    // display: flex;
+    // width: var(--rightwidth);
+    // >div {
+    //   width: var(--rightwidth);
+    //   flex: 1;
+    //   overflow: auto;
+    //   // 滚动条保持绝对位置
+    //   overflow-anchor: none;
+    //   padding: var(--contentpadding);
+    // }
   }
 
    &_item {

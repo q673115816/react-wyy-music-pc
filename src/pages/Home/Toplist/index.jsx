@@ -33,17 +33,18 @@ export default () => {
     handleGetToplistDetail();
   }, []);
   return (
-    <div className="domHome_toplist">
-      <div className="domHome_toplist_title">官方榜</div>
-      <div className="domHome_toplist_official">
-        {top4.map((item) => (
-          <div key={item.id} className="official_rank">
-            <Link to="" className="official_rank_cover">
-              <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
-            </Link>
-            <div className="official_rank_content">
-              <div className="official_rank_list">
-                {
+    <div className="domHome_content overflow-auto">
+      <div className="domHome_toplist">
+        <div className="domHome_toplist_title">官方榜</div>
+        <div className="domHome_toplist_official">
+          {top4.map((item) => (
+            <div key={item.id} className="official_rank">
+              <Link to="" className="official_rank_cover">
+                <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+              </Link>
+              <div className="official_rank_content">
+                <div className="official_rank_list">
+                  {
                 item.tracks.map((track, index) => (
                   <div className="item" key={index} onClick={handleSelectItem}>
                     <span>{index + 1}</span>
@@ -53,26 +54,27 @@ export default () => {
                   </div>
                 ))
               }
+                </div>
+                <Link to="/">查看全部 &gt;</Link>
               </div>
-              <Link to="/">查看全部 &gt;</Link>
             </div>
-          </div>
-        ))}
-        差 歌手榜
-      </div>
-      <div className="domHome_toplist_title">全球榜</div>
-      <div className="domHome_toplist_cardlist">
-        {other.map((item) => (
-          <div className="item" key={item.id}>
-            <Link to="/" className="card">
-              <span className="playCount">
-                {transPlayCount(item.playCount)}
-              </span>
-              <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
-            </Link>
-            <Link to="/" className="name">{item.name}</Link>
-          </div>
-        ))}
+          ))}
+          差 歌手榜
+        </div>
+        <div className="domHome_toplist_title">全球榜</div>
+        <div className="domHome_toplist_cardlist">
+          {other.map((item) => (
+            <div className="item" key={item.id}>
+              <Link to="/" className="card">
+                <span className="playCount">
+                  {transPlayCount(item.playCount)}
+                </span>
+                <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+              </Link>
+              <Link to="/" className="name">{item.name}</Link>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

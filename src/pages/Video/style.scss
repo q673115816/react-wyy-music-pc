@@ -13,11 +13,11 @@
   }
 
   &_link {
-    font-size: 16px;
+    font-size: 14px;
     margin-right: 1em;
 
     &.on {
-      font-size: 22px;
+      font-size: 20px;
     }
 
     @include nav_active();

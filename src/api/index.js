@@ -94,3 +94,15 @@ export const apiMvSublist = () => post('/mv/sublist');
 export const apiTopicSublist = () => post('/topic/sublist');
 // 我的电台
 export const apiDjSublist = () => post('/dj/sublist');
+
+// mv - 最新
+export const apiMvFirst = (params) => post('/mv/first', params);
+
+// mv - 全部
+/**
+ *
+ * @param {area?: <全部|内地|港台|欧美|日本|韩国>, type?:<全部|官方版|原生|现场版|网易出品|>, order?:<上升最快|最热|最新>, limit?: 30, offset?:0} params
+ */
+export const apiMvAll = (params) => post('/mv/all', params);
+
+export const apiMvExclusiveRcmd = (params) => post('/mv/exclusive/rcmd', params);

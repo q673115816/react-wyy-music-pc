@@ -7,10 +7,7 @@ import {
   ADD_SONG_URL,
   SET_HOME_RECOMMEND,
   SET_HOME_DJ,
-  ADD_COUNT,
   SET_COUNTRIES_CODE_LIST,
-  SET_VIDEO_INIT,
-  ADD_VIDEO_GROUP_LIST,
   SET_VIDEODETAIL_RELATED,
   DIALOG_LOGIN_VISIBILTY,
   INIT_HOME_TOP_ARTISTS,
@@ -74,23 +71,8 @@ export const setHomeDj = (payload) => ({
   payload,
 });
 
-export const addplay = () => ({
-  type: ADD_COUNT,
-  payload: {},
-});
-
 export const setContriesCodeList = (payload) => ({
   type: SET_COUNTRIES_CODE_LIST,
-  payload,
-});
-
-export const setVideoInit = (payload) => ({
-  type: SET_VIDEO_INIT,
-  payload,
-});
-
-export const addVideoGroupList = (payload) => ({
-  type: ADD_VIDEO_GROUP_LIST,
   payload,
 });
 

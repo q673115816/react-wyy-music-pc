@@ -38,11 +38,11 @@
   width: calc(100% / 6);
   text-align: center;
   &:hover {
-    color: #f00;
+    color:var(--basered);
   }
   &.on {
-    color: #f00;
-    background-color: rgba(255, 0, 0, 0.2)
+    color:var(--basered);
+    background-color: #FCEBEB
   }
   border-radius: 1000px;
 }
@@ -65,8 +65,8 @@
     color: rgb(14, 10, 10);
   }
   &.on {
-    color: #f00;
-    background-color: rgba(255, 0, 0, 0.2)
+    color: var(--basered);
+    background-color: #FCEBEB
   }
   border-radius: 1000px;
 }
