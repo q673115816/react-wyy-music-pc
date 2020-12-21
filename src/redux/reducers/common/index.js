@@ -7,6 +7,7 @@ import {
 const initialState = {
   currentSong: {},
   playlist: [],
+  history: [],
   msgs: [],
   popupStatus: 'false',
   newMsgCount: 0,

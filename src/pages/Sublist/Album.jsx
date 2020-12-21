@@ -39,7 +39,7 @@ const ListBuild = (filter, search, push) => {
             {item.alias.map((alia) => alia)}
           </span>
         </div>
-        <div className="artist">
+        <div className="creator">
           {item.artists.map((artist) => (
             <Link onClick={(e) => e.stopPropagation()} to={`/artist/${artist.id}`} className="gray hover">
               {artist.name}

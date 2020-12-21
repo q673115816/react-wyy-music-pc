@@ -49,7 +49,7 @@ export default () => {
       </div>
       <div className="domSublist_list">
         {filter.map((item) => (
-          <button type="button" className="item" key={item.id} onClick={() => push(`/artist/${item.id}`)}>
+          <div role="button" className="item" key={item.id} onClick={() => push(`/artist/${item.id}`)}>
             <div className="cover">
               <img className="containimg" src={`${item.picUrl}?param=100y100`} alt="" />
             </div>
@@ -58,7 +58,7 @@ export default () => {
               &nbsp;
               {AliasOrTrans(item)}
             </div>
-            <div className="albumSize gray">
+            <div className="creator gray">
               专辑：
               {item.albumSize}
             </div>
@@ -67,7 +67,7 @@ export default () => {
               {item.mvSize}
 
             </div>
-          </button>
+          </div>
         ))}
       </div>
     </>
