@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Router from '@/Router';
+import Router from '@/router';
 import DomLeft from './Left';
 
 export default () => (
