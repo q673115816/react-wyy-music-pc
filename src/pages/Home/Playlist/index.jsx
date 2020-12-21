@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './style.scss';
-import LazyloadImg from '@/components/LazyloadImg';
+import Lazyload from 'react-lazyload';
 
 import { apiTopPlaylist, apiPlaylistCatlist } from '@/api';
 import { setTopPlaylist, setPlaylistCatlist } from '@/redux/actions';
@@ -84,9 +84,9 @@ export default () => {
               <div className="cover">
                 <div className="inner">
                   <Link to={`/playlist/music/${item.id}`}>
-                    <LazyloadImg overflow>
+                    <Lazyload overflow>
                       <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
-                    </LazyloadImg>
+                    </Lazyload>
                   </Link>
                   <div className="rt">
                     <div className="playCount">{transPlayCount(item.playCount)}</div>
