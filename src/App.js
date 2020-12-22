@@ -2,7 +2,7 @@ import React from 'react';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import DomVideoDetail from '@/pages/VideoDetail';
+import DomPlayer from './pages/Player';
 import './styles/index.scss';
 import DomHeader from './layout/Header';
 import DomMain from './layout/Main';
@@ -42,7 +42,7 @@ export default function App() {
         >
           <DomHeader {...{ mousedown }} />
           <Switch>
-            <Route path="/videodetail/:vid" component={DomVideoDetail} />
+            <Route path="/player/:type/:vid" component={DomPlayer} />
             <Route>
               <DomMain />
               <DomFooter />

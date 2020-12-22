@@ -1,74 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory, Link } from 'react-router-dom';
+
+import {
+  useParams, useHistory, Link, Redirect,
+} from 'react-router-dom';
 import classnames from 'classnames';
 import dayjs from 'dayjs';
 import './style.scss';
+
 import { transPlayCount } from '@/common/utils';
+
 import {
-  apiRelatedAllvideo, apiVideoUrl, apiVideoDetail, apiVideoDetailInfo,
-  apiCommentVideo,
   apiFollow,
 } from '@/api';
-import { setVideoDetailRelated } from '@/redux/actions';
+
 import Write from '@/components/Write';
 
+import UseVideoInit from './UseVideoInit';
+import UseMvInit from './UseMvInit';
 import DomComments from './Comments';
 import DomRelated from './Related';
 
 export default () => {
-  const { vid } = useParams();
-  const dispatch = useDispatch();
-  // const { s } = useSelector(({ video }) => video);
-  const { goBack } = useHistory();
+  const { vid, type } = useParams();
+  if ((type !== 'video' && type !== 'mv') || !vid) {
+    return <Redirect to="/" />;
+  }
+  const currentInit = type === 'video' ? UseVideoInit : UseMvInit;
+  const {
+    pending,
+    urls,
+    related,
+    detail,
+    detailInfo,
+    comments,
+    handleInit,
+  } = currentInit();
 
-  const [pending, setPending] = useState(false);
-  const [urls, setUrls] = useState({});
-  const [related, setRelated] = useState([]);
-  const [detail, setDetail] = useState({});
-  const [videoDetailInfo, setVideoDetailInfo] = useState({});
-  const [comments, setComments] = useState({});
-  const [value, setValue] = useState('');
-  const [followed, setFollowed] = useState(false);
+  const { goBack } = useHistory();
   const [descriptionVisibility, setDescriptionVisibility] = useState(false);
-  const handleInit = async () => {
-    try {
-      const [
-        { urls },
-        { data: related = [] },
-        { data: detail = {} },
-        videoDetailInfo = {},
-        comments = {},
-      ] = await Promise.all([
-        apiVideoUrl({
-          id: vid,
-        }),
-        apiRelatedAllvideo({
-          id: vid,
-        }),
-        apiVideoDetail({
-          id: vid,
-        }),
-        apiVideoDetailInfo({
-          vid,
-        }),
-        apiCommentVideo({
-          id: vid,
-        }),
-      ]);
-      setPending(true);
-      setUrls(urls);
-      setRelated(related);
-      setDetail(detail);
-      setVideoDetailInfo(videoDetailInfo);
-      setComments(comments);
-      // dispatch(setVideoDetailRelated({
-      //   related,
-      // }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [followed, setFollowed] = useState(false);
+  const [value, setValue] = useState('');
+
   const handleFollow = async () => {
     try {
       const { } = await apiFollow({
@@ -79,10 +51,13 @@ export default () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
-    handleInit();
+    handleInit(vid);
   }, [vid]);
+
   if (!pending) return <div>loading</div>;
+
   return (
     <div className=" overflow-auto">
       <div className="domVideoDetail">
@@ -93,7 +68,11 @@ export default () => {
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <polyline points="15 6 9 12 15 18" />
               </svg>
-              <b>视频详情</b>
+              {
+                type === 'video'
+                  ? <b>视频详情</b>
+                  : <b>MV详情</b>
+              }
             </button>
           </div>
           <div className="right">
@@ -103,7 +82,7 @@ export default () => {
         <div className="domVideoDetail_main domVideoDetail_container">
           <div className="left">
             <div id="video">
-              <video src={urls[0]?.url} controls autoPlay />
+              <video src={urls?.url} controls autoPlay />
             </div>
             <div className="domVideoDetail_creator">
               <Link to={`/user/${detail?.creator?.userId}`}>
@@ -168,7 +147,7 @@ export default () => {
             <div className="domVideoDetail_actions">
               <button type="button" className="button">
                 {
-                  videoDetailInfo.liked
+                  detailInfo.liked
                     ? (
                       <>
                         <svg className="icon icon-tabler icon-tabler-thumb-up" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" fill="#F0CECE" strokeLinecap="round" strokeLinejoin="round">
@@ -189,12 +168,11 @@ export default () => {
                     )
                 }
                 (
-                {videoDetailInfo?.likedCount}
+                {detailInfo?.likedCount}
                 )
               </button>
               <button type="button" className="button">
                 <svg className="icon icon-tabler icon-tabler-folder-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                   <path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2" />
                   <line x1="12" y1="10" x2="12" y2="16" />
                   <line x1="9" y1="13" x2="15" y2="13" />
@@ -206,7 +184,6 @@ export default () => {
               </button>
               <button type="button" className="button">
                 <svg className="icon icon-tabler icon-tabler-screen-share" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                   <path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" />
                   <line x1="7" y1="20" x2="17" y2="20" />
                   <line x1="9" y1="16" x2="9" y2="20" />
@@ -216,7 +193,7 @@ export default () => {
                 </svg>
                 分享
                 (
-                {videoDetailInfo?.shareCount}
+                {detailInfo?.shareCount}
                 )
               </button>
             </div>

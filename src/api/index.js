@@ -50,21 +50,32 @@ export const apiToplistArtist = (type) => get(`/toplist/artist?type=${type}`);
 
 export const apiToplistDetail = () => get('/toplist/detail');
 
+// 排行榜
 export const apiTopSong = (type) => get(`/top/song?type=${type}`);
-
 export const apiTopAlbum = (params) => post('/top/album', params);
-
+export const apiTopPlaylist = (params) => post('/top/playlist', params);
+/**
+ * 排行榜 -mv
+ * @param {limit?: 30,area?:全部|内地|港台|欧美|日本|韩国, offset?: 0} params
+ */
+export const apiTopMv = (params) => post('/top/mv', params);
 export const apiAlbumNew = (params) => post('/album/new', params);
 
 export const apiPlaylistCatlist = () => get('/playlist/music/catlist');
 
-export const apiTopPlaylist = (params) => post('/top/playlist', params);
 // 视频 - 获取视频标签列表
 export const apiVideoGroupList = () => get('/video/group/list');
 export const apiVideoGroup = (params) => post('/video/group', params);
 export const apiVideoCategoryList = () => post('/video/category/list');
 export const apiVideoTimelineRecommend = () => post('/video/timeline/recommend');
+// MV地址
 export const apiMvUrl = (params) => post('/mv/url', params);
+// MV数据
+export const apiMvDetail = (params) => post('/mv/detail', params);
+// 获取 mv 点赞转发评论数数据
+export const apiMvDetailInfo = (params) => post('/mv/detail/info', params);
+// MV评论
+export const apiCommentMv = (params) => post('/comment/mv', params);
 // 视频评论
 export const apiCommentVideo = (params) => post('/comment/video', params);
 // 视频详情

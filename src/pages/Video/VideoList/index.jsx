@@ -30,7 +30,7 @@ export default () => {
   const io = useRef(
     new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        console.log(entry);
+        // console.log(entry);
         if (entry.isIntersecting) {
           handleAddList();
         }
@@ -165,7 +165,7 @@ export default () => {
                 <div className="item" key={data.id}>
                   <div className="cover">
                     <div className="inner">
-                      <Link to={`/videodetail/${data.vid}`}>
+                      <Link to={`/player/video/${data.vid}`}>
                         <img className="ui_coverimg" src={data.coverUrl} alt="" />
                         <div className="rt whitetext">{transPlayCount(data.playTime)}</div>
                         <div className="rb whitetext">{dayjs(data.durationms).format('mm:ss')}</div>
@@ -173,7 +173,7 @@ export default () => {
                     </div>
                   </div>
                   <div className="footer text-overflow">
-                    <Link to={`/videodetail/${data.vid}`} className="">{data.title}</Link>
+                    <Link to={`/player/video/${data.vid}`} className="">{data.title}</Link>
                   </div>
                   <div className="text creator gray">
                     <Link to={`/user/${data.creator.userId}`}>
