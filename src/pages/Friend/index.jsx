@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import dayjs from 'dayjs';
 // import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';
 import { apiHotTopic, apiEvent, apiCommentEvent } from '@/api';
 import { setFriendInit, setFriendEvent, setCommentEvent } from '@/redux/actions';
-import { useRouteMatch } from 'react-router';
 import './style.scss';
 
 import ActItem from './ActItem';
