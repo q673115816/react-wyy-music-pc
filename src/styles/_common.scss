@@ -74,6 +74,7 @@ button {
 
 .gray {
   color: #9B9B9B;
+
   &.hover:hover {
     color: #616162;
   }
@@ -102,6 +103,7 @@ button {
   line-height: 30px;
   text-align: center;
   border: 1px solid #999;
+
   &.red {
     border-color: var(--basered);
     background-color: var(--basered);
@@ -110,6 +112,7 @@ button {
 
 .ui_link {
   color: #507DAF;
+
   &:hover {
     color: #5E58C1;
   }
@@ -179,7 +182,7 @@ button {
 
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
-  color:#B6B6B6;
+  color: #B6B6B6;
 }
 
 
@@ -206,6 +209,7 @@ button {
 
 .ui_swiper {
   --swiper-pagination-color: var(--basered);
+
   .cover {
     position: relative;
     width: 540px;
@@ -222,11 +226,13 @@ button {
       padding: 10px;
       background-color: var(--theme);
       border-top-left-radius: 10px;
+
       &.blue {
         --theme: #4A79CC;
       }
     }
   }
+
   .sub_page {
     display: flex;
     justify-content: center;
@@ -234,6 +240,96 @@ button {
 
     &>[role='button'] {
       margin: 0 6px;
+    }
+  }
+}
+
+.ui_sub_nav_link {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.ui_recommend_nav {
+  display: flex;
+
+  &_item {
+    position: relative;
+    @include flex-center();
+
+    &:not(:last-of-type) {
+      &::before {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 10px;
+        right: 0;
+        background-color: #FCEBEB
+      }
+    }
+  }
+
+  &_link {
+    white-space: nowrap;
+    padding: 4px 8px;
+    margin: 0 4px;
+    color: #666;
+
+    &:hover {
+      color: rgb(14, 10, 10);
+    }
+
+    &.on {
+      color: var(--basered);
+      background-color: #FCEBEB
+    }
+
+    border-radius: 1000px;
+  }
+}
+
+.ui_filter {
+  .row {
+    display: flex;
+    margin: 10px 0;
+    align-items: baseline;
+    .name {
+      flex: none;
+
+    }
+
+    .list {
+      display: flex;
+
+      .item {
+        width: 80px;
+        position: relative;
+        @include flex-center();
+
+        &:not(:last-of-type) {
+          &::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            height: 10px;
+            width: 1px;
+            background-color: #ddd;
+          }
+        }
+
+        .btn {
+          white-space: nowrap;
+          padding: 4px 8px;
+          margin: 0 4px;
+          color: #666;
+          border-radius: 1000px;
+
+          &.on {
+            color: var(--basered);
+            background-color: #FCEBEB;
+          }
+        }
+      }
     }
   }
 }

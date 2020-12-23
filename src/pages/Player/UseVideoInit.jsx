@@ -40,6 +40,7 @@ export default () => {
           id: vid,
         }),
       ]);
+      detail.playCount = detail.playTime;
       setPending(true);
       setUrls(urls[0]);
       setRelated(related);

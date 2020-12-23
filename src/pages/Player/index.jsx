@@ -131,7 +131,7 @@ export default () => {
               {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
               &nbsp;
               播放
-              {transPlayCount(detail?.playTime)}
+              {transPlayCount(detail?.playCount)}
             </div>
             <div className="domVideoDetail_group">
               {detail?.videoGroup?.map((group) => (

@@ -50,23 +50,5 @@
 .video_sort_filter_bar {
   display: flex;
   align-items: center;
-}
-
-.recommend_group_list {
-  display: flex;
-  margin-left: auto;
-}
-
-.recommend_group_list_check {
-  white-space: nowrap;
-  padding: 4px 8px;
-  margin-left: 8px;
-  &:hover {
-    color: rgb(14, 10, 10);
-  }
-  &.on {
-    color: var(--basered);
-    background-color: #FCEBEB
-  }
-  border-radius: 1000px;
+  justify-content: space-between;
 }

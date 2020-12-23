@@ -13,6 +13,7 @@ import {
   apiVideoCategoryList,
   apiVideoGroup,
 } from '@/api';
+import useInfinite from '@/components/useInfinite';
 import './style.scss';
 
 export default () => {
@@ -25,22 +26,7 @@ export default () => {
   const {
     isLogin,
   } = useSelector(({ common }) => common);
-  const scrolldom = useRef();
-  const observerdom = useRef();
-  const io = useRef(
-    new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        // console.log(entry);
-        if (entry.isIntersecting) {
-          handleAddList();
-        }
-      });
-    }, {
-      root: scrolldom.current,
-      rootMargin: '0px 0px 20px 0px', // 懵懵懂懂
-      threshold: [0, 1],
-    }),
-  );
+
   const handleInit = async () => {
     try {
       const [
@@ -86,6 +72,11 @@ export default () => {
     }
   };
 
+  const {
+    setScrolldom,
+    setObserverdom,
+  } = useInfinite(handleAddList);
+
   useEffect(() => {
     handleInit();
   }, []);
@@ -98,12 +89,8 @@ export default () => {
     setGroupListVisibility(false);
   }, [id]);
 
-  useLayoutEffect(() => {
-    observerdom.current && io.current.observe(observerdom.current);
-  }, [observerdom.current]);
-
   return (
-    <div className="domplay_content overflow-auto" ref={scrolldom}>
+    <div className="domplay_content overflow-auto" ref={setScrolldom}>
       <div className="video_sort_filter_bar">
         <div className="group_select_wrap">
           <button
@@ -144,16 +131,18 @@ export default () => {
             </div>
           </div>
         </div>
-        <div className="recommend_group_list">
+        <div className="ui_recommend_nav">
           {categoryList.map(({ name, id }) => (
-            <NavLink
-              className="recommend_group_list_check"
-              activeClassName="on"
-              key={id}
-              to={`/video/videolist/${id}`}
-            >
-              {name}
-            </NavLink>
+            <div className="ui_recommend_nav_item">
+              <NavLink
+                className="ui_recommend_nav_link"
+                activeClassName="on"
+                key={id}
+                to={`/video/videolist/${id}`}
+              >
+                {name}
+              </NavLink>
+            </div>
           ))}
         </div>
       </div>
@@ -182,7 +171,7 @@ export default () => {
                   </div>
                 </div>
               ))}
-              <div ref={observerdom} className="item infiniteWatch" />
+              <div ref={setObserverdom} className="item infiniteWatch" />
             </>
           )
             : <div>未登录</div>

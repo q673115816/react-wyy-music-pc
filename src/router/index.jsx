@@ -5,6 +5,7 @@ import loadable from '@loadable/component';
 const Setting = loadable(() => import(/* webpackChunkName: "Setting" */'@/pages/Setting'));
 const Home = loadable(() => import(/* webpackChunkName: "Home" */'@/pages/Home'));
 const Video = loadable(() => import(/* webpackChunkName: "Video" */'@/pages/Video'));
+const AllMv = loadable(() => import(/* webpackChunkName: "AllMv" */'@/pages/AllMv'));
 const Local = loadable(() => import(/* webpackChunkName: "Local" */'@/pages/Local'));
 const Look = loadable(() => import(/* webpackChunkName: "Look" */'@/pages/Look'));
 const Download = loadable(() => import(/* webpackChunkName: "Download" */'@/pages/Download'));
@@ -20,6 +21,7 @@ export default () => (
   <Switch>
     <Route path="/home" component={Home} />
     <Route path="/video" component={Video} />
+    <Route path="/allmv" component={AllMv} />
     <Route path="/Look" component={Look} />
     <Route path="/local" component={Local} />
     <Route path="/download" component={Download} />

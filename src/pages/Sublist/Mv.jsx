@@ -26,7 +26,7 @@ const ListBuild = (filter, search) => {
           <div className="item" key={item.vid}>
             <div className="cover">
               <div className="inner">
-                <Link to={`/videodetail/${item.vid}`}>
+                <Link to={`/player/video/${item.vid}`}>
                   <img className="ui_coverimg" src={item.coverUrl} alt="" />
                   <div className="rt whitetext">{transPlayCount(item.playTime)}</div>
                   <div className="rb whitetext">{dayjs(item.durationms).format('mm:ss')}</div>
@@ -34,7 +34,7 @@ const ListBuild = (filter, search) => {
               </div>
             </div>
             <div className="footer text-overflow">
-              <Link to={`/videodetail/${item.vid}`} className="">{item.title}</Link>
+              <Link to={`/player/video/${item.vid}`} className="">{item.title}</Link>
             </div>
             <div className="text creator gray">
               by &nbsp;

@@ -1,3 +1,16 @@
+.domMvList {
+  &__sublist {
+    margin-bottom: 20px;
+  }
+
+  &_header {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .domVideoTop {
   display: grid;
   grid-template-columns: repeat(2, 50%);
@@ -20,6 +33,7 @@
       width: 40px;
       flex: none;
       flex-direction: column;
+
       .num {
         font-size: 24px;
         font-family: 'Times New Roman', Times, serif;
@@ -54,6 +68,7 @@
       min-width: 1px;
       flex: auto;
       padding: 10px;
+
       .name {
         font-size: 14px;
       }

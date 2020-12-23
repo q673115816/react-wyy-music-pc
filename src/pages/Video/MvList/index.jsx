@@ -1,8 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState, useRef,
+} from 'react';
 import './style.scss';
 import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 import {
-  apiMvFirst, apiMvAll, apiMvExclusiveRcmd, apiTopMv,
+  apiMvFirst,
+  apiMvAll,
+  apiMvExclusiveRcmd,
+  apiTopMv,
 } from '@/api';
 import { transPlayCount } from '@/common/utils';
 
@@ -32,9 +38,17 @@ const BuildLastRank = (lastRank, currentRank) => {
   );
 };
 
+const category = [
+  '内地',
+  '港台',
+  '欧美',
+  '日本',
+  '韩国',
+];
+
 export default () => {
-  console.log('mv');
-  const [area] = useState('内地');
+  const [firstArea, setFirstArea] = useState('内地');
+  const [topArea, setTopArea] = useState('内地');
   const [mvFirst, setMvFirst] = useState([]);
   const [mvHot, setMvHot] = useState([]);
   const [mvWy, setMvWy] = useState([]);
@@ -42,15 +56,9 @@ export default () => {
   const handleInit = async () => {
     try {
       const [
-        { data: first },
         { data: hot },
         { data: wy },
-        { data: top },
       ] = await Promise.all([
-        apiMvFirst({
-          area,
-          limit: 6,
-        }),
         apiMvAll({
           order: '最热',
           limit: 6,
@@ -58,28 +66,71 @@ export default () => {
         apiMvExclusiveRcmd({
           limit: 6,
         }),
-        apiTopMv({
-          area: '内地',
-          limit: 10,
-        }),
       ]);
-      setMvFirst(first);
       setMvHot(hot);
       setMvWy(wy);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetFirstArea = async () => {
+    try {
+      const { data: first } = await apiMvFirst({
+        area: firstArea,
+        limit: 6,
+      });
+      setMvFirst(first);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetTopArea = async () => {
+    try {
+      const { data: top } = await apiTopMv({
+        area: topArea,
+        limit: 10,
+      });
       setMvTop(top);
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     handleInit();
   }, []);
+
+  useEffect(() => {
+    handleGetFirstArea();
+  }, [firstArea]);
+
+  useEffect(() => {
+    handleGetTopArea();
+  }, [topArea]);
   return (
     <div className="domplay_content overflow-auto">
-      <div>
-        <div className="dom">
-          <Link to="/">最新MV</Link>
-          <div />
+
+      <div className="domMvList_sublist">
+        <div className="domMvList_header">
+          <Link to={`/allmv?order=最新&area=${firstArea}`} className="ui_sub_nav_link">最新MV &gt;</Link>
+          <div className="ui_recommend_nav">
+            {
+              category.map((item) => (
+                <div className="ui_recommend_nav_item" key={item}>
+                  <button
+                    onClick={() => setFirstArea(item)}
+                    type="button"
+                    className={classnames('ui_recommend_nav_link', { on: firstArea === item })}
+                  >
+                    {item}
+
+                  </button>
+                </div>
+              ))
+            }
+          </div>
         </div>
         <div className="ui_grid rectangle_width col_3">
           {mvFirst.map((item) => (
@@ -103,9 +154,11 @@ export default () => {
             </div>
           ))}
         </div>
-        <div className="dom">
-          <Link to="/">热播MV</Link>
-          <div />
+      </div>
+
+      <div className="domMvList_sublist">
+        <div className="domMvList_header">
+          <Link to="/allmv?order=最热" className="ui_sub_nav_link">热播MV &gt;</Link>
         </div>
         <div className="ui_grid rectangle_width col_3">
           {mvHot.map((item) => (
@@ -130,35 +183,51 @@ export default () => {
           ))}
         </div>
       </div>
-      <div className="dom">
-        <Link to="/">网易出品</Link>
-        <div />
-      </div>
-      <div className="ui_grid rectangle_width col_3">
-        {mvWy.map((item) => (
-          <div className="item" key={item.id}>
-            <div className="cover">
-              <div className="inner">
-                <Link to={`/player/mv/${item.id}`}>
-                  <img className="containimg" src={item.cover} alt="" />
-                  <div className="rt whitetext">
-                    {transPlayCount(item.playCount)}
-                  </div>
-                </Link>
+      <div className="domMvList_sublist">
+        <div className="domMvList_header">
+          <Link to="/allmv?type=网易出品&order=最新" className="ui_sub_nav_link">网易出品 &gt;</Link>
+        </div>
+        <div className="ui_grid rectangle_width col_3">
+          {mvWy.map((item) => (
+            <div className="item" key={item.id}>
+              <div className="cover">
+                <div className="inner">
+                  <Link to={`/player/mv/${item.id}`}>
+                    <img className="containimg" src={item.cover} alt="" />
+                    <div className="rt whitetext">
+                      {transPlayCount(item.playCount)}
+                    </div>
+                  </Link>
+                </div>
+              </div>
+              <div className="footer text-overflow">
+                {item.name}
+              </div>
+              <div className="text gray">
+                {item.artistName}
               </div>
             </div>
-            <div className="footer text-overflow">
-              {item.name}
-            </div>
-            <div className="text gray">
-              {item.artistName}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
       </div>
-      <div className="dom">
-        <Link to="/">MV排行榜</Link>
-        <div />
+      <div className="domMvList_header">
+        <Link to="/allmv/" className="ui_sub_nav_link">MV排行榜 &gt;</Link>
+        <div className="ui_recommend_nav">
+          {
+            category.map((item) => (
+              <div className="ui_recommend_nav_item" key={item}>
+                <button
+                  onClick={() => setTopArea(item)}
+                  type="button"
+                  className={classnames('ui_recommend_nav_link', { on: topArea === item })}
+                >
+                  {item}
+                </button>
+              </div>
+            ))
+          }
+        </div>
       </div>
       <div className="domVideoTop">
         {mvTop.map((item, index) => (
@@ -198,6 +267,7 @@ export default () => {
           </div>
         ))}
       </div>
+
     </div>
   );
 };
