@@ -3,8 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { apiMvSublist } from '@/api';
 import dayjs from 'dayjs';
 import { transPlayCount } from '@/common/utils';
+import Search from '@/components/HeaderBarSearch';
 import useInit from './useInit';
-import Search from './components/Search';
 import Empty from './components/Empty';
 
 const NAME = '视频';
@@ -68,15 +68,17 @@ export default () => {
   } = useInit(apiMvSublist, filterRule);
   return (
     <>
-      <div className="domSublist_headerBar">
+      <div className="ui_headerBar">
         <span className="title">
           <b>收藏的视频</b>
           &nbsp;
           (
-          { count }
+          {count}
           )
         </span>
-        <Search {...{ search, setSearch, placeholder: '搜索我收藏的视频' }} />
+        <div className="right">
+          <Search {...{ search, setSearch, placeholder: '搜索我收藏的视频' }} />
+        </div>
       </div>
       <div className="domSublist_grid">
         {ListBuild(filter, search, push)}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { apiTopicSublist } from '@/api';
+import Search from '@/components/HeaderBarSearch';
 import useInit from './useInit';
-import Search from './components/Search';
 import Empty from './components/Empty';
 
 const NAME = '专栏';
@@ -65,7 +65,7 @@ export default () => {
   } = useInit(apiTopicSublist);
   return (
     <>
-      <div className="domSublist_headerBar">
+      <div className="ui_headerBar">
         <span className="title">
           <b>
             收藏的
@@ -73,11 +73,13 @@ export default () => {
           </b>
           &nbsp;
           (
-          { count }
+          {count}
           )
 
         </span>
-        <Search {...{ search, setSearch, placeholder: `搜索我收藏的${NAME}` }} />
+        <div className="right">
+          <Search {...{ search, setSearch, placeholder: `搜索我收藏的${NAME}` }} />
+        </div>
       </div>
       <div className="domSublist_list">
         {ListBuild(filter, search, push)}

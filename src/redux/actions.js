@@ -24,6 +24,7 @@ import {
   SET_FRIEND_EVENT,
   SET_COMMENT_EVENT,
   SET_POPUP,
+  SET_LOCAL_CURRENT,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -155,5 +156,10 @@ export const setCommentEvent = (payload) => ({
 // common
 export const setPopup = (payload) => ({
   type: SET_POPUP,
+  payload,
+});
+
+export const setLocalCurrent = (payload) => ({
+  type: SET_LOCAL_CURRENT,
   payload,
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { apiArtistSublist } from '@/api';
+import Search from '@/components/HeaderBarSearch';
 import useInit from './useInit';
-import Search from './components/Search';
 
 const AliasOrTrans = ({ alias, trans }) => {
   if (alias.length) {
@@ -37,7 +37,7 @@ export default () => {
   } = useInit(apiArtistSublist, filterRule);
   return (
     <>
-      <div className="domSublist_headerBar">
+      <div className="ui_headerBar">
         <span className="title">
           <b>收藏的歌手</b>
           &nbsp;
@@ -45,7 +45,9 @@ export default () => {
           {count}
           )
         </span>
-        <Search {...{ search, setSearch, placeholder: '搜索我收藏的歌手' }} />
+        <div className="right">
+          <Search {...{ search, setSearch, placeholder: '搜索我收藏的歌手' }} />
+        </div>
       </div>
       <div className="domSublist_list">
         {filter.map((item) => (

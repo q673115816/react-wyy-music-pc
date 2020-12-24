@@ -7,6 +7,7 @@ const Home = loadable(() => import(/* webpackChunkName: "Home" */'@/pages/Home')
 const Video = loadable(() => import(/* webpackChunkName: "Video" */'@/pages/Video'));
 const AllMv = loadable(() => import(/* webpackChunkName: "AllMv" */'@/pages/AllMv'));
 const Local = loadable(() => import(/* webpackChunkName: "Local" */'@/pages/Local'));
+const Cloud = loadable(() => import(/* webpackChunkName: "Cloud" */'@/pages/Cloud'));
 const Look = loadable(() => import(/* webpackChunkName: "Look" */'@/pages/Look'));
 const Download = loadable(() => import(/* webpackChunkName: "Download" */'@/pages/Download'));
 const Friend = loadable(() => import(/* webpackChunkName: "Friend" */'@/pages/Friend'));
@@ -24,12 +25,13 @@ export default () => (
     <Route path="/allmv" component={AllMv} />
     <Route path="/Look" component={Look} />
     <Route path="/local" component={Local} />
+    <Route path="/cloud" component={Cloud} />
     <Route path="/download" component={Download} />
     <Route path="/friend" component={Friend} />
     <Route path="/dj" component={Dj} />
     <Route path="/love" component={Love} />
     <Route path="/sublist" component={Sublist} />
-    <Route path="/Artist/:id" component={Artist} />
+    <Route path="/artist/:id" component={Artist} />
     <Route path="/toplistartist/:type">
       <ToplistArtist />
     </Route>

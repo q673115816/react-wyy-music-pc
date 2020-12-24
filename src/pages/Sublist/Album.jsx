@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { apiAlbumSublist } from '@/api';
+import Search from '@/components/HeaderBarSearch';
 import useInit from './useInit';
-import Search from './components/Search';
 import Empty from './components/Empty';
 import ListItem from './components/Listitem';
 
@@ -74,7 +74,7 @@ export default () => {
   } = useInit(apiAlbumSublist, filterRule);
   return (
     <>
-      <div className="domSublist_headerBar">
+      <div className="ui_headerBar">
         <span className="title">
           <b>收藏的专辑</b>
           &nbsp;
@@ -82,7 +82,9 @@ export default () => {
           {count}
           )
         </span>
-        <Search {...{ search, setSearch, placeholder: '搜索收藏专辑' }} />
+        <div className="right">
+          <Search {...{ search, setSearch, placeholder: '搜索收藏专辑' }} />
+        </div>
       </div>
       <div className="domSublist_list">
         {ListBuild(filter, search, push)}

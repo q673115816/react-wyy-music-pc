@@ -1,35 +1,25 @@
 import React, { useState } from 'react';
 import classnames from 'classnames';
-
-const nav = [
-  '已下载单曲',
-  '已下载电台节目',
-  '已下载MV',
-  '正在下载',
-];
+import Search from '@/components/HeaderBarSearch';
 
 export default () => {
   const [visibility, setVisibility] = useState(false);
-  const [current, setCurrent] = useState('已下载单曲');
+  const [search, setSearch] = useState('');
   const handleToggleVisibility = () => {
     setVisibility(!visibility);
   };
   return (
     <div className="domManage">
       <div className="domManage_header">
-        <span className="domManage_header_title h1">下载管理</span>
+        <span className="domManage_header_title h1">我的音乐云盘</span>
       </div>
-      <div className="domManage_nav">
-        {nav.map((item) => (
-          <button
-            onClick={() => setCurrent(item)}
-            key={item}
-            className={classnames('domManage_nav_link', { on: item === current })}
-            type="button"
-          >
-            {item}
-          </button>
-        ))}
+      <div className="ui_headerBar">
+        <span className="title">
+          <b>收藏的专辑</b>
+        </span>
+        <div className="right">
+          <Search {...{ search, setSearch, placeholder: '搜索我的音乐云盘' }} />
+        </div>
       </div>
       <div className="domManage_list overflow-auto" />
       <div className="domManage_dialog" style={{ display: visibility ? '' : 'none' }}>

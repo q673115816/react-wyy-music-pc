@@ -15,35 +15,35 @@
     }
   }
 
-  &_headerBar {
-    display: flex;
-    padding: 10px 20px;
-    padding-left: 30px;
-    align-items: baseline;
+  // &_headerBar {
+  //   display: flex;
+  //   padding: 10px 20px;
+  //   padding-left: 30px;
+  //   align-items: baseline;
 
-    .search {
-      position: relative;
-      margin-left: auto;
-      width: 200px;
-      height: 24px;
+  //   .search {
+  //     position: relative;
+  //     margin-left: auto;
+  //     width: 200px;
+  //     height: 24px;
 
-      input {
-        padding: 10px;
-        width: 100%;
-        height: 100%;
-        border: none;
-        border-radius: 1000px;
-        background-color: #F7F7F7;
-      }
+  //     input {
+  //       padding: 10px;
+  //       width: 100%;
+  //       height: 100%;
+  //       border: none;
+  //       border-radius: 1000px;
+  //       background-color: #F7F7F7;
+  //     }
 
-      .ico {
-        position: absolute;
-        top: 50%;
-        transform: translate(0, -50%);
-        right: 10px;
-      }
-    }
-  }
+  //     .ico {
+  //       position: absolute;
+  //       top: 50%;
+  //       transform: translate(0, -50%);
+  //       right: 10px;
+  //     }
+  //   }
+  // }
 
   &_list {
     .item {
