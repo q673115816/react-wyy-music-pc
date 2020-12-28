@@ -105,12 +105,13 @@ module.exports = {
     ],
   },
   externals: {
-    // swiper: 'Swiper',
+    // swiper: ['Swiper', 'SwiperCore'],
     'react-router': 'ReactRouter',
     'react-router-dom': 'ReactRouterDOM',
     react: 'React',
     'react-dom': 'ReactDOM',
     'react-redux': 'ReactRedux',
+    '@tabler/icons': 'tablerIcons',
     redux: 'Redux',
   },
   module: {

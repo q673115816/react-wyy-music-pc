@@ -1,0 +1,19 @@
+.domArtist {
+  padding: 30px;
+
+  &_header {
+    display: flex;
+    .avatar {
+      width: 180px;
+      height: 180px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .content {
+      padding: 4px 20px;
+    }
+    .name {
+
+    }
+  }
+}

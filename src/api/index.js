@@ -41,6 +41,8 @@ export const apiUserDj = (params) => post('/user/dj', params);
 export const apiMsgPrivate = () => post('/msg/private');
 export const apiMsgPrivateHistory = (params) => post('/msg/private/history', params);
 export const apiSendText = (params) => post('/send/text', params);
+// 云盘
+export const apiUserCloud = (params) => post('/user/cloud', params);
 // 播放记录
 export const apiUserRecord = (params) => post('/user/record', params);
 
@@ -117,3 +119,6 @@ export const apiMvFirst = (params) => post('/mv/first', params);
 export const apiMvAll = (params) => post('/mv/all', params);
 
 export const apiMvExclusiveRcmd = (params) => post('/mv/exclusive/rcmd', params);
+
+// 歌手 - 详情
+export const apiArtistDetail = (params) => post('/artist/detail', params);

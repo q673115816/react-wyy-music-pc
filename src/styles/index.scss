@@ -5,29 +5,136 @@
   box-sizing: border-box;
 }
 
-/* Remove default margin */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
 body,
+div,
+span,
+applet,
+object,
+iframe,
 h1,
 h2,
 h3,
 h4,
+h5,
+h6,
 p,
-figure,
 blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
 dl,
+dt,
 dd,
-ul {
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
-ul,
-ol {
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+ol,
+ul {
   list-style: none;
 }
 
-/* Set core root defaults */
-html {
-  scroll-behavior: smooth;
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 /* Set core body defaults */
@@ -52,14 +159,6 @@ picture {
   display: block;
 }
 
-/* Inherit fonts for inputs and buttons */
-input,
-button,
-textarea,
-select {
-  font: inherit;
-}
-
 /* Remove all animations and transitions for people that prefer not to see them */
 @media (prefers-reduced-motion: reduce) {
 
@@ -82,19 +181,9 @@ svg {
   vertical-align: middle;
 }
 
-// [class^="bi-"]::before,
-// [class*=" bi-"]::before {
-//   vertical-align: inherit;
-// }
 .icon-tabler {
   stroke: currentColor;
 }
-// .material-icons,
-// .material-icons-outlined,
-// .material-icons-round,
-// .material-icons-sharp {
-//   font-size: inherit;
-// }
 
 @import 'common';
 @import 'layout';

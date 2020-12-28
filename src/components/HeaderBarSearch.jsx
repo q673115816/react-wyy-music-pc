@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({ search, setSearch, placeholder = '' }) => (
-  <span className="search">
+  <div className="search">
     <input type="text" value={search} placeholder={placeholder} onChange={({ target }) => setSearch(target.value)} />
     <div className="ico">
       {search
@@ -19,5 +19,5 @@ export default ({ search, setSearch, placeholder = '' }) => (
           </svg>
         )}
     </div>
-  </span>
+  </div>
 );

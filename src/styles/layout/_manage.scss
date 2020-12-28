@@ -1,6 +1,12 @@
 .domManage {
-  padding: 24px 30px;
+  // padding: 24px 30px;
+  padding-bottom: 30px;
+  display: flex;
+  flex-direction: column;
   &_header {
+    padding: 0 30px;
+    padding-top: 24px;
+    flex: none;
     display: flex;
     align-items: flex-end;
     &_title {
@@ -45,6 +51,74 @@
       font-size: 16px;
       margin-top: 1em;
       background-color: #f00;
+    }
+  }
+
+  &_table {
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+    table-layout: fixed;
+
+    tr {
+      height: 36px;
+    }
+
+    th {
+      position: relative;
+      color: gray;
+      &.on {
+        .sort {
+          opacity: 1;
+        }
+      }
+      .sort {
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translate(0, -50%);
+      }
+      &:hover {
+        .sort {
+          opacity: 1;
+        }
+      }
+    }
+
+    th,
+    td {
+      padding: 6px;
+      vertical-align: middle;
+      @extend .text-overflow
+    }
+
+    .index {
+      text-align: right;
+    }
+    .index,
+    .download {
+      color: #ccc;
+    }
+    thead {
+      tr {
+        th{
+          &:not(:empty):hover {
+            background-color: #F0F1F2;
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background-color: #F9F9F9;
+        }
+        &:hover {
+          background-color: #F0F1F2;
+        }
+      }
+
     }
   }
 

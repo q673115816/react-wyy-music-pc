@@ -16,7 +16,7 @@
 }
 
 .b {
-  border: calc(var(--size) * 1 / / 80) solid black;
+  border: calc(var(--size) * 1 / 80) solid black;
 }
 
 .r {

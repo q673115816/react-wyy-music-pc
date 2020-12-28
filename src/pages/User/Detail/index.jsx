@@ -5,10 +5,8 @@ import {
 import { apiUserDetail, apiUserPlaylist } from '@/api';
 import { setUserDetail } from '@/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import loadable from '@loadable/component';
 import './style.scss';
-
-const RainbowCat = loadable(() => import(/* webpackChunkName: "RainbowCat" */'./RainbowCat'));
+import RainbowCat from './RainbowCat';
 
 export default () => {
   const {

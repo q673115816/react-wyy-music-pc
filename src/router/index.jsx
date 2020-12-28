@@ -32,10 +32,8 @@ export default () => (
     <Route path="/love" component={Love} />
     <Route path="/sublist" component={Sublist} />
     <Route path="/artist/:id" component={Artist} />
-    <Route path="/toplistartist/:type">
-      <ToplistArtist />
-    </Route>
-    <Route path="/playlist/music/:id" component={Playlist} />
+    <Route path="/toplistartist/:type" component={ToplistArtist} />
+    <Route path="/playlist" component={Playlist} />
     <Route path="/user" component={User} />
     <Route path="/settings" component={Setting} />
     <Redirect to="/home" />

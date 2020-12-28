@@ -28,6 +28,7 @@
   ],
   "dependencies": {
     "@loadable/component": "^5.14.1",
+    "@tabler/icons": "^1.38.1",
     "classnames": "^2.2.6",
     "dayjs": "^1.9.7",
     "query-string": "^6.13.7",
@@ -53,6 +54,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
+    "cssnano": "^4.1.10",
     "eslint": "^7.16.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",

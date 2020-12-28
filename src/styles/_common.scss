@@ -102,8 +102,10 @@ button {
   border-radius: 16px;
   line-height: 30px;
   text-align: center;
-  border: 1px solid #999;
-
+  border: 1px solid #D8D8D8;
+  &:hover {
+    background-color: #F2F2F2;
+  }
   &.red {
     border-color: var(--basered);
     background-color: var(--basered);
@@ -336,11 +338,14 @@ button {
 }
 
 .ui_headerBar {
+  flex: none;
   display: flex;
   padding: 10px 20px;
   padding-left: 30px;
   align-items: baseline;
-
+  .left {
+    display: flex;
+  }
   .right {
     margin-left: auto;
   }
@@ -364,6 +369,50 @@ button {
       top: 50%;
       transform: translate(0, -50%);
       right: 10px;
+    }
+  }
+}
+
+
+.ui_process {
+  display: inline-block;
+  width: 110px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #E8E8EA;
+  overflow: hidden;
+  &::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: calc(var(--size, 0) / var(--maxSize, 0) * 100%);
+    // min-width: 1%;
+    background-color: #507DAF;
+  }
+}
+
+.ui_playall {
+  display: inline-flex;
+  height: 32px;
+  width: 140px;
+  background-color: var(--basered);
+  border-radius: 16px;
+  color: #fff;
+  overflow: hidden;
+  font-size: 14px;
+  &:hover {
+    background-color: #D73535;
+  }
+  .play {
+    width: 104px;
+    &:hover {
+      background-color: #CC3232;
+    }
+  }
+  .add {
+    width: 36px;
+    &:hover {
+      background-color: #CC3232;
     }
   }
 }
