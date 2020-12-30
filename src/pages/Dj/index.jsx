@@ -36,7 +36,7 @@ export default () => {
         {data.map((item) => (
           <div role="button" onClick={() => push(`/djlist/${item.id}`)} key={item.id} className="item">
             <div className="cover">
-              <img className="containimg" src={item.picUrl} alt="" />
+              <img className="ui_containimg" src={item.picUrl} alt="" />
             </div>
             <div className="name text-overflow">
               {item.name}

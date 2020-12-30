@@ -47,3 +47,5 @@ export const SET_COMMENT_EVENT = 'SET_COMMENT_EVENT';
 export const SET_POPUP = 'SET_POPUP';
 
 export const SET_LOCAL_CURRENT = 'SET_LOCAL_CURRENT';
+
+export const SET_ARTIST_INIT = 'SET_ARTIST_INIT';

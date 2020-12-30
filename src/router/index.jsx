@@ -18,6 +18,8 @@ const Playlist = loadable(() => import(/* webpackChunkName: "Playlist" */'@/page
 const User = loadable(() => import(/* webpackChunkName: "User" */'@/pages/User'));
 const Sublist = loadable(() => import(/* webpackChunkName: "Sublist" */'@/pages/Sublist'));
 const Artist = loadable(() => import(/* webpackChunkName: "Artist" */'@/pages/Artist'));
+const Search = loadable(() => import(/* webpackChunkName: "Search" */'@/pages/Search'));
+
 export default () => (
   <Switch>
     <Route path="/home" component={Home} />
@@ -35,6 +37,7 @@ export default () => (
     <Route path="/toplistartist/:type" component={ToplistArtist} />
     <Route path="/playlist" component={Playlist} />
     <Route path="/user" component={User} />
+    <Route path="/search" component={Search} />
     <Route path="/settings" component={Setting} />
     <Redirect to="/home" />
   </Switch>

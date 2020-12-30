@@ -9,33 +9,29 @@
 
   &_spilt {
     width: 1px;
-    background-color: rgba(255, 255, 255, 0.8);
-    height: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    height: 12px;
     margin-left: 16px;
   }
 
-  @mixin domheader_shabox_ico {
-    margin: 0 6px;
+  @mixin icoBtn {
+    display: inline-flex;
+    margin: 0 8px;
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
   }
 
-
   &_voice {
-    font-size: 16px;
-    @include domheader_shabox_ico()
+    width: 32px;
+    height: 32px;
+    @include icoBtn();
   }
 
   &_page_prev,
   &_page_next {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.3);
-    @include domheader_shabox_ico();
+    width: 24px;
+    height: 24px;
+    @include icoBtn();
 
     &.on {
       color: #fff;
@@ -45,7 +41,7 @@
   &_logo {
     color: #fff;
     font-size: 22px;
-    width: 220px;
+    width: 200px;
   }
 
   &_search {
@@ -54,22 +50,89 @@
     width: 160px;
     height: 30px;
     background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 1000px;
+    border-radius: 15px;
     padding-left: 36px;
     color: #fff;
-
+    font-size: 12px;
     &_ico {
       position: absolute;
       top: 50%;
       left: 10px;
       transform: translate(0, -50%);
-      fill: #fff;
-
     }
 
     &::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
       color: #e55959;
+    }
+
+    &_box {
+      position: absolute;
+      left: -30%;
+      background-color: #fff;
+      color: #333;
+      border-radius: 4px;
+      width: 354px;
+      max-height: 450px;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding-top: 4px;
+
+      .subtitle {
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .list {
+        .item {
+          width: 100%;
+          height: 56px;
+          display: flex;
+          align-items: center;
+
+          &:hover {
+            background-color: #F3F3F3;
+          }
+
+          .index {
+            width: 56px;
+            flex: none;
+            text-align: center;
+            color: gray;
+            font-size: 18px;
+          }
+
+          &:nth-child(-n + 3) {
+            .index {
+              color: var(--basered);
+            }
+          }
+
+          .aside {
+            .name {
+              display: flex;
+              align-items: flex-end;
+
+              .searchWord {
+                font-size: 13px;
+              }
+
+              .ico {
+                max-width: 24px;
+                max-height: 12px;
+              }
+            }
+
+            .content {
+              margin-top: 0.6em;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -77,6 +140,7 @@
     margin-left: auto;
     display: flex;
     align-items: center;
+
     &_login {
       display: flex;
       align-items: center;
@@ -93,6 +157,7 @@
     &_profile {
       display: flex;
       align-items: center;
+
       .avator {
         margin-right: 6px;
         border-radius: 15px;
@@ -107,8 +172,7 @@
 
   &_ico {
     position: relative;
-    margin-left: 16px;
-    font-size: 20px;
+    margin-left: 12px;
 
     .rt_ico {
       position: absolute;
@@ -124,5 +188,3 @@
   }
 
 }
-
-

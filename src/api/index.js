@@ -122,3 +122,46 @@ export const apiMvExclusiveRcmd = (params) => post('/mv/exclusive/rcmd', params)
 
 // 歌手 - 详情
 export const apiArtistDetail = (params) => post('/artist/detail', params);
+// 歌手 - 描述
+export const apiArtistDesc = (params) => post('/artist/desc', params);
+/**
+ * 歌手 - 收藏
+ * @param {id, t = 1 subscription} params
+ */
+export const apiArtistSub = (params) => post('/artist/sub', params);
+// 歌手 - 相似
+export const apiSimiArtist = (params) => post('/simi/artist', params);
+// 歌手 - MV
+export const apiArtistMv = (params) => post('/artist/mv', params);
+// 歌手 - 专辑
+export const apiArtistAlbum = (params) => post('/artist/album', params);
+// 歌手 - 热门50首
+export const apiArtistTopSong = (params) => post('/artist/top/song', params);
+
+// 热搜 - 简
+export const apiSearchHot = () => get('/search/hot');
+
+// 热搜 - 详
+export const apiSearchHotDetail = () => get('/search/hot/detail');
+
+// 热搜 - 默认关键词
+export const apiSearchDefault = (params) => post('/search/default', params);
+
+// 搜索
+export const apiSearch = (params) => post('/search', params);
+/*
+* type: 搜索类型；默认为 1 即单曲 ,
+取值意义 :
+1: 单曲,
+10: 专辑,
+100: 歌手,
+1000: 歌单,
+1002: 用户,
+1004: MV,
+1006: 歌词,
+1009: 电台,
+1014: 视频,
+1018:综合
+*/
+// 搜索
+export const apiCloudSearch = (params) => post('/cloudSearch', params);

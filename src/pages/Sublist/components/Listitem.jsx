@@ -10,7 +10,7 @@ export default ({ item = {}, push }) => (
   >
     <div className="cover">
       <Link to={`/playlist/music/${item.id}`}>
-        <img className="containimg" src={`${item.picUrl}?param=100y100`} alt="" />
+        <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
       </Link>
     </div>
     <div className="name text-overflow">

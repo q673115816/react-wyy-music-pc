@@ -8,6 +8,7 @@ const initialState = {
   currentSong: {},
   playlist: [],
   history: [],
+  searchHistory: [],
   msgs: [],
   popupStatus: 'false',
   newMsgCount: 0,

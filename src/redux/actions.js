@@ -25,6 +25,7 @@ import {
   SET_COMMENT_EVENT,
   SET_POPUP,
   SET_LOCAL_CURRENT,
+  SET_ARTIST_INIT,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -161,5 +162,10 @@ export const setPopup = (payload) => ({
 
 export const setLocalCurrent = (payload) => ({
   type: SET_LOCAL_CURRENT,
+  payload,
+});
+
+export const setArtistInit = (payload) => ({
+  type: SET_ARTIST_INIT,
   payload,
 });

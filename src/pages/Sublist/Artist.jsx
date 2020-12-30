@@ -53,7 +53,7 @@ export default () => {
         {filter.map((item) => (
           <div role="button" className="item" key={item.id} onClick={() => push(`/artist/${item.id}`)}>
             <div className="cover">
-              <img className="containimg" src={`${item.picUrl}?param=100y100`} alt="" />
+              <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
             </div>
             <div className="name text-overflow">
               {item.name}

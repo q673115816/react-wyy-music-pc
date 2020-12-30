@@ -87,7 +87,7 @@ export default () => {
             <div className="domVideoDetail_creator">
               <Link to={`/user/${detail?.creator?.userId}`}>
                 <div className="avatar">
-                  <img className="containimg" src={detail?.creator?.avatarUrl} alt="" />
+                  <img className="ui_containimg" src={detail?.creator?.avatarUrl} alt="" />
                 </div>
               </Link>
               <Link className="nickname" to={`/user/${detail?.creator?.userId}`}>

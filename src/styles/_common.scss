@@ -84,6 +84,14 @@ button {
   color: red;
 }
 
+.ui_bold {
+  font-weight: bold;
+}
+
+.ui_select {
+  user-select: text!important;
+}
+
 .ui_btn_small {
   display: inline-block;
   padding: 0 12px;

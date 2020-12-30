@@ -13,7 +13,7 @@ import options from './filter';
 const Domitem = ({ item = {} }) => (
   <div className="item">
     <div className="img">
-      <Link to={`/artist/detail/${item.id}`}>
+      <Link to={`/artist/${item.id}`}>
         <LazyLoad overflow>
           <img
             className="ui_containimg"
@@ -24,7 +24,7 @@ const Domitem = ({ item = {} }) => (
       </Link>
     </div>
     <div className="info">
-      <Link to={`/artist/detail/${item.id}`}>
+      <Link to={`/artist/${item.id}`}>
         {item.name}
       </Link>
     </div>

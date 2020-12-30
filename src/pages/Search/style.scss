@@ -1,0 +1,119 @@
+.domSearch {
+  &_header {
+    padding: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  &_nav {
+    margin-top: 20px;
+    display: flex;
+
+    &_link {
+      font-size: 14px;
+      margin-right: 2em;
+
+      &.on {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &_main {
+    .song_list {
+      white-space: nowrap;
+      width: 100%;
+      table-layout: fixed;
+      td {
+        vertical-align: middle;
+      }
+
+      .item {
+        height: 36px;
+        .index {
+          text-align: right;
+          width: 40px;
+          padding-right: 10px;
+          color: gray;
+        }
+
+        .heart,
+        .download {
+          width: 24px;
+          text-align: center;
+          color: gray;
+
+          &:hover {
+            color: #333;
+          }
+        }
+
+        .name {
+          padding: 0 8px;
+          width: 48%;
+
+          .mv {
+            display: inline-flex;
+            align-items: center;
+            color: var(--basered);
+            border: 1px solid var(--basered);
+            border-radius: 2px;
+          }
+        }
+
+        .artist {
+          padding: 0 8px;
+          width: 10%;
+        }
+
+        .album {
+          padding: 0 8px;
+          width: 10%;
+        }
+
+        .duration {
+          padding: 0 8px;
+          width: 8%;
+        }
+
+        .pop {
+          padding: 0 8px;
+          width: 10%;
+        }
+
+        .range {
+          width: 80px;
+          height: 8px;
+          border-radius: 4px;
+          background-color: #E5E5E5;
+          overflow: hidden;
+
+          &::before {
+            content: '';
+            display: block;
+            height: 100%;
+            width: calc(var(--pop, 0) * 1%);
+            background-color: #C1C2C2;
+          }
+        }
+      }
+
+      .tbody {
+        .item {
+          &:nth-child(odd) {
+            background-color: #F9F9F9;
+          }
+
+          &:hover {
+            background-color: #F0F1F2;
+          }
+
+          &.on {
+            background-color: #E5E5E5;
+          }
+        }
+      }
+
+    }
+  }
+}

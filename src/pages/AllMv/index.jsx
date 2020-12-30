@@ -81,7 +81,7 @@ export default () => {
               <div className="cover">
                 <div className="inner">
                   <Link to={`/player/mv/${item.id}`}>
-                    <img className="containimg" src={item.cover} alt="" />
+                    <img className="ui_containimg" src={item.cover} alt="" />
                     <div className="rt whitetext">
                       {transPlayCount(item.playCount)}
                     </div>
