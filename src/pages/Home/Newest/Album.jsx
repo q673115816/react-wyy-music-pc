@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import LazyLoad from 'react-lazyload';
 import { apiTopAlbum, apiAlbumNew } from '@/api';
 import { setTopAlbum } from '@/redux/actions';
+import classnames from 'classnames';
 
 import { limit } from '@/common/config';
 
@@ -91,68 +92,71 @@ export default () => {
       <span>{monthData.length}</span>
       <div className="domHome_newest_sub_nav">
         {
-                    arealist.map((item) => (
-                      <span
-                        key={item.name}
-                        className={['domHome_newest_sub_nav_link', area === item.code ? 'on' : null].join(' ')}
-                        onClick={() => setArea(item.code)}
-                      >
-                        {item.name}
-                      </span>
-                    ))
-                }
+          arealist.map((item) => (
+            <button
+              type="button"
+              key={item.name}
+              className={classnames('domHome_newest_sub_nav_link', { on: area === item.code })}
+              onClick={() => setArea(item.code)}
+            >
+              {item.name}
+            </button>
+          ))
+        }
         <div className="domHome_newest_sub_control_center">
-          <span
-            className={['showtype', showtype === 'RECOMMEND' ? 'on' : null].join(' ')}
+          <button
+            type="button"
+            className={classnames('showtype', { on: showtype === 'RECOMMEND' })}
             onClick={() => setShowtype('RECOMMEND')}
           >
             推荐
-          </span>
-          <span
-            className={['showtype', showtype === 'ALL' ? 'on' : null].join(' ')}
+          </button>
+          <button
+            type="button"
+            className={classnames('showtype', { on: showtype === 'ALL' })}
             onClick={() => setShowtype('ALL')}
           >
             全部
-          </span>
+          </button>
         </div>
       </div>
       <div className="domHome_newest_album_list">
         {
-                    area === 'ALL' && showtype !== 'ALL' && weekData.length > 0
-                    && (
-                    <div className="domHome_newest_album_sublist">
-                      <div className="sign">
-                        本周
-                        <br />
-                        新碟
-                      </div>
-                      <div className="list">
-                        {weekData.map((item) => (
-                          <AlbumItem item={item} key={item.id} />
-                        ))}
-                      </div>
-                    </div>
-                    )
-                }
+          area === 'ALL' && showtype !== 'ALL' && weekData.length > 0
+          && (
+            <div className="domHome_newest_album_sublist">
+              <div className="sign">
+                本周
+                <br />
+                新碟
+              </div>
+              <div className="list">
+                {weekData.map((item) => (
+                  <AlbumItem item={item} key={item.id} />
+                ))}
+              </div>
+            </div>
+          )
+        }
         {
-                    monthData.length > 0
-                    && (
-                    <div className="domHome_newest_album_sublist">
-                      <div className="sign">
-                        本月
-                        <br />
-                        新碟
-                      </div>
-                      <div className="list">
-                        {
-                                monthData.map((item) => (
-                                  <AlbumItem item={item} key={item.id} />
-                                ))
-                            }
-                      </div>
-                    </div>
-                    )
+          monthData.length > 0
+          && (
+            <div className="domHome_newest_album_sublist">
+              <div className="sign">
+                本月
+                <br />
+                新碟
+              </div>
+              <div className="list">
+                {
+                  monthData.map((item) => (
+                    <AlbumItem item={item} key={item.id} />
+                  ))
                 }
+              </div>
+            </div>
+          )
+        }
       </div>
     </>
   );

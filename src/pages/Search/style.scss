@@ -24,12 +24,14 @@
       white-space: nowrap;
       width: 100%;
       table-layout: fixed;
+
       td {
         vertical-align: middle;
       }
 
       .item {
         height: 36px;
+
         .index {
           text-align: right;
           width: 40px;
@@ -50,25 +52,28 @@
 
         .name {
           padding: 0 8px;
-          width: 48%;
-
-          .mv {
-            display: inline-flex;
+          width: 40%;
+          .inner {
+            display: flex;
             align-items: center;
-            color: var(--basered);
-            border: 1px solid var(--basered);
-            border-radius: 2px;
+          }
+          .tags {
+            padding-left: 4px;
+          }
+
+          [name] {
+            font-size: 14px;
           }
         }
 
         .artist {
           padding: 0 8px;
-          width: 10%;
+          width: 12%;
         }
 
         .album {
           padding: 0 8px;
-          width: 10%;
+          width: 16%;
         }
 
         .duration {

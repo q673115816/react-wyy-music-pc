@@ -2,13 +2,16 @@ import {
   ADD_SONG_URL, DIALOG_LOGIN_VISIBILTY, SET_COUNTRIES_CODE_LIST, SET_IS_LOGIN, SET_NOT_LOGIN,
   SET_POPUP,
   SET_MSG_PRIVATE,
+  SET_SEARCH_HISTORY,
 } from '@/redux/actionTypes';
+
+import { LOCALSTORAGE } from '@/common/utils';
 
 const initialState = {
   currentSong: {},
   playlist: [],
   history: [],
-  searchHistory: [],
+  searchHistory: LOCALSTORAGE('searchHistory', []),
   msgs: [],
   popupStatus: 'false',
   newMsgCount: 0,
@@ -40,7 +43,12 @@ export default (state = initialState, action) => {
         ...state,
         isLogin: false,
       };
-
+    case SET_SEARCH_HISTORY:
+      window.localStorage.setItem('searchHistory', JSON.stringify(action.payload));
+      return {
+        ...state,
+        searchHistory: action.payload,
+      };
     case ADD_SONG_URL:
       return {
         ...state,

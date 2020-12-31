@@ -8,6 +8,7 @@ import {
   setIsLogin,
   setMsgPrivate,
   setPopup,
+  setSearchHistory,
 } from '@/redux/actions';
 import {
   apiCountriesCodeList, apiUserAccount, apiMsgPrivate, apiUserPlaylist,
@@ -40,6 +41,7 @@ export default ({ mousedown }) => {
   const dispatch = useDispatch();
   const {
     isLogin, profile, popupStatus, newMsgCount,
+    searchHistory,
   } = useSelector(({ common, account }) => ({ ...common, ...account }));
 
   const [searchVisibility, setSearchVisibility] = useState(false);
@@ -104,7 +106,16 @@ export default ({ mousedown }) => {
   const handleSearch = (keywords) => {
     setSearchVisibility(false);
     setSearchValue(keywords);
+    dispatch(setSearchHistory([keywords, ...searchHistory]));
     push(`/search?keywords=${keywords}`);
+  };
+
+  const handleDeleteSearchHistory = (keywords) => {
+    dispatch(setSearchHistory(searchHistory.filter((search) => search !== keywords)));
+  };
+
+  const handleDeleteAllSearchHistory = () => {
+    dispatch(setSearchHistory([]));
   };
 
   useEffect(() => {
@@ -138,13 +149,35 @@ export default ({ mousedown }) => {
         />
         <div className="domheader_search_box" style={{ display: searchVisibility ? null : 'none' }}>
           <div className="overflow-auto">
-            <div className="subtitle">
-              搜索历史
-              <button type="button">
-                <IconTrash size={16} stroke={1} />
-              </button>
-            </div>
-            <div>{ }</div>
+            {
+              searchHistory.length > 0
+              && (
+                <>
+                  <div className="subtitle">
+                    搜索历史
+                    &nbsp;
+                    <button type="button" onClick={handleDeleteAllSearchHistory}>
+                      <IconTrash size={16} stroke={1} />
+                    </button>
+                  </div>
+                  <div className="searchHistory">
+                    {
+                      searchHistory.map((item) => (
+                        <Link
+                          className="item"
+                          to={`/search?keywords=${item}`}
+                        >
+                          {item}
+                          <button type="button" className="ico" onClick={() => handleDeleteSearchHistory(item)}>
+                            <IconX size={16} stroke={2} />
+                          </button>
+                        </Link>
+                      ))
+                    }
+                  </div>
+                </>
+              )
+            }
             <div className="subtitle">热搜榜</div>
             <div className="list">
               {searchHot.map((item, index) => (

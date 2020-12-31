@@ -12,3 +12,12 @@ export const wordLength = (word = '') => {
   }
   return length;
 };
+
+function typeToString(target) {
+  return Object.prototype.toString.call(target);
+}
+
+export const LOCALSTORAGE = (key, base) => {
+  const value = JSON.parse(localStorage.getItem(key));
+  return typeToString(value) === typeToString(base) ? value : base;
+};

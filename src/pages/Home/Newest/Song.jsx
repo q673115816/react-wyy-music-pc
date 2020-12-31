@@ -4,6 +4,15 @@ import { useParams, NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiTopSong, apiSongUrl } from '@/api';
 import { setTopSong, addSongUrl } from '@/redux/actions';
+import { IconPlayerPlay } from '@tabler/icons';
+
+const nav = [
+  ['全部', '0'],
+  ['华语', '7'],
+  ['欧美', '96'],
+  ['韩国', '16'],
+  ['日本', '8'],
+];
 
 export default () => {
   const { type: currentType } = useParams();
@@ -38,11 +47,15 @@ export default () => {
   return (
     <>
       <div className="domHome_newest_sub_nav">
-        <NavLink className="domHome_newest_sub_nav_link" activeClassName="on" to="/home/newest/song/0">全部</NavLink>
-        <NavLink className="domHome_newest_sub_nav_link" activeClassName="on" to="/home/newest/song/7">华语</NavLink>
-        <NavLink className="domHome_newest_sub_nav_link" activeClassName="on" to="/home/newest/song/96">欧美</NavLink>
-        <NavLink className="domHome_newest_sub_nav_link" activeClassName="on" to="/home/newest/song/16">韩国</NavLink>
-        <NavLink className="domHome_newest_sub_nav_link" activeClassName="on" to="/home/newest/song/8">日本</NavLink>
+        {nav.map(([name, code]) => (
+          <NavLink
+            className="domHome_newest_sub_nav_link"
+            activeClassName="on"
+            to={`/home/newest/song/${code}`}
+          >
+            {name}
+          </NavLink>
+        ))}
         <div className="domHome_newest_sub_control_center">
           <span className="playAll">播放全部</span>
           <span className="subAll">收藏全部</span>
@@ -63,14 +76,12 @@ export default () => {
                 alt=""
               />
               <span className="ico">
-                <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 4v16l13 -8z" />
-                </svg>
+                <IconPlayerPlay size={22} fill="currentColor" />
               </span>
             </button>
             <span className="name">
               <div className="text-overflow">{item.name}</div>
-              <div className="SQ">SQ</div>
+              <div className="TAG">SQ</div>
             </span>
             <span className="artists">
               {

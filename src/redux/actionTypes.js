@@ -49,3 +49,5 @@ export const SET_POPUP = 'SET_POPUP';
 export const SET_LOCAL_CURRENT = 'SET_LOCAL_CURRENT';
 
 export const SET_ARTIST_INIT = 'SET_ARTIST_INIT';
+
+export const SET_SEARCH_HISTORY = 'SET_SEARCH_HISTORY';

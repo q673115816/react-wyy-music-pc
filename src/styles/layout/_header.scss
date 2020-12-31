@@ -87,6 +87,35 @@
         align-items: center;
       }
 
+      .searchHistory {
+        padding: 0 calc(20px - 0.5em);
+        display: flex;
+        flex-wrap: wrap;
+        .item {
+          position: relative;
+          margin: 0 0.5em;
+          margin-bottom: 1em;
+          border: 1px solid #ccc;
+          border-radius: 100px;
+          padding: 6px 16px;
+          &:hover {
+            background-color: #F3F3F3;
+            .ico {
+              opacity: 1;
+            }
+          }
+
+          .ico {
+            opacity: 0;
+            position: absolute;
+            top: 50%;
+            right: 2px;
+            transform: translate(0, -50%);
+            color: #aaa;
+          }
+        }
+      }
+
       .list {
         .item {
           width: 100%;

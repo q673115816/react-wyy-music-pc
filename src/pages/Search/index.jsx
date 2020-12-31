@@ -106,19 +106,38 @@ export default () => {
                   </button>
                 </td>
                 <td className="name" title={item.name}>
-                  <div className="text-overflow">
-                    {item.name}
-                      &nbsp;
-                    <span className="gray">
-                      {item.alia.map((alia) => alia)}
-                    </span>
-                    {item.mv !== 0
-                      && (
-                        <Link className="mv" to={`/player/mv/${item.mv}`}>
-                          MV
-                          <IconPlayerPlay size={8} fill="currentColor" />
-                        </Link>
-                      )}
+                  <div className="inner">
+                    <div className="text text-overflow">
+                      <span name="" title={item.name}>
+                        {item.name}
+                      </span>
+                      {
+                        item.alia.length > 0
+                        && (
+                          <>
+                          &nbsp;
+                            <span className="alia gray" title={item.alia.map((alia) => alia)}>
+                              （
+                              {item.alia.map((alia) => alia)}
+                              ）
+                            </span>
+                          </>
+                        )
+                      }
+                    </div>
+                    <div className="tags">
+                      {
+                        item.privilege.maxbr === 999000
+                        && <span className="TAG">SQ</span>
+                      }
+                      {item.mv !== 0
+                        && (
+                          <Link className="TAG" to={`/player/mv/${item.mv}`}>
+                            MV
+                            <IconPlayerPlay size={8} fill="currentColor" />
+                          </Link>
+                        )}
+                    </div>
                   </div>
                 </td>
                 <td

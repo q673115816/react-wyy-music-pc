@@ -89,7 +89,7 @@ button {
 }
 
 .ui_select {
-  user-select: text!important;
+  user-select: text !important;
 }
 
 .ui_btn_small {
@@ -111,9 +111,11 @@ button {
   line-height: 30px;
   text-align: center;
   border: 1px solid #D8D8D8;
+
   &:hover {
     background-color: #F2F2F2;
   }
+
   &.red {
     border-color: var(--basered);
     background-color: var(--basered);
@@ -128,12 +130,18 @@ button {
   }
 }
 
-.SQ {
-  display: inline-block;
+.TAG {
+  display: inline-flex;
+  align-items: center;
   border: 1px solid;
-  padding: 0 0.1em;
+  padding: 0 0.2em;
   color: var(--basered);
-  letter-spacing: 0.1em;
+  // letter-spacing: 0.1em;
+  border-radius: 0.1em;
+
+  &+.TAG {
+    margin-left: 0.5em;
+  }
 }
 
 .h1 {
@@ -351,9 +359,11 @@ button {
   padding: 10px 20px;
   padding-left: 30px;
   align-items: baseline;
+
   .left {
     display: flex;
   }
+
   .right {
     margin-left: auto;
   }
@@ -389,6 +399,7 @@ button {
   border-radius: 5px;
   background-color: #E8E8EA;
   overflow: hidden;
+
   &::before {
     content: '';
     display: block;
@@ -408,17 +419,22 @@ button {
   color: #fff;
   overflow: hidden;
   font-size: 14px;
+
   &:hover {
     background-color: #D73535;
   }
+
   .play {
     width: 104px;
+
     &:hover {
       background-color: #CC3232;
     }
   }
+
   .add {
     width: 36px;
+
     &:hover {
       background-color: #CC3232;
     }

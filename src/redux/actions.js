@@ -26,6 +26,7 @@ import {
   SET_POPUP,
   SET_LOCAL_CURRENT,
   SET_ARTIST_INIT,
+  SET_SEARCH_HISTORY,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -38,6 +39,11 @@ export const setNotLogin = () => ({
 
 export const setLoginInfo = (payload) => ({
   type: SET_LOGIN_INFO,
+  payload,
+});
+
+export const setSearchHistory = (payload) => ({
+  type: SET_SEARCH_HISTORY,
   payload,
 });
 
