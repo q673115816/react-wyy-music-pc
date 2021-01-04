@@ -37,6 +37,12 @@
 //   }
 // }
 
+@mixin text-overflow {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 @mixin ellipse($line: 2) {
   display: -webkit-box;
   /*! autoprefixer: ignore next */

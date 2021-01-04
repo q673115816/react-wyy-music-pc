@@ -27,6 +27,7 @@ import {
   SET_LOCAL_CURRENT,
   SET_ARTIST_INIT,
   SET_SEARCH_HISTORY,
+  SET_SEARCH_VALUE,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -44,6 +45,11 @@ export const setLoginInfo = (payload) => ({
 
 export const setSearchHistory = (payload) => ({
   type: SET_SEARCH_HISTORY,
+  payload,
+});
+
+export const setSearchValue = (payload) => ({
+  type: SET_SEARCH_VALUE,
   payload,
 });
 

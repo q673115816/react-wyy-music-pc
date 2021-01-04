@@ -189,5 +189,9 @@ svg {
   stroke: currentColor;
 }
 
+[role="button"] {
+  cursor: pointer;
+}
+
 @import 'common';
 @import 'layout';

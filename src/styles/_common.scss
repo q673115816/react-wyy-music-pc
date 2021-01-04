@@ -1,5 +1,6 @@
 :root {
   --basered: #EC4141;
+  --linkColor: #507DAF;
   --fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
@@ -51,9 +52,7 @@ body {
 }
 
 .text-overflow {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  @include text-overflow();
 }
 
 button {
@@ -123,10 +122,17 @@ button {
 }
 
 .ui_link {
-  color: #507DAF;
+  color: var(--linkColor);
 
   &:hover {
     color: #5E58C1;
+  }
+}
+
+.ui_hover {
+  color: #666;
+  &:hover {
+    color: #333;
   }
 }
 

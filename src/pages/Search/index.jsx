@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 import { apiCloudSearch } from '@/api';
+import { setSearchValue } from '@/redux/actions';
 import { IconHeart, IconDownload, IconPlayerPlay } from '@tabler/icons';
 import dayjs from 'dayjs';
 import './style.scss';
+import DomSongs from './Songs';
+import DomArtists from './Artists';
+import DomAlbums from './Albums';
+import DomVideos from './Videos';
+import DomPlaylists from './Playlists';
+import DomLyrics from './Lyrics';
+import DomDjRadios from './DjRadios';
+import DomUserprofiles from './Userprofiles';
 
 const nav = [
-  ['单曲', '1'],
-  ['歌手', '100'],
-  ['专辑', '10'],
-  ['视频', '1014'],
-  ['歌单', '1000'],
-  ['歌词', '1006'],
-  ['主播电台', '1009'],
-  ['用户', '1002'],
+  ['单曲', '1', '首'],
+  ['歌手', '100', '位'],
+  ['专辑', '10', '张'],
+  ['视频', '1014', '个'],
+  ['歌单', '1000', '个'],
+  ['歌词', '1006', '首'],
+  ['主播电台', '1009', '个'],
+  ['用户', '1002', '位'],
 ];
 
 export default () => {
+  const dispatch = useDispatch();
   const { search } = useLocation();
   const [result, setResult] = useState({});
   const [loading, setLoading] = useState(true);
-  const [songsActive, setSongsActive] = useState();
   const defaultSearch = {
   };
   const queryString = new URLSearchParams(search);
@@ -33,6 +43,14 @@ export default () => {
   Object.assign(defaultSearch, { keywords });
   if (reg.test(type)) Object.assign(defaultSearch, { type });
 
+  const { searchValue } = useSelector(({ common }) => common);
+  useEffect(() => {
+    if (!searchValue) {
+      dispatch(setSearchValue({
+        searchValue: keywords,
+      }));
+    }
+  }, []);
   const handleInit = async () => {
     try {
       const { result } = await apiCloudSearch({
@@ -55,9 +73,12 @@ export default () => {
         <div className="h1">
           找到
           {' '}
-          {result.songCount || 0}
-          {' '}
-          首单曲
+          {result.songCount || result.artistCount || 0}
+          {
+          nav.find((item) => type === item[1])
+            && nav.find((item) => type === item[1])[2]
+            + nav.find((item) => type === item[1])[0]// "首" + "单曲"
+          }
         </div>
         <div className="domSearch_nav">
           {nav.map(([name, code]) => (
@@ -72,100 +93,28 @@ export default () => {
         { }
       </div>
       <div className="domSearch_main">
-        <table className="song_list">
-          <thead className="thead">
-            <tr className="item gray">
-              <td className="index" />
-              <td className="heart" />
-              <td className="download" />
-              <td className="name">音乐标题</td>
-              <td className="artist">歌手</td>
-              <td className="album">专辑</td>
-              <td className="duration">时长</td>
-              <td className="gray">热度</td>
-            </tr>
-          </thead>
-          <tbody className="tbody">
-            {result.songs.map((item, index) => (
-              <tr
-                onClick={() => setSongsActive(item.id)}
-                className={classnames('item', { on: songsActive === item.id })}
-                key={item.id}
-              >
-                <td className="index">
-                  {String(index + 1).padStart(2, 0)}
-                </td>
-                <td className="heart">
-                  <button type="button">
-                    <IconHeart size={20} stroke={1} />
-                  </button>
-                </td>
-                <td className="download">
-                  <button type="button">
-                    <IconDownload size={20} stroke={1} />
-                  </button>
-                </td>
-                <td className="name" title={item.name}>
-                  <div className="inner">
-                    <div className="text text-overflow">
-                      <span name="" title={item.name}>
-                        {item.name}
-                      </span>
-                      {
-                        item.alia.length > 0
-                        && (
-                          <>
-                          &nbsp;
-                            <span className="alia gray" title={item.alia.map((alia) => alia)}>
-                              （
-                              {item.alia.map((alia) => alia)}
-                              ）
-                            </span>
-                          </>
-                        )
-                      }
-                    </div>
-                    <div className="tags">
-                      {
-                        item.privilege.maxbr === 999000
-                        && <span className="TAG">SQ</span>
-                      }
-                      {item.mv !== 0
-                        && (
-                          <Link className="TAG" to={`/player/mv/${item.mv}`}>
-                            MV
-                            <IconPlayerPlay size={8} fill="currentColor" />
-                          </Link>
-                        )}
-                    </div>
-                  </div>
-                </td>
-                <td
-                  className="artist text-overflow gray hover"
-                  title={(item.ar.map((artist) => artist.name)).join('/')}
-                >
-                  <div className="text-overflow">
-                    {item.ar.map((aritst) => <Link to={`/artist/${aritst.id}`}>{aritst.name}</Link>)}
-                  </div>
-                </td>
-                <td
-                  className="album text-overflow gray hover"
-                  title={item.al.name}
-                >
-                  <Link to={`/playlist/album/${item.al.id}`}>
-                    {item.al.name}
-                  </Link>
-                </td>
-                <td className="duration gray text-overflow">
-                  {dayjs(item.dt).format('mm:ss')}
-                </td>
-                <td className="pop">
-                  <div className="range" style={{ '--pop': item.pop }} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        {
+          (type === '1' && result.songs)
+        && (
+        <DomSongs songs={result.songs} />
+        )
+        }
+        {
+          (type === '100' && result.artists)
+          && <DomArtists artists={result.artists} />
+        }
+        {type === '10' && result.albums
+          && <DomAlbums albums={result.albums} />}
+        {type === '1014' && result.videos
+          && <DomVideos videos={result.videos} />}
+        {type === '1000' && result.playlists
+          && <DomPlaylists playlists={result.playlists} />}
+        {type === '1006' && result.songs
+          && <DomLyrics lyrics={result.songs} />}
+        {type === '1009' && result.djRadios
+          && <DomDjRadios djRadios={result.djRadios} />}
+        {type === '1002' && result.userprofiles
+          && <DomUserprofiles userprofiles={result.userprofiles} />}
       </div>
     </div>
   );

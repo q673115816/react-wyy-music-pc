@@ -144,8 +144,8 @@ export const apiSearchHot = () => get('/search/hot');
 // 热搜 - 详
 export const apiSearchHotDetail = () => get('/search/hot/detail');
 
-// 热搜 - 默认关键词
-export const apiSearchDefault = (params) => post('/search/default', params);
+// 热搜 - 默认关键词 手机用
+export const apiSearchDefault = () => get('/search/default');
 
 // 搜索
 export const apiSearch = (params) => post('/search', params);
@@ -165,3 +165,8 @@ export const apiSearch = (params) => post('/search', params);
 */
 // 搜索
 export const apiCloudSearch = (params) => post('/cloudSearch', params);
+/**
+ * 搜索建议
+ * @param {keyword: String, type?:mobile} params
+ */
+export const apiSearchSuggest = (params) => post('/search/suggest', params);

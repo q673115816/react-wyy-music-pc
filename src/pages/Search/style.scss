@@ -12,6 +12,7 @@
     &_link {
       font-size: 14px;
       margin-right: 2em;
+      font-weight: lighter;
 
       &.on {
         font-weight: bold;
@@ -20,13 +21,47 @@
   }
 
   &_main {
-    .song_list {
-      white-space: nowrap;
+    ._list {
+
+      // display: flex;
+      // flex-direction: column;
+      .item {
+        padding: 10px 30px;
+        display: flex;
+        align-items: center;
+
+        &:nth-child(even) {
+          background-color: #F9F9F9;
+        }
+
+        &:hover {
+          background-color: #F0F1F2;
+        }
+
+        .cover {
+          width: 60px;
+          height: 60px;
+          border-radius: 4px;
+          overflow: hidden;
+          border: 1px solid #ccc;
+        }
+
+        .name {
+          padding: 0 10px;
+          font-size: 14px;
+          width: 40%;
+          @include text-overflow();
+        }
+      }
+    }
+
+    .songs_list {
       width: 100%;
       table-layout: fixed;
 
       td {
         vertical-align: middle;
+        white-space: nowrap;
       }
 
       .item {
@@ -53,10 +88,12 @@
         .name {
           padding: 0 8px;
           width: 40%;
+
           .inner {
             display: flex;
             align-items: center;
           }
+
           .tags {
             padding-left: 4px;
           }
@@ -119,6 +156,229 @@
         }
       }
 
+    }
+
+    .artists_list {
+      .item {
+        .account {
+          margin-left: auto;
+          width: 18px;
+          height: 18px;
+          background-color: var(--basered);
+          border-radius: 9px;
+          color: #fff;
+        }
+      }
+    }
+
+    .albums_list {
+      .item {
+        .artist {
+          padding: 0 10px;
+        }
+      }
+    }
+
+    .videos_list {
+      padding: 20px 40px;
+    }
+
+    .playlists_list {
+      .trackCount {
+        width: 16%;
+      }
+    }
+
+    .lyrics_list {
+      white-space: nowrap;
+      width: 100%;
+      table-layout: fixed;
+
+      td {
+        vertical-align: middle;
+      }
+
+      .item {
+        --grid: 40px 24px 24px 10fr 4fr 4fr 2fr 3fr;
+        display: grid;
+        align-items: center;
+        grid-template-columns: var(--grid);
+
+        .index {
+          text-align: right;
+          padding-right: 10px;
+          color: gray;
+        }
+
+        .heart,
+        .download {
+          text-align: center;
+          color: gray;
+
+          &:hover {
+            color: #333;
+          }
+        }
+
+        .name {
+          padding: 0 8px;
+
+          .inner {
+            display: flex;
+            align-items: center;
+          }
+
+          .tags {
+            padding-left: 4px;
+          }
+
+          [name] {
+            font-size: 14px;
+          }
+        }
+
+        .artist {
+          padding: 0 8px;
+        }
+
+        .album {
+          padding: 0 8px;
+        }
+
+        .duration {
+          padding: 0 8px;
+        }
+
+        .pop {
+          padding: 0 8px;
+        }
+
+        .range {
+          width: 80px;
+          height: 8px;
+          border-radius: 4px;
+          background-color: #E5E5E5;
+          overflow: hidden;
+
+          &::before {
+            content: '';
+            display: block;
+            height: 100%;
+            width: calc(var(--pop, 0) * 1%);
+            background-color: #C1C2C2;
+          }
+        }
+      }
+
+      .thead {
+        .item {
+          height: 36px;
+        }
+      }
+
+      .tbody {
+        .item {
+          &:nth-child(odd) {
+            background-color: #F9F9F9;
+          }
+
+          &:hover {
+            background-color: #F0F1F2;
+          }
+
+          &.on {
+            background-color: #E5E5E5;
+          }
+        }
+      }
+
+      .subtable {
+        .subitem {
+          display: grid;
+          align-content: center;
+          grid-template-columns: var(--grid);
+        }
+      }
+
+      .lyric {
+        display: flex;
+        grid-column-start: 4;
+        grid-column-end: 9;
+
+        .content {
+          padding: 0 8px;
+          line-height: 20px;
+          padding-bottom: 20px;
+          width: 66%;
+          word-break: break-all;
+          white-space: pre-line;
+          min-width: 1px;
+          color: #999;
+          font-size: 14px;
+
+          :first-child {
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+
+            b {
+              color: var(--linkColor);
+            }
+          }
+        }
+
+        .actions {
+          width: 33%;
+          flex: none;
+          padding: 10px;
+
+          button {
+            margin: 0 10px;
+          }
+        }
+      }
+    }
+
+    .djRadios_list {
+      .item {
+        .dj {
+          width: 30%;
+          margin-left: auto;
+        }
+      }
+    }
+
+    .userprofiles_list {
+      .item {
+        .cover {
+          border-radius: 50%;
+        }
+
+        @mixin gender {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          @include flex-center();
+          display: inline-flex;
+          font-size: 12px;
+          font-weight: bold;
+        }
+
+        .male {
+          @include gender();
+          background-color: #BCEFFB;
+          color: #359CCF;
+        }
+
+        .famale {
+          @include gender();
+          background-color: #FBC9E4;
+          color: #E54786;
+        }
+
+        .signature {
+          margin-left: auto;
+        }
+      }
     }
   }
 }

@@ -1,0 +1,139 @@
+import React, { useState } from 'react';
+import classnames from 'classnames';
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
+import {
+  IconHeart,
+  IconDownload,
+  IconPlayerPlay,
+} from '@tabler/icons';
+
+export default ({ lyrics = [] }) => {
+  const [songsActive, setSongsActive] = useState();
+
+  return (
+    <div className="lyrics_list">
+      <div className="thead">
+        <div className="item gray">
+          <div className="index" />
+          <div className="heart" />
+          <div className="download" />
+          <div className="name">音乐标题</div>
+          <div className="artist">歌手</div>
+          <div className="album">专辑</div>
+          <div className="duration">时长</div>
+          <div className="gray">热度</div>
+        </div>
+      </div>
+      <div className="tbody">
+        {
+          lyrics.map((item, index) => (
+            <div
+              key={item.id}
+              onClick={() => setSongsActive(item.id)}
+              className={classnames('item', { on: songsActive === item.id })}
+            >
+              <div className="index">
+                {String(index + 1).padStart(2, 0)}
+              </div>
+              <div className="heart">
+                <button type="button">
+                  <IconHeart size={20} sdivoke={1} />
+                </button>
+              </div>
+              <div className="download">
+                <button type="button">
+                  <IconDownload size={20} sdivoke={1} />
+                </button>
+              </div>
+              <div className="name" title={item.name}>
+                <div className="inner">
+                  <div className="text text-overflow">
+                    <span name="" title={item.name}>
+                      {item.name}
+                      {item.tns
+                        && (
+                          <span className="gray">
+                            （
+                            {item.tns.map((tns) => tns)}
+                            ）
+                          </span>
+                        )}
+                    </span>
+                    {
+                      item.alia.length > 0
+                      && (
+                        <>
+                          &nbsp;
+                          <span className="alia gray" title={item.alia.map((alia) => alia)}>
+                            （
+                            {item.alia.map((alia) => alia)}
+                            ）
+                          </span>
+                        </>
+                      )
+                    }
+                  </div>
+                  <div className="tags">
+                    {
+                      item.privilege.maxbr === 999000
+                      && <span className="TAG">SQ</span>
+                    }
+                    {item.mv !== 0
+                      && (
+                        <Link className="TAG" to={`/player/mv/${item.mv}`}>
+                          MV
+                          <IconPlayerPlay size={8} fill="currentColor" />
+                        </Link>
+                      )}
+                  </div>
+                </div>
+              </div>
+              <div
+                className="artist text-overflow gray hover"
+                title={(item.ar.map((artist) => artist.name)).join('/')}
+              >
+                <div className="text-overflow">
+                  {item.ar.map((aritst) => <Link to={`/artist/${aritst.id}`}>{aritst.name}</Link>)}
+                </div>
+              </div>
+              <div
+                className="album text-overflow gray hover"
+                title={item.al.name}
+              >
+                <Link to={`/playlist/album/${item.al.id}`}>
+                  {item.al.name}
+                </Link>
+              </div>
+              <div className="duration gray text-overflow">
+                {dayjs(item.dt).format('mm:ss')}
+              </div>
+              <div className="pop">
+                <div className="range" style={{ '--pop': item.pop }} />
+              </div>
+              <div className="lyric">
+                <div className="content">
+                  {item
+                    ?.lyrics
+                    // .slice(0, 4)
+                    .map((lyric) => <div dangerouslySetInnerHTML={{ __html: lyric }} />)}
+                </div>
+                <div className="actions">
+                  <div className="top">
+                    <button type="button" className="ui_btn">展开歌词</button>
+                    <button type="button" className="ui_btn">复制歌词</button>
+                  </div>
+                  <div className="button">
+                    <button type="button" className="ui_btn">展开歌词</button>
+                    <button type="button" className="ui_btn">复制歌词</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  );
+};

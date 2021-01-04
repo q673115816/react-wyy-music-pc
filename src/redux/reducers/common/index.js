@@ -3,6 +3,7 @@ import {
   SET_POPUP,
   SET_MSG_PRIVATE,
   SET_SEARCH_HISTORY,
+  SET_SEARCH_VALUE,
 } from '@/redux/actionTypes';
 
 import { LOCALSTORAGE } from '@/common/utils';
@@ -17,6 +18,7 @@ const initialState = {
   newMsgCount: 0,
   countriesCodeList: [],
   dialog_login_visibility: false,
+  searchValue: '',
   // isLogin: window.localStorage.getItem('cookie') !== null,
   isLogin: false,
 };
@@ -42,6 +44,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLogin: false,
+      };
+    case SET_SEARCH_VALUE:
+      return {
+        ...state,
+        searchValue: action.payload.searchValue,
       };
     case SET_SEARCH_HISTORY:
       window.localStorage.setItem('searchHistory', JSON.stringify(action.payload));

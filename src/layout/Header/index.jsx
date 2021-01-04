@@ -9,12 +9,18 @@ import {
   setMsgPrivate,
   setPopup,
   setSearchHistory,
+  setSearchValue,
 } from '@/redux/actions';
 import {
-  apiCountriesCodeList, apiUserAccount, apiMsgPrivate, apiUserPlaylist,
-  apiSearchHot, apiSearchHotDetail,
+  apiCountriesCodeList,
+  apiUserAccount,
+  apiMsgPrivate,
+  apiUserPlaylist,
+  apiSearchHot,
+  apiSearchHotDetail,
+  apiSearchSuggest,
 } from '@/api';
-import { setCookie } from '@/common/request';
+// import { setCookie } from '@/common/request';
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -40,13 +46,17 @@ export default ({ mousedown }) => {
 
   const dispatch = useDispatch();
   const {
-    isLogin, profile, popupStatus, newMsgCount,
+    isLogin,
+    profile,
+    popupStatus,
+    newMsgCount,
     searchHistory,
+    searchValue,
   } = useSelector(({ common, account }) => ({ ...common, ...account }));
 
   const [searchVisibility, setSearchVisibility] = useState(false);
   const [searchHot, setSearchHot] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchSuggest, setSearchSuggest] = useState([]);
   const handleShowLogin = () => {
     dispatch(dialogLoginVisibilty());
   };
@@ -103,15 +113,31 @@ export default ({ mousedown }) => {
     }
   };
 
+  const handleSearchSuggestInit = async () => {
+    try {
+      const { result } = await apiSearchSuggest({
+        keywords: searchValue,
+      });
+      setSearchSuggest(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSearch = (keywords) => {
     setSearchVisibility(false);
-    setSearchValue(keywords);
-    dispatch(setSearchHistory([keywords, ...searchHistory]));
+    dispatch(setSearchValue({ searchValue: keywords }));
+    dispatch(setSearchHistory([
+      keywords,
+      ...searchHistory.filter((search) => search !== keywords),
+    ]));
     push(`/search?keywords=${keywords}`);
   };
 
   const handleDeleteSearchHistory = (keywords) => {
-    dispatch(setSearchHistory(searchHistory.filter((search) => search !== keywords)));
+    dispatch(setSearchHistory(
+      searchHistory.filter((search) => search !== keywords),
+    ));
   };
 
   const handleDeleteAllSearchHistory = () => {
@@ -123,6 +149,12 @@ export default ({ mousedown }) => {
     handleCookieInit();
     handleGetPrivateLetter();
   }, []);
+
+  useEffect(() => {
+    if (searchValue) {
+      handleSearchSuggestInit();
+    }
+  }, [searchValue]);
 
   return (
     <div role="" className="domheader" onMouseDown={() => ''}>
@@ -144,77 +176,109 @@ export default ({ mousedown }) => {
           placeholder="搜索"
           className="domheader_search"
           value={searchValue}
-          onChange={({ target }) => setSearchValue(target.value)}
+          onChange={({ target }) => dispatch(setSearchValue({ searchValue: target.value }))}
           onFocus={handleSearchInit}
         />
-        <div className="domheader_search_box" style={{ display: searchVisibility ? null : 'none' }}>
-          <div className="overflow-auto">
-            {
-              searchHistory.length > 0
-              && (
-                <>
-                  <div className="subtitle">
-                    搜索历史
-                    &nbsp;
-                    <button type="button" onClick={handleDeleteAllSearchHistory}>
-                      <IconTrash size={16} stroke={1} />
-                    </button>
-                  </div>
-                  <div className="searchHistory">
-                    {
-                      searchHistory.map((item) => (
-                        <Link
-                          className="item"
-                          to={`/search?keywords=${item}`}
-                        >
-                          {item}
-                          <button type="button" className="ico" onClick={() => handleDeleteSearchHistory(item)}>
-                            <IconX size={16} stroke={2} />
-                          </button>
-                        </Link>
-                      ))
-                    }
-                  </div>
-                </>
-              )
-            }
-            <div className="subtitle">热搜榜</div>
-            <div className="list">
-              {searchHot.map((item, index) => (
-                <button
-                  onClick={() => handleSearch(item.searchWord)}
-                  type="button"
-                  className="item"
-                  key={item.content}
-                >
-                  <span className="index">{index + 1}</span>
-                  <div className="aside">
-                    <div className="name">
-                      <span className="searchWord ui_bold">
-                        {item.searchWord}
-                      </span>
-                      &nbsp;
-                      {
-                        item.iconUrl
-                        && (
-                          <>
-                            <span className="ico">
-                              <img className="ui_containimg" src={item.iconUrl} alt="" />
-                            </span>
-                        &nbsp;
-                          </>
-                        )
-                      }
-                      <span className="gray">
-                        {item.score}
-                      </span>
-                    </div>
-                    <div className="content gray">{item.content}</div>
-                  </div>
-                </button>
+        <div
+          className="domheader_search_box"
+          style={{ display: searchVisibility ? null : 'none' }}
+        >
+          {searchValue ? (
+            <div className="overflow-auto">
+              <button type="button" onClick={() => handleSearch(searchValue)}>
+                搜索&quot;
+                <span className="ui_link">
+                  {searchValue}
+                </span>
+                &quot;相关的结果&gt;
+              </button>
+              {searchSuggest?.order?.map((order) => (
+                <div>
+                  {searchSuggest[order].map((item) => (
+                    <div>{}</div>
+                  ))}
+                </div>
               ))}
             </div>
-          </div>
+          )
+            : (
+              <div className="overflow-auto">
+                {
+                searchHistory.length > 0
+                && (
+                  <>
+                    <div className="subtitle">
+                      搜索历史
+                      &nbsp;
+                      <button type="button" onClick={handleDeleteAllSearchHistory}>
+                        <IconTrash size={16} stroke={1} />
+                      </button>
+                    </div>
+                    <div className="searchHistory">
+                      {
+                        searchHistory.map((item) => (
+                          <div
+                            role="button"
+                            onClick={() => handleSearch(item)}
+                            className="item"
+                          >
+                            {item}
+                            <button
+                              type="button"
+                              className="ico"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteSearchHistory(item);
+                              }}
+                            >
+                              <IconX size={16} stroke={2} />
+                            </button>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </>
+                )
+              }
+                <div className="subtitle">热搜榜</div>
+                <div className="list">
+                  {searchHot.map((item, index) => (
+                    <button
+                      onClick={() => handleSearch(item.searchWord)}
+                      type="button"
+                      className="item"
+                      key={item.content}
+                    >
+                      <span className="index">{index + 1}</span>
+                      <div className="aside">
+                        <div className="name">
+                          <span className="searchWord ui_bold">
+                            {item.searchWord}
+                          </span>
+                      &nbsp;
+                          {
+                          item.iconUrl
+                          && (
+                            <>
+                              <span className="ico">
+                                <img className="ui_containimg" src={item.iconUrl} alt="" />
+                              </span>
+                        &nbsp;
+                            </>
+                          )
+                        }
+                          <span className="gray">
+                            {item.score}
+                          </span>
+                        </div>
+                        <div className="content gray">{item.content}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
         </div>
       </form>
       <Link to="/" className="domheader_voice flex-center">
