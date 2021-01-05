@@ -133,11 +133,10 @@ export default () => {
         </div>
         <div className="ui_recommend_nav">
           {categoryList.map(({ name, id }) => (
-            <div className="ui_recommend_nav_item">
+            <div className="ui_recommend_nav_item" key={id}>
               <NavLink
                 className="ui_recommend_nav_link"
                 activeClassName="on"
-                key={id}
                 to={`/video/videolist/${id}`}
               >
                 {name}

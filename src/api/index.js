@@ -88,9 +88,12 @@ export const apiRelatedAllvideo = (params) => post('/related/allvideo', params);
 export const apiVideoUrl = (params) => post('/video/url', params);
 // 获取视频点赞转发评论数数据
 export const apiVideoDetailInfo = (params) => post('/video/detail/info', params);
-// 朋友
 // 朋友 - 热门话题
 export const apiHotTopic = (params) => post('/hot/topic', params);
+// 朋友 - 话题详情
+export const apiTopicDetail = (params) => post('/topic/detail', params);
+// 朋友 - 话题详情热门动态
+export const apiTopicDetailEventHot = (params) => post('/topic/detail/event/hot', params);
 // 朋友 - 动态消息
 export const apiEvent = (params) => post('/event', params);
 export const apiCommentEvent = (params) => post('/comment/event', params);

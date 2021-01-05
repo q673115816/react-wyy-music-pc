@@ -19,6 +19,7 @@ const User = loadable(() => import(/* webpackChunkName: "User" */'@/pages/User')
 const Sublist = loadable(() => import(/* webpackChunkName: "Sublist" */'@/pages/Sublist'));
 const Artist = loadable(() => import(/* webpackChunkName: "Artist" */'@/pages/Artist'));
 const Search = loadable(() => import(/* webpackChunkName: "Search" */'@/pages/Search'));
+const Ai = loadable(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
 
 export default () => (
   <Switch>
@@ -39,6 +40,7 @@ export default () => (
     <Route path="/user" component={User} />
     <Route path="/search" component={Search} />
     <Route path="/settings" component={Setting} />
+    <Route path="/ai" component={Ai} />
     <Redirect to="/home" />
   </Switch>
 );

@@ -202,6 +202,7 @@
         --grid: 40px 24px 24px 10fr 4fr 4fr 2fr 3fr;
         display: grid;
         align-items: center;
+        grid-template-rows: 36px;
         grid-template-columns: var(--grid);
 
         .index {
@@ -292,18 +293,9 @@
         }
       }
 
-      .subtable {
-        .subitem {
-          display: grid;
-          align-content: center;
-          grid-template-columns: var(--grid);
-        }
-      }
-
       .lyric {
         display: flex;
-        grid-column-start: 4;
-        grid-column-end: 9;
+        grid-column: 4 / 9;
 
         .content {
           padding: 0 8px;
@@ -317,8 +309,8 @@
           font-size: 14px;
 
           :first-child {
-            margin-top: 1em;
-            margin-bottom: 0.5em;
+            margin-top: 0.5em;
+            margin-bottom: 0.2em;
 
             b {
               color: var(--linkColor);
@@ -330,7 +322,9 @@
           width: 33%;
           flex: none;
           padding: 10px;
-
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           button {
             margin: 0 10px;
           }
@@ -351,28 +345,6 @@
       .item {
         .cover {
           border-radius: 50%;
-        }
-
-        @mixin gender {
-          width: 18px;
-          height: 18px;
-          border-radius: 50%;
-          @include flex-center();
-          display: inline-flex;
-          font-size: 12px;
-          font-weight: bold;
-        }
-
-        .male {
-          @include gender();
-          background-color: #BCEFFB;
-          color: #359CCF;
-        }
-
-        .famale {
-          @include gender();
-          background-color: #FBC9E4;
-          color: #E54786;
         }
 
         .signature {

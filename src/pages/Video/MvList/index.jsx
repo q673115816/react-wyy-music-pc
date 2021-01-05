@@ -257,7 +257,7 @@ export default () => {
               <div className="artists text-overflow">
                 {
                   item.artists.map((artist) => (
-                    <Link to={`/artist/${artist.id}`} className="gray">
+                    <Link to={`/artist/${artist.id}`} key={artist.id} className="gray">
                       {artist.name}
                     </Link>
                   ))

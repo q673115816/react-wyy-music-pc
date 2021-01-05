@@ -66,7 +66,7 @@ export default () => {
                     <div>
                       {
                         sub
-                          .filter(({ category }) => category == item)
+                          .filter(({ category }) => category === item)
                           .map((s) => (
                             <div key={s.name}>{s.name}</div>
                           ))
@@ -108,7 +108,9 @@ export default () => {
                     </div>
                   </div>
                 </div>
-                <Link className="name" to={`/playlist/music/${item.id}`}>{item.name}</Link>
+                <div className="footer">
+                  <Link className="name" to={`/playlist/music/${item.id}`}>{item.name}</Link>
+                </div>
               </div>
             ))
           }

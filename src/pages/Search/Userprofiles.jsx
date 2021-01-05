@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { DomMale, DomFamale } from '@/components/Gender';
 
 export default ({ userprofiles = [] }) => (
   <div className="userprofiles_list _list">
@@ -12,8 +13,8 @@ export default ({ userprofiles = [] }) => (
           <div className="name">
             {item.nickname}
             &nbsp;
-            {item.gender === 1 && <span className="male">♂️</span>}
-            {item.gender === 2 && <span className="famale">♀️</span>}
+            {item.gender === 1 && <DomMale size={12} />}
+            {item.gender === 2 && <DomFamale size={12} />}
           </div>
           <div className="signature gray">{item.signature}</div>
         </Link>

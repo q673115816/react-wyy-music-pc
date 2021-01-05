@@ -8,6 +8,8 @@ import {
   IconPlayerPlay,
 } from '@tabler/icons';
 
+import DomLyricsItem from './components/LyricsItem';
+
 export default ({ lyrics = [] }) => {
   const [songsActive, setSongsActive] = useState();
 
@@ -111,24 +113,7 @@ export default ({ lyrics = [] }) => {
               <div className="pop">
                 <div className="range" style={{ '--pop': item.pop }} />
               </div>
-              <div className="lyric">
-                <div className="content">
-                  {item
-                    ?.lyrics
-                    // .slice(0, 4)
-                    .map((lyric) => <div dangerouslySetInnerHTML={{ __html: lyric }} />)}
-                </div>
-                <div className="actions">
-                  <div className="top">
-                    <button type="button" className="ui_btn">展开歌词</button>
-                    <button type="button" className="ui_btn">复制歌词</button>
-                  </div>
-                  <div className="button">
-                    <button type="button" className="ui_btn">展开歌词</button>
-                    <button type="button" className="ui_btn">复制歌词</button>
-                  </div>
-                </div>
-              </div>
+              <DomLyricsItem lyrics={item.lyrics} />
 
             </div>
           ))

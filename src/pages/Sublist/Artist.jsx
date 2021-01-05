@@ -9,7 +9,7 @@ const AliasOrTrans = ({ alias, trans }) => {
     return (
       <span className="gray">
         (
-        {alias.map((alia) => alia)}
+        {alias[0]}
         )
       </span>
     );
@@ -51,7 +51,7 @@ export default () => {
       </div>
       <div className="domSublist_list">
         {filter.map((item) => (
-          <div role="button" className="item" key={item.id} onClick={() => push(`/artist/${item.id}`)}>
+          <Link to={`/artist/${item.id}`} className="item" key={item.id}>
             <div className="cover">
               <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
             </div>
@@ -69,7 +69,7 @@ export default () => {
               {item.mvSize}
 
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </>

@@ -41,7 +41,7 @@ export default () => {
         ))}
       </div>
       <div className="domtoplistartist_other_wrap">
-        {other.map((item, index) => (
+        {other.map((item) => (
           <Link className="domtoplistartist_other_link" to="/detail" key={item.id}>{item.name}</Link>
         ))}
       </div>

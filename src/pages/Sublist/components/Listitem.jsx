@@ -23,7 +23,12 @@ export default ({ item = {}, push }) => (
     </div>
     <div className="artist">
       {item.artists.map((artist) => (
-        <Link onClick={(e) => e.stopPropagation()} to={`/artist/${artist.id}`} className="gray hover">
+        <Link
+          key={artist.id}
+          onClick={(e) => e.stopPropagation()}
+          to={`/artist/${artist.id}`}
+          className="gray hover"
+        >
           {artist.name}
         </Link>
       ))}

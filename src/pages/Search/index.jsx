@@ -72,8 +72,14 @@ export default () => {
       <div className="domSearch_header">
         <div className="h1">
           找到
-          {' '}
-          {result.songCount || result.artistCount || 0}
+          {result.songCount
+          || result.artistCount
+          || result.albumCount
+          || result.videoCount
+          || result.playlistCount
+          || result.djRadiosCount
+          || result.userprofileCount
+          || 0}
           {
           nav.find((item) => type === item[1])
             && nav.find((item) => type === item[1])[2]

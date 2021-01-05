@@ -29,9 +29,14 @@ export default ({ albums = [] }) => (
             className="ui_hover"
           >
             {item.artist.name}
+            {item.artist.alias.length > 0
+            && (
             <span className="gray">
+              （
               {item.artist.alias.map((alia) => alia)}
+              ）
             </span>
+            )}
           </Link>
         </div>
       </Link>

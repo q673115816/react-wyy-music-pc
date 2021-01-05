@@ -17,10 +17,11 @@ export default ({ visibility, setVisibility, clickface }) => {
       </button>
       {
         faces.map((page, index) => (
-          <div className="page" style={{ display: index === currpage ? null : 'none' }}>
+          <div key={index} className="page" style={{ display: index === currpage ? null : 'none' }}>
             {
               page.map(([name, face]) => (
                 <button
+                  key={face}
                   type="button"
                   className="ico"
                   title={name}
@@ -38,6 +39,7 @@ export default ({ visibility, setVisibility, clickface }) => {
         {
           faces.map((item, index) => (
             <button
+              key={index}
               onClick={() => setCurrpage(index)}
               type="button"
               className={currpage === index ? 'on' : null}

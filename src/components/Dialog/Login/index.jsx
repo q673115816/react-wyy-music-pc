@@ -36,9 +36,10 @@ export default () => {
         console.log(msg);
       } else if (code === 200) {
         // setCookie(cookie);
-        handleToggle();
-        dispatch(setLoginInfo(profile));
-        dispatch(setIsLogin());
+        // handleToggle();
+        // dispatch(setLoginInfo(profile));
+        // dispatch(setIsLogin());
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);
