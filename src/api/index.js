@@ -33,8 +33,14 @@ export const apiRecommendSongs = () => post('/recommend/songs');
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
 export const apiCountriesCodeList = () => get('/countries/code/list');
 export const apiUserAccount = () => post('/user/account');
-export const apiUserDetail = (uid) => get(`/user/detail?uid=${uid}`);
+export const apiUserDetail = (params) => post('/user/detail', params);
 export const apiUserPlaylist = (params) => post('/user/playlist', params);
+// 用户 - 动态
+export const apiUserEvent = (params) => post('/user/event', params);
+// 用户 - 关注
+export const apiUserFollows = (params) => post('/user/follows', params);
+// 用户 - 粉丝
+export const apiUserFolloweds = (params) => post('/user/followeds', params);
 // 用户电台 登录
 export const apiUserDj = (params) => post('/user/dj', params);
 // 私信

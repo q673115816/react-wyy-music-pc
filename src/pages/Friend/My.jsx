@@ -121,7 +121,7 @@ export default () => {
               ? (
                 <div className="logined">
                   <div className="top">
-                    <Link to="/user" className="avatar">
+                    <Link to={`/user/${profile.userId}`} className="avatar">
                       <img
                         className="containimg"
                         src={`${profile.avatarUrl}?param=100y100`}
@@ -129,7 +129,7 @@ export default () => {
                       />
                     </Link>
                     <div className="flex-center">
-                      <Link to="/user" className="nickname">
+                      <Link to={`/user/${profile.userId}`} className="nickname">
                         {profile.nickname}
                       </Link>
                       &nbsp;
@@ -138,18 +138,18 @@ export default () => {
                     </div>
                   </div>
                   <div className="bottom">
-                    <Link to="/" className="info">
-                      <div className="num">0</div>
+                    <Link to={`/user/${profile.userId}/dynamic`} className="info">
+                      <div className="num">{profile.eventCount}</div>
                       <div className="string">动态</div>
                     </Link>
                     <span className="split" />
-                    <Link to="/" className="info">
-                      <div className="num">0</div>
+                    <Link to={`/user/${profile.userId}/follow`} className="info">
+                      <div className="num">{profile.follows}</div>
                       <div className="string">关注</div>
                     </Link>
                     <span className="split" />
-                    <Link to="/" className="info">
-                      <div className="num">0</div>
+                    <Link to={`/user/${profile.userId}/fans`} className="info">
+                      <div className="num">{profile.followeds}</div>
                       <div className="string">粉丝</div>
                     </Link>
                   </div>

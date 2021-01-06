@@ -1,6 +1,6 @@
 export const DomMale = ({ size = 0 }) => (
   <span
-    className="flex-center"
+    className="ui_gender"
     style={{
       backgroundColor: '#BCEFFB', padding: 4, borderRadius: '50%', color: '#359CCF',
     }}
@@ -16,7 +16,7 @@ export const DomMale = ({ size = 0 }) => (
 
 export const DomFamale = ({ size = 0 }) => (
   <span
-    className="flex-center"
+    className="ui_gender"
     style={{
       backgroundColor: '#FBC9E4', padding: 4, borderRadius: '50%', color: '#E54786',
     }}

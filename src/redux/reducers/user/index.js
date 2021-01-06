@@ -5,6 +5,8 @@ const initialState = {
   level: 0,
   playlist: [],
   record: [],
+  identify: {},
+  bindings: [],
 };
 
 export default (state = initialState, action) => {

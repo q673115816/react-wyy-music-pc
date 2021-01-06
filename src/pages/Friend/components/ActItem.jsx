@@ -14,13 +14,13 @@ export default ({
   const { comments } = useSelector(({ friend }) => friend);
   return (
     <div className="item" key={item.id}>
-      <div className="avator">
+      <Link to={`/user/${item.user.userId}`} className="avatar">
         <img
           className="ui_containimg"
           src={`${item.user.avatarUrl}?param=100y100`}
           alt=""
         />
-      </div>
+      </Link>
       <div className="content">
         <div className="name">
           <Link

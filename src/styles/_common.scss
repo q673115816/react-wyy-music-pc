@@ -193,7 +193,7 @@ button {
 
 /*滚动条样式*/
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
   /*height: 4px;*/
 }
 
@@ -447,4 +447,11 @@ button {
       background-color: #CC3232;
     }
   }
+}
+
+
+.ui_gender {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

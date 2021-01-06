@@ -1,23 +1,84 @@
 .domUser {
-    padding: 30px;
-    &_header {
-        display: flex;
+  padding: 30px;
 
-        .avatar {
-            width: 180px;
-            height: 180px;
-            border-radius: 90px;
-            overflow: hidden;
-            border: 1px solid #ccc;
-        }
+  &_header {
+    display: flex;
 
-        .content {
-            margin-left: 20px;
-        }
-
-        .name {
-            font-weight: bold;
-            font-size: 22px;
-        }
+    .avatar {
+      flex: none;
+      width: 180px;
+      height: 180px;
+      border-radius: 90px;
+      overflow: hidden;
+      border: 1px solid #ccc;
     }
+
+    .content {
+      flex: auto;
+      margin-left: 20px;
+    }
+
+    .name {
+      font-weight: bold;
+      font-size: 22px;
+    }
+
+    .contain {
+      display: flex;
+      padding: 8px 0;
+      align-items: center;
+      .left {
+        .authentication {
+          display: flex;
+          margin-right: 0.5em;
+          padding-right: 6px;
+          height: 16px;
+          line-height: 16px;
+          border-radius: 8px;
+          background-color: #FDE4E2;
+          color: #ED4036;
+          .ico {
+            width: 16px;
+            height: 16px;
+            margin-right: 4px;
+          }
+        }
+        .level {
+          width: 32px;
+          height: 16px;
+          text-align: center;
+          line-height: 16px;
+          background-color: #F0F0F0;
+          border-radius: 8px;
+          margin-right: 0.5em;
+        }
+      }
+      .right {
+        margin-left: auto;
+      }
+    }
+
+    .infos {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 88px 1px 88px 1px 88px;
+      .info {
+        text-align: center;
+
+        .num {
+          font-size: 20px;
+        }
+
+        .string {
+          margin-top: 4px;
+        }
+      }
+    }
+
+    .list {
+      margin-top: 6px;
+      line-height: 22px;
+      font-size: 14px;
+    }
+  }
 }
