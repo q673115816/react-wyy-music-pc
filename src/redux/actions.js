@@ -28,6 +28,7 @@ import {
   SET_ARTIST_INIT,
   SET_SEARCH_HISTORY,
   SET_SEARCH_VALUE,
+  SET_MSG_PRIVATE_HISTORY,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -179,5 +180,10 @@ export const setLocalCurrent = (payload) => ({
 
 export const setArtistInit = (payload) => ({
   type: SET_ARTIST_INIT,
+  payload,
+});
+
+export const setMsgPrivateHistory = (payload) => ({
+  type: SET_MSG_PRIVATE_HISTORY,
   payload,
 });

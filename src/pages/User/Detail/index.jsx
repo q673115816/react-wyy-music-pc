@@ -91,7 +91,7 @@ export default () => {
 
         <div className="domUser_header">
           <div className="avatar">
-            <img src={`${profile?.avatarUrl}?param=200y200`} alt="" className="ui_containimg" />
+            <img src={`${profile?.avatarUrl}?param=200y200`} alt="" className="ui_coverimg" />
           </div>
           <div className="content">
             <div className="name">{profile.nickname}</div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import loadable from '@loadable/component';
 import {
-  Switch, useRouteMatch,
+  Switch,
   Route,
 } from 'react-router-dom';
 import './style.scss';
@@ -13,16 +13,13 @@ const UserFans = loadable(() => import(/* webpackChunkName: "User_Fans" */'./Fan
 const UserRecord = loadable(() => import(/* webpackChunkName: "User_Record" */'./Record'));
 const UserEdit = loadable(() => import(/* webpackChunkName: "User_Edit" */'./Edit'));
 
-export default () => {
-  const { url } = useRouteMatch();
-  return (
-    <Switch>
-      <Route path={`${url}/:uid/record`} component={UserRecord} />
-      <Route path={`${url}/:uid/dynamic`} component={UserDynamic} />
-      <Route path={`${url}/:uid/follow`} component={UserFollow} />
-      <Route path={`${url}/:uid/fans`} component={UserFans} />
-      <Route path={`${url}/:uid/edit`} component={UserEdit} />
-      <Route path={`${url}/:uid`} component={UserDetail} />
-    </Switch>
-  );
-};
+export default () => (
+  <Switch>
+    <Route path="/user/:uid/record" component={UserRecord} />
+    <Route path="/user/:uid/dynamic" component={UserDynamic} />
+    <Route path="/user/:uid/follow" component={UserFollow} />
+    <Route path="/user/:uid/fans" component={UserFans} />
+    <Route path="/user/:uid/edit" component={UserEdit} />
+    <Route path="/user/:uid" component={UserDetail} />
+  </Switch>
+);

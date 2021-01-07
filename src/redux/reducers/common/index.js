@@ -13,7 +13,6 @@ const initialState = {
   playlist: [],
   history: [],
   searchHistory: LOCALSTORAGE('searchHistory', []),
-  msgs: [],
   popupStatus: 'false',
   newMsgCount: 0,
   countriesCodeList: [],
@@ -21,6 +20,10 @@ const initialState = {
   searchValue: '',
   // isLogin: window.localStorage.getItem('cookie') !== null,
   isLogin: false,
+  msgs: [],
+  comments: [],
+  forwards: [],
+  notices: [],
 };
 
 export default (state = initialState, action) => {

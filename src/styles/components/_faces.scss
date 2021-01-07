@@ -26,10 +26,12 @@
     font-size: 18px;
     width: 24px;
     height: 24px;
-    @include flex-center();
+    line-height: 24px;
+    text-align: center;
+    // @include flex-center();
 
     &:hover {
-      outline: 1px solid blue;
+      outline: 1px solid #3D91EC;
     }
   }
 

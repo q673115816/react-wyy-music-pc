@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams, Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { IconPlus } from '@tabler/icons';
 import { apiUserDetail, apiUserFollows, apiFollow } from '@/api';
-import { useSelector } from 'react-redux';
+import { setPopup, setMsgPrivateHistory } from '@/redux/actions';
 
-const BuildUserAction = (followed) => {
-  if()
-}
+const BuildUserAction = (item, handleFollow) => (item.followed
+  ? <span className="follow on">已关注</span>
+  : (
+    <button
+      onClick={() => handleFollow(item.userId)}
+      type="button"
+      className="follow"
+    >
+      <IconPlus size={16} style={{ color: '#EC4141' }} />
+                            &nbsp; 关注
+    </button>
+  ));
 
 export default () => {
+  const dispatch = useDispatch();
+
   const [profile, setProfile] = useState({});
   const [data, setData] = useState([]);
   const { uid } = useParams();
   const account = useSelector(({ account }) => account);
-  if (!account.profile.userId) return <Redirect to="/" />;
+
+  // if (!account.profile.userId) return <Redirect to="/" />;
   const isSelf = String(account.profile.userId) === uid;
 
   const handleInit = async () => {
@@ -42,6 +56,16 @@ export default () => {
       console.log(error);
     }
   };
+
+  const handlePrivateLetter = (uid, nickname) => {
+    dispatch(setPopup({ popupStatus: 'privateLetter' }));
+    dispatch(setMsgPrivateHistory({
+      uid,
+      nickname,
+      showMsgPrivateHistory: true,
+    }));
+  };
+
   useEffect(() => {
     handleInit();
   }, []);
@@ -85,21 +109,15 @@ export default () => {
                       <div className="text-overflow">{item.signature}</div>
                     </div>
                     <div className="right">
-                      {/* {isSelf ? <button type="button" className="follow">私信</button>:BuildUserAction(item.followed)} */}
-                      {
-                        item.followed
-                          ? <span className="follow on">已关注</span>
-                          : (
-                            <button
-                              onClick={() => handleFollow(item.userId)}
-                              type="button"
-                              className="follow"
-                            >
-                              <IconPlus size={16} style={{ color: '#EC4141' }} />
-                            &nbsp; 关注
-                            </button>
-                          )
-                      }
+                      {isSelf ? (
+                        <button
+                          type="button"
+                          className="follow"
+                          onClick={() => handlePrivateLetter(item.userId, item.nickname)}
+                        >
+                          私信
+                        </button>
+                      ) : BuildUserAction(item, handleFollow)}
                     </div>
                   </div>
                   <div className="contain">

@@ -1,19 +1,78 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect, useRef, useState, useLayoutEffect,
+} from 'react';
 import dayjs from 'dayjs';
 import { transTextEmoji } from '@/common/faces';
-import { apiSendText } from '@/api';
+import { apiSendText, apiMsgPrivateHistory } from '@/api';
+import { setMsgPrivateHistory } from '@/redux/actions';
 import { wordLength } from '@/common/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  IconChevronLeft, IconPhoto, IconMoodSmile, IconPlayerPlay,
+} from '@tabler/icons';
 import EmojiFaces from '../EmojiFaces';
 import Write from '../Write';
 
-const handleBuildContent = (msg) => {
-  const json = JSON.parse(msg);
-  const emptyVideo = json.hasOwnProperty('video') && json.video === null;
-  const hasVideo = json.hasOwnProperty('video') && json.video;
-  const promotion = json.hasOwnProperty('promotionUrl') && json.promotionUrl;
+const BuildSong = ({ msg = {} }) => (
+  <button type="button" className="share">
+    <div className="avatar">
+      <img src={`${msg.song.album.picUrl}?param=100y100`} alt="" />
+      <i className="ico">
+        <IconPlayerPlay size={14} fill="currentColor" />
+      </i>
+    </div>
+    <div className="content">
+      <div className="name text-overflow">
+        {msg.song.name}
+        {msg.song.alias.length > 0
+          && (
+            <span className="gray">
+              （
+              {msg.song.alias.join(',')}
+              ）
+            </span>
+          )}
+      </div>
+      <div className="gray artist">
+        {msg.song.artists.map((artist) => artist.name)}
+      </div>
+    </div>
+  </button>
+);
+const BuildAlbum = ({ msg = {} }) => (
+  <button type="button" className="share">
+    <div className="avatar">
+      <img src={`${msg.album.picUrl}?param=100y100`} alt="" />
+      <i className="ico">
+        <IconPlayerPlay size={14} fill="currentColor" />
+      </i>
+    </div>
+    <div className="content">
+      <div className="name text-overflow">
+        {msg.album.name}
+        {msg.album.alias.length > 0
+          && (
+            <span className="gray">
+              （
+              {msg.album.alias.join(',')}
+              ）
+            </span>
+          )}
+      </div>
+      <div className="gray artist">
+        {msg.album.artists.map((artist) => artist.name)}
+      </div>
+    </div>
+  </button>
+);
+
+const BuildContent = (msg) => {
+  const emptyVideo = msg.hasOwnProperty('video') && msg.video === null;
+  const hasVideo = msg.hasOwnProperty('video') && msg.video;
+  const promotion = msg.hasOwnProperty('promotionUrl') && msg.promotionUrl;
   return (
     <div className="content">
-      {json.msg}
+      {msg.msg}
       {emptyVideo && (
         <div className="embed center">
           <span className="null gray">
@@ -22,7 +81,7 @@ const handleBuildContent = (msg) => {
         </div>
       )}
       {promotion && (
-        <a href={promotion.url} _block className="embed">
+        <a href={promotion.url} className="embed">
           <div className="cover">
             <img className="ui_containimg" src={promotion.coverUrl} alt="" />
           </div>
@@ -31,46 +90,92 @@ const handleBuildContent = (msg) => {
           </div>
         </a>
       )}
+      {
+        msg.type === 1
+        && <BuildSong msg={msg} />
+      }
+      {
+        msg.type === 2
+        && <BuildAlbum msg={msg} />
+      }
     </div>
   );
 };
 
-const handleBuildMyContent = (msg) => {
-  const json = JSON.parse(msg);
-  if (json.hasOwnProperty('picInfo')) {
+const BuildMyContent = (msg) => {
+  if (msg.hasOwnProperty('picInfo')) {
     return (
       <div className="img">
-        <img src={json.picInfo.picUrl} className="ui_coverimg" alt="" />
+        <img src={msg.picInfo.picUrl} className="ui_coverimg" alt="" />
       </div>
     );
   }
-  return <div className="text">{transTextEmoji(json.msg)}</div>;
+  return (
+    <div className="text ui_select">
+      {msg.title
+        && (
+          <>
+            {msg.title}
+            ：
+          </>
+        )}
+      {transTextEmoji(msg.msg)}
+      {
+        msg.type === 1
+        && <BuildSong msg={msg} />
+      }
+      {
+        msg.type === 2
+        && <BuildAlbum msg={msg} />
+      }
+    </div>
+  );
 };
 
-export default ({
-  setShowMsgPrivateHistory,
-  nickname,
-  privatMsgs = [],
-  hint,
-  uid,
-  setPrivateMsgs,
-}) => {
+export default () => {
+  const dispatch = useDispatch();
+  const history = useRef();
+
+  const {
+    uid, hint, nickname, privatMsgs,
+  } = useSelector(({ privateletter }) => privateletter);
+
   const [visibility, setVisibility] = useState(false);
   const [value, setValue] = useState('');
+  // const [privatMsgs, setPrivateMsgs] = useState([]);
+
   const clickface = (face) => {
     setValue(value + face);
   };
+
+  const handleGetMsgPrivateHistory = async () => {
+    try {
+      const { hint, msgs = [] } = await apiMsgPrivateHistory({ uid });
+      // setPrivateMsgs(msgs.reverse());
+      dispatch(setMsgPrivateHistory({
+        hint,
+        privatMsgs: msgs.reverse(),
+      }));
+      history.current.scrollTo(0, history.current.scrollHeight);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleSend = async () => {
     try {
       const { newMsgs = [] } = await apiSendText({
         user_ids: uid,
         value,
       });
-      setPrivateMsgs(newMsgs.reverse());
+      dispatch(setMsgPrivateHistory({
+        privatMsgs: newMsgs.reverse(),
+      }));
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleSubmit = () => {
     const length = wordLength(value);
     if (length <= 200) {
@@ -80,19 +185,20 @@ export default ({
       console.log('to long');
     }
   };
-  const history = useRef();
+
   useEffect(() => {
-    history.current.scrollTo(0, history.current.scrollHeight);
-  }, []);
+    handleGetMsgPrivateHistory();
+  }, [uid]);
+
   return (
-    <>
+    <div className="inner">
       <div className="topbar">
         <button
           type="button"
-          className="back"
-          onClick={() => setShowMsgPrivateHistory(false)}
+          className="back flex-center ui_hover"
+          onClick={() => dispatch(setMsgPrivateHistory({ showMsgPrivateHistory: false }))}
         >
-          <i className="bi-chevron-left" />
+          <IconChevronLeft size={22} stroke={1.5} />
         </button>
         <span>{nickname}</span>
       </div>
@@ -106,14 +212,14 @@ export default ({
                 </div>
                 {item.batchId === 0
                   ? (
-                    <div className="mymsg">
+                    <div className="msg right">
                       <div className="content">
-                        {handleBuildMyContent(item.msg)}
+                        {BuildMyContent(JSON.parse(item.msg))}
                       </div>
                     </div>
                   )
                   : (
-                    <div className="msg">
+                    <div className="msg left">
                       <div className="avatar">
                         <img
                           className="ui_containimg"
@@ -121,7 +227,7 @@ export default ({
                           alt=""
                         />
                       </div>
-                      {handleBuildContent(item.msg)}
+                      {BuildContent(JSON.parse(item.msg))}
                     </div>
                   )}
               </div>
@@ -140,10 +246,10 @@ export default ({
               <EmojiFaces {...{ visibility, setVisibility, clickface }} />
             </div>
             <button type="button" className="action" onClick={() => setVisibility(true)}>
-              <i className="bi-emoji-smile" />
+              <IconMoodSmile size={24} stroke={1.4} />
             </button>
             <button type="button" className="action">
-              <i className="bi-image" />
+              <IconPhoto size={24} stroke={1.4} />
             </button>
           </div>
           <div className="right">
@@ -151,6 +257,6 @@ export default ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

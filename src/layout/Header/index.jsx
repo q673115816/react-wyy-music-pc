@@ -7,7 +7,6 @@ import {
   setLoginInfo,
   setIsLogin,
   setMsgPrivate,
-  setPopup,
 } from '@/redux/actions';
 import {
   apiCountriesCodeList,
@@ -28,16 +27,8 @@ import DomFunction from './components/Function';
 
 export default ({ mousedown }) => {
   const dispatch = useDispatch();
-  const {
-    isLogin,
-    profile,
-    popupStatus,
-    newMsgCount,
-  } = useSelector(({ common, account }) => ({ ...common, ...account }));
-
-  const handleShowLogin = () => {
-    dispatch(dialogLoginVisibilty());
-  };
+  const { isLogin } = useSelector(({ common }) => common);
+  const { profile } = useSelector(({ account }) => account);
 
   const handleGetCountriesCodeList = async () => {
     try {
@@ -63,7 +54,7 @@ export default ({ mousedown }) => {
     }
   };
 
-  const handleGetPrivateLetter = async () => {
+  const handlePrivateLetterInit = async () => {
     // if (!isLogin) return;
     try {
       const { msgs, newMsgCount } = await apiMsgPrivate();
@@ -73,18 +64,10 @@ export default ({ mousedown }) => {
     }
   };
 
-  const handlesetPopup = () => {
-    if (popupStatus === 'privateLetter') {
-      dispatch(setPopup({ popupStatus: '' }));
-    } else {
-      dispatch(setPopup({ popupStatus: 'privateLetter' }));
-    }
-  };
-
   useEffect(() => {
     handleGetCountriesCodeList();
     handleCookieInit();
-    handleGetPrivateLetter();
+    handlePrivateLetterInit();
   }, []);
 
   return (
@@ -100,11 +83,8 @@ export default ({ mousedown }) => {
       <Link to="/ai" className="domHeader_voice flex-center">
         <IconMicrophone size={20} stroke={1} />
       </Link>
-      <DomAccount {...{ isLogin, profile, handleShowLogin }} />
-      <DomFunction
-        handlesetPopup={handlesetPopup}
-        newMsgCount={newMsgCount}
-      />
+      <DomAccount {...{ isLogin, profile }} />
+      <DomFunction />
       <span className="domHeader_spilt" />
       <DomControl />
     </div>
