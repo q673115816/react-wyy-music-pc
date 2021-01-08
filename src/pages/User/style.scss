@@ -1,8 +1,15 @@
 .domUser {
+  .empty {
+    text-align: center;
+    padding-top: 100px;
+    color: #999;
+  }
+
+  &_subpage_header {
+    height: 70px;
+  }
+
   &_followlist {
-    &_header {
-      padding: 24px 30px;
-    }
 
     &_main {
       .list {
@@ -28,9 +35,11 @@
             height: 90px;
             border-radius: 45px;
             border: 1px solid #ccc;
+
             img {
               border-radius: 45px;
             }
+
             .ico {
               position: absolute;
               width: 24px;

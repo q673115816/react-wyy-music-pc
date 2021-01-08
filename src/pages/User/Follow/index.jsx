@@ -48,10 +48,19 @@ export default () => {
 
   const handleFollow = async (id) => {
     try {
-      const { } = await apiFollow({
+      const { code } = await apiFollow({
         id,
         t: 1,
       });
+      if (code === 200) {
+        setData(data.map((item) => {
+          if (item.userId === id) {
+            item.followed = true;
+          }
+          return item;
+        }));
+      }
+      // toast 通知
     } catch (error) {
       console.log(error);
     }
@@ -70,21 +79,21 @@ export default () => {
     handleInit();
   }, []);
   return (
-    <div className="overflow-auto">
-      <div className="domUser_followlist">
-        <div className="h1 domUser_followlist_header">
-          <Link to="./">
-            {profile.nickname}
-          </Link>
-          的关注
-        </div>
-        <div className="domUser_followlist_main">
-          <div className="list">
-            {data.map((item) => (
-              <div className="item" key={item.userId}>
-                <Link to={`/user/${item.userId}`} className="avatar">
-                  <img src={`${item.avatarUrl}?param=100y100`} alt="" />
-                  {
+
+    <div className="domUser_followlist">
+      <div className="h1 domUser_subpage_header ui_header">
+        <Link to="./">
+          {profile.nickname}
+        </Link>
+        的关注
+      </div>
+      <div className="domUser_followlist_main">
+        <div className="list">
+          {data.map((item) => (
+            <div className="item" key={item.userId}>
+              <Link to={`/user/${item.userId}`} className="avatar">
+                <img src={`${item.avatarUrl}?param=100y100`} alt="" />
+                {
                     item.avatarDetail
                     && (
                       <div className="ico">
@@ -92,51 +101,42 @@ export default () => {
                       </div>
                     )
                   }
-                </Link>
-                <div className="content">
-                  <div className="contain">
-                    <div className="left">
-                      <Link
-                        className="nickname"
-                        to={`/user/${item.userId}`}
-                      >
-                        {item.nickname}
-                      </Link>
-                    </div>
+              </Link>
+              <div className="content">
+                <div className="contain">
+                  <div className="left">
+                    <Link
+                      className="nickname"
+                      to={`/user/${item.userId}`}
+                    >
+                      {item.nickname}
+                    </Link>
                   </div>
-                  <div className="contain">
-                    <div className="left">
-                      <div className="text-overflow">{item.signature}</div>
-                    </div>
-                    <div className="right">
-                      {isSelf ? (
-                        <button
-                          type="button"
-                          className="follow"
-                          onClick={() => handlePrivateLetter(item.userId, item.nickname)}
-                        >
-                          私信
-                        </button>
-                      ) : BuildUserAction(item, handleFollow)}
-                    </div>
+                </div>
+                <div className="contain">
+                  <div className="left">
+                    <div className="text-overflow">{item.signature}</div>
                   </div>
-                  <div className="contain">
-                    <div className="left">
-                      <span>
-                        歌单：
-                        {item.playlistCount}
-                      </span>
-                      <span style={{ height: 12, width: 1, backgroundColor: '#E1CAE1' }} />
-                      <span>
-                        歌单：
-                        {item.followeds}
-                      </span>
-                    </div>
+                  <div className="right">
+                    {BuildUserAction(item, handleFollow)}
+                  </div>
+                </div>
+                <div className="contain">
+                  <div className="left">
+                    <span>
+                      歌单：
+                      {item.playlistCount}
+                    </span>
+                    <span style={{ height: 12, width: 1, backgroundColor: '#E1CAE1' }} />
+                    <span>
+                      歌单：
+                      {item.followeds}
+                    </span>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

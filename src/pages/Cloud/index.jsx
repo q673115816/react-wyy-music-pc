@@ -6,7 +6,14 @@ import Search from '@/components/HeaderBarSearch';
 import { apiUserCloud } from '@/api';
 import './style.scss';
 
-import { IconCaretUp, IconCaretDown, IconSwitchVertical } from '@tabler/icons';
+import {
+  IconCaretUp,
+  IconCaretDown,
+  IconSwitchVertical,
+  IconCloudDownload,
+  IconPlus,
+  IconPlayerPlay,
+} from '@tabler/icons';
 
 const defaultSort = (a, b, sort) => String(a[sort.code]).localeCompare(String(b[sort.code]), 'zh-CN') * sort.type;
 
@@ -116,7 +123,7 @@ export default () => {
   // }, [data, sort]);
   return (
     <div className="domManage">
-      <div className="domManage_header">
+      <div className="domManage_header ui_header">
         <span className="domManage_header_title h1">我的音乐云盘</span>
       </div>
       <div className="domCloud_info">
@@ -124,10 +131,15 @@ export default () => {
         &nbsp;
         <div
           className="ui_process"
-          style={{ '--size': size / 1024 / 1024 / 1024, '--maxSize': maxSize / 1024 / 1024 / 1024 }}
+          style={{ '--ratio': (size / maxSize) || 0 }}
         />
         &nbsp;
-        <span className="num">0.3G/60G</span>
+        <span className="num">
+          {(size / 1024 / 1024 / 1024).toFixed(2)}
+          G/
+          {maxSize / 1024 / 1024 / 1024}
+          G
+        </span>
         &nbsp;
         <span>歌曲永久保存，随时随地多端畅听</span>
         &nbsp;
@@ -137,24 +149,17 @@ export default () => {
         <div className="left">
           <div className="ui_playall" style={{ marginRight: 20 }}>
             <button type="button" className="flex-center play">
-              <svg className="icon icon-tabler icon-tabler-player-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M7 4v16l13 -8z" />
-              </svg>
+              <IconPlayerPlay size={18} fill="currentColor" />
+              &nbsp;
               播放全部
             </button>
             <button type="button" className="flex-center add">
-              <svg className="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="2" stroke="#fff" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
+              <IconPlus size={20} />
             </button>
           </div>
           <button type="button" className="flex-center ui_btn">
-            <svg className="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-            {' '}
+            <IconPlus size={20} />
+            &nbsp;
             上传音乐
 
           </button>
@@ -164,52 +169,48 @@ export default () => {
         </div>
       </div>
       <div className="overflow-auto" style={{ paddingLeft: 30, paddingRight: 20 }}>
-        <table className="domManage_table">
-          <colgroup>
+        <div className="domManage_table">
+          {/* <colgroup>
             <col style={{ width: '30px' }} />
             <col style={{ width: '30px' }} />
-            <col style={{ width: '30%' }} />
-            <col style={{ width: '8%' }} />
-            <col style={{ width: '8%' }} />
-            <col style={{ width: '5%' }} />
-            <col style={{ width: '6%' }} />
-            <col style={{ width: '10%' }} />
-          </colgroup>
-          <thead>
-            <tr>
-              <th />
-              <th />
+            <col style={{ width: '30%' }} />  // 270
+            <col style={{ width: '8%' }} />  // 90
+            <col style={{ width: '8%' }} />  // 70
+            <col style={{ width: '5%' }} />  // 60
+            <col style={{ width: '6%' }} /> // 70
+            <col style={{ width: '10%' }} /> // 116
+          </colgroup> */}
+          <div className="thead">
+            <div className="tr">
+              <div />
+              <div />
               {
                 th.map(([item, code, callback]) => (
-                  <th
-                    className={classnames({ on: item === sort.name })}
+                  <div
+                    className={classnames('cell', 'th', { on: item === sort.name })}
                     onClick={() => handleSort({ item, code, callback })}
                   >
                     {item}
                     <span className="sort">
                       {BuildSort(item, sort)}
                     </span>
-                  </th>
+                  </div>
                 ))
               }
-            </tr>
-          </thead>
-          <tbody>
+            </div>
+          </div>
+          <div className="tbody">
             {
               data.map((item, index) => (
-                <tr>
-                  <td className="index">{String(index + 1)}</td>
-                  <td className="download">
-                    <button type="button">
-                      <svg className="icon icon-tabler icon-tabler-cloud-download" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M19 18a3.5 3.5 0 0 0 0 -7h-1a5 4.5 0 0 0 -11 -2a4.6 4.4 0 0 0 -2.1 8.4" />
-                        <line x1="12" y1="13" x2="12" y2="22" />
-                        <polyline points="9 19 12 22 15 19" />
-                      </svg>
+                <div className="tr">
+                  <div className="cell index gray">{String(index + 1)}</div>
+                  <div className="cell download">
+                    <button type="button" className="gray hover">
+                      <IconCloudDownload size={20} stroke={1.5} />
                     </button>
-                  </td>
-                  <td>{item.songName}</td>
-                  <td>
+                  </div>
+                  <div className="cell">{item.songName}</div>
+                  <div className="cell">
                     {
                       item.simpleSong.ar
                         ? (
@@ -222,8 +223,8 @@ export default () => {
                         )
                         : <span className="gray">未知歌手</span>
                     }
-                  </td>
-                  <td>
+                  </div>
+                  <div className="cell">
                     {
                       item.simpleSong.al
                         ? (
@@ -233,22 +234,22 @@ export default () => {
                         )
                         : <span className="gray">未知专辑</span>
                     }
-                  </td>
-                  <td style={{ textTransform: 'uppercase' }}>
+                  </div>
+                  <div className="cell" style={{ textTransform: 'uppercase' }}>
                     {/(?<=\.)(\w*)$/.exec(item.fileName)[0]}
-                  </td>
-                  <td>
+                  </div>
+                  <div className="cell">
                     {(item.fileSize / 1024 / 1024).toFixed(1)}
                     MB
-                  </td>
-                  <td>
+                  </div>
+                  <div className="cell gray">
                     {dayjs(item.addTime).format('YYYY-MM-DD')}
-                  </td>
-                </tr>
+                  </div>
+                </div>
               ))
             }
-          </tbody>
-        </table>
+          </div>
+        </div>
       </div>
       <div className="domManage_dialog" style={{ display: visibility ? '' : 'none' }}>
         <button type="button" className="close" onClick={handleToggleVisibility}>×</button>

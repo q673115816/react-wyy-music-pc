@@ -14,12 +14,14 @@ const UserRecord = loadable(() => import(/* webpackChunkName: "User_Record" */'.
 const UserEdit = loadable(() => import(/* webpackChunkName: "User_Edit" */'./Edit'));
 
 export default () => (
-  <Switch>
-    <Route path="/user/:uid/record" component={UserRecord} />
-    <Route path="/user/:uid/dynamic" component={UserDynamic} />
-    <Route path="/user/:uid/follow" component={UserFollow} />
-    <Route path="/user/:uid/fans" component={UserFans} />
-    <Route path="/user/:uid/edit" component={UserEdit} />
-    <Route path="/user/:uid" component={UserDetail} />
-  </Switch>
+  <div className="domUser overflow-auto">
+    <Switch>
+      <Route path="/user/:uid/record" component={UserRecord} />
+      <Route path="/user/:uid/dynamic" component={UserDynamic} />
+      <Route path="/user/:uid/follow" component={UserFollow} />
+      <Route path="/user/:uid/fans" component={UserFans} />
+      <Route path="/user/:uid/edit" component={UserEdit} />
+      <Route path="/user/:uid" component={UserDetail} />
+    </Switch>
+  </div>
 );

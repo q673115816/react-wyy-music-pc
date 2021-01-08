@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import {
   useParams, Link, Redirect, useRouteMatch,
 } from 'react-router-dom';
-import { apiUserDetail, apiUserPlaylist } from '@/api';
+import { apiUserDetail, apiUserPlaylist, apiFollow } from '@/api';
 import { setUserDetail } from '@/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
 import { DomMale, DomFamale } from '@/components/Gender';
-import { IconEdit, IconCheck, IconMail } from '@tabler/icons';
+import {
+  IconEdit, IconCheck, IconMail, IconPlus,
+} from '@tabler/icons';
 import RainbowCat from './RainbowCat';
 
 const BuildBindings = (item) => {
@@ -37,38 +39,60 @@ export default () => {
   //   common: { isLogin },
   // } = useSelector((state) => state);
   const { isLogin } = useSelector(({ common }) => common);
-  const {
-    profile, level, playlist, identify,
-    bindings,
-  } = useSelector(({ user }) => user);
+  // const {
+  //   profile, level, playlist, identify,
+  //   bindings,
+  // } = useSelector(({ user }) => user);
+  const [user, setUser] = useState({});
+  const [playlist, setPlaylist] = useState([]);
+
   const account = useSelector(({ account }) => account);
   const { url } = useRouteMatch();
   const { uid } = useParams();
   const [loading, setLoading] = useState(false);
   const [isSelf, setIsSelf] = useState(false);
+
   useEffect(() => {
     if (isLogin) {
       setIsSelf(String(account.profile.userId) === uid);
     }
   }, [isLogin]);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const ownPlaylist = playlist.filter((item) => String(item.userId) === uid);
 
   const savePlaylist = playlist.filter((item) => String(item.userId) !== uid);
   const handleGetUserInfo = async () => {
     try {
       const [
-        {
-          profile, level, identify, bindings,
-        },
+        // {
+        //   profile, level, identify, bindings,
+        // }
+        user,
         { playlist }] = await Promise.all([
         apiUserDetail({ uid }),
         apiUserPlaylist({ uid }),
       ]);
-      dispatch(setUserDetail({
-        profile, level, playlist, identify, bindings,
-      }));
+      // dispatch(setUserDetail({
+      //   profile, level, playlist, identify, bindings,
+      // }));
+      setUser(user);
+      setPlaylist(playlist);
       setLoading(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFollow = async (id) => {
+    const { followed } = user.profile;
+    try {
+      const { code } = await apiFollow({
+        id,
+        t: followed === true ? 0 : 1,
+      });
+      if (code === 200) {
+        setUser({ ...user, profile: { ...user.profile, followed: !followed } });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -86,142 +110,169 @@ export default () => {
     return <div>loading</div>;
   }
   return (
-    <div className="overflow-auto">
-      <div className="domUser">
-
-        <div className="domUser_header">
-          <div className="avatar">
-            <img src={`${profile?.avatarUrl}?param=200y200`} alt="" className="ui_coverimg" />
-          </div>
-          <div className="content">
-            <div className="name">{profile.nickname}</div>
-            <div className="contain">
-              <div className="left flex-center">
-                {
-                  profile.vipType === 11
-                  && (
-                    <>
-                      <a href="https://music.163.com/#/member">黑胶会员</a>
+    <div className="domUserDetail">
+      <div className="domUserDetail_header">
+        <div className="avatar">
+          <img src={`${user.profile.avatarUrl}?param=200y200`} alt="" className="ui_coverimg" />
+        </div>
+        <div className="content">
+          <div className="name">{user.profile.nickname}</div>
+          <div className="contain">
+            <div className="left flex-center">
+              {
+                user.profile.vipType === 11
+                && (
+                  <>
+                    <a href="https://music.163.com/#/member">黑胶会员</a>
                       &nbsp;
+                  </>
+                )
+              }
+              {
+                user.identify
+                && (
+                  <span className="authentication" title={user.identify.imageDesc}>
+                    <span className="ico">
+                      <img className="ui_containimg" src={user.identify.imageUrl} alt="" />
+                    </span>
+                    {user.identify.imageDesc}
+                  </span>
+                )
+              }
+              <a className="level" href="https://music.163.com/#/user/level">
+                Lv
+                {user.level}
+              </a>
+              {user.profile.gender === 1 && <DomMale size={10} />}
+              {user.profile.gender === 2 && <DomFamale size={10} />}
+            </div>
+            <div className="right flex-center">
+              {
+                isSelf
+                  ? (
+                    <Link to={`${url}/edit`} className="ui_btn flex-center">
+                      <IconEdit size={18} stroke={1.5} />
+                      &nbsp;
+                      编辑个人信息
+                    </Link>
+                  )
+                  : (
+                    <>
+                      <button type="button" className="ui_btn flex-center">
+                        <IconMail size={20} stroke={1} />
+                                &nbsp;发私信
+                      </button>
+                      {
+                        user.profile.followed
+                          ? (
+                            <button
+                              type="button"
+                              className="ui_btn flex-center"
+                              onClick={() => handleFollow(user.profile.userId)}
+                            >
+                              <IconCheck size={16} />
+                              &nbsp;
+                              已关注
+                            </button>
+                          )
+                          : (
+                            <button
+                              type="button"
+                              className="ui_btn flex-center"
+                              onClick={() => handleFollow(user.profile.userId)}
+                            >
+                              <IconPlus size={16} style={{ color: '#EC4141' }} />
+                              &nbsp;
+                              关注
+                            </button>
+                          )
+                      }
                     </>
                   )
-                }
-                {
-                  identify
-                  && (
-                  <span className="authentication" title={identify.imageDesc}>
-                    <span className="ico">
-                      <img className="ui_containimg" src={identify.imageUrl} alt="" />
-                    </span>
-                    {identify.imageDesc}
-                  </span>
-                  )
-                }
-                <a className="level" href="https://music.163.com/#/user/level">
-                  Lv
-                  {level}
-                </a>
-                {profile.gender === 1 && <DomMale size={10} />}
-                {profile.gender === 2 && <DomFamale size={10} />}
-              </div>
-              <div className="right flex-center">
-                {
-                  isSelf
-                    ? (
-                      <Link to={`${url}/edit`} className="ui_btn flex-center">
-                        <IconEdit size={18} stroke={1.5} />
-                        &nbsp;
-                        编辑个人信息
-                      </Link>
-                    )
-                    : (
-                      <>
-                        <button type="button" className="ui_btn flex-center">
-                          <IconMail size={20} stroke={1} />
-                                &nbsp;发私信
-                        </button>
-                        {
-                          profile.followed
-                            ? (
-                              <button type="button" className="ui_btn flex-center">
-                                <IconCheck size={16} />
-                                &nbsp;
-                                已关注
-                              </button>
-                            )
-                            : (
-                              <button type="button" className="ui_btn">
-
-                                关注
-                              </button>
-                            )
-                        }
-                      </>
-                    )
-                }
-              </div>
+              }
             </div>
-            <div style={{ height: 1, backgroundColor: '#E5E5E5' }} />
-            <div className="infos">
-              <Link to={`/user/${uid}/dynamic`} className="info">
-                <div className="num">{profile.eventCount}</div>
-                <div className="string">动态</div>
-              </Link>
-              <i style={{ height: 36, width: 1, backgroundColor: '#E5E5E5' }} />
-              <Link to={`/user/${uid}/follow`} className="info">
-                <div className="num">{profile.follows}</div>
-                <div className="string">关注</div>
-              </Link>
-              <i style={{ height: 36, width: 1, backgroundColor: '#E5E5E5' }} />
-              <Link to={`/user/${uid}/fans`} className="info">
-                <div className="num">{profile.followeds}</div>
-                <div className="string">粉丝</div>
-              </Link>
-            </div>
-            <div className="list">
-              {/* <div className="item">
+          </div>
+          <div style={{ height: 1, backgroundColor: '#E5E5E5' }} />
+          <div className="infos">
+            <Link to={`/user/${uid}/dynamic`} className="info">
+              <div className="num">{user.profile.eventCount}</div>
+              <div className="string">动态</div>
+            </Link>
+            <i style={{ height: 36, width: 1, backgroundColor: '#E5E5E5' }} />
+            <Link to={`/user/${uid}/follow`} className="info">
+              <div className="num">{user.profile.follows}</div>
+              <div className="string">关注</div>
+            </Link>
+            <i style={{ height: 36, width: 1, backgroundColor: '#E5E5E5' }} />
+            <Link to={`/user/${uid}/fans`} className="info">
+              <div className="num">{user.profile.followeds}</div>
+              <div className="string">粉丝</div>
+            </Link>
+          </div>
+          <div className="list">
+            {/* <div className="item">
                 <span>所在地区：</span>
                 <span className="gray">浙江省 温州市</span>
               </div> */}
-              <div className="item">
-                <span>社交网络：</span>
-                {
-                  bindings.map((item) => BuildBindings(item))
-                }
-              </div>
-              <div className="item">
-                <span>个人介绍：</span>
-                <span className="gray" style={{ whiteSpace: 'pre-wrap' }}>
-                  {profile.signature || '暂无介绍'}
+            <div className="item">
+              <span>社交网络：</span>
+              {
+                user.bindings.map((item) => BuildBindings(item))
+              }
+            </div>
+            <div className="item">
+              <span>个人介绍：</span>
+              <span className="gray" style={{ whiteSpace: 'pre-wrap' }}>
+                {user.profile.signature || '暂无介绍'}
 
-                </span>
-              </div>
+              </span>
             </div>
           </div>
         </div>
-        <div className="domUser_main">
+      </div>
+      <div className="domUserDetail_main">
+        <div>
+          <span>
+            歌单
+          </span>
           <div>
-            <span>
-              歌单
-            </span>
-            <div>
-              <button type="button" title="大图模式">
-                <i className="material-icons">widgets</i>
-              </button>
-              <button type="button" title="列表模式">
-                <i className="material-icons">menu</i>
-              </button>
-              <button type="button" title="图列模式">
-                <i className="material-icons">list</i>
-              </button>
+            <button type="button" title="大图模式">
+              <i className="material-icons">widgets</i>
+            </button>
+            <button type="button" title="列表模式">
+              <i className="material-icons">menu</i>
+            </button>
+            <button type="button" title="图列模式">
+              <i className="material-icons">list</i>
+            </button>
+          </div>
+        </div>
+        <div className="domUserDetail_list ui_grid square col_4">
+          <div className="item">
+            <Link to={`${url}/record`}>
+              <div className="cover">
+                <div className="inner">
+                  <RainbowCat />
+                </div>
+                <div className="rb">
+                  <span className="playArrow">
+                    <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M7 4v16l13 -8z" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </Link>
+            <div className="footer">
+              <Link to="/" className="name">{isSelf ? '我的听歌排行' : '听歌排行'}</Link>
             </div>
           </div>
-          <div className="domUser_list ui_grid square col_4">
-            <div className="item">
-              <Link to={`${url}/record`}>
+          {ownPlaylist.map((item) => (
+            <div className="item" key={item.id}>
+              <Link to="/">
                 <div className="cover">
                   <div className="inner">
-                    <RainbowCat />
+                    <img src={`${item.coverImgUrl}?param=200y200`} className="ui_containimg" alt="" />
                   </div>
                   <div className="rb">
                     <span className="playArrow">
@@ -233,35 +284,13 @@ export default () => {
                 </div>
               </Link>
               <div className="footer">
-                <Link to="/" className="name">{isSelf ? '我的听歌排行' : '听歌排行'}</Link>
+                <Link to="/">
+                  {item.name}
+                </Link>
               </div>
             </div>
-            {ownPlaylist.map((item) => (
-              <div className="item" key={item.id}>
-                <Link to="/">
-                  <div className="cover">
-                    <div className="inner">
-                      <img src={`${item.coverImgUrl}?param=200y200`} className="ui_containimg" alt="" />
-                    </div>
-                    <div className="rb">
-                      <span className="playArrow">
-                        <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 4v16l13 -8z" />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-                <div className="footer">
-                  <Link to="/">
-                    {item.name}
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
-
       </div>
     </div>
   );

@@ -1,15 +1,14 @@
-.domplay {
+.domVideoList {
   height: 100%;
   display: flex;
   flex-direction: column;
 
   &_header {
-    padding: 0 30px;
-    padding-top: 20px;
-    height: 60px;
-    flex: none;
-    display: flex;
-    align-items: baseline;
+    // padding: 0 30px;
+    // height: 60px;
+    // flex: none;
+    // display: flex;
+    // align-items: center;
   }
 
   &_link {
@@ -25,7 +24,7 @@
 
   &_content {
     flex: 1;
-    padding: 30px;
+    padding: 10px 30px;
     padding-bottom: 0;
   }
 

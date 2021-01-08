@@ -47,12 +47,12 @@
 
   &_list {
     .item {
-      width: 100%;
+      // width: 100%;
       display: grid;
-      grid-template-columns: 60px 2fr 1fr auto;
+      grid-template-columns: 60px 15fr 8fr 4fr;
       height: 80px;
       padding-left: 30px;
-      padding-right: 40px;
+      // padding-right: 40px;
       align-items: center;
 
       &:nth-child(odd) {

@@ -48,12 +48,12 @@ export default () => {
 
   const handleInitList = async () => {
     try {
-      const { datas: videoList } = await (id
+      const { datas = [] } = await (id
         ? apiVideoGroup({
           id,
         })
         : apiVideoTimelineRecommend());
-      setVideoList(videoList);
+      setVideoList(datas);
     } catch (error) {
       console.log(error);
     }
@@ -61,12 +61,12 @@ export default () => {
 
   const handleAddList = async () => {
     try {
-      const { datas: videoList } = await (id
+      const { datas = [] } = await (id
         ? apiVideoGroup({
           id,
         })
         : apiVideoTimelineRecommend());
-      setVideoList((prevList) => [...prevList, ...videoList]);
+      setVideoList((prevList) => [...prevList, ...datas]);
     } catch (error) {
       console.log(error);
     }
@@ -90,7 +90,7 @@ export default () => {
   }, [id]);
 
   return (
-    <div className="domplay_content overflow-auto" ref={setScrolldom}>
+    <div className="domVideoList_content overflow-auto" ref={setScrolldom}>
       <div className="video_sort_filter_bar">
         <div className="group_select_wrap">
           <button
@@ -118,39 +118,39 @@ export default () => {
             </div>
             <hr style={{ marginTop: '10px' }} />
             <div className="group_select_list">
-              {groupList.map(({ id, name }) => (
+              {groupList.map((item) => (
                 <NavLink
                   activeClassName="on"
                   className="group_select_check"
-                  key={id}
-                  to={`/video/videolist/${id}`}
+                  key={item.id}
+                  to={`/video/videolist/${item.id}`}
                 >
-                  {name}
+                  {item.name}
                 </NavLink>
               ))}
             </div>
           </div>
         </div>
         <div className="ui_recommend_nav">
-          {categoryList.map(({ name, id }) => (
-            <div className="ui_recommend_nav_item" key={id}>
+          {categoryList.map((item) => (
+            <div className="ui_recommend_nav_item" key={item.id}>
               <NavLink
                 className="ui_recommend_nav_link"
                 activeClassName="on"
-                to={`/video/videolist/${id}`}
+                to={`/video/videolist/${item.id}`}
               >
-                {name}
+                {item.name}
               </NavLink>
             </div>
           ))}
         </div>
       </div>
-      <div className="domplay_list ui_grid rectangle_width col_3">
+      <div className="domVideoList_list ui_grid rectangle_width col_3">
         {
           isLogin ? (
             <>
               {videoList.map(({ data }) => (
-                <div className="item" key={data.id}>
+                <div className="item" key={data.vid}>
                   <div className="cover">
                     <div className="inner">
                       <Link to={`/player/video/${data.vid}`}>

@@ -110,7 +110,7 @@ export default () => {
     handleGetTopArea();
   }, [topArea]);
   return (
-    <div className="domplay_content overflow-auto">
+    <div className="domVideoList_content overflow-auto">
 
       <div className="domMvList_sublist">
         <div className="domMvList_header">

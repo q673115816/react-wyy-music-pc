@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import {
+  IconMusic, IconCloudDownload, IconCloud, IconBrandTiktok,
+  IconStar,
+} from '@tabler/icons';
 
 const options1 = [
   {
@@ -45,13 +49,33 @@ export default () => {
       </nav>
       <div className="dommain_left_dt">我的音乐</div>
       <nav>
-        <NavLink className="dommain_left_link" activeClassName="on" to="/local">本地音乐</NavLink>
-        <NavLink className="dommain_left_link" activeClassName="on" to="/download">下载管理</NavLink>
+        <NavLink className="dommain_left_link" activeClassName="on" to="/local">
+          <IconMusic size={20} stroke={1} />
+          &nbsp;
+          本地音乐
+        </NavLink>
+        <NavLink className="dommain_left_link" activeClassName="on" to="/download">
+          <IconCloudDownload size={20} stroke={1} />
+          &nbsp;
+          下载管理
+        </NavLink>
         {isLogin && (
           <>
-            <NavLink className="dommain_left_link" activeClassName="on" to="/cloud">我的音乐云盘</NavLink>
-            <NavLink className="dommain_left_link" activeClassName="on" to="/dj">我的电台</NavLink>
-            <NavLink className="dommain_left_link" activeClassName="on" to="/sublist">我的收藏</NavLink>
+            <NavLink className="dommain_left_link" activeClassName="on" to="/cloud">
+              <IconCloud size={20} stroke={1} />
+              &nbsp;
+              我的音乐云盘
+            </NavLink>
+            <NavLink className="dommain_left_link" activeClassName="on" to="/dj">
+              <IconBrandTiktok size={20} stroke={1} />
+              &nbsp;
+              我的电台
+            </NavLink>
+            <NavLink className="dommain_left_link" activeClassName="on" to="/sublist">
+              <IconStar size={20} stroke={1} />
+              &nbsp;
+              我的收藏
+            </NavLink>
           </>
         )}
       </nav>
@@ -73,7 +97,7 @@ export default () => {
         className="songmenu"
         style={{ display: showplaylist ? null : 'none' }}
       >
-        <NavLink className="dommain_left_link" activeClassName="on" to="/mylike">我喜欢的音乐</NavLink>
+        <NavLink className="dommain_left_link" activeClassName="on" to="/playlist/music">我喜欢的音乐</NavLink>
       </nav>
     </div>
 

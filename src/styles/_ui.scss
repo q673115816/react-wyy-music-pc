@@ -235,6 +235,7 @@
 
 
 .ui_process {
+  --ratio: 0;
   display: inline-block;
   width: 110px;
   height: 10px;
@@ -246,7 +247,7 @@
     content: '';
     display: block;
     height: 100%;
-    width: calc(var(--size, 0) / var(--maxSize, 0) * 100%);
+    width: calc(var(--ratio) * 100%);
     // min-width: 1%;
     background-color: #507DAF;
   }
@@ -287,4 +288,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.ui_header {
+  flex: none;
+  height: 60px;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
 }

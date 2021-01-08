@@ -10,17 +10,17 @@ import './style.scss';
 export default () => {
   const { url } = useRouteMatch();
   return (
-    <div className="domplay">
-      <div className="domplay_header">
+    <div className="domVideoList">
+      <div className="domVideoList_header ui_header">
         <NavLink
-          className="domplay_link"
+          className="domVideoList_link"
           activeClassName="on"
           to={`${url}/videolist`}
         >
           视频
         </NavLink>
         <NavLink
-          className="domplay_link"
+          className="domVideoList_link"
           activeClassName="on"
           to={`${url}/mvlist`}
         >

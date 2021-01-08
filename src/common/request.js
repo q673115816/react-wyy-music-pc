@@ -18,9 +18,9 @@ function format(obj) {
   return data;
 }
 
-const defaultOptions = {
-  withCredentials: true,
-};
+// const defaultOptions = {
+//   withCredentials: true,
+// };
 export const get = async (url) => await fetch(`${baseUrl}${url}`, {
   // headers: {
   //   Cookie: cookie,
@@ -34,6 +34,7 @@ export const post = async (url, params) => {
   return await fetch(`${baseUrl}${url}?timestamp=${Date.now()}`, {
     method: 'POST',
     body: format(params),
+    // body: new FormData(new URLSearchParams(params).toString()),
     // xhrFields: { withCredentials: true },
     credentials: 'include',
     // headers: {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { apiUserDetail, apiUserFolloweds, apiFollow } from '@/api';
 import { Link, useParams } from 'react-router-dom';
+import { IconPlus } from '@tabler/icons';
 
 export default () => {
   const [profile, setProfile] = useState({});
@@ -38,21 +39,20 @@ export default () => {
     handleInit();
   }, []);
   return (
-    <div className="overflow-auto">
-      <div className="domUser_followlist">
-        <div className="h1 domUser_followlist_header">
-          <Link to="./">
-            {profile.nickname}
-          </Link>
-          的粉丝
-        </div>
-        <div className="domUser_followlist_main">
-          <div className="list">
-            {data.map((item) => (
-              <div className="item" key={item.userId}>
-                <Link to={`/user/${item.userId}`} className="avatar">
-                  <img src={`${item.avatarUrl}?param=100y100`} alt="" />
-                  {
+    <div className="domUser_followlist">
+      <div className="h1 domUser_subpage_header ui_header">
+        <Link to="./">
+          {profile.nickname}
+        </Link>
+        的粉丝
+      </div>
+      <div className="domUser_followlist_main">
+        <div className="list">
+          {data.map((item) => (
+            <div className="item" key={item.userId}>
+              <Link to={`/user/${item.userId}`} className="avatar">
+                <img src={`${item.avatarUrl}?param=100y100`} alt="" />
+                {
                     item.avatarDetail
                     && (
                       <div className="ico">
@@ -60,24 +60,24 @@ export default () => {
                       </div>
                     )
                   }
-                </Link>
-                <div className="content">
-                  <div className="contain">
-                    <div className="left">
-                      <Link
-                        className="nickname"
-                        to={`/user/${item.userId}`}
-                      >
-                        {item.nickname}
-                      </Link>
-                    </div>
+              </Link>
+              <div className="content">
+                <div className="contain">
+                  <div className="left">
+                    <Link
+                      className="nickname"
+                      to={`/user/${item.userId}`}
+                    >
+                      {item.nickname}
+                    </Link>
                   </div>
-                  <div className="contain">
-                    <div className="left">
-                      <div className="text-overflow">{item.signature}</div>
-                    </div>
-                    <div className="right">
-                      {
+                </div>
+                <div className="contain">
+                  <div className="left">
+                    <div className="text-overflow">{item.signature}</div>
+                  </div>
+                  <div className="right">
+                    {
                         item.followed
                           ? <span className="follow on">已关注</span>
                           : (
@@ -91,25 +91,24 @@ export default () => {
                             </button>
                           )
                       }
-                    </div>
                   </div>
-                  <div className="contain">
-                    <div className="left">
-                      <span>
-                        歌单：
-                        {item.playlistCount}
-                      </span>
-                      <span style={{ height: 12, width: 1, backgroundColor: '#E1CAE1' }} />
-                      <span>
-                        歌单：
-                        {item.followeds}
-                      </span>
-                    </div>
+                </div>
+                <div className="contain">
+                  <div className="left">
+                    <span>
+                      歌单：
+                      {item.playlistCount}
+                    </span>
+                    <span style={{ height: 12, width: 1, backgroundColor: '#E1CAE1' }} />
+                    <span>
+                      歌单：
+                      {item.followeds}
+                    </span>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

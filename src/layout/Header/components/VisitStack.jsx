@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -9,7 +9,14 @@ export default () => {
   const {
     goBack,
     goForward,
+    listen,
   } = useHistory();
+
+  useEffect(() => {
+    listen((route) => {
+      console.log('listen', route);
+    });
+  }, []);
   return (
     <div className="domHeader_page">
       <button

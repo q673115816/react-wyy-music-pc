@@ -4,11 +4,11 @@
   display: flex;
   flex-direction: column;
   &_header {
-    padding: 0 30px;
-    padding-top: 24px;
-    flex: none;
-    display: flex;
-    align-items: flex-end;
+    // padding: 0 30px;
+    // padding-top: 24px;
+    // flex: none;
+    // display: flex;
+    // align-items: flex-end;
     &_title {
     }
     &_total {
@@ -22,8 +22,12 @@
     }
   }
 
+  &_main {
+    padding: 0 30px;
+  }
+
   &_nav {
-    margin-top: 20px;
+    // margin-top: 20px;
     font-size: 14px;
    &_link {
      position: relative;
@@ -60,13 +64,16 @@
     white-space: nowrap;
     table-layout: fixed;
 
-    tr {
-      height: 36px;
+    .tr {
+      display: grid;
+      line-height: 36px;
+      grid-template-columns: 30px 30px 8fr 3fr 3fr 2fr 2fr 4fr;
     }
 
-    th {
+    .th {
       position: relative;
       color: gray;
+      font-size: 14px;
       &.on {
         .sort {
           opacity: 1;
@@ -86,31 +93,32 @@
       }
     }
 
-    th,
-    td {
-      padding: 6px;
-      vertical-align: middle;
-      @extend .text-overflow
+    .cell {
+      height: 100%;
+      padding: 0 6px;
+      @extend .text-overflow;
+      // @extend .flex-center;
+
     }
 
     .index {
       text-align: right;
     }
-    .index,
-    .download {
-      color: #ccc;
-    }
-    thead {
-      tr {
-        th{
+    // .index,
+    // .download {
+    //   color: #ccc;
+    // }
+    .thead {
+      .tr {
+        .th{
           &:not(:empty):hover {
             background-color: #F0F1F2;
           }
         }
       }
     }
-    tbody {
-      tr {
+    .tbody {
+      .tr {
         &:nth-child(odd) {
           background-color: #F9F9F9;
         }

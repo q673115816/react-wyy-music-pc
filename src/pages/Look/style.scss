@@ -1,21 +1,23 @@
 .domLook {
-  padding: 20px;
   &_header {
-    display: flex;
-    align-items: center;
+    // display: flex;
+    // align-items: center;
     .title {
       font-weight: bold;
       font-size: 24px;
     }
+
     .slogan {
       margin-left: 1em;
     }
+
     .more {
       margin-left: auto;
     }
   }
 
   &_content {
-    margin-top: 20px;
+    // margin-top: 20px;
+    padding: 0 30px;
   }
 }

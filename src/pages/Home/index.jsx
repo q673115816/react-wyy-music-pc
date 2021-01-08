@@ -46,7 +46,7 @@ const nav = [
 ];
 export default () => (
   <div className="domHome">
-    <div className="domHome_nav">
+    <div className="domHome_nav ui_header">
       {nav.map((item) => (
         <NavLink
           className="domHome_nav_link"
