@@ -74,7 +74,7 @@ export default () => (
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">
         输出设备：
-        <span className="gray">播放下一首歌时生效</span>
+        <span className="ui_gray">播放下一首歌时生效</span>
       </div>
       <div className="domSetting_subBlock_content">
         <select className="domSetting_select">

@@ -29,6 +29,7 @@ import {
   SET_SEARCH_HISTORY,
   SET_SEARCH_VALUE,
   SET_MSG_PRIVATE_HISTORY,
+  SET_TOAST,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -185,5 +186,10 @@ export const setArtistInit = (payload) => ({
 
 export const setMsgPrivateHistory = (payload) => ({
   type: SET_MSG_PRIVATE_HISTORY,
+  payload,
+});
+
+export const setToast = (payload) => ({
+  type: SET_TOAST,
   payload,
 });

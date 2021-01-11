@@ -185,7 +185,7 @@ export default () => {
                           {item.name}
                         </div>
                       </div>
-                      <div className="gray">{dayjs(item.publishTime).format('YYYY-MM-DD')}</div>
+                      <div className="ui_gray">{dayjs(item.publishTime).format('YYYY-MM-DD')}</div>
                     </div>
                   ))}
                 </div>
@@ -207,15 +207,15 @@ export default () => {
                     >
                       {item.name}
                       &nbsp;
-                      <span className="gray">
+                      <span className="ui_gray">
                         {item.alias.map((alia) => alia)}
                       </span>
                     </Link>
-                    <span className="size gray">
+                    <span className="size ui_gray">
                       {item.size}
                       首
                     </span>
-                    <span className="publishTime gray">
+                    <span className="publishTime ui_gray">
                       发行时间：
                       {dayjs(item.publishTime).format('YYYY-MM-DD')}
                     </span>
@@ -250,17 +250,17 @@ export default () => {
                     {
                       top50.map((item, index) => (
                         <div className="item" id={item.id}>
-                          <div className="cell index gray">
+                          <div className="cell index ui_gray">
                             {
                               String(index + 1).padStart(2, 0)
                             }
                           </div>
-                          <div className="cell heart gray">
+                          <div className="cell heart ui_gray">
                             <button type="button">
                               <IconHeart size={14} />
                             </button>
                           </div>
-                          <div className="cell download gray">
+                          <div className="cell download ui_gray">
                             <button type="button">
                               <IconDownload size={16} stroke={1.5} />
                             </button>
@@ -269,12 +269,12 @@ export default () => {
                             <span className="text-overflow">
                               {item.name}
                               &nbsp;
-                              <span className="gray">
+                              <span className="ui_gray">
                                 {item.alia.map((alia) => alia)}
                               </span>
                             </span>
                           </div>
-                          <div className="cell duration gray">
+                          <div className="cell duration ui_gray">
                             {dayjs(item.dt).format('mm:ss')}
                           </div>
                         </div>
@@ -318,7 +318,7 @@ export default () => {
             {detail.artist.name}
             简介
           </div>
-          <div className="domArtist_article gray ui_select">
+          <div className="domArtist_article ui_gray ui_select">
             {detail.artist.briefDesc}
           </div>
           <br />

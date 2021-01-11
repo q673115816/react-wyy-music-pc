@@ -16,7 +16,7 @@ export default ({ lyrics = [] }) => {
   return (
     <div className="lyrics_list">
       <div className="thead">
-        <div className="item gray">
+        <div className="item ui_gray">
           <div className="index" />
           <div className="heart" />
           <div className="download" />
@@ -24,7 +24,7 @@ export default ({ lyrics = [] }) => {
           <div className="artist">歌手</div>
           <div className="album">专辑</div>
           <div className="duration">时长</div>
-          <div className="gray">热度</div>
+          <div className="ui_gray">热度</div>
         </div>
       </div>
       <div className="tbody">
@@ -55,7 +55,7 @@ export default ({ lyrics = [] }) => {
                       {item.name}
                       {item.tns
                         && (
-                          <span className="gray">
+                          <span className="ui_gray">
                             （
                             {item.tns.map((tns) => tns)}
                             ）
@@ -67,7 +67,7 @@ export default ({ lyrics = [] }) => {
                       && (
                         <>
                           &nbsp;
-                          <span className="alia gray" title={item.alia.map((alia) => alia)}>
+                          <span className="alia ui_gray" title={item.alia.map((alia) => alia)}>
                             （
                             {item.alia.map((alia) => alia)}
                             ）
@@ -92,7 +92,7 @@ export default ({ lyrics = [] }) => {
                 </div>
               </div>
               <div
-                className="artist text-overflow gray hover"
+                className="artist text-overflow ui_gray hover"
                 title={(item.ar.map((artist) => artist.name)).join('/')}
               >
                 <div className="text-overflow">
@@ -100,14 +100,14 @@ export default ({ lyrics = [] }) => {
                 </div>
               </div>
               <div
-                className="album text-overflow gray hover"
+                className="album text-overflow ui_gray hover"
                 title={item.al.name}
               >
                 <Link to={`/playlist/album/${item.al.id}`}>
                   {item.al.name}
                 </Link>
               </div>
-              <div className="duration gray text-overflow">
+              <div className="duration ui_gray text-overflow">
                 {dayjs(item.dt).format('mm:ss')}
               </div>
               <div className="pop">

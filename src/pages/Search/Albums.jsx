@@ -16,7 +16,7 @@ export default ({ albums = [] }) => (
           {item.name}
           {item.alias.length > 0
             && (
-            <span className="gray">
+            <span className="ui_gray">
               （
               {item.alias.map((alia) => alia)}
               ）
@@ -31,7 +31,7 @@ export default ({ albums = [] }) => (
             {item.artist.name}
             {item.artist.alias.length > 0
             && (
-            <span className="gray">
+            <span className="ui_gray">
               （
               {item.artist.alias.map((alia) => alia)}
               ）

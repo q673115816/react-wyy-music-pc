@@ -170,11 +170,11 @@ export default () => {
                             </>
                           )
                         }
-                        <span className="gray">
+                        <span className="ui_gray">
                           {item.score}
                         </span>
                       </div>
-                      <div className="content gray">{item.content}</div>
+                      <div className="content ui_gray">{item.content}</div>
                     </div>
                   </Link>
                 ))}

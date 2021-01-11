@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 const Empty = () => (
   <div className="empty">
-    <div className="gray text">您还没添加任何歌曲！</div>
-    <div className="gray">
+    <div className="ui_gray text">您还没添加任何歌曲！</div>
+    <div className="ui_gray">
       去首页
       <Link to="/">发现音乐</Link>
     </div>
@@ -25,7 +25,7 @@ export default () => {
         <button type="button" className="nav_link" onClick={() => setCurrentData(history)}>历史记录</button>
       </div>
       <div className={classnames('actions', { disabled: currentData.length === 0 })}>
-        <span className="gray">
+        <span className="ui_gray">
           总
           {currentData.length}
           首

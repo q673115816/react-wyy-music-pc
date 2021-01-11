@@ -17,7 +17,7 @@ export default ({ item = {}, push }) => (
       <Link to={`/playlist/music/${item.id}`}>
         {item.name}
       </Link>
-      <span className="gray">
+      <span className="ui_gray">
         {item.alias.map((alia) => alia)}
       </span>
     </div>
@@ -27,13 +27,13 @@ export default ({ item = {}, push }) => (
           key={artist.id}
           onClick={(e) => e.stopPropagation()}
           to={`/artist/${artist.id}`}
-          className="gray hover"
+          className="ui_gray hover"
         >
           {artist.name}
         </Link>
       ))}
     </div>
-    <div className="size gray">
+    <div className="size ui_gray">
       {item.size}
       首
     </div>

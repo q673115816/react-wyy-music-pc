@@ -163,7 +163,7 @@ export default () => {
                   <div className="footer text-overflow">
                     <Link to={`/player/video/${data.vid}`} className="">{data.title}</Link>
                   </div>
-                  <div className="text creator gray">
+                  <div className="text creator ui_gray">
                     <Link to={`/user/${data.creator.userId}`}>
                       {data.creator.nickname}
                     </Link>

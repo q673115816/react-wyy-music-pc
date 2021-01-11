@@ -105,7 +105,7 @@ export default () => {
 
               : (
                 <div className="empty inset-center center">
-                  <span className="gray">
+                  <span className="ui_gray">
                     暂无动态
                   </span>
                 </div>
@@ -175,7 +175,7 @@ export default () => {
         <div className="domFriend_hotTopic">
           <div className="header">
             <span>热门话题</span>
-            <Link className="gray" to={`${url}/hotTopic`}>更多 &gt;</Link>
+            <Link className="ui_gray" to={`${url}/hotTopic`}>更多 &gt;</Link>
           </div>
           <div className="list">
             {hot.map((item) => (
@@ -190,7 +190,7 @@ export default () => {
                     #
                   </div>
                   <div className="participateCount">
-                    <span className="gray">
+                    <span className="ui_gray">
                       {item.participateCount}
                       人参与
                     </span>

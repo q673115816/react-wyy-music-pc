@@ -42,10 +42,10 @@ export default ({ videos = [] }) => (
                 {item.title}
               </Link>
             </div>
-            <div className="text text-overflow gray">
+            <div className="text text-overflow ui_gray">
               by
               &nbsp;
-              <Link to={`/user/${item.creator[0].userId}`} className="gray hover">
+              <Link to={`/user/${item.creator[0].userId}`} className="ui_gray hover">
                 {item.creator[0].userName}
               </Link>
             </div>

@@ -1,0 +1,22 @@
+#toast {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 270px;
+  height: 84px;
+  line-height: 84px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  text-align: center;
+  z-index: 10;
+
+  &.fadein {
+    display: block;
+  }
+
+  &.fadeout {
+    display: block;
+  }
+}

@@ -26,14 +26,14 @@ const BuildSong = ({ msg = {} }) => (
         {msg.song.name}
         {msg.song.alias.length > 0
           && (
-            <span className="gray">
+            <span className="ui_gray">
               （
               {msg.song.alias.join(',')}
               ）
             </span>
           )}
       </div>
-      <div className="gray artist">
+      <div className="ui_gray artist">
         {msg.song.artists.map((artist) => artist.name)}
       </div>
     </div>
@@ -52,14 +52,14 @@ const BuildAlbum = ({ msg = {} }) => (
         {msg.album.name}
         {msg.album.alias.length > 0
           && (
-            <span className="gray">
+            <span className="ui_gray">
               （
               {msg.album.alias.join(',')}
               ）
             </span>
           )}
       </div>
-      <div className="gray artist">
+      <div className="ui_gray artist">
         {msg.album.artists.map((artist) => artist.name)}
       </div>
     </div>
@@ -75,7 +75,7 @@ const BuildContent = (msg) => {
       {msg.msg}
       {emptyVideo && (
         <div className="embed center">
-          <span className="null gray">
+          <span className="null ui_gray">
             该视频已删除
           </span>
         </div>
@@ -85,7 +85,7 @@ const BuildContent = (msg) => {
           <div className="cover">
             <img className="ui_containimg" src={promotion.coverUrl} alt="" />
           </div>
-          <div className="promotion gray">
+          <div className="promotion ui_gray">
             {promotion.title}
           </div>
         </a>
@@ -207,7 +207,7 @@ export default () => {
           privatMsgs
             .map((item) => (
               <div className="item" key={item.id}>
-                <div className="time gray">
+                <div className="time ui_gray">
                   {dayjs(item.time).format('YYYY年MM月DD日 HH:mm')}
                 </div>
                 {item.batchId === 0

@@ -3,8 +3,7 @@
   width: 350px;
   height: 530px;
   background-color: #fff;
-  color: #f00;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 2;
 
   .close {
@@ -13,7 +12,11 @@
     right: 10px;
     font-size: 36px;
     color: #999;
-    }
+  }
+
+  .qr {
+
+  }
 
   ._inner {
     padding: 0 44px;
@@ -22,6 +25,7 @@
   ._table {
     border-radius: 10px;
     border-collapse: collapse;
+
     td {
       border: 2px solid #999;
     }
@@ -29,6 +33,7 @@
     .write {
       height: 36px;
     }
+
     select {
       border: none;
     }

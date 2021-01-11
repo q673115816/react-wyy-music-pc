@@ -63,11 +63,11 @@ export default () => {
             </Link>
             {
               isLogin
-                ? <Link to="/" className="nickname gray">{playlist.creator?.nickname}</Link>
+                ? <Link to="/" className="nickname ui_gray">{playlist.creator?.nickname}</Link>
                 : <button type="button" className="ui_link">未登录&gt;</button>
             }
               &nbsp;
-            <span className="gray">
+            <span className="ui_gray">
               {dayjs(playlist.createTime || Date.now()).format('YYYY-MM-DD')}
               创建
             </span>
@@ -109,7 +109,7 @@ export default () => {
           <div className="tags">
             <span>标签</span>
             {playlist.tags?.map((tag) => (
-              <Link to="/" className="tag gray">{tag}</Link>
+              <Link to="/" className="tag ui_gray">{tag}</Link>
             ))}
           </div>
           <div>

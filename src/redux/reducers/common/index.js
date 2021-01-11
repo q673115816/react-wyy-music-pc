@@ -4,6 +4,7 @@ import {
   SET_MSG_PRIVATE,
   SET_SEARCH_HISTORY,
   SET_SEARCH_VALUE,
+  SET_TOAST,
 } from '@/redux/actionTypes';
 
 import { LOCALSTORAGE } from '@/common/utils';
@@ -16,7 +17,7 @@ const initialState = {
   popupStatus: 'false',
   newMsgCount: 0,
   countriesCodeList: [],
-  dialog_login_visibility: false,
+  dialogLoginVisibility: false,
   searchValue: '',
   // isLogin: window.localStorage.getItem('cookie') !== null,
   isLogin: false,
@@ -24,6 +25,8 @@ const initialState = {
   comments: [],
   forwards: [],
   notices: [],
+  toast: { title: null },
+  // toastVisibility: false,
 };
 
 export default (state = initialState, action) => {
@@ -73,7 +76,12 @@ export default (state = initialState, action) => {
     case DIALOG_LOGIN_VISIBILTY:
       return {
         ...state,
-        dialog_login_visibility: !state.dialog_login_visibility,
+        dialogLoginVisibility: !state.dialogLoginVisibility,
+      };
+    case SET_TOAST:
+      return {
+        ...state,
+        ...action.payload,
       };
     default:
       return state;

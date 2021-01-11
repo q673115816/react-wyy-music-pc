@@ -19,7 +19,7 @@ const BuildList = {
       {
         msg.song.alias
         && (
-          <span className="gray">
+          <span className="ui_gray">
             (
             {msg.song.alias.join(',')}
             )
@@ -183,7 +183,7 @@ export default () => {
                 <span className="ui_link">
                   {item.fromUser.nickname}
                 </span>
-                <span className="time gray">
+                <span className="time ui_gray">
                   {dayjs(item.lastMsgTime).format('YYYY年MM月DD日')}
                 </span>
               </div>

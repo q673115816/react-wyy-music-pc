@@ -21,3 +21,5 @@ export const LOCALSTORAGE = (key, base) => {
   const value = JSON.parse(localStorage.getItem(key));
   return typeToString(value) === typeToString(base) ? value : base;
 };
+
+export const sleep = (delay = 1000) => new Promise((resolve) => setTimeout(resolve, delay));

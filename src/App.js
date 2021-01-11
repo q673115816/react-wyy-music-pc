@@ -13,6 +13,7 @@ import DialogLogin from './components/Dialog/Login';
 
 import Playlist from './components/Playlist';
 import PrivateLetter from './components/PrivateLetter';
+import Tosat from './components/Toast';
 
 const handlePopSwitch = (popupStatus) => {
   switch (popupStatus) {
@@ -26,7 +27,7 @@ const handlePopSwitch = (popupStatus) => {
 };
 
 export default function App() {
-  const { popupStatus } = useSelector(({ common }) => common);
+  const { popupStatus, dialogLoginVisibility } = useSelector(({ common }) => common);
 
   const {
     mousedown, x, y, Drag, dragger,
@@ -49,10 +50,10 @@ export default function App() {
             </Route>
           </Switch>
           {handlePopSwitch(popupStatus)}
-
+          <Tosat />
         </div>
         {dragger && Drag}
-        <DialogLogin />
+        {dialogLoginVisibility && <DialogLogin />}
       </Router>
     </div>
   );

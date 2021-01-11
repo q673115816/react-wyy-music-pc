@@ -31,10 +31,28 @@ export const apiRecommendResource = () => post('/recommend/resource');
 export const apiRecommendSongs = () => post('/recommend/songs');
 // user
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
+// 二维码登录 key
+export const apiLoginQrKey = () => post('/login/qr/key');
+// 二维码登录 生成
+export const apiLoginQrCreate = (params) => post('/login/qr/create', params);
+// 二维码登录 轮询
+export const apiLoginQrCheck = (parmas) => post('/');
+
 export const apiCountriesCodeList = () => get('/countries/code/list');
 export const apiUserAccount = () => post('/user/account');
 export const apiUserDetail = (params) => post('/user/detail', params);
 export const apiUserPlaylist = (params) => post('/user/playlist', params);
+/**
+ *  用户 - 更新信息
+ * gender: 性别 0:保密 1:男性 2:女性
+birthday: 出生日期,时间戳 unix timestamp
+nickname: 用户昵称
+province: 省份id
+city: 城市id
+signature：用户签名
+ * @param {*} params
+ */
+export const apiUserUpdate = (params) => post('/user/update', params);
 // 用户 - 动态
 export const apiUserEvent = (params) => post('/user/event', params);
 // 用户 - 关注

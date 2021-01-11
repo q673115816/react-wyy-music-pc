@@ -1,3 +1,16 @@
+.ui_gray {
+  color: #9B9B9B;
+
+  &.hover:hover {
+    color: #616162;
+  }
+}
+
+.ui_red {
+  color: red;
+}
+
+
 .ui_containimg {
   display: block;
   max-width: 100%;
@@ -32,6 +45,7 @@
 }
 
 .ui_btn {
+  display: inline-block;
   min-width: 80px;
   padding: 0 12px;
   height: 32px;
@@ -46,6 +60,7 @@
   }
 
   &.red {
+    color: #fff;
     border-color: var(--basered);
     background-color: var(--basered);
   }

@@ -86,7 +86,7 @@ export default () => {
 
             : (
               <div data-title="账号">
-                <div className="gray" style={{ marginBottom: 10 }}>登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
+                <div className="ui_gray" style={{ marginBottom: 10 }}>登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
                 <span className="ui_btn_small">立即登录</span>
               </div>
             )

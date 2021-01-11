@@ -26,7 +26,7 @@ export default () => {
       <div className="domSublist_headerBar ui_headerBar">
         <b className="title">我订阅的电台</b>
         &nbsp;
-        <span className="gray">
+        <span className="ui_gray">
           (
           {data.length}
           )
@@ -41,13 +41,13 @@ export default () => {
             <div className="name text-overflow">
               {item.name}
             </div>
-            <div className="creator gray">
+            <div className="creator ui_gray">
               by&nbsp;
-              <Link to={`/user/${item.dj.userId}`} className="gray hover">
+              <Link to={`/user/${item.dj.userId}`} className="ui_gray hover">
                 {item.dj.nickname}
               </Link>
             </div>
-            <div className="size gray">
+            <div className="size ui_gray">
               节目
               {item.programCount}
             </div>

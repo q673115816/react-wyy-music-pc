@@ -6,7 +6,7 @@ export default () => (
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">
         字体选择：
-        <span className="gray">如果字体显示不清晰，请在控制面板——字体设置中启用系统Clear Type设置</span>
+        <span className="ui_gray">如果字体显示不清晰，请在控制面板——字体设置中启用系统Clear Type设置</span>
       </div>
       <div className="domSetting_subBlock_content">
         <select className="domSetting_select">
@@ -58,7 +58,7 @@ export default () => (
             <i className="material-icons">check</i>
             <span>
               禁用动画效果
-              <span className="gray">（减少部分资源占用）</span>
+              <span className="ui_gray">（减少部分资源占用）</span>
             </span>
           </label>
         </div>
@@ -73,7 +73,7 @@ export default () => (
             <i className="material-icons">check</i>
             <span>
               禁用GPU加速
-              <span className="gray">（关闭图形加速，如果单曲播放页或MV播放黑屏请勾选）</span>
+              <span className="ui_gray">（关闭图形加速，如果单曲播放页或MV播放黑屏请勾选）</span>
             </span>
           </label>
         </div>
@@ -135,7 +135,7 @@ export default () => (
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">
         高清屏适配：
-        <span className="gray">禁用后建议重启软件</span>
+        <span className="ui_gray">禁用后建议重启软件</span>
       </div>
       <div className="domSetting_subBlock_content">
         <div className="item">
@@ -144,7 +144,7 @@ export default () => (
             <i className="material-icons">check</i>
             <span>
               禁用系统缩放比例
-              <span className="gray">（减少部分资源占用）</span>
+              <span className="ui_gray">（减少部分资源占用）</span>
             </span>
           </label>
         </div>

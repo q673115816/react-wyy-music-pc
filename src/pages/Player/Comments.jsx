@@ -20,7 +20,7 @@ const CommentItem = ({ item = {} }) => (
         </span>
       </div>
       <div className="info">
-        <span className="time gray">
+        <span className="time ui_gray">
           {dayjs(item.time).format('YYYY-MM-DD')}
         </span>
         <div className="actions">

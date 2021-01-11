@@ -14,7 +14,7 @@ export default ({ songs = [] }) => {
   return (
     <table className="songs_list">
       <thead className="thead">
-        <tr className="item gray">
+        <tr className="item ui_gray">
           <td className="index" />
           <td className="heart" />
           <td className="download" />
@@ -22,7 +22,7 @@ export default ({ songs = [] }) => {
           <td className="artist">歌手</td>
           <td className="album">专辑</td>
           <td className="duration">时长</td>
-          <td className="gray">热度</td>
+          <td className="ui_gray">热度</td>
         </tr>
       </thead>
       <tbody className="tbody">
@@ -56,7 +56,7 @@ export default ({ songs = [] }) => {
                   && (
                     <>
                       &nbsp;
-                      <span className="alia gray" title={item.alia.map((alia) => alia)}>
+                      <span className="alia ui_gray" title={item.alia.map((alia) => alia)}>
                         （
                         {item.alia.map((alia) => alia)}
                         ）
@@ -81,7 +81,7 @@ export default ({ songs = [] }) => {
               </div>
             </td>
             <td
-              className="artist text-overflow gray hover"
+              className="artist text-overflow ui_gray hover"
               title={(item.ar.map((artist) => artist.name)).join('/')}
             >
               <div className="text-overflow">
@@ -89,14 +89,14 @@ export default ({ songs = [] }) => {
               </div>
             </td>
             <td
-              className="album text-overflow gray hover"
+              className="album text-overflow ui_gray hover"
               title={item.al.name}
             >
               <Link to={`/playlist/album/${item.al.id}`}>
                 {item.al.name}
               </Link>
             </td>
-            <td className="duration gray text-overflow">
+            <td className="duration ui_gray text-overflow">
               {dayjs(item.dt).format('mm:ss')}
             </td>
             <td className="pop">

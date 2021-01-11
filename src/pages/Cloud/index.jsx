@@ -203,9 +203,9 @@ export default () => {
             {
               data.map((item, index) => (
                 <div className="tr">
-                  <div className="cell index gray">{String(index + 1)}</div>
+                  <div className="cell index ui_gray">{String(index + 1)}</div>
                   <div className="cell download">
-                    <button type="button" className="gray hover">
+                    <button type="button" className="ui_gray hover">
                       <IconCloudDownload size={20} stroke={1.5} />
                     </button>
                   </div>
@@ -221,7 +221,7 @@ export default () => {
                             {item.artist}
                           </Link>
                         )
-                        : <span className="gray">未知歌手</span>
+                        : <span className="ui_gray">未知歌手</span>
                     }
                   </div>
                   <div className="cell">
@@ -232,7 +232,7 @@ export default () => {
                             {item.album}
                           </Link>
                         )
-                        : <span className="gray">未知专辑</span>
+                        : <span className="ui_gray">未知专辑</span>
                     }
                   </div>
                   <div className="cell" style={{ textTransform: 'uppercase' }}>
@@ -242,7 +242,7 @@ export default () => {
                     {(item.fileSize / 1024 / 1024).toFixed(1)}
                     MB
                   </div>
-                  <div className="cell gray">
+                  <div className="cell ui_gray">
                     {dayjs(item.addTime).format('YYYY-MM-DD')}
                   </div>
                 </div>

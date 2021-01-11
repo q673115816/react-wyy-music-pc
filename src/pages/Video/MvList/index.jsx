@@ -148,7 +148,7 @@ export default () => {
               <div className="footer">
                 {item.name}
               </div>
-              <div className="text gray">
+              <div className="text ui_gray">
                 {item.artistName}
               </div>
             </div>
@@ -176,7 +176,7 @@ export default () => {
               <div className="footer text-overflow">
                 {item.name}
               </div>
-              <div className="text gray">
+              <div className="text ui_gray">
                 {item.artistName}
               </div>
             </div>
@@ -203,7 +203,7 @@ export default () => {
               <div className="footer text-overflow">
                 {item.name}
               </div>
-              <div className="text gray">
+              <div className="text ui_gray">
                 {item.artistName}
               </div>
             </div>
@@ -233,7 +233,7 @@ export default () => {
         {mvTop.map((item, index) => (
           <div className="item" key={item.id}>
             <div className="rank flex-center">
-              <div className="num gray">
+              <div className="num ui_gray">
                 {String(index + 1).padStart(2, 0)}
               </div>
               <div className="arrow">
@@ -257,7 +257,7 @@ export default () => {
               <div className="artists text-overflow">
                 {
                   item.artists.map((artist) => (
-                    <Link to={`/artist/${artist.id}`} key={artist.id} className="gray">
+                    <Link to={`/artist/${artist.id}`} key={artist.id} className="ui_gray">
                       {artist.name}
                     </Link>
                   ))

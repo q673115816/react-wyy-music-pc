@@ -28,7 +28,7 @@ export default ({ newsong = [] }) => (
                 item.song.artists.map((artist) => (
                   <Link
                     to={`/artist/${artist.id}`}
-                    className="gray"
+                    className="ui_gray"
                     key={artist.id}
                   >
                     {artist.name}

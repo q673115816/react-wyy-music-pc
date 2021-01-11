@@ -18,7 +18,7 @@ export default ({
         className="textarea"
         placeholder={placeholder}
       />
-      <span className={classnames(['length', n > length ? 'red' : 'gray'])}>{length - n}</span>
+      <span className={classnames(['length', n > length ? 'red' : 'ui_gray'])}>{length - n}</span>
     </div>
   );
 };

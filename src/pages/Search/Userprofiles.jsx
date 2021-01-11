@@ -16,7 +16,7 @@ export default ({ userprofiles = [] }) => (
             {item.gender === 1 && <DomMale size={12} />}
             {item.gender === 2 && <DomFamale size={12} />}
           </div>
-          <div className="signature gray">{item.signature}</div>
+          <div className="signature ui_gray">{item.signature}</div>
         </Link>
       ))
     }
