@@ -131,6 +131,35 @@ button {
   color: #B6B6B6;
 }
 
+// input[type="text"] {
+//   border: 1px solid #333333 !important;
+//   padding: 0px 12px 0px 32px;
+//   background: transparent !important;
+// }
+
+// input[type="password"] {
+//   border: 1px solid #333333 !important;
+//   padding: 0px 12px 0px 32px;
+//   background: transparent !important;
+// }
+
+@-webkit-keyframes autofill {
+  to {
+    color: #666;
+    background: transparent;
+  }
+}
+
+input:-webkit-autofill {
+  animation-name: autofill !important;
+  animation-fill-mode: both !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  background-clip: content-box !important;
+}
 
 
 .bigScreen {

@@ -36,7 +36,7 @@ export const apiLoginQrKey = () => post('/login/qr/key');
 // 二维码登录 生成
 export const apiLoginQrCreate = (params) => post('/login/qr/create', params);
 // 二维码登录 轮询
-export const apiLoginQrCheck = (parmas) => post('/');
+export const apiLoginQrCheck = (parmas) => post('/login/qr/check', parmas);
 
 export const apiCountriesCodeList = () => get('/countries/code/list');
 export const apiUserAccount = () => post('/user/account');

@@ -15,31 +15,211 @@
   }
 
   .qr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+
+    .title {
+      font-size: 28px;
+    }
+
+    .scansuccess {
+      text-align: center;
+      font-size: 14px;
+
+      .ico {
+        height: 150px;
+        color: var(--basered);
+      }
+
+      .tips {
+        margin-top: 2em;
+        font-size: 16px;
+      }
+    }
+
+    .scanwait {
+      text-align: center;
+
+      .qrbox:hover {
+        .left {
+          left: 0%;
+          transform: translate(0, -50%);
+          width: 50%;
+          opacity: 1;
+        }
+
+        .right {
+          width: 50%;
+          width: 124px;
+          right: 0%;
+          transform: translate(0, -50%);
+        }
+
+
+        .qrimg {
+          width: 124px;
+          height: 124px;
+        }
+      }
+
+      .qrbox {
+        position: relative;
+        display: flex;
+        height: 330px;
+        width: 280px;
+        .left {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          transition: ease 0.4s;
+          width: 100%;
+          opacity: 0;
+        }
+
+        .right {
+          width: 100%;
+          position: absolute;
+          top: 50%;
+          right: 50%;
+          transform: translate(50%, -50%);
+          transition: ease 0.4s;
+        }
+
+        .ico {
+          color: var(--basered);
+        }
+
+        .qrimg {
+          margin: 0 auto;
+          position: relative;
+          width: 180px;
+          height: 180px;
+          transition: ease 0.4s;
+
+          .title {}
+
+          .mask {
+            @include flex-center();
+            @include inset-center();
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            font-size: 14px;
+          }
+
+          .btn {
+            margin-top: 1em;
+            width: 80px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background-color: #0C73C2;
+            border-radius: 4px;
+          }
+        }
+      }
+
+      .tips {
+        font-size: 14px;
+        margin-top: 1em;
+      }
+
+      .otherchoose {
+        // margin-top: 7em;
+      }
+    }
 
   }
 
-  ._inner {
+  .form {
     padding: 0 44px;
+    position: relative;
+    .angle {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      .tips {
+        position: absolute;
+        left: 50px;
+        top: 10px;
+        padding: 6px 14px;
+        white-space: nowrap;
+        background-color: #989898;
+        color: #fff;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 100%;
+          border-top: 2px solid #989898;
+          border-left: 3px solid transparent;
+          border-right: 3px solid #989898;
+          border-bottom: 2px solid transparent;
+          // border-top-color: #989898;
+          // border-right-color: #989898;
+        }
+      }
+    }
   }
 
-  ._table {
+  .table {
     border-radius: 10px;
     border-collapse: collapse;
-
+    table-layout: fixed;
     td {
-      border: 2px solid #999;
+      position: relative;
+      border: 1px solid #D8D8D8;
+      text-align: center;
     }
 
-    .write {
+    .ico {
+      position: absolute;
+      top: 50%;
+      left: 6px;
+      transform: translate(0, -50%);
+    }
+
+    .input {
+      width: 100%;
       height: 36px;
+      border: none;
+      font-weight: bold;
+      padding: 0 10px;
     }
 
-    select {
+    .select {
+      width: 100%;
+      padding-left: 24px;
+      height: 36px;
       border: none;
     }
 
-    input {
-      border: none;
+  }
+  .info {
+    display: flex;
+    padding: 14px 0;
+    .auto {
+      display: flex;
+      align-items: center;
+      flex: none;
+      .ico {
+        margin-right: 10px;
+        width: 15px;
+        height: 15px;
+        border: 1px solid #E5E5E5;
+        color: transparent;
+      }
+      input:checked + .ico {
+        color: #bd3434;
+      }
+    }
+
+    .warn {
+      margin-left: auto;
     }
   }
 
