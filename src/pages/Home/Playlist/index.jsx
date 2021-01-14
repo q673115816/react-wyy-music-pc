@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './style.scss';
 import Lazyload from 'react-lazyload';
-
+import { IconPlayerPlay } from '@tabler/icons';
 import { apiTopPlaylist, apiPlaylistCatlist } from '@/api';
 import { setTopPlaylist, setPlaylistCatlist } from '@/redux/actions';
 import CommonPage from '@/components/Page';
@@ -86,7 +86,11 @@ export default () => {
                   <div className="inner">
                     <Link to={`/playlist/music/${item.id}`}>
                       <Lazyload overflow>
-                        <img className="ui_containimg" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+                        <img
+                          className="ui_containimg"
+                          src={`${item.coverImgUrl}?param=200y200`}
+                          alt=""
+                        />
                       </Lazyload>
                     </Link>
                     <div className="rt">
@@ -100,12 +104,11 @@ export default () => {
                       </Link>
                     </div>
                     <div className="rb">
-                      <span className="playArrow">
-                        <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 4v16l13 -8z" />
-                        </svg>
-                      </span>
+                      <button type="button" className="playArrow">
+                        <IconPlayerPlay size={22} fill="currentColor" />
+                      </button>
                     </div>
+                    <div className="bottommask" />
                   </div>
                 </div>
                 <div className="footer">

@@ -1,6 +1,13 @@
 .domHome {
   &_recommend {
+    &_playlist {
+      margin-top: 16px;
+      .name {
+        @include ellipse();
+      }
+    }
     &_privatecontent {
+      margin-top: 16px;
       display: grid;
       column-gap: 20px;
       grid-template-columns: repeat(3, 1fr);
@@ -36,6 +43,7 @@
     }
 
     &_newsong {
+      margin-top: 16px;
       display: grid;
       row-gap: 20px;
       column-gap: 10px;
@@ -89,6 +97,7 @@
     }
 
     &_mv {
+      margin-top: 16px;
       display: grid;
       column-gap: 20px;
       grid-template-columns: repeat(3, calc((100% - 40px) /3));
@@ -153,7 +162,7 @@
     }
 
     &_djprogram {
-
+      margin-top: 16px;
       .cover {
         border: 1px solid #ccc;
       }
@@ -176,7 +185,7 @@
     }
 
     &_tingting {
-
+      margin-top: 16px;
       .item {}
 
       .name {
@@ -190,10 +199,11 @@
     }
 
     &_kankan {
-
+      margin-top: 16px;
     }
 
     &_diy {
+      margin-top: 16px;
       text-align: center;
       padding-bottom: 40px;
 

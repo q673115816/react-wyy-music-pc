@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -32,7 +32,11 @@ export default function App() {
   const {
     mousedown, x, y, Drag, dragger,
   } = useDrop();
-
+  useEffect(() => {
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
+  }, []);
   return (
     <div className="App">
       <Router>

@@ -31,7 +31,7 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="autoOpen" type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>开机自动启动</span>
           </label>
         </div>
@@ -43,7 +43,7 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="autoOpen" type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>将网易云音乐设为默认播放器</span>
           </label>
         </div>
@@ -55,7 +55,7 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="autoOpen" type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>
               禁用动画效果
               <span className="ui_gray">（减少部分资源占用）</span>
@@ -70,7 +70,7 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="autoOpen" type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>
               禁用GPU加速
               <span className="ui_gray">（关闭图形加速，如果单曲播放页或MV播放黑屏请勾选）</span>
@@ -85,14 +85,14 @@ export default () => (
         <div className="item">
           <label className="domSetting_radio">
             <input name="closeAction" type="radio" checked />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>最小化到系统托盘</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="closeAction" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>退出云音乐</span>
           </label>
         </div>
@@ -104,7 +104,7 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="autoOpen" type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>
               开启定时关机
             </span>
@@ -141,7 +141,7 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="autoOpen" type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>
               禁用系统缩放比例
               <span className="ui_gray">（减少部分资源占用）</span>

@@ -12,6 +12,7 @@ const UserFollow = loadable(() => import(/* webpackChunkName: "User_Follow" */'.
 const UserFans = loadable(() => import(/* webpackChunkName: "User_Fans" */'./Fans'));
 const UserRecord = loadable(() => import(/* webpackChunkName: "User_Record" */'./Record'));
 const UserEdit = loadable(() => import(/* webpackChunkName: "User_Edit" */'./Edit'));
+const UserBinding = loadable(() => import(/* webpackChunkName: "User_Binding" */'./Binding'));
 
 export default () => (
   <div className="domUser overflow-auto">
@@ -21,6 +22,7 @@ export default () => (
       <Route path="/user/:uid/follow" component={UserFollow} />
       <Route path="/user/:uid/fans" component={UserFans} />
       <Route path="/user/:uid/edit" component={UserEdit} />
+      <Route path="/user/:uid/binding" component={UserBinding} />
       <Route path="/user/:uid" component={UserDetail} />
     </Switch>
   </div>

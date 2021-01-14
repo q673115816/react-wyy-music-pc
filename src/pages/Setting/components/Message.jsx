@@ -12,14 +12,14 @@ export default () => (
         <div className="item">
           <label className="domSetting_radio">
             <input name="letter" type="radio" checked />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>所有人</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="letter" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>我所关注的人</span>
           </label>
         </div>
@@ -33,21 +33,21 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="inform" type="radio" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>歌单被收藏</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_check">
             <input name="inform" type="radio" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>收到赞</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_check">
             <input name="inform" type="radio" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>新粉丝</span>
           </label>
         </div>
@@ -61,21 +61,21 @@ export default () => (
         <div className="item">
           <label className="domSetting_radio">
             <input name="myPlaylistSort" type="radio" checked />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>所有人可见</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="myPlaylistSort" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>被关注的人可见</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="myPlaylistSort" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>仅自己可见</span>
           </label>
         </div>

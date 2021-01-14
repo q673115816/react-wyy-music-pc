@@ -8,16 +8,16 @@ import {
 
 export default () => (
   <div className="domHeader_control">
-    <button type="button" className=" domHeader_ico" title="mini模式">
+    <button type="button" className=" domHeader_ico hover" title="mini模式">
       <IconArrowsMinimize size={24} stroke={1} />
     </button>
-    <button type="button" className=" domHeader_ico" title="最小化">
+    <button type="button" className=" domHeader_ico hover" title="最小化">
       <IconMinus size={24} stroke={1} />
     </button>
-    <button type="button" className=" domHeader_ico" title="最大化">
+    <button type="button" className=" domHeader_ico hover" title="最大化">
       <IconSquare size={24} stroke={1} />
     </button>
-    <button type="button" className=" domHeader_ico" title="关闭">
+    <button type="button" className=" domHeader_ico hover" title="关闭">
       <IconX size={24} stroke={1} />
     </button>
   </div>

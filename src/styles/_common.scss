@@ -114,16 +114,16 @@ button {
 /*滚动条样式*/
 ::-webkit-scrollbar {
   width: 6px;
-  /*height: 4px;*/
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: #E1E1E1;
+  background-color: #E1E1E1;
 }
 
 ::-webkit-scrollbar-track-piece {
-  background-color: #fff;
+  background-color: #fff;// 底
 }
 
 ::-webkit-input-placeholder {

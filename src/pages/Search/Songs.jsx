@@ -9,7 +9,7 @@ import {
 } from '@tabler/icons';
 
 export default ({ songs = [] }) => {
-  const [songsActive, setSongsActive] = useState();
+  const [focus, setFocus] = useState();
 
   return (
     <table className="songs_list">
@@ -28,8 +28,8 @@ export default ({ songs = [] }) => {
       <tbody className="tbody">
         {songs.map((item, index) => (
           <tr
-            onClick={() => setSongsActive(item.id)}
-            className={classnames('item', { on: songsActive === item.id })}
+            onClick={() => setFocus(item.id)}
+            className={classnames('item', { on: focus === item.id })}
             key={item.id}
           >
             <td className="index">

@@ -1,0 +1,92 @@
+.domDailySong {
+  &_header {
+    padding: 24px 30px 10px;
+    border-bottom: 1px solid #ccc;
+
+    .section {
+      display: flex;
+      align-items: center;
+
+      .date {
+        width: 80px;
+        height: 80px;
+        color: var(--basered);
+      }
+
+      .content {
+        margin-left: 30px;
+
+        .tips {
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .actions {
+      margin-top: 20px;
+    }
+  }
+
+  &_main {
+    padding-bottom: 30px;
+
+    .table {
+      .item {
+        height: 36px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+
+        .index {
+          width: 40px;
+          text-align: right;
+          padding-right: 10px;
+        }
+
+        .heart {
+          width: 30px;
+        }
+
+        .download {
+          width: 30px;
+        }
+
+        .name {
+          flex: auto;
+          display: flex;
+          align-items: center;
+        }
+
+        .artist {
+          width: 18%;
+        }
+
+        .album {
+          width: 26%;
+        }
+
+        .duration {
+          width: 4%;
+        }
+      }
+
+      .tbody {
+        display: flex;
+        flex-direction: column;
+
+        .item:nth-child(odd) {
+          background-color: #F6F6F6;
+        }
+
+        .item:hover {
+          background-color: #EEEFF0;
+        }
+
+        .item.on {
+          background-color: #E5E5E5;
+        }
+
+      }
+    }
+  }
+}

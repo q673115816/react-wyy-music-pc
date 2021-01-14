@@ -26,18 +26,28 @@ export const apiDjRadioHot = (params) => post('/dj/radio/hot', params);
 // 歌单 - 详情
 export const apiPlaylistDetail = (params) => post('/playlist/detail', params);
 // 推荐歌单 > 登录
-export const apiRecommendResource = () => post('/recommend/resource');
+export const apiRecommendResource = (params) => post('/recommend/resource', params);
 // 推荐歌曲 > 登录
 export const apiRecommendSongs = () => post('/recommend/songs');
-// user
+// user - 登录
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
+// user - 退出
+export const apiLogout = () => get('/logout');
 // 二维码登录 key
 export const apiLoginQrKey = () => post('/login/qr/key');
 // 二维码登录 生成
 export const apiLoginQrCreate = (params) => post('/login/qr/create', params);
 // 二维码登录 轮询
 export const apiLoginQrCheck = (parmas) => post('/login/qr/check', parmas);
-
+// 登录状态
+export const apiLoginStatus = (params) => post('/login/status', params);
+/**
+ * 签到
+ * type: 签到类型 , 默认 0, 其中 0 为安卓端签到 ,1 为 web/PC 签到
+ */
+export const apiDailysignin = (params) => post('/daily_signin', params);
+// 私人fm
+export const apiPersonalfm = () => get('/personal_fm');
 export const apiCountriesCodeList = () => get('/countries/code/list');
 export const apiUserAccount = () => post('/user/account');
 export const apiUserDetail = (params) => post('/user/detail', params);
@@ -95,7 +105,7 @@ export const apiTopPlaylist = (params) => post('/top/playlist', params);
 export const apiTopMv = (params) => post('/top/mv', params);
 export const apiAlbumNew = (params) => post('/album/new', params);
 
-export const apiPlaylistCatlist = () => get('/playlist/music/catlist');
+export const apiPlaylistCatlist = () => get('/playlist/catlist');
 
 // 视频 - 获取视频标签列表
 export const apiVideoGroupList = () => get('/video/group/list');
@@ -108,6 +118,8 @@ export const apiMvUrl = (params) => post('/mv/url', params);
 export const apiMvDetail = (params) => post('/mv/detail', params);
 // 获取 mv 点赞转发评论数数据
 export const apiMvDetailInfo = (params) => post('/mv/detail/info', params);
+// 歌曲评论
+export const apiCommentMusic = (params) => post('/comment/music', params);
 // MV评论
 export const apiCommentMv = (params) => post('/comment/mv', params);
 // 视频评论

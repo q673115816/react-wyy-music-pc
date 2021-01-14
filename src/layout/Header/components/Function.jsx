@@ -20,15 +20,15 @@ export default () => {
   };
   return (
     <div className="domHeader_function">
-      <Link to="/settings" className=" domHeader_ico" title="设置">
+      <Link to="/settings" className="hover domHeader_ico" title="设置">
         <IconSettings size={24} stroke={1} />
       </Link>
-      <button type="button" className=" domHeader_ico" title="换肤">
+      <button type="button" className="hover domHeader_ico" title="换肤">
         <IconTool size={24} stroke={1} />
       </button>
       <button
         type="button"
-        className=" domHeader_ico"
+        className="hover domHeader_ico"
         onClick={handlesetPopup}
         title="私信"
       >

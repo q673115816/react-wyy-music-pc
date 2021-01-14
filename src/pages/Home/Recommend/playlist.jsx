@@ -1,21 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { transPlayCount } from '@/common/utils';
+import { SymbolToday } from '@/components/Symbol';
 
 export default ({ playlist = [] }) => (
   <div className="domHome_recommend_playlist ui_grid square col_5">
     <div className="item">
       <div className="cover">
         <div className="inner">
-          <Link to="/" />
+          <Link to="/dailysong">
+            <div className="inner" style={{ color: 'var(--basered)' }}>
+              <SymbolToday />
+            </div>
+          </Link>
         </div>
       </div>
       <div className="footer">
-        <Link to="/">每日歌曲推荐</Link>
+        <Link to="/dailysong">每日歌曲推荐</Link>
       </div>
     </div>
     {
-      playlist.map((item) => (
+      playlist.slice(0, 9).map((item) => (
         <div key={item.id} className="item">
           <div className="cover">
             <div className="inner">
@@ -35,7 +40,7 @@ export default ({ playlist = [] }) => (
             </div>
           </div>
           <div className="footer">
-            <Link to={`/playlist/music/${item.id}`}>{item.name}</Link>
+            <Link to={`/playlist/music/${item.id}`} className="name ">{item.name}</Link>
           </div>
         </div>
       ))

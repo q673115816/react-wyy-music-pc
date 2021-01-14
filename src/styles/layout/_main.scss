@@ -4,22 +4,85 @@
   flex: 1;
   min-height: 1px;
   width: 100%;
+
+  &_split {
+    position: relative;
+    flex: none;
+    width: 1px;
+    background-color: #E0E0E0;
+    cursor: w-resize;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -2px;
+      right: -2px;
+      z-index: 3;
+    }
+  }
+
+  &_left {
+    --leftwidth: 200px;
+    flex: none;
+    width: var(--leftwidth);
+    background-color: #fff;
+    padding: 10px;
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #fff;
+    }
+    &:hover {
+      &::-webkit-scrollbar-thumb {
+        background-color: #E1E1E1;
+      }
+    }
+
+    &_dt {
+      color: #9F9F9F;
+      margin: 14px 10px;
+      font-size: 14px;
+    }
+
+    &_link {
+      display: block;
+      font-size: 14px;
+      padding: 10px;
+
+      &.on {
+        background-color: #f5f5f5;
+      }
+
+      &.bold {
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+
+  &_right {
+    --rightwidth: 820px;
+    position: relative;
+    flex: 1;
+    min-width: 1px;
+    // width: var(--rightwidth);
+    display: flex;
+    height: 100%;
+
+    // flex-direction: column;
+    >div {
+      flex: 1;
+      min-width: 1px;
+    }
+  }
 }
 
-.dommain_left {
-  --leftwidth: 200px;
-  flex: none;
-  width: var(--leftwidth);
-  background-color: #fff;
-  padding: 10px;
-}
 
-.dommain_left_dt {
-  color: #bbb;
-  margin: 14px 10px;
-  font-size: 16px;
-
-}
 
 .playlist_control {
   display: flex;
@@ -39,50 +102,4 @@
   }
 }
 
-.dommain_left_link {
-  display: block;
-  font-size: 14px;
-  padding: 10px;
 
-  &.on {
-    font-weight: bold;
-    font-size: 18px;
-  }
-
-  &:hover {
-    background-color: #f5f5f5;
-  }
-}
-
-
-.dommain_split {
-  position: relative;
-  flex: none;
-  width: 1px;
-  background-color: #E0E0E0;
-  cursor: w-resize;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -2px;
-    right: -2px;
-    z-index: 3;
-  }
-}
-
-.dommain_right {
-  --rightwidth: 820px;
-  position: relative;
-  flex: 1;
-  min-width: 1px;
-  // width: var(--rightwidth);
-  display: flex;
-  height: 100%;
-  // flex-direction: column;
-  > div {
-    flex: 1;
-    min-width: 1px;
-  }
-}

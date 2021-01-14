@@ -69,6 +69,7 @@
         display: flex;
         height: 330px;
         width: 280px;
+
         .left {
           position: absolute;
           top: 50%;
@@ -137,6 +138,7 @@
   .form {
     padding: 0 44px;
     position: relative;
+
     .angle {
       position: absolute;
       top: 0;
@@ -150,6 +152,7 @@
         white-space: nowrap;
         background-color: #989898;
         color: #fff;
+
         &::before {
           content: '';
           position: absolute;
@@ -169,21 +172,15 @@
   .table {
     border-radius: 10px;
     border-collapse: collapse;
-    table-layout: fixed;
-    td {
-      position: relative;
-      border: 1px solid #D8D8D8;
-      text-align: center;
-    }
+    // table-layout: fixed;
 
-    .ico {
-      position: absolute;
-      top: 50%;
-      left: 6px;
-      transform: translate(0, -50%);
+    td {
+      border: 1px solid #D8D8D8;
+      vertical-align: sub;
     }
 
     .input {
+      display: block;
       width: 100%;
       height: 36px;
       border: none;
@@ -191,21 +188,82 @@
       padding: 0 10px;
     }
 
-    .select {
-      width: 100%;
-      padding-left: 24px;
-      height: 36px;
-      border: none;
+    .custom {
+      &Select {
+        position: relative;
+
+        // height: 100%;
+        .default {
+          width: 100%;
+          padding-right: 10px;
+          padding-left: 30px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+
+          .ico {
+            // display: none;
+            position: absolute;
+            left: 4px;
+          }
+
+          .arrow {
+            margin-left: auto;
+            color: #999;
+          }
+        }
+      }
+
+
+      &Option {
+        padding: 0 12px;
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        height: 24px;
+        line-height: 24px;
+
+        &.on,
+        &:hover {
+          background-color: #E4E5E7;
+        }
+
+        .flag {
+          width: 30px;
+          background-color: #f00;
+        }
+
+        .zh {}
+
+        .code {
+          margin-left: auto;
+        }
+      }
+
+      &OptionGroup {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 260px;
+        height: 220px;
+        background-color: #fff;
+        border: 1px solid #D8D8D8;
+        border-radius: 0 0 4px 4px;
+        overflow: auto;
+      }
     }
 
   }
+
   .info {
     display: flex;
     padding: 14px 0;
+
     .auto {
       display: flex;
       align-items: center;
       flex: none;
+
       .ico {
         margin-right: 10px;
         width: 15px;
@@ -213,7 +271,8 @@
         border: 1px solid #E5E5E5;
         color: transparent;
       }
-      input:checked + .ico {
+
+      input:checked+.ico {
         color: #bd3434;
       }
     }
@@ -230,6 +289,96 @@
     line-height: 40px;
     text-align: center;
     color: #fff;
+    font-size: 16px;
     background-color: var(--basered);
+  }
+
+  .signup {
+    margin: 1em 0;
+    text-decoration: underline;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .hint {
+    margin-top: 66px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &::after,
+    &::before {
+      content: '';
+      width: 86px;
+      height: 1px;
+      background-color: #E1E2E2;
+    }
+  }
+
+  .threes {
+    display: flex;
+    justify-content: space-between;
+
+    .three {
+      flex-direction: column;
+
+      .name {
+        margin-top: 0.4em;
+      }
+
+      .ico {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        color: var(--logoColor);
+      }
+
+      &:hover .ico {
+        color: #fff;
+        background-color: var(--logoColor);
+        border-color: var(--logoColor);
+      }
+
+      &.wx {
+        --logoColor: #67B633;
+      }
+
+      &.qq {
+        --logoColor: #34A0DF;
+      }
+
+      &.wb {
+        --logoColor: #EA4848;
+      }
+
+      &.wy {
+        --logoColor: #D33A31;
+      }
+    }
+  }
+
+  .argument {
+    margin-top: 36px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+
+    .ico {
+      flex: none;
+      margin-right: 0.5em;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      border: 1px solid #999999;
+      color: #fff;
+    }
+
+    input:checked+.ico {
+      background-color: var(--basered);
+      border-color: var(--basered);
+    }
   }
 }

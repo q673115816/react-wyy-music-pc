@@ -11,21 +11,21 @@ export default () => (
         <div className="item">
           <label className="domSetting_radio">
             <input name="agency" type="radio" checked />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>不使用代理</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="agency" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>使用IE代理设置</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="agency" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>自定义代理</span>
           </label>
         </div>
@@ -37,7 +37,7 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="cloud" checked type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>
               本地音乐添加到歌单后，讲文件上传至云盘，可多端同步歌单，播放下载
 

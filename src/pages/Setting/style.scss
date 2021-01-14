@@ -71,7 +71,7 @@
       display: none;
       &:checked+i {
         color: var(--basered);
-        border: none;
+        border-color: currentColor;
       }
     }
 
@@ -87,6 +87,13 @@
       font-size: 18px;
       align-items: center;
       justify-content: center;
+      &::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 5px;
+        background-color: currentColor;
+      }
     }
   }
 

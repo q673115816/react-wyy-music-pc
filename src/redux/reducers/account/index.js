@@ -3,6 +3,7 @@ import { SET_LOGIN_INFO } from '@/redux/actionTypes';
 const initialState = {
   profile: {},
   playlist: [],
+  bindings: [],
 };
 
 export default (state = initialState, action) => {

@@ -13,6 +13,7 @@ import {
   apiUserAccount,
   apiMsgPrivate,
   apiUserPlaylist,
+  apiLoginStatus,
 } from '@/api';
 // import { setCookie } from '@/common/request';
 import {
@@ -24,12 +25,19 @@ import DomSearch from './components/Search';
 import DomAccount from './components/Account';
 import DomControl from './components/Control';
 import DomFunction from './components/Function';
+import { apiUserDetail } from '../../api';
 
 export default ({ mousedown }) => {
   const dispatch = useDispatch();
-  const { isLogin } = useSelector(({ common }) => common);
-  const { profile } = useSelector(({ account }) => account);
-
+  const account = useSelector(({ account }) => account);
+  // const { isLogin } = useSelector(({ common }) => common);
+  // useEffect(() => {
+  //   if (account) {
+  //     dispatch(setIsLogin());
+  //   } else {
+  //     dispatch(setIsLogin());
+  //   }
+  // }, [account]);
   const handleGetCountriesCodeList = async () => {
     try {
       const { data } = await apiCountriesCodeList();
@@ -45,8 +53,11 @@ export default ({ mousedown }) => {
     try {
       const { profile } = await apiUserAccount();
       if (profile) {
+        const { profile: accountDetail, bindings } = await apiUserDetail({
+          uid: profile.userId,
+        });
         const { playlist } = await apiUserPlaylist({ uid: profile.userId });
-        dispatch(setLoginInfo({ profile, playlist }));
+        dispatch(setLoginInfo({ profile: { ...profile, ...accountDetail }, playlist, bindings }));
         dispatch(setIsLogin());
       }
     } catch (error) {
@@ -83,7 +94,7 @@ export default ({ mousedown }) => {
       <Link to="/ai" className="domHeader_voice flex-center">
         <IconMicrophone size={20} stroke={1} />
       </Link>
-      <DomAccount {...{ isLogin, profile }} />
+      <DomAccount />
       <DomFunction />
       <span className="domHeader_spilt" />
       <DomControl />

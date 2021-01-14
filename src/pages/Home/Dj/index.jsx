@@ -5,7 +5,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import Lazyload from 'react-lazyload';
 import './style.scss';
 import DOMtingting from '@/components/AdLookSquare';
+import { setHomeDj } from '@/redux/actions';
 
+import {
+  apiDjBanner, apiDjCategoryRecommend, apiDjPersonalizeRecommend, apiDjRadioHot,
+} from '@/api';
 import DomSwiper from '@/components/DomSwiper';
 
 // import Swiper core and required components
@@ -19,8 +23,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 // import 'swiper/swiper.scss';
 // import 'swiper/components/navigation/navigation.scss';
 
-import handleInit from './init';
-
 // install Swiper components
 SwiperCore.use([
   Navigation,
@@ -30,18 +32,19 @@ const DomDjNormal = ({ item = {} }) => (
   <div className="item">
     <div className="cover">
       <div className="inner">
-        <Link to="/">
+        <Link to={`/playlist/dj/${item.id}`}>
           <Lazyload overflow>
             <img className="ui_containimg" src={item.picUrl} alt="" />
           </Lazyload>
           <div className="lb">
-            <div className="whitetext">{item.name}</div>
+            <span className="whitetext">{item.name}</span>
           </div>
+          <div className="bottommask" />
         </Link>
       </div>
     </div>
     <div className="footer">
-      <Link to="/">{item.rcmdtext}</Link>
+      <Link to={`/playlist/dj/${item.id}`} className="ui_hover">{item.rcmdtext}</Link>
     </div>
   </div>
 );
@@ -64,6 +67,56 @@ export default () => {
     ['音乐故事', 音乐故事],
     ['情感调频', 情感调频],
     ['声音恋人', 声音恋人]];
+
+  const handleInit = async ({ dispatch }) => {
+    try {
+      const [
+        DjBanner,
+        category,
+        DjPersonalizeRecommend,
+        创作翻唱,
+        声之剧场,
+        音乐故事,
+        情感调频,
+        声音恋人] = await Promise.all([
+        apiDjBanner(),
+        apiDjCategoryRecommend(),
+        apiDjPersonalizeRecommend(),
+        apiDjRadioHot({
+          cateId: 2001,
+          limit: 6,
+        }),
+        apiDjRadioHot({
+          cateId: 10001,
+          limit: 6,
+        }),
+        apiDjRadioHot({
+          cateId: 2,
+          limit: 6,
+        }),
+        apiDjRadioHot({
+          cateId: 3,
+          limit: 6,
+        }),
+        apiDjRadioHot({
+          cateId: 3001,
+          limit: 6,
+        }),
+      ]);
+      dispatch(setHomeDj({
+        DjBanner: DjBanner.data,
+        category: category.data,
+        DjPersonalizeRecommend: DjPersonalizeRecommend.data,
+        创作翻唱: 创作翻唱.djRadios,
+        声之剧场: 声之剧场.djRadios,
+        音乐故事: 音乐故事.djRadios,
+        情感调频: 情感调频.djRadios,
+        声音恋人: 声音恋人.djRadios,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     handleInit({ dispatch });
@@ -123,17 +176,8 @@ export default () => {
           )}
         </div>
         <div className="domHome_item">
-          <Link className="domHome_linktitle" to="/">听听 &gt;</Link>
-          <div className="domHome_dj_tingting ui_grid square">
-            {
-            Object.keys(Array(5).fill(0))
-              .map((item) => <DOMtingting key={item} />)
-          }
-          </div>
-        </div>
-        <div className="domHome_item">
-          <div className="domHome_linktitle">电台个性推荐</div>
-          <div className="domHome_dj_tingting ui_grid square row_1">
+          <div className="domHome_linktitle h1">电台个性推荐</div>
+          <div className="domHome_dj_list ui_grid square row_1">
             {
             DjPersonalizeRecommend
               .map((item) => (
@@ -145,12 +189,12 @@ export default () => {
         {
         restlist.map((subitem) => (
           <div key={subitem[0]} className="domHome_item">
-            <Link className="domHome_linktitle" to="/">
+            <Link className="domHome_linktitle h1" to="/">
               {subitem[0]}
 
               &gt;
             </Link>
-            <div className="domHome_dj_tingting ui_grid square row_1">
+            <div className="domHome_dj_list ui_grid square row_1">
               {
                 subitem[1]
                   .map((item) => (

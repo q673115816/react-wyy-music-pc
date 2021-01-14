@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './style.scss';
 
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import Target from './components/Hoc';
 import DomNormal from './components/Normal';
@@ -25,8 +26,13 @@ const nav = [
   '关于网易云音乐',
 ];
 
+const BuildBinding = (item) => {
+
+};
+
 export default () => {
   const { isLogin } = useSelector(({ common }) => common);
+  const { profile, bindings } = useSelector(({ account }) => account);
   const main = useRef();
   const [activeSetting, setActiveSetting] = useState('账号');
 
@@ -81,16 +87,31 @@ export default () => {
         </div>
       </div>
       <div className="domSetting_main overflow-auto" onScroll={handleFollow} ref={main}>
-        {
-          isLogin ? <div data-title="账号">logined</div>
+        <div data-title="账号">
+          {
+            isLogin
+              ? (
+                <>
+                  <div className="">
+                    {
+                      bindings.map((item) => BuildBinding(item))
+                    }
+                  </div>
+                  <div>
+                    <Link to={`/user/${profile.userId}/edit`}>修改个人信息</Link>
+                    <Link to="/friend/invite">寻找并邀请好友</Link>
+                  </div>
+                </>
+              )
 
-            : (
-              <div data-title="账号">
-                <div className="ui_gray" style={{ marginBottom: 10 }}>登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
-                <span className="ui_btn_small">立即登录</span>
-              </div>
-            )
-        }
+              : (
+                <>
+                  <div className="ui_gray" style={{ marginBottom: 10 }}>登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
+                  <span className="ui_btn_small">立即登录</span>
+                </>
+              )
+          }
+        </div>
         <Target {... { 'data-title': '常规' }}>
           <DomNormal />
         </Target>

@@ -5,7 +5,14 @@
   background-color: var(--basered);
   display: flex;
   align-items: center;
-  color: #fff;
+  color: #FBD4D4;
+  .hover:hover {
+    color: #fff;
+  }
+
+  .vip {
+    margin-left: 0.5em;
+  }
 
   &_spilt {
     width: 1px;
@@ -166,10 +173,78 @@
     }
   }
 
+  &_popup_profile {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 280px;
+    height: 380px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 10px 10px;
+    z-index: 20;
+    color: #000;
+
+    .checkin {
+      font-size: 14px;
+      @include flex-center();
+    }
+    .list {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .infos {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-around;
+      .info {
+        width: 33%;
+        text-align: center;
+
+        .num {
+          font-size: 22px;
+        }
+        .string {
+          margin-top: 0.5em;
+        }
+      }
+    }
+
+    .item {
+      padding: 6px 0;
+      &.detail {
+        flex: auto;
+      }
+      & + .item {
+        border-top: 1px solid #EDEDED;
+      }
+    }
+    .link {
+      display: flex;
+      width: 100%;
+      padding-left: 24px;
+      height: 36px;
+      align-items: center;
+
+      .ico {
+        width: 24px;
+      }
+      &:hover {
+        background-color: #F0F1F2;
+      }
+    }
+  }
+
   &_user {
     margin-left: auto;
     display: flex;
     align-items: center;
+    height: 100%;
+    position: relative;
 
     &_login {
       display: flex;

@@ -93,7 +93,7 @@ export default () => {
             className="otherchoose"
             onClick={() => loginDispatch({ type: 'SET_TYPE', payload: { type: 'signin' } })}
           >
-            选择其他登录模式&gt;
+            选择其他登录模式&nbsp;&gt;
           </button>
         </div>
       )}

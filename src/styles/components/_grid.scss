@@ -95,6 +95,7 @@
         top: 0;
         left: 0;
         max-width: 100%;
+        z-index: 2;
       }
 
       .lb {
@@ -102,6 +103,7 @@
         left: 0;
         bottom: 0;
         max-width: 100%;
+        z-index: 2;
       }
 
       .rt {
@@ -109,6 +111,7 @@
         top: 0;
         right: 0;
         max-width: 100%;
+        z-index: 2;
       }
 
       .rb {
@@ -116,6 +119,17 @@
         right: 0;
         bottom: 0;
         max-width: 100%;
+        z-index: 2;
+      }
+
+      .bottommask {
+        position: absolute;
+        top: 80%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+        z-index: 1;
       }
     }
 

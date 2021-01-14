@@ -11,14 +11,14 @@ export default () => (
         <div className="item">
           <label className="domSetting_radio">
             <input name="songDir" type="radio" checked />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>桌面歌词</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="songDir" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>软件内词栏</span>
           </label>
         </div>
@@ -32,14 +32,14 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="openLyric" type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>启用歌词</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_check">
             <input name="openTranslate" type="checkbox" checked />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>外文歌词显示翻译</span>
           </label>
         </div>
@@ -53,7 +53,7 @@ export default () => (
         <div className="item">
           <label className="domSetting_check">
             <input name="alwaysTop" type="checkbox" />
-            <i className="material-icons">check</i>
+            <i classsName="ico">✔</i>
             <span>启用总在最前</span>
           </label>
         </div>

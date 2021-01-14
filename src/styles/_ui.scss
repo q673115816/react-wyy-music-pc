@@ -119,12 +119,6 @@
   }
 }
 
-.ui_sub_nav_link {
-  display: inline-block;
-  font-size: 18px;
-  font-weight: bold;
-}
-
 .ui_recommend_nav {
   display: flex;
 
@@ -311,4 +305,8 @@
   padding: 0 30px;
   display: flex;
   align-items: center;
+}
+
+.ui_underline {
+  text-decoration: underline;
 }

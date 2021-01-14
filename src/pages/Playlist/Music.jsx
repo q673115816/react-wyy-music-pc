@@ -108,8 +108,8 @@ export default () => {
           </div>
           <div className="tags">
             <span>标签</span>
-            {playlist.tags?.map((tag) => (
-              <Link to="/" className="tag ui_gray">{tag}</Link>
+            {playlist.tags.map((tag) => (
+              <Link to="/" className="tag ui_link">{tag}</Link>
             ))}
           </div>
           <div>

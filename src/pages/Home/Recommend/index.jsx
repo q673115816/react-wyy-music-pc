@@ -43,7 +43,9 @@ export default () => {
         PersonalizedMv,
         PersonalizedDjprogram] = await Promise.all([
         apiBanner(),
-        apiRecommendResource(),
+        apiRecommendResource({
+          limit: 9,
+        }),
         apiPersonalizedPrivatecontent(),
         apiPersonalizedNewsong({
           limit: 12,
@@ -77,7 +79,7 @@ export default () => {
         }
         </div>
         <div className="domHome_item">
-          <Link className="ui_sub_nav_link" to="/home/playlist">
+          <Link className="domHome_recommend_subtitle h1" to="/home/playlist">
             推荐歌单 &gt;
           </Link>
           <div>
@@ -87,31 +89,31 @@ export default () => {
           </div>
         </div>
         <div className="domHome_item">
-          <Link className="ui_sub_nav_link" to="/privatecontent">
+          <Link className="domHome_recommend_subtitle h1" to="/privatecontent">
             独家放送 &gt;
           </Link>
           <RecommendPrivatecontent privatecontent={privatecontent} />
         </div>
         <div className="domHome_item">
-          <Link className="ui_sub_nav_link" to="/home/playlist">
+          <Link className="domHome_recommend_subtitle h1" to="/home/playlist">
             最新音乐 &gt;
           </Link>
           <RecommendNewsong newsong={newsong} />
         </div>
         <div className="domHome_item">
-          <Link className="ui_sub_nav_link" to="/home/playlist">
+          <Link className="domHome_recommend_subtitle h1" to="/home/playlist">
             推荐mv &gt;
           </Link>
           <RecommendMv mv={mv} />
         </div>
         <div className="domHome_item">
-          <Link className="ui_sub_nav_link" to="/home/playlist">
+          <Link className="domHome_recommend_subtitle h1" to="/home/playlist">
             主播电台 &gt;
           </Link>
           <RecommendDjprogram djprogram={djprogram} />
         </div>
         <div className="domHome_item">
-          <Link className="ui_sub_nav_link" to="https://look.163.com/hot?livetype=1">
+          <Link className="domHome_recommend_subtitle h1" to="https://look.163.com/hot?livetype=1">
             听听 &gt;
           </Link>
           <div className="domHome_recommend_tingting ui_grid square">
@@ -122,7 +124,7 @@ export default () => {
           </div>
         </div>
         <div className="domHome_item">
-          <Link className="ui_sub_nav_link" to="https://look.163.com/hot?livetype=2">
+          <Link className="domHome_recommend_subtitle h1" to="https://look.163.com/hot?livetype=2">
             看看 &gt;
           </Link>
           <div className="domHome_recommend_kankan ui_grid rectangle_height col_4">

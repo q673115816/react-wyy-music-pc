@@ -5,97 +5,89 @@ import {
   apiLoginCellphone,
 } from '@/api';
 import { IconFaceId, IconQrcode, IconDeviceMobile } from '@tabler/icons';
+import {
+  Symbolwx,
+  Symbolqq,
+  Symbolwb,
+  Symbolwy,
+} from '@/components/Symbol';
 import { LoginContext } from './index';
+import DomSelect from './components/Select';
 
-const handleLogin = async () => {
-  try {
-    const {
-      data,
-      code,
-      msg,
-      cookie,
-      token,
-      profile,
-    } = await apiLoginCellphone({
-      phone,
-      password,
-    });
-    if (code === 200) {
-      // setCookie(cookie);
-      // handleToggle();
-      // dispatch(setLoginInfo(profile));
-      // dispatch(setIsLogin());
-      window.location.reload();
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
 export default () => {
-  const { countriesCodeList } = useSelector(({ common }) => common);
   const {
     loginReducer: {
       argeeArgument,
-      phone,
-      password,
-      warn,
+      loginphone,
+      loginpassword,
+      loginwarn,
+      countrycode,
     },
     loginDispatch,
   } = useContext(LoginContext);
 
-  const login = (e) => {
+  const handleLogin = async () => {
+    try {
+      const {
+        data,
+        code,
+        msg,
+        cookie,
+        token,
+        profile,
+      } = await apiLoginCellphone({
+        phone: loginphone,
+        password: loginpassword,
+        countrycode,
+      });
+      if (code === 200) {
+        // setCookie(cookie);
+        // handleToggle();
+        // dispatch(setLoginInfo(profile));
+        // dispatch(setIsLogin());
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleSubmit = (e) => {
     e.preventDefault();
+    function warntext(loginwarn) {
+      loginDispatch({
+        type: 'SET_WARN',
+        payload: {
+          loginwarn,
+        },
+      });
+    }
     if (!argeeArgument) {
-      loginDispatch({
-        type: 'SET_WARN',
-        payload: {
-          warn: '请先勾选同意《服务条款》《服务条款》《服务条款》',
-        },
-      });
-      // setWarn('请先勾选同意《服务条款》《服务条款》《服务条款》');
-    } else if (!phone) {
-      loginDispatch({
-        type: 'SET_WARN',
-        payload: {
-          warn: '⚠️请输入手机号',
-        },
-      });
-      // setWarn('请输入手机号');
-    } else if (!password) {
-      loginDispatch({
-        type: 'SET_WARN',
-        payload: {
-          warn: '⚠️请输入密码',
-        },
-      });
-      // setWarn('请输入密码');
-    } else if (!/\d{11}/.test(phone)) {
-      loginDispatch({
-        type: 'SET_WARN',
-        payload: {
-          warn: '⚠️请输入11位数字的手机号',
-        },
-      });
-      // setWarn('请输入11位数字的手机号');
+      alert('请先勾选同意《服务条款》《服务条款》《服务条款》');
+    } else if (!loginphone) {
+      warntext('⚠️请输入手机号');
+    } else if (!loginpassword) {
+      warntext('⚠️请输入密码');
+    } else if (!/\d{11}/.test(loginphone)) {
+      warntext('⚠️请输入11位数字的手机号');
     } else {
       handleLogin();
     }
   };
 
-  const handlePhone = (phone) => {
+  const handlePhone = (loginphone) => {
     loginDispatch({
       type: 'SET_SIGNIN_PHONE',
       payload: {
-        phone,
+        loginphone,
       },
     });
   };
 
-  const handlePassword = (password) => {
+  const handlePassword = (loginpassword) => {
     loginDispatch({
       type: 'SET_SIGNIN_PASSWORD',
       payload: {
-        password,
+        loginpassword,
       },
     });
   };
@@ -107,6 +99,17 @@ export default () => {
         argeeArgument,
       },
     });
+  };
+
+  const handleToSignUp = () => {
+    if (argeeArgument) {
+      loginDispatch({
+        type: 'SET_TYPE',
+        payload: { type: 'signup' },
+      });
+    } else {
+      alert('请先勾选同意《服务条款》《服务条款》《服务条款》');
+    }
   };
 
   return (
@@ -123,7 +126,7 @@ export default () => {
       <div style={{ height: 200, color: 'var(--basered)' }} className="flex-center">
         <IconFaceId size={100} stroke={1} />
       </div>
-      <form onSubmit={login}>
+      <form onSubmit={handleSubmit}>
         <table className="table">
           <colgroup>
             <col width="84" />
@@ -133,27 +136,16 @@ export default () => {
           <tbody>
             <tr>
               <td>
-                <label htmlFor="countriesCodeList" className="ico">
-                  <IconDeviceMobile size={24} stroke={0.5} />
-                </label>
-                <select name="countriesCodeList" id="" defaultValue="中国" className="select">
-                  {
-                    countriesCodeList.map(({ countryList }) => countryList.map((country) => (
-                      <option key={country.zh} value={country.zh}>
-                        +
-                        {country.code}
-                      </option>
-                    )))
-                  }
-                </select>
+                <DomSelect />
               </td>
               <td colSpan="2">
                 <input
                   type="text"
                   name="phone"
+                  autoComplete="off"
                   placeholder="请输入手机号"
                   className="input"
-                  value={phone}
+                  value={loginphone}
                   onChange={({ target }) => handlePhone(target.value)}
                 />
               </td>
@@ -163,14 +155,17 @@ export default () => {
                 <input
                   type="password"
                   name="password"
+                  autoComplete="new-password"
                   placeholder="请输入密码"
                   className="input"
-                  value={password}
+                  value={loginpassword}
                   onChange={({ target }) => handlePassword(target.value)}
                 />
               </td>
               <td>
-                <button type="button" className="ui_gray">重设密码</button>
+                <div className="flex-center">
+                  <button type="button" className="ui_gray">重设密码</button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -181,27 +176,79 @@ export default () => {
             <i className="ico flex-center">✔</i>
             自动登录
           </label>
-          <div className="warn ui_red">{warn}</div>
+          <div className="warn ui_red">{loginwarn}</div>
         </div>
-        <div>
-          <button type="submit" className="submit">登录</button>
+        <div className="actions">
+          <button type="submit" className="submit">登&nbsp;录</button>
+          <button
+            type="button"
+            className="signup"
+            onClick={handleToSignUp}
+          >
+            注册
+          </button>
+          <div className="threes">
+            <button type="button" className="three flex-center wx">
+              <span className="ico flex-center">
+                <Symbolwx size={28} />
+              </span>
+            </button>
+            <button type="button" className="three flex-center qq">
+              <span className="ico flex-center">
+                <Symbolqq size={32} />
+              </span>
+            </button>
+            <button type="button" className="three flex-center wb">
+              <span className="ico flex-center">
+
+                <Symbolwb size={32} />
+              </span>
+            </button>
+            <button type="button" className="three flex-center wy">
+              <span className="ico flex-center">
+
+                <Symbolwy size={24} />
+              </span>
+            </button>
+          </div>
         </div>
-        <div>
-          <button type="button">注册</button>
-        </div>
-        <div>
-          <label>
-            <input
-              type="checkBox"
-              name="agreement"
-              value={argeeArgument}
-              onChange={({ target }) => handleArgument(target.value)}
-            />
-            <Link to="/">《服务条款》</Link>
-            <Link to="/">《服务条款》</Link>
-            <Link to="/">《服务条款》</Link>
-          </label>
-        </div>
+        <label className="argument">
+          <input
+            hidden
+            type="checkBox"
+            name="agreement"
+            checked={argeeArgument}
+            onChange={({ target }) => handleArgument(target.value)}
+          />
+          <i className="ico flex-center">✔</i>
+          <span className="ui_gray">
+            同意
+          </span>
+          <a
+            className="ui_link hover"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://st.music.163.com/official-terms/service"
+          >
+            《服务条款》
+          </a>
+          <a
+            className="ui_link hover"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://st.music.163.com/official-terms/privacy"
+          >
+            《隐私条款》
+          </a>
+          <a
+            className="ui_link hover"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://st.music.163.com/official-terms/children"
+          >
+            《儿童隐私条款》
+          </a>
+        </label>
       </form>
     </div>
   );

@@ -9,10 +9,7 @@ import { setCookie } from '@/common/request';
 import './style.scss';
 import DomScan from './Scan';
 import DomSignIn from './SignIn';
-
-const DomSignUp = () => (
-  <div className="inner">{ }</div>
-);
+import DomSignUp from './SignUp';
 
 export const LoginContext = createContext(null);
 
@@ -31,7 +28,7 @@ export default () => {
           ...state,
           ...action.payload,
         };
-      case 'SET_WARN':
+      case 'SET_SIGNIN_WARN':
         return {
           ...state,
           ...action.payload,
@@ -51,15 +48,24 @@ export default () => {
           ...state,
           ...action.payload,
         };
+      case 'SET_SIGNIN_COUNTRYCODE':
+        return {
+          ...state,
+          ...action.payload,
+        };
       default:
         return state;
     }
   }, {
     argeeArgument: false,
-    phone: '',
-    password: '',
-    warn: '',
-    type: 'signin',
+    loginphone: '',
+    loginpassword: '',
+    loginwarn: '',
+    registerphone: '',
+    registerpassword: '',
+    registerwarn: '',
+    type: 'scan',
+    countrycode: '86',
   });
 
   return (

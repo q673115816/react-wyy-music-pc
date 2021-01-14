@@ -15,7 +15,7 @@ export default () => (
           &nbsp;
           <label className="domSetting_radio">
             <input name="audition" checked type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>标准</span>
           </label>
           &nbsp;
@@ -23,7 +23,7 @@ export default () => (
           &nbsp;
           <label className="domSetting_radio">
             <input name="audition" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>较高</span>
           </label>
           &nbsp;
@@ -31,7 +31,7 @@ export default () => (
           &nbsp;
           <label className="domSetting_radio">
             <input name="audition" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>极高</span>
           </label>
           &nbsp;
@@ -39,7 +39,7 @@ export default () => (
           &nbsp;
           <label className="domSetting_radio">
             <input name="audition" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>无损音质</span>
           </label>
         </div>
@@ -50,7 +50,7 @@ export default () => (
           &nbsp;
           <label className="domSetting_radio">
             <input name="download" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>标准</span>
           </label>
           &nbsp;
@@ -58,7 +58,7 @@ export default () => (
           &nbsp;
           <label className="domSetting_radio">
             <input name="download" checked type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>较高</span>
           </label>
           &nbsp;
@@ -66,7 +66,7 @@ export default () => (
           &nbsp;
           <label className="domSetting_radio">
             <input name="download" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>极高</span>
           </label>
           &nbsp;
@@ -74,7 +74,7 @@ export default () => (
           &nbsp;
           <label className="domSetting_radio">
             <input name="download" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>无损音质</span>
           </label>
         </div>
@@ -88,21 +88,21 @@ export default () => (
         <div className="item">
           <label className="domSetting_radio">
             <input name="songName" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>歌曲名</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="songName" type="radio" checked />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>歌手 - 歌曲名</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="songName" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>歌曲名 - 歌手</span>
           </label>
         </div>
@@ -116,21 +116,21 @@ export default () => (
         <div className="item">
           <label className="domSetting_radio">
             <input name="songDir" type="radio" checked />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>不分文件夹</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="songDir" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>按歌手分文件夹</span>
           </label>
         </div>
         <div className="item">
           <label className="domSetting_radio">
             <input name="songDir" type="radio" />
-            <i className="material-icons">radio_button_checked</i>
+            <i classsName="ico" />
             <span>按歌手\专辑分文件夹</span>
           </label>
         </div>

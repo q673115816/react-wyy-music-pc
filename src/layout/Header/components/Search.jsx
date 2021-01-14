@@ -10,10 +10,11 @@ import {
   setSearchValue,
   setSearchHistory,
 } from '@/redux/actions';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default () => {
   const dispatch = useDispatch();
+  const { push } = useHistory();
   const [searchHot, setSearchHot] = useState([]);
   const [searchSuggest, setSearchSuggest] = useState([]);
   const [searchVisibility, setSearchVisibility] = useState(false);
@@ -62,20 +63,31 @@ export default () => {
     dispatch(setSearchHistory([]));
   };
 
+  const handleSearchChange = (e) => {
+    dispatch(setSearchValue({ searchValue: e.target.value }));
+  };
+
+  const handleSubmit = () => {
+    if (searchValue) {
+      push(`/search?keywords=${searchValue}`);
+    }
+    return false;
+  };
+
   useEffect(() => {
     if (searchValue) {
       handleSearchSuggestInit();
     }
   }, [searchValue]);
   return (
-    <form style={{ position: 'relative' }}>
+    <form style={{ position: 'relative' }} onSubmit={handleSubmit}>
       <IconSearch size={16} className="domHeader_search_ico" />
       <input
         type="text"
         placeholder="搜索"
         className="domHeader_search"
         value={searchValue}
-        onChange={({ target }) => dispatch(setSearchValue({ searchValue: target.value }))}
+        onChange={handleSearchChange}
         onFocus={handleSearchInit}
       />
       <div
