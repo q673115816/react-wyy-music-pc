@@ -188,27 +188,17 @@ export default () => {
             注册
           </button>
           <div className="threes">
-            <button type="button" className="three flex-center wx">
-              <span className="ico flex-center">
-                <Symbolwx size={28} />
-              </span>
+            <button type="button" className="three">
+              <Symbolwx hover />
             </button>
-            <button type="button" className="three flex-center qq">
-              <span className="ico flex-center">
-                <Symbolqq size={32} />
-              </span>
+            <button type="button" className="three">
+              <Symbolqq hover />
             </button>
-            <button type="button" className="three flex-center wb">
-              <span className="ico flex-center">
-
-                <Symbolwb size={32} />
-              </span>
+            <button type="button" className="three">
+              <Symbolwb hover />
             </button>
-            <button type="button" className="three flex-center wy">
-              <span className="ico flex-center">
-
-                <Symbolwy size={24} />
-              </span>
+            <button type="button" className="three">
+              <Symbolwy hover />
             </button>
           </div>
         </div>

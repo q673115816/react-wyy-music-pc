@@ -30,6 +30,8 @@ import {
   SET_SEARCH_VALUE,
   SET_MSG_PRIVATE_HISTORY,
   SET_TOAST,
+  SET_CONTEXTMENU_SHOW,
+  SET_DIALOG_RESET,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -192,4 +194,13 @@ export const setMsgPrivateHistory = (payload) => ({
 export const setToast = (payload) => ({
   type: SET_TOAST,
   payload,
+});
+
+export const setContextMenuShow = (payload) => ({
+  type: SET_CONTEXTMENU_SHOW,
+  payload,
+});
+
+export const setDialogReset = () => ({
+  type: SET_DIALOG_RESET,
 });

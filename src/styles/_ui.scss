@@ -310,3 +310,80 @@
 .ui_underline {
   text-decoration: underline;
 }
+
+
+.ui_dialog {
+  position: absolute;
+  background-color: #fff;
+
+  &_close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 36px;
+    z-index: 2;
+    color: #999;
+    @include flex-center();
+  }
+
+  &_header {
+    height: 70px;
+    cursor: move;
+  }
+
+  &_title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.ui_threes_ico {
+  width: 40px;
+  height: 40px;
+  color: var(--logoColor);
+  border-radius: 20px;
+  @include flex-center();
+
+  &.hover {
+    border: 1px solid #ccc;
+  }
+
+  &.active,
+  &.hover:hover {
+    color: #fff;
+    background-color: var(--logoColor);
+    border-color: var(--logoColor);
+  }
+
+  &.wyy {
+    --logoColor: #EC4141;
+  }
+
+  &.sx {
+    --logoColor: #5BBAEB;
+  }
+
+  &.wx {
+    --logoColor: #67B633;
+  }
+
+  &.qq {
+    --logoColor: #34A0DF;
+  }
+
+  &.qz {
+    --logoColor: #F7CB41;
+  }
+
+  &.wb {
+    --logoColor: #EA4848;
+  }
+
+  &.wy {
+    --logoColor: #D33A31;
+  }
+
+  &.lj {
+    --logoColor: #A9B6C5;
+  }
+}

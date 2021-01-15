@@ -4,6 +4,7 @@ import React, {
 import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { IconX } from '@tabler/icons';
 import { dialogLoginVisibilty, setIsLogin, setLoginInfo } from '@/redux/actions';
 import { setCookie } from '@/common/request';
 import './style.scss';
@@ -70,14 +71,15 @@ export default () => {
 
   return (
     <div
-      className="dialog_login"
+      id="dialogLogin"
+      className="ui_dialog"
     >
       <button
         type="button"
-        className="close"
+        className="ui_dialog_close close"
         onClick={() => dispatch(dialogLoginVisibilty())}
       >
-        ×
+        <IconX stroke={1.5} />
       </button>
       <LoginContext.Provider value={{ loginReducer, loginDispatch }}>
         {Build[loginReducer.type]()}

@@ -10,9 +10,12 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { apiRecommendSongs } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
+import { setContextMenuShow } from '@/redux/actions';
 import './style.scss';
+import { useDispatch } from 'react-redux';
 
 export default () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const [focus, setFocus] = useState('');
   const handleInit = async () => {
@@ -24,8 +27,12 @@ export default () => {
     }
   };
 
-  const handleRightClick = (item) => {
+  const handleRightClick = (e, item) => {
     console.log(e);
+    dispatch(setContextMenuShow({
+      contextMenuX: e.clientX,
+      contextMenuY: e.clientY,
+    }));
   };
 
   useEffect(() => {
@@ -77,7 +84,7 @@ export default () => {
                   type="button"
                   className={classnames('item', { on: index === focus })}
                   key={item.id}
-                  onContextMenu={() => handleRightClick(item)}
+                  onContextMenu={(e) => handleRightClick(e, item)}
                 >
                   <div className="index ui_gray">
                     {String(index + 1).padStart(2, 0)}
@@ -152,12 +159,14 @@ export default () => {
                     </div>
                   </div>
                   <div className="album">
-                    <Link
-                      className="ui_gray hover"
-                      to={`/playlist/album/${item.al.id}`}
-                    >
-                      {item.al.name}
-                    </Link>
+                    <div className="text-overflow">
+                      <Link
+                        className="ui_gray hover"
+                        to={`/playlist/album/${item.al.id}`}
+                      >
+                        {item.al.name}
+                      </Link>
+                    </div>
                   </div>
                   <div className="duration ui_gray text-overflow">
                     {dayjs(item.dt).format('mm:ss')}

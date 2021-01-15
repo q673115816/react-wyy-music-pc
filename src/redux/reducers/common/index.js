@@ -17,7 +17,7 @@ const initialState = {
   popupStatus: 'false',
   newMsgCount: 0,
   countriesCodeList: [],
-  dialogLoginVisibility: false,
+  loginVisibility: false,
   searchValue: '',
   // isLogin: window.localStorage.getItem('cookie') !== null,
   isLogin: false,
@@ -76,7 +76,7 @@ export default (state = initialState, action) => {
     case DIALOG_LOGIN_VISIBILTY:
       return {
         ...state,
-        dialogLoginVisibility: !state.dialogLoginVisibility,
+        loginVisibility: !state.loginVisibility,
       };
     case SET_TOAST:
       return {

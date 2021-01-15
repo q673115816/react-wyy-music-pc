@@ -38,34 +38,48 @@
         padding: 0 20px;
 
         .index {
+          flex: none;
           width: 40px;
           text-align: right;
           padding-right: 10px;
         }
 
         .heart {
+          flex: none;
           width: 30px;
         }
 
         .download {
+          flex: none;
           width: 30px;
         }
 
         .name {
+          min-width: 0;
           flex: auto;
           display: flex;
           align-items: center;
+          padding-right: 10px;
+          .tags {
+            margin-left: 0.5em;
+            display: flex;
+          }
         }
 
         .artist {
+          flex: none;
           width: 18%;
+          padding-right: 10px;
         }
 
         .album {
+          flex: none;
           width: 26%;
+          padding-right: 10px;
         }
 
         .duration {
+          flex: none;
           width: 4%;
         }
       }

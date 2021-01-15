@@ -1,18 +1,10 @@
-.dialog_login {
+#dialogLogin {
   position: fixed;
   width: 350px;
   height: 530px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 2;
-
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 36px;
-    color: #999;
-  }
 
   .qr {
     display: flex;
@@ -323,40 +315,40 @@
 
     .three {
       flex-direction: column;
-
+      @include flex-center();
       .name {
         margin-top: 0.4em;
       }
 
-      .ico {
-        width: 40px;
-        height: 40px;
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        color: var(--logoColor);
-      }
+      // .ico {
+      //   width: 40px;
+      //   height: 40px;
+      //   border: 1px solid #ccc;
+      //   border-radius: 20px;
+      //   color: var(--logoColor);
+      // }
 
-      &:hover .ico {
-        color: #fff;
-        background-color: var(--logoColor);
-        border-color: var(--logoColor);
-      }
+      // &:hover .ico {
+      //   color: #fff;
+      //   background-color: var(--logoColor);
+      //   border-color: var(--logoColor);
+      // }
 
-      &.wx {
-        --logoColor: #67B633;
-      }
+      // &.wx {
+      //   --logoColor: #67B633;
+      // }
 
-      &.qq {
-        --logoColor: #34A0DF;
-      }
+      // &.qq {
+      //   --logoColor: #34A0DF;
+      // }
 
-      &.wb {
-        --logoColor: #EA4848;
-      }
+      // &.wb {
+      //   --logoColor: #EA4848;
+      // }
 
-      &.wy {
-        --logoColor: #D33A31;
-      }
+      // &.wy {
+      //   --logoColor: #D33A31;
+      // }
     }
   }
 

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDialogReset } from '@/redux/actions';
 import DomPlayer from './pages/Player';
 import './styles/index.scss';
 import DomHeader from './layout/Header';
@@ -10,10 +11,11 @@ import DomFooter from './layout/Footer';
 import useDrop from './custom/useDrop';
 
 import DialogLogin from './components/Dialog/Login';
-
+import DialogShare from './components/Dialog/Share';
 import Playlist from './components/Playlist';
 import PrivateLetter from './components/PrivateLetter';
 import Tosat from './components/Toast';
+import Contextmenu from './components/Contextmenu';
 
 const handlePopSwitch = (popupStatus) => {
   switch (popupStatus) {
@@ -27,11 +29,24 @@ const handlePopSwitch = (popupStatus) => {
 };
 
 export default function App() {
-  const { popupStatus, dialogLoginVisibility } = useSelector(({ common }) => common);
-
+  const dispatch = useDispatch();
+  const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
+  const { visibility: dialogVisibility, contextMenuVisibility } = useSelector(({ dialog }) => dialog);
   const {
     mousedown, x, y, Drag, dragger,
   } = useDrop();
+
+  const handleMaskMouseUp = () => {
+
+  };
+
+  const handleMaskMouseMove = () => {
+
+  };
+
+  const handleMaskClick = () => {
+    dispatch(setDialogReset());
+  };
   useEffect(() => {
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault();
@@ -42,7 +57,7 @@ export default function App() {
       <Router>
         <div
           id="NeteaseCloudMusic"
-          className="domwrapper"
+          className="domWrapper"
           style={{ transform: `translate(${x}px, ${y}px)` }}
         >
           <DomHeader {...{ mousedown }} />
@@ -54,10 +69,26 @@ export default function App() {
             </Route>
           </Switch>
           {handlePopSwitch(popupStatus)}
+          {
+            dialogVisibility
+            && (
+              <div
+                className="dialogMask"
+                onMouseUp={handleMaskMouseUp}
+                onMouseMove={handleMaskMouseMove}
+                onMouseDown={handleMaskClick}
+              />
+            )
+          }
+          {
+            contextMenuVisibility
+            && <Contextmenu />
+          }
+          <DialogShare />
           <Tosat />
         </div>
         {dragger && Drag}
-        {dialogLoginVisibility && <DialogLogin />}
+        {loginVisibility && <DialogLogin />}
       </Router>
     </div>
   );
