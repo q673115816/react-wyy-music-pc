@@ -65,6 +65,7 @@ const DomPlaylist = ({ name = '', playlist = [] }) => {
         {
           playlist.map((item) => (
             <NavLink
+              key={item.id}
               className="dommain_left_link text-overflow"
               activeClassName="on"
               to={`/playlist/music/${item.id}`}

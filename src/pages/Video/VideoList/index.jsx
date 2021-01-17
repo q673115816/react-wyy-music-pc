@@ -31,7 +31,7 @@ export default () => {
     try {
       const [
         { data: groupList },
-        { data: categoryList },
+        { data: categoryList = [] },
       ] = await Promise.all([
         apiVideoGroupList(),
         apiVideoCategoryList(),

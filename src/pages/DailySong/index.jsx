@@ -8,7 +8,7 @@ import {
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { apiRecommendSongs } from '@/api';
+import { apiRecommendSongs, apiCommentMusic } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
 import { setContextMenuShow } from '@/redux/actions';
 import './style.scss';
@@ -27,12 +27,23 @@ export default () => {
     }
   };
 
-  const handleRightClick = (e, item) => {
-    console.log(e);
-    dispatch(setContextMenuShow({
-      contextMenuX: e.clientX,
-      contextMenuY: e.clientY,
-    }));
+  const handleRightClick = async (e, item, index) => {
+    // console.log('handleRightClick', e);
+    console.log(item);
+    setFocus(index);
+    try {
+      const { total } = await apiCommentMusic({
+        id: item.id,
+      });
+      dispatch(setContextMenuShow({
+        contextMenuX: e.clientX,
+        contextMenuY: e.clientY,
+        contextMenuItem: item,
+        contextMenuTotal: total,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +59,9 @@ export default () => {
           </div>
           <div className="content">
             <div className="h1">每日歌曲推荐</div>
-            <div className="ui_gray tips">根据你的音乐口味生成, 每天6:00更新</div>
+            <div className="ui_gray tips">
+              根据你的音乐口味生成, 每天6:00更新
+            </div>
           </div>
         </div>
         <div className="actions">
@@ -84,7 +97,7 @@ export default () => {
                   type="button"
                   className={classnames('item', { on: index === focus })}
                   key={item.id}
-                  onContextMenu={(e) => handleRightClick(e, item)}
+                  onContextMenu={(e) => handleRightClick(e, item, index)}
                 >
                   <div className="index ui_gray">
                     {String(index + 1).padStart(2, 0)}
@@ -133,29 +146,17 @@ export default () => {
                   </div>
                   <div className="artist">
                     <div className="text-overflow">
-                      {item.ar.map((aritst, index) => {
-                        if (index > 0) {
-                          return (
-                            <>
-                              <span>&nbsp;/&nbsp;</span>
-                              <Link
-                                className="ui_gray hover"
-                                to={`/artist/${aritst.id}`}
-                              >
-                                {aritst.name}
-                              </Link>
-                            </>
-                          );
-                        }
-                        return (
+                      {item.ar.map((aritst, index) => (
+                        <span key={aritst.id}>
+                          {index > 0 && ' / '}
                           <Link
                             className="ui_gray hover"
                             to={`/artist/${aritst.id}`}
                           >
                             {aritst.name}
                           </Link>
-                        );
-                      })}
+                        </span>
+                      ))}
                     </div>
                   </div>
                   <div className="album">

@@ -2,6 +2,11 @@ import { get, post } from '../common';
 
 // 音乐
 export const apiSongUrl = (params) => post('/song/url', params);
+/**
+ * 获取歌曲详情
+ * @param {ids} params
+ */
+export const apiSongDetail = (params) => post('/song/detail', params);
 // home
 // recommend - banner
 export const apiBanner = () => get('/banner');
@@ -118,6 +123,29 @@ export const apiMvUrl = (params) => post('/mv/url', params);
 export const apiMvDetail = (params) => post('/mv/detail', params);
 // 获取 mv 点赞转发评论数数据
 export const apiMvDetailInfo = (params) => post('/mv/detail/info', params);
+/**
+ * 0: 歌曲
+1: mv
+2: 歌单
+3: 专辑
+4: 电台
+5: 视频
+ * @param {id, type, limit, offset, before} params
+ */
+export const apiCommentHot = (params) => post('/comment/hot', params);
+/**
+ * type
+ * 0: 歌曲
+1: mv
+2: 歌单
+3: 专辑
+4: 电台
+5: 视频
+6: 动态
+注意： 动态点赞不需要传入 id 参数，需要传入动态的 threadId 参数,如：/comment/like?type=6&cid=1419532712&threadId=A_EV_2_6559519868_32953014&t=0， threadId 可通过 /event，/user/event 接口获取
+ * @param {id, cid, t, type} params
+ */
+export const apiCommentLike = (params) => post('/comment/like', params);
 // 歌曲评论
 export const apiCommentMusic = (params) => post('/comment/music', params);
 // MV评论

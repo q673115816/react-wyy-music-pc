@@ -7,10 +7,30 @@ import {
   IconDownload,
   IconPlayerPlay,
 } from '@tabler/icons';
+import { useDispatch } from 'react-redux';
+import { apiCommentMusic } from '@/api';
+import { setContextMenuShow } from '@/redux/actions';
 
 export default ({ songs = [] }) => {
+  const dispatch = useDispatch();
   const [focus, setFocus] = useState();
-
+  const handleRightClick = async (e, item) => {
+    console.log(item);
+    setFocus(item.id);
+    try {
+      const { total } = await apiCommentMusic({
+        id: item.id,
+      });
+      dispatch(setContextMenuShow({
+        contextMenuX: e.clientX,
+        contextMenuY: e.clientY,
+        contextMenuItem: item,
+        contextMenuTotal: total,
+      }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <table className="songs_list">
       <thead className="thead">
@@ -28,9 +48,10 @@ export default ({ songs = [] }) => {
       <tbody className="tbody">
         {songs.map((item, index) => (
           <tr
-            onClick={() => setFocus(item.id)}
+            onMouseDown={() => setFocus(item.id)}
             className={classnames('item', { on: focus === item.id })}
             key={item.id}
+            onContextMenu={(e) => handleRightClick(e, item)}
           >
             <td className="index">
               {String(index + 1).padStart(2, 0)}
@@ -56,7 +77,10 @@ export default ({ songs = [] }) => {
                   && (
                     <>
                       &nbsp;
-                      <span className="alia ui_gray" title={item.alia.map((alia) => alia)}>
+                      <span
+                        className="alia ui_gray"
+                        title={item.alia.map((alia) => alia)}
+                      >
                         （
                         {item.alia.map((alia) => alia)}
                         ）
@@ -82,10 +106,22 @@ export default ({ songs = [] }) => {
             </td>
             <td
               className="artist text-overflow ui_gray hover"
-              title={(item.ar.map((artist) => artist.name)).join('/')}
+              title={(item.ar.map((artist) => artist.name)).join(' / ')}
             >
+
               <div className="text-overflow">
-                {item.ar.map((aritst) => <Link to={`/artist/${aritst.id}`}>{aritst.name}</Link>)}
+                {
+                item.ar.map((aritst, index) => (
+                  <span key={aritst.id}>
+                    {index > 0 && ' / '}
+                    <Link
+                      to={`/artist/${aritst.id}`}
+                    >
+                      {aritst.name}
+                    </Link>
+                  </span>
+                ))
+                }
               </div>
             </td>
             <td

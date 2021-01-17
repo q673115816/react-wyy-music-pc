@@ -1,0 +1,60 @@
+.ui_comment {
+  display: flex;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+
+  &_inform {
+    display: none;
+  }
+
+  &:hover &_inform {
+    display: block;
+  }
+
+  &_avatar {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #ccc;
+  }
+
+  &_content {
+    padding-left: 16px;
+    flex: auto;
+    min-width: 1px;
+  }
+
+  &_beReplied {
+    margin-top: 0.5em;
+    padding: 8px;
+    background-color: #F4F4F4;
+    color: #666;
+  }
+
+  &_text {
+    user-select: text !important;
+    line-height: 1.5;
+  }
+
+  &_info {
+    margin-top: 10px;
+    display: flex;
+  }
+
+  &_actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+
+  &_split {
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    background-color: #ccc;
+    margin: 0 10px;
+  }
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IconX } from '@tabler/icons';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Symbolwyy,
   Symbolsx,
@@ -9,10 +10,14 @@ import {
   Symbolwb,
   Symbollj,
 } from '@/components/Symbol';
+import { setDialogReset } from '@/redux/actions';
 import './style.scss';
 
 export default () => {
-  const [visibilty, setVisibilty] = useState(true);
+  const dispatch = useDispatch();
+  // const [visibilty, setVisibilty] = useState(false);
+  const { dialogShareVisibility: visibilty } = useSelector(({ dialog }) => dialog);
+  const { profile } = useSelector(({ account }) => account);
   return (
     <div
       className=" ui_dialog"
@@ -22,7 +27,7 @@ export default () => {
       <button
         type="button"
         className="ui_dialog_close close"
-        onClick={() => setVisibilty(false)}
+        onClick={() => dispatch(setDialogReset())}
       >
         <IconX stroke={1.5} />
       </button>
@@ -51,7 +56,7 @@ export default () => {
             </i>
             微信好友
           </button>
-          <a href="#" className="item">
+          <a href="https://music.163.com/song?id=28432280&userid=用户id&from=qq&title=分享单曲：你是我心内的一首歌&summary=王力宏/任家萱&pics=封面?imageView&thumbnail=120y120" className="item">
             <i className="ico">
               <Symbolqq active />
             </i>

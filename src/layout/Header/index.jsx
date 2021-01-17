@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  dialogLoginVisibilty,
+  setLoginVisibilty,
   setContriesCodeList,
   setLoginInfo,
   setIsLogin,
@@ -87,7 +87,7 @@ export default ({ mousedown }) => {
       onMouseDown={() => ''}
     >
       <Link to="/" className="domHeader_logo">
-        首页
+        网易云音乐
       </Link>
       <DomVisitStack />
       <DomSearch />

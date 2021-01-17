@@ -1,6 +1,11 @@
 .domMvList {
-  &__sublist {
-    margin-bottom: 20px;
+  &_sublist {
+    margin-bottom: 30px;
+  }
+
+  &_subLink {
+    font-size: 16px;
+    font-weight: bold;
   }
 
   &_header {

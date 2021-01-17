@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
   IconMessage,
   IconArrowForward,
@@ -9,23 +11,48 @@ import {
   IconLink,
   IconCircleX,
   IconDownload,
+  IconCirclePlus,
+  IconMusic,
 } from '@tabler/icons';
-import { useSelector } from 'react-redux';
+import { setDialogReset, setDialogShareShow, setLoginVisibilty } from '@/redux/actions';
 
 export default () => {
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector(({ common }) => common);
   const {
     contextMenuX,
     contextMenuY,
+    contextMenuItem,
+    contextMenuTotal,
   } = useSelector(({ dialog }) => dialog);
+  const handleDialogShare = () => {
+    if (!isLogin) {
+      dispatch(setLoginVisibilty());
+      return dispatch(setDialogReset());
+    }
+    dispatch(setDialogShareShow({
+
+    }));
+  };
   return (
-    <ul id="contextmenu" className="ui_contextmenu" style={{ left: contextMenuX, top: contextMenuY }}>
+    <ul
+      id="contextmenu"
+      className="ui_contextmenu"
+      style={{ left: contextMenuX, top: contextMenuY }}
+    >
       <li className="ui_contextmenu_item">
-        <Link to="/comment" className="ui_contextmenu_btn">
+        <Link
+          to={`/comment/${contextMenuItem.id}`}
+          onClick={() => dispatch(setDialogReset())}
+          className="ui_contextmenu_btn"
+        >
           <i className="ico">
             <IconMessage size={22} stroke={1} />
           </i>
           查看评论
-          (0)
+          (
+          {contextMenuTotal}
+          )
         </Link>
       </li>
       <li className="ui_contextmenu_item">
@@ -55,19 +82,32 @@ export default () => {
         </span>
         <ul className="ui_contextmenu sub">
           <li className="ui_contextmenu_item">
-            <button type="button" className="ui_contextmenu_btn">创建新歌单</button>
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico"><IconCirclePlus size={22} stroke={1} /></i>
+              创建新歌单
+            </button>
           </li>
           <li className="hr" />
           <li className="ui_contextmenu_item">
-            <button type="button" className="ui_contextmenu_btn">创建新歌单</button>
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico"><IconMusic size={22} stroke={1} /></i>
+              创建新歌单
+            </button>
           </li>
           <li className="ui_contextmenu_item">
-            <button type="button" className="ui_contextmenu_btn">创建新歌单</button>
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico"><IconMusic size={22} stroke={1} /></i>
+              创建新歌单
+            </button>
           </li>
         </ul>
       </li>
       <li className="ui_contextmenu_item">
-        <button type="button" className="ui_contextmenu_btn">
+        <button
+          onClick={() => handleDialogShare()}
+          type="button"
+          className="ui_contextmenu_btn"
+        >
           <i className="ico">
             <IconShare size={22} stroke={1} />
           </i>
@@ -83,12 +123,34 @@ export default () => {
         </button>
       </li>
       <li className="ui_contextmenu_item">
-        <button type="button" className="ui_contextmenu_btn">
+        <span className="ui_contextmenu_btn">
           <i className="ico">
             <IconCircleX size={22} stroke={1} />
           </i>
           不感兴趣
-        </button>
+          <i className="arrow" />
+        </span>
+        <ul className="ui_contextmenu sub">
+          <li className="ui_contextmenu_item">
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico" />
+              创建新歌单
+            </button>
+          </li>
+          <li className="hr" />
+          <li className="ui_contextmenu_item">
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico" />
+              创建新歌单
+            </button>
+          </li>
+          <li className="ui_contextmenu_item">
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico" />
+              创建新歌单
+            </button>
+          </li>
+        </ul>
       </li>
       <li className="ui_contextmenu_item ">
         <span className="ui_contextmenu_btn">
@@ -100,14 +162,23 @@ export default () => {
         </span>
         <ul className="ui_contextmenu sub">
           <li className="ui_contextmenu_item">
-            <button type="button" className="ui_contextmenu_btn">创建新歌单</button>
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico"><IconCirclePlus size={22} stroke={1} /></i>
+              创建新歌单
+            </button>
           </li>
           <li className="hr" />
           <li className="ui_contextmenu_item">
-            <button type="button" className="ui_contextmenu_btn">创建新歌单</button>
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico"><IconMusic size={22} stroke={1} /></i>
+              创建新歌单
+            </button>
           </li>
           <li className="ui_contextmenu_item">
-            <button type="button" className="ui_contextmenu_btn">创建新歌单</button>
+            <button type="button" className="ui_contextmenu_btn">
+              <i className="ico"><IconMusic size={22} stroke={1} /></i>
+              创建新歌单
+            </button>
           </li>
         </ul>
       </li>

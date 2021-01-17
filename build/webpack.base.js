@@ -40,7 +40,7 @@ const plugins = [
 ];
 
 module.exports = {
-  // target: 'web',
+  target: 'web',
   // entry: path.join(src, 'index.js'),
   entry: {
     index: path.join(src, 'index.js'),

@@ -153,60 +153,7 @@
   }
 
   &_comments {
-    .item {
-      display: flex;
-      padding: 16px 0;
-      border-bottom: 1px solid #eee;
 
-      .jubao {
-        display: none;
-      }
-
-      &:hover {
-        .jubao {
-          display: block;
-        }
-      }
-
-      .avatar {
-        flex: none;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        overflow: hidden;
-      }
-
-      .content {
-        padding-left: 16px;
-        flex: auto;
-        min-width: 1px;
-
-        .text {
-          user-select: text!important;
-          line-height: 1.5;
-        }
-
-        .info {
-          margin-top: 1em;
-          display: flex;
-
-          .actions {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-
-            span {
-              display: inline-block;
-              width: 1px;
-              height: 10px;
-              background-color: #ccc;
-              margin: 0 10px;
-            }
-          }
-        }
-      }
-    }
   }
 }
 

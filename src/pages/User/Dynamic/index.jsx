@@ -35,7 +35,7 @@ export default () => {
       <div className="domUser_dynamic_main">
         <div className="list">
           {data.length > 0 ? data.map((event) => (
-            <div />
+            <div key={event.id} />
           ))
             : <div className="empty">暂无动态</div>}
         </div>

@@ -1,0 +1,61 @@
+.domComment {
+  padding: 20px 30px;
+
+  &_header {}
+
+  &_infos {
+    display: flex;
+
+    .cover {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      border-radius: 4px;
+      overflow: hidden;
+
+      .ico {
+        @include inset-center();
+        @include flex-center();
+        color: var(--basered);
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        background-color: rgba(255, 255, 255, 0.9);
+      }
+    }
+
+    .content {
+      padding: 6px 20px;
+
+      .title {
+        font-size: 22px;
+      }
+
+      .info {
+        margin-top: 1em;
+        color: #999;
+      }
+    }
+  }
+
+  &_write {
+    margin-top: 30px;
+
+    &_actions {
+      margin-top: 10px;
+      display: flex;
+
+      .right {
+        margin-left: auto;
+      }
+    }
+  }
+
+  &_list {
+    margin-top: 30px;
+    padding-bottom: 20px;
+    &_more {
+      padding: 20px;
+    }
+  }
+}

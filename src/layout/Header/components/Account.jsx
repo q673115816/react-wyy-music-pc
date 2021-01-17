@@ -10,7 +10,7 @@ import {
   IconBrandVimeo,
   IconCoin,
 } from '@tabler/icons';
-import { dialogLoginVisibilty, setLoginInfo } from '@/redux/actions';
+import { setLoginVisibilty, setLoginInfo } from '@/redux/actions';
 import {
   apiUserAccount, apiLogout, apiDailysignin, apiUserDetail,
 } from '@/api';
@@ -145,7 +145,7 @@ export default () => {
   const { profile } = useSelector(({ account }) => account);
   const [visibility, setVisibliity] = useState(false);
   const handleShowLogin = () => {
-    dispatch(dialogLoginVisibilty());
+    dispatch(setLoginVisibilty());
   };
   return (
     <div className="domHeader_user">

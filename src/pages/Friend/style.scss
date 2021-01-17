@@ -90,12 +90,19 @@
               background-color: #EFEFF0;
             }
 
-            .img {
+            .cover {
+              position: relative;
               width: 40px;
               height: 40px;
               overflow: hidden;
               border-radius: 6px;
-
+              .ico {
+                width: 24px;
+                height: 24px;
+                border-radius: 10px;
+                background-color: rgba(255, 255,255, 0.9);
+                color: var(--basered);
+              }
             }
 
             .aside {

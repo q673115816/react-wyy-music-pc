@@ -1,27 +1,14 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { apiCommentMusic } from '@/api';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import loadable from '@loadable/component';
+import './style.scss';
 
-export default () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const handleInit = async () => {
-    try {
-      const { } = await apiCommentMusic({
-        id,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleInit();
-  }, []);
-  return (
-    <div className="domComment">
-      <div className="domComment_header">{}</div>
-      <div className="domComment_main">{}</div>
-    </div>
-  );
-};
+const DomDefault = loadable(() => import(/* webpackChunkName: "Comment" */'./Default'));
+const DomHot = loadable(() => import(/* webpackChunkName: "Comment_Hot" */'./Hot'));
+
+export default () => (
+  <Switch>
+    <Route path="/comment/:id/hot" component={DomHot} />
+    <Route component={DomDefault} />
+  </Switch>
+);

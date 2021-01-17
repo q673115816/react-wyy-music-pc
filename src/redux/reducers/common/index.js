@@ -1,5 +1,5 @@
 import {
-  ADD_SONG_URL, DIALOG_LOGIN_VISIBILTY, SET_COUNTRIES_CODE_LIST, SET_IS_LOGIN, SET_NOT_LOGIN,
+  ADD_SONG_URL, SET_LOGIN_VISIBILTY, SET_COUNTRIES_CODE_LIST, SET_IS_LOGIN, SET_NOT_LOGIN,
   SET_POPUP,
   SET_MSG_PRIVATE,
   SET_SEARCH_HISTORY,
@@ -73,7 +73,7 @@ export default (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
-    case DIALOG_LOGIN_VISIBILTY:
+    case SET_LOGIN_VISIBILTY:
       return {
         ...state,
         loginVisibility: !state.loginVisibility,

@@ -9,7 +9,7 @@ import {
   SET_HOME_DJ,
   SET_COUNTRIES_CODE_LIST,
   SET_VIDEODETAIL_RELATED,
-  DIALOG_LOGIN_VISIBILTY,
+  SET_LOGIN_VISIBILTY,
   INIT_HOME_TOP_ARTISTS,
   ADD_HOME_TOP_ARTISTS,
   SET_TOPLIST_ARITST,
@@ -31,6 +31,7 @@ import {
   SET_MSG_PRIVATE_HISTORY,
   SET_TOAST,
   SET_CONTEXTMENU_SHOW,
+  SET_DIALOG_SHARE_SHOW,
   SET_DIALOG_RESET,
 } from './actionTypes';
 
@@ -99,8 +100,8 @@ export const setVideoDetailRelated = (payload) => ({
   payload,
 });
 
-export const dialogLoginVisibilty = () => ({
-  type: DIALOG_LOGIN_VISIBILTY,
+export const setLoginVisibilty = () => ({
+  type: SET_LOGIN_VISIBILTY,
 });
 
 export const initHomeTopArtists = () => ({
@@ -198,6 +199,11 @@ export const setToast = (payload) => ({
 
 export const setContextMenuShow = (payload) => ({
   type: SET_CONTEXTMENU_SHOW,
+  payload,
+});
+
+export const setDialogShareShow = (payload) => ({
+  type: SET_DIALOG_SHARE_SHOW,
   payload,
 });
 

@@ -89,6 +89,7 @@ export default () => {
         <div className="domSearch_nav">
           {nav.map(([name, code]) => (
             <Link
+              key={name}
               to={`/search?keywords=${keywords}&type=${code}`}
               className={classnames('domSearch_nav_link', { on: type === code })}
             >

@@ -135,7 +135,7 @@ export default () => {
             </div>
             <div className="domVideoDetail_group">
               {detail?.videoGroup?.map((group) => (
-                <Link className="group" to={`/video/list/${group.id}`}>{group.name}</Link>
+                <Link className="group" to={`/video/list/${group.id}`} key={group.id}>{group.name}</Link>
               ))}
             </div>
             <div

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
   IconThumbUp, IconShare, IconMessage, IconDots,
+  IconPlayerPlay,
 } from '@tabler/icons';
 import { transTextEmoji } from '@/common/faces';
 
@@ -13,7 +14,7 @@ export default ({
   const json = JSON.parse(item.json);
   const { comments } = useSelector(({ friend }) => friend);
   return (
-    <div className="item" key={item.id}>
+    <div className="item">
       <Link to={`/user/${item.user.userId}`} className="avatar">
         <img
           className="ui_containimg"
@@ -45,12 +46,15 @@ export default ({
           {json.song
             && (
               <button type="button" className="song">
-                <div className="img">
+                <div className="cover">
                   <img
                     className="ui_containimg"
-                    src={json.song.img80x80}
+                    src={json.song.album.blurPicUrl}
                     alt=""
                   />
+                  <div className="ico flex-center inset-center">
+                    <IconPlayerPlay size={14} fill="currentColor" />
+                  </div>
                 </div>
                 <div className="aside">
                   <div className="name">
@@ -75,7 +79,7 @@ export default ({
             && (
               <div className="pic">
                 {item.pics.map((pics) => (
-                  <img src={pics.originUrl} alt="" />
+                  <img src={pics.originUrl} key={pics.originUrl} alt="" />
                 ))}
               </div>
             )

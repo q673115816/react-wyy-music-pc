@@ -106,8 +106,8 @@ export default () => {
               </span>
               &quot;相关的结果&gt;
             </Link>
-            {searchSuggest?.order?.map((order) => (
-              <div>
+            {searchSuggest?.order?.map((order, index) => (
+              <div key={order}>
                 {searchSuggest[order].map((item) => (
                   <div key={item.id}>{item.name}</div>
                 ))}
@@ -132,6 +132,7 @@ export default () => {
                       {
                         searchHistory.map((item) => (
                           <Link
+                            key={item}
                             to={`/search?keywords=${item}`}
                             onClick={() => handleSearch(item)}
                             className="item"

@@ -4,6 +4,7 @@ import React, {
 import './style.scss';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
+import { IconArrowDown, IconArrowUp, IconMinus } from '@tabler/icons';
 import {
   apiMvFirst,
   apiMvAll,
@@ -14,28 +15,12 @@ import { transPlayCount } from '@/common/utils';
 
 const BuildLastRank = (lastRank, currentRank) => {
   if (lastRank < currentRank) {
-    return (
-      <svg className="icon icon-tabler icon-tabler-arrow-down" width="12" height="12" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" y1="5" x2="12" y2="19" />
-        <line x1="18" y1="13" x2="12" y2="19" />
-        <line x1="6" y1="13" x2="12" y2="19" />
-      </svg>
-    );
+    return <IconArrowDown size={8} />;
   }
   if (lastRank > currentRank) {
-    return (
-      <svg className="icon icon-tabler icon-tabler-arrow-up" width="12" height="12" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" y1="5" x2="12" y2="19" />
-        <line x1="18" y1="11" x2="12" y2="5" />
-        <line x1="6" y1="11" x2="12" y2="5" />
-      </svg>
-    );
+    return <span className="ui_red"><IconArrowUp size={8} /></span>;
   }
-  return (
-    <svg className="icon icon-tabler icon-tabler-minus" width="16" height="16" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="5" y1="12" x2="19" y2="12" />
-    </svg>
-  );
+  return <IconMinus size={8} />;
 };
 
 const category = [
@@ -114,7 +99,13 @@ export default () => {
 
       <div className="domMvList_sublist">
         <div className="domMvList_header">
-          <Link to={`/allmv?order=最新&area=${firstArea}`} className="ui_sub_nav_link">最新MV &gt;</Link>
+          <Link
+            to={`/allmv?order=最新&area=${firstArea}`}
+            className="domMvList_subLink"
+          >
+            最新MV &gt;
+
+          </Link>
           <div className="ui_recommend_nav">
             {
               category.map((item) => (
@@ -138,7 +129,7 @@ export default () => {
               <div className="cover">
                 <div className="inner">
                   <Link to={`/player/mv/${item.id}`}>
-                    <img className="ui_containimg" src={item.cover} alt="" />
+                    <img className="ui_coverimg" src={item.cover} alt="" />
                     <div className="rt whitetext">
                       {transPlayCount(item.playCount)}
                     </div>
@@ -158,7 +149,13 @@ export default () => {
 
       <div className="domMvList_sublist">
         <div className="domMvList_header">
-          <Link to="/allmv?order=最热" className="ui_sub_nav_link">热播MV &gt;</Link>
+          <Link
+            to="/allmv?order=最热"
+            className="domMvList_subLink"
+          >
+            热播MV &gt;
+
+          </Link>
         </div>
         <div className="ui_grid rectangle_width col_3">
           {mvHot.map((item) => (
@@ -166,7 +163,7 @@ export default () => {
               <div className="cover">
                 <div className="inner">
                   <Link to={`/player/mv/${item.id}`}>
-                    <img className="ui_containimg" src={item.cover} alt="" />
+                    <img className="ui_coverimg" src={item.cover} alt="" />
                     <div className="rt whitetext">
                       {transPlayCount(item.playCount)}
                     </div>
@@ -185,7 +182,13 @@ export default () => {
       </div>
       <div className="domMvList_sublist">
         <div className="domMvList_header">
-          <Link to="/allmv?type=网易出品&order=最新" className="ui_sub_nav_link">网易出品 &gt;</Link>
+          <Link
+            to="/allmv?type=网易出品&order=最新"
+            className="domMvList_subLink"
+          >
+            网易出品 &gt;
+
+          </Link>
         </div>
         <div className="ui_grid rectangle_width col_3">
           {mvWy.map((item) => (
@@ -193,7 +196,7 @@ export default () => {
               <div className="cover">
                 <div className="inner">
                   <Link to={`/player/mv/${item.id}`}>
-                    <img className="ui_containimg" src={item.cover} alt="" />
+                    <img className="ui_coverimg" src={item.cover} alt="" />
                     <div className="rt whitetext">
                       {transPlayCount(item.playCount)}
                     </div>
@@ -212,7 +215,7 @@ export default () => {
 
       </div>
       <div className="domMvList_header">
-        <Link to="/allmv/" className="ui_sub_nav_link">MV排行榜 &gt;</Link>
+        <Link to="/allmv/" className="domMvList_subLink">MV排行榜 &gt;</Link>
         <div className="ui_recommend_nav">
           {
             category.map((item) => (
@@ -243,7 +246,7 @@ export default () => {
             <div className="cover">
               <div className="inner">
                 <Link to={`/player/mv/${item.id}`}>
-                  <img className="ui_containimg" src={item.cover} alt="" />
+                  <img className="ui_coverimg" src={item.cover} alt="" />
                   <div className="score">
                     {item.score}
                   </div>

@@ -13,6 +13,7 @@
     "start": "webpack-dev-server --config build/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.js",
     "serve": "webpack serve --config build/webpack.dev.js --progress --profile --watch --content-base src/",
+    "start:dev": "webpack serve --config build/webpack.dev.js",
     "analyz": "npm run build --mode analyse",
     "lint": "./node_modules/.bin/eslint --fix ./src/**/*",
     "public": "git subtree push --prefix=dist origin gh-pages",
@@ -73,9 +74,9 @@
     "sass-resources-loader": "^2.1.1",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",
-    "webpack": "^4.44.2",
+    "webpack": "^5.15.0",
     "webpack-bundle-analyzer": "^4.3.0",
-    "webpack-cli": "^3.3.12",
+    "webpack-cli": "^4.3.1",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.7.2"
   }
