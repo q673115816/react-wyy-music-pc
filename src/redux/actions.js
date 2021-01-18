@@ -32,7 +32,9 @@ import {
   SET_TOAST,
   SET_CONTEXTMENU_SHOW,
   SET_DIALOG_SHARE_SHOW,
+  SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_RESET,
+  SET_GLOBAL_INSET,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -197,6 +199,11 @@ export const setToast = (payload) => ({
   payload,
 });
 
+export const setGlobalInset = (payload) => ({
+  type: SET_GLOBAL_INSET,
+  payload,
+});
+
 export const setContextMenuShow = (payload) => ({
   type: SET_CONTEXTMENU_SHOW,
   payload,
@@ -204,6 +211,11 @@ export const setContextMenuShow = (payload) => ({
 
 export const setDialogShareShow = (payload) => ({
   type: SET_DIALOG_SHARE_SHOW,
+  payload,
+});
+
+export const setDialogShareWXShow = (payload) => ({
+  type: SET_DIALOG_SHARE_WX_SHOW,
   payload,
 });
 

@@ -6,10 +6,10 @@ import {
 } from '@/api';
 import { IconFaceId, IconQrcode, IconDeviceMobile } from '@tabler/icons';
 import {
-  Symbolwx,
-  Symbolqq,
-  Symbolwb,
-  Symbolwy,
+  SymbolWX,
+  SymbolQQ,
+  SymbolWB,
+  SymbolWY,
 } from '@/components/Symbol';
 import { LoginContext } from './index';
 import DomSelect from './components/Select';
@@ -123,7 +123,7 @@ export default () => {
         </button>
         <span className="tips">扫码登录更安全</span>
       </div>
-      <div style={{ height: 200, color: 'var(--basered)' }} className="flex-center">
+      <div style={{ height: 200, color: 'var(--baseRed)' }} className="flex-center">
         <IconFaceId size={100} stroke={1} />
       </div>
       <form onSubmit={handleSubmit}>
@@ -189,16 +189,16 @@ export default () => {
           </button>
           <div className="threes">
             <button type="button" className="three">
-              <Symbolwx hover />
+              <SymbolWX hover />
             </button>
             <button type="button" className="three">
-              <Symbolqq hover />
+              <SymbolQQ hover />
             </button>
             <button type="button" className="three">
-              <Symbolwb hover />
+              <SymbolWB hover />
             </button>
             <button type="button" className="three">
-              <Symbolwy hover />
+              <SymbolWY hover />
             </button>
           </div>
         </div>

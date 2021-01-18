@@ -10,7 +10,7 @@
       .date {
         width: 80px;
         height: 80px;
-        color: var(--basered);
+        color: var(--baseRed);
       }
 
       .content {
@@ -24,6 +24,7 @@
 
     .actions {
       margin-top: 20px;
+      display: flex;
     }
   }
 

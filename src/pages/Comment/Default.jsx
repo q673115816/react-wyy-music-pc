@@ -91,7 +91,7 @@ export default () => {
       <div className="domComment_header">
         <div className="domComment_infos">
           <div className="cover">
-            <img src={`${detail.al.picUrl}?param=100y100`} alt="" />
+            <img style={{ height: '100%' }} src={`${detail.al.picUrl}?param=100y100`} alt="" />
             <div className="ico">
               <IconPlayerPlay size={16} fill="currentColor" />
             </div>

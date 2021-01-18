@@ -6,7 +6,9 @@ import { apiPlaylistDetail } from '@/api';
 import { setPlaylistDetail } from '@/redux/actions';
 import {
   IconPlayerPlay, IconFolderPlus, IconScreenShare, IconCloudDownload,
+  IconPlus,
 } from '@tabler/icons';
+import { transPlayCount } from '@/common/utils';
 
 export default () => {
   const [fulfilled, setFulfilled] = useState(false);
@@ -63,7 +65,7 @@ export default () => {
             </Link>
             {
               isLogin
-                ? <Link to="/" className="nickname ui_gray">{playlist.creator?.nickname}</Link>
+                ? <Link to="/" className="nickname ui_link">{playlist.creator?.nickname}</Link>
                 : <button type="button" className="ui_link">未登录&gt;</button>
             }
               &nbsp;
@@ -73,12 +75,16 @@ export default () => {
             </span>
           </div>
           <div className="actions">
-            <button type="button" className="btn play">
-              <IconPlayerPlay size={20} fill="currentColor" />
-              播放全部
-              +
-            </button>
-            <button type="button" className="btn">
+            <div className="ui_playbtn_group btn">
+              <button type="button" className="ui_playbtn_group_left">
+                <IconPlayerPlay size={16} fill="currentColor" />
+                &nbsp;
+                播放全部
+              </button>
+              <i className="ui_playbtn_group_split" />
+              <button type="button" className="ui_playbtn_group_right"><IconPlus size={18} /></button>
+            </div>
+            <button type="button" className="ui_btn btn">
               {
                 playlist.subscribed
                   ? <IconFolderPlus size={20} stroke={1} />
@@ -87,19 +93,19 @@ export default () => {
               &nbsp;
               收藏
               (
-              {playlist.subscribedCount || 0}
+              {transPlayCount(playlist.subscribedCount) || 0}
               )
             </button>
-            <button type="button" className="btn">
+            <button type="button" className="ui_btn btn">
               <IconScreenShare size={20} stroke={1} />
               &nbsp;
 
               分享
               (
-              {playlist.shareCount || 0}
+              {transPlayCount(playlist.shareCount) || 0}
               )
             </button>
-            <button type="button" className="btn">
+            <button type="button" className="ui_btn btn">
               <IconCloudDownload size={20} stroke={1} />
               &nbsp;
               下载全部
@@ -109,7 +115,7 @@ export default () => {
           <div className="tags">
             <span>标签</span>
             {playlist.tags.map((tag) => (
-              <Link to="/" className="tag ui_link">{tag}</Link>
+              <Link to="/" className="tag ui_link" key={tag}>{tag}</Link>
             ))}
           </div>
           <div>

@@ -4,6 +4,7 @@ const path = require('path');
 const base = require('./webpack.base.js');
 
 console.log('entry webpack prod');
+
 const prod = {
   mode: 'production',
   output: {
@@ -23,10 +24,11 @@ const prod = {
 
   ],
 };
-module.exports = merge(base, prod);
-// module.exports = function prod(env = {}, arvg) {
-// if (env.analyse === true) {
-//   config.plugins.push(new BundleAnalyzerPlugin());
-// }
-//   return config;
-// };
+return merge(base, prod);
+module.exports = function (env = {}, argv) {
+  if (env.analyse === true) {
+    prod.plugins.push(new BundleAnalyzerPlugin());
+  }
+
+  // return config;
+};

@@ -43,9 +43,9 @@
       display: none;
 
       &:checked+i {
-        background-color: var(--basered);
+        background-color: var(--baseRed);
         color: #fff;
-        border-color:var(--basered);
+        border-color:var(--baseRed);
       }
     }
 
@@ -70,7 +70,7 @@
     input {
       display: none;
       &:checked+i {
-        color: var(--basered);
+        color: var(--baseRed);
         border-color: currentColor;
       }
     }

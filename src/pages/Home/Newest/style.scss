@@ -61,7 +61,7 @@
         .playAll {
           @include btn();
           color: #fff;
-          background-color: var(--basered);
+          background-color: var(--baseRed);
         }
 
         .subAll {
@@ -83,7 +83,7 @@
 
           &.on {
             background-color: #FDF5F5;
-            color: var(--basered);
+            color: var(--baseRed);
 
             &:hover {
               background-color: #FDEDED;
@@ -125,7 +125,7 @@
             @include inset-center();
             @include flex-center();
             font-size: 24px;
-            color: var(--basered);
+            color: var(--baseRed);
             width: 30px;
             height: 30px;
             border-radius: 15px;

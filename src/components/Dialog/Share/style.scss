@@ -1,11 +1,7 @@
 #dialogShare {
-  @include inset-center();
-  width: 470px;
-  height: min-content;
-  border-radius: 6px;
-  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+
   .list {
+    width: 366px;
     .item {
       padding: 0 20px;
       width: 100%;

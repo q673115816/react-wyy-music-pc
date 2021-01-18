@@ -12,6 +12,7 @@ import useDrop from './custom/useDrop';
 
 import DialogLogin from './components/Dialog/Login';
 import DialogShare from './components/Dialog/Share';
+import DialogShareWX from './components/Dialog/ShareWX';
 import Playlist from './components/Playlist';
 import PrivateLetter from './components/PrivateLetter';
 import Tosat from './components/Toast';
@@ -31,9 +32,18 @@ const handlePopSwitch = (popupStatus) => {
 export default function App() {
   const dispatch = useDispatch();
   const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
-  const { visibility: dialogVisibility, contextMenuVisibility } = useSelector(({ dialog }) => dialog);
   const {
-    mousedown, x, y, Drag, dragger,
+    contextMenuVisibility,
+    dialogShareVisibility,
+    dialogShareWXVisibility,
+  } = useSelector(({ mask }) => mask);
+  const {
+    dragdown,
+    dragmove,
+    dragup,
+    x,
+    y,
+    dragger,
   } = useDrop();
 
   const handleMaskMouseUp = () => {
@@ -44,9 +54,6 @@ export default function App() {
 
   };
 
-  const handleMaskClick = () => {
-    dispatch(setDialogReset());
-  };
   useEffect(() => {
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault();
@@ -60,7 +67,7 @@ export default function App() {
           className="domWrapper"
           style={{ transform: `translate(${x}px, ${y}px)` }}
         >
-          <DomHeader {...{ mousedown }} />
+          <DomHeader handleDrap={dragdown} />
           <Switch>
             <Route path="/player/:type/:vid" component={DomPlayer} />
             <Route>
@@ -70,24 +77,20 @@ export default function App() {
           </Switch>
           {handlePopSwitch(popupStatus)}
           {
-            dialogVisibility
+            contextMenuVisibility
             && (
-              <div
-                className="dialogMask"
-                onMouseUp={handleMaskMouseUp}
-                onMouseMove={handleMaskMouseMove}
-                onMouseDown={handleMaskClick}
-              />
+              <Contextmenu />
             )
           }
-          {
-            contextMenuVisibility
-            && <Contextmenu />
-          }
-          <DialogShare />
+          {dialogShareVisibility && (
+            <DialogShare />
+          )}
+          {dialogShareWXVisibility && (
+            <DialogShareWX />
+          )}
           <Tosat />
         </div>
-        {dragger && Drag}
+        {dragger && <div className="mask" onMouseUp={dragup} onMouseMove={dragmove} />}
         {loginVisibility && <DialogLogin />}
       </Router>
     </div>

@@ -2,89 +2,90 @@ import React, { useState } from 'react';
 import { IconX } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Symbolwyy,
-  Symbolsx,
-  Symbolwx,
-  Symbolqq,
-  Symbolqz,
-  Symbolwb,
-  Symbollj,
+  SymbolWYY,
+  SymbolSX,
+  SymbolWX,
+  SymbolQQ,
+  SymbolQZ,
+  SymbolWB,
+  SymbolLJ,
 } from '@/components/Symbol';
-import { setDialogReset } from '@/redux/actions';
+import { setDialogReset, setDialogShareWXShow } from '@/redux/actions';
+import HOCDialog from '../Dialog';
 import './style.scss';
 
-export default () => {
+const types = {
+  songs: '单曲',
+};
+
+const Share = () => {
   const dispatch = useDispatch();
   // const [visibilty, setVisibilty] = useState(false);
-  const { dialogShareVisibility: visibilty } = useSelector(({ dialog }) => dialog);
+  const { contextMenuType, contextMenuItemId, contextMenuItem } = useSelector(({ mask }) => mask);
   const { profile } = useSelector(({ account }) => account);
+  const { baseUrl } = useSelector(({ common }) => common);
+  const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
+  const handleShareWX = () => {
+    // dispatch(setDialogReset());
+    dispatch(setDialogShareWXShow());
+  };
+
+  const handleCopyLink = async () => {
+    const data = new DataTransfer();
+    data.items.add('text/plain', ShareUrl);
+    await navigator.clipboard.writeText(ShareUrl);
+    alert('链接复制成功');
+  };
   return (
-    <div
-      className=" ui_dialog"
-      id="dialogShare"
-      style={{ display: visibilty ? null : 'none' }}
-    >
-      <button
-        type="button"
-        className="ui_dialog_close close"
-        onClick={() => dispatch(setDialogReset())}
-      >
-        <IconX stroke={1.5} />
+    <div className="list">
+      <button type="button" className="item">
+        <i className="ico">
+          <SymbolWYY active />
+        </i>
+        分享到云音乐动态
       </button>
-      <div className="ui_dialog_header flex-center">
-        <div className="ui_dialog_title">分享</div>
-      </div>
-      <div className="ui_dialog_main">
-        <div className="list">
-          <button type="button" className="item">
-            <i className="ico">
-              <Symbolwyy active />
-            </i>
-            分享到云音乐动态
-
-          </button>
-          <button type="button" className="item">
-            <i className="ico">
-              <Symbolsx active />
-            </i>
-            私信分享
-
-          </button>
-          <button type="button" className="item">
-            <i className="ico">
-              <Symbolwx active />
-            </i>
-            微信好友
-          </button>
-          <a href="https://music.163.com/song?id=28432280&userid=用户id&from=qq&title=分享单曲：你是我心内的一首歌&summary=王力宏/任家萱&pics=封面?imageView&thumbnail=120y120" className="item">
-            <i className="ico">
-              <Symbolqq active />
-            </i>
-            QQ好友
-          </a>
-          <a href="#" className="item">
-            <i className="ico">
-              <Symbolqz active />
-            </i>
-            QQ空间
-
-          </a>
-          <a href="#" className="item">
-            <i className="ico">
-              <Symbolwb active />
-            </i>
-
-            微博
-          </a>
-          <button type="button" className="item">
-            <i className="ico">
-              <Symbollj active />
-            </i>
-            复制链接
-
-          </button>
-        </div>
-      </div>
+      <button type="button" className="item">
+        <i className="ico">
+          <SymbolSX active />
+        </i>
+        私信分享
+      </button>
+      <button type="button" className="item" onClick={handleShareWX}>
+        <i className="ico">
+          <SymbolWX active />
+        </i>
+        微信好友
+      </button>
+      <a target="_block" href={`https://connect.qq.com/widget/shareqq/index.html?site=网易云音乐&url=${ShareUrl}&from=qq&title=分享${types[contextMenuType]}：${contextMenuItem.name}&summary=${contextMenuItem.ar.reduce((prev, curr) => `${prev}/${curr.name}`, '').slice(1)}&pics=${contextMenuItem.al.picUrl}?imageView&thumbnail=120y120`} className="item">
+        <i className="ico">
+          <SymbolQQ active />
+        </i>
+        QQ好友
+      </a>
+      <a href="#" className="item">
+        <i className="ico">
+          <SymbolQZ active />
+        </i>
+        QQ空间
+      </a>
+      <a href="#" className="item">
+        <i className="ico">
+          <SymbolWB active />
+        </i>
+        微博
+      </a>
+      <button
+        onClick={handleCopyLink}
+        type="button"
+        className="item"
+      >
+        <i className="ico">
+          <SymbolLJ active />
+        </i>
+        复制链接
+      </button>
     </div>
   );
 };
+
+export default HOCDialog(Share, 'dialogShare', '分享');

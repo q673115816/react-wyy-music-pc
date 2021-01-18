@@ -34,24 +34,28 @@
 }
 
 .ui_btn_small {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0 12px;
   height: 24px;
-  line-height: 24px;
+  // line-height: 24px;
+  // text-align: center;
   border-radius: 12px;
-  text-align: center;
   color: #fff;
-  background-color: var(--basered);
+  background-color: var(--baseRed);
 }
 
 .ui_btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 80px;
   padding: 0 12px;
   height: 32px;
   border-radius: 16px;
-  line-height: 30px;
-  text-align: center;
+  // line-height: 30px;
+  // text-align: center;
   border: 1px solid #D8D8D8;
   background-color: #fff;
 
@@ -61,8 +65,39 @@
 
   &.red {
     color: #fff;
-    border-color: var(--basered);
-    background-color: var(--basered);
+    border-color: var(--baseRed);
+    background-color: var(--baseRed);
+  }
+}
+
+.ui_playbtn_group {
+  display: flex;
+  border-radius: 1000px;
+  color: #fff;
+  overflow: hidden;
+
+  @mixin btn() {
+    @include flex-center();
+    background-color: var(--baseRed);
+
+    &:hover {
+      background-color: var(--deepRed);
+    }
+  }
+
+  &_left {
+    width: 103px;
+    @include btn();
+  }
+
+  &_right {
+    width: 36px;
+    @include btn();
+  }
+
+  &_split {
+    width: 1px;
+    background-color: #ED5353;
   }
 }
 
@@ -83,7 +118,7 @@
 }
 
 .ui_swiper {
-  --swiper-pagination-color: var(--basered);
+  --swiper-pagination-color: var(--baseRed);
 
   .cover {
     position: relative;
@@ -149,7 +184,7 @@
     }
 
     &.on {
-      color: var(--basered);
+      color: var(--baseRed);
       background-color: #FCEBEB
     }
 
@@ -195,7 +230,7 @@
           border-radius: 1000px;
 
           &.on {
-            color: var(--basered);
+            color: var(--baseRed);
             background-color: #FCEBEB;
           }
         }
@@ -266,7 +301,7 @@
   display: inline-flex;
   height: 32px;
   width: 140px;
-  background-color: var(--basered);
+  background-color: var(--baseRed);
   border-radius: 16px;
   color: #fff;
   overflow: hidden;
@@ -313,9 +348,13 @@
 
 
 .ui_dialog {
-  position: absolute;
   background-color: #fff;
-
+  @include inset-center();
+  width: min-content;
+  height: min-content;
+  border-radius: 6px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
   &_close {
     position: absolute;
     top: 10px;

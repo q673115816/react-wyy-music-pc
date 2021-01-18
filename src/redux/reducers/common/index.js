@@ -26,6 +26,7 @@ const initialState = {
   forwards: [],
   notices: [],
   toast: { title: null },
+  baseUrl: 'https://music.163.com',
   // toastVisibility: false,
 };
 

@@ -101,7 +101,7 @@
                 height: 24px;
                 border-radius: 10px;
                 background-color: rgba(255, 255,255, 0.9);
-                color: var(--basered);
+                color: var(--baseRed);
               }
             }
 
@@ -176,7 +176,7 @@
                 // align-items: baseline;
 
                 &.on {
-                  color: var(--basered);
+                  color: var(--baseRed);
                 }
 
                 &:hover {
@@ -311,7 +311,7 @@
         border-radius: 18px;
         text-align: center;
         font-size: 16px;
-        background-color: var(--basered);
+        background-color: var(--baseRed);
       }
     }
   }

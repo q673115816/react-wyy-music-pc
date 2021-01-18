@@ -4,6 +4,7 @@ import {
   IconDownload,
   IconPlayerPlay,
   IconPlus,
+  IconFolderPlus,
 } from '@tabler/icons';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
@@ -27,7 +28,7 @@ export default () => {
     }
   };
 
-  const handleRightClick = async (e, item, index) => {
+  const handleRightClick = async (e, item, index, type) => {
     // console.log('handleRightClick', e);
     console.log(item);
     setFocus(index);
@@ -40,6 +41,8 @@ export default () => {
         contextMenuY: e.clientY,
         contextMenuItem: item,
         contextMenuTotal: total,
+        contextMenuType: type,
+        contextMenuItemId: item.id,
       }));
     } catch (error) {
       console.log(error);
@@ -65,15 +68,24 @@ export default () => {
           </div>
         </div>
         <div className="actions">
-          <span className="ui_btn red">
-            <button type="button" className="">播放全部</button>
-            <button type="button" className="">
-              <IconPlus size={12} />
+          <span className="ui_playbtn_group">
+            <button type="button" className="ui_playbtn_group_left">
+              <IconPlayerPlay size={16} fill="currentColor" />
+            &nbsp;
+              播放全部
+            </button>
+            <i className="ui_playbtn_group_split" />
+            <button type="button" className="ui_playbtn_group_right">
+              <IconPlus size={18} />
             </button>
           </span>
           &nbsp;
           &nbsp;
-          <button type="button" className="ui_btn">收藏全部</button>
+          <button type="button" className="ui_btn">
+            <IconFolderPlus size={22} stroke={1} />
+            &nbsp;
+            收藏全部
+          </button>
         </div>
       </div>
       <div className="domDailySong_main">
@@ -97,7 +109,7 @@ export default () => {
                   type="button"
                   className={classnames('item', { on: index === focus })}
                   key={item.id}
-                  onContextMenu={(e) => handleRightClick(e, item, index)}
+                  onContextMenu={(e) => handleRightClick(e, item, index, 'song')}
                 >
                   <div className="index ui_gray">
                     {String(index + 1).padStart(2, 0)}

@@ -21,7 +21,7 @@
       padding: 2px 4px;
       font-size: 14px;
       border: 1px solid;
-      color: var(--basered);
+      color: var(--baseRed);
       border-radius: 4px;
       font-weight: normal;
     }
@@ -29,7 +29,7 @@
     .name {
       display: flex;
       align-items: center;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: bold;
     }
 
@@ -51,24 +51,18 @@
     }
 
     .actions {
+      margin-top: 1em;
       display: flex;
 
       .btn {
-        display: flex;
-        align-items: center;
-        margin-right: 20px;
+        margin-right: 10px;
         font-size: 14px;
-        padding: 0 10px;
-        height: 32px;
-        line-height: 30px;
-        border: 1px solid #D8D8D8;
-        border-radius: 1000px;
       }
 
-      .play {
-        background-color: var(--basered);
-        color: #fff;
-      }
+      // .play {
+      //   background-color: var(--baseRed);
+      //   color: #fff;
+      // }
     }
   }
 }

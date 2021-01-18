@@ -9,7 +9,7 @@ export default ({ playlist = [] }) => (
       <div className="cover">
         <div className="inner">
           <Link to="/dailysong">
-            <div className="inner" style={{ color: 'var(--basered)' }}>
+            <div className="inner" style={{ color: 'var(--baseRed)' }}>
               <SymbolToday />
             </div>
           </Link>

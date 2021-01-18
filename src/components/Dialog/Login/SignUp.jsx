@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { IconFaceId, IconDeviceMobile } from '@tabler/icons';
 import {
-  Symbolwx,
-  Symbolqq,
-  Symbolwb,
-  Symbolwy,
+  SymbolWX,
+  SymbolQQ,
+  SymbolWB,
+  SymbolWY,
 } from '@/components/Symbol';
 import DomSelect from './components/Select';
 import { LoginContext } from './index';
@@ -40,7 +40,7 @@ export default () => {
           &lt; 返回登录
         </button>
       </div>
-      <div style={{ height: 200, color: 'var(--basered)' }} className="flex-center">
+      <div style={{ height: 200, color: 'var(--baseRed)' }} className="flex-center">
         <IconFaceId size={100} stroke={1} />
       </div>
       <form onSubmit={handleSubmit}>
@@ -96,19 +96,19 @@ export default () => {
           <div className="hint">其他注册方式</div>
           <div className="threes">
             <button type="button" className="three">
-              <Symbolwx hover />
+              <SymbolWX hover />
               <span className="name">微信</span>
             </button>
             <button type="button" className="three">
-              <Symbolqq hover />
+              <SymbolQQ hover />
               <span className="name">QQ</span>
             </button>
             <button type="button" className="three">
-              <Symbolwb hover />
+              <SymbolWB hover />
               <span className="name">新浪微博</span>
             </button>
             <button type="button" className="three">
-              <Symbolwy hover />
+              <SymbolWY hover />
               <span className="name">网易邮箱</span>
             </button>
           </div>

@@ -22,7 +22,7 @@
 
       .ico {
         height: 150px;
-        color: var(--basered);
+        color: var(--baseRed);
       }
 
       .tips {
@@ -82,7 +82,7 @@
         }
 
         .ico {
-          color: var(--basered);
+          color: var(--baseRed);
         }
 
         .qrimg {
@@ -282,7 +282,7 @@
     text-align: center;
     color: #fff;
     font-size: 16px;
-    background-color: var(--basered);
+    background-color: var(--baseRed);
   }
 
   .signup {
@@ -369,8 +369,8 @@
     }
 
     input:checked+.ico {
-      background-color: var(--basered);
-      border-color: var(--basered);
+      background-color: var(--baseRed);
+      border-color: var(--baseRed);
     }
   }
 }

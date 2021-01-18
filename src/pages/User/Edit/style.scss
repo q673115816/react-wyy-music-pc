@@ -64,13 +64,13 @@
                 height: 12px;
                 content: '';
                 border-radius: 50%;
-                background-color: var(--basered);
+                background-color: var(--baseRed);
               }
             }
 
             .radio:checked {
               & + .ico {
-                border-color: var(--basered);
+                border-color: var(--baseRed);
                 &::before {
                   opacity: 1;
                 }

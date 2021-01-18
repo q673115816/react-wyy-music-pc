@@ -8,7 +8,7 @@
 
     .cover {
       position: relative;
-      width: 70px;
+      // width: 70px;
       height: 70px;
       border-radius: 4px;
       overflow: hidden;
@@ -16,7 +16,7 @@
       .ico {
         @include inset-center();
         @include flex-center();
-        color: var(--basered);
+        color: var(--baseRed);
         width: 30px;
         height: 30px;
         border-radius: 15px;

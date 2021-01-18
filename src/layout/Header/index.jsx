@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -27,8 +27,9 @@ import DomControl from './components/Control';
 import DomFunction from './components/Function';
 import { apiUserDetail } from '../../api';
 
-export default ({ mousedown }) => {
+export default ({ handleDrap }) => {
   const dispatch = useDispatch();
+  const refHeader = useRef();
   const account = useSelector(({ account }) => account);
   // const { isLogin } = useSelector(({ common }) => common);
   // useEffect(() => {
@@ -83,8 +84,9 @@ export default ({ mousedown }) => {
 
   return (
     <div
+      ref={refHeader}
       className="domHeader"
-      onMouseDown={() => ''}
+      onMouseDown={(e) => handleDrap(e, refHeader.current)}
     >
       <Link to="/" className="domHeader_logo">
         网易云音乐
