@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { apiUserDetail, apiUserUpdate } from '@/api';
 import { useParams, Link } from 'react-router-dom';
 import classnames from 'classnames';
-import { isEqual } from 'lodash';
+import isEqual from 'lodash/isEqual';
 import './style.scss';
 import { setToast } from '@/redux/actions';
 import { useDispatch } from 'react-redux';

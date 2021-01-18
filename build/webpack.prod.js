@@ -24,11 +24,11 @@ const prod = {
 
   ],
 };
-return merge(base, prod);
-module.exports = function (env = {}, argv) {
-  if (env.analyse === true) {
-    prod.plugins.push(new BundleAnalyzerPlugin());
-  }
+module.exports = merge(base, prod);
+// module.exports = function (env = {}, argv) {
+//   if (env.analyse === true) {
+//     prod.plugins.push(new BundleAnalyzerPlugin());
+//   }
 
-  // return config;
-};
+//   // return config;
+// };
