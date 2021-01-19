@@ -377,10 +377,11 @@
 }
 
 .ui_threes_ico {
-  width: 40px;
-  height: 40px;
+  width: calc(var(--size) * 1px);
+  height: calc(var(--size) * 1px);
+  padding: calc(var(--size, 4) / 5 * 1px);
   color: var(--logoColor);
-  border-radius: 20px;
+  border-radius: 1000px;
   @include flex-center();
 
   &.hover {
@@ -424,5 +425,9 @@
 
   &.lj {
     --logoColor: #A9B6C5;
+  }
+
+  &.phone {
+    --logoColor: #E7A84F;
   }
 }

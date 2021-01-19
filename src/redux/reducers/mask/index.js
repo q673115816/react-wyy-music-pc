@@ -42,6 +42,7 @@ export default (state = initialState, action) => {
     case SET_CONTEXTMENU_SHOW:
       return {
         ...state,
+        ...visibilityState,
         ...maskState,
         visibility: true,
         contextMenuVisibility: true,
@@ -66,6 +67,7 @@ export default (state = initialState, action) => {
     case SET_DIALOG_RESET:
       return {
         ...state,
+        ...visibilityState,
         ...maskState,
       };
     default:

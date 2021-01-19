@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { apiUserDetail, apiUserUpdate } from '@/api';
 import { useParams, Link } from 'react-router-dom';
 import classnames from 'classnames';
@@ -6,6 +6,95 @@ import isEqual from 'lodash/isEqual';
 import './style.scss';
 import { setToast } from '@/redux/actions';
 import { useDispatch } from 'react-redux';
+
+const DomBirthday = ({ birthday = '', handleEdit }) => {
+  const nowYear = useRef(new Date().getFullYear());
+  const [year, setYear] = useState(new Date(birthday).getFullYear());
+  const [month, setMonth] = useState(new Date(birthday).getMonth());
+  const [day, setDay] = useState(new Date(birthday).getDate());
+  const [oneMonth, setOneMonth] = useState(31);
+  const handleYear = (e) => {
+    setYear(e.target.value);
+  };
+  const handleMonth = (e) => {
+    setMonth(e.target.value);
+  };
+  const handleDay = (e) => {
+    setDay(e.target.value);
+  };
+  useEffect(() => {
+    handleEdit('birthday', new Date(`${year}/${month + 1}/${day}`).valueOf());
+  }, [year, month, day]);
+
+  // useEffect(() => {
+  //   setDay(1);
+  // }, [month]);
+  // useEffect(() => {
+  //   setMonth(0);
+  //   setDay(1);
+  // }, [year]);
+
+  useEffect(() => {
+    switch (month) {
+      case 1:
+        if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
+          // 闰年
+          setOneMonth(29);
+        } else {
+          setOneMonth(28);
+        }
+        return;
+      case 0:
+      case 3:
+      case 5:
+      case 7:
+      case 8:
+      case 10:
+      case 12:
+        setOneMonth(31);
+        return;
+      default:
+        setOneMonth(30);
+    }
+  }, []);
+  return (
+    <>
+      <select className="select" value={year} onChange={handleYear}>
+        {Object.keys(Array(100).fill(0)).reverse().map((item) => (
+          <option
+            key={nowYear.current - item}
+            value={nowYear.current - item}
+          >
+            {nowYear.current - item}
+            年
+          </option>
+        ))}
+      </select>
+      <select className="select" value={month} onChange={handleMonth}>
+        {Object.keys(Array(12).fill(0)).map((item) => (
+          <option
+            key={item}
+            value={item}
+          >
+            {Number(item) + 1}
+            月
+          </option>
+        ))}
+      </select>
+      <select className="select" value={day} onChange={handleDay}>
+        {Object.keys(Array(oneMonth).fill(0)).map((item) => (
+          <option
+            key={Number(item) + 1}
+            value={Number(item) + 1}
+          >
+            {Number(item) + 1}
+            日
+          </option>
+        ))}
+      </select>
+    </>
+  );
+};
 
 export default () => {
   const dispatch = useDispatch();
@@ -68,6 +157,7 @@ export default () => {
     handleInit();
   }, [uid]);
   useEffect(() => {
+    console.log(profile, edit, isEqual(profile, edit));
     if (isEqual(profile, edit)) {
       // console.log(profile.nickname, edit.nickname);
       // console.log(111);
@@ -164,11 +254,11 @@ export default () => {
           </div>
           <div className="row">
             <div className="key">生日：</div>
-            <div className="value">
-              <select name="" id="" className="select">
-                <option value="1995">1995</option>
-                <option value="1995">1995</option>
-              </select>
+            <div className="value" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <DomBirthday
+                birthday={edit.birthday}
+                handleEdit={handleEdit}
+              />
             </div>
           </div>
           <div className="row">

@@ -30,7 +30,7 @@ export default () => {
 
   const handleRightClick = async (e, item, index, type) => {
     // console.log('handleRightClick', e);
-    console.log(item);
+    // console.log(item);
     setFocus(index);
     try {
       const { total } = await apiCommentMusic({

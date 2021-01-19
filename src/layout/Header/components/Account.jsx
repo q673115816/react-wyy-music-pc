@@ -16,7 +16,7 @@ import {
 } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
 
-const DomProfile = () => {
+const DomProfile = ({ setVisibliity }) => {
   const [loading, setLoading] = useState(true);
   const { profile } = useSelector(({ account }) => account);
   const { isLogin } = useSelector(({ common }) => common);
@@ -61,15 +61,27 @@ const DomProfile = () => {
             <ul className="list">
               <li className="detail item">
                 <div className="infos">
-                  <Link to={`/user/${profile.userId}/dynamic`} className="info">
+                  <Link
+                    onClick={() => setVisibliity(false)}
+                    to={`/user/${profile.userId}/dynamic`}
+                    className="info"
+                  >
                     <div className="num">{profile.eventCount}</div>
                     <div className="string">动态</div>
                   </Link>
-                  <Link to={`/user/${profile.userId}/follow`} className="info">
+                  <Link
+                    onClick={() => setVisibliity(false)}
+                    to={`/user/${profile.userId}/follow`}
+                    className="info"
+                  >
                     <div className="num">{profile.follows}</div>
                     <div className="string">关注</div>
                   </Link>
-                  <Link to={`/user/${profile.userId}/fans`} className="info">
+                  <Link
+                    onClick={() => setVisibliity(false)}
+                    to={`/user/${profile.userId}/fans`}
+                    className="info"
+                  >
                     <div className="num">{profile.followeds}</div>
                     <div className="string">粉丝</div>
                   </Link>
@@ -86,19 +98,31 @@ const DomProfile = () => {
                 </div>
               </li>
               <li className="item">
-                <button type="button" className="link">
+                <button
+                  onClick={() => setVisibliity(false)}
+                  type="button"
+                  className="link"
+                >
                   <i className="ico">
                     <IconBrandVimeo size={20} stroke={1} />
                   </i>
                   会员中心
                 </button>
-                <a href="https://music.163.com/#/user/level" className="link">
+                <a
+                  onClick={() => setVisibliity(false)}
+                  href="https://music.163.com/#/user/level"
+                  className="link"
+                >
                   <i className="ico">
                     <IconMedal size={20} stroke={1} />
                   </i>
                   等级
                 </a>
-                <a href="https://music.163.com/store/product" className="link">
+                <a
+                  onClick={() => setVisibliity(false)}
+                  href="https://music.163.com/store/product"
+                  className="link"
+                >
                   <i className="ico">
                     <IconShoppingCart size={20} stroke={1} />
                   </i>
@@ -106,13 +130,21 @@ const DomProfile = () => {
                 </a>
               </li>
               <li className="item">
-                <Link to={`/user/${profile.userId}/edit`} className="link">
+                <Link
+                  onClick={() => setVisibliity(false)}
+                  to={`/user/${profile.userId}/edit`}
+                  className="link"
+                >
                   <i className="ico">
                     <IconUser size={20} stroke={1} />
                   </i>
                   个人信息设置
                 </Link>
-                <Link to={`/user/${profile.userId}/binding`} className="link">
+                <Link
+                  onClick={() => setVisibliity(false)}
+                  to={`/user/${profile.userId}/binding`}
+                  className="link"
+                >
                   <i className="ico">
                     <IconCircleSquare size={20} stroke={1} />
                   </i>
@@ -160,7 +192,7 @@ export default () => {
               <IconCaretDown size={12} fill="CurrentColor" />
             </button>
             {
-              visibility && <DomProfile />
+              visibility && <DomProfile setVisibliity={setVisibliity} />
             }
           </div>
         )

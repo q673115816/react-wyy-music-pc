@@ -28,7 +28,7 @@ export default () => {
     contextMenuItem,
     contextMenuTotal,
   } = useSelector(({ mask }) => mask);
-  console.log(globalLastY, contextMenuY);
+  // console.log(globalLastY, contextMenuY);
   const handleDialogShare = () => {
     if (!isLogin) {
       dispatch(setLoginVisibilty());

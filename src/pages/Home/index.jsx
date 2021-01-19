@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  NavLink, Switch, Route, Redirect,
+  NavLink, Switch, Route, Redirect, useHistory,
 } from 'react-router-dom';
 import loadable from '@loadable/component';
 import './index.scss';
@@ -44,29 +44,32 @@ const nav = [
     name: '最新音乐',
   },
 ];
-export default () => (
-  <div className="domHome">
-    <div className="domHome_nav ui_header">
-      {nav.map((item) => (
-        <NavLink
-          className="domHome_nav_link"
-          activeClassName="on"
-          to={item.path}
-          key={item.path}
-        >
-          {item.name}
-        </NavLink>
-      ))}
+export default () => {
+  const { replace } = useHistory();
+  return (
+    <div className="domHome">
+      <div className="domHome_nav ui_header">
+        {nav.map((item) => (
+          <NavLink
+            className="domHome_nav_link"
+            activeClassName="on"
+            to={item.path}
+            key={item.path}
+          >
+            {item.name}
+          </NavLink>
+        ))}
 
+      </div>
+      <Switch>
+        <Route path="/home/recommend" component={HomeRecommend} />
+        <Route path="/home/toplist" component={HomeToplist} />
+        <Route path="/home/playlist" component={HomePlaylist} />
+        <Route path="/home/artist" component={HomeArtist} />
+        <Route path="/home/newest" component={HomeNewest} />
+        <Route path="/home/dj" component={HomeDj} />
+        <Redirect to="/home/recommend" />
+      </Switch>
     </div>
-    <Switch>
-      <Route path="/home/recommend" component={HomeRecommend} />
-      <Route path="/home/toplist" component={HomeToplist} />
-      <Route path="/home/playlist" component={HomePlaylist} />
-      <Route path="/home/artist" component={HomeArtist} />
-      <Route path="/home/newest" component={HomeNewest} />
-      <Route path="/home/dj" component={HomeDj} />
-      <Redirect to="/home/recommend" />
-    </Switch>
-  </div>
-);
+  );
+};

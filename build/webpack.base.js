@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
 const webpack = require('webpack');
-const HappyPack = require('happypack');
 
 const { src, img } = require('./util');
 
@@ -32,10 +31,6 @@ const plugins = [
   // new webpack.DllReferencePlugin({
   //   context: __dirname,
   //   manifest: require('../dist/vendor-manifest.json'),
-  // }),
-  // new HappyPack({
-  //   id: 'js',
-  //   loaders: ['babel-loader?cacheDirectory'],
   // }),
 ];
 
@@ -120,11 +115,13 @@ module.exports = {
         test: /\.[jt]sx?$/,
         exclude: /(node_modules|bower_components)/,
         // 缓存
-        use: ['babel-loader?cacheDirectory=true'],
-        // happypack
-        // loader: 'happypack/loader?id=js',
-        // use: 'happypack/loader?id=js',
-
+        // use: ['babel-loader?cacheDirectory=true'],
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
+        }],
       },
       {
         test: /\.(sa|sc|c)ss$/,

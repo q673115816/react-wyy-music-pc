@@ -13,9 +13,12 @@ export default () => {
   } = useHistory();
 
   useEffect(() => {
-    listen((route) => {
+    const unlisten = listen((route) => {
       console.log('listen', route);
     });
+    return () => {
+      unlisten && unlisten();
+    };
   }, []);
   return (
     <div className="domHeader_page">
