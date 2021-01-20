@@ -123,7 +123,7 @@ export default () => {
         </button>
         <span className="tips">扫码登录更安全</span>
       </div>
-      <div style={{ height: 200, color: 'var(--baseRed)' }} className="flex-center">
+      <div style={{ height: 200, color: 'var(--themeColor)' }} className="flex-center">
         <IconFaceId size={100} stroke={1} />
       </div>
       <form onSubmit={handleSubmit}>

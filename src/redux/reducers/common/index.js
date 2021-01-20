@@ -5,6 +5,7 @@ import {
   SET_SEARCH_HISTORY,
   SET_SEARCH_VALUE,
   SET_TOAST,
+  SET_THEME,
 } from '@/redux/actionTypes';
 
 import { LOCALSTORAGE } from '@/common/utils';
@@ -27,6 +28,7 @@ const initialState = {
   notices: [],
   toast: { title: null },
   baseUrl: 'https://music.163.com',
+  theme: LOCALSTORAGE('theme', ''),
   // toastVisibility: false,
 };
 
@@ -55,7 +57,7 @@ export default (state = initialState, action) => {
     case SET_SEARCH_VALUE:
       return {
         ...state,
-        searchValue: action.payload.searchValue,
+        ...action.payload,
       };
     case SET_SEARCH_HISTORY:
       window.localStorage.setItem('searchHistory', JSON.stringify(action.payload));
@@ -83,6 +85,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case SET_THEME:
+      window.localStorage.setItem('theme', JSON.stringify(action.payload));
+      return {
+        ...state,
+        theme: action.payload,
       };
     default:
       return state;

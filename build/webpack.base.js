@@ -12,6 +12,7 @@ const devMode = process.env.NODE_ENV !== 'production';
 const plugins = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
+    favicon: path.join(__dirname, '../public/favicon.ico'),
     template: path.join(__dirname, '../public/index.html'),
     title: '网易云音乐',
     // publicPath: '/'

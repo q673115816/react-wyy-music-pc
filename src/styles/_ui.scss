@@ -43,7 +43,7 @@
   // text-align: center;
   border-radius: 12px;
   color: #fff;
-  background-color: var(--baseRed);
+  background-color: var(--themeColor);
 }
 
 .ui_btn {
@@ -65,8 +65,8 @@
 
   &.red {
     color: #fff;
-    border-color: var(--baseRed);
-    background-color: var(--baseRed);
+    border-color: var(--themeColor);
+    background-color: var(--themeColor);
   }
 }
 
@@ -78,7 +78,7 @@
 
   @mixin btn() {
     @include flex-center();
-    background-color: var(--baseRed);
+    background-color: var(--themeColor);
 
     &:hover {
       background-color: var(--deepRed);
@@ -118,7 +118,7 @@
 }
 
 .ui_swiper {
-  --swiper-pagination-color: var(--baseRed);
+  --swiper-pagination-color: var(--themeColor);
 
   .cover {
     position: relative;
@@ -184,7 +184,7 @@
     }
 
     &.on {
-      color: var(--baseRed);
+      color: var(--themeColor);
       background-color: #FCEBEB
     }
 
@@ -230,7 +230,7 @@
           border-radius: 1000px;
 
           &.on {
-            color: var(--baseRed);
+            color: var(--themeColor);
             background-color: #FCEBEB;
           }
         }
@@ -301,7 +301,7 @@
   display: inline-flex;
   height: 32px;
   width: 140px;
-  background-color: var(--baseRed);
+  background-color: var(--themeColor);
   border-radius: 16px;
   color: #fff;
   overflow: hidden;

@@ -57,7 +57,7 @@ export default ({ item = {}, handleLike }) => (
             onClick={() => handleLike(item.commentId, !item.liked)}
           >
             {item.liked
-              ? <IconThumbUp size={16} stroke={0} fill="var(--baseRed)" />
+              ? <IconThumbUp size={16} stroke={0} fill="var(--themeColor)" />
               : <IconThumbUp size={16} stroke={1} />}
             {item.likedCount}
           </button>

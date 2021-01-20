@@ -1,5 +1,10 @@
 import {
-  SET_CONTEXTMENU_SHOW, SET_DIALOG_RESET, SET_DIALOG_SHARE_SHOW, SET_GLOBAL_INSET, SET_DIALOG_SHARE_WX_SHOW,
+  SET_CONTEXTMENU_SHOW,
+  SET_DIALOG_RESET,
+  SET_DIALOG_SHARE_SHOW,
+  SET_GLOBAL_INSET,
+  SET_DIALOG_SHARE_WX_SHOW,
+  SET_DIALOG_UPLOAD_AVATAR_SHOW,
 } from '@/redux/actionTypes';
 
 const globalState = {
@@ -13,6 +18,7 @@ const visibilityState = {
   contextMenuVisibility: false,
   dialogShareVisibility: false,
   dialogShareWXVisibility: false,
+  dialogUploadAvatarVisibility: false,
 };
 
 const maskState = {
@@ -62,6 +68,14 @@ export default (state = initialState, action) => {
         ...visibilityState,
         visibility: true,
         dialogShareWXVisibility: true,
+        ...action.payload,
+      };
+    case SET_DIALOG_UPLOAD_AVATAR_SHOW:
+      return {
+        ...state,
+        ...visibilityState,
+        visibility: true,
+        dialogUploadAvatarVisibility: true,
         ...action.payload,
       };
     case SET_DIALOG_RESET:

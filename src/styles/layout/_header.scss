@@ -2,10 +2,11 @@
   flex: none;
   height: var(--HEADER);
   padding: 0 20px;
-  background-color: var(--baseRed);
+  background-color: var(--themeColor);
   display: flex;
   align-items: center;
   color: #FBD4D4;
+
   .hover:hover {
     color: #fff;
   }
@@ -62,6 +63,7 @@
     padding-left: 36px;
     color: #fff;
     font-size: 12px;
+
     &_ico {
       position: absolute;
       top: 50%;
@@ -100,6 +102,7 @@
         padding: 0 calc(20px - 0.5em);
         display: flex;
         flex-wrap: wrap;
+
         .item {
           position: relative;
           margin: 0 0.5em;
@@ -107,8 +110,10 @@
           border: 1px solid #ccc;
           border-radius: 100px;
           padding: 6px 16px;
+
           &:hover {
             background-color: #F3F3F3;
+
             .ico {
               opacity: 1;
             }
@@ -146,7 +151,7 @@
 
           &:nth-child(-n + 3) {
             .index {
-              color: var(--baseRed);
+              color: var(--themeColor);
             }
           }
 
@@ -174,6 +179,188 @@
     }
   }
 
+  &_popup_skin {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 324px;
+    height: 250px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0 0 10px 10px;
+    z-index: 20;
+    color: #000;
+    padding: 14px 16px;
+
+    .nav {
+      border-bottom: 1px solid #E5E5E5;
+      padding-bottom: 6px;
+
+      .link {
+        position: relative;
+        margin-right: 14px;
+        color: #666;
+
+        &::after {
+          visibility: hidden;
+          content: '';
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -7px;
+          height: 2px;
+          background-color: #959595;
+        }
+
+        &.on::after {
+          visibility: visible;
+        }
+
+        &.on,
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+
+    .themes {
+      margin-top: 10px;
+      display: grid;
+      grid-template-rows: repeat(2, 90px);
+      grid-template-columns: repeat(3, 90px);
+      row-gap: 10px;
+      column-gap: 10px;
+
+      .theme {
+        position: relative;
+        background-color: var(--currentColor);
+
+        &:hover {
+          outline: 1px solid var(--currentColor);
+          outline-offset: 1px;
+        }
+
+        .name {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          height: 20px;
+          padding: 0 2px;
+          line-height: 20px;
+          color: #fff;
+          font-size: 12px;
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        &Black {
+          --currentColor: var(--baseBlack)
+        }
+
+        &Red {
+          --currentColor: var(--baseRed)
+        }
+
+        &Pink {
+          --currentColor: var(--basePink)
+        }
+
+        &Blue {
+          --currentColor: var(--baseBlue)
+        }
+
+        &Green {
+          --currentColor: var(--baseGreen)
+        }
+
+        &Gold {
+          --currentColor: var(--baseGold)
+        }
+      }
+    }
+
+    .colors {
+      .default {
+        margin-top: 10px;
+        display: grid;
+        grid-template-rows: repeat(2, 40px);
+        grid-template-columns: repeat(6, 40px);
+        row-gap: 10px;
+        column-gap: 10px;
+
+        .color {
+          background-color: var(--currentColor);
+
+          &:hover {
+            outline: 1px solid var(--currentColor);
+            outline-offset: 1px;
+          }
+        }
+      }
+
+      .custom {
+        display: flex;
+
+        .colour {
+          flex: none;
+          width: 40px;
+          height: 40px;
+          margin-right: 10px;
+        }
+
+        .ranges {
+          flex: auto;
+
+          .point {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 18px;
+            height: 18px;
+            border-radius: 10px;
+            background-color: #fff;
+            border: 1px solid #E2E2E2;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            &:hover {
+              background-color: #F5F5F7;
+            }
+          }
+        }
+
+        .rgb {
+          position: relative;
+          height: 4px;
+          border-radius: 2px;
+          background-image: linear-gradient(to right,
+              rgb(255, 0, 0) 0,
+              rgb(255, 255, 0) 100% / 6 * 1,
+              rgb(0, 255, 0) 100% / 6 * 2,
+              rgb(0, 255, 255)100% / 6 * 3,
+              rgb(0, 0, 255) 100% / 6 * 4,
+              rgb(255, 0, 255) 100% / 6 * 5,
+              rgb(255, 0, 0) 100%,
+            );
+        }
+
+        .hsl {
+          position: relative;
+          margin-top: 20px;
+          height: 4px;
+          border-radius: 2px;
+          background-color: hsl(0, 0, 0);
+        }
+
+        input {
+          // display: none;
+          width: 100%;
+          margin: 0;
+        }
+      }
+    }
+  }
+
   &_popup_profile {
     position: absolute;
     top: 100%;
@@ -191,6 +378,7 @@
       font-size: 14px;
       @include flex-center();
     }
+
     .list {
       height: 100%;
       display: flex;
@@ -202,6 +390,7 @@
       margin-bottom: 20px;
       display: flex;
       justify-content: space-around;
+
       .info {
         width: 33%;
         text-align: center;
@@ -209,6 +398,7 @@
         .num {
           font-size: 22px;
         }
+
         .string {
           margin-top: 0.5em;
         }
@@ -217,13 +407,16 @@
 
     .item {
       padding: 6px 0;
+
       &.detail {
         flex: auto;
       }
-      & + .item {
+
+      &+.item {
         border-top: 1px solid #EDEDED;
       }
     }
+
     .link {
       display: flex;
       width: 100%;
@@ -234,6 +427,7 @@
       .ico {
         width: 24px;
       }
+
       &:hover {
         background-color: #F0F1F2;
       }
@@ -274,6 +468,17 @@
     }
   }
 
+  &_function {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &_function_skin {
+    height: 100%;
+    @include flex-center();
+  }
+
   &_control {}
 
   &_ico {
@@ -285,7 +490,7 @@
       top: 0;
       right: 0;
       transform: translate(50%, 0);
-      color: var(--baseRed);
+      color: var(--themeColor);
       background-color: #fff;
       font-size: 12px;
       border-radius: 1000px;

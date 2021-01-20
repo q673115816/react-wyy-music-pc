@@ -38,10 +38,10 @@
   width: calc(100% / 6);
   text-align: center;
   &:hover {
-    color:var(--baseRed);
+    color:var(--themeColor);
   }
   &.on {
-    color:var(--baseRed);
+    color:var(--themeColor);
     background-color: #FCEBEB
   }
   border-radius: 1000px;

@@ -8,7 +8,7 @@
     left: 0.4em;
     right: 0.4em;
     height: 0.15em;
-    background-color: var(--baseRed);
+    background-color: var(--themeColor);
   }
 
   &.on {
@@ -101,7 +101,7 @@
         transform: translate(20%, -50%);
         border: 1px solid #fff;
         border-radius: 1000px;
-        background-color: var(--baseRed);
+        background-color: var(--themeColor);
         line-height: 1;
         padding: 2px 4px;
         color: #fff;

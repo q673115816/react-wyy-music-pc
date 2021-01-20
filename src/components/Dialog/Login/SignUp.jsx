@@ -40,7 +40,7 @@ export default () => {
           &lt; 返回登录
         </button>
       </div>
-      <div style={{ height: 200, color: 'var(--baseRed)' }} className="flex-center">
+      <div style={{ height: 200, color: 'var(--themeColor)' }} className="flex-center">
         <IconFaceId size={100} stroke={1} />
       </div>
       <form onSubmit={handleSubmit}>
