@@ -5,7 +5,7 @@
   background-color: var(--themeColor);
   display: flex;
   align-items: center;
-  color: #FBD4D4;
+  color: rgba(255, 255, 255, 0.9);
 
   .hover:hover {
     color: #fff;
@@ -73,7 +73,7 @@
 
     &::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
-      color: #e55959;
+      color: rgba(255, 255, 255, 0.4);
     }
 
     &_box {
@@ -224,6 +224,22 @@
       }
     }
 
+    .skinbtn {
+      position: relative;
+
+      .ico {
+        position: absolute;
+        right: -5px;
+        bottom: -5px;
+        background-color: var(--themeRed);
+        border-radius: 1000px;
+        color: #fff;
+        @include flex-center();
+        border: 2px solid;
+        // z-index: 2;
+      }
+    }
+
     .themes {
       margin-top: 10px;
       display: grid;
@@ -235,6 +251,11 @@
       .theme {
         position: relative;
         background-color: var(--currentColor);
+
+        .ico {
+          width: 24px;
+          height: 24px;
+        }
 
         &:hover {
           outline: 1px solid var(--currentColor);
@@ -255,27 +276,27 @@
         }
 
         &Black {
-          --currentColor: var(--baseBlack)
+          --currentColor: var(--themeBlack)
         }
 
         &Red {
-          --currentColor: var(--baseRed)
+          --currentColor: var(--themeRed)
         }
 
         &Pink {
-          --currentColor: var(--basePink)
+          --currentColor: var(--themePink)
         }
 
         &Blue {
-          --currentColor: var(--baseBlue)
+          --currentColor: var(--themeBlue)
         }
 
         &Green {
-          --currentColor: var(--baseGreen)
+          --currentColor: var(--themeGreen)
         }
 
         &Gold {
-          --currentColor: var(--baseGold)
+          --currentColor: var(--themeGold)
         }
       }
     }
@@ -303,59 +324,83 @@
         display: flex;
 
         .colour {
+          position: relative;
           flex: none;
           width: 40px;
           height: 40px;
           margin-right: 10px;
+          background-color: #000;
+          .ico {
+            position: absolute;
+            right: -5px;
+            bottom: -5px;
+            background-color: var(--themeRed);
+            border-radius: 1000px;
+            color: #fff;
+            @include flex-center();
+            border: 2px solid;
+            // z-index: 2;
+          }
         }
 
         .ranges {
           flex: auto;
+        }
 
-          .point {
+        .rgb {
+          margin-top: 6px!important;
+          &::-webkit-slider-runnable-track {
+            background-image: linear-gradient(to right,
+                rgb(255, 0, 0) 0,
+                rgb(255, 255, 0) 100% / 6 * 1,
+                rgb(0, 255, 0) 100% / 6 * 2,
+                rgb(0, 255, 255)100% / 6 * 3,
+                rgb(0, 0, 255) 100% / 6 * 4,
+                rgb(255, 0, 255) 100% / 6 * 5,
+                rgb(255, 0, 0) 100%,
+              );
+          }
+        }
+
+        .hsl {
+          margin-top: 20px !important;
+          &::-webkit-slider-runnable-track {
+            background-image: linear-gradient(to right,
+                hsl(0, 0%, 20%) 0,
+                hsl(0, 100%, 50%) 100%,
+              );
+          }
+        }
+
+        input[type=range] {
+          display: block;
+          // display: none;
+          appearance: none;
+          // border-radius: 5px;
+          width: 100%;
+          margin: 0;
+          outline: none;
+
+          &::-webkit-slider-runnable-track {
+            height: 4px;
+            border-radius: 2px;
+          }
+
+          &::-webkit-slider-thumb {
+            appearance: none;
             cursor: pointer;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            margin-top: -8px;
             width: 18px;
             height: 18px;
-            border-radius: 10px;
             background-color: #fff;
+            border-radius: 50%;
             border: 1px solid #E2E2E2;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
             &:hover {
               background-color: #F5F5F7;
             }
           }
-        }
-
-        .rgb {
-          position: relative;
-          height: 4px;
-          border-radius: 2px;
-          background-image: linear-gradient(to right,
-              rgb(255, 0, 0) 0,
-              rgb(255, 255, 0) 100% / 6 * 1,
-              rgb(0, 255, 0) 100% / 6 * 2,
-              rgb(0, 255, 255)100% / 6 * 3,
-              rgb(0, 0, 255) 100% / 6 * 4,
-              rgb(255, 0, 255) 100% / 6 * 5,
-              rgb(255, 0, 0) 100%,
-            );
-        }
-
-        .hsl {
-          position: relative;
-          margin-top: 20px;
-          height: 4px;
-          border-radius: 2px;
-          background-color: hsl(0, 0, 0);
-        }
-
-        input {
-          // display: none;
-          width: 100%;
-          margin: 0;
         }
       }
     }

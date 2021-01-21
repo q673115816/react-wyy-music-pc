@@ -97,7 +97,7 @@
 
   &_split {
     width: 1px;
-    background-color: #ED5353;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -355,6 +355,7 @@
   border-radius: 6px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
   z-index: 10;
+
   &_close {
     position: absolute;
     top: 10px;
@@ -383,6 +384,7 @@
   color: var(--logoColor);
   border-radius: 1000px;
   @include flex-center();
+  display: inline-flex;
 
   &.hover {
     border: 1px solid #ccc;

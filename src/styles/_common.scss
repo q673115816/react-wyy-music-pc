@@ -1,13 +1,25 @@
 :root {
-  --baseRed: #EC4141;
-  --baseBlack: black;
-  --basePink: pink;
-  --baseBlue: skyblue;
-  --baseGreen: lightgreen;
-  --baseGold: gold;
+  --themeRed: #EC4141;
+  --themeBlack: black;
+  --themePink: pink;
+  --themeBlue: skyblue;
+  --themeGreen: lightgreen;
+  --themeGold: gold;
+  --hotpink: hotpink;
+  --lightpink: lightpink;
+  --lightblue: lightblue;
+  --lightcoral: lightcoral;
+  --lightcyan: lightcyan;
+  --lightgray: lightgray;
+  --lightgreen: lightgreen;
+  --lightsalmon: lightsalmon;
+  --lightseagreen: lightseagreen;
+  --lightskyblue: lightskyblue;
+  --lightslategray: lightslategray;
+  --lightsteelblue: lightsteelblue;
   --deepRed: #CC3232;
   --linkColor: #507DAF;
-  --themeColor: var(--baseRed);
+  --themeColor: var(--themeRed);
   --fontFamily: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
@@ -82,10 +94,7 @@ button {
   color: var(--themeColor);
   // letter-spacing: 0.1em;
   border-radius: 0.1em;
-
-  &+.TAG {
-    margin-left: 0.5em;
-  }
+  margin-left: 0.2em;
 }
 
 .h1 {

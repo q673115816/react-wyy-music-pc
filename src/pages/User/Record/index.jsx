@@ -1,34 +1,104 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { apiUserRecord } from '@/api';
-import { setUserRecord } from '@/redux/actions';
 import { useDispatch } from 'react-redux';
+import classnames from 'classnames';
+import { IconHeart, IconDownload } from '@tabler/icons';
+import './style.scss';
 
 export default () => {
   const { uid } = useParams();
-  const [type, setType] = useState(1);
   const dispatch = useDispatch();
+  const [type, setType] = useState(1);
+  const [focus, setFocus] = useState();
+  const [data, setData] = useState([]);
   const handleInit = async () => {
     try {
-      const result = await apiUserRecord({
+      const { allData, weekData } = await apiUserRecord({
         uid,
         type,
       });
-      if (type === 1) {
-        dispatch(setUserRecord(result.weekData));
-      } else if (type === 0) {
-        dispatch(setUserRecord(result.allData));
-      }
+      setData(type === 1 ? weekData : allData);
     } catch (error) {
-      handleInit();
+      console.log(error);
     }
   };
-  useEffect(() => {
 
-  }, []);
+  useEffect(() => {
+    handleInit();
+    setFocus();
+  }, [type, uid]);
+
   return (
-    <div className="domUser">
-      {uid}
+    <div className="domUser_record">
+      <div className="h1 ui_header">我的听歌排行</div>
+      <div className="domUser_record_nav">
+        <button
+          onClick={() => setType(1)}
+          type="button"
+          className={classnames('domUser_record_nav_link', { on: type === 1 })}
+        >
+          最近一周
+        </button>
+        <button
+          onClick={() => setType(0)}
+          type="button"
+          className={classnames('domUser_record_nav_link', { on: type === 0 })}
+        >
+          所有时间
+        </button>
+      </div>
+      <div className="overflow-auto domUser_record_main">
+        <div className="domUser_record_list">
+          {data.map(({ song, playCount }, index) => (
+            <div
+              onClick={() => setFocus(index)}
+              className={classnames('domUser_record_item', { on: focus === index })}
+              type="button"
+              key={song.id}
+            >
+              <div className="index ui_gray">{String(index + 1).padStart(2, 0)}</div>
+              <div className="heart">
+                <button type="button" className="ui_gray hover">
+                  <IconHeart size={18} stroke={1} />
+                </button>
+              </div>
+              <div className="download">
+                <button type="button" className="ui_gray hover">
+                  <IconDownload size={18} stroke={1} />
+                </button>
+              </div>
+              <div className="name">
+                <div className="text-overflow">
+                  { song.name}
+                  {
+                    song.alia.map((alia) => (
+                      <span className="ui_gray" key={alia}>
+                        （
+                        {alia}
+                        ）
+                      </span>
+                    ))
+                  }
+                </div>
+                {
+
+                  song.privilege.maxbr === 999000
+                  && <div className="TAG">SQ</div>
+                }
+                {
+                  song.mv !== 0
+                  && <div className="TAG">MV</div>
+                }
+              </div>
+              <div className="playCount ui_gray">
+                {playCount}
+                次
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

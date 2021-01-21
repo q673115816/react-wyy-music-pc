@@ -55,6 +55,7 @@
 
       &>* {
         margin: 0 10px;
+
         &:hover {
           color: #f00;
         }
@@ -70,6 +71,7 @@
       height: 36px;
       border-radius: 18px;
       background-color: #e8e8e8;
+
       &:hover {
         background-color: #ccc;
       }
@@ -83,41 +85,9 @@
       }
     }
 
-    &_range {
-      margin: 0 4px;
-      width: 390px;
-      height: 2px;
-      background-color: #c2c2c2;
+    &_process[type="range"] {
+      color: -internal-light-dark(rgb(255, 0, 0), rgb(59, 59, 59))
     }
-
-    &_process {
-      position: relative;
-      display: block;
-      background-color: #f00;
-      height: 100%;
-
-      &:after {
-        opacity: 0;
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translate(0, -50%);
-        width: 8px;
-        height: 8px;
-        border-radius: 4px;
-        background-color: inherit;
-      }
-    }
-
-    &_range:hover {
-      &_process {
-        &:after {
-          opacity: 1;
-        }
-      }
-    }
-
   }
 
   &_right {
@@ -125,23 +95,43 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    font-size: 28px;
     padding-right: 20px;
-    .volume_value {
-      position: relative;
-      --value: 100;
-      width: 60px;
-      height: 3px;
-      background-color: #EEEEF0;
 
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
+    .volume_value {
+      margin: 0;
+      margin-left: 10px;
+      margin-right: 20px;
+      --volume: 0;
+      width: 60px;
+      appearance: none;
+      outline: none;
+
+      &::-webkit-slider-runnable-track {
+        height: 3px;
+        border-radius: 2px;
+      }
+
+      &::-webkit-slider-runnable-track {
+        background: linear-gradient(to right,
+            var(--themeColor) 0,
+            var(--themeColor) calc(var(--volume) * 1%),
+            #E6E6E8 calc(var(--volume) * 1%),
+            #E6E6E8);
+      }
+
+      &::-webkit-slider-thumb {
+        appearance: none;
+        cursor: pointer;
+        margin-top: -2px;
+        width: 8px;
+        height: 8px;
+        background-color: transparent;
+        border-radius: 50%;
+
+      }
+
+      &:hover::-webkit-slider-thumb {
         background-color: var(--themeColor);
-        width: calc(var(--value)* 1%);
       }
     }
   }

@@ -1,8 +1,6 @@
 import {
   SET_IS_LOGIN,
   SET_NOT_LOGIN,
-  SET_USER_DETAIL,
-  SET_USER_RECORD,
   SET_MSG_PRIVATE,
   ADD_SONG_URL,
   SET_HOME_RECOMMEND,
@@ -37,10 +35,16 @@ import {
   SET_DIALOG_RESET,
   SET_GLOBAL_INSET,
   SET_THEME,
+  SET_VOLUME,
 } from './actionTypes';
 
 export const setTheme = (payload) => ({
   type: SET_THEME,
+  payload,
+});
+
+export const setVolume = (payload) => ({
+  type: SET_VOLUME,
   payload,
 });
 
@@ -67,21 +71,9 @@ export const setSearchValue = (payload) => ({
   payload,
 });
 
-export const setUserDetail = (payload) => ({
-  type: SET_USER_DETAIL,
-  payload,
-});
-
 export const setMsgPrivate = (payload) => ({
   type: SET_MSG_PRIVATE,
   payload,
-});
-
-export const setUserRecord = (record) => ({
-  type: SET_USER_RECORD,
-  payload: {
-    record,
-  },
 });
 
 export const addSongUrl = (songs) => ({

@@ -32,7 +32,7 @@ const handlePopSwitch = (popupStatus) => {
 
 export default function App() {
   const dispatch = useDispatch();
-  const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
+  const { popupStatus, loginVisibility, theme } = useSelector(({ common }) => common);
   const {
     contextMenuVisibility,
     dialogShareVisibility,
@@ -67,7 +67,7 @@ export default function App() {
         <div
           id="NeteaseCloudMusic"
           className="domWrapper"
-          style={{ transform: `translate(${x}px, ${y}px)` }}
+          style={{ transform: `translate(${x}px, ${y}px)`, '--themeColor': `var(--${theme}, --themeRed)` }}
         >
           <DomHeader handleDrap={dragdown} />
           <Switch>

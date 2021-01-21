@@ -104,9 +104,8 @@ export default () => {
           <div className="tbody">
             {
               data.dailySongs?.map((item, index) => (
-                <button
+                <div
                   onMouseDown={() => setFocus(index)}
-                  type="button"
                   className={classnames('item', { on: index === focus })}
                   key={item.id}
                   onContextMenu={(e) => handleRightClick(e, item, index, 'song')}
@@ -114,11 +113,15 @@ export default () => {
                   <div className="index ui_gray">
                     {String(index + 1).padStart(2, 0)}
                   </div>
-                  <div className="heart ui_gray hover">
-                    <IconHeart size={20} stroke={1} />
+                  <div className="heart">
+                    <button type="button" className="ui_gray hover">
+                      <IconHeart size={20} stroke={1} />
+                    </button>
                   </div>
-                  <div className="download ui_gray hover">
-                    <IconDownload size={20} stroke={1} />
+                  <div className="download">
+                    <button type="button" className="ui_gray hover">
+                      <IconDownload size={20} stroke={1} />
+                    </button>
                   </div>
                   <div className="name">
                     <div className="text text-overflow">
@@ -184,7 +187,7 @@ export default () => {
                   <div className="duration ui_gray text-overflow">
                     {dayjs(item.dt).format('mm:ss')}
                   </div>
-                </button>
+                </div>
               ))
             }
           </div>

@@ -5,6 +5,7 @@ import {
   IconSettings,
   IconTool,
   IconMail,
+  IconCheck,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPopup, setTheme } from '@/redux/actions';
@@ -19,26 +20,31 @@ const themes = [
 ];
 
 const colors = [
-  ['#FF5C8A'],
-  ['#FF7A9E'],
-  ['#FE76C8'],
-  ['#717FF9'],
-  ['#4791EB'],
-  ['#39AFEA'],
-  ['#2BB669'],
-  ['#6ACC19'],
-  ['#E2AB12'],
-  ['#FF8F57'],
-  ['#FD726D'],
-  ['#FD544E'],
+  ['hotpink'],
+  ['lightpink'],
+  ['lightblue'],
+  ['lightcoral'],
+  ['lightcyan'],
+  ['lightgray'],
+  ['lightgreen'],
+  ['lightsalmon'],
+  ['lightseagreen'],
+  ['lightskyblue'],
+  ['lightslategray'],
+  ['lightsteelblue'],
 ];
 
 const DomSkin = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector(({ common }) => common);
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(0);
   const [RGB, setRGB] = useState(0);
   const [HSL, setHSL] = useState(80);
+
+  const handleSelectTheme = (theme) => {
+    dispatch(setTheme(theme));
+  };
+
   return (
     <div className="domHeader_popup_skin">
       <div className="nav">
@@ -62,12 +68,16 @@ const DomSkin = () => {
           {
             themes.map(([name, classname, stylename]) => (
               <button
+                onClick={() => handleSelectTheme(classname)}
                 key={name}
                 type="button"
-                className={classnames('theme', classname)}
+                className={classnames('skinbtn theme', classname)}
               >
                 <span className="name">{name}</span>
-                <i className="ico" />
+                {
+                  theme === classname
+                  && <i className="ico"><IconCheck size={16} stroke={2} /></i>
+                }
               </button>
             ))
           }
@@ -77,12 +87,15 @@ const DomSkin = () => {
             {
               colors.map(([stylename]) => (
                 <button
+                  onClick={() => handleSelectTheme(stylename)}
                   type="button"
-                  className="color"
+                  className="skinbtn color"
                   style={{ '--currentColor': stylename }}
                 >
-                  <i className="ico" />
-
+                  {
+                    theme === stylename
+                    && <i className="ico"><IconCheck size={16} stroke={2} /></i>
+                  }
                 </button>
               ))
             }
@@ -92,28 +105,30 @@ const DomSkin = () => {
             <button
               type="button"
               className="colour"
-            />
+            >
+              {
+                /custom/.test(theme)
+                && <i className="ico"><IconCheck size={16} stroke={2} /></i>
+              }
+            </button>
             <div className="ranges">
-              <div className="rgb">
-                <i className="point" style={{ left: `${RGB / 259 * 100}%` }} />
-                <input
-                  type="range"
-                  min="0"
-                  max="259"
-                  value={RGB}
-                  onChange={(e) => setRGB(e.target.value)}
-                />
-              </div>
-              <div className="hsl">
-                <i className="point" style={{ left: `${HSL / 80 * 100}%` }} />
-                <input
-                  type="range"
-                  min="0"
-                  max="80"
-                  value={HSL}
-                  onChange={(e) => setHSL(e.target.value)}
-                />
-              </div>
+              <input
+                className="rgb"
+                type="range"
+                min="0"
+                max="259"
+                value={RGB}
+                onChange={(e) => setRGB(e.target.value)}
+                style={{ backgroundImage: 'linear-gradient(to right, hsl(0, 100%, 0) 0, hsl(0, 100%, 50%) 100%)' }}
+              />
+              <input
+                className="hsl"
+                type="range"
+                min="0"
+                max="80"
+                value={HSL}
+                onChange={(e) => setHSL(e.target.value)}
+              />
             </div>
           </div>
         </div>
@@ -125,7 +140,7 @@ const DomSkin = () => {
 export default () => {
   const dispatch = useDispatch();
   const { popupStatus, newMsgCount } = useSelector(({ common }) => common);
-  const [visibility, setVisibility] = useState(true);
+  const [visibility, setVisibility] = useState(false);
   const handlesetPopup = () => {
     if (popupStatus === 'privateLetter') {
       dispatch(setPopup({ popupStatus: '' }));

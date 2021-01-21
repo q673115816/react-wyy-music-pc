@@ -22,6 +22,7 @@ function typeToString(target) {
 
 export const LOCALSTORAGE = (key, base) => {
   const value = JSON.parse(localStorage.getItem(key));
+  // console.log(base, typeToString(value) === typeToString(base));
   return typeToString(value) === typeToString(base) ? value : base;
 };
 

@@ -122,6 +122,15 @@
         z-index: 2;
       }
 
+      .topmask {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 80%;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0));
+        z-index: 1;
+      }
       .bottommask {
         position: absolute;
         top: 80%;
