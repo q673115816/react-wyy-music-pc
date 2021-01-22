@@ -79,7 +79,7 @@ export default () => {
 
   // if (loading) return <div>loading</div>;
   return (
-    <div className="domComment overflow-auto" ref={domHot}>
+    <div className="domComment overflow-auto max-h-full flex-auto" ref={domHot}>
       <div className="h1">精彩评论</div>
       <div className="domComment_list">
         <div className="ui_bold">精彩评论</div>

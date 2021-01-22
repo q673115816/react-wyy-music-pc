@@ -31,77 +31,75 @@
   &_main {
     padding-bottom: 30px;
 
-    .table {
-      .item {
-        height: 36px;
+    .item {
+      height: 36px;
+      // display: flex;
+      // align-items: center;
+      padding: 0 20px;
+
+      .index {
+        flex: none;
+        width: 40px;
+        text-align: right;
+        padding-right: 10px;
+      }
+
+      .heart {
+        flex: none;
+        width: 30px;
+      }
+
+      .download {
+        flex: none;
+        width: 30px;
+      }
+
+      .name {
+        min-width: 0;
+        flex: auto;
         display: flex;
         align-items: center;
-        padding: 0 20px;
-
-        .index {
-          flex: none;
-          width: 40px;
-          text-align: right;
-          padding-right: 10px;
-        }
-
-        .heart {
-          flex: none;
-          width: 30px;
-        }
-
-        .download {
-          flex: none;
-          width: 30px;
-        }
-
-        .name {
-          min-width: 0;
-          flex: auto;
+        padding-right: 10px;
+        .tags {
+          margin-left: 0.5em;
           display: flex;
-          align-items: center;
-          padding-right: 10px;
-          .tags {
-            margin-left: 0.5em;
-            display: flex;
-          }
-        }
-
-        .artist {
-          flex: none;
-          width: 18%;
-          padding-right: 10px;
-        }
-
-        .album {
-          flex: none;
-          width: 26%;
-          padding-right: 10px;
-        }
-
-        .duration {
-          flex: none;
-          width: 4%;
         }
       }
 
-      .tbody {
-        display: flex;
-        flex-direction: column;
-
-        .item:nth-child(odd) {
-          background-color: #F6F6F6;
-        }
-
-        .item:hover {
-          background-color: #EEEFF0;
-        }
-
-        .item.on {
-          background-color: #E5E5E5;
-        }
-
+      .artist {
+        flex: none;
+        width: 18%;
+        padding-right: 10px;
       }
+
+      .album {
+        flex: none;
+        width: 24%;
+        padding-right: 10px;
+      }
+
+      .duration {
+        flex: none;
+        width: 6%;
+      }
+    }
+
+    .tbody {
+      display: flex;
+      flex-direction: column;
+
+      .item:nth-child(odd) {
+        background-color: #F6F6F6;
+      }
+
+      .item:hover {
+        background-color: #EEEFF0;
+      }
+
+      .item.on {
+        background-color: #E5E5E5;
+      }
+
     }
   }
 }

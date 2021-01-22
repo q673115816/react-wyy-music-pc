@@ -31,7 +31,7 @@ export default () => {
         +
         {countrycode}
         <div className="arrow">
-          <IconCaretDown size={12} fill="currentColor" />
+          <IconCaretDown size={12} className="fill-current" />
         </div>
       </button>
       <div className="customOptionGroup" style={{ display: visibility ? null : 'none' }}>

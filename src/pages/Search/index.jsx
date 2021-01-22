@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
-import { apiCloudSearch } from '@/api';
+import { apiCloudSearch, apiSearchMultimatch } from '@/api';
 import { setSearchValue } from '@/redux/actions';
-import { IconHeart, IconDownload, IconPlayerPlay } from '@tabler/icons';
 import dayjs from 'dayjs';
 import './style.scss';
 import DomSongs from './Songs';
@@ -28,9 +27,11 @@ const nav = [
 ];
 
 export default () => {
+  console.log('entry search');
   const dispatch = useDispatch();
   const { search } = useLocation();
   const [result, setResult] = useState({});
+  const [multimatch, setMultimatch] = useState({});
   const [loading, setLoading] = useState(true);
   const defaultSearch = {
   };
@@ -57,6 +58,14 @@ export default () => {
         ...defaultSearch,
         limit: 100,
       });
+      if (type === '1') {
+        const { result: multimatch = {} } = await apiSearchMultimatch({
+          keywords,
+        });
+        setMultimatch(multimatch);
+      } else {
+        setMultimatch({});
+      }
       setResult(result);
       setLoading(false);
     } catch (error) {
@@ -68,7 +77,7 @@ export default () => {
   }, [keywords, type]);
   if (loading) return <div>loading</div>;
   return (
-    <div className="domSearch overflow-auto">
+    <div className="domSearch overflow-auto max-h-full flex-auto">
       <div className="domSearch_header">
         <div className="h1">
           找到
@@ -103,7 +112,9 @@ export default () => {
         {
           (type === '1' && result.songs)
         && (
-        <DomSongs songs={result.songs} />
+          <>
+            <DomSongs songs={result.songs} multimatch={multimatch} />
+          </>
         )
         }
         {

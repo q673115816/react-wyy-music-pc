@@ -8,7 +8,7 @@ import DomSong from './Song';
 import DomAlbum from './Album';
 
 export default () => (
-  <div className="domHome_content overflow-auto">
+  <div className="domHome_content overflow-auto max-h-full flex-auto">
     <div className="domHome_newest">
       <div className="domHome_newest_nav">
         <NavLink className="domHome_newest_nav_link" activeClassName="on" to="/home/newest/song">新歌速递</NavLink>

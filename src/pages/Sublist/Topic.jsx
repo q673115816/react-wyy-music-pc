@@ -25,7 +25,7 @@ const ListBuild = (filter, search, push) => {
             <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
           </Link>
         </div>
-        <div className="name text-overflow">
+        <div className="name truncate">
           <Link to={`/playlist/music/${item.id}`}>
             {item.name}
           </Link>

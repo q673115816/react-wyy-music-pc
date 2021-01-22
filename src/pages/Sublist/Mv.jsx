@@ -33,7 +33,7 @@ const ListBuild = (filter, search) => {
                 </Link>
               </div>
             </div>
-            <div className="footer text-overflow">
+            <div className="footer truncate">
               <Link to={`/player/video/${item.vid}`} className="">{item.title}</Link>
             </div>
             <div className="text creator ui_gray">

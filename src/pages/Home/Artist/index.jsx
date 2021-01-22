@@ -88,7 +88,7 @@ export default () => {
   }, [option]);
 
   return (
-    <div className="domHome_content overflow-auto" style={{ paddingTop: 0 }} onScroll={handleScroll}>
+    <div className="domHome_content overflow-auto max-h-full flex-auto" style={{ paddingTop: 0 }} onScroll={handleScroll}>
       <div className="domHome_artist">
         <div className="domHome_artist_control">
           {options.map((filter) => (

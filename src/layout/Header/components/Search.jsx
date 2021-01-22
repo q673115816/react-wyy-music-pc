@@ -95,7 +95,7 @@ export default () => {
         style={{ display: searchVisibility ? null : 'none' }}
       >
         {searchValue ? (
-          <div className="overflow-auto">
+          <div className="overflow-auto max-h-full flex-auto">
             <Link
               to={`/search?keywords=${searchValue}`}
               onClick={() => handleSearch(searchValue)}
@@ -116,7 +116,7 @@ export default () => {
           </div>
         )
           : (
-            <div className="overflow-auto">
+            <div className="overflow-auto max-h-full flex-auto">
               {
                 searchHistory.length > 0
                 && (

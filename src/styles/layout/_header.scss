@@ -421,24 +421,24 @@
 
     .checkin {
       font-size: 14px;
-      @include flex-center();
+      // @include flex-center();
     }
 
     .list {
       height: 100%;
-      display: flex;
+      // display: flex;
       flex-direction: column;
     }
 
     .infos {
       margin-top: 20px;
       margin-bottom: 20px;
-      display: flex;
-      justify-content: space-around;
+      // display: flex;
+      // justify-content: space-around;
 
       .info {
-        width: 33%;
-        text-align: center;
+        // width: 33%;
+        // text-align: center;
 
         .num {
           font-size: 22px;
@@ -453,21 +453,21 @@
     .item {
       padding: 6px 0;
 
-      &.detail {
-        flex: auto;
-      }
+      // &.detail {
+      //   flex: auto;
+      // }
 
-      &+.item {
-        border-top: 1px solid #EDEDED;
-      }
+      // &+.item {
+      //   border-top: 1px solid #EDEDED;
+      // }
     }
 
     .link {
-      display: flex;
+      // display: flex;
       width: 100%;
       padding-left: 24px;
       height: 36px;
-      align-items: center;
+      // align-items: center;
 
       .ico {
         width: 24px;

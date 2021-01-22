@@ -53,7 +53,7 @@ export default () => {
           </button>
         </div>
       </div>
-      <div className="overflow-auto">
+      <div className="overflow-auto max-h-full flex-auto">
         {currentData.length ? <div /> : <Empty />}
       </div>
     </div>

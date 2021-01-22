@@ -89,7 +89,7 @@ export default () => (
               'WaveOut:扬声器(VIA HD Audio(Win 10))',
               'WaveOut:SPDIF Interface (TX0)(VIA HD Audio(Win 10))',
             ].map((item) => (
-              <option value={item}>{item}</option>
+              <option value={item} key={item}>{item}</option>
             ))
           }
         </select>

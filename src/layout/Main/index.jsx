@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Router from '@/router';
-import DomLeft from './Left';
+import DomNav from './Nav';
 
 export default () => (
   <div className="dommain">
-    <DomLeft />
+    <DomNav />
     <div className="dommain_split" />
     <div className="dommain_right">
       <Router />

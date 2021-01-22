@@ -149,7 +149,7 @@ export default () => {
         <div className="left">
           <div className="ui_playall" style={{ marginRight: 20 }}>
             <button type="button" className="flex-center play">
-              <IconPlayerPlay size={18} fill="currentColor" />
+              <IconPlayerPlay size={18} className="fill-current" />
               &nbsp;
               播放全部
             </button>
@@ -168,7 +168,7 @@ export default () => {
           <Search {...{ search, setSearch, placeholder: '搜索我的音乐云盘' }} />
         </div>
       </div>
-      <div className="overflow-auto" style={{ paddingLeft: 30, paddingRight: 20 }}>
+      <div className="overflow-auto max-h-full flex-auto" style={{ paddingLeft: 30, paddingRight: 20 }}>
         <div className="domManage_table">
           {/* <colgroup>
             <col style={{ width: '30px' }} />

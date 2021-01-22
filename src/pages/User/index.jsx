@@ -15,7 +15,7 @@ const UserEdit = loadable(() => import(/* webpackChunkName: "User_Edit" */'./Edi
 const UserBinding = loadable(() => import(/* webpackChunkName: "User_Binding" */'./Binding'));
 
 export default () => (
-  <div className="domUser overflow-auto">
+  <div className="domUser overflow-auto max-h-full flex-auto">
     <Switch>
       <Route path="/user/:uid/record" component={UserRecord} />
       <Route path="/user/:uid/dynamic" component={UserDynamic} />

@@ -54,17 +54,17 @@ const DomProfile = ({ setVisibliity }) => {
     handleInit();
   }, []);
   return (
-    <div className="domHeader_popup_profile">
+    <div className="domHeader_popup_profile ">
       {
         (!loading && isLogin)
           ? (
-            <ul className="list">
-              <li className="detail item">
-                <div className="infos">
+            <ul className="list divide-y divide-fuchsia-300">
+              <li className="detail item flex-auto">
+                <div className="infos flex">
                   <Link
                     onClick={() => setVisibliity(false)}
                     to={`/user/${profile.userId}/dynamic`}
-                    className="info"
+                    className="info flex-1 text-center"
                   >
                     <div className="num">{profile.eventCount}</div>
                     <div className="string">动态</div>
@@ -72,7 +72,7 @@ const DomProfile = ({ setVisibliity }) => {
                   <Link
                     onClick={() => setVisibliity(false)}
                     to={`/user/${profile.userId}/follow`}
-                    className="info"
+                    className="info flex-1 text-center"
                   >
                     <div className="num">{profile.follows}</div>
                     <div className="string">关注</div>
@@ -80,7 +80,7 @@ const DomProfile = ({ setVisibliity }) => {
                   <Link
                     onClick={() => setVisibliity(false)}
                     to={`/user/${profile.userId}/fans`}
-                    className="info"
+                    className="info flex-1 text-center"
                   >
                     <div className="num">{profile.followeds}</div>
                     <div className="string">粉丝</div>
@@ -93,6 +93,7 @@ const DomProfile = ({ setVisibliity }) => {
                     onClick={handleCheckIn}
                   >
                     <IconCoin size={16} stroke={1} />
+                    &nbsp;
                     签到
                   </button>
                 </div>
@@ -101,7 +102,7 @@ const DomProfile = ({ setVisibliity }) => {
                 <button
                   onClick={() => setVisibliity(false)}
                   type="button"
-                  className="link"
+                  className="link flex items-center"
                 >
                   <i className="ico">
                     <IconBrandVimeo size={20} stroke={1} />
@@ -111,7 +112,7 @@ const DomProfile = ({ setVisibliity }) => {
                 <a
                   onClick={() => setVisibliity(false)}
                   href="https://music.163.com/#/user/level"
-                  className="link"
+                  className="link flex items-center"
                 >
                   <i className="ico">
                     <IconMedal size={20} stroke={1} />
@@ -121,7 +122,7 @@ const DomProfile = ({ setVisibliity }) => {
                 <a
                   onClick={() => setVisibliity(false)}
                   href="https://music.163.com/store/product"
-                  className="link"
+                  className="link flex items-center"
                 >
                   <i className="ico">
                     <IconShoppingCart size={20} stroke={1} />
@@ -133,7 +134,7 @@ const DomProfile = ({ setVisibliity }) => {
                 <Link
                   onClick={() => setVisibliity(false)}
                   to={`/user/${profile.userId}/edit`}
-                  className="link"
+                  className="link flex items-center"
                 >
                   <i className="ico">
                     <IconUser size={20} stroke={1} />
@@ -143,7 +144,7 @@ const DomProfile = ({ setVisibliity }) => {
                 <Link
                   onClick={() => setVisibliity(false)}
                   to={`/user/${profile.userId}/binding`}
-                  className="link"
+                  className="link flex items-center"
                 >
                   <i className="ico">
                     <IconCircleSquare size={20} stroke={1} />
@@ -153,7 +154,7 @@ const DomProfile = ({ setVisibliity }) => {
               </li>
               <li className="item">
                 <button
-                  className="link"
+                  className="link flex items-center"
                   type="button"
                   onClick={handleLogout}
                 >
@@ -187,9 +188,9 @@ export default () => {
             <Link to={`/user/${profile.userId}`} className="avator">
               <img className="ui_containimg" src={profile.avatarUrl} alt="" />
             </Link>
-            <button type="button" className="hover" onClick={() => setVisibliity(!visibility)}>
+            <button type="button" className="hover flex" onClick={() => setVisibliity(!visibility)}>
               <span>{profile.nickname}</span>
-              <IconCaretDown size={12} fill="CurrentColor" />
+              <IconCaretDown size={12} className="fill-current" />
             </button>
             {
               visibility && <DomProfile setVisibliity={setVisibliity} />

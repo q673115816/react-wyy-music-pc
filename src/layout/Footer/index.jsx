@@ -31,6 +31,10 @@ export default () => {
     dispatch(setVolume(e.target.value));
   };
 
+  const handleProcess = (e) => {
+
+  };
+
   useEffect(() => {
     if (isPlay) {
       audio.current.pause();
@@ -70,7 +74,7 @@ export default () => {
             <IconArrowsSplit2 size={22} />
           </button>
           <button type="button" className="domfooter_center_prev flex-center">
-            <IconPlayerSkipBack size={20} fill="currentColor" />
+            <IconPlayerSkipBack size={20} className="fill-current" />
           </button>
           <button
             type="button"
@@ -84,13 +88,18 @@ export default () => {
               )}
           </button>
           <button type="button" className="domfooter_center_next flex-center">
-            <IconPlayerSkipForward size={20} fill="currentColor" />
+            <IconPlayerSkipForward size={20} className="fill-current" />
           </button>
           <button type="button">词</button>
         </div>
         <div className="domfooter_center_bottom flex-center">
           <span>00:00</span>
-          <input type="range" className="domfooter_center_process" />
+          <input
+            onChange={() => handleProcess()}
+            type="range"
+            value="0"
+            className="domfooter_center_process"
+          />
           <span>00:00</span>
         </div>
       </div>

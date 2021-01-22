@@ -54,7 +54,7 @@ export default () => {
   }, []);
 
   return (
-    <div className="domDailySong overflow-auto">
+    <div className="domDailySong overflow-auto max-h-full flex-auto">
       <div className="domDailySong_header">
         <div className="section">
           <div className="date">
@@ -70,7 +70,7 @@ export default () => {
         <div className="actions">
           <span className="ui_playbtn_group">
             <button type="button" className="ui_playbtn_group_left">
-              <IconPlayerPlay size={16} fill="currentColor" />
+              <IconPlayerPlay size={16} className="fill-current" />
             &nbsp;
               播放全部
             </button>
@@ -89,9 +89,9 @@ export default () => {
         </div>
       </div>
       <div className="domDailySong_main">
-        <div className="table">
+        <div className="list">
           <div className="thead">
-            <div className="item">
+            <div className="item flex items-center">
               <div className="index" />
               <div className="heart" />
               <div className="download" />
@@ -106,7 +106,7 @@ export default () => {
               data.dailySongs?.map((item, index) => (
                 <div
                   onMouseDown={() => setFocus(index)}
-                  className={classnames('item', { on: index === focus })}
+                  className={classnames('item flex items-center', { on: index === focus })}
                   key={item.id}
                   onContextMenu={(e) => handleRightClick(e, item, index, 'song')}
                 >
@@ -124,7 +124,7 @@ export default () => {
                     </button>
                   </div>
                   <div className="name">
-                    <div className="text text-overflow">
+                    <div className="text truncate">
                       <span name="" title={item.name}>
                         {item.name}
                       </span>
@@ -154,13 +154,13 @@ export default () => {
                         && (
                           <Link className="TAG" to={`/player/mv/${item.mv}`}>
                             MV
-                            <IconPlayerPlay size={8} fill="currentColor" />
+                            <IconPlayerPlay size={8} className="fill-current" />
                           </Link>
                         )}
                     </div>
                   </div>
                   <div className="artist">
-                    <div className="text-overflow">
+                    <div className="truncate">
                       {item.ar.map((aritst, index) => (
                         <span key={aritst.id}>
                           {index > 0 && ' / '}
@@ -175,7 +175,7 @@ export default () => {
                     </div>
                   </div>
                   <div className="album">
-                    <div className="text-overflow">
+                    <div className="truncate">
                       <Link
                         className="ui_gray hover"
                         to={`/playlist/album/${item.al.id}`}
@@ -184,7 +184,7 @@ export default () => {
                       </Link>
                     </div>
                   </div>
-                  <div className="duration ui_gray text-overflow">
+                  <div className="duration ui_gray truncate">
                     {dayjs(item.dt).format('mm:ss')}
                   </div>
                 </div>

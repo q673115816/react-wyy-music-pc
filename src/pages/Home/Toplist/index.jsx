@@ -33,7 +33,7 @@ export default () => {
     handleGetToplistDetail();
   }, []);
   return (
-    <div className="domHome_content overflow-auto">
+    <div className="domHome_content overflow-auto max-h-full flex-auto">
       <div className="domHome_toplist">
         <div className="domHome_toplist_title">官方榜</div>
         <div className="domHome_toplist_official">

@@ -156,7 +156,7 @@ export default () => {
           ))
         }
       </div>
-      <div className="list overflow-auto">
+      <div className="list overflow-auto max-h-full flex-auto">
         {data.length > 0 ? data.map((item) => (
           <div className="item" key={item.fromUser.userId}>
             <div className="avatar">
@@ -187,7 +187,7 @@ export default () => {
                   {dayjs(item.lastMsgTime).format('YYYY年MM月DD日')}
                 </span>
               </div>
-              <div className="bottom text-overflow">
+              <div className="bottom truncate">
                 {BuildTransLastMsg(JSON.parse(item.lastMsg))}
               </div>
             </button>

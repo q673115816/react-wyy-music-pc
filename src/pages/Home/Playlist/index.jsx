@@ -50,7 +50,7 @@ export default () => {
   }, [order, cat]);
 
   return (
-    <div className="domHome_content overflow-auto">
+    <div className="domHome_content overflow-auto max-h-full flex-auto">
       <div className="domHome_playlist">
         <div className="domHome_playlist_banner">
           <Link to="/" />
@@ -105,7 +105,7 @@ export default () => {
                     </div>
                     <div className="rb">
                       <button type="button" className="playArrow">
-                        <IconPlayerPlay size={22} fill="currentColor" />
+                        <IconPlayerPlay size={22} className="fill-current" />
                       </button>
                     </div>
                     <div className="bottommask" />

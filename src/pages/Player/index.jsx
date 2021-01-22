@@ -59,7 +59,7 @@ export default () => {
   if (!pending) return <div>loading</div>;
 
   return (
-    <div className=" overflow-auto">
+    <div className=" overflow-auto max-h-full flex-auto">
       <div className="domVideoDetail">
         <div className="domVideoDetail_header domVideoDetail_container">
           <div className="left">
@@ -114,13 +114,13 @@ export default () => {
               {
                 descriptionVisibility
                   ? (
-                    <svg className="icon icon-tabler icon-tabler-caret-up" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="icon icon-tabler icon-tabler-caret-up" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" className="fill-current" strokeLinecap="round" strokeLinejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M18 15l-6 -6l-6 6h12" />
                     </svg>
                   )
                   : (
-                    <svg className="icon icon-tabler icon-tabler-caret-down" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+                    <svg className="icon icon-tabler icon-tabler-caret-down" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" className="fill-current" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)" />
                     </svg>
                   )

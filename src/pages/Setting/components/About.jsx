@@ -36,26 +36,26 @@ export default () => (
       &nbsp;
       &nbsp;
       <a href="https://itunes.apple.com/cn/app/wang-yi-yun-yin-le/id590338362?l=ch" className="ui_btn_small">
-        <IconBrandApple size={16} fill="currentColor" />
+        <IconBrandApple size={16} className="fill-current" />
         iPhone版
       </a>
       &nbsp;
       &nbsp;
       <a href="https://itunes.apple.com/cn/app/wang-yi-yun-yin-lehd/id871041757?l=ch" className="ui_btn_small">
-        <IconBrandApple size={16} fill="currentColor" />
+        <IconBrandApple size={16} className="fill-current" />
         iPad版
       </a>
       &nbsp;
       &nbsp;
       {/* "https://music.163.com/sso/login?token=&uid=46636813&url=/download&forceReplaceLogin=false" */}
       <a href="https://music.163.com/#/download" className="ui_btn_small">
-        <IconBrandApple size={16} fill="currentColor" />
+        <IconBrandApple size={16} className="fill-current" />
         iPhone版
       </a>
       &nbsp;
       &nbsp;
       <a href="http://www.windowsphone.com/s?appid=db9dbdaa-464e-4370-a078-800fc7983d39" className="ui_btn_small">
-        <IconBrandApple size={16} fill="currentColor" />
+        <IconBrandApple size={16} className="fill-current" />
         iPhone版
       </a>
     </div>

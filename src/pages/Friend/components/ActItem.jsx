@@ -53,7 +53,7 @@ export default ({
                     alt=""
                   />
                   <div className="ico flex-center inset-center">
-                    <IconPlayerPlay size={14} fill="currentColor" />
+                    <IconPlayerPlay size={14} className="fill-current" />
                   </div>
                 </div>
                 <div className="aside">
@@ -61,7 +61,7 @@ export default ({
                     {json
                       .song.name}
                   </div>
-                  <div className="artist text-overflow">
+                  <div className="artist truncate">
                     {
                       json
                         .song

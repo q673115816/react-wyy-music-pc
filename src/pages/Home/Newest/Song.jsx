@@ -76,11 +76,11 @@ export default () => {
                 alt=""
               />
               <span className="ico">
-                <IconPlayerPlay size={22} fill="currentColor" />
+                <IconPlayerPlay size={22} className="fill-current" />
               </span>
             </button>
             <span className="name">
-              <div className="text-overflow">{item.name}</div>
+              <div className="truncate">{item.name}</div>
               <div className="TAG">SQ</div>
             </span>
             <span className="artists">

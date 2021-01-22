@@ -86,7 +86,7 @@ export default () => {
           ))}
         </div>
       </div>
-      <div className="domSetting_main overflow-auto" onScroll={handleFollow} ref={main}>
+      <div className="domSetting_main overflow-auto max-h-full flex-auto" onScroll={handleFollow} ref={main}>
         <div data-title="账号">
           {
             isLogin
@@ -98,8 +98,11 @@ export default () => {
                     }
                   </div>
                   <div>
-                    <Link to={`/user/${profile.userId}/edit`}>修改个人信息</Link>
-                    <Link to="/friend/invite">寻找并邀请好友</Link>
+                    <Link to={`/user/${profile.userId}/edit`} className="ui_btn">修改个人信息</Link>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <Link to="/friend/invite" className="ui_btn">寻找并邀请好友</Link>
                   </div>
                 </>
               )

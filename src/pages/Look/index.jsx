@@ -10,7 +10,7 @@ export default () => {
     }
   };
   return (
-    <div className="domLook overflow-auto" onScroll={handleScroll}>
+    <div className="domLook overflow-auto max-h-full flex-auto" onScroll={handleScroll}>
       <div className="domLook_header ui_header">
         <span className="title">LOOK直播</span>
         <span className="ui_gray slogan">在这里，看见音乐</span>

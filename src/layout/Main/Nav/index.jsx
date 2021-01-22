@@ -35,27 +35,34 @@ const options1 = [
   },
 ];
 
+const loginNav = [
+  ['我的音乐云盘', '/cloud', IconCloud],
+  ['我的电台', '/dj', IconBrandTiktok],
+  ['我的收藏', '/sublist', IconStar],
+];
+
 const DomPlaylist = ({ name = '', playlist = [] }) => {
   const [showplaylist, setPlaylist] = useState(true);
   return (
     <>
       <div className="dommain_left_dt">
-        <div className="playlist_control">
+        <div className="playlist_control flex items-center">
           <button
             type="button"
-            className="_toggle"
+            className="_toggle flex items-center flex-auto"
             onClick={() => setPlaylist(!showplaylist)}
+            title={showplaylist ? '收起' : '展开'}
           >
             {name}
             {
               showplaylist
-                ? <IconCaretDown size={8} fill="currentColor" />
-                : <IconCaretRight size={8} fill="currentColor" />
+                ? <IconCaretDown size={8} className="fill-current" />
+                : <IconCaretRight size={8} className="fill-current" />
             }
           </button>
-          <span title="新建歌单" className="addplaylist">
+          <button type="button" title="新建歌单" className="addplaylist">
             +
-          </span>
+          </button>
         </div>
       </div>
       <nav
@@ -66,13 +73,15 @@ const DomPlaylist = ({ name = '', playlist = [] }) => {
           playlist.map((item) => (
             <NavLink
               key={item.id}
-              className="dommain_left_link text-overflow"
+              className="dommain_left_link"
               activeClassName="on"
               to={`/playlist/music/${item.id}`}
             >
-              <IconMusic size={20} stroke={1} />
+              <IconMusic size={20} stroke={1} className="flex-none" />
               &nbsp;
-              {item.name}
+              <span className="truncate">
+                {item.name}
+              </span>
             </NavLink>
           ))
         }
@@ -88,14 +97,14 @@ export default () => {
   const ownPlaylist = playlist.filter((item) => item.subscribed === false);
   const subscribedPlaylist = playlist.filter((item) => item.subscribed === true);
   return (
-    <div className="dommain_left overflow-auto">
+    <div className="dommain_left overflow-auto max-h-full flex-none p-2">
       <nav className="options1">
         {
           options1.map((item) => (
             <NavLink
               key={item.name}
               className="dommain_left_link"
-              activeClassName="on bold"
+              activeClassName="on font-bold"
               to={item.link}
             >
               {item.name}
@@ -116,23 +125,18 @@ export default () => {
           下载管理
         </NavLink>
         {isLogin && (
-          <>
-            <NavLink className="dommain_left_link" activeClassName="on" to="/cloud">
-              <IconCloud size={20} stroke={1} />
+          loginNav.map(([name, link, Ico]) => (
+            <NavLink
+              className="dommain_left_link flex items-center"
+              activeClassName="on"
+              to={link}
+              key={name}
+            >
+              <Ico size={20} stroke={1} />
               &nbsp;
-              我的音乐云盘
+              {name}
             </NavLink>
-            <NavLink className="dommain_left_link" activeClassName="on" to="/dj">
-              <IconBrandTiktok size={20} stroke={1} />
-              &nbsp;
-              我的电台
-            </NavLink>
-            <NavLink className="dommain_left_link" activeClassName="on" to="/sublist">
-              <IconStar size={20} stroke={1} />
-              &nbsp;
-              我的收藏
-            </NavLink>
-          </>
+          ))
         )}
       </nav>
       <DomPlaylist name="创建的歌单" playlist={ownPlaylist} />

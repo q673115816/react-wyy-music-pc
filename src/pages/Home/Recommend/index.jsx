@@ -71,7 +71,7 @@ export default () => {
     handleGet();
   }, []);
   return (
-    <div className="domHome_content overflow-auto">
+    <div className="domHome_content overflow-auto max-h-full flex-auto">
       <div className="domHome_recommend">
         <div className="domHome_item">
           {

@@ -15,7 +15,7 @@ export default ({ djprogram = [] }) => (
                 </Lazyload>
                 <div className="mask" />
                 <div className="lb">
-                  <div className="name text-overflow">{item.name}</div>
+                  <div className="name truncate">{item.name}</div>
                 </div>
               </Link>
             </div>

@@ -51,11 +51,11 @@ body {
   user-select: none;
 }
 
-.overflow-auto {
-  overflow: auto;
-  max-height: 100%;
-  flex: auto;
-}
+// .overflow-auto {
+//   overflow: auto;
+//   max-height: 100%;
+//   flex: auto;
+// }
 
 .animate-zoomin {
   transition: ease 0.2s;
@@ -65,9 +65,9 @@ body {
   }
 }
 
-.text-overflow {
-  @include text-overflow();
-}
+// .text-overflow {
+//   @include text-overflow();
+// }
 
 button {
   all: unset;
@@ -94,7 +94,8 @@ button {
   color: var(--themeColor);
   // letter-spacing: 0.1em;
   border-radius: 0.1em;
-  margin-left: 0.2em;
+  margin-left: 0.3em;
+  font-size: 12px;
 }
 
 .h1 {

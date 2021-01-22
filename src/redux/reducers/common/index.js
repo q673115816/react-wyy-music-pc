@@ -31,6 +31,7 @@ const initialState = {
   baseUrl: 'https://music.163.com',
   theme: LOCALSTORAGE('theme', 'themeRed'),
   volume: LOCALSTORAGE('volume', '100'),
+  font: LOCALSTORAGE('font', 'inherit'),
   // toastVisibility: false,
 };
 

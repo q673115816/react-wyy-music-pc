@@ -32,7 +32,7 @@ export default () => {
             </button>
           ))}
         </div>
-        <div className="domManage_list overflow-auto" />
+        <div className="domManage_list overflow-auto max-h-full flex-auto" />
         <div className="domManage_dialog" style={{ display: visibility ? '' : 'none' }}>
           <button type="button" className="close" onClick={handleToggleVisibility}>×</button>
           <div className="title">选择本地音乐文件夹</div>

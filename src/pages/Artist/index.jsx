@@ -92,7 +92,7 @@ export default () => {
   }, [id]);
   if (loading) return <div>loading</div>;
   return (
-    <div className="domArtist overflow-auto">
+    <div className="domArtist overflow-auto max-h-full flex-auto">
       <div className="domArtist_header">
         <div className="avatar">
           <img src={`${detail.artist.cover}?param=200y200`} alt="" />
@@ -202,7 +202,7 @@ export default () => {
                       <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
                     </Link>
                     <Link
-                      className="name text-overflow"
+                      className="name truncate"
                       to={`/playlist/album/${item.id}`}
                     >
                       {item.name}
@@ -266,7 +266,7 @@ export default () => {
                             </button>
                           </div>
                           <div className="cell name">
-                            <span className="text-overflow">
+                            <span className="truncate">
                               {item.name}
                               &nbsp;
                               <span className="ui_gray">
@@ -305,7 +305,7 @@ export default () => {
                   </div>
                   { }
                 </div>
-                <div className="footer text-overflow">
+                <div className="footer truncate">
                   <Link to={`/player/mv/${item.id}`}>{item.name}</Link>
                   {item.name}
                 </div>

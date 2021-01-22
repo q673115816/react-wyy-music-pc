@@ -18,11 +18,11 @@ const BuildSong = ({ msg = {} }) => (
     <div className="avatar">
       <img src={`${msg.song.album.picUrl}?param=100y100`} alt="" />
       <i className="ico">
-        <IconPlayerPlay size={14} fill="currentColor" />
+        <IconPlayerPlay size={14} className="fill-current" />
       </i>
     </div>
     <div className="content">
-      <div className="name text-overflow">
+      <div className="name truncate">
         {msg.song.name}
         {msg.song.alias.length > 0
           && (
@@ -44,11 +44,11 @@ const BuildAlbum = ({ msg = {} }) => (
     <div className="avatar">
       <img src={`${msg.album.picUrl}?param=100y100`} alt="" />
       <i className="ico">
-        <IconPlayerPlay size={14} fill="currentColor" />
+        <IconPlayerPlay size={14} className="fill-current" />
       </i>
     </div>
     <div className="content">
-      <div className="name text-overflow">
+      <div className="name truncate">
         {msg.album.name}
         {msg.album.alias.length > 0
           && (
@@ -202,7 +202,7 @@ export default () => {
         </button>
         <span>{nickname}</span>
       </div>
-      <div className="history overflow-auto" ref={history}>
+      <div className="history overflow-auto max-h-full flex-auto" ref={history}>
         {
           privatMsgs
             .map((item) => (

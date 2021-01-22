@@ -22,10 +22,10 @@ export default ({ tag = false }) => (
         </Link>
       </div>
     </div>
-    <div className="name text-overflow">
+    <div className="name truncate">
       <Link to={tingting}>name</Link>
     </div>
-    <div className="artist text-overflow gary">
+    <div className="artist truncate gary">
       <Link to={tingting}>artist</Link>
     </div>
   </div>

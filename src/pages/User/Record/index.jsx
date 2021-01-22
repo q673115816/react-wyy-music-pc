@@ -48,7 +48,7 @@ export default () => {
           所有时间
         </button>
       </div>
-      <div className="overflow-auto domUser_record_main">
+      <div className="overflow-auto max-h-full flex-auto domUser_record_main">
         <div className="domUser_record_list">
           {data.map(({ song, playCount }, index) => (
             <div
@@ -69,7 +69,7 @@ export default () => {
                 </button>
               </div>
               <div className="name">
-                <div className="text-overflow">
+                <div className="truncate">
                   { song.name}
                   {
                     song.alia.map((alia) => (

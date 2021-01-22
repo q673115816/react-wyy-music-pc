@@ -19,7 +19,7 @@ export default () => {
     handleInit();
   }, []);
   return (
-    <div className="overflow-auto">
+    <div className="overflow-auto max-h-full flex-auto">
       <div className="domSublist_nav">
         <span className="h1">我的电台</span>
       </div>
@@ -38,7 +38,7 @@ export default () => {
             <div className="cover">
               <img className="ui_containimg" src={item.picUrl} alt="" />
             </div>
-            <div className="name text-overflow">
+            <div className="name truncate">
               {item.name}
             </div>
             <div className="creator ui_gray">

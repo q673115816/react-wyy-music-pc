@@ -95,7 +95,7 @@ export default () => {
     handleGetTopArea();
   }, [topArea]);
   return (
-    <div className="domVideoList_content overflow-auto">
+    <div className="domVideoList_content overflow-auto max-h-full flex-auto">
 
       <div className="domMvList_sublist">
         <div className="domMvList_header">
@@ -170,7 +170,7 @@ export default () => {
                   </Link>
                 </div>
               </div>
-              <div className="footer text-overflow">
+              <div className="footer truncate">
                 {item.name}
               </div>
               <div className="text ui_gray">
@@ -203,7 +203,7 @@ export default () => {
                   </Link>
                 </div>
               </div>
-              <div className="footer text-overflow">
+              <div className="footer truncate">
                 {item.name}
               </div>
               <div className="text ui_gray">
@@ -254,10 +254,10 @@ export default () => {
               </div>
             </div>
             <div className="aside">
-              <div className="name text-overflow">
+              <div className="name truncate">
                 <Link to={`/player/mv/${item.id}`}>{item.name}</Link>
               </div>
-              <div className="artists text-overflow">
+              <div className="artists truncate">
                 {
                   item.artists.map((artist) => (
                     <Link to={`/artist/${artist.id}`} key={artist.id} className="ui_gray">

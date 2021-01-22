@@ -55,7 +55,7 @@ export default () => {
             <div className="cover">
               <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
             </div>
-            <div className="name text-overflow">
+            <div className="name truncate">
               {item.name}
               &nbsp;
               {AliasOrTrans(item)}

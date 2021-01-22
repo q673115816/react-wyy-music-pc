@@ -67,7 +67,10 @@ export default function App() {
         <div
           id="NeteaseCloudMusic"
           className="domWrapper"
-          style={{ transform: `translate(${x}px, ${y}px)`, '--themeColor': `var(--${theme}, --themeRed)` }}
+          style={{
+            transform: `translate(${x}px, ${y}px)`,
+            '--themeColor': `var(--${theme}, --themeRed)`,
+          }}
         >
           <DomHeader handleDrap={dragdown} />
           <Switch>

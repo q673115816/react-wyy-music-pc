@@ -77,7 +77,7 @@ export default () => {
           <div className="actions">
             <div className="ui_playbtn_group btn">
               <button type="button" className="ui_playbtn_group_left">
-                <IconPlayerPlay size={16} fill="currentColor" />
+                <IconPlayerPlay size={16} className="fill-current" />
                 &nbsp;
                 播放全部
               </button>

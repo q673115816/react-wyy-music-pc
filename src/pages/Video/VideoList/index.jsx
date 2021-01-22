@@ -90,7 +90,7 @@ export default () => {
   }, [id]);
 
   return (
-    <div className="domVideoList_content overflow-auto" ref={setScrolldom}>
+    <div className="domVideoList_content overflow-auto max-h-full flex-auto" ref={setScrolldom}>
       <div className="video_sort_filter_bar">
         <div className="group_select_wrap">
           <button
@@ -160,7 +160,7 @@ export default () => {
                       </Link>
                     </div>
                   </div>
-                  <div className="footer text-overflow">
+                  <div className="footer truncate">
                     <Link to={`/player/video/${data.vid}`} className="">{data.title}</Link>
                   </div>
                   <div className="text creator ui_gray">

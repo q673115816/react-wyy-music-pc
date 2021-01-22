@@ -115,7 +115,7 @@ export default () => {
                 </div>
                 <div className="contain">
                   <div className="left">
-                    <div className="text-overflow">{item.signature}</div>
+                    <div className="truncate">{item.signature}</div>
                   </div>
                   <div className="right">
                     {BuildUserAction(item, handleFollow)}

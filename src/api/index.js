@@ -246,3 +246,9 @@ export const apiCloudSearch = (params) => post('/cloudSearch', params);
  * @param {keyword: String, type?:mobile} params
  */
 export const apiSearchSuggest = (params) => post('/search/suggest', params);
+
+/**
+ * 搜索多重匹配
+ * @param {keywords} params
+ */
+export const apiSearchMultimatch = (params) => post('/search/multimatch', params);

@@ -53,7 +53,7 @@
         display: block;
         padding: 10px;
         color: #fff;
-        @extend .text-overflow;
+        // @extend .text-overflow;
       }
 
       &::before {

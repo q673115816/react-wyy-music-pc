@@ -79,7 +79,7 @@ export default () => {
     handleInit();
   }, []);
   return (
-    <div className="domFriend overflow-auto">
+    <div className="domFriend overflow-auto max-h-full flex-auto">
       <div className="domFriend_left">
         <div className="domFriend_header">
           <span className="h1">动态</span>

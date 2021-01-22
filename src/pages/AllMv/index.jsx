@@ -48,7 +48,7 @@ export default () => {
           全部MV
         </Link>
       </div>
-      <div className="domAllMv_main overflow-auto">
+      <div className="domAllMv_main overflow-auto max-h-full flex-auto">
         <div className="ui_filter">
           {
             filters.map((filter) => (

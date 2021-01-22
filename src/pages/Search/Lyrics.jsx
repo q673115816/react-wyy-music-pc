@@ -50,7 +50,7 @@ export default ({ lyrics = [] }) => {
               </div>
               <div className="name" title={item.name}>
                 <div className="inner">
-                  <div className="text text-overflow">
+                  <div className="text truncate">
                     <span name="" title={item.name}>
                       {item.name}
                       {item.tns
@@ -85,29 +85,29 @@ export default ({ lyrics = [] }) => {
                       && (
                         <Link className="TAG" to={`/player/mv/${item.mv}`}>
                           MV
-                          <IconPlayerPlay size={8} fill="currentColor" />
+                          <IconPlayerPlay size={8} className="fill-current" />
                         </Link>
                       )}
                   </div>
                 </div>
               </div>
               <div
-                className="artist text-overflow ui_gray hover"
+                className="artist truncate ui_gray hover"
                 title={(item.ar.map((artist) => artist.name)).join('/')}
               >
-                <div className="text-overflow">
+                <div className="truncate">
                   {item.ar.map((aritst) => <Link to={`/artist/${aritst.id}`}>{aritst.name}</Link>)}
                 </div>
               </div>
               <div
-                className="album text-overflow ui_gray hover"
+                className="album truncate ui_gray hover"
                 title={item.al.name}
               >
                 <Link to={`/playlist/album/${item.al.id}`}>
                   {item.al.name}
                 </Link>
               </div>
-              <div className="duration ui_gray text-overflow">
+              <div className="duration ui_gray truncate">
                 {dayjs(item.dt).format('mm:ss')}
               </div>
               <div className="pop">

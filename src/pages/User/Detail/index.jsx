@@ -245,7 +245,7 @@ export default () => {
                 </div>
                 <div className="rb">
                   <span className="playArrow">
-                    <IconPlayerPlay size={22} fill="currentColor" />
+                    <IconPlayerPlay size={22} className="fill-current" />
                   </span>
                 </div>
               </div>
@@ -270,7 +270,7 @@ export default () => {
                   <div className="topmask" />
                   <div className="rb">
                     <span className="playArrow">
-                      <IconPlayerPlay size={22} fill="currentColor" />
+                      <IconPlayerPlay size={22} className="fill-current" />
                     </span>
                   </div>
                   <div className="rt">
@@ -319,7 +319,7 @@ export default () => {
                   <div className="topmask" />
                   <div className="rb">
                     <span className="playArrow">
-                      <IconPlayerPlay size={22} fill="currentColor" />
+                      <IconPlayerPlay size={22} className="fill-current" />
                     </span>
                   </div>
                   <div className="rt">

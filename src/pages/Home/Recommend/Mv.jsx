@@ -16,12 +16,12 @@ export default ({ mv = [] }) => (
               </Lazyload>
             </Link>
           </div>
-          <div className="name text-overflow">
+          <div className="name truncate">
             <Link className="" to="/mv/:id">
               {item.name}
             </Link>
           </div>
-          <div className="artist text-overflow">
+          <div className="artist truncate">
             {
               item.artists.map((artist) => <Link to="/artist/:id" key={artist.id}>{artist.name}</Link>)
             }

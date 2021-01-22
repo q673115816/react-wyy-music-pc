@@ -24,19 +24,18 @@
   }
 
   &_left {
-    --leftwidth: 200px;
-    flex: none;
-    width: var(--leftwidth);
-    background-color: #fff;
-    padding: 10px;
+    // --leftwidth: 200px;
+    // flex: none;
+    width: var(--navWidth, 200px);
+    // background-color: #fff;
+    // padding: 10px;
 
     &::-webkit-scrollbar-thumb {
       background-color: #fff;
     }
-    &:hover {
-      &::-webkit-scrollbar-thumb {
-        background-color: #E1E1E1;
-      }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background-color: #E1E1E1;
     }
 
     &_dt {
@@ -46,7 +45,7 @@
     }
 
     &_link {
-      display: block;
+      display: flex;
       font-size: 14px;
       padding: 10px;
 
@@ -54,10 +53,10 @@
         background-color: #f5f5f5;
       }
 
-      &.bold {
-        font-weight: bold;
-        font-size: 15px;
-      }
+      // &.bold {
+      //   font-weight: bold;
+      //   font-size: 15px;
+      // }
 
       &:hover {
         background-color: #f5f5f5;
@@ -84,22 +83,12 @@
 
 
 
-.playlist_control {
-  display: flex;
-  align-items: center;
+// .playlist_control {
+//   display: flex;
+//   align-items: center;
 
-  .addplaylist {
-    margin-left: auto;
-  }
+//   .addplaylist {
+//     margin-left: auto;
+//   }
 
-  ._toggle {
-    cursor: pointer;
-    flex: 1;
-
-    &::hover {
-      color: #f00;
-    }
-  }
-}
-
-
+// }

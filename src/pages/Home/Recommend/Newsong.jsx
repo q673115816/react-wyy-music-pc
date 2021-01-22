@@ -9,7 +9,7 @@ export default ({ newsong = [] }) => (
         <div key={item.id} className="item">
           <button type="button" onClick={() => console.log(item.id)} className="cover">
             <span className="ico">
-              <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" strokeLinecap="round" strokeLinejoin="round">
+              <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" className="fill-current" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M7 4v16l13 -8z" />
               </svg>
             </span>
@@ -18,10 +18,10 @@ export default ({ newsong = [] }) => (
             </Lazyload>
           </button>
           <div className="content">
-            <div className="name text-overflow">
+            <div className="name truncate">
               {item.name}
             </div>
-            <div className="artist text-overflow">
+            <div className="artist truncate">
               <span className="SQ">SQ</span>
                     &nbsp;
               {

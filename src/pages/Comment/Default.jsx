@@ -87,13 +87,13 @@ export default () => {
   }, [page]);
   if (loading) return <div>loading</div>;
   return (
-    <div className="domComment overflow-auto">
+    <div className="domComment overflow-auto max-h-full flex-auto">
       <div className="domComment_header">
         <div className="domComment_infos">
           <div className="cover">
             <img style={{ height: '100%' }} src={`${detail.al.picUrl}?param=100y100`} alt="" />
             <div className="ico">
-              <IconPlayerPlay size={16} fill="currentColor" />
+              <IconPlayerPlay size={16} className="fill-current" />
             </div>
           </div>
           <div className="content">

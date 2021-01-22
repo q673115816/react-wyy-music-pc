@@ -6,14 +6,14 @@
       padding: 0 20px;
       width: 100%;
       height: 60px;
-      display: flex;
-      align-items: center;
+      // display: flex;
+      // align-items: center;
       &:hover {
         background-color: #F0F0F2;
       }
-      &:not(:last-child) {
-        border-bottom: 1px solid #F2F2F2;
-      }
+      // &:not(:last-child) {
+      //   border-bottom: 1px solid #F2F2F2;
+      // }
 
       .ico {
         margin-right: 10px;

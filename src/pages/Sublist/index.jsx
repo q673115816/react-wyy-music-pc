@@ -14,7 +14,7 @@ import DomTopic from './Topic';
 export default () => {
   const { url } = useRouteMatch();
   return (
-    <div className="domSublist overflow-auto">
+    <div className="domSublist overflow-auto max-h-full flex-auto">
       <div className="domSublist_nav">
         <NavLink to="./album" className="domSublist_nav_link" activeClassName="on">专辑</NavLink>
         <NavLink to="./artist" className="domSublist_nav_link" activeClassName="on">歌手</NavLink>

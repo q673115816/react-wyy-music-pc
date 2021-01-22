@@ -28,7 +28,7 @@ export default ({ related = [] }) => (
                 {item.title}
               </Link>
             </div>
-            <div className={classnames('ui_gray', 'username', 'text-overflow')}>
+            <div className={classnames('ui_gray', 'username', 'truncate')}>
               by &nbsp;
               <Link to={`/user/${item.creator[0].userId}`}>
                 {item.creator[0].userName}
