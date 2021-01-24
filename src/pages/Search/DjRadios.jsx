@@ -10,10 +10,10 @@ export default ({ djRadios = [] }) => (
             <img className="containimg" src={item.picUrl} alt="" />
           </div>
           <div className="name">{item.name}</div>
-          <div className="dj ui_gray">
+          <div className="dj text-gray-400">
             by
             &nbsp;
-            <Link to={`/user/${item.dj.userId}`} className="ui_gray hover">{item.dj.nickname}</Link>
+            <Link to={`/user/${item.dj.userId}`} className="text-gray-400 hover">{item.dj.nickname}</Link>
           </div>
         </Link>
       ))

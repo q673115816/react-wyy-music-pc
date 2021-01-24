@@ -201,7 +201,7 @@ export default () => {
           <div className="list">
             {/* <div className="item">
                 <span>所在地区：</span>
-                <span className="ui_gray">浙江省 温州市</span>
+                <span className="text-gray-400">浙江省 温州市</span>
               </div> */}
             <div className="item">
               <span>社交网络：</span>
@@ -211,7 +211,7 @@ export default () => {
             </div>
             <div className="item">
               <span>个人介绍：</span>
-              <span className="ui_gray" style={{ whiteSpace: 'pre-wrap' }}>
+              <span className="text-gray-400" style={{ whiteSpace: 'pre-wrap' }}>
                 {user.profile.signature || '暂无介绍'}
 
               </span>

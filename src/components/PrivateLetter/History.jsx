@@ -26,14 +26,14 @@ const BuildSong = ({ msg = {} }) => (
         {msg.song.name}
         {msg.song.alias.length > 0
           && (
-            <span className="ui_gray">
+            <span className="text-gray-400">
               （
               {msg.song.alias.join(',')}
               ）
             </span>
           )}
       </div>
-      <div className="ui_gray artist">
+      <div className="text-gray-400 artist">
         {msg.song.artists.map((artist) => artist.name)}
       </div>
     </div>
@@ -52,14 +52,14 @@ const BuildAlbum = ({ msg = {} }) => (
         {msg.album.name}
         {msg.album.alias.length > 0
           && (
-            <span className="ui_gray">
+            <span className="text-gray-400">
               （
               {msg.album.alias.join(',')}
               ）
             </span>
           )}
       </div>
-      <div className="ui_gray artist">
+      <div className="text-gray-400 artist">
         {msg.album.artists.map((artist) => artist.name)}
       </div>
     </div>
@@ -75,7 +75,7 @@ const BuildContent = (msg) => {
       {msg.msg}
       {emptyVideo && (
         <div className="embed center">
-          <span className="null ui_gray">
+          <span className="null text-gray-400">
             该视频已删除
           </span>
         </div>
@@ -85,7 +85,7 @@ const BuildContent = (msg) => {
           <div className="cover">
             <img className="ui_containimg" src={promotion.coverUrl} alt="" />
           </div>
-          <div className="promotion ui_gray">
+          <div className="promotion text-gray-400">
             {promotion.title}
           </div>
         </a>
@@ -195,7 +195,7 @@ export default () => {
       <div className="topbar">
         <button
           type="button"
-          className="back flex-center ui_hover"
+          className="back flex-center text-gray-600 hover:text-gray-900"
           onClick={() => dispatch(setMsgPrivateHistory({ showMsgPrivateHistory: false }))}
         >
           <IconChevronLeft size={22} stroke={1.5} />
@@ -207,7 +207,7 @@ export default () => {
           privatMsgs
             .map((item) => (
               <div className="item" key={item.id}>
-                <div className="time ui_gray">
+                <div className="time text-gray-400">
                   {dayjs(item.time).format('YYYY年MM月DD日 HH:mm')}
                 </div>
                 {item.batchId === 0

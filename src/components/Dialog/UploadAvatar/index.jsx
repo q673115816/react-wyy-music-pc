@@ -18,11 +18,11 @@ const UploadAvatar = () => {
           <div className="bigSize">
             img
           </div>
-          <div className="ui_gray">大尺寸封面</div>
+          <div className="text-gray-400">大尺寸封面</div>
           <div className="smallSize">
             <img src="" alt="" />
           </div>
-          <div className="ui_gray">小尺寸封面</div>
+          <div className="text-gray-400">小尺寸封面</div>
         </div>
       </div>
       <div className="actions">

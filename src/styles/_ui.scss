@@ -1,10 +1,10 @@
-.ui_gray {
-  color: #9B9B9B;
+// .ui_gray {
+//   color: #9B9B9B;
 
-  &.hover:hover {
-    color: #616162;
-  }
-}
+//   &.hover:hover {
+//     color: #616162;
+//   }
+// }
 
 .ui_red {
   color: red;
@@ -25,9 +25,9 @@
   object-fit: cover;
 }
 
-.ui_bold {
-  font-weight: bold;
-}
+// .ui_bold {
+//   font-weight: bold;
+// }
 
 .ui_select {
   user-select: text !important;
@@ -106,14 +106,6 @@
 
   &:hover {
     color: #5E58C1;
-  }
-}
-
-.ui_hover {
-  color: #666;
-
-  &:hover {
-    color: #333;
   }
 }
 
@@ -341,11 +333,6 @@
   display: flex;
   align-items: center;
 }
-
-.ui_underline {
-  text-decoration: underline;
-}
-
 
 .ui_dialog {
   background-color: #fff;

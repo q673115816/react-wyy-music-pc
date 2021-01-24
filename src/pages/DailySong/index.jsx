@@ -62,7 +62,7 @@ export default () => {
           </div>
           <div className="content">
             <div className="h1">每日歌曲推荐</div>
-            <div className="ui_gray tips">
+            <div className="text-gray-400 tips">
               根据你的音乐口味生成, 每天6:00更新
             </div>
           </div>
@@ -110,16 +110,16 @@ export default () => {
                   key={item.id}
                   onContextMenu={(e) => handleRightClick(e, item, index, 'song')}
                 >
-                  <div className="index ui_gray">
+                  <div className="index text-gray-400">
                     {String(index + 1).padStart(2, 0)}
                   </div>
                   <div className="heart">
-                    <button type="button" className="ui_gray hover">
+                    <button type="button" className="text-gray-400 hover">
                       <IconHeart size={20} stroke={1} />
                     </button>
                   </div>
                   <div className="download">
-                    <button type="button" className="ui_gray hover">
+                    <button type="button" className="text-gray-400 hover">
                       <IconDownload size={20} stroke={1} />
                     </button>
                   </div>
@@ -134,7 +134,7 @@ export default () => {
                           <>
                             &nbsp;
                             <span
-                              className="alia ui_gray"
+                              className="alia text-gray-400"
                               title={item.alia.map((alia) => alia)}
                             >
                               （
@@ -165,7 +165,7 @@ export default () => {
                         <span key={aritst.id}>
                           {index > 0 && ' / '}
                           <Link
-                            className="ui_gray hover"
+                            className="text-gray-400 hover"
                             to={`/artist/${aritst.id}`}
                           >
                             {aritst.name}
@@ -177,14 +177,14 @@ export default () => {
                   <div className="album">
                     <div className="truncate">
                       <Link
-                        className="ui_gray hover"
+                        className="text-gray-400 hover"
                         to={`/playlist/album/${item.al.id}`}
                       >
                         {item.al.name}
                       </Link>
                     </div>
                   </div>
-                  <div className="duration ui_gray truncate">
+                  <div className="duration text-gray-400 truncate">
                     {dayjs(item.dt).format('mm:ss')}
                   </div>
                 </div>

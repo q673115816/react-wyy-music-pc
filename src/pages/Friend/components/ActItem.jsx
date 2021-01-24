@@ -35,7 +35,7 @@ export default ({
           <span>分享单曲</span>
         </div>
         <div className="time">
-          <span className="ui_gray">
+          <span className="text-gray-400">
             {dayjs(item.eventTime).locale('zh-cn').format('MM月DD日 hh:mm')}
           </span>
         </div>
@@ -67,7 +67,7 @@ export default ({
                         .song
                         .artists
                         .map((artist) => (
-                          <span className="ui_gray" key={artist.name}>{artist.name}</span>
+                          <span className="text-gray-400" key={artist.name}>{artist.name}</span>
                         ))
                     }
                   </div>
@@ -85,7 +85,7 @@ export default ({
             )
           }
           <div className="info">
-            <div className="left ui_gray">
+            <div className="left text-gray-400">
               --
               {
                 item?.rcmdInfo?.reason

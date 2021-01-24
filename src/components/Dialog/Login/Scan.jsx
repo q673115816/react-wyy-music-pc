@@ -104,7 +104,7 @@ export default () => {
             <div className="ico flex-center">
               <IconFaceId size={64} stroke="1" />
             </div>
-            <span className="ui_gray">
+            <span className="text-gray-400">
               扫描成功
             </span>
             <div className="tips">请在手机上确认登录</div>

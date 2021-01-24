@@ -36,7 +36,7 @@ const ListBuild = (filter, search) => {
             <div className="footer truncate">
               <Link to={`/player/video/${item.vid}`} className="">{item.title}</Link>
             </div>
-            <div className="text creator ui_gray">
+            <div className="text creator text-gray-400">
               by &nbsp;
               <Link to={`/user/${item.creator[0].userId}`}>
                 {item.creator[0].userName}

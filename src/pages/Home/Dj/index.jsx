@@ -44,7 +44,7 @@ const DomDjNormal = ({ item = {} }) => (
       </div>
     </div>
     <div className="footer">
-      <Link to={`/playlist/dj/${item.id}`} className="ui_hover">{item.rcmdtext}</Link>
+      <Link to={`/playlist/dj/${item.id}`} className="text-gray-600 hover:text-gray-900">{item.rcmdtext}</Link>
     </div>
   </div>
 );

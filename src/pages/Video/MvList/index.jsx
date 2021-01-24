@@ -139,7 +139,7 @@ export default () => {
               <div className="footer">
                 {item.name}
               </div>
-              <div className="text ui_gray">
+              <div className="text text-gray-400">
                 {item.artistName}
               </div>
             </div>
@@ -173,7 +173,7 @@ export default () => {
               <div className="footer truncate">
                 {item.name}
               </div>
-              <div className="text ui_gray">
+              <div className="text text-gray-400">
                 {item.artistName}
               </div>
             </div>
@@ -206,7 +206,7 @@ export default () => {
               <div className="footer truncate">
                 {item.name}
               </div>
-              <div className="text ui_gray">
+              <div className="text text-gray-400">
                 {item.artistName}
               </div>
             </div>
@@ -236,7 +236,7 @@ export default () => {
         {mvTop.map((item, index) => (
           <div className="item" key={item.id}>
             <div className="rank flex-center">
-              <div className="num ui_gray">
+              <div className="num text-gray-400">
                 {String(index + 1).padStart(2, 0)}
               </div>
               <div className="arrow">
@@ -260,7 +260,7 @@ export default () => {
               <div className="artists truncate">
                 {
                   item.artists.map((artist) => (
-                    <Link to={`/artist/${artist.id}`} key={artist.id} className="ui_gray">
+                    <Link to={`/artist/${artist.id}`} key={artist.id} className="text-gray-400">
                       {artist.name}
                     </Link>
                   ))

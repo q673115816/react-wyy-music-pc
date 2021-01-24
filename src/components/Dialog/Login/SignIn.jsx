@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
   apiLoginCellphone,
 } from '@/api';
-import { IconFaceId, IconQrcode, IconDeviceMobile } from '@tabler/icons';
+import {
+  IconFaceId, IconQrcode, IconDeviceMobile, IconEye, IconEyeOff,
+} from '@tabler/icons';
 import {
   SymbolWX,
   SymbolQQ,
@@ -25,6 +27,8 @@ export default () => {
     },
     loginDispatch,
   } = useContext(LoginContext);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -112,6 +116,10 @@ export default () => {
     }
   };
 
+  const handleTogglePassword = () => {
+
+  };
+
   return (
     <div className="form">
       <div className="angle">
@@ -153,7 +161,7 @@ export default () => {
             <tr>
               <td colSpan="2">
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
                   autoComplete="new-password"
                   placeholder="请输入密码"
@@ -161,10 +169,21 @@ export default () => {
                   value={loginpassword}
                   onChange={({ target }) => handlePassword(target.value)}
                 />
+                <button
+                  type="button"
+                  className="togglePassword"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {
+                    showPassword
+                      ? <IconEye size={16} />
+                      : <IconEyeOff size={16} />
+                  }
+                </button>
               </td>
               <td>
                 <div className="flex-center">
-                  <button type="button" className="ui_gray">重设密码</button>
+                  <button type="button" className="text-gray-400">重设密码</button>
                 </div>
               </td>
             </tr>
@@ -211,7 +230,7 @@ export default () => {
             onChange={({ target }) => handleArgument(target.value)}
           />
           <i className="ico flex-center">✔</i>
-          <span className="ui_gray">
+          <span className="text-gray-400">
             同意
           </span>
           <a

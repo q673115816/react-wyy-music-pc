@@ -24,12 +24,7 @@
   }
 
   &_left {
-    // --leftwidth: 200px;
-    // flex: none;
     width: var(--navWidth, 200px);
-    // background-color: #fff;
-    // padding: 10px;
-
     &::-webkit-scrollbar-thumb {
       background-color: #fff;
     }
@@ -53,11 +48,6 @@
         background-color: #f5f5f5;
       }
 
-      // &.bold {
-      //   font-weight: bold;
-      //   font-size: 15px;
-      // }
-
       &:hover {
         background-color: #f5f5f5;
       }
@@ -66,29 +56,9 @@
 
   &_right {
     --rightwidth: 820px;
-    position: relative;
-    flex: 1;
-    min-width: 1px;
-    // width: var(--rightwidth);
-    display: flex;
-    height: 100%;
-
-    // flex-direction: column;
-    >div {
-      flex: 1;
-      min-width: 1px;
-    }
+    // position: relative;
+    // flex: 1;
+    // min-width: 1px;
+    // height: 100%;
   }
 }
-
-
-
-// .playlist_control {
-//   display: flex;
-//   align-items: center;
-
-//   .addplaylist {
-//     margin-left: auto;
-//   }
-
-// }

@@ -167,6 +167,7 @@
     // table-layout: fixed;
 
     td {
+      position: relative;
       border: 1px solid #D8D8D8;
       vertical-align: sub;
     }
@@ -179,6 +180,12 @@
       border: none;
       font-weight: bold;
       padding: 0 10px;
+    }
+
+    .togglePassword {
+      position: absolute;
+      right: 10px;
+      top: 10px;
     }
 
     .custom {
@@ -243,6 +250,7 @@
         border: 1px solid #D8D8D8;
         border-radius: 0 0 4px 4px;
         overflow: auto;
+        z-index: 2;
       }
     }
 

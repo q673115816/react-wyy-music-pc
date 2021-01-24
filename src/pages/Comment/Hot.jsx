@@ -82,7 +82,7 @@ export default () => {
     <div className="domComment overflow-auto max-h-full flex-auto" ref={domHot}>
       <div className="h1">精彩评论</div>
       <div className="domComment_list">
-        <div className="ui_bold">精彩评论</div>
+        <div className="font-bold">精彩评论</div>
         {data.map((item) => (
           <DomComment
             item={item}

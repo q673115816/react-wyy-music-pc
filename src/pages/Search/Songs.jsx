@@ -89,7 +89,7 @@ export default ({ songs = [], multimatch }) => {
 }
       <div className="songs_list">
         <div className="thead">
-          <div className="item ui_gray">
+          <div className="item text-gray-400">
             <div className="index" />
             <div className="heart" />
             <div className="download" />
@@ -108,16 +108,16 @@ export default ({ songs = [], multimatch }) => {
               key={item.id}
               onContextMenu={(e) => handleRightClick(e, item)}
             >
-              <div className="index ui_gray">
+              <div className="index text-gray-400">
                 {String(index + 1).padStart(2, 0)}
               </div>
               <div className="heart">
-                <button type="button" className="ui_gray hover">
+                <button type="button" className="text-gray-400 hover">
                   <IconHeart size={20} stroke={1} />
                 </button>
               </div>
               <div className="download">
-                <button type="button" className="ui_gray hover">
+                <button type="button" className="text-gray-400 hover">
                   <IconDownload size={20} stroke={1} />
                 </button>
               </div>
@@ -133,7 +133,7 @@ export default ({ songs = [], multimatch }) => {
                   <>
                     &nbsp;
                     <span
-                      className="alia ui_gray"
+                      className="alia text-gray-400"
                       title={item.alia.map((alia) => alia)}
                     >
                       （
@@ -158,7 +158,7 @@ export default ({ songs = [], multimatch }) => {
                 </div>
               </div>
               <div
-                className="artist truncate ui_gray hover"
+                className="artist truncate text-gray-400 hover"
                 title={(item.ar.map((artist) => artist.name)).join(' / ')}
               >
 
@@ -178,14 +178,14 @@ export default ({ songs = [], multimatch }) => {
                 </div>
               </div>
               <div
-                className="album truncate ui_gray hover"
+                className="album truncate text-gray-400 hover"
                 title={item.al.name}
               >
                 <Link to={`/playlist/album/${item.al.id}`}>
                   {item.al.name}
                 </Link>
               </div>
-              <div className="duration ui_gray truncate">
+              <div className="duration text-gray-400 truncate">
                 {dayjs(item.dt).format('mm:ss')}
               </div>
               <div className="pop">

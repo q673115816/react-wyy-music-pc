@@ -16,7 +16,7 @@ export default ({ albums = [] }) => (
           {item.name}
           {item.alias.length > 0
             && (
-            <span className="ui_gray">
+            <span className="text-gray-400">
               （
               {item.alias.map((alia) => alia)}
               ）
@@ -26,12 +26,12 @@ export default ({ albums = [] }) => (
         <div className="artist">
           <Link
             to={`/artist/${item.artist.id}`}
-            className="ui_hover"
+            className="text-gray-600 hover:text-gray-900"
           >
             {item.artist.name}
             {item.artist.alias.length > 0
             && (
-            <span className="ui_gray">
+            <span className="text-gray-400">
               （
               {item.artist.alias.map((alia) => alia)}
               ）

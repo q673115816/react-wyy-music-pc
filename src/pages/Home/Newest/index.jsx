@@ -15,12 +15,8 @@ export default () => (
         <NavLink className="domHome_newest_nav_link" activeClassName="on" to="/home/newest/album">新碟上架</NavLink>
       </div>
       <Switch>
-        <Route path="/home/newest/song">
-          <DomSong />
-        </Route>
-        <Route path="/home/newest/album">
-          <DomAlbum />
-        </Route>
+        <Route path="/home/newest/song" component={DomSong} />
+        <Route path="/home/newest/album" component={DomAlbum} />
         <Redirect to="/home/newest/song" />
       </Switch>
     </div>

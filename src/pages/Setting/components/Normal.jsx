@@ -1,108 +1,80 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import DomRadio from './Radio';
+import DomCheckbox from './Checkbox';
+
+const fonts = [
+  ['inherit', '默认'],
+  ['仿宋', '仿宋'],
+  ['宋体', '宋体'],
+  ['微软雅黑', '微软雅黑'],
+  ['微软雅黑 Light', '微软雅黑 Light'],
+  ['新宋体', '新宋体'],
+  ['方正兰亭超细黑简体', '方正兰亭超细黑简体'],
+  ['方正粗黑宋简体', '方正粗黑宋简体'],
+  ['楷体', '楷体'],
+  ['等线', '等线'],
+  ['等线 Light', '等线 Light'],
+  ['黑体', '黑体'],
+];
 
 export default () => {
   const { font } = useSelector(({ common }) => common);
   const handleSelect = (e) => {
     console.log(e.target.value);
   };
+
+  const [关闭主面板, 设置关闭主面板] = useState('最小化到系统托盘');
+
   return (
     <>
       <div className="domSetting_block_title">常规</div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">
           字体选择：
-          <span className="ui_gray">如果字体显示不清晰，请在控制面板——字体设置中启用系统Clear Type设置</span>
+          <span className="text-gray-400">如果字体显示不清晰，请在控制面板——字体设置中启用系统Clear Type设置</span>
         </div>
         <div className="domSetting_subBlock_content">
           <select className="domSetting_select" onChange={handleSelect} value={font}>
-            <option value="default" title="默认" style={{ fontFamily: 'inherit' }}>默认</option>
-            <option value="fs" title="仿宋" style={{ fontFamily: '仿宋' }}>仿宋</option>
-            <option value="st" title="宋体" style={{ fontFamily: '宋体' }}>宋体</option>
-            <option value="wryh" title="微软雅黑" style={{ fontFamily: '微软雅黑' }}>微软雅黑</option>
-            <option value="wryhl" title="微软雅黑 Light" style={{ fontFamily: '微软雅黑 Light' }}>微软雅黑 Light</option>
-            <option value="xst" title="新宋体" style={{ fontFamily: '新宋体' }}>新宋体</option>
-            <option value="fzltcxhjt" title="方正兰亭超细黑简体" style={{ fontFamily: '方正兰亭超细黑简体' }}>方正兰亭超细黑简体</option>
-            <option value="fzchsjt" title="方正粗黑宋简体" style={{ fontFamily: '方正粗黑宋简体' }}>方正粗黑宋简体</option>
-            <option value="kt" title="楷体" style={{ fontFamily: '楷体' }}>楷体</option>
-            <option value="dx" title="等线" style={{ fontFamily: '等线' }}>等线</option>
-            <option value="dxl" title="等线 Light" style={{ fontFamily: '等线 Light' }}>等线 Light</option>
-            <option value="ht" title="黑体" style={{ fontFamily: '黑体' }}>黑体</option>
+            {
+              fonts.map(([value, name]) => (
+                <option
+                  key={value}
+                  value={value}
+                  title={name}
+                  style={{ fontFamily: value }}
+                >
+                  {name}
+                </option>
+              ))
+            }
           </select>
         </div>
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">启动：</div>
-        <div className="domSetting_subBlock_content">
-          <div className="item">
-            <label className="domSetting_check">
-              <input name="autoOpen" type="checkbox" />
-              <i classsName="ico">✔</i>
-              <span>开机自动启动</span>
-            </label>
-          </div>
-        </div>
+        <DomCheckbox name="启动" list={[['开机自动启动', false]]} />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">关联：</div>
-        <div className="domSetting_subBlock_content">
-          <div className="item">
-            <label className="domSetting_check">
-              <input name="autoOpen" type="checkbox" />
-              <i classsName="ico">✔</i>
-              <span>将网易云音乐设为默认播放器</span>
-            </label>
-          </div>
-        </div>
+        <DomCheckbox name="关联" list={[['将网易云音乐设为默认播放器', false]]} />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">动画：</div>
-        <div className="domSetting_subBlock_content">
-          <div className="item">
-            <label className="domSetting_check">
-              <input name="autoOpen" type="checkbox" />
-              <i classsName="ico">✔</i>
-              <span>
-                禁用动画效果
-                <span className="ui_gray">（减少部分资源占用）</span>
-              </span>
-            </label>
-          </div>
-        </div>
+        <DomCheckbox name="动画" list={[['禁用动画效果', false, '减少部分资源占用']]} />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">GPU加速：</div>
-        <div className="domSetting_subBlock_content">
-          <div className="item">
-            <label className="domSetting_check">
-              <input name="autoOpen" type="checkbox" />
-              <i classsName="ico">✔</i>
-              <span>
-                禁用GPU加速
-                <span className="ui_gray">（关闭图形加速，如果单曲播放页或MV播放黑屏请勾选）</span>
-              </span>
-            </label>
-          </div>
-        </div>
+        <DomCheckbox name="GPU加速" list={[['禁用GPU加速', false, '关闭图形加速，如果单曲播放页或MV播放黑屏请勾选']]} />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">关闭主面板：</div>
-        <div className="domSetting_subBlock_content">
-          <div className="item">
-            <label className="domSetting_radio">
-              <input name="closeAction" type="radio" checked />
-              <i classsName="ico" />
-              <span>最小化到系统托盘</span>
-            </label>
-          </div>
-          <div className="item">
-            <label className="domSetting_radio">
-              <input name="closeAction" type="radio" />
-              <i classsName="ico" />
-              <span>退出云音乐</span>
-            </label>
-          </div>
-        </div>
+        <DomRadio
+          name="关闭主面板"
+          list={['最小化到系统托盘', '退出云音乐']}
+          checked={关闭主面板}
+          handle={设置关闭主面板}
+        />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">定时关机：</div>
@@ -141,20 +113,9 @@ export default () => {
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">
           高清屏适配：
-          <span className="ui_gray">禁用后建议重启软件</span>
+          <span className="text-gray-400">禁用后建议重启软件</span>
         </div>
-        <div className="domSetting_subBlock_content">
-          <div className="item">
-            <label className="domSetting_check">
-              <input name="autoOpen" type="checkbox" />
-              <i classsName="ico">✔</i>
-              <span>
-                禁用系统缩放比例
-                <span className="ui_gray">（减少部分资源占用）</span>
-              </span>
-            </label>
-          </div>
-        </div>
+        <DomCheckbox name="高清屏适配" list={[['禁用系统缩放比例', false, '减少部分资源占用']]} />
       </div>
     </>
 

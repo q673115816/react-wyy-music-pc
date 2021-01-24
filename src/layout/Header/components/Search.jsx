@@ -168,7 +168,7 @@ export default () => {
                     <span className="index">{index + 1}</span>
                     <div className="aside">
                       <div className="name">
-                        <span className="searchWord ui_bold">
+                        <span className="searchWord font-bold">
                           {item.searchWord}
                         </span>
                       &nbsp;
@@ -183,11 +183,11 @@ export default () => {
                             </>
                           )
                         }
-                        <span className="ui_gray">
+                        <span className="text-gray-400">
                           {item.score}
                         </span>
                       </div>
-                      <div className="content ui_gray">{item.content}</div>
+                      <div className="content text-gray-400">{item.content}</div>
                     </div>
                   </Link>
                 ))}

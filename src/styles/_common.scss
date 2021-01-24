@@ -51,12 +51,6 @@ body {
   user-select: none;
 }
 
-// .overflow-auto {
-//   overflow: auto;
-//   max-height: 100%;
-//   flex: auto;
-// }
-
 .animate-zoomin {
   transition: ease 0.2s;
 
@@ -65,26 +59,17 @@ body {
   }
 }
 
-// .text-overflow {
-//   @include text-overflow();
+// button {
+//   all: unset;
+//   cursor: pointer;
+//   box-sizing: inherit;
 // }
-
-button {
-  all: unset;
-  cursor: pointer;
-  box-sizing: inherit;
-}
 
 // input:-webkit-autofill,
 // textarea:-webkit-autofill,
 // select:-webkit-autofill {
 //   background-color: transparent;
 // }
-
-[hidden] {
-  display: none;
-}
-
 
 .TAG {
   display: inline-flex;
@@ -169,23 +154,23 @@ button {
 //   background: transparent !important;
 // }
 
-@-webkit-keyframes autofill {
-  to {
-    color: #666;
-    background: transparent;
-  }
-}
+// @-webkit-keyframes autofill {
+//   to {
+//     color: #666;
+//     background: transparent;
+//   }
+// }
 
-input:-webkit-autofill {
-  animation-name: autofill !important;
-  animation-fill-mode: both !important;
-}
+// input:-webkit-autofill {
+//   animation-name: autofill !important;
+//   animation-fill-mode: both !important;
+// }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  background-clip: content-box !important;
-}
+// input:-webkit-autofill,
+// input:-webkit-autofill:hover,
+// input:-webkit-autofill:focus {
+//   background-clip: content-box !important;
+// }
 
 
 .bigScreen {

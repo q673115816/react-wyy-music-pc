@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
-  apiArtistDetail, apiArtistDesc, apiArtistSub, apiSimiArtist, apiArtistMv, apiArtistAlbum,
-  apiArtistTopSong,
+  apiArtistDetail, apiArtistSub,
 } from '@/api';
 import classnames from 'classnames';
-import { useParams, Link, Redirect } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import {
-  IconFolderPlus, IconList, IconLayoutGrid, IconLayout,
-  IconPlayerPlay, IconHeart, IconDownload,
-  IconSquareCheck,
+  IconFolderPlus,
 } from '@tabler/icons';
 import './style.scss';
-import { transPlayCount } from '@/common/utils';
-import dayjs from 'dayjs';
+
+import DomAlbum from './components/Album';
+import DomMv from './components/Mv';
+import DomDetail from './components/Detail';
+import DomSimilarity from './components/Similarity';
 
 const nav = [
   '专辑',
@@ -29,41 +29,13 @@ export default () => {
   const [detail, setDetail] = useState({});
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('专辑');
-  const [simiArtists, setSimiArtists] = useState([]);
-  const [MVs, setMVs] = useState([]);
-  const [top50, setTop50] = useState([]);
-  const [album, setAlbum] = useState({ hotAlbums: [], more: null });
-  const [view, setView] = useState('column');
+
   const handleInit = async () => {
     try {
-      const [
-        { data: detail },
-        { artists },
-        { mvs },
-        { artist, hotAlbums, more },
-        { songs },
-      ] = await Promise.all([
-        apiArtistDetail({
-          id,
-        }),
-        apiSimiArtist({
-          id,
-        }),
-        apiArtistMv({
-          id,
-        }),
-        apiArtistAlbum({
-          id,
-        }),
-        apiArtistTopSong({
-          id,
-        }),
-      ]);
-      setDetail({ ...detail, ...artist });
-      setSimiArtists(artists);
-      setMVs(mvs);
-      setTop50(songs);
-      setAlbum({ hotAlbums, more });
+      const { data: detail } = await apiArtistDetail({
+        id,
+      });
+      setDetail(detail);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -99,13 +71,14 @@ export default () => {
         </div>
         <div className="content">
           <div className="name h1 ui_select">{detail.artist.name}</div>
-          <div className="enname ui_select">{detail.alias.map((alia) => alia)}</div>
+          <div className="enname ui_select">{detail.alias?.map((alia) => alia)}</div>
           <button
             onClick={() => handleSubscription()}
             type="button"
-            className="ui_btn flex-center"
+            className="ui_btn flex items-center text-sm"
           >
-            <IconFolderPlus size={22} stroke={1} />
+            <IconFolderPlus size={20} stroke={1} />
+            &nbsp;
             收藏
             {/* {
               detail.blacklist
@@ -126,15 +99,15 @@ export default () => {
           <div className="info">
             <span className="size">
               单曲数:
-              {detail.artist.musicSize}
+              {detail.artist?.musicSize}
             </span>
             <span className="size">
               专辑数:
-              {detail.artist.albumSize}
+              {detail.artist?.albumSize}
             </span>
             <span className="size">
               MV数:
-              {detail.artist.mvSize}
+              {detail.artist?.mvSize}
             </span>
           </div>
         </div>
@@ -144,6 +117,7 @@ export default () => {
           {
             nav.map((item) => (
               <button
+                key={item}
                 onClick={() => setTab(item)}
                 type="button"
                 className={classnames('domArtist_nav_link', { on: tab === item })}
@@ -153,197 +127,23 @@ export default () => {
             ))
           }
         </div>
-        <div className={classnames('domArtist_section', { on: tab === '专辑' })}>
-          <div className="grid_qwe">
-            <div className="actions">
-              <button type="button" className={classnames('flex-center', 'handle', { on: view === 'grid' })} onClick={() => setView('grid')}>
-                <IconLayoutGrid size={12} stroke={1.5} />
-              </button>
-              <button type="button" className={classnames('flex-center', 'handle', { on: view === 'list' })} onClick={() => setView('list')}>
-                <IconList size={12} stroke={1.5} />
-              </button>
-              <button type="button" className={classnames('flex-center', 'handle', { on: view === 'column' })} onClick={() => setView('column')}>
-                <IconLayout size={12} stroke={1.5} />
-              </button>
-            </div>
-            {
-              view === 'grid'
-              && (
-              <div className="grid">
-                <div className="ui_grid col_4">
-                  {album?.hotAlbums.map((item) => (
-                    <div className="item" key={item.id}>
-                      <div className="cover">
-                        <div className="inner">
-                          <Link to={`/playlist/album/${item.id}`}>
-                            <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="footer">
-                        <div className="name">
-                          {item.name}
-                        </div>
-                      </div>
-                      <div className="ui_gray">{dayjs(item.publishTime).format('YYYY-MM-DD')}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              )
-            }
-            {view === 'list'
-            && (
-            <div className="list">
-              {
-                album?.hotAlbums.map((item) => (
-                  <div className="list_item" key={item.id}>
-                    <Link className="cover" to={`/playlist/album/${item.id}`}>
-                      <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
-                    </Link>
-                    <Link
-                      className="name truncate"
-                      to={`/playlist/album/${item.id}`}
-                    >
-                      {item.name}
-                      &nbsp;
-                      <span className="ui_gray">
-                        {item.alias.map((alia) => alia)}
-                      </span>
-                    </Link>
-                    <span className="size ui_gray">
-                      {item.size}
-                      首
-                    </span>
-                    <span className="publishTime ui_gray">
-                      发行时间：
-                      {dayjs(item.publishTime).format('YYYY-MM-DD')}
-                    </span>
-                  </div>
-                ))
-              }
-            </div>
-            )}
-            {view === 'column'
-            && (
-            <div className="column">
-              <div className="column_item">
-                <div className="cover">
-                  <div className="Top50">
-                    TOP50
-                  </div>
-                </div>
-                <div className="aside">
-                  <div>
-                    <span className="ui_bold">
-                      热门50首
-                    </span>
-                    <button type="button">
-                      <IconPlayerPlay size={12} />
-                    </button>
-                    |
-                    <button type="button">
-                      <IconFolderPlus size={12} />
-                    </button>
-                  </div>
-                  <div className="list">
-                    {
-                      top50.map((item, index) => (
-                        <div className="item" id={item.id}>
-                          <div className="cell index ui_gray">
-                            {
-                              String(index + 1).padStart(2, 0)
-                            }
-                          </div>
-                          <div className="cell heart ui_gray">
-                            <button type="button">
-                              <IconHeart size={14} />
-                            </button>
-                          </div>
-                          <div className="cell download ui_gray">
-                            <button type="button">
-                              <IconDownload size={16} stroke={1.5} />
-                            </button>
-                          </div>
-                          <div className="cell name">
-                            <span className="truncate">
-                              {item.name}
-                              &nbsp;
-                              <span className="ui_gray">
-                                {item.alia.map((alia) => alia)}
-                              </span>
-                            </span>
-                          </div>
-                          <div className="cell duration ui_gray">
-                            {dayjs(item.dt).format('mm:ss')}
-                          </div>
-                        </div>
-                      ))
-                    }
-                    {
-                      top50.length > 10
-                      && <button type="button" className="seeMore">查看全部50首 &gt;</button>
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-            )}
-          </div>
-        </div>
-        <div className={classnames('domArtist_section', { on: tab === 'MV' })}>
-          <div className="ui_grid col_3 rectangle_width">
-            {MVs.map((item) => (
-              <div className="item" key={item.id}>
-                <div className="cover">
-                  <div className="inner">
-                    <Link to={`/player/mv/${item.id}`}>
-                      <img src={item.imgurl} alt="" />
-                      <div className="rt whitetext">{transPlayCount(item.playCount)}</div>
-                      <div className="rb whitetext">{dayjs(item.duration).format('mm:ss')}</div>
-                    </Link>
-                  </div>
-                  { }
-                </div>
-                <div className="footer truncate">
-                  <Link to={`/player/mv/${item.id}`}>{item.name}</Link>
-                  {item.name}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className={classnames('domArtist_section', { on: tab === '歌手详情' })}>
-          <div className="domArtist_subtitle ui_select">
-            {detail.artist.name}
-            简介
-          </div>
-          <div className="domArtist_article ui_gray ui_select">
-            {detail.artist.briefDesc}
-          </div>
-          <br />
-          <br />
-          <br />
-          <div className="domArtist_subtitle ui_select">简历</div>
-        </div>
-        <div className={classnames('domArtist_section', { on: tab === '相似歌手' })}>
-          <div className="ui_grid col_5">
-            {simiArtists.map((item) => (
-              <div className="item" key={item.id}>
-                <div className="cover">
-                  <div className="inner">
-                    <Link to={`/artist/${item.id}`}>
-                      <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
-                    </Link>
-                  </div>
-                </div>
-                <div className="footer">
-                  <Link to={`/artist/${item.id}`}>{item.name}</Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {
+          tab === '专辑'
+          && <DomAlbum id={id} />
+        }
+        {
+          tab === 'MV'
+          && <DomMv id={id} />
+        }
+        {
+          tab === '歌手详情'
+          && <DomDetail id={id} />
+        }
+        {
+          tab === '相似歌手'
+          && <DomSimilarity id={id} />
+        }
+
       </div>
     </div>
   );

@@ -1,4 +1,6 @@
 import React from 'react';
+import DomRadio from './Radio';
+import DomCheckbox from './Checkbox';
 
 export default () => (
   <>
@@ -6,80 +8,21 @@ export default () => (
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">
         私信：
-        <span className="gary">接收私信提醒</span>
+        <span className="text-gray-400">接收私信提醒</span>
       </div>
-      <div className="domSetting_subBlock_content">
-        <div className="item">
-          <label className="domSetting_radio">
-            <input name="letter" type="radio" checked />
-            <i classsName="ico" />
-            <span>所有人</span>
-          </label>
-        </div>
-        <div className="item">
-          <label className="domSetting_radio">
-            <input name="letter" type="radio" />
-            <i classsName="ico" />
-            <span>我所关注的人</span>
-          </label>
-        </div>
-      </div>
+      <DomRadio list={['所有人', '我所关注的人']} name="私信" checked="所有人" />
     </div>
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">
         通知：
       </div>
-      <div className="domSetting_subBlock_content">
-        <div className="item">
-          <label className="domSetting_check">
-            <input name="inform" type="radio" />
-            <i classsName="ico">✔</i>
-            <span>歌单被收藏</span>
-          </label>
-        </div>
-        <div className="item">
-          <label className="domSetting_check">
-            <input name="inform" type="radio" />
-            <i classsName="ico">✔</i>
-            <span>收到赞</span>
-          </label>
-        </div>
-        <div className="item">
-          <label className="domSetting_check">
-            <input name="inform" type="radio" />
-            <i classsName="ico">✔</i>
-            <span>新粉丝</span>
-          </label>
-        </div>
-      </div>
+      <DomCheckbox name="通知" list={[['歌单被收藏', false], ['收到赞', false], ['新粉丝', false]]} />
     </div>
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">
         我的听歌排行：
       </div>
-      <div className="domSetting_subBlock_content">
-        <div className="item">
-          <label className="domSetting_radio">
-            <input name="myPlaylistSort" type="radio" checked />
-            <i classsName="ico" />
-            <span>所有人可见</span>
-          </label>
-        </div>
-        <div className="item">
-          <label className="domSetting_radio">
-            <input name="myPlaylistSort" type="radio" />
-            <i classsName="ico" />
-            <span>被关注的人可见</span>
-          </label>
-        </div>
-        <div className="item">
-          <label className="domSetting_radio">
-            <input name="myPlaylistSort" type="radio" />
-            <i classsName="ico" />
-            <span>仅自己可见</span>
-          </label>
-        </div>
-      </div>
+      <DomRadio list={['所有人可见', '被关注的人可见', '仅自己可见']} name="我的听歌排行" checked="所有人可见" />
     </div>
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">黑名单设置：</div>

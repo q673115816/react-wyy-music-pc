@@ -16,9 +16,9 @@ export default ({ playlists = [] }) => (
             {item.trackCount}
             首
           </div>
-          <div className="creator ui_gray">
+          <div className="creator text-gray-400">
             by &nbsp;
-            <Link to={`/user/${item.creator.userId}`} className="ui_hover">{item.creator.nickname}</Link>
+            <Link to={`/user/${item.creator.userId}`} className="text-gray-600 hover:text-gray-900">{item.creator.nickname}</Link>
           </div>
         </Link>
       ))

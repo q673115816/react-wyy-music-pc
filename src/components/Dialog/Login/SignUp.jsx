@@ -88,7 +88,7 @@ export default () => {
           {
             registerwarn
               ? <div className="warn ui_red">{registerwarn}</div>
-              : <span className="ui_gray">密码8-20位，至少包含字母/数字/字符2中组合</span>
+              : <span className="text-gray-400">密码8-20位，至少包含字母/数字/字符2中组合</span>
           }
         </div>
         <div className="actions">

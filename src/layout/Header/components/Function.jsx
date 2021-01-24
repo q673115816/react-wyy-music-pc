@@ -87,6 +87,7 @@ const DomSkin = () => {
             {
               colors.map(([stylename]) => (
                 <button
+                  key={stylename}
                   onClick={() => handleSelectTheme(stylename)}
                   type="button"
                   className="skinbtn color"

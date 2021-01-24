@@ -41,19 +41,19 @@ export default ({ item = {}, handleLike }) => (
           ))
         }
       <div className="ui_comment_info">
-        <span className="ui_comment_time ui_gray">
+        <span className="ui_comment_time text-gray-400">
           {dayjs(item.time).format('YYYY-MM-DD')}
         </span>
         <div className="ui_comment_actions">
           <div className="ui_comment_inform">
-            <button type="button" className="ui_hover">
+            <button type="button" className="text-gray-600 hover:text-gray-900">
               举报
             </button>
             <i className="ui_comment_split" />
           </div>
           <button
             type="button"
-            className="flex-center ui_hover"
+            className="flex-center text-gray-600 hover:text-gray-900"
             onClick={() => handleLike(item.commentId, !item.liked)}
           >
             {item.liked
@@ -62,11 +62,11 @@ export default ({ item = {}, handleLike }) => (
             {item.likedCount}
           </button>
           <i className="ui_comment_split" />
-          <button type="button" className="flex-center ui_hover">
+          <button type="button" className="flex-center text-gray-600 hover:text-gray-900">
             <IconScreenShare size={16} stroke={1} />
           </button>
           <i className="ui_comment_split" />
-          <button type="button" className="flex-center ui_hover">
+          <button type="button" className="flex-center text-gray-600 hover:text-gray-900">
             <IconMessageCircle size={16} stroke={1} />
           </button>
         </div>

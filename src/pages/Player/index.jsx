@@ -126,7 +126,7 @@ export default () => {
                   )
               }
             </button>
-            <div className="domVideoDetail_info ui_gray">
+            <div className="domVideoDetail_info text-gray-400">
               发布：
               {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
               &nbsp;

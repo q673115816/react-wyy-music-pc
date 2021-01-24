@@ -13,8 +13,8 @@ export default () => {
     <div className="domLook overflow-auto max-h-full flex-auto" onScroll={handleScroll}>
       <div className="domLook_header ui_header">
         <span className="title">LOOK直播</span>
-        <span className="ui_gray slogan">在这里，看见音乐</span>
-        <a href="https://look.163.com/hot" className="ui_gray more">更多 &gt;</a>
+        <span className="text-gray-400 slogan">在这里，看见音乐</span>
+        <a href="https://look.163.com/hot" className="text-gray-400 more">更多 &gt;</a>
       </div>
       <div className="domLook_content">
         <div className="ui_grid rectangle_height col_4">

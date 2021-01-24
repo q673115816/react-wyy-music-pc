@@ -57,14 +57,14 @@ export default () => {
               type="button"
               key={song.id}
             >
-              <div className="index ui_gray">{String(index + 1).padStart(2, 0)}</div>
+              <div className="index text-gray-400">{String(index + 1).padStart(2, 0)}</div>
               <div className="heart">
-                <button type="button" className="ui_gray hover">
+                <button type="button" className="text-gray-400 hover">
                   <IconHeart size={18} stroke={1} />
                 </button>
               </div>
               <div className="download">
-                <button type="button" className="ui_gray hover">
+                <button type="button" className="text-gray-400 hover">
                   <IconDownload size={18} stroke={1} />
                 </button>
               </div>
@@ -73,7 +73,7 @@ export default () => {
                   { song.name}
                   {
                     song.alia.map((alia) => (
-                      <span className="ui_gray" key={alia}>
+                      <span className="text-gray-400" key={alia}>
                         （
                         {alia}
                         ）
@@ -91,7 +91,7 @@ export default () => {
                   && <div className="TAG">MV</div>
                 }
               </div>
-              <div className="playCount ui_gray">
+              <div className="playCount text-gray-400">
                 {playCount}
                 次
               </div>

@@ -1,7 +1,4 @@
 .domSetting {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 
   .nav_target {
     margin-top: 30px;
@@ -37,12 +34,11 @@
   }
 
   &_check {
-    display: inline-block;
 
     input {
       display: none;
 
-      &:checked+i {
+      &:checked+.ico {
         background-color: var(--themeColor);
         color: #fff;
         border-color:var(--themeColor);
@@ -50,43 +46,32 @@
     }
 
 
-    i {
-      margin-right: 10px;
-      display: inline-block;
+    .ico {
       background-color: #fff;
       width: 16px;
       height: 16px;
       border: 1px solid #ccc;
       border-radius: 4px;
-      vertical-align: text-bottom;
-      text-align: center;
-      line-height: 14px;
       color: transparent;
     }
   }
 
   &_radio {
-    display: inline-block;
     input {
       display: none;
-      &:checked+i {
+      &:checked+.ico {
         color: var(--themeColor);
         border-color: currentColor;
       }
     }
 
-    i {
-      margin-right: 10px;
-      display: inline-flex;
+    .ico {
       width: 16px;
       height: 16px;
       border-radius: 8px;
       border: 1px solid #ccc;
       color: transparent;
-      vertical-align: text-bottom;
       font-size: 18px;
-      align-items: center;
-      justify-content: center;
       &::before {
         content: "";
         width: 10px;
@@ -111,9 +96,9 @@
       margin-bottom: 10px;
     }
     &_content {
-      .item {
-        margin-top: 6px;
-      }
+      // .item {
+      //   margin-top: 6px;
+      // }
     }
   }
 }

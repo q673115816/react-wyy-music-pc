@@ -36,25 +36,6 @@ export default () => {
   const main = useRef();
   const [activeSetting, setActiveSetting] = useState('账号');
 
-  // const [scrollWatch] = useState(
-  //   new IntersectionObserver((entries) => {
-  //     let active = null;
-  //     entries.reverse().forEach((entry) => {
-  //       if (entry.intersectionRatio > 0) {
-  //         if (!active) {
-  //           active = entry;
-  //         } else if (entry.boundingClientRect.top < active.boundingClientRect.top) {
-  //           active = entry;
-  //         }
-  //       }
-  //     });
-  //     console.log(active);
-  //     setActiveSetting(active.target.dataset.title);
-  //   }, {
-  //     root: main.current,
-  //     threshold: [0, 1.0],
-  //   }),
-  // );
   const handleFollow = ({ target }) => {
     const hr = target.querySelectorAll('[data-title]');
     hr.forEach((item) => {
@@ -66,12 +47,11 @@ export default () => {
 
   const handleScrollToActive = (active) => {
     const target = main.current.querySelector(`[data-title="${active}"]`);
-    // main.current.scrollTo(0, target.offsetTop + 30);
     target.scrollIntoView();
   };
 
   return (
-    <div className="domSetting">
+    <div className="domSetting flex flex-col h-full">
       <div className="domSetting_header">
         <div className="domSetting_title h1">设置</div>
         <div className="domSetting_nav">
@@ -109,7 +89,7 @@ export default () => {
 
               : (
                 <>
-                  <div className="ui_gray" style={{ marginBottom: 10 }}>登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
+                  <div className="text-gray-400" style={{ marginBottom: 10 }}>登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
                   <span className="ui_btn_small">立即登录</span>
                 </>
               )

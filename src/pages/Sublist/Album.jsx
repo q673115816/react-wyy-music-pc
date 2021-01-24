@@ -35,18 +35,18 @@ const ListBuild = (filter, search, push) => {
           <Link to={`/playlist/album/${item.id}`}>
             {item.name}
           </Link>
-          <span className="ui_gray">
+          <span className="text-gray-400">
             {item.alias.map((alia) => alia)}
           </span>
         </div>
         <div className="creator">
           {item.artists.map((artist) => (
-            <Link onClick={(e) => e.stopPropagation()} to={`/artist/${artist.id}`} className="ui_gray hover">
+            <Link onClick={(e) => e.stopPropagation()} to={`/artist/${artist.id}`} className="text-gray-400 hover">
               {artist.name}
             </Link>
           ))}
         </div>
-        <div className="size ui_gray">
+        <div className="size text-gray-400">
           {item.size}
           首
         </div>

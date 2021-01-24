@@ -9,8 +9,8 @@ const Empty = () => {
   const dispatch = useDispatch();
   return (
     <div className="empty">
-      <div className="ui_gray text">您还没添加任何歌曲！</div>
-      <div className="ui_gray">
+      <div className="text-gray-400 text">您还没添加任何歌曲！</div>
+      <div className="text-gray-400">
         去首页
         <Link to="/" onClick={() => dispatch(setPopup({ popupStatus: '' }))}>发现音乐</Link>
       </div>
@@ -36,7 +36,7 @@ export default () => {
         </button>
       </div>
       <div className={classnames('actions', { disabled: currentData.length === 0 })}>
-        <span className="ui_gray">
+        <span className="text-gray-400">
           总
           {currentData.length}
           首

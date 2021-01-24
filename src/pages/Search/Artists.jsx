@@ -13,7 +13,7 @@ export default ({ artists = [] }) => (
           {item.name}
           {item.alia
           && (
-          <span className="ui_gray">
+          <span className="text-gray-400">
             (
             {item?.alias[0]}
             )

@@ -91,7 +91,7 @@ export default () => {
               <div className="footer">
                 {item.name}
               </div>
-              <div className="text ui_gray">
+              <div className="text text-gray-400">
                 {item.artistName}
               </div>
             </div>

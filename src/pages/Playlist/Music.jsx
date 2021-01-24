@@ -69,7 +69,7 @@ export default () => {
                 : <button type="button" className="ui_link">未登录&gt;</button>
             }
               &nbsp;
-            <span className="ui_gray">
+            <span className="text-gray-400">
               {dayjs(playlist.createTime || Date.now()).format('YYYY-MM-DD')}
               创建
             </span>

@@ -7,7 +7,7 @@ import useInit from './useInit';
 const AliasOrTrans = ({ alias, trans }) => {
   if (alias.length) {
     return (
-      <span className="ui_gray">
+      <span className="text-gray-400">
         (
         {alias[0]}
         )
@@ -15,7 +15,7 @@ const AliasOrTrans = ({ alias, trans }) => {
     );
   } if (trans) {
     return (
-      <span className="ui_gray">
+      <span className="text-gray-400">
         (
         {trans}
         )
@@ -60,11 +60,11 @@ export default () => {
               &nbsp;
               {AliasOrTrans(item)}
             </div>
-            <div className="creator ui_gray">
+            <div className="creator text-gray-400">
               专辑：
               {item.albumSize}
             </div>
-            <div className="size ui_gray">
+            <div className="size text-gray-400">
               MV：
               {item.mvSize}
 

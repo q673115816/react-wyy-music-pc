@@ -4,7 +4,7 @@ import { useParams, NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiTopSong, apiSongUrl } from '@/api';
 import { setTopSong, addSongUrl } from '@/redux/actions';
-import { IconPlayerPlay } from '@tabler/icons';
+import { IconPlayerPlay, IconFolderPlus } from '@tabler/icons';
 
 const nav = [
   ['全部', '0'],
@@ -49,6 +49,7 @@ export default () => {
       <div className="domHome_newest_sub_nav">
         {nav.map(([name, code]) => (
           <NavLink
+            key={name}
             className="domHome_newest_sub_nav_link"
             activeClassName="on"
             to={`/home/newest/song/${code}`}
@@ -57,14 +58,21 @@ export default () => {
           </NavLink>
         ))}
         <div className="domHome_newest_sub_control_center">
-          <span className="playAll">播放全部</span>
-          <span className="subAll">收藏全部</span>
+          <span className="playAll">
+            <IconPlayerPlay size={16} stroke={1} className="fill-current" />
+            播放全部
+
+          </span>
+          <span className="subAll">
+            <IconFolderPlus size={16} stroke={1} />
+            收藏全部
+          </span>
         </div>
       </div>
       <div className="domHome_newest_song_list">
         {data.map((item, index) => (
           <div className="item" key={item.id}>
-            <span className="ranking">{index + 1}</span>
+            <span className="ranking">{String(index + 1).padStart(2, 0)}</span>
             <button
               onClick={() => handleAddSong(item.id)}
               type="button"

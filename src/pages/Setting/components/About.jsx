@@ -1,5 +1,6 @@
 import React from 'react';
 import { IconBrandApple } from '@tabler/icons';
+import DomRadio from './Radio';
 
 export default () => (
   <>
@@ -11,22 +12,7 @@ export default () => (
       <button type="button" className="ui_btn">检测更新</button>
     </div>
     <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_content">
-        <div className="item">
-          <label className="domSetting_radio">
-            <input name="update" type="radio" checked />
-            <i classsName="ico" />
-            <span>自动更新</span>
-          </label>
-        </div>
-        <div className="item">
-          <label className="domSetting_radio">
-            <input name="update" type="radio" />
-            <i classsName="ico" />
-            <span>有新版本时提醒我</span>
-          </label>
-        </div>
-      </div>
+      <DomRadio name="更新" list={['自动更新', '有新版本时提醒我']} checked="自动更新" />
     </div>
     <br />
     <div>
@@ -63,19 +49,19 @@ export default () => (
     <br />
     <br />
     <div>
-      <a href="https://music.163.com" className="ui_underline ui_hover">《网易云音乐官网》</a>
+      <a href="https://music.163.com" className="underline text-gray-600 hover:text-gray-900">《网易云音乐官网》</a>
       &nbsp;
       &nbsp;
-      <a href="https://music.163.com" className="ui_underline ui_hover">《网易云音乐社区管理细则》</a>
+      <a href="https://music.163.com" className="underline text-gray-600 hover:text-gray-900">《网易云音乐社区管理细则》</a>
       &nbsp;
       &nbsp;
-      <a href="https://music.163.com" className="ui_underline ui_hover">《服务条款》</a>
+      <a href="https://music.163.com" className="underline text-gray-600 hover:text-gray-900">《服务条款》</a>
       &nbsp;
       &nbsp;
-      <a href="https://music.163.com" className="ui_underline ui_hover">《隐私政策》</a>
+      <a href="https://music.163.com" className="underline text-gray-600 hover:text-gray-900">《隐私政策》</a>
       &nbsp;
       &nbsp;
-      <a href="https://music.163.com" className="ui_underline ui_hover">《儿童隐私政策》</a>
+      <a href="https://music.163.com" className="underline text-gray-600 hover:text-gray-900">《儿童隐私政策》</a>
     </div>
     <br />
     <br />

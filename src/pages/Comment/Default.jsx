@@ -100,7 +100,7 @@ export default () => {
             <div className="title">{detail.name}</div>
             <div className="info">
               专辑：
-              <Link className="ui_hover" to={`/playlist/album/${detail.al.id}`}>{detail.al?.name}</Link>
+              <Link className="text-gray-600 hover:text-gray-900" to={`/playlist/album/${detail.al.id}`}>{detail.al?.name}</Link>
               &nbsp;
               &nbsp;
               &nbsp;
@@ -110,7 +110,7 @@ export default () => {
                 detail.ar.map((item, index) => (
                   <span key={item.id}>
                     {index > 0 && ' / '}
-                    <Link className="ui_hover" to={`/artist/${item.id}`}>{item.name}</Link>
+                    <Link className="text-gray-600 hover:text-gray-900" to={`/artist/${item.id}`}>{item.name}</Link>
                   </span>
                 ))
               }
@@ -140,7 +140,7 @@ export default () => {
           (page === 1 && hotComments.length > 0)
           && (
             <div className="domComment_list">
-              <div className="ui_bold">精彩评论</div>
+              <div className="font-bold">精彩评论</div>
               {hotComments.slice(0, 10).map((item) => (
                 <DomComment
                   item={item}
@@ -166,7 +166,7 @@ export default () => {
           )
         }
         <div className="domComment_list">
-          <div className="ui_bold">最新评论</div>
+          <div className="font-bold">最新评论</div>
           {comments.map((item) => (
             <DomComment
               item={item}

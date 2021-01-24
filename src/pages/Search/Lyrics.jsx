@@ -16,7 +16,7 @@ export default ({ lyrics = [] }) => {
   return (
     <div className="lyrics_list">
       <div className="thead">
-        <div className="item ui_gray">
+        <div className="item text-gray-400">
           <div className="index" />
           <div className="heart" />
           <div className="download" />
@@ -24,7 +24,7 @@ export default ({ lyrics = [] }) => {
           <div className="artist">歌手</div>
           <div className="album">专辑</div>
           <div className="duration">时长</div>
-          <div className="ui_gray">热度</div>
+          <div className="text-gray-400">热度</div>
         </div>
       </div>
       <div className="tbody">
@@ -55,7 +55,7 @@ export default ({ lyrics = [] }) => {
                       {item.name}
                       {item.tns
                         && (
-                          <span className="ui_gray">
+                          <span className="text-gray-400">
                             （
                             {item.tns.map((tns) => tns)}
                             ）
@@ -67,7 +67,7 @@ export default ({ lyrics = [] }) => {
                       && (
                         <>
                           &nbsp;
-                          <span className="alia ui_gray" title={item.alia.map((alia) => alia)}>
+                          <span className="alia text-gray-400" title={item.alia.map((alia) => alia)}>
                             （
                             {item.alia.map((alia) => alia)}
                             ）
@@ -92,7 +92,7 @@ export default ({ lyrics = [] }) => {
                 </div>
               </div>
               <div
-                className="artist truncate ui_gray hover"
+                className="artist truncate text-gray-400 hover"
                 title={(item.ar.map((artist) => artist.name)).join('/')}
               >
                 <div className="truncate">
@@ -100,14 +100,14 @@ export default ({ lyrics = [] }) => {
                 </div>
               </div>
               <div
-                className="album truncate ui_gray hover"
+                className="album truncate text-gray-400 hover"
                 title={item.al.name}
               >
                 <Link to={`/playlist/album/${item.al.id}`}>
                   {item.al.name}
                 </Link>
               </div>
-              <div className="duration ui_gray truncate">
+              <div className="duration text-gray-400 truncate">
                 {dayjs(item.dt).format('mm:ss')}
               </div>
               <div className="pop">
