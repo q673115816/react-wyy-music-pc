@@ -82,7 +82,7 @@ export default () => {
           <div className="item">
             <label className="domSetting_check">
               <input name="autoOpen" type="checkbox" />
-              <i classsName="ico">✔</i>
+              <i className="ico">✔</i>
               <span>
                 开启定时关机
               </span>

@@ -10,7 +10,8 @@ import SwiperCore, {
 } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { IconChevronLeft, IconChevronUpRight } from '@tabler/icons';
+import classnames from 'classnames';
 // Import Swiper styles
 // import 'swiper/swiper.scss';
 // import 'swiper/components/navigation/navigation.scss';
@@ -35,14 +36,14 @@ export default ({ list = [], coverSrc = '' }) => (
         clickable: true,
         el: '.sub_page',
       }}
-      lazy="true"
+      lazy
+      autoplay
+      loop
+      centeredSlides
       observer="true"
       observeparents="true"
       observeslidechildren="true"
-      autoplay
-      loop="true"
       effect="coverflow"
-      centeredSlides="true"
       slidesPerView="auto"
       coverflowEffect={{
         rotate: 0,
@@ -55,10 +56,21 @@ export default ({ list = [], coverSrc = '' }) => (
       {
         list.map((item) => (
           <SwiperSlide className="cover" key={item[coverSrc]}>
-            <Link to="/">
-              <img className="ui_coverimg" src={item[coverSrc]} alt="" />
-              <div className={['typeTitle', item.titleColor === 'blue' ? 'blue' : null].join(' ')}>{item.typeTitle}</div>
-            </Link>
+            {
+              item.url
+                ? (
+                  <a href={item.url}>
+                    <img src={item[coverSrc]} alt="" />
+                    <div className={classnames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>{item.typeTitle}</div>
+                  </a>
+                )
+                : (
+                  <button type="button">
+                    <img src={item[coverSrc]} alt="" />
+                    <div className={classnames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>{item.typeTitle}</div>
+                  </button>
+                )
+            }
           </SwiperSlide>
         ))
 

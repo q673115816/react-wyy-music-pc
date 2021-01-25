@@ -5,7 +5,7 @@ export default ({ list = [], name = '', handle = () => {} }) => (
   <div className="domSetting_subBlock_content">
     {
             list.map(([item, checked, tips]) => (
-              <div className="item leading-loose">
+              <div className="item leading-loose" key={item}>
                 <label className="domSetting_check flex items-center" htmlFor={item}>
                   <input
                     name={name}

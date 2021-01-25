@@ -11,10 +11,6 @@
     color: #fff;
   }
 
-  .vip {
-    margin-left: 0.5em;
-  }
-
   &_spilt {
     width: 1px;
     background-color: rgba(255, 255, 255, 0.6);
@@ -433,12 +429,8 @@
     .infos {
       margin-top: 20px;
       margin-bottom: 20px;
-      // display: flex;
-      // justify-content: space-around;
 
       .info {
-        // width: 33%;
-        // text-align: center;
 
         .num {
           font-size: 22px;
@@ -452,22 +444,12 @@
 
     .item {
       padding: 6px 0;
-
-      // &.detail {
-      //   flex: auto;
-      // }
-
-      // &+.item {
-      //   border-top: 1px solid #EDEDED;
-      // }
     }
 
     .link {
-      // display: flex;
       width: 100%;
       padding-left: 24px;
       height: 36px;
-      // align-items: center;
 
       .ico {
         width: 24px;

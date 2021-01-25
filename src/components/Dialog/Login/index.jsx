@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { IconX } from '@tabler/icons';
-import { setLoginVisibilty, setIsLogin, setLoginInfo } from '@/redux/actions';
+import { setLoginVisibility, setIsLogin, setLoginInfo } from '@/redux/actions';
 import { setCookie } from '@/common/request';
 import './style.scss';
 import DomScan from './Scan';
@@ -77,7 +77,7 @@ export default () => {
       <button
         type="button"
         className="ui_dialog_close close"
-        onClick={() => dispatch(setLoginVisibilty())}
+        onClick={() => dispatch(setLoginVisibility())}
       >
         <IconX stroke={1.5} />
       </button>

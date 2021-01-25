@@ -14,7 +14,7 @@ import {
   IconCirclePlus,
   IconMusic,
 } from '@tabler/icons';
-import { setDialogReset, setDialogShareShow, setLoginVisibilty } from '@/redux/actions';
+import { setDialogReset, setDialogShareShow, setLoginVisibility } from '@/redux/actions';
 import DomMask from './Mask';
 
 export default () => {
@@ -31,7 +31,7 @@ export default () => {
   // console.log(globalLastY, contextMenuY);
   const handleDialogShare = () => {
     if (!isLogin) {
-      dispatch(setLoginVisibilty());
+      dispatch(setLoginVisibility());
       return dispatch(setDialogReset());
     }
     dispatch(setDialogShareShow({

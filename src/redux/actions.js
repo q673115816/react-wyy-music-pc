@@ -101,7 +101,7 @@ export const setVideoDetailRelated = (payload) => ({
   payload,
 });
 
-export const setLoginVisibilty = () => ({
+export const setLoginVisibility = () => ({
   type: SET_LOGIN_VISIBILTY,
 });
 

@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  IconArrowsSplit2, IconPlayerSkipBack, IconPlayerPlay, IconPlayerSkipForward, IconEar,
+  IconArrowsSplit2,
+  IconPlayerSkipBack,
+  IconPlayerPlay,
+  IconPlayerSkipForward,
+  IconEar,
   IconVolume, IconList,
 } from '@tabler/icons';
 import { setPopup, setVolume } from '@/redux/actions';
@@ -10,8 +14,10 @@ import { setPopup, setVolume } from '@/redux/actions';
 export default () => {
   const dispatch = useDispatch();
   const {
-    currentSong, playlist, popupStatus, volume,
+    currentSong, playlist, popupStatus,
   } = useSelector(({ common }) => common);
+  const { volume } = useSelector(({ setting }) => setting);
+
   const [isPlay, setIsPlay] = useState(false);
   const [currentProcess, setCurrentProcess] = useState(60);
   const audio = useRef();

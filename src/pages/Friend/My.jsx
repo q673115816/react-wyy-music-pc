@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { apiHotTopic, apiEvent, apiCommentEvent } from '@/api';
 import {
-  setFriendInit, setFriendEvent, setCommentEvent, setLoginVisibilty,
+  setFriendInit, setFriendEvent, setCommentEvent, setLoginVisibility,
 } from '@/redux/actions';
 import './style.scss';
 
@@ -83,7 +83,7 @@ export default () => {
       <div className="domFriend_left">
         <div className="domFriend_header">
           <span className="h1">动态</span>
-          <button type="button" className="ui_btn_small">
+          <button type="button" className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full">
             +
             写动态
           </button>
@@ -164,7 +164,7 @@ export default () => {
                   <button
                     type="button"
                     className="login"
-                    onClick={() => dispatch(setLoginVisibilty(true))}
+                    onClick={() => dispatch(setLoginVisibility(true))}
                   >
                     立即登录
                   </button>

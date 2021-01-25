@@ -20,12 +20,21 @@ export const apiPersonalizedDjprogram = () => get('/personalized/djprogram');
 // dj
 // dj - banner
 export const apiDjBanner = () => get('/dj/banner');
+// dj - 分类
+export const apiDjCatelist = () => get('/dj/catelist');
+/**
+ * 电台 - 类别热门电台
+ * @param {limit, offset, cateId} params
+ */
+export const apiDjRadioHot = (params) => post('/dj/radio/hot', params);
 // dj - 类别
 export const apiDjCategoryRecommend = () => get('/dj/category/recommend');
 // dj - 电台个性推荐
 export const apiDjPersonalizeRecommend = () => get('/dj/personalize/recommend');
-// dj - 类别热门电台
-export const apiDjRadioHot = (params) => post('/dj/radio/hot', params);
+// 电台 -节目榜 limit offset
+export const apiDjProgramToplist = () => get('/dj/program/toplist');
+// 电台 -24小时节目榜 limit
+export const apiDjProgramToplistHours = () => get('/dj/program/toplist/hours');
 
 // 歌单
 // 歌单 - 详情

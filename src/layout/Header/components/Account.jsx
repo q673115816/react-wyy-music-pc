@@ -10,7 +10,7 @@ import {
   IconBrandVimeo,
   IconCoin,
 } from '@tabler/icons';
-import { setLoginVisibilty, setLoginInfo } from '@/redux/actions';
+import { setLoginVisibility, setLoginInfo } from '@/redux/actions';
 import {
   apiUserAccount, apiLogout, apiDailysignin, apiUserDetail,
 } from '@/api';
@@ -58,7 +58,7 @@ const DomProfile = ({ setVisibliity }) => {
       {
         (!loading && isLogin)
           ? (
-            <ul className="list divide-y divide-fuchsia-300">
+            <ul className="list divide-y">
               <li className="detail item flex-auto">
                 <div className="infos flex">
                   <Link
@@ -178,7 +178,7 @@ export default () => {
   const { profile } = useSelector(({ account }) => account);
   const [visibility, setVisibliity] = useState(false);
   const handleShowLogin = () => {
-    dispatch(setLoginVisibilty());
+    dispatch(setLoginVisibility());
   };
   return (
     <div className="domHeader_user">

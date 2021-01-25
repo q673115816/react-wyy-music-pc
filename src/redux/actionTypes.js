@@ -42,10 +42,6 @@ export const SET_COMMENT_EVENT = 'SET_COMMENT_EVENT';
 
 // common
 
-export const SET_THEME = 'SET_THEME';
-
-export const SET_VOLUME = 'SET_VOLUME';
-
 export const SET_POPUP = 'SET_POPUP';
 
 export const SET_LOCAL_CURRENT = 'SET_LOCAL_CURRENT';
@@ -71,3 +67,11 @@ export const SET_DIALOG_SHARE_WX_SHOW = 'SET_DIALOG_SHARE_WX_SHOW';
 export const SET_DIALOG_UPLOAD_AVATAR_SHOW = 'SET_DIALOG_UPLOAD_AVATAR_SHOW';
 
 export const SET_DIALOG_RESET = 'SET_DIALOG_RESET';
+
+// setting
+
+export const SET_THEME = 'SET_THEME';
+
+export const SET_VOLUME = 'SET_VOLUME';
+
+export const SET_FONT = 'SET_FONT';

@@ -3,6 +3,7 @@ import { SET_HOME_DJ } from '@/redux/actionTypes';
 const initialState = {
   DjBanner: [],
   category: [],
+  catelist: [],
   DjPersonalizeRecommend: [],
   创作翻唱: [],
   声之剧场: [],

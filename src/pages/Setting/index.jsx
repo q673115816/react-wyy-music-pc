@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './style.scss';
-
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
-import Target from './components/Hoc';
+import { setLoginVisibility } from '@/redux/actions';
+
 import DomNormal from './components/Normal';
 import DomPlay from './components/Play';
 import DomMessage from './components/Message';
@@ -28,6 +28,36 @@ const nav = [
 
 const BuildBinding = (item) => {
 
+};
+
+const DomAccountLogined = ({ bindings = [], profile = {} }) => (
+  <>
+    <div className="">
+      {
+        bindings.map((item) => BuildBinding(item))
+      }
+    </div>
+    <div>
+      <Link to={`/user/${profile.userId}/edit`} className="inline-block rounded-full px-3 py-1 border mr-2 hover:bg-gray-100">修改个人信息</Link>
+      <Link to="/friend/invite" className="inline-block rounded-full px-3 py-1 border hover:bg-gray-100">寻找并邀请好友</Link>
+    </div>
+  </>
+);
+
+const DomAccountUnLogined = ({ }) => {
+  const dispatch = useDispatch();
+  return (
+    <>
+      <div className="text-gray-400 mb-3">登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
+      <button
+        type="button"
+        className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full"
+        onClick={() => dispatch(setLoginVisibility())}
+      >
+        立即登录
+      </button>
+    </>
+  );
 };
 
 export default () => {
@@ -57,6 +87,7 @@ export default () => {
         <div className="domSetting_nav">
           {nav.map((item) => (
             <button
+              key={item}
               type="button"
               onClick={() => handleScrollToActive(item)}
               className={classnames('domSetting_nav_link', { on: activeSetting === item })}
@@ -66,59 +97,42 @@ export default () => {
           ))}
         </div>
       </div>
-      <div className="domSetting_main overflow-auto max-h-full flex-auto" onScroll={handleFollow} ref={main}>
+      <div
+        className="domSetting_main overflow-auto max-h-full flex-auto divide-y"
+        onScroll={handleFollow}
+        ref={main}
+      >
         <div data-title="账号">
           {
             isLogin
-              ? (
-                <>
-                  <div className="">
-                    {
-                      bindings.map((item) => BuildBinding(item))
-                    }
-                  </div>
-                  <div>
-                    <Link to={`/user/${profile.userId}/edit`} className="ui_btn">修改个人信息</Link>
-                    &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    <Link to="/friend/invite" className="ui_btn">寻找并邀请好友</Link>
-                  </div>
-                </>
-              )
-
-              : (
-                <>
-                  <div className="text-gray-400" style={{ marginBottom: 10 }}>登录网易云音乐，手机电脑多端同步，320K高音质无限下载</div>
-                  <span className="ui_btn_small">立即登录</span>
-                </>
-              )
+              ? <DomAccountLogined bindings={bindings} profile={profile} />
+              : <DomAccountUnLogined />
           }
         </div>
-        <Target {... { 'data-title': '常规' }}>
+        <div data-title="常规" className="mt-8 pt-8">
           <DomNormal />
-        </Target>
-        <Target {... { 'data-title': '播放' }}>
+        </div>
+        <div data-title="播放" className="mt-8 pt-8">
           <DomPlay />
-        </Target>
-        <Target {... { 'data-title': '消息与隐私' }}>
+        </div>
+        <div data-title="消息与隐私" className="mt-8 pt-8">
           <DomMessage />
-        </Target>
-        <Target {... { 'data-title': '快捷键' }}>
+        </div>
+        <div data-title="快捷键" className="mt-8 pt-8">
           <DomKeyboard />
-        </Target>
-        <Target {... { 'data-title': '下载设置' }}>
+        </div>
+        <div data-title="下载设置" className="mt-8 pt-8">
           <DomDownload />
-        </Target>
-        <Target {... { 'data-title': '歌词' }}>
+        </div>
+        <div data-title="歌词" className="mt-8 pt-8">
           <DomLyric />
-        </Target>
-        <Target {... { 'data-title': '工具' }}>
+        </div>
+        <div data-title="工具" className="mt-8 pt-8">
           <DomTool />
-        </Target>
-        <Target {... { 'data-title': '关于网易云音乐' }}>
+        </div>
+        <div data-title="关于网易云音乐" className="mt-8 pt-8">
           <DomAbout />
-        </Target>
+        </div>
       </div>
 
     </div>

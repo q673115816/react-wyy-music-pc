@@ -15,6 +15,7 @@ const Download = loadable(() => import(/* webpackChunkName: "Download" */'@/page
 const Friend = loadable(() => import(/* webpackChunkName: "Friend" */'@/pages/Friend'));
 const Love = loadable(() => import(/* webpackChunkName: "Love" */'@/pages/Love'));
 const Dj = loadable(() => import(/* webpackChunkName: "Dj" */'@/pages/Dj'));
+const DjCategory = loadable(() => import(/* webpackChunkName: "DjCategory" */'@/pages/DjCategory'));
 const Fm = loadable(() => import(/* webpackChunkName: "Fm" */'@/pages/Fm'));
 const ToplistArtist = loadable(() => import(/* webpackChunkName: "ToplistArtist" */'@/pages/ToplistArtist'));
 const Playlist = loadable(() => import(/* webpackChunkName: "Playlist" */'@/pages/Playlist'));
@@ -37,6 +38,7 @@ export default () => (
     <Route path="/download" component={Download} />
     <Route path="/friend" component={Friend} />
     <Route path="/dj" component={Dj} />
+    <Route path="/dj-category/:id" component={DjCategory} />
     <Route path="/fm" component={Fm} />
     <Route path="/love" component={Love} />
     <Route path="/sublist" component={Sublist} />

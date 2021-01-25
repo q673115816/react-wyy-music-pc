@@ -1,0 +1,19 @@
+.domHome_dj_toplist {
+  &_main {
+    .list {
+
+    }
+    .item {
+      height: 80px;
+      .index {
+        width: 64px;
+      }
+      .cover {
+        width: 60px;
+        height: 60px;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+    }
+  }
+}

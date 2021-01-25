@@ -33,15 +33,11 @@
   user-select: text !important;
 }
 
+.ui_themeColor {
+  color: var(--themeColor);
+}
+
 .ui_btn_small {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 12px;
-  height: 24px;
-  // line-height: 24px;
-  // text-align: center;
-  border-radius: 12px;
   color: #fff;
   background-color: var(--themeColor);
 }
@@ -116,22 +112,16 @@
     position: relative;
     width: 540px;
     height: 200px;
-    border-radius: 10px;
+    border-radius: 6px;
     overflow: hidden;
 
     .typeTitle {
-      --theme: #CC4A4A;
       position: absolute;
       bottom: 0;
       right: 0;
       color: #fff;
-      padding: 10px;
-      background-color: var(--theme);
-      border-top-left-radius: 10px;
-
-      &.blue {
-        --theme: #4A79CC;
-      }
+      // padding: 10px;
+      border-top-left-radius: 6px;
     }
   }
 
@@ -143,6 +133,14 @@
     &>[role='button'] {
       margin: 0 6px;
     }
+  }
+
+  .prev {
+
+  }
+
+  .next {
+
   }
 }
 

@@ -32,7 +32,8 @@ const handlePopSwitch = (popupStatus) => {
 
 export default function App() {
   const dispatch = useDispatch();
-  const { popupStatus, loginVisibility, theme } = useSelector(({ common }) => common);
+  const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
+  const { theme } = useSelector(({ setting }) => setting);
   const {
     contextMenuVisibility,
     dialogShareVisibility,
