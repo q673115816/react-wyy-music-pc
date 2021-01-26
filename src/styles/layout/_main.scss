@@ -1,10 +1,4 @@
 .dommain {
-  position: relative;
-  display: flex;
-  flex: 1;
-  min-height: 1px;
-  width: 100%;
-
   &_split {
     position: relative;
     flex: none;
@@ -56,9 +50,5 @@
 
   &_right {
     --rightwidth: 820px;
-    // position: relative;
-    // flex: 1;
-    // min-width: 1px;
-    // height: 100%;
   }
 }

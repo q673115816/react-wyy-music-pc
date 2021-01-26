@@ -112,7 +112,20 @@ export const apiToplistDetail = () => get('/toplist/detail');
 // 排行榜
 export const apiTopSong = (type) => get(`/top/song?type=${type}`);
 export const apiTopAlbum = (params) => post('/top/album', params);
+/**
+ * 歌单 ( 网友精选碟 )
+ * @param {order, cat, limit, offset} params
+ */
 export const apiTopPlaylist = (params) => post('/top/playlist', params);
+/**
+ *
+ * @param {cat, limit, before} params
+ */
+export const apiTopPlaylistHighquality = (params) => post('/top/playlist/highquality', params);
+// 精品歌单标签列表
+export const apiPlaylistHighqualityTags = () => get('/playlist/highquality/tags');
+// 热门歌单分类
+export const apiPlaylistHot = () => get('/playlist/hot');
 /**
  * 排行榜 -mv
  * @param {limit?: 30,area?:全部|内地|港台|欧美|日本|韩国, offset?: 0} params

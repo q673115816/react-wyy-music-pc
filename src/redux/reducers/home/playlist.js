@@ -1,11 +1,10 @@
 import { SET_TOP_PLAYLIST, SET_PLAYLIST_CATLIST } from '@/redux/actionTypes';
 
 const initialState = {
-  playlists: [],
-  all: {},
-  sub: [],
-  categories: {},
-  total: 0,
+  highquality: {},
+  hot: {},
+  catlist: {},
+  playlists: {},
 };
 
 export default (state = initialState, action) => {

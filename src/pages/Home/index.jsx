@@ -47,7 +47,7 @@ const nav = [
 export default () => {
   const { replace } = useHistory();
   return (
-    <div className="domHome">
+    <div className="domHome flex flex-col h-full">
       <div className="domHome_nav ui_header">
         {nav.map((item) => (
           <NavLink

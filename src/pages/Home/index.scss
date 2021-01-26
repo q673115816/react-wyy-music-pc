@@ -1,17 +1,5 @@
 .domHome {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 1px;
-  height: 100%;
   &_nav {
-    // flex: none;
-    // height: 60px;
-    // display: flex;
-    // align-items: baseline;
-    // padding-top: 20px;
-    // padding-left: 30px;
-    // padding-right: 30px;
 
     &_link {
       margin-right: 1em;
@@ -24,19 +12,8 @@
   }
 
   &_content {
-    --contentpadding: 24px;
     flex: auto;
-    padding: var(--contentpadding);
-    // display: flex;
-    // width: var(--rightwidth);
-    // >div {
-    //   width: var(--rightwidth);
-    //   flex: 1;
-    //   overflow: auto;
-    //   // 滚动条保持绝对位置
-    //   overflow-anchor: none;
-    //   padding: var(--contentpadding);
-    // }
+    padding: 0 30px;
   }
 
    &_item {

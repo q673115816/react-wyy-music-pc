@@ -1,12 +1,34 @@
 .domHome {
   &_playlist {
+    &_banner {
+      height: 170px;
+      border-radius: 10px;
+      padding: 15px;
+      // background-color: #ace;
+      .cover {
+        width: 140px;
+        height: 140px;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .contennt {
+        margin-left: 10px;
+      }
+
+      .tag {
+        width: 100px;
+        height: 30px;
+        color: #E7AA5A;
+        @include flex-center();
+      }
+    }
+
     &_list {
+      // margin-top: 30px;
       .item {
         display: flex;
         flex-direction: column;
-      }
-
-      .cover {
       }
 
       .playCount {
