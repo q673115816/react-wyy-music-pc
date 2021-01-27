@@ -1,10 +1,29 @@
 .domHome_dj_toplist {
+  &_nav {
+    &_link {
+      width: 116px;
+      height: 30px;
+      line-height: 30px;
+      &.on {
+        background-color: #BBBBBB;
+      }
+    }
+  }
   &_main {
     .list {
 
     }
     .item {
       height: 80px;
+      &:nth-child(odd) {
+        background-color: #F9F9F9;
+      }
+      &:hover {
+        background-color: #F2F2F2;
+      }
+      &.on {
+        background-color: #EFEFEF;
+      }
       .index {
         width: 64px;
       }
@@ -13,6 +32,26 @@
         height: 60px;
         border-radius: 4px;
         overflow: hidden;
+      }
+
+      .name {
+        flex: 5;
+        padding: 0 6px;
+      }
+
+      .radio {
+        flex: 3;
+        padding: 0 6px;
+      }
+
+      .category {
+        width: 88px;
+        padding: 0 6px;
+      }
+
+      .score {
+        width: 88px;
+        padding: 0 6px;
       }
     }
   }

@@ -33,6 +33,8 @@ export const apiDjCategoryRecommend = () => get('/dj/category/recommend');
 export const apiDjPersonalizeRecommend = () => get('/dj/personalize/recommend');
 // 电台 -节目榜 limit offset
 export const apiDjProgramToplist = () => get('/dj/program/toplist');
+// 电台 - 新晋电台榜/热门电台榜 limit offset type=new/hot
+export const apiDjToplist = () => get('/dj/toplist');
 // 电台 -24小时节目榜 limit
 export const apiDjProgramToplistHours = () => get('/dj/program/toplist/hours');
 
