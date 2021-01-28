@@ -73,12 +73,11 @@ const DomPlaylist = ({ name = '', playlist = [] }) => {
           playlist.map((item) => (
             <NavLink
               key={item.id}
-              className="dommain_left_link"
-              activeClassName="on"
+              className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
+              activeClassName="bg-gray-100"
               to={`/playlist/music/${item.id}`}
             >
-              <IconMusic size={20} stroke={1} className="flex-none" />
-              &nbsp;
+              <IconMusic size={20} stroke={1} className="flex-none mr-1" />
               <span className="truncate">
                 {item.name}
               </span>
@@ -103,8 +102,8 @@ export default () => {
           options1.map((item) => (
             <NavLink
               key={item.name}
-              className="dommain_left_link"
-              activeClassName="on font-bold"
+              className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
+              activeClassName="bg-gray-100 font-bold text-base"
               to={item.link}
             >
               {item.name}
@@ -114,26 +113,31 @@ export default () => {
       </nav>
       <div className="dommain_left_dt">我的音乐</div>
       <nav>
-        <NavLink className="dommain_left_link" activeClassName="on" to="/local">
-          <IconFileMusic size={20} stroke={1} />
-          &nbsp;
+        <NavLink
+          className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
+          activeClassName="bg-gray-100"
+          to="/local"
+        >
+          <IconFileMusic size={20} stroke={1} className="mr-1" />
           本地音乐
         </NavLink>
-        <NavLink className="dommain_left_link" activeClassName="on" to="/download">
-          <IconCloudDownload size={20} stroke={1} />
-          &nbsp;
+        <NavLink
+          className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
+          activeClassName="bg-gray-100"
+          to="/download"
+        >
+          <IconCloudDownload size={20} stroke={1} className="mr-1" />
           下载管理
         </NavLink>
         {isLogin && (
           loginNav.map(([name, link, Ico]) => (
             <NavLink
-              className="dommain_left_link flex items-center"
-              activeClassName="on"
+              className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
+              activeClassName="bg-gray-100"
               to={link}
               key={name}
             >
-              <Ico size={20} stroke={1} />
-              &nbsp;
+              <Ico size={20} stroke={1} className="mr-1" />
               {name}
             </NavLink>
           ))

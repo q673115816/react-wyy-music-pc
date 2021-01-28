@@ -16,12 +16,10 @@ export default () => {
   // const [lastX, setLastX] = useState(0);
   // const [lastY, setLastY] = useState(0);
 
-  const dragdown = (e, current) => {
-    if (e.target === current) {
-      setStartX(e.clientX);
-      setStartY(e.clientY);
-      setDragger(true);
-    }
+  const dragdown = (e) => {
+    setStartX(e.clientX);
+    setStartY(e.clientY);
+    setDragger(true);
   };
 
   const dragmove = (e) => {

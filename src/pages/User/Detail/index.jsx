@@ -243,7 +243,7 @@ export default () => {
                 <div className="inner">
                   <RainbowCat />
                 </div>
-                <div className="rb">
+                <div className="absolute right-0 bottom-0">
                   <span className="playArrow">
                     <IconPlayerPlay size={22} className="fill-current" />
                   </span>
@@ -268,12 +268,12 @@ export default () => {
                     />
                   </div>
                   <div className="topmask" />
-                  <div className="rb">
+                  <div className="absolute right-0 bottom-0">
                     <span className="playArrow">
                       <IconPlayerPlay size={22} className="fill-current" />
                     </span>
                   </div>
-                  <div className="rt">
+                  <div className="absolute top-0 right-0">
                     <div className="whitetext">
                       {transPlayCount(item.playCount)}
                     </div>
@@ -317,12 +317,12 @@ export default () => {
                     />
                   </div>
                   <div className="topmask" />
-                  <div className="rb">
+                  <div className="absolute right-0 bottom-0">
                     <span className="playArrow">
                       <IconPlayerPlay size={22} className="fill-current" />
                     </span>
                   </div>
-                  <div className="rt">
+                  <div className="absolute top-0 right-0">
                     <div className="whitetext">{transPlayCount(item.playCount)}</div>
                   </div>
                 </div>

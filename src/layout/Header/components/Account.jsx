@@ -181,14 +181,18 @@ export default () => {
     dispatch(setLoginVisibility());
   };
   return (
-    <div className="domHeader_user">
+    <div className="domHeader_user space-x-3 mr-3">
       {isLogin && profile
         ? (
           <div className="domHeader_user_profile">
-            <Link to={`/user/${profile.userId}`} className="avator">
+            <Link to={`/user/${profile.userId}`} className="avator z-10">
               <img className="ui_containimg" src={profile.avatarUrl} alt="" />
             </Link>
-            <button type="button" className="hover flex" onClick={() => setVisibliity(!visibility)}>
+            <button
+              type="button"
+              className="flex z-10 text-white text-opacity-90 hover:text-opacity-100"
+              onClick={() => setVisibliity(!visibility)}
+            >
               <span>{profile.nickname}</span>
               <IconCaretDown size={12} className="fill-current" />
             </button>
@@ -200,17 +204,22 @@ export default () => {
         : (
           <button
             type="button"
-            className="domHeader_user_login"
+            className="domHeader_user_login z-10 text-white text-opacity-90 hover:text-opacity-100"
             onClick={handleShowLogin}
           >
             <span className="person flex-center">
-              <IconUser size={24} stroke={1} />
+              <IconUser size={24} stroke={1.5} />
             </span>
             <span>未登录</span>
             <IconCaretDown size={12} fill="CurrentColor" />
           </button>
         )}
-      <button type="button" className="vip hover">开通VIP</button>
+      <button
+        type="button"
+        className="vip text-white text-opacity-90 hover:text-opacity-100 z-10"
+      >
+        开通VIP
+      </button>
     </div>
   );
 };

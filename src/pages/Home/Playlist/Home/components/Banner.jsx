@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({ item = {} }) => (
+export default ({ item = {}, cat = '全部歌单' }) => (
   <Link
-    to="/"
+    to={`/home/playlist/highquality/${cat}`}
     className="domHome_playlist_banner flex items-center relative overflow-hidden z-10"
   >
     <div
@@ -22,7 +22,7 @@ export default ({ item = {} }) => (
       <div className="text-white text-base mt-4">
         {item.name}
       </div>
-      <div className="text-gray-300 mt-1">
+      <div className="text-gray-300 mt-2">
         {item.copywriter}
       </div>
     </div>

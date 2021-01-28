@@ -26,10 +26,10 @@ export default ({ playlist = [] }) => (
             <div className="inner">
               <Link to={`/playlist/music/${item.id}`}>
                 <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
-                <div className="rt">
+                <div className="absolute top-0 right-0">
                   <span className="whitetext">{transPlayCount(item.playcount)}</span>
                 </div>
-                <div className="rb">
+                <div className="absolute right-0 bottom-0">
                   <span className="playArrow">
                     <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" className="fill-current" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M7 4v16l13 -8z" />

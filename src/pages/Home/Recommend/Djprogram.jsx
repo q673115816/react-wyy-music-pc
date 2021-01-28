@@ -14,7 +14,7 @@ export default ({ djprogram = [] }) => (
                   <img className="ui_containimg" src={`${item.program.coverUrl}?param=200y200`} alt="" />
                 </Lazyload>
                 <div className="mask" />
-                <div className="lb">
+                <div className="absolute left-0 bottom-0">
                   <div className="name truncate">{item.name}</div>
                 </div>
               </Link>

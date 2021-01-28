@@ -5,7 +5,7 @@ import DomHighquality from './Highquality';
 
 export default () => (
   <Switch>
-    <Route path="/home/playlist/highquality" component={DomHighquality} />
+    <Route path="/home/playlist/highquality/:cat" component={DomHighquality} />
     <Route path="/home/playlist/:cat/:page" component={DomHome} />
     <Route path="/home/playlist/:cat" component={DomHome} />
     <Redirect to="/home/playlist/全部歌单" />

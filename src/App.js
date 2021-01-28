@@ -49,14 +49,6 @@ export default function App() {
     dragger,
   } = useDrop();
 
-  const handleMaskMouseUp = () => {
-
-  };
-
-  const handleMaskMouseMove = () => {
-
-  };
-
   useEffect(() => {
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault();
@@ -67,7 +59,7 @@ export default function App() {
       <Router>
         <div
           id="NeteaseCloudMusic"
-          className="domWrapper"
+          className="domWrapper flex flex-col absolute shadow-lg"
           style={{
             transform: `translate(${x}px, ${y}px)`,
             '--themeColor': `var(--${theme}, --themeRed)`,

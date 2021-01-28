@@ -21,18 +21,18 @@ export default () => {
     };
   }, []);
   return (
-    <div className="domHeader_page">
+    <div className="domHeader_page flex space-x-2">
       <button
         type="button"
         onClick={() => goBack()}
-        className="domHeader_page_prev flex-center"
+        className="bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white"
       >
         <IconChevronLeft size={16} />
       </button>
       <button
         type="button"
         onClick={() => goForward()}
-        className="domHeader_page_next flex-center"
+        className="bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white"
       >
         <IconChevronRight size={16} />
       </button>

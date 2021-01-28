@@ -10,10 +10,10 @@ export default ({ tag = false }) => (
       <div className="inner">
         <Link to={kankan}>
           <img className="ui_coverimg" src={kankanimg} alt="" />
-          <div className="rt">
+          <div className="absolute top-0 right-0">
             <span className="whitetext">playCount</span>
           </div>
-          <div className="lb">
+          <div className="absolute left-0 bottom-0">
             <span className="whitetext">artist</span>
           </div>
           {

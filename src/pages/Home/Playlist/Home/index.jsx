@@ -32,21 +32,19 @@ export default () => {
   const {
     highquality,
     hot,
-    tags,
     catlist,
     playlists,
   } = useSelector(({ home }) => home.playlist);
 
   const handleProInit = async () => {
     try {
-      const [highquality, tags, hot, catlist] = await Promise.all([
+      const [highquality, hot, catlist] = await Promise.all([
         apiTopPlaylistHighquality(),
-        apiPlaylistHighqualityTags(),
         apiPlaylistHot(),
         apiPlaylistCatlist(),
       ]);
       dispatch(setPlaylistCatlist({
-        highquality, hot, catlist, tags,
+        highquality, hot, catlist,
       }));
     } catch (error) {
       console.log(error);
@@ -80,9 +78,9 @@ export default () => {
     <div className="domHome_playlist overflow-auto max-h-full flex-auto">
       {
         cat === '全部歌单'
-          ? <DomBanner item={highquality.playlists[0]} />
+          ? <DomBanner item={highquality.playlists[0]} cat={cat} />
           : highquality.playlists.find((item) => item.tag === cat)
-        && <DomBanner item={highquality.playlists.find((item) => item.tag === cat)} />
+          && <DomBanner item={highquality.playlists.find((item) => item.tag === cat)} cat={cat} />
       }
       <div className="domHome_playlist_nav pt-4 pb-4">
         <div className="flex items-center">
@@ -95,9 +93,15 @@ export default () => {
               {cat}
               <IconChevronRight size={20} stroke={1} />
             </button>
-            <div className="domHome_playlist_popup_nav absolute z-10 bg-white shadow text-sm divide-y top-full mt-1 pb-20" style={{ display: popup ? null : 'none' }}>
+            <div className="domHome_playlist_popup_nav absolute z-20 bg-white shadow text-sm divide-y top-full mt-1 pb-20" style={{ display: popup ? null : 'none' }}>
               <div className="pl-8 py-4">
-                <NavLink activeClassName="on ui_themeColor" exact className="domHome_playlist_popup_nav_link text-gray-600 hover:ui_themeColor" to="/home/playlist">
+                <NavLink
+                  onClick={() => setPopup(false)}
+                  activeClassName="on ui_themeColor"
+                  exact
+                  className="domHome_playlist_popup_nav_link text-gray-600 hover:ui_themeColor"
+                  to="/home/playlist/全部歌单"
+                >
                   <span className={classnames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: cat === '全部歌单' })}>
                     全部歌单
                   </span>
@@ -117,6 +121,7 @@ export default () => {
                               .filter((item) => item.category === Number(key))
                               .map((item) => (
                                 <NavLink
+                                  onClick={() => setPopup(false)}
                                   activeClassName="on ui_themeColor"
                                   className="domHome_playlist_popup_nav_link text-gray-600 hover:ui_themeColor"
                                   to={`/home/playlist/${item.name}`}
@@ -180,18 +185,21 @@ export default () => {
                         />
                       </Lazyload>
                     </Link>
-                    <div className="rt">
+                    <div className="absolute top-0 right-0">
                       <div className="playCount">{transPlayCount(item.playCount)}</div>
                     </div>
-                    <div className="lb">
+                    <div className="absolute left-0 bottom-0 z-10">
                       <Link to={`/user/${item.userId}/detail`}>
                         <div className="creator">
                           {item.creator.nickname}
                         </div>
                       </Link>
                     </div>
-                    <div className="rb">
-                      <button type="button" className="playArrow">
+                    <div className="absolute right-0 bottom-0 z-10">
+                      <button
+                        type="button"
+                        className="playArrow"
+                      >
                         <IconPlayerPlay size={22} className="fill-current" />
                       </button>
                     </div>
@@ -211,16 +219,30 @@ export default () => {
           }
       </div>
       <div className="flex items-center justify-center pt-10 pb-10 space-x-1">
-        <button type="button" className="border hover:bg-gray-200 w-6 h-6 flex items-center justify-center rounded">
+        <button
+          type="button"
+          className="border hover:bg-gray-200 w-6 h-6 flex items-center justify-center rounded"
+        >
           <IconChevronLeft size={12} />
         </button>
-        <NavLink activeClassName="ui_theme_bg_color text-white" className="border hover:bg-gray-200 w-6 h-6 flex items-center justify-center rounded" to={url}>
+        <NavLink
+          activeClassName="ui_theme_bg_color text-white"
+          className="border hover:bg-gray-200 w-6 h-6 flex items-center justify-center rounded"
+          to={url}
+        >
           1
         </NavLink>
-        <NavLink activeClassName="ui_theme_bg_color text-white" className="border hover:bg-gray-200 w-6 h-6 flex items-center justify-center rounded" to="2">
+        <NavLink
+          activeClassName="ui_theme_bg_color text-white"
+          className="border hover:bg-gray-200 w-6 h-6 flex items-center justify-center rounded"
+          to="2"
+        >
           2
         </NavLink>
-        <button type="button" className="border hover:bg-gray-200 w-6 h-6 flex items-center justify-center rounded">
+        <button
+          type="button"
+          className="border hover:bg-gray-200 w-6 h-6 flex items-center justify-center rounded"
+        >
           <IconChevronRight size={12} />
         </button>
       </div>

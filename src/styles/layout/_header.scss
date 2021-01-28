@@ -3,48 +3,12 @@
   height: var(--HEADER);
   padding: 0 20px;
   background-color: var(--themeColor);
-  display: flex;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.9);
-
-  .hover:hover {
-    color: #fff;
-  }
 
   &_spilt {
-    width: 1px;
     background-color: rgba(255, 255, 255, 0.6);
-    height: 12px;
-    margin-left: 16px;
-  }
-
-  @mixin icoBtn {
-    display: inline-flex;
-    margin: 0 8px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 50%;
-  }
-
-  &_voice {
-    width: 32px;
-    height: 32px;
-    @include icoBtn();
-  }
-
-  &_page_prev,
-  &_page_next {
-    width: 24px;
-    height: 24px;
-    @include icoBtn();
-
-    &.on {
-      color: #fff;
-    }
   }
 
   &_logo {
-    color: #fff;
-    font-size: 16px;
     letter-spacing: 2px;
     width: 200px;
   }
@@ -57,20 +21,7 @@
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 15px;
     padding-left: 36px;
-    color: #fff;
     font-size: 12px;
-
-    &_ico {
-      position: absolute;
-      top: 50%;
-      left: 10px;
-      transform: translate(0, -50%);
-    }
-
-    &::-webkit-input-placeholder {
-      /* Chrome/Opera/Safari */
-      color: rgba(255, 255, 255, 0.4);
-    }
 
     &_box {
       position: absolute;
@@ -505,24 +456,4 @@
     height: 100%;
     @include flex-center();
   }
-
-  &_control {}
-
-  &_ico {
-    position: relative;
-    margin-left: 12px;
-
-    .rt_ico {
-      position: absolute;
-      top: 0;
-      right: 0;
-      transform: translate(50%, 0);
-      color: var(--themeColor);
-      background-color: #fff;
-      font-size: 12px;
-      border-radius: 1000px;
-      padding: 0px 4px;
-    }
-  }
-
 }

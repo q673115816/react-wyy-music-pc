@@ -150,18 +150,22 @@ export default () => {
     }
   };
   return (
-    <div className="domHeader_function">
-      <Link to="/settings" className="hover domHeader_ico" title="设置">
-        <IconSettings size={24} stroke={1} />
+    <div className="domHeader_function space-x-3">
+      <Link
+        to="/settings"
+        className="relative text-white text-opacity-90 hover:text-opacity-100 "
+        title="设置"
+      >
+        <IconSettings size={24} />
       </Link>
-      <div className="domHeader_function_skin domHeader_ico">
+      <div className="domHeader_function_skin ">
         <button
           onClick={() => setVisibility(!visibility)}
           type="button"
-          className="hover"
+          className="relative text-white text-opacity-90 hover:text-opacity-100"
           title="换肤"
         >
-          <IconTool size={24} stroke={1} />
+          <IconTool size={24} />
         </button>
         {
           visibility && <DomSkin />
@@ -169,12 +173,12 @@ export default () => {
       </div>
       <button
         type="button"
-        className="hover domHeader_ico"
+        className="text-white text-opacity-90 hover:text-opacity-100 relative"
         onClick={handlesetPopup}
         title="私信"
       >
-        <IconMail size={24} stroke={1} />
-        <span className="rt_ico">{newMsgCount}</span>
+        <IconMail size={24} />
+        <span className="absolute -right-3 -top-0.5 bg-white ui_themeColor rounded-full px-1">{newMsgCount}</span>
       </button>
     </div>
   );
