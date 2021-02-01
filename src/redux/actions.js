@@ -6,17 +6,14 @@ import {
   SET_HOME_RECOMMEND,
   SET_HOME_DJ,
   SET_COUNTRIES_CODE_LIST,
-  SET_VIDEODETAIL_RELATED,
   SET_LOGIN_VISIBILTY,
   INIT_HOME_TOP_ARTISTS,
   ADD_HOME_TOP_ARTISTS,
-  SET_TOPLIST_ARITST,
   SET_TOPLIST_DETAIL,
   SET_TOP_SONG,
   SET_TOP_ALBUM,
   SET_PLAYLIST_CATLIST,
   SET_TOP_PLAYLIST,
-  SET_PLAYLIST_DETAIL,
   SET_LOGIN_INFO,
   SET_FRIEND_INIT,
   SET_FRIEND_EVENT,
@@ -96,12 +93,7 @@ export const setContriesCodeList = (payload) => ({
   payload,
 });
 
-export const setVideoDetailRelated = (payload) => ({
-  type: SET_VIDEODETAIL_RELATED,
-  payload,
-});
-
-export const setLoginVisibility = () => ({
+export const setLoginVisibilty = () => ({
   type: SET_LOGIN_VISIBILTY,
 });
 
@@ -113,13 +105,6 @@ export const addHomeTopArtists = (artists) => ({
   type: ADD_HOME_TOP_ARTISTS,
   payload: {
     artists,
-  },
-});
-
-export const setTopListArtist = (artist) => ({
-  type: SET_TOPLIST_ARITST,
-  payload: {
-    artist,
   },
 });
 
@@ -149,11 +134,6 @@ export const setPlaylistCatlist = (payload) => ({
 
 export const setTopPlaylist = (payload) => ({
   type: SET_TOP_PLAYLIST,
-  payload,
-});
-
-export const setPlaylistDetail = (payload) => ({
-  type: SET_PLAYLIST_DETAIL,
   payload,
 });
 

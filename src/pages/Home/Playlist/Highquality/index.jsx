@@ -4,6 +4,7 @@ import { IconFilter, IconPlayerPlay } from '@tabler/icons';
 import classnames from 'classnames';
 import { apiTopPlaylistHighquality, apiPlaylistHighqualityTags } from '@/api';
 import { transPlayCount } from '@/common/utils';
+import useInfinite from '@/components/useInfinite';
 import './style.scss';
 
 export default () => {
@@ -14,7 +15,6 @@ export default () => {
   const [showPopup, setShowPopup] = useState(false);
   const domObserver = useRef();
   const domScroll = useRef();
-  const io = useRef();
   const handleBeforeInit = async () => {
     try {
       const { tags = [] } = await apiPlaylistHighqualityTags();
@@ -37,32 +37,17 @@ export default () => {
     }
   };
 
-  const handleIo = () => {
-    io.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          handleInit();
-        }
-      });
-    }, {
-      root: domScroll.current,
-      // rootMargin: '100px 0px 0px 0px',
-      // thresholds: [1],
-    });
-    io.current.observe(domObserver.current);
-  };
+  const { handleIo, handleUnIo } = useInfinite(handleInit, domScroll, domObserver);
 
   useEffect(() => {
     handleBeforeInit();
     handleIo();
-    // console.dir(io.current);
     return () => {
-      io.current.disconnect();
+      handleUnIo();
     };
   }, []);
 
   useEffect(() => {
-    // handleInit();
     setData([]);
   }, [cat]);
 

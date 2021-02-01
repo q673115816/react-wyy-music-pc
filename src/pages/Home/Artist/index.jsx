@@ -1,18 +1,20 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {
+  useState, useEffect, useRef,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
 import './style.scss';
 import classnames from 'classnames';
-import { limit } from '@/common/config';
+import { IconUser } from '@tabler/icons';
 import { apiArtistList } from '@/api';
 import { addHomeTopArtists, initHomeTopArtists } from '@/redux/actions';
-
+import useInfinite from '@/components/useInfinite';
 import options from './filter';
 
 const Domitem = ({ item = {} }) => (
   <div className="item">
-    <div className="img">
+    <div className="cover boarder relative rounded overflow-hidden border">
       <Link to={`/artist/${item.id}`}>
         <LazyLoad overflow>
           <img
@@ -23,84 +25,111 @@ const Domitem = ({ item = {} }) => (
         </LazyLoad>
       </Link>
     </div>
-    <div className="info">
+    <div className="info flex items-center justify-between mt-2 text-sm text-gray-600 hover:text-gray-900">
       <Link to={`/artist/${item.id}`}>
         {item.name}
       </Link>
+      {
+        item.accountId
+      && (
+      <Link
+        to={`/user/${item.accountId}`}
+        className="bg-red-500 hover:bg-red-600 text-white rounded-full p-0.5"
+      >
+        <IconUser size={12} />
+      </Link>
+      )
+      }
     </div>
   </div>
 );
 
+const initialOptions = {
+  type: -1,
+  area: -1,
+  initial: -1,
+  offset: 0,
+  limit: 30,
+};
+
 export default () => {
   const dispatch = useDispatch();
-  const [isBottom, setIsBottom] = useState(false);
-  const [option, setOption] = useState({
-    type: -1,
-    area: -1,
-    initial: -1,
-    offset: 0,
-  });
-  const [isPending, setIsPending] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
-  const { artists } = useSelector(({ home }) => home.artist);
 
-  const handleChangeOption = (newoption) => {
-    dispatch(initHomeTopArtists());
-    setOption({
-      ...option,
-      ...newoption,
-      offset: 0,
-    });
-  };
-
-  const handleScroll = ({ target }) => {
-    const { scrollHeight, scrollTop, clientHeight } = target;
-    if (scrollTop + clientHeight + 300 > scrollHeight) {
-      setIsBottom(true);
-    } else {
-      setIsBottom(false);
-    }
-  };
+  const [option, setOption] = useState(initialOptions);
+  const refOption = useRef(option);
 
   useEffect(() => {
-    setOption({
-      ...option,
-      offset: option.offset + limit,
-    });
-  }, [isBottom]);
-
-  const handleGetList = async () => {
-    if (isPending) return;
-    try {
-      setIsPending(true);
-      const { artists, more } = await apiArtistList(option);
-      setHasMore(more);
-      dispatch(addHomeTopArtists(artists));
-      setIsPending(false);
-    } catch (error) {
-      console.log(error);
-      setIsPending(false);
-    }
-  };
-
-  useEffect(() => {
-    handleGetList();
+    refOption.current = option;
   }, [option]);
 
+  const domScroll = useRef(null);
+  const domObserver = useRef(null);
+
+  // const { artists } = useSelector(({ home }) => home.artist);
+  const [artists, setArtists] = useState([]);
+  const handleChangeOption = (newoption) => {
+    setOption((prev) => ({
+      ...prev,
+      ...newoption,
+      offset: 0,
+    }));
+    setArtists([]);
+    // dispatch(initHomeTopArtists());
+  };
+
+  const handleInit = async () => {
+    try {
+      const { artists } = await apiArtistList(refOption.current);
+      setArtists((prev) => [...prev, ...artists]);
+      // dispatch(addHomeTopArtists(artists));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const {
+    handleIo,
+    handleUnIo,
+  } = useInfinite(() => {
+    handleInit();
+    setOption((prev) => ({
+      ...prev,
+      offset: prev.offset + 30,
+    }));
+  }, domScroll, domObserver);
+
+  useEffect(() => {
+    handleIo();
+    return () => {
+      handleUnIo();
+    };
+  }, []);
+
   return (
-    <div className="domHome_content overflow-auto max-h-full flex-auto" style={{ paddingTop: 0 }} onScroll={handleScroll}>
+    <div
+      className="domHome_content overflow-auto h-full flex-auto"
+      ref={domScroll}
+    >
       <div className="domHome_artist">
         <div className="domHome_artist_control">
-          {options.map((filter) => (
-            <div className="domHome_artist_filter" key={filter[0]}>
-              <div className="title">{filter[1]}</div>
-              <nav className={classnames('list', filter[0])}>
-                {filter[2].map((item) => (
-                  <div className="item flex-center" key={item[0]}>
+          {options.map(([enType, cnType, filters]) => (
+            <div
+              className="domHome_artist_filter"
+              key={enType}
+            >
+              <div className="title">
+                {cnType}
+              </div>
+              <nav className={classnames('list', enType)}>
+                {filters.map((item) => (
+                  <div
+                    className="item flex-center"
+                    key={item[0]}
+                  >
                     <button
                       type="button"
-                      className={classnames('btn', filter[0], { on: option[filter[0]] === item[0] })}
-                      onClick={() => handleChangeOption({ [filter[0]]: item[0] })}
+                      className={classnames('btn rounded-full focus:outline-none', enType, option[enType] === item[0] && ['ui_themeColor', 'ui_bg_opacity'])}
+                      onClick={() => handleChangeOption({ [enType]: item[0] })}
                     >
                       {item[1]}
                     </button>
@@ -110,10 +139,10 @@ export default () => {
             </div>
           ))}
         </div>
-        <div className="domHome_artist_list">
+        <div className="domHome_artist_list grid gap-4 grid-cols-5">
           {option.type === -1 && option.initial === -1 && artists.length > 0 && (
           <div className="item">
-            <div className="img">
+            <div className="cover boarder relative rounded overflow-hidden border">
               <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.area)[2]}`}>
                 <img
                   className="ui_containimg"
@@ -126,7 +155,7 @@ export default () => {
                 </div>
               </Link>
             </div>
-            <div className="info">
+            <div className="info mt-2 text-sm text-gray-600 hover:text-gray-900">
               <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.type)[2]}`}>
                 歌手排行榜 &gt;
               </Link>
@@ -135,7 +164,7 @@ export default () => {
           )}
           {artists.map((item) => <Domitem item={item} key={item.id} />)}
         </div>
-        {hasMore ? <div>加载中</div> : <div>已经到底了</div>}
+        <div ref={domObserver} />
       </div>
     </div>
   );

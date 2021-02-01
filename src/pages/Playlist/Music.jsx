@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { apiPlaylistDetail } from '@/api';
-import { setPlaylistDetail } from '@/redux/actions';
 import {
-  IconPlayerPlay, IconFolderPlus, IconScreenShare, IconCloudDownload,
+  IconPlayerPlay,
+  IconFolderPlus,
+  IconScreenShare,
+  IconCloudDownload,
   IconPlus,
 } from '@tabler/icons';
 import { transPlayCount } from '@/common/utils';
@@ -13,12 +15,9 @@ import { transPlayCount } from '@/common/utils';
 export default () => {
   const [fulfilled, setFulfilled] = useState(false);
   const { id } = useParams();
-  const {
-    playlist,
-    privileges,
-  } = useSelector(({ playlist }) => playlist);
+  const [playlist, setPlaylist] = useState([]);
+  const [privileges, setPrivileges] = useState([]);
   const { isLogin } = useSelector(({ common }) => common);
-  const dispatch = useDispatch();
   const handleGet = async () => {
     try {
       const {
@@ -29,10 +28,8 @@ export default () => {
         id,
       });
       if (code === 200) {
-        dispatch(setPlaylistDetail({
-          playlist,
-          privileges,
-        }));
+        setPlaylist(playlist);
+        setPrivileges(privileges);
         setFulfilled(true);
       }
     } catch (error) {

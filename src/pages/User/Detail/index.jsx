@@ -21,22 +21,6 @@ import { SymbolWB } from '@/components/Symbol';
 import { transPlayCount } from '@/common/utils';
 import RainbowCat from './RainbowCat';
 
-const BuildBindings = (item) => {
-  if (item.url) {
-    switch (item.type) {
-      case 2:
-        return (
-          <a href={item.url}>
-            <SymbolWB size={16} active />
-          </a>
-        );
-      default:
-        return null;
-    }
-  }
-  return null;
-};
-
 export default () => {
   const { isLogin } = useSelector(({ common }) => common);
   const [user, setUser] = useState({});
@@ -206,7 +190,20 @@ export default () => {
             <div className="item">
               <span>社交网络：</span>
               {
-                user.bindings.map((item) => BuildBindings(item))
+                user.bindings.map((item) => {
+                  if (item.url) {
+                    switch (item.type) {
+                      case 2:
+                        return (
+                          <a href={item.url} key={item.url}>
+                            <SymbolWB size={16} active key={item.url} />
+                          </a>
+                        );
+                      default:
+                        return null;
+                    }
+                  }
+                })
               }
             </div>
             <div className="item">

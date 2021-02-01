@@ -55,6 +55,7 @@ export default () => {
           ref={audio}
           src={currentSong.url}
           onLoadedData={({ target }) => isPlay && target.play()}
+          volume={volume * 0.01}
         />
       </div>
       {

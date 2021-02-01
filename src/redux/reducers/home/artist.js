@@ -15,7 +15,6 @@ export default (state = initialState, { type, payload }) => {
         artists: [],
       };
     case ADD_HOME_TOP_ARTISTS:
-      console.log(payload);
       return {
         ...state,
         artists: [].concat(state.artists, payload.artists),

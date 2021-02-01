@@ -1,39 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
-export default (scrollCallback) => {
-  // const scrolldom = useRef();
-  const [scrolldom, setScrolldom] = useState(null);
-  // const observerdom = useRef();
-  const [observerdom, setObserverdom] = useState(null);
-
+export default (scrollCallback, domScroll, domObserver) => {
   const io = useRef();
-  useEffect(() => {
+
+  const handleIo = () => {
     io.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        // console.log(entry);
         if (entry.isIntersecting) {
           scrollCallback();
         }
       });
     }, {
-      root: scrolldom,
-      rootMargin: '0px 0px 20px 0px', // 懵懵懂懂
-      threshold: [0, 1],
+      root: domScroll.current,
+      // rootMargin: '100px 0px 0px 0px',
+      // thresholds: [1],
     });
-  }, [scrolldom]);
+    io.current.observe(domObserver.current);
+  };
 
-  useEffect(() => {
-    if (observerdom) {
-      io.current.observe(observerdom);
-    }
-    return () => {
-      if (observerdom) {
-        io.current.unobserve(observerdom);
-      }
-    };
-  }, [observerdom]);
+  const handleUnIo = () => {
+    io.current.disconnect();
+  };
+
   return {
-    setScrolldom,
-    setObserverdom,
+    handleIo,
+    handleUnIo,
   };
 };

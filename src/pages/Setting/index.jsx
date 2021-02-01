@@ -3,7 +3,7 @@ import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
-import { setLoginVisibility } from '@/redux/actions';
+import { setLoginVisibilty } from '@/redux/actions';
 
 import DomNormal from './components/Normal';
 import DomPlay from './components/Play';
@@ -52,7 +52,7 @@ const DomAccountUnLogined = ({ }) => {
       <button
         type="button"
         className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full"
-        onClick={() => dispatch(setLoginVisibility())}
+        onClick={() => dispatch(setLoginVisibilty())}
       >
         立即登录
       </button>

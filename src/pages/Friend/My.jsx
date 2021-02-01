@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { apiHotTopic, apiEvent, apiCommentEvent } from '@/api';
 import {
-  setFriendInit, setFriendEvent, setCommentEvent, setLoginVisibility,
+  setFriendInit, setFriendEvent, setCommentEvent, setLoginVisibilty,
 } from '@/redux/actions';
 import './style.scss';
 
@@ -164,7 +164,7 @@ export default () => {
                   <button
                     type="button"
                     className="login"
-                    onClick={() => dispatch(setLoginVisibility(true))}
+                    onClick={() => dispatch(setLoginVisibilty(true))}
                   >
                     立即登录
                   </button>

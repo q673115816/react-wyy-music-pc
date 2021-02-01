@@ -25,14 +25,14 @@ export default () => {
       <button
         type="button"
         onClick={() => goBack()}
-        className="bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white"
+        className="focus:outline-none bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white z-10"
       >
         <IconChevronLeft size={16} />
       </button>
       <button
         type="button"
         onClick={() => goForward()}
-        className="bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white"
+        className="focus:outline-none bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white z-10"
       >
         <IconChevronRight size={16} />
       </button>

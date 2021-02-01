@@ -38,34 +38,14 @@
 
 
       .btn {
-        background-color: #fff;
         padding: 3px 8px;
-        // margin-right: 2em;
-        cursor: pointer;
-
-        &.on {
-          color: var(--themeColor);
-          background-color: rgba(255, 0, 0, 0.05);
-          border-radius: 1000px;
-        }
       }
     }
 
     &_list {
-      display: grid;
       margin-top: 10px;
-      row-gap: 16px;
-      column-gap: 16px;
-      grid-template-columns: repeat(5, 1fr);
 
       .item {
-
-        .img {
-          position: relative;
-          border-radius: 10px;
-          overflow: hidden;
-        }
-
         .rankmask {
           position: absolute;
           top: 0;
@@ -78,12 +58,6 @@
           justify-content: center;
           background-color: rgba(188, 124, 218, 0.9);
           color: #fff;
-        }
-
-        .info {
-          display: flex;
-          font-size: 14px;
-          margin-top: 0.5em;
         }
       }
     }

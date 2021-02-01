@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setLoginVisibility,
+  setLoginVisibilty,
   setContriesCodeList,
   setLoginInfo,
   setIsLogin,
@@ -14,6 +14,7 @@ import {
   apiMsgPrivate,
   apiUserPlaylist,
   apiLoginStatus,
+  apiUserDetail,
 } from '@/api';
 // import { setCookie } from '@/common/request';
 import {
@@ -25,20 +26,12 @@ import DomSearch from './components/Search';
 import DomAccount from './components/Account';
 import DomControl from './components/Control';
 import DomFunction from './components/Function';
-import { apiUserDetail } from '../../api';
 
 export default ({ handleDrap }) => {
   const dispatch = useDispatch();
   const refHeader = useRef();
   const account = useSelector(({ account }) => account);
-  // const { isLogin } = useSelector(({ common }) => common);
-  // useEffect(() => {
-  //   if (account) {
-  //     dispatch(setIsLogin());
-  //   } else {
-  //     dispatch(setIsLogin());
-  //   }
-  // }, [account]);
+
   const handleGetCountriesCodeList = async () => {
     try {
       const { data } = await apiCountriesCodeList();
