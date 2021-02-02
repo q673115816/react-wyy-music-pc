@@ -24,11 +24,13 @@
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
-  <!-- <link href="https://unpkg.com/material-design-icons/iconfont/material-icons.css" rel="stylesheet"> -->
   <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-icons/font/bootstrap-icons.css"> -->
   <!-- <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css"> -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"> -->
+  <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%=htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <% } %>
 </head>
 
 <body>
@@ -46,14 +48,19 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  <script src="https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js"></script>
+    <% for (var js in htmlWebpackPlugin.files.js) { %>
+      <script type="text/javascript" src="<%=htmlWebpackPlugin.files.js[js] %>"></script>
+    <% } %>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> -->
-  <script src="https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/swiper/esm/react/swiper.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/esm/react/swiper-slide.js"></script> -->
 </body>
 
 </html>

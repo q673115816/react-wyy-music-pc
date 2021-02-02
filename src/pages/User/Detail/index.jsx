@@ -116,8 +116,8 @@ export default () => {
                 Lv
                 {user.level}
               </a>
-              {user.profile.gender === 1 && <DomMale size={10} />}
-              {user.profile.gender === 2 && <DomFamale size={10} />}
+              {user.profile.gender === 1 && <DomMale size={16} />}
+              {user.profile.gender === 2 && <DomFamale size={16} />}
             </div>
             <div className="right flex-center">
               {

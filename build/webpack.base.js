@@ -15,6 +15,24 @@ const plugins = [
     favicon: path.join(__dirname, '../public/favicon.ico'),
     template: path.join(__dirname, '../public/index.html'),
     title: '网易云音乐',
+    files: {
+      js: [
+        'https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js',
+        'https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js',
+        'https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js',
+        'https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js',
+        'https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js',
+        'https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js',
+        'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
+        'https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js',
+      ],
+      css: [
+        'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css',
+        'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css',
+      ],
+    },
+    templateParameters: {
+    },
     // publicPath: '/'
   }),
   new MiniCssExtractPlugin({
@@ -74,10 +92,10 @@ module.exports = {
         //   priority: -20,
         //   reuseExistingChunk: true,
         // },
-        swiper: {
-          name: 'swiper',
-          test: /[\\/]node_modules[\\/]_?swiper(.*)/,
-        },
+        // swiper: {
+        //   name: 'swiper',
+        //   test: /[\\/]node_modules[\\/]_?swiper(.*)/,
+        // },
         'qrcode.react': {
           name: 'qrcode',
           test: /[\\/]node_modules[\\/]_?qrcode.react(.*)/,
@@ -108,7 +126,7 @@ module.exports = {
     ],
   },
   externals: {
-    // swiper: ['Swiper', 'SwiperCore'],
+    swiper: 'Swiper',
     'react-router': 'ReactRouter',
     'react-router-dom': 'ReactRouterDOM',
     react: 'React',
@@ -155,29 +173,39 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|svg)$/,
         exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              name: '[name].[ext]',
-              limit: 8192,
-              outputPath: 'assets/images',
-            },
-          },
-        ],
+        type: 'asset',
+        generator: {
+          // [ext]前面自带"."
+          filename: 'assets/images/[name].[hash:8][ext]',
+        },
+        // use: [
+        //   {
+        //     loader: 'url-loader',
+        //     options: {
+        //       name: '[name].[ext]',
+        //       limit: 8192,
+        //       outputPath: 'assets/images',
+        //     },
+        //   },
+        // ],
       },
       {
-        test: /\.(eot|woff|ttf|woff2|appcache|svg)\??.*$/,
+        test: /\.(eot|woff|ttf|woff2|appcache)\??.*$/,
+        type: 'asset',
+        generator: {
+          // [ext]前面自带"."
+          filename: 'assets/fonts/[name].[hash:8][ext]',
+        },
         // exclude: [/^node_modules$/, path.resolve(__dirname, '../src/svg')],
-        use: [{
-          loader: 'file-loader',
-          // options: {
-          //   name: "[name].[ext]",
-          //   outputPath: "static/fonts/"
-          // }
-        }],
+        // use: [{
+        // loader: 'file-loader',
+        // options: {
+        //   name: "[name].[ext]",
+        //   outputPath: "static/fonts/"
+        // }
+        // }],
       },
     ],
   },
