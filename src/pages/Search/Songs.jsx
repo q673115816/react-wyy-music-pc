@@ -14,7 +14,7 @@ import { setContextMenuShow } from '@/redux/actions';
 
 const Build = {
   artist: ({ item }) => (
-    <Link to={`/artist/${item.id}`} className="item">
+    <Link to={`/artist/${item.id}`} className="item group">
       <div className="cover">
         <img className="ui_coverimg" src={item.picUrl} alt="" />
       </div>
@@ -22,9 +22,19 @@ const Build = {
         <div className="name">
           歌手：
           {item.name}
+          {
+            item.alias.length > 0
+          && (
+          <span className="text-gray-400">
+            （
+            {item.alias[0]}
+            ）
+          </span>
+          )
+          }
         </div>
       </div>
-      <div className="ico">
+      <div className="ico text-gray-600 group-hover:text-black ml-auto mr-4">
         <IconChevronRight size={24} stroke={1} />
       </div>
     </Link>
@@ -47,13 +57,22 @@ const Build = {
   ),
 };
 
-export default ({ songs = [], multimatch }) => {
-  // console.log('entry song');
+const DomMultimatch = ({ list = [] }) => {
+  if (list.length === 0) return null;
+  return (
+    <div className="domSearch_multimatch border-b">
+      <div className="title">最佳匹配</div>
+      <div className="list">
+        {list.map(([item, Dom, order]) => <Dom item={item} key={order} />)}
+      </div>
+    </div>
+  );
+};
+
+export default ({ songs = [], multimatch = {} }) => {
+  const list = multimatch.orders.map((order) => [multimatch[order][0], Build[order], order]);
   const dispatch = useDispatch();
-  const [focus, setFocus] = useState();
   const handleRightClick = async (e, item) => {
-    // console.log(item);
-    setFocus(item.id);
     try {
       const { total } = await apiCommentMusic({
         id: item.id,
@@ -63,6 +82,11 @@ export default ({ songs = [], multimatch }) => {
         contextMenuY: e.clientY,
         contextMenuItem: item,
         contextMenuTotal: total,
+        contextMenuSechma: [
+          '评论',
+          // 'hr',
+          // '分享',
+        ],
       }));
     } catch (error) {
       console.log(error);
@@ -70,26 +94,10 @@ export default ({ songs = [], multimatch }) => {
   };
   return (
     <>
-      {
-        multimatch.orders?.length > 0
-        && (
-          <div className="domSearch_multimatch">
-            <div className="title">最佳匹配</div>
-            <div className="list">
-              {multimatch.orders?.map((order) => {
-                const Item = Build[order];
-                return (
-                  multimatch[order]
-                    .map((item) => <Item item={item} key={order} />)
-                );
-              })}
-            </div>
-          </div>
-        )
-}
+      <DomMultimatch list={list} />
       <div className="songs_list">
         <div className="thead">
-          <div className="item text-gray-400">
+          <div className="item flex items-center text-gray-400">
             <div className="index" />
             <div className="heart" />
             <div className="download" />
@@ -103,8 +111,8 @@ export default ({ songs = [], multimatch }) => {
         <div className="tbody">
           {songs.map((item, index) => (
             <div
-              onMouseDown={() => setFocus(item.id)}
-              className={classnames('item', { on: focus === item.id })}
+              tabIndex="2"
+              className={classnames('item flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
               key={item.id}
               onContextMenu={(e) => handleRightClick(e, item)}
             >
@@ -112,17 +120,17 @@ export default ({ songs = [], multimatch }) => {
                 {String(index + 1).padStart(2, 0)}
               </div>
               <div className="heart">
-                <button type="button" className="text-gray-400 hover">
+                <button type="button" className="text-gray-400 hover:text-black">
                   <IconHeart size={20} stroke={1} />
                 </button>
               </div>
               <div className="download">
-                <button type="button" className="text-gray-400 hover">
+                <button type="button" className="text-gray-400 hover:text-black">
                   <IconDownload size={20} stroke={1} />
                 </button>
               </div>
-              <div className="name" title={item.name}>
-                <div className="inner">
+              <div className="name w-0" title={item.name}>
+                <div className="inner flex items-center">
                   <div className="text truncate">
                     <span title={item.name}>
                       {item.name}
@@ -130,17 +138,14 @@ export default ({ songs = [], multimatch }) => {
                     {
                 item.alia.length > 0
                 && (
-                  <>
-                    &nbsp;
-                    <span
-                      className="alia text-gray-400"
-                      title={item.alia.map((alia) => alia)}
-                    >
-                      （
-                      {item.alia.map((alia) => alia)}
-                      ）
-                    </span>
-                  </>
+                <span
+                  className="alia text-gray-400"
+                  title={item.alia.map((alia) => alia)}
+                >
+                  （
+                  {item.alia.map((alia) => alia)}
+                  ）
+                </span>
                 )
               }
                   </div>
@@ -178,12 +183,16 @@ export default ({ songs = [], multimatch }) => {
                 </div>
               </div>
               <div
-                className="album truncate text-gray-400 hover"
+                className="album truncate"
                 title={item.al.name}
               >
-                <Link to={`/playlist/album/${item.al.id}`}>
-                  {item.al.name}
-                </Link>
+                {item.al.name
+                  ? (
+                    <Link className="text-gray-500 hover:text-black" to={`/playlist/album/${item.al.id}`}>
+                      {item.al.name}
+                    </Link>
+                  )
+                  : <span className="text-gray-400">未知专辑</span>}
               </div>
               <div className="duration text-gray-400 truncate">
                 {dayjs(item.dt).format('mm:ss')}

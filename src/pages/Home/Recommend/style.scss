@@ -1,106 +1,32 @@
 .domHome {
   &_recommend {
     &_playlist {
-      margin-top: 16px;
       .name {
         @include ellipse();
       }
     }
-    &_privatecontent {
-      margin-top: 16px;
-      display: grid;
-      column-gap: 20px;
-      grid-template-columns: repeat(3, 1fr);
-      // grid-template-columns: repeat(auto-fill, 1fr);
-
-      .item {}
-
-      .cover {
-        position: relative;
-        border-radius: 4px;
-        overflow: hidden;
-
-        .ico {
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          width: 20px;
-          height: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          background-color: rgba(0, 0, 0, 0.4);
-          border-radius: 10px;
-          color: #fff;
-          font-size: 16px;
-          @include flex-center();
-        }
-      }
-
-      .name {
-        font-size: 14px;
-        margin-top: 0.5em;
-        line-height: 18px;
-      }
-    }
 
     &_newsong {
-      margin-top: 16px;
-      display: grid;
-      row-gap: 20px;
-      column-gap: 10px;
-      grid-template-columns: repeat(3, calc( 100% / 3 - 20px / 3));
-      grid-template-rows: repeat(4, 50px);
-      grid-auto-flow: column;
-
       .item {
-        display: flex;
-        &:hover {
-          background-color: #EAEAEA;
-        }
+        height: 50px;
       }
-
       .cover {
-        float: left;
         cursor: pointer;
-        position: relative;
         width: 50px;
         height: 50px;
-        border-radius: 4px;
-        overflow: hidden;
-      }
-
-      .ico {
-        @include inset-center();
-        @include flex-center();
-        width: 28px;
-        height: 28px;
-        color: var(--themeColor);
-        border-radius: 14px;
-        background-color: #fff;
-        font-size: 22px;
       }
 
       .content {
-        flex: auto;
-        display: flex;
-        flex-direction: column;
-        padding: 4px 8px;
-        min-width: 1px;
+        // padding: 4px 8px;
       }
 
-      .name {
-        font-size: 14px;
-      }
-
-      .artist {
-        margin-top: 0.8em;
-      }
     }
 
     &_mv {
-      margin-top: 16px;
-      display: grid;
-      column-gap: 20px;
-      grid-template-columns: repeat(3, calc((100% - 40px) /3));
+      // margin-top: 16px;
+      // display: grid;
+      // column-gap: 20px;
+      // grid-template-columns: repeat(3, calc((100% - 40px) /3));
 
       .item:last-child {
         display: none;
@@ -125,46 +51,29 @@
       }
 
       .copywriter {
-        position: absolute;
-        left: 0;
-        right: 0;
-        color: #fff;
+        // position: absolute;
+        // left: 0;
+        // right: 0;
+        // color: #fff;
         transform: translate(0, -100%);
         transition: linear 0.1s;
-        background-color: rgba(0, 0, 0, 0.4);
-        line-height: 1.5;
-        padding: 5px 10px;
+        // background-color: rgba(0, 0, 0, 0.4);
+        // line-height: 1.5;
+        // padding: 5px 10px;
       }
 
-      .playCount {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #fff;
-      }
+      // .playCount {
+      //   position: absolute;
+      //   top: 10px;
+      //   right: 10px;
+      //   color: #fff;
+      // }
 
-      .name {
-        font-size: 16px;
-        margin-top: 0.5em;
-
-        a:hover {
-          color: #000;
-        }
-      }
-
-      .artist {
-        margin-top: 0.5em;
-
-        a:hover {
-          color: #000;
-        }
-      }
     }
 
     &_djprogram {
-      margin-top: 16px;
       .cover {
-        border: 1px solid #ccc;
+        // border: 1px solid #ccc;
       }
 
       .mask {
@@ -178,9 +87,6 @@
       }
 
       .name {
-        // max-width: 100%;
-        padding: 10px;
-        color: #fff;
       }
     }
 

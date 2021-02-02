@@ -78,8 +78,8 @@ export default () => {
   if (loading) return <div>loading</div>;
   return (
     <div className="domSearch overflow-auto max-h-full flex-auto">
-      <div className="domSearch_header">
-        <div className="h1">
+      <div className="domSearch_header border-b">
+        <div className="font-bold text-base">
           找到
           {result.songCount
           || result.artistCount

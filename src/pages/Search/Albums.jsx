@@ -1,15 +1,20 @@
 import React from 'react';
+import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 
 export default ({ albums = [] }) => (
   <div className="albums_list _list">
-    {albums.map((item) => (
-      <Link
-        to={`/playlist/album/${item.id}`}
-        className="item"
+    {albums.map((item, index) => (
+      <div
+        tabIndex="2"
+        className={classnames('item flex items-center relative hover:bg-gray-100', { 'bg-gray-50': index % 2 === 1 })}
         key={item.id}
       >
-        <div className="cover">
+        <Link
+          className="absolute inset-0 z-0"
+          to={`/playlist/album/${item.id}`}
+        />
+        <div className="cover flex-none">
           <img src={`${item.picUrl}?param=100y100`} alt="" />
         </div>
         <div className="name">
@@ -23,10 +28,10 @@ export default ({ albums = [] }) => (
             </span>
             )}
         </div>
-        <div className="artist">
+        <div className="artist truncate">
           <Link
             to={`/artist/${item.artist.id}`}
-            className="text-gray-600 hover:text-gray-900"
+            className="text-gray-600 hover:text-black relative z-10"
           >
             {item.artist.name}
             {item.artist.alias.length > 0
@@ -39,7 +44,7 @@ export default ({ albums = [] }) => (
             )}
           </Link>
         </div>
-      </Link>
+      </div>
     ))}
   </div>
 );

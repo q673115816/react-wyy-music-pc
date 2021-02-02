@@ -113,17 +113,6 @@ export default () => {
           <RecommendDjprogram djprogram={djprogram} />
         </div>
         <div className="domHome_item">
-          <Link className="domHome_recommend_subtitle h1" to="https://look.163.com/hot?livetype=1">
-            听听 &gt;
-          </Link>
-          <div className="domHome_recommend_tingting ui_grid square">
-            {
-            Object.keys(Array(5).fill(0))
-              .map((item) => <DOMtingting key={item} tag />)
-          }
-          </div>
-        </div>
-        <div className="domHome_item">
           <Link className="domHome_recommend_subtitle h1" to="https://look.163.com/hot?livetype=2">
             看看 &gt;
           </Link>

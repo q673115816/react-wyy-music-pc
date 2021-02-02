@@ -25,8 +25,23 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+// /* Set core body defaults */
+body {
+  // min-height: 100vh;
+  // text-rendering: optimizeSpeed;
+  line-height: 1;
+  font-size: 12px;
+  color: #333;
+  // font-family: var(--fontFamily);
+}
+
+
 body {
   overflow: hidden;
+}
+
+button:focus {
+  outline: none;
 }
 
 .mask {

@@ -4,7 +4,7 @@ import { transPlayCount } from '@/common/utils';
 import { SymbolToday } from '@/components/Symbol';
 
 export default ({ playlist = [] }) => (
-  <div className="domHome_recommend_playlist ui_grid square col_5">
+  <div className="domHome_recommend_playlist ui_grid square col_5 mt-4">
     <div className="item">
       <div className="cover">
         <div className="inner">

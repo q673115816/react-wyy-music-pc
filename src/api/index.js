@@ -16,7 +16,18 @@ export const apiPersonalizedPrivatecontent = () => get('/personalized/privatecon
 export const apiPersonalizedPrivatecontentList = (params) => get('/personalized/privatecontent/list', params);
 export const apiPersonalizedNewsong = (params) => post('/personalized/newsong', params);
 export const apiPersonalizedMv = () => get('/personalized/mv');
-export const apiPersonalizedDjprogram = () => get('/personalized/djprogram');
+export const apiPersonalizedDjprogram = () => post('/personalized/djprogram');
+export const apiProgramRecommend = () => post('/program/recommend');
+
+/**
+ * 电台 - 24小时主播榜
+ * @param {limit} parmas
+ */
+export const apiDjToplistHours = (params) => post('/dj/toplist/hours', params);
+// 电台 - 推荐
+export const apiDjRecommend = () => get('/dj/recommend');
+// 电台 - 今日优选
+export const apiDjTodayPerfered = () => get('/dj/today/perfered');
 // dj
 // dj - banner
 export const apiDjBanner = () => get('/dj/banner');
@@ -41,6 +52,12 @@ export const apiDjProgramToplistHours = () => get('/dj/program/toplist/hours');
 // 歌单
 // 歌单 - 详情
 export const apiPlaylistDetail = (params) => post('/playlist/detail', params);
+/**
+ * 电台 - 详情
+ * @param {rid} params
+ */
+export const apiDjDetail = (params) => post('/dj/detail', params);
+
 // 推荐歌单 > 登录
 export const apiRecommendResource = (params) => post('/recommend/resource', params);
 // 推荐歌曲 > 登录

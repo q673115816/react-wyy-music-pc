@@ -2,7 +2,6 @@
   &_header {
     padding: 30px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
   }
 
   &_nav {
@@ -57,32 +56,14 @@
           color: #999;
         }
       }
-
-      .ico {
-        margin-left: auto;
-        margin-right: 16px;
-      }
     }
   }
 
   &_main {
     ._list {
 
-      // display: flex;
-      // flex-direction: column;
       .item {
         padding: 10px 30px;
-        display: flex;
-        align-items: center;
-
-        &:nth-child(even) {
-          background-color: #F9F9F9;
-        }
-
-        &:hover {
-          background-color: #F0F1F2;
-        }
-
         .cover {
           width: 60px;
           height: 60px;
@@ -95,7 +76,6 @@
           padding: 0 10px;
           font-size: 14px;
           width: 40%;
-          // @include text-overflow();
         }
       }
     }
@@ -103,11 +83,7 @@
     .songs_list {
 
       .item {
-        // width: 100%;
         height: 36px;
-        display: flex;
-        align-items: center;
-        // font-size: 14px;
         .index {
           flex: none;
           text-align: right;
@@ -126,11 +102,6 @@
           flex: auto;
           padding: 0 8px;
           // width: 40%;
-
-          .inner {
-            display: flex;
-            align-items: center;
-          }
         }
 
         .artist {
@@ -173,23 +144,6 @@
           }
         }
       }
-
-      .tbody {
-        .item {
-          &:nth-child(odd) {
-            background-color: #F9F9F9;
-          }
-
-          &:hover {
-            background-color: #F0F1F2;
-          }
-
-          &.on {
-            background-color: #E5E5E5;
-          }
-        }
-      }
-
     }
 
     .artists_list {
@@ -209,6 +163,7 @@
       .item {
         .artist {
           padding: 0 10px;
+          width: 50%;
         }
       }
     }
@@ -224,69 +179,12 @@
     }
 
     .lyrics_list {
-      white-space: nowrap;
-      width: 100%;
-      table-layout: fixed;
-
-      td {
-        vertical-align: middle;
-      }
-
       .item {
         --grid: 40px 24px 24px 10fr 4fr 4fr 2fr 3fr;
         display: grid;
         align-items: center;
         grid-template-rows: 36px;
         grid-template-columns: var(--grid);
-
-        .index {
-          text-align: right;
-          padding-right: 10px;
-          color: gray;
-        }
-
-        .heart,
-        .download {
-          text-align: center;
-          color: gray;
-
-          &:hover {
-            color: #333;
-          }
-        }
-
-        .name {
-          padding: 0 8px;
-
-          .inner {
-            display: flex;
-            align-items: center;
-          }
-
-          .tags {
-            padding-left: 4px;
-          }
-
-          [name] {
-            font-size: 14px;
-          }
-        }
-
-        .artist {
-          padding: 0 8px;
-        }
-
-        .album {
-          padding: 0 8px;
-        }
-
-        .duration {
-          padding: 0 8px;
-        }
-
-        .pop {
-          padding: 0 8px;
-        }
 
         .range {
           width: 80px;
@@ -311,22 +209,6 @@
         }
       }
 
-      .tbody {
-        .item {
-          &:nth-child(odd) {
-            background-color: #F9F9F9;
-          }
-
-          &:hover {
-            background-color: #F0F1F2;
-          }
-
-          &.on {
-            background-color: #E5E5E5;
-          }
-        }
-      }
-
       .lyric {
         display: flex;
         grid-column: 4 / 9;
@@ -339,8 +221,6 @@
           word-break: break-all;
           white-space: pre-line;
           min-width: 1px;
-          color: #999;
-          font-size: 14px;
 
           :first-child {
             margin-top: 0.5em;
@@ -348,6 +228,7 @@
 
             b {
               color: var(--linkColor);
+              font-weight: normal;
             }
           }
         }

@@ -100,7 +100,7 @@ export default () => {
             <div className="title">{detail.name}</div>
             <div className="info">
               专辑：
-              <Link className="text-gray-600 hover:text-gray-900" to={`/playlist/album/${detail.al.id}`}>{detail.al?.name}</Link>
+              <Link className="text-gray-600 hover:text-black" to={`/playlist/album/${detail.al.id}`}>{detail.al?.name}</Link>
               &nbsp;
               &nbsp;
               &nbsp;
@@ -110,7 +110,7 @@ export default () => {
                 detail.ar.map((item, index) => (
                   <span key={item.id}>
                     {index > 0 && ' / '}
-                    <Link className="text-gray-600 hover:text-gray-900" to={`/artist/${item.id}`}>{item.name}</Link>
+                    <Link className="text-gray-600 hover:text-black" to={`/artist/${item.id}`}>{item.name}</Link>
                   </span>
                 ))
               }

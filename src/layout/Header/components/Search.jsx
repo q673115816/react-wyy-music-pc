@@ -80,12 +80,12 @@ export default () => {
     }
   }, [searchValue]);
   return (
-    <form style={{ position: 'relative' }} onSubmit={handleSubmit}>
+    <form className="relative" onSubmit={handleSubmit}>
       <IconSearch size={16} className="absolute inset-y-0 m-auto left-3 text-white" />
       <input
         type="text"
         placeholder="搜索"
-        className="domHeader_search placeholder-white placeholder-opacity-40"
+        className="domHeader_search placeholder-white placeholder-opacity-40 text-white"
         value={searchValue}
         onChange={handleSearchChange}
         onFocus={handleSearchInit}

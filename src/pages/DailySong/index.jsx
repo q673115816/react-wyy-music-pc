@@ -12,8 +12,8 @@ import dayjs from 'dayjs';
 import { apiRecommendSongs, apiCommentMusic } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
 import { setContextMenuShow } from '@/redux/actions';
-import './style.scss';
 import { useDispatch } from 'react-redux';
+import './style.scss';
 
 export default () => {
   const dispatch = useDispatch();
@@ -105,8 +105,9 @@ export default () => {
             {
               data.dailySongs?.map((item, index) => (
                 <div
+                  tabIndex="2"
                   onMouseDown={() => setFocus(index)}
-                  className={classnames('item flex items-center', { on: index === focus })}
+                  className={classnames('item flex items-center hover:bg-gray-100 w-full focus:outline-none', { 'focus:bg-gray-200': index === focus, 'bg-gray-50': index % 2 === 0 })}
                   key={item.id}
                   onContextMenu={(e) => handleRightClick(e, item, index, 'song')}
                 >

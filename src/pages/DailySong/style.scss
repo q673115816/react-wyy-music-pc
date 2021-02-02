@@ -85,20 +85,6 @@
     }
 
     .tbody {
-      display: flex;
-      flex-direction: column;
-
-      .item:nth-child(odd) {
-        background-color: #F6F6F6;
-      }
-
-      .item:hover {
-        background-color: #EEEFF0;
-      }
-
-      .item.on {
-        background-color: #E5E5E5;
-      }
 
     }
   }

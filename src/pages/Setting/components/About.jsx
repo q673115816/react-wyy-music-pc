@@ -36,11 +36,11 @@ export default () => (
       </a>
     </div>
     <div className="pt-8 pb-7">
-      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-gray-900">《网易云音乐官网》</a>
-      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-gray-900">《网易云音乐社区管理细则》</a>
-      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-gray-900">《服务条款》</a>
-      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-gray-900">《隐私政策》</a>
-      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-gray-900">《儿童隐私政策》</a>
+      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-black">《网易云音乐官网》</a>
+      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-black">《网易云音乐社区管理细则》</a>
+      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-black">《服务条款》</a>
+      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-black">《隐私政策》</a>
+      <a href="https://music.163.com" className="mr-2 underline text-gray-600 hover:text-black">《儿童隐私政策》</a>
     </div>
   </>
 );

@@ -23,7 +23,13 @@ export default () => {
       <div className="domManage_header ui_header">
         <span className="domManage_header_title h1">本地音乐</span>
         <span className="domManage_header_total">共0首</span>
-        <button type="button" className="domManage_header_selectFolder" onClick={handleToggleVisibility}>选择目录</button>
+        <button
+          type="button"
+          className="domManage_header_selectFolder"
+          onClick={handleToggleVisibility}
+        >
+          选择目录
+        </button>
       </div>
       <div className="domManage_main">
         <div className="domManage_nav">
@@ -31,7 +37,7 @@ export default () => {
             <button
               onClick={() => dispatch(setLocalCurrent({ current: item }))}
               key={item}
-              className={classnames('domManage_nav_link', { on: item === current })}
+              className={classnames('domManage_nav_link focus:outline-none', { on: item === current })}
               type="button"
             >
               {item}
@@ -49,13 +55,17 @@ export default () => {
             onClick={handleToggleVisibility}
           >
             选择本地音乐文件夹
-
           </button>
         </div>
         <div className="domManage_dialog" style={{ display: visibility ? '' : 'none' }}>
           <button type="button" className="close" onClick={handleToggleVisibility}>×</button>
-          <div className="title">选择本地音乐文件夹</div>
-          <div className="tips">将自动扫描您勾选的目录，文件增删实时同步。</div>
+          <div className="title">
+            选择本地音乐文件夹
+
+          </div>
+          <div className="tips">
+            将自动扫描您勾选的目录，文件增删实时同步。
+          </div>
           <ul>
             <li>
               <span className="checkbox">

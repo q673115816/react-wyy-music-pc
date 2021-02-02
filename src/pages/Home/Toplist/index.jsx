@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { IconPlayerPlay } from '@tabler/icons';
 import classnames from 'classnames';
 import dayjs from 'dayjs';
-import './style.scss';
 import { apiToplistDetail, apiPlaylistDetail, apiToplistArtist } from '@/api';
 import { setTopListsDetail } from '@/redux/actions';
 import { transPlayCount } from '@/common/utils';
+import './style.scss';
 
 const DomContent = ({ tracks = [] }) => {
   const [focus, setFocus] = useState(-1);
@@ -20,8 +20,8 @@ const DomContent = ({ tracks = [] }) => {
             key={track.name}
             onClick={() => setFocus(index)}
           >
-            <span>{index + 1}</span>
-            <span>&nbsp;口&nbsp;</span>
+            <span className="index w-4">{index + 1}</span>
+            <span className="status w-4 flex-center">&nbsp;口&nbsp;</span>
             <span
               className="name"
               title={track.name + track.alia}
@@ -72,12 +72,12 @@ export default () => {
     try {
       const { list } = await apiToplistDetail();
       dispatch(setTopListsDetail(list));
-      const result = await Promise.all(
-        list.slice(0, 4).map((item) => apiPlaylistDetail({ id: item.id })),
+      const [飙升榜, 新歌榜, 原创榜, 热歌榜, 歌手榜] = await Promise.all([
+        ...list.slice(0, 4).map((item) => apiPlaylistDetail({ id: item.id })),
         apiToplistArtist(1),
-      );
-      setFiveTop(result.slice(0, 4));
-      setArtists(result[4].list);
+      ]);
+      setFiveTop([飙升榜, 新歌榜, 原创榜, 热歌榜]);
+      setArtists(歌手榜);
     } catch (error) {
       console.log(error);
     }
@@ -136,16 +136,40 @@ export default () => {
               歌手榜
               <div className="inset-center flex-center text-white">
                 <span className="pt-16">
-                  {dayjs(artists.updateTime).format('MM月DD日')}
+                  {dayjs(artists.list?.updateTime).format('MM月DD日')}
                   更新
                 </span>
               </div>
-              <button type="button" className="opacity-0 group-hover:opacity-100 inset-center flex-center rounded-full w-10 h-10 text-red-500 bg-white bg-opacity-50">
+              <button
+                type="button"
+                className="opacity-0 group-hover:opacity-100 inset-center flex-center rounded-full w-10 h-10 text-red-500 bg-white bg-opacity-50"
+              >
                 <IconPlayerPlay size={22} className="fill-current" />
               </button>
             </Link>
             <div className="official_rank_content flex-auto">
-              <DomContent tracks={artists?.artists?.slice(0, 5)} />
+              <div className="official_rank_list mb-3">
+                {artists
+                  ?.list
+                  ?.artists
+                  ?.slice(0, 5)
+                  .map((item, index) => (
+                    <Link
+                      className={classnames('item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })}
+                      to={`/artist/${item.id}`}
+                    >
+                      <div className={classnames('index w-4', { 'text-red-500': index < 3 })}>
+                        {index + 1}
+                      </div>
+                      <div className="status w-4 flex-center">
+                        {item.lastRank === index && '-'}
+                        {item.lastRank < index && '↓'}
+                        {item.lastRank > index && '↑'}
+                      </div>
+                      <div className="name">{item.name}</div>
+                    </Link>
+                  ))}
+              </div>
               <Link
                 to="/toplistartist"
                 className="text-gray-400 hover:text-gray-500"
@@ -180,7 +204,7 @@ export default () => {
               </Link>
               <Link
                 to={`/playlist/music/${item.id}`}
-                className="name mt-1 text-sm text-gray-600 hover:text-gray-900"
+                className="name mt-1 text-sm text-gray-600 hover:text-black"
               >
                 {item.name}
               </Link>

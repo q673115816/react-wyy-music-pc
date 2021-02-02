@@ -71,7 +71,7 @@ const DomSkin = () => {
                 onClick={() => handleSelectTheme(classname)}
                 key={name}
                 type="button"
-                className={classnames('skinbtn theme', classname)}
+                className={classnames('focus:outline-none skinbtn theme', classname)}
               >
                 <span className="name">{name}</span>
                 {
@@ -90,7 +90,7 @@ const DomSkin = () => {
                   key={stylename}
                   onClick={() => handleSelectTheme(stylename)}
                   type="button"
-                  className="skinbtn color"
+                  className="focus:outline-none skinbtn color"
                   style={{ '--currentColor': stylename }}
                 >
                   {
@@ -105,7 +105,7 @@ const DomSkin = () => {
           <div className="custom">
             <button
               type="button"
-              className="colour"
+              className="focus:outline-none colour"
             >
               {
                 /custom/.test(theme)
@@ -158,11 +158,11 @@ export default () => {
       >
         <IconSettings size={24} />
       </Link>
-      <div className="domHeader_function_skin ">
+      <div className="relative domHeader_function_skin ">
         <button
           onClick={() => setVisibility(!visibility)}
           type="button"
-          className="relative text-white text-opacity-90 hover:text-opacity-100"
+          className="focus:outline-none text-white text-opacity-90 hover:text-opacity-100"
           title="换肤"
         >
           <IconTool size={24} />
@@ -173,7 +173,7 @@ export default () => {
       </div>
       <button
         type="button"
-        className="text-white text-opacity-90 hover:text-opacity-100 relative"
+        className="focus:outline-none text-white text-opacity-90 hover:text-opacity-100 relative"
         onClick={handlesetPopup}
         title="私信"
       >

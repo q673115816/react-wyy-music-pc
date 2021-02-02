@@ -195,7 +195,7 @@ export default () => {
       <div className="topbar">
         <button
           type="button"
-          className="back flex-center text-gray-600 hover:text-gray-900"
+          className="back flex-center text-gray-600 hover:text-black"
           onClick={() => dispatch(setMsgPrivateHistory({ showMsgPrivateHistory: false }))}
         >
           <IconChevronLeft size={22} stroke={1.5} />

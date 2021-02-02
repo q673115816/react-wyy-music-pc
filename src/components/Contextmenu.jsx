@@ -17,6 +17,26 @@ import {
 import { setDialogReset, setDialogShareShow, setLoginVisibilty } from '@/redux/actions';
 import DomMask from './Mask';
 
+const initBuild = (functionClose) => ({
+  评论: (contextMenuItem, contextMenuTotal) => (
+    <li className="ui_contextmenu_item">
+      <Link
+        to={`/comment/${contextMenuItem.id}`}
+        onClick={functionClose}
+        className="ui_contextmenu_btn"
+      >
+        <i className="ico">
+          <IconMessage size={22} stroke={1} />
+        </i>
+        查看评论
+        (
+        {contextMenuTotal}
+        )
+      </Link>
+    </li>
+  ),
+});
+
 export default () => {
   const dispatch = useDispatch();
   const { isLogin } = useSelector(({ common }) => common);
@@ -27,6 +47,7 @@ export default () => {
     contextMenuY,
     contextMenuItem,
     contextMenuTotal,
+    contextMenuSechma,
   } = useSelector(({ mask }) => mask);
   // console.log(globalLastY, contextMenuY);
   const handleDialogShare = () => {
@@ -38,6 +59,9 @@ export default () => {
 
     }));
   };
+
+  const Build = initBuild(() => dispatch(setDialogReset()));
+
   return (
     <DomMask>
       <ul
@@ -45,6 +69,9 @@ export default () => {
         className="ui_contextmenu"
         style={{ left: contextMenuX - globalLastX, top: contextMenuY - globalLastY }}
       >
+        {contextMenuSechma.map((item) => (
+          Build[item](contextMenuItem, contextMenuTotal)
+        ))}
         <li className="ui_contextmenu_item">
           <Link
             to={`/comment/${contextMenuItem.id}`}

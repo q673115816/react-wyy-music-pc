@@ -10,48 +10,45 @@ import {
 
 import DomLyricsItem from './components/LyricsItem';
 
-export default ({ lyrics = [] }) => {
-  const [songsActive, setSongsActive] = useState();
-
-  return (
-    <div className="lyrics_list">
-      <div className="thead">
-        <div className="item text-gray-400">
-          <div className="index" />
-          <div className="heart" />
-          <div className="download" />
-          <div className="name">音乐标题</div>
-          <div className="artist">歌手</div>
-          <div className="album">专辑</div>
-          <div className="duration">时长</div>
-          <div className="text-gray-400">热度</div>
-        </div>
+export default ({ lyrics = [] }) => (
+  <div className="lyrics_list">
+    <div className="thead">
+      <div className="item text-gray-400">
+        <div className="index" />
+        <div className="heart" />
+        <div className="download" />
+        <div className="name">音乐标题</div>
+        <div className="artist">歌手</div>
+        <div className="album">专辑</div>
+        <div className="duration">时长</div>
+        <div className="text-gray-400">热度</div>
       </div>
-      <div className="tbody">
-        {
+    </div>
+    <div className="tbody">
+      {
           lyrics.map((item, index) => (
             <div
+              tabIndex="2"
               key={item.id}
-              onClick={() => setSongsActive(item.id)}
-              className={classnames('item', { on: songsActive === item.id })}
+              className={classnames('item hover:bg-gray-100 focus:outline-none focus:bg-gray-200', { 'bg-gray-50': index % 2 === 0 })}
             >
-              <div className="index">
+              <div className="index text-right pr-2 text-gray-400">
                 {String(index + 1).padStart(2, 0)}
               </div>
               <div className="heart">
-                <button type="button">
-                  <IconHeart size={20} sdivoke={1} />
+                <button type="button" className="hover:text-black text-gray-500">
+                  <IconHeart size={20} stroke={1} />
                 </button>
               </div>
               <div className="download">
-                <button type="button">
-                  <IconDownload size={20} sdivoke={1} />
+                <button type="button" className="hover:text-black text-gray-500">
+                  <IconDownload size={20} stroke={1} />
                 </button>
               </div>
-              <div className="name" title={item.name}>
-                <div className="inner">
+              <div className="name flex" title={item.name}>
+                <div className="inner flex item-center">
                   <div className="text truncate">
-                    <span name="" title={item.name}>
+                    <span title={item.name}>
                       {item.name}
                       {item.tns
                         && (
@@ -92,18 +89,26 @@ export default ({ lyrics = [] }) => {
                 </div>
               </div>
               <div
-                className="artist truncate text-gray-400 hover"
+                className="artist truncate"
                 title={(item.ar.map((artist) => artist.name)).join('/')}
               >
                 <div className="truncate">
-                  {item.ar.map((aritst) => <Link to={`/artist/${aritst.id}`}>{aritst.name}</Link>)}
+                  {item.ar.map((artist) => (
+                    <Link
+                      className="text-gray-600 hover:text-black"
+                      to={`/artist/${artist.id}`}
+                      key={artist.id}
+                    >
+                      {artist.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
               <div
-                className="album truncate text-gray-400 hover"
+                className="album truncate"
                 title={item.al.name}
               >
-                <Link to={`/playlist/album/${item.al.id}`}>
+                <Link className="text-gray-600 hover:text-black" to={`/playlist/album/${item.al.id}`}>
                   {item.al.name}
                 </Link>
               </div>
@@ -118,7 +123,6 @@ export default ({ lyrics = [] }) => {
             </div>
           ))
         }
-      </div>
     </div>
-  );
-};
+  </div>
+);

@@ -22,7 +22,6 @@ const plugins = [
     // both options are optional
     filename: '[name].[contenthash:8].css',
     chunkFilename: '[name].[contenthash:8].css',
-    // publicPath: path.join(dist, 'assets/css'),
   }),
   // new webpack.DllPlugin({
   //   name: '[name]_[fullhash]',
@@ -64,18 +63,26 @@ module.exports = {
       chunks: 'all',
       name: 'vendors',
       minSize: 0,
-      // cacheGroups: {
-      //   defaultVendors: {
-      //     test: /[\\/]node_modules[\\/]/,
-      //     priority: -10,
-      //     reuseExistingChunk: true,
-      //   },
-      //   default: {
-      //     minChunks: 2,
-      //     priority: -20,
-      //     reuseExistingChunk: true,
-      //   },
-      // },
+      cacheGroups: {
+        // defaultVendors: {
+        //   test: /[\\/]node_modules[\\/]/,
+        //   priority: -10,
+        //   reuseExistingChunk: true,
+        // },
+        // default: {
+        //   minChunks: 2,
+        //   priority: -20,
+        //   reuseExistingChunk: true,
+        // },
+        swiper: {
+          name: 'swiper',
+          test: /[\\/]node_modules[\\/]_?swiper(.*)/,
+        },
+        'qrcode.react': {
+          name: 'qrcode',
+          test: /[\\/]node_modules[\\/]_?qrcode.react(.*)/,
+        },
+      },
       // cacheGroups: {
       //   commons: {
       //     test: /[\\/]node_modules[\\/]/,
@@ -129,7 +136,12 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         use: [
           process.env.NODE_ENV === 'production'
-            ? MiniCssExtractPlugin.loader
+            ? {
+              loader: MiniCssExtractPlugin.loader,
+              // options: {
+              //   publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
+              // },
+            }
             : 'style-loader',
           'css-loader',
           'postcss-loader',

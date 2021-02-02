@@ -25,7 +25,7 @@ const Domitem = ({ item = {} }) => (
         </LazyLoad>
       </Link>
     </div>
-    <div className="info flex items-center justify-between mt-2 text-sm text-gray-600 hover:text-gray-900">
+    <div className="info flex items-center justify-between mt-2 text-sm text-gray-600 hover:text-black">
       <Link to={`/artist/${item.id}`}>
         {item.name}
       </Link>
@@ -155,7 +155,7 @@ export default () => {
                 </div>
               </Link>
             </div>
-            <div className="info mt-2 text-sm text-gray-600 hover:text-gray-900">
+            <div className="info mt-2 text-sm text-gray-600 hover:text-black">
               <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.type)[2]}`}>
                 歌手排行榜 &gt;
               </Link>

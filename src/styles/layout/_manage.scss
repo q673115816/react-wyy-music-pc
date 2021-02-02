@@ -4,11 +4,6 @@
   display: flex;
   flex-direction: column;
   &_header {
-    // padding: 0 30px;
-    // padding-top: 24px;
-    // flex: none;
-    // display: flex;
-    // align-items: flex-end;
     &_title {
     }
     &_total {
@@ -96,18 +91,11 @@
     .cell {
       height: 100%;
       padding: 0 6px;
-      // @extend .text-overflow;
-      // @extend .flex-center;
-
     }
 
     .index {
       text-align: right;
     }
-    // .index,
-    // .download {
-    //   color: #ccc;
-    // }
     .thead {
       .tr {
         .th{
