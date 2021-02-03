@@ -21,20 +21,25 @@ const types = {
 const Share = () => {
   const dispatch = useDispatch();
   // const [visibilty, setVisibilty] = useState(false);
-  const { contextMenuType, contextMenuItemId, contextMenuItem } = useSelector(({ mask }) => mask);
+  const {
+    contextMenuType,
+    contextMenuItemId,
+    contextMenuItem,
+  } = useSelector(({ mask }) => mask);
   const { profile } = useSelector(({ account }) => account);
   const { baseUrl } = useSelector(({ common }) => common);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
-  const handleShareWX = () => {
-    // dispatch(setDialogReset());
-    dispatch(setDialogShareWXShow());
-  };
 
   const handleCopyLink = async () => {
     const data = new DataTransfer();
     data.items.add('text/plain', ShareUrl);
     await navigator.clipboard.writeText(ShareUrl);
     alert('链接复制成功');
+  };
+
+  const handleShareWX = () => {
+    // dispatch(setDialogReset());
+    dispatch(setDialogShareWXShow());
   };
   return (
     <div className="list divide-y divide-fuchsia-300">

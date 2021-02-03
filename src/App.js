@@ -14,6 +14,7 @@ import DialogLogin from './components/Dialog/Login';
 import DialogShare from './components/Dialog/Share';
 import DialogShareWX from './components/Dialog/ShareWX';
 import DialogUploadAvatar from './components/Dialog/UploadAvatar';
+import DialogCreatePlaylist from './components/Dialog/CreatePlaylist';
 import Playlist from './components/Playlist';
 import PrivateLetter from './components/PrivateLetter';
 import Tosat from './components/Toast';
@@ -39,6 +40,7 @@ export default function App() {
     dialogShareVisibility,
     dialogShareWXVisibility,
     dialogUploadAvatarVisibility,
+    dialogCreatePlaylistVisibility,
   } = useSelector(({ mask }) => mask);
   const {
     dragdown,
@@ -88,6 +90,9 @@ export default function App() {
           )}
           {dialogUploadAvatarVisibility && (
             <DialogUploadAvatar />
+          )}
+          {dialogCreatePlaylistVisibility && (
+            <DialogCreatePlaylist />
           )}
           <Tosat />
         </div>

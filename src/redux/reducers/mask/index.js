@@ -5,6 +5,7 @@ import {
   SET_GLOBAL_INSET,
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
+  SET_DIALOG_CREATE_PLAYLIST_SHOW,
 } from '@/redux/actionTypes';
 
 const globalState = {
@@ -19,6 +20,7 @@ const visibilityState = {
   dialogShareVisibility: false,
   dialogShareWXVisibility: false,
   dialogUploadAvatarVisibility: false,
+  dialogCreatePlaylistVisibility: false,
 };
 
 const maskState = {
@@ -77,6 +79,14 @@ export default (state = initialState, action) => {
         ...visibilityState,
         visibility: true,
         dialogUploadAvatarVisibility: true,
+        ...action.payload,
+      };
+    case SET_DIALOG_CREATE_PLAYLIST_SHOW:
+      return {
+        ...state,
+        ...visibilityState,
+        visibility: true,
+        dialogCreatePlaylistVisibility: true,
         ...action.payload,
       };
     case SET_DIALOG_RESET:

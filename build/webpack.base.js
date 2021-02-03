@@ -15,7 +15,7 @@ const plugins = [
     favicon: path.join(__dirname, '../public/favicon.ico'),
     template: path.join(__dirname, '../public/index.html'),
     title: '网易云音乐',
-    files: {
+    cdn: {
       js: [
         'https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js',
         'https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js',
@@ -30,8 +30,6 @@ const plugins = [
         'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css',
         'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css',
       ],
-    },
-    templateParameters: {
     },
     // publicPath: '/'
   }),
@@ -92,10 +90,10 @@ module.exports = {
         //   priority: -20,
         //   reuseExistingChunk: true,
         // },
-        // swiper: {
-        //   name: 'swiper',
-        //   test: /[\\/]node_modules[\\/]_?swiper(.*)/,
-        // },
+        swiper: {
+          name: 'swiper',
+          test: /[\\/]node_modules[\\/]_?swiper(.*)/,
+        },
         'qrcode.react': {
           name: 'qrcode',
           test: /[\\/]node_modules[\\/]_?qrcode.react(.*)/,
@@ -125,8 +123,12 @@ module.exports = {
       '.js',
     ],
   },
+  // externalsType: 'script',
   externals: {
-    swiper: 'Swiper',
+  // swiper: 'Swiper',
+    // swiper: {
+    //   root: ['Swiper', 'swiper/react'],
+    // },
     'react-router': 'ReactRouter',
     'react-router-dom': 'ReactRouterDOM',
     react: 'React',
@@ -134,7 +136,25 @@ module.exports = {
     'react-redux': 'ReactRedux',
     '@tabler/icons': 'tablerIcons',
     redux: 'Redux',
+    // swiper: /^swiper$/,
+  // react: ['https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js', 'React'],
+  // 'react-dom': ['https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js', 'ReactDOM'],
+  // 'react-router-dom': ['https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js', 'ReactDOM'],
+  // 'react-router': ['https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js', 'ReactRouter'],
+  // redux: ['https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js', 'Redux'],
+  // 'react-redux': ['https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js', 'ReactRedux'],
+  // 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
+  // '@tabler/icons': ['https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js', 'Redux'],
   },
+  // externals: [
+  //   'react-router',
+  //   'react-router-dom',
+  //   'react',
+  //   'react-dom',
+  //   'react-redux',
+  //   '@tabler/icons',
+  //   'redux',
+  // ],
   module: {
     rules: [
       {

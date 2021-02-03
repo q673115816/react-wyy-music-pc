@@ -29,6 +29,7 @@ import {
   SET_DIALOG_SHARE_SHOW,
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
+  SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_RESET,
   SET_GLOBAL_INSET,
   SET_THEME,
@@ -200,6 +201,11 @@ export const setDialogShareWXShow = (payload) => ({
 
 export const setDialogUploadAvatarShow = (payload) => ({
   type: SET_DIALOG_UPLOAD_AVATAR_SHOW,
+  payload,
+});
+
+export const setDialogCreatePlaylistShow = (payload) => ({
+  type: SET_DIALOG_CREATE_PLAYLIST_SHOW,
   payload,
 });
 

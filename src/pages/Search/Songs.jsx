@@ -84,8 +84,13 @@ export default ({ songs = [], multimatch = {} }) => {
         contextMenuTotal: total,
         contextMenuSechma: [
           '评论',
-          // 'hr',
-          // '分享',
+          '播放',
+          '下一首播放',
+          'divide',
+          '收藏到歌单',
+          '分享',
+          '复制链接',
+          '下载',
         ],
       }));
     } catch (error) {

@@ -18,7 +18,6 @@ import './style.scss';
 export default () => {
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-  const [focus, setFocus] = useState('');
   const handleInit = async () => {
     try {
       const { data } = await apiRecommendSongs();
@@ -28,10 +27,7 @@ export default () => {
     }
   };
 
-  const handleRightClick = async (e, item, index, type) => {
-    // console.log('handleRightClick', e);
-    // console.log(item);
-    setFocus(index);
+  const handleRightClick = async (e, item, type) => {
     try {
       const { total } = await apiCommentMusic({
         id: item.id,
@@ -43,6 +39,17 @@ export default () => {
         contextMenuTotal: total,
         contextMenuType: type,
         contextMenuItemId: item.id,
+        contextMenuSechma: [
+          '评论',
+          '播放',
+          '下一首播放',
+          'divide',
+          '收藏到歌单',
+          '分享',
+          '复制链接',
+          '不感兴趣',
+          '下载',
+        ],
       }));
     } catch (error) {
       console.log(error);
@@ -106,21 +113,20 @@ export default () => {
               data.dailySongs?.map((item, index) => (
                 <div
                   tabIndex="2"
-                  onMouseDown={() => setFocus(index)}
-                  className={classnames('item flex items-center hover:bg-gray-100 w-full focus:outline-none', { 'focus:bg-gray-200': index === focus, 'bg-gray-50': index % 2 === 0 })}
+                  className={classnames('item flex items-center hover:bg-gray-100 w-full focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
                   key={item.id}
-                  onContextMenu={(e) => handleRightClick(e, item, index, 'song')}
+                  onContextMenu={(e) => handleRightClick(e, item, 'song')}
                 >
                   <div className="index text-gray-400">
                     {String(index + 1).padStart(2, 0)}
                   </div>
                   <div className="heart">
-                    <button type="button" className="text-gray-400 hover">
+                    <button type="button" className="text-gray-400 hover:text-black">
                       <IconHeart size={20} stroke={1} />
                     </button>
                   </div>
                   <div className="download">
-                    <button type="button" className="text-gray-400 hover">
+                    <button type="button" className="text-gray-400 hover:text-black">
                       <IconDownload size={20} stroke={1} />
                     </button>
                   </div>
@@ -166,7 +172,7 @@ export default () => {
                         <span key={aritst.id}>
                           {index > 0 && ' / '}
                           <Link
-                            className="text-gray-400 hover"
+                            className="text-gray-500 hover:text-black"
                             to={`/artist/${aritst.id}`}
                           >
                             {aritst.name}
@@ -178,14 +184,14 @@ export default () => {
                   <div className="album">
                     <div className="truncate">
                       <Link
-                        className="text-gray-400 hover"
+                        className="text-gray-500 hover:text-black"
                         to={`/playlist/album/${item.al.id}`}
                       >
                         {item.al.name}
                       </Link>
                     </div>
                   </div>
-                  <div className="duration text-gray-400 truncate">
+                  <div className="duration text-gray-300 truncate">
                     {dayjs(item.dt).format('mm:ss')}
                   </div>
                 </div>
