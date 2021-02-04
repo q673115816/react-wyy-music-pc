@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import { useParams, NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiTopSong, apiSongUrl } from '@/api';
-import { setTopSong, addSongUrl } from '@/redux/actions';
+import { setTopSong } from '@/redux/actions';
 import { IconPlayerPlay, IconFolderPlus } from '@tabler/icons';
 
 const nav = [
@@ -24,18 +24,6 @@ export default () => {
     try {
       const { data } = await apiTopSong(type);
       dispatch(setTopSong(data));
-    } catch (error) {
-      console.warn(error);
-    }
-  };
-
-  const handleAddSong = async (id) => {
-    try {
-      const { data } = await apiSongUrl({
-        id,
-      });
-      console.log(data);
-      dispatch(addSongUrl(data));
     } catch (error) {
       console.warn(error);
     }
@@ -74,7 +62,6 @@ export default () => {
           <div className="item" key={item.id}>
             <span className="ranking">{String(index + 1).padStart(2, 0)}</span>
             <button
-              onClick={() => handleAddSong(item.id)}
               type="button"
               className="cover"
             >

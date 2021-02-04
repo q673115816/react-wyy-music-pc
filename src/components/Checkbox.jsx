@@ -15,8 +15,8 @@ export default forwardRef(({ name = '', id = name }, ref) => {
         onChange={() => setValue(!value)}
         hidden
       />
-      <i className={classnames('flex-center border rounded-sm w-4 h-4', { ui_theme_bg_color: value })}>
-        <IconCheck size={12} className />
+      <i className={classnames('flex-center rounded w-4 h-4 text-white', value ? ['ui_theme_bg_color'] : ['border', ''])}>
+        <IconCheck size={14} />
       </i>
     </span>
   );

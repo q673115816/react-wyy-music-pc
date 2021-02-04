@@ -15,6 +15,7 @@ import {
   IconLayoutGrid,
   IconLayoutList,
   IconList,
+  IconLock,
 } from '@tabler/icons';
 import classnames from 'classnames';
 import { SymbolWB } from '@/components/Symbol';
@@ -255,7 +256,7 @@ export default () => {
           </div>
           {ownPlaylist.map((item) => (
             <div className="item" key={item.id}>
-              <Link to="/">
+              <Link to={`/playlist/music/${item.id}`}>
                 <div className="cover">
                   <div className="inner">
                     <img
@@ -265,6 +266,14 @@ export default () => {
                     />
                   </div>
                   <div className="topmask" />
+                  {item.privacy === 10
+                  && (
+                  <div className="absolute right-0 bottom-0">
+                    <div className="text-white bg-black w-12 h-12" style={{ 'clip-path': 'polygon(100% 0, 0% 100%, 100% 100%)' }}>
+                      <IconLock size={20} className="absolute right-1 bottom-1" />
+                    </div>
+                  </div>
+                  )}
                   <div className="absolute right-0 bottom-0">
                     <span className="playArrow">
                       <IconPlayerPlay size={22} className="fill-current" />
@@ -278,7 +287,7 @@ export default () => {
                 </div>
               </Link>
               <div className="footer">
-                <Link to="/">
+                <Link to={`/playlist/music/${item.id}`}>
                   {item.name}
                 </Link>
               </div>
@@ -304,7 +313,7 @@ export default () => {
         <div className="domUserDetail_list ui_grid square col_4">
           {savePlaylist.map((item) => (
             <div className="item" key={item.id}>
-              <Link to="/">
+              <Link to={`/playlist/music/${item.id}`}>
                 <div className="cover">
                   <div className="inner">
                     <img
@@ -325,7 +334,7 @@ export default () => {
                 </div>
               </Link>
               <div className="footer">
-                <Link to="/">
+                <Link to={`/playlist/music/${item.id}`}>
                   {item.name}
                 </Link>
               </div>

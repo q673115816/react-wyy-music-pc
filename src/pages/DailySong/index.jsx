@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { apiRecommendSongs, apiCommentMusic } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
-import { setContextMenuShow } from '@/redux/actions';
+import { setContextMenuShow, setAudioImmediate } from '@/redux/actions';
 import { useDispatch } from 'react-redux';
 import './style.scss';
 
@@ -25,6 +25,13 @@ export default () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleDoubleClick = (item) => {
+    // console.log(item);
+    dispatch(setAudioImmediate({
+      currentSong: item,
+    }));
   };
 
   const handleRightClick = async (e, item, type) => {
@@ -115,6 +122,7 @@ export default () => {
                   tabIndex="2"
                   className={classnames('item flex items-center hover:bg-gray-100 w-full focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
                   key={item.id}
+                  onDoubleClick={() => handleDoubleClick(item)}
                   onContextMenu={(e) => handleRightClick(e, item, 'song')}
                 >
                   <div className="index text-gray-400">

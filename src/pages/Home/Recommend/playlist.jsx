@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { IconPlayerPlay } from '@tabler/icons';
 import { transPlayCount } from '@/common/utils';
 import { SymbolToday } from '@/components/Symbol';
 
@@ -11,6 +12,11 @@ export default ({ playlist = [] }) => (
           <Link to="/dailysong">
             <div className="inner" style={{ color: 'var(--themeColor)' }}>
               <SymbolToday />
+              <div className="absolute right-0 bottom-0">
+                <i className="playArrow">
+                  <IconPlayerPlay size={16} className="fill-current" />
+                </i>
+              </div>
             </div>
           </Link>
         </div>
@@ -27,14 +33,14 @@ export default ({ playlist = [] }) => (
               <Link to={`/playlist/music/${item.id}`}>
                 <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
                 <div className="absolute top-0 right-0">
-                  <span className="whitetext">{transPlayCount(item.playcount)}</span>
+                  <span className="whitetext">
+                    {transPlayCount(item.playcount)}
+                  </span>
                 </div>
                 <div className="absolute right-0 bottom-0">
-                  <span className="playArrow">
-                    <svg className="icon icon-tabler icon-tabler-player-play" width="22" height="22" viewBox="0 0 24 24" className="fill-current" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M7 4v16l13 -8z" />
-                    </svg>
-                  </span>
+                  <i className="playArrow">
+                    <IconPlayerPlay size={16} className="fill-current" />
+                  </i>
                 </div>
               </Link>
             </div>

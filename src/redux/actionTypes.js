@@ -2,7 +2,6 @@
 export const SET_IS_LOGIN = 'SET_IS_LOGIN';
 export const SET_NOT_LOGIN = 'SET_NOT_LOGIN';
 export const SET_LOGIN_INFO = 'SET_LOGIN_INFO';
-export const ADD_SONG_URL = 'ADD_SONG_URL';
 
 // user
 export const SET_MSG_PRIVATE = 'SET_MSG_PRIVATE';
@@ -71,3 +70,8 @@ export const SET_THEME = 'SET_THEME';
 export const SET_VOLUME = 'SET_VOLUME';
 
 export const SET_FONT = 'SET_FONT';
+
+export const SET_SCREEN_FULL = 'SET_SCREEN_FULL';
+
+// playlist
+export const SET_AUDIO_IMMEDIATE = 'SET_AUDIO_IMMEDIATE';

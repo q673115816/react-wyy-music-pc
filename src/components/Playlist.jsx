@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
+import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import { IconTrash, IconFolderPlus } from '@tabler/icons';
+import {
+  IconTrash, IconFolderPlus, IconLink, IconPlayerPlay, IconPlayerPause,
+} from '@tabler/icons';
 import { setPopup } from '@/redux/actions';
 
 const Empty = () => {
@@ -18,43 +21,89 @@ const Empty = () => {
   );
 };
 
+const DomList = ({ list = [], currentId }) => {
+  const { running } = useSelector(({ playlist }) => playlist);
+  return (
+    <div>
+      {
+      list.map((item, index) => (
+        <div
+          tabIndex="2"
+          className={classnames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9', { 'bg-gray-50': index % 2 === 1, ui_themeColor: item.id === currentId })}
+          key={item.id}
+        >
+          <div className="w-6">
+            {
+              item.id === currentId
+              && running ? <IconPlayerPlay size={12} />
+                : <IconPlayerPause size={12} />
+            }
+          </div>
+          <div className="flex-auto truncate">
+            {item.name}
+          </div>
+          <div className="w-24 px-1 flex-none">
+            {item.ar.map((artist, index) => (
+              <span key={artist.id}>
+                {index > 0 && ' / '}
+                <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
+              </span>
+            ))}
+          </div>
+          <div className="w-8 px-1 flex-none">
+            <Link to="/">
+              <IconLink size={16} stroke={1} />
+            </Link>
+          </div>
+          <div className="w-16 px-1 flex-none text-gray-300">
+            {dayjs(item.dt).format('mm:ss')}
+          </div>
+        </div>
+      ))
+    }
+    </div>
+  );
+};
+
 export default () => {
-  const { playlist = [], history = [], volume } = useSelector(({ common }) => common);
+  const { currentSong, playlist, history } = useSelector(({ playlist }) => playlist);
   const [currentData, setCurrentData] = useState(playlist);
   return (
     <div id="playlist">
-      <div className="nav">
-        <button type="button" className="nav_link on" onClick={() => setCurrentData(playlist)}>
-          播放列表
-        </button>
-        <button
-          type="button"
-          className="nav_link"
-          onClick={() => setCurrentData(history)}
-        >
-          历史记录
-        </button>
-      </div>
-      <div className={classnames('actions', { disabled: currentData.length === 0 })}>
-        <span className="text-gray-400">
-          总
-          {currentData.length}
-          首
-        </span>
-        <div className="right">
-          <button type="button" className="action flex-center">
-            <IconFolderPlus size={20} />
-            收藏全部
+      <div className="p-6">
+        <div className="nav">
+          <button type="button" className="nav_link on" onClick={() => setCurrentData(playlist)}>
+            播放列表
           </button>
-          <span />
-          <button type="button" className="action flex-center">
-            <IconTrash size={20} />
-            删除
+          <button
+            type="button"
+            className="nav_link"
+            onClick={() => setCurrentData(history)}
+          >
+            历史记录
           </button>
+        </div>
+        <div className={classnames('actions', { disabled: currentData.length === 0 })}>
+          <span className="text-gray-400">
+            总
+            {currentData.length}
+            首
+          </span>
+          <div className="right">
+            <button type="button" className="action flex-center">
+              <IconFolderPlus size={18} stroke={1} />
+              收藏全部
+            </button>
+            <span />
+            <button type="button" className="action flex-center">
+              <IconTrash size={18} stroke={1} />
+              清空
+            </button>
+          </div>
         </div>
       </div>
       <div className="overflow-auto max-h-full flex-auto">
-        {currentData.length ? <div /> : <Empty />}
+        {currentData.length ? <DomList list={currentData} currentId={currentSong.id} /> : <Empty />}
       </div>
     </div>
   );

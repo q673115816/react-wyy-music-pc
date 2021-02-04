@@ -2,7 +2,6 @@ import {
   SET_IS_LOGIN,
   SET_NOT_LOGIN,
   SET_MSG_PRIVATE,
-  ADD_SONG_URL,
   SET_HOME_RECOMMEND,
   SET_HOME_DJ,
   SET_COUNTRIES_CODE_LIST,
@@ -34,6 +33,8 @@ import {
   SET_GLOBAL_INSET,
   SET_THEME,
   SET_VOLUME,
+  SET_SCREEN_FULL,
+  SET_AUDIO_IMMEDIATE,
 } from './actionTypes';
 
 export const setTheme = (payload) => ({
@@ -43,6 +44,11 @@ export const setTheme = (payload) => ({
 
 export const setVolume = (payload) => ({
   type: SET_VOLUME,
+  payload,
+});
+
+export const setScreenFull = (payload) => ({
+  type: SET_SCREEN_FULL,
   payload,
 });
 
@@ -74,9 +80,9 @@ export const setMsgPrivate = (payload) => ({
   payload,
 });
 
-export const addSongUrl = (songs) => ({
-  type: ADD_SONG_URL,
-  payload: { songs },
+export const setAudioImmediate = (payload) => ({
+  type: SET_AUDIO_IMMEDIATE,
+  payload,
 });
 
 export const setHomeRecommend = (payload) => ({

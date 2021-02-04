@@ -13,6 +13,7 @@ import {
   IconDownload,
   IconCirclePlus,
   IconMusic,
+  IconLock,
 } from '@tabler/icons';
 import {
   setDialogReset, setDialogShareShow, setLoginVisibilty, setDialogCreatePlaylistShow,
@@ -25,7 +26,7 @@ const initBuild = (functionClose) => ({
       <Link
         to={`/comment/${contextMenuItem.id}`}
         onClick={functionClose}
-        className="ui_contextmenu_btn"
+        className="ui_contextmenu_btn "
       >
         <i className="ico">
           <IconMessage size={22} stroke={1} />
@@ -39,7 +40,7 @@ const initBuild = (functionClose) => ({
   ),
   播放: () => (
     <li className="ui_contextmenu_item">
-      <button type="button" className="ui_contextmenu_btn">
+      <button type="button" className="ui_contextmenu_btn ">
         <i className="ico">
           <IconPlayerPlay size={22} stroke={1} />
         </i>
@@ -49,7 +50,7 @@ const initBuild = (functionClose) => ({
   ),
   下一首播放: () => (
     <li className="ui_contextmenu_item">
-      <button type="button" className="ui_contextmenu_btn">
+      <button type="button" className="ui_contextmenu_btn ">
         <i className="ico">
           <IconArrowForward size={22} stroke={1} />
         </i>
@@ -58,9 +59,9 @@ const initBuild = (functionClose) => ({
     </li>
   ),
   divide: () => <li className="hr" />,
-  收藏到歌单: ({ handleCreatePlaylist }) => (
+  收藏到歌单: ({ handleCreatePlaylist, ownPlaylist = [] }) => (
     <li className="ui_contextmenu_item">
-      <span className="ui_contextmenu_btn">
+      <span className="ui_contextmenu_btn ">
         <i className="ico">
           <IconFolderPlus size={22} stroke={1} />
         </i>
@@ -72,25 +73,31 @@ const initBuild = (functionClose) => ({
           <button
             type="button"
             onClick={handleCreatePlaylist}
-            className="ui_contextmenu_btn"
+            className="ui_contextmenu_btn "
           >
-            <i className="ico"><IconCirclePlus size={22} stroke={1} /></i>
+            <i className="ico">
+              <IconCirclePlus size={22} stroke={1} />
+            </i>
             创建新歌单
           </button>
         </li>
         <li className="hr" />
-        <li className="ui_contextmenu_item">
-          <button type="button" className="ui_contextmenu_btn">
-            <i className="ico"><IconMusic size={22} stroke={1} /></i>
-            创建新歌单
-          </button>
-        </li>
-        <li className="ui_contextmenu_item">
-          <button type="button" className="ui_contextmenu_btn">
-            <i className="ico"><IconMusic size={22} stroke={1} /></i>
-            创建新歌单
-          </button>
-        </li>
+        {
+          ownPlaylist.map((item) => (
+            <li className="ui_contextmenu_item" key={item.id}>
+              <button type="button" className="ui_contextmenu_btn ">
+                <i className="ico">
+                  {
+                      item.privacy === 10
+                        ? <IconLock size={22} stroke={1} />
+                        : <IconMusic size={22} stroke={1} />
+                    }
+                </i>
+                {item.name}
+              </button>
+            </li>
+          ))
+        }
       </ul>
     </li>
   ),
@@ -99,7 +106,7 @@ const initBuild = (functionClose) => ({
       <button
         onClick={handleDialogShare}
         type="button"
-        className="ui_contextmenu_btn"
+        className="ui_contextmenu_btn "
       >
         <i className="ico">
           <IconShare size={22} stroke={1} />
@@ -113,7 +120,7 @@ const initBuild = (functionClose) => ({
       <button
         type="button"
         onClick={handleCopyLink}
-        className="ui_contextmenu_btn"
+        className="ui_contextmenu_btn "
       >
         <i className="ico">
           <IconLink size={22} stroke={1} />
@@ -124,7 +131,7 @@ const initBuild = (functionClose) => ({
   ),
   不感兴趣: ({ }) => (
     <li className="ui_contextmenu_item">
-      <span className="ui_contextmenu_btn">
+      <span className="ui_contextmenu_btn ">
         <i className="ico">
           <IconCircleX size={22} stroke={1} />
         </i>
@@ -135,7 +142,7 @@ const initBuild = (functionClose) => ({
         <li className="ui_contextmenu_item">
           <button
             type="button"
-            className="ui_contextmenu_btn"
+            className="ui_contextmenu_btn "
           >
             <i className="ico" />
             创建新歌单
@@ -143,13 +150,13 @@ const initBuild = (functionClose) => ({
         </li>
         <li className="hr" />
         <li className="ui_contextmenu_item">
-          <button type="button" className="ui_contextmenu_btn">
+          <button type="button" className="ui_contextmenu_btn ">
             <i className="ico" />
             创建新歌单
           </button>
         </li>
         <li className="ui_contextmenu_item">
-          <button type="button" className="ui_contextmenu_btn">
+          <button type="button" className="ui_contextmenu_btn ">
             <i className="ico" />
             创建新歌单
           </button>
@@ -159,7 +166,7 @@ const initBuild = (functionClose) => ({
   ),
   下载: () => (
     <li className="ui_contextmenu_item ">
-      <span className="ui_contextmenu_btn">
+      <span className="ui_contextmenu_btn ">
         <i className="ico">
           <IconDownload size={22} stroke={1} />
         </i>
@@ -168,20 +175,20 @@ const initBuild = (functionClose) => ({
       </span>
       <ul className="ui_contextmenu sub">
         <li className="ui_contextmenu_item">
-          <button type="button" className="ui_contextmenu_btn">
+          <button type="button" className="ui_contextmenu_btn ">
             <i className="ico"><IconCirclePlus size={22} stroke={1} /></i>
             创建新歌单
           </button>
         </li>
         <li className="hr" />
         <li className="ui_contextmenu_item">
-          <button type="button" className="ui_contextmenu_btn">
+          <button type="button" className="ui_contextmenu_btn ">
             <i className="ico"><IconMusic size={22} stroke={1} /></i>
             创建新歌单
           </button>
         </li>
         <li className="ui_contextmenu_item">
-          <button type="button" className="ui_contextmenu_btn">
+          <button type="button" className="ui_contextmenu_btn ">
             <i className="ico"><IconMusic size={22} stroke={1} /></i>
             创建新歌单
           </button>
@@ -194,7 +201,7 @@ const initBuild = (functionClose) => ({
 export default () => {
   const dispatch = useDispatch();
   const { isLogin, baseUrl } = useSelector(({ common }) => common);
-  const { profile } = useSelector(({ account }) => account);
+  const { profile, playlist } = useSelector(({ account }) => account);
   const {
     globalLastX,
     globalLastY,
@@ -207,6 +214,7 @@ export default () => {
     contextMenuItemId,
   } = useSelector(({ mask }) => mask);
   // console.log(globalLastY, contextMenuY);
+  const ownPlaylist = playlist.filter((item) => item.subscribed === false);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
 
   const handleCopyLink = async () => {
@@ -250,6 +258,7 @@ export default () => {
                 handleDialogShare,
                 handleCopyLink,
                 handleCreatePlaylist,
+                ownPlaylist,
               }}
               key={item}
             />

@@ -1,5 +1,4 @@
 import {
-  ADD_SONG_URL,
   SET_LOGIN_VISIBILTY,
   SET_COUNTRIES_CODE_LIST,
   SET_IS_LOGIN,
@@ -9,14 +8,11 @@ import {
   SET_SEARCH_HISTORY,
   SET_SEARCH_VALUE,
   SET_TOAST,
-
 } from '@/redux/actionTypes';
 
 import { LOCALSTORAGE } from '@/common/utils';
 
 const initialState = {
-  currentSong: {},
-  playlist: [],
   history: [],
   searchHistory: LOCALSTORAGE('searchHistory', []),
   popupStatus: 'false',
@@ -67,12 +63,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         searchHistory: action.payload,
-      };
-    case ADD_SONG_URL:
-      return {
-        ...state,
-        currentSong: action.payload.songs[0],
-        playlist: state.playlist.concat(action.payload.songs),
       };
     case SET_COUNTRIES_CODE_LIST:
       return {

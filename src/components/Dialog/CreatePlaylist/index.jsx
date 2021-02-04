@@ -17,6 +17,7 @@ const ShareWX = () => {
     try {
       await apiPlaylistCreate({
         name,
+        privacy: privacy.current.value ? 10 : null,
       });
     } catch (error) {
       console.log(error);

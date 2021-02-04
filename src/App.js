@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDialogReset } from '@/redux/actions';
+import { setDialogReset, setGlobalInset } from '@/redux/actions';
+import { IconChevronDownRight } from '@tabler/icons';
 import DomPlayer from './pages/Player';
 import './styles/index.scss';
 import DomHeader from './layout/Header';
 import DomMain from './layout/Main';
 import DomFooter from './layout/Footer';
-import useDrop from './custom/useDrop';
 
 import DialogLogin from './components/Dialog/Login';
 import DialogShare from './components/Dialog/Share';
@@ -31,25 +31,65 @@ const handlePopSwitch = (popupStatus) => {
   }
 };
 
+const DomCorner = () => {
+  const dispatch = useDispatch();
+  return (
+    <div
+      className="absolute right-0 bottom-0 text-gray-500"
+      style={{ cursor: 'se-resize' }}
+    >
+      <IconChevronDownRight />
+    </div>
+  );
+};
+
 export default function App() {
   const dispatch = useDispatch();
-  const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
+  const { popupStatus, loginVisibility, screen } = useSelector(({ common }) => common);
   const { theme } = useSelector(({ setting }) => setting);
   const {
+    globalLastX,
+    globalLastY,
+    globalWidth,
+    globalHeight,
     contextMenuVisibility,
     dialogShareVisibility,
     dialogShareWXVisibility,
     dialogUploadAvatarVisibility,
     dialogCreatePlaylistVisibility,
   } = useSelector(({ mask }) => mask);
-  const {
-    dragdown,
-    dragmove,
-    dragup,
-    x,
-    y,
-    dragger,
-  } = useDrop();
+  const [dragger, setDragger] = useState(false);
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
+  const [startX, setStartX] = useState(0);
+  const [startY, setStartY] = useState(0);
+  const [lastX, setLastX] = useState(0);
+  const [lastY, setLastY] = useState(0);
+
+  const dragdown = (e) => {
+    setStartX(e.clientX);
+    setStartY(e.clientY);
+    setDragger(true);
+  };
+
+  const dragmove = (e) => {
+    if (dragger) {
+      const x = e.clientX - startX + lastX;
+      const y = e.clientY - startY + lastY;
+      setX(x);
+      setY(y);
+      dispatch(setGlobalInset({
+        globalLastX: x,
+        globalLastY: y,
+      }));
+    }
+  };
+
+  const dragup = (e) => {
+    setDragger(false);
+    setLastX(x);
+    setLastY(y);
+  };
 
   useEffect(() => {
     document.addEventListener('contextmenu', (e) => {
@@ -65,6 +105,8 @@ export default function App() {
           style={{
             transform: `translate(${x}px, ${y}px)`,
             '--themeColor': `var(--${theme}, --themeRed)`,
+            '--WIDTH': `${globalWidth}px`,
+            '--HEIGHT': `${globalHeight}px`,
           }}
         >
           <DomHeader handleDrap={dragdown} />
@@ -95,9 +137,11 @@ export default function App() {
             <DialogCreatePlaylist />
           )}
           <Tosat />
+          {screen === 'normal'
+            && <DomCorner />}
         </div>
-        {dragger && <div className="mask" onMouseUp={dragup} onMouseMove={dragmove} />}
         {loginVisibility && <DialogLogin />}
+        {dragger && <div className="absolute inset-0" onMouseUp={dragup} onMouseMove={dragmove} />}
       </Router>
     </div>
   );

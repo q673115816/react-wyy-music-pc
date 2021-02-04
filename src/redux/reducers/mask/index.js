@@ -6,12 +6,17 @@ import {
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
+  SET_SCREEN_FULL,
 } from '@/redux/actionTypes';
+import { LOCALSTORAGE } from '@/common/utils';
 
 const globalState = {
+  screen: 'normal',
   globalVisibility: false,
   globalLastX: 0,
   globalLastY: 0,
+  globalWidth: LOCALSTORAGE('width', 1022),
+  globalHeight: LOCALSTORAGE('height', 670),
 };
 
 const visibilityState = {
@@ -94,6 +99,12 @@ export default (state = initialState, action) => {
         ...state,
         ...visibilityState,
         ...maskState,
+      };
+
+    case SET_SCREEN_FULL:
+      return {
+        ...state,
+        screen: 'full',
       };
     default:
       return state;

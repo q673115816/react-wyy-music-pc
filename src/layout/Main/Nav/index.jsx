@@ -10,6 +10,7 @@ import {
   IconCaretDown,
   IconCaretRight,
   IconFileMusic,
+  IconLock,
 } from '@tabler/icons';
 
 const options1 = [
@@ -66,7 +67,7 @@ const DomPlaylist = ({ name = '', playlist = [] }) => {
         </div>
       </div>
       <nav
-        className="songmenu"
+        className="songmenu space-y-0.5"
         style={{ display: showplaylist ? null : 'none' }}
       >
         {
@@ -77,7 +78,11 @@ const DomPlaylist = ({ name = '', playlist = [] }) => {
               activeClassName="bg-gray-100"
               to={`/playlist/music/${item.id}`}
             >
-              <IconMusic size={20} stroke={1} className="flex-none mr-1" />
+              {
+                item.privacy === 10
+                  ? <IconLock size={20} stroke={1} className="flex-none mr-1" />
+                  : <IconMusic size={20} stroke={1} className="flex-none mr-1" />
+              }
               <span className="truncate">
                 {item.name}
               </span>
@@ -97,7 +102,7 @@ export default () => {
   const subscribedPlaylist = playlist.filter((item) => item.subscribed === true);
   return (
     <div className="dommain_left overflow-auto max-h-full flex-none p-2">
-      <nav className="options1">
+      <nav className="options1 space-y-0.5">
         {
           options1.map((item) => (
             <NavLink
@@ -112,7 +117,7 @@ export default () => {
         }
       </nav>
       <div className="dommain_left_dt">我的音乐</div>
-      <nav>
+      <nav className="space-y-0.5">
         <NavLink
           className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
           activeClassName="bg-gray-100"
