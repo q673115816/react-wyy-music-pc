@@ -22,7 +22,8 @@ const Empty = () => {
 };
 
 const DomList = ({ list = [], currentId }) => {
-  const { running } = useSelector(({ playlist }) => playlist);
+  if (list.length === 0) return <Empty />;
+  const { running } = useSelector(({ audio }) => audio);
   return (
     <div>
       {
@@ -42,7 +43,7 @@ const DomList = ({ list = [], currentId }) => {
           <div className="flex-auto truncate">
             {item.name}
           </div>
-          <div className="w-24 px-1 flex-none">
+          <div className="w-24 px-1 flex-none truncate">
             {item.ar.map((artist, index) => (
               <span key={artist.id}>
                 {index > 0 && ' / '}
@@ -66,27 +67,28 @@ const DomList = ({ list = [], currentId }) => {
 };
 
 export default () => {
-  const { currentSong, playlist, history } = useSelector(({ playlist }) => playlist);
-  const [currentData, setCurrentData] = useState(playlist);
+  const audio = useSelector(({ audio }) => audio);
+  const { currentSong, playlist, history } = audio;
+  const [current, setCurrent] = useState('playlist');
   return (
     <div id="playlist">
       <div className="p-6">
         <div className="nav">
-          <button type="button" className="nav_link on" onClick={() => setCurrentData(playlist)}>
+          <button type="button" className="nav_link on" onClick={() => setCurrent('playlist')}>
             播放列表
           </button>
           <button
             type="button"
             className="nav_link"
-            onClick={() => setCurrentData(history)}
+            onClick={() => setCurrent('history')}
           >
             历史记录
           </button>
         </div>
-        <div className={classnames('actions', { disabled: currentData.length === 0 })}>
+        <div className={classnames('actions', { disabled: audio[current].length === 0 })}>
           <span className="text-gray-400">
             总
-            {currentData.length}
+            {audio[current].length}
             首
           </span>
           <div className="right">
@@ -103,7 +105,7 @@ export default () => {
         </div>
       </div>
       <div className="overflow-auto max-h-full flex-auto">
-        {currentData.length ? <DomList list={currentData} currentId={currentSong.id} /> : <Empty />}
+        <DomList list={audio[current]} currentId={currentSong.id} />
       </div>
     </div>
   );

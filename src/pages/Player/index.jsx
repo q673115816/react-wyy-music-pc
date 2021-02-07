@@ -5,6 +5,14 @@ import {
 } from 'react-router-dom';
 import classnames from 'classnames';
 import dayjs from 'dayjs';
+import {
+  IconChevronLeft,
+  IconCaretUp,
+  IconCaretDown,
+  IconThumbUp,
+  IconFolderPlus,
+  IconScreenShare,
+} from '@tabler/icons';
 import './style.scss';
 
 import { transPlayCount } from '@/common/utils';
@@ -63,11 +71,12 @@ export default () => {
       <div className="domVideoDetail">
         <div className="domVideoDetail_header domVideoDetail_container">
           <div className="left">
-            <button type="button" onClick={() => goBack()}>
-              <svg className="icon icon-tabler icon-tabler-chevron-left" width="28" height="28" viewBox="0 0 24 24" strokeWidth="1" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <polyline points="15 6 9 12 15 18" />
-              </svg>
+            <button
+              type="button"
+              className="flex items-center"
+              onClick={() => goBack()}
+            >
+              <IconChevronLeft size={28} stroke={1} />
               {
                 type === 'video'
                   ? <b>视频详情</b>
@@ -82,7 +91,7 @@ export default () => {
         <div className="domVideoDetail_main domVideoDetail_container">
           <div className="left">
             <div id="video">
-              <video src={urls?.url} controls autoPlay />
+              <video src={urls?.url} controls playsInline />
             </div>
             <div className="domVideoDetail_creator">
               <Link to={`/user/${detail?.creator?.userId}`}>
@@ -107,23 +116,14 @@ export default () => {
             </div>
             <button
               type="button"
-              className="domVideoDetail_title h1"
+              className="domVideoDetail_title h1 flex items-center"
               onClick={() => setDescriptionVisibility(!descriptionVisibility)}
             >
               {detail?.title}
               {
                 descriptionVisibility
-                  ? (
-                    <svg className="icon icon-tabler icon-tabler-caret-up" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" className="fill-current" strokeLinecap="round" strokeLinejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                      <path d="M18 15l-6 -6l-6 6h12" />
-                    </svg>
-                  )
-                  : (
-                    <svg className="icon icon-tabler icon-tabler-caret-down" width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" className="fill-current" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M18 15l-6 -6l-6 6h12" transform="rotate(180 12 12)" />
-                    </svg>
-                  )
+                  ? <IconCaretUp size={24} className="fill-current" />
+                  : <IconCaretDown size={24} className="fill-current" />
               }
             </button>
             <div className="domVideoDetail_info text-gray-400">
@@ -135,7 +135,10 @@ export default () => {
             </div>
             <div className="domVideoDetail_group">
               {detail?.videoGroup?.map((group) => (
-                <Link className="group" to={`/video/list/${group.id}`} key={group.id}>{group.name}</Link>
+                <Link className="group" to={`/video/list/${group.id}`} key={group.id}>
+                  {group.name}
+
+                </Link>
               ))}
             </div>
             <div
@@ -146,58 +149,33 @@ export default () => {
             </div>
             <div className="domVideoDetail_actions">
               <button type="button" className="button">
+                <IconThumbUp size={20} stroke={1} />
                 {
                   detailInfo.liked
-                    ? (
-                      <>
-                        <svg className="icon icon-tabler icon-tabler-thumb-up" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" fill="#F0CECE" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" stroke="#EC4141" />
-                        </svg>
-                        已赞
+                    ? '已赞'
+                    : '赞'
 
-                      </>
-                    )
-                    : (
-                      <>
-                        <svg className="icon icon-tabler icon-tabler-thumb-up" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3" />
-                        </svg>
-                        赞
-
-                      </>
-                    )
                 }
                 (
                 {detailInfo?.likedCount}
                 )
               </button>
               <button type="button" className="button">
-                <svg className="icon icon-tabler icon-tabler-folder-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2" />
-                  <line x1="12" y1="10" x2="12" y2="16" />
-                  <line x1="9" y1="13" x2="15" y2="13" />
-                </svg>
+                <IconFolderPlus size={20} stroke={1} />
                 收藏
                 (
                 {detail?.subscribeCount}
                 )
               </button>
               <button type="button" className="button">
-                <svg className="icon icon-tabler icon-tabler-screen-share" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 12v3a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10a1 1 0 0 1 1 -1h9" />
-                  <line x1="7" y1="20" x2="17" y2="20" />
-                  <line x1="9" y1="16" x2="9" y2="20" />
-                  <line x1="15" y1="16" x2="15" y2="20" />
-                  <path d="M17 4h4v4" />
-                  <path d="M16 9l5 -5" />
-                </svg>
+                <IconScreenShare size={20} stroke={1} />
                 分享
                 (
                 {detailInfo?.shareCount}
                 )
               </button>
             </div>
-            <div className="domVideoDetail_main">
+            <div className="domVideoDetail_main mt-8">
               <div className="title">
                 <b className="h1">评论</b>
                 &nbsp;

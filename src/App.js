@@ -45,7 +45,8 @@ const DomCorner = () => {
 
 export default function App() {
   const dispatch = useDispatch();
-  const { popupStatus, loginVisibility, screen } = useSelector(({ common }) => common);
+  const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
+  const { screen } = useSelector(({ mask }) => mask);
   const { theme } = useSelector(({ setting }) => setting);
   const {
     globalLastX,
@@ -92,9 +93,11 @@ export default function App() {
   };
 
   useEffect(() => {
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-    });
+    const fn = (e) => e.preventDefault();
+    document.addEventListener('contextmenu', fn);
+    return () => {
+      document.removeEventListener('contextmenu', fn);
+    };
   }, []);
   return (
     <div className="App">

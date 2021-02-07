@@ -75,3 +75,5 @@ export const SET_SCREEN_FULL = 'SET_SCREEN_FULL';
 
 // playlist
 export const SET_AUDIO_IMMEDIATE = 'SET_AUDIO_IMMEDIATE';
+
+export const SET_AUDIO_RENNING = 'SET_AUDIO_RENNING';

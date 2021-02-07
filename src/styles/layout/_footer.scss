@@ -1,10 +1,7 @@
 .domfooter {
-  flex: none;
   height: var(--FOOTER);
   border-top: 1px solid #E1E1E1;
   background-color: #f6f6f8;
-  justify-content: space-between;
-  display: flex;
 
   &_left {
     &_img {
@@ -16,43 +13,7 @@
 
   &_center {
     width: 460px;
-    flex-direction: column;
 
-
-    &_Top {
-      padding-top: 10px;
-
-      &>* {
-        margin: 0 10px;
-
-        &:hover {
-          color: #f00;
-        }
-      }
-    }
-
-    &_bottom {
-      margin-top: 6px;
-    }
-
-    &_play {
-      width: 36px;
-      height: 36px;
-      border-radius: 18px;
-      background-color: #e8e8e8;
-
-      &:hover {
-        background-color: #ccc;
-      }
-    }
-
-    &_next {
-      font-size: 32px;
-
-      &:hover {
-        color: #f00;
-      }
-    }
 
     &_process[type="range"] {
       --process: 0;
@@ -94,10 +55,6 @@
   }
 
   &_right {
-    flex: 1 0 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
     padding-right: 20px;
 
     .volume_value {

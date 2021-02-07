@@ -1,4 +1,4 @@
-import { SET_AUDIO_IMMEDIATE } from '@/redux/actionTypes';
+import { SET_AUDIO_IMMEDIATE, SET_AUDIO_RENNING } from '@/redux/actionTypes';
 
 const initialState = {
   running: false,
@@ -14,6 +14,11 @@ export default (state = initialState, action) => {
         ...state,
         ...action.payload,
         playlist: [...state.playlist, action.payload.currentSong],
+      };
+    case SET_AUDIO_RENNING:
+      return {
+        ...state,
+        running: action.payload.running,
       };
     default:
       return state;
