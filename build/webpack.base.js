@@ -1,6 +1,5 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
 const webpack = require('webpack');
@@ -23,7 +22,7 @@ const plugins = [
         'https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js',
         'https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js',
         'https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js',
-        'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
+        // 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
         'https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js',
       ],
       css: [
@@ -32,12 +31,6 @@ const plugins = [
       ],
     },
     // publicPath: '/'
-  }),
-  new MiniCssExtractPlugin({
-    // Options similar to the same options in webpackOptions.output
-    // both options are optional
-    filename: '[name].[contenthash:8].css',
-    chunkFilename: '[name].[contenthash:8].css',
   }),
   // new webpack.DllPlugin({
   //   name: '[name]_[fullhash]',
@@ -124,28 +117,26 @@ module.exports = {
     ],
   },
   // externalsType: 'script',
-  externals: {
-  // swiper: 'Swiper',
-    // swiper: {
-    //   root: ['Swiper', 'swiper/react'],
-    // },
-    'react-router': 'ReactRouter',
-    'react-router-dom': 'ReactRouterDOM',
-    react: 'React',
-    'react-dom': 'ReactDOM',
-    'react-redux': 'ReactRedux',
-    '@tabler/icons': 'tablerIcons',
-    redux: 'Redux',
+  externals: [
+    {
+      // swiper: ['Swiper', 'react'],
+      'react-router': 'ReactRouter',
+      'react-router-dom': 'ReactRouterDOM',
+      react: 'React',
+      'react-dom': 'ReactDOM',
+      'react-redux': 'ReactRedux',
+      '@tabler/icons': 'tablerIcons',
+      redux: 'Redux',
     // swiper: /^swiper$/,
-  // react: ['https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js', 'React'],
-  // 'react-dom': ['https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js', 'ReactDOM'],
-  // 'react-router-dom': ['https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js', 'ReactDOM'],
-  // 'react-router': ['https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js', 'ReactRouter'],
-  // redux: ['https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js', 'Redux'],
-  // 'react-redux': ['https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js', 'ReactRedux'],
-  // 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
-  // '@tabler/icons': ['https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js', 'Redux'],
-  },
+      // react: ['https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js', 'React'],
+      // 'react-dom': ['https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js', 'ReactDOM'],
+      // 'react-router-dom': ['https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js', 'ReactDOM'],
+      // 'react-router': ['https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js', 'ReactRouter'],
+      // redux: ['https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js', 'Redux'],
+      // 'react-redux': ['https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js', 'ReactRedux'],
+      // 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
+      // '@tabler/icons': ['https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js', 'Redux'],
+    }],
   // externals: [
   //   'react-router',
   //   'react-router-dom',
@@ -168,29 +159,6 @@ module.exports = {
             cacheDirectory: true,
           },
         }],
-      },
-      {
-        test: /\.(sa|sc|c)ss$/,
-        exclude: /(node_modules|bower_components)/,
-        use: [
-          process.env.NODE_ENV === 'production'
-            ? {
-              loader: MiniCssExtractPlugin.loader,
-              // options: {
-              //   publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
-              // },
-            }
-            : 'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
-          {
-            loader: 'sass-resources-loader',
-            options: {
-              resources: path.join(src, 'styles/_global.scss'),
-            },
-          },
-        ],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

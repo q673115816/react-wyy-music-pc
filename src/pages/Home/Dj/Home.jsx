@@ -12,7 +12,7 @@ import {
   apiDjPersonalizeRecommend,
   apiDjRadioHot,
 } from '@/api';
-import DomSwiper from '@/components/DomSwiper';
+import DomSwiper from '@/components/Swiper';
 
 // import Swiper core and required components
 import SwiperCore, {

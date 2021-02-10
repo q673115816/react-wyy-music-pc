@@ -1,11 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
   apiLoginCellphone,
 } from '@/api';
 import {
-  IconFaceId, IconQrcode, IconDeviceMobile, IconEye, IconEyeOff,
+  IconFaceId,
+  IconQrcode,
+  IconDeviceMobile,
+  IconEye,
+  IconEyeOff,
 } from '@tabler/icons';
 import {
   SymbolWX,
@@ -13,6 +17,7 @@ import {
   SymbolWB,
   SymbolWY,
 } from '@/components/Symbol';
+import DomCheck from '@/components/Checkbox';
 import { LoginContext } from './index';
 import DomSelect from './components/Select';
 
@@ -29,6 +34,7 @@ export default () => {
   } = useContext(LoginContext);
 
   const [showPassword, setShowPassword] = useState(false);
+  const refArgument = useRef();
 
   const handleLogin = async () => {
     try {
@@ -65,7 +71,7 @@ export default () => {
         },
       });
     }
-    if (!argeeArgument) {
+    if (!refArgument.current.checked) {
       alert('请先勾选同意《服务条款》《服务条款》《服务条款》');
     } else if (!loginphone) {
       warntext('⚠️请输入手机号');
@@ -106,7 +112,7 @@ export default () => {
   };
 
   const handleToSignUp = () => {
-    if (argeeArgument) {
+    if (refArgument.current.checked) {
       loginDispatch({
         type: 'SET_TYPE',
         payload: { type: 'signup' },
@@ -206,7 +212,7 @@ export default () => {
           >
             注册
           </button>
-          <div className="threes">
+          <div className="threes flex justify-between">
             <button type="button" className="three">
               <SymbolWX hover />
             </button>
@@ -221,15 +227,9 @@ export default () => {
             </button>
           </div>
         </div>
-        <label className="argument">
-          <input
-            hidden
-            type="checkBox"
-            name="agreement"
-            checked={argeeArgument}
-            onChange={({ target }) => handleArgument(target.value)}
-          />
-          <i className="ico flex-center">✔</i>
+        <label className="argument flex items-center whitespace-nowrap mt-9">
+          <DomCheck ref={refArgument} />
+          &nbsp;
           <span className="text-gray-400">
             同意
           </span>

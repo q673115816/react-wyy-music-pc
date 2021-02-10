@@ -1,26 +1,57 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   IconArrowsDiagonal,
   IconHeart,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { apiSongUrl } from '@/api';
+import { setAudioCurrentTime } from '@/redux/actions';
 
 export default () => {
   const dispatch = useDispatch();
   const {
-    currentSong, playlist, running,
+    currentSong,
+    playlist,
+    running,
   } = useSelector(({ audio }) => audio);
   const { volume } = useSelector(({ setting }) => setting);
   const refAudio = useRef();
+
+  const handleGetUrl = async () => {
+    try {
+      const { data } = await apiSongUrl({
+        id: currentSong.id,
+      });
+      refAudio.current.src = data[0].url;
+      refAudio.current.play();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    refAudio.current.volume = volume * 0.01;
+  }, [volume]);
+
+  useEffect(() => {
+    refAudio.current.addEventListener('timeupdate', (e) => {
+      dispatch(setAudioCurrentTime(e.target.currentTime));
+    });
+  }, []);
+
+  useEffect(() => {
+    if (currentSong.id) {
+      handleGetUrl();
+    }
+    // refAudio.srcObject =
+  }, [currentSong]);
   return (
     <div className="domfooter_left flex p-3 flex-1">
       <div hidden>
         <audio
           ref={refAudio}
-          src={currentSong.url}
           onLoadedData={({ target }) => running && target.play()}
-          volume={volume * 0.01}
         />
       </div>
       {playlist.length > 0
@@ -64,7 +95,6 @@ export default () => {
                     >
                       {artist.name}
                     </Link>
-
                   </span>
                 ))}
               </div>

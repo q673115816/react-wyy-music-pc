@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import kankanimg from '@img/kankan.jpg';
 
 const kankan = 'https://look.163.com/hot?livetype=2';
 
-export default ({ tag = false }) => (
+export default memo(({ tag = false }) => (
   <div className="item">
     <div className="cover">
       <div className="inner">
@@ -32,4 +32,4 @@ export default ({ tag = false }) => (
       <Link to={kankan}>name</Link>
     </div>
   </div>
-);
+));

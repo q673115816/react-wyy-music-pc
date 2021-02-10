@@ -7,7 +7,7 @@ import {
   IconFolderPlus,
 } from '@tabler/icons';
 import classnames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { apiRecommendSongs, apiCommentMusic } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
@@ -16,11 +16,16 @@ import { useDispatch } from 'react-redux';
 import './style.scss';
 
 export default () => {
+  const { replace } = useHistory();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
+
   const handleInit = async () => {
     try {
-      const { data } = await apiRecommendSongs();
+      const { data = [], code } = await apiRecommendSongs();
+      if (code === 301) {
+        replace('/');
+      }
       setData(data);
     } catch (error) {
       console.log(error);
@@ -66,7 +71,6 @@ export default () => {
   useEffect(() => {
     handleInit();
   }, []);
-
   return (
     <div className="domDailySong overflow-auto max-h-full flex-auto">
       <div className="domDailySong_header">

@@ -1,5 +1,7 @@
 import React, {
+  memo,
   useEffect, useState,
+  useRef,
 } from 'react';
 import {
   useParams, NavLink, Link,
@@ -16,7 +18,8 @@ import {
 import useInfinite from '@/components/useInfinite';
 import './style.scss';
 
-export default () => {
+export default memo(() => {
+  console.log('videolist');
   const { id } = useParams();
   const [videoList, setVideoList] = useState([]);
   const [groupList, setGroupList] = useState([]);
@@ -26,6 +29,9 @@ export default () => {
   const {
     isLogin,
   } = useSelector(({ common }) => common);
+
+  const domScroll = useRef();
+  const domObserver = useRef();
 
   const handleInit = async () => {
     try {
@@ -73,63 +79,69 @@ export default () => {
   };
 
   const {
-    setScrolldom,
-    setObserverdom,
-  } = useInfinite(handleAddList);
+    handleIo,
+    handleUnIo,
+  } = useInfinite(handleAddList, domScroll, domObserver);
 
   useEffect(() => {
     handleInit();
+    handleIo();
+    return () => {
+      handleUnIo();
+    };
   }, []);
 
   useEffect(() => {
-    handleInitList();
+    // handleInitList();
+    setVideoList([]);
     setCurrentNav(
       groupList.find((group) => group.id === Number(id))?.name || '全部视频',
     );
-    setGroupListVisibility(false);
+    // setGroupListVisibility(false);
   }, [id]);
 
+  const DomSelect = () => (
+    <div className="group_select_box absolute top-100 p-5 bg-white overflow-auto shadow">
+      <div className="border-b pb-2">
+        <NavLink
+          className="group_select_check text-center rounded-full w-20 h-8 flex-center hover:ui_themeColor"
+          activeClassName="text-red-500 bg-red-50"
+          exact
+          to="/video/videolist"
+        >
+          全部视频
+        </NavLink>
+      </div>
+      <div className="group_select_list grid grid-cols-6 gap-y-5 p-4">
+        {groupList.map((item) => (
+          <NavLink
+            activeClassName="text-red-500 bg-red-50"
+            className="group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor"
+            key={item.id}
+            to={`/video/videolist/${item.id}`}
+          >
+            {item.name}
+          </NavLink>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
-    <div className="domVideoList_content overflow-auto max-h-full flex-auto" ref={setScrolldom}>
-      <div className="video_sort_filter_bar">
-        <div className="group_select_wrap">
+    <div className="domVideoList_content overflow-auto max-h-full flex-auto" ref={domScroll}>
+      <div className="video_sort_filter_bar flex items-center justify-between">
+        <div className="group_select_wrap relative z-10">
           <button
             type="button"
-            className="group_select_button"
+            className="group_select_button border rounded-full hover:bg-gray-100 text-sm"
             onClick={() => setGroupListVisibility(!groupListVisibility)}
           >
             {currentNav}
             {' '}
             &gt;
           </button>
-          <div
-            className="group_select_box"
-            style={{ display: groupListVisibility ? null : 'none' }}
-          >
-            <div>
-              <NavLink
-                className="group_select_check"
-                activeClassName="on"
-                exact
-                to="/video/videolist"
-              >
-                全部视频
-              </NavLink>
-            </div>
-            <hr style={{ marginTop: '10px' }} />
-            <div className="group_select_list">
-              {groupList.map((item) => (
-                <NavLink
-                  activeClassName="on"
-                  className="group_select_check"
-                  key={item.id}
-                  to={`/video/videolist/${item.id}`}
-                >
-                  {item.name}
-                </NavLink>
-              ))}
-            </div>
-          </div>
+          {groupListVisibility
+          && <DomSelect />}
         </div>
         <div className="ui_recommend_nav">
           {categoryList.map((item) => (
@@ -146,36 +158,35 @@ export default () => {
         </div>
       </div>
       <div className="domVideoList_list ui_grid rectangle_width col_3">
-        {
-          isLogin ? (
-            <>
-              {videoList.map(({ data }) => (
-                <div className="item" key={data.vid}>
-                  <div className="cover">
-                    <div className="inner">
-                      <Link to={`/player/video/${data.vid}`}>
-                        <img className="ui_coverimg" src={data.coverUrl} alt="" />
-                        <div className="rt whitetext">{transPlayCount(data.playTime)}</div>
-                        <div className="rb whitetext">{dayjs(data.durationms).format('mm:ss')}</div>
-                      </Link>
-                    </div>
+        {videoList.map(({ data }) => (
+          <div className="item" key={data.vid}>
+            <div className="cover">
+              <div className="inner">
+                <Link to={`/player/video/${data.vid}`}>
+                  <img className="ui_coverimg" src={data.coverUrl} alt="" />
+                  <div className="rt whitetext">
+                    {transPlayCount(data.playTime)}
                   </div>
-                  <div className="footer truncate">
-                    <Link to={`/player/video/${data.vid}`} className="">{data.title}</Link>
+                  <div className="rb whitetext">
+                    {dayjs(data.durationms).format('mm:ss')}
                   </div>
-                  <div className="text creator text-gray-400">
-                    <Link to={`/user/${data.creator.userId}`}>
-                      {data.creator.nickname}
-                    </Link>
-                  </div>
-                </div>
-              ))}
-              <div ref={setObserverdom} className="item infiniteWatch" />
-            </>
-          )
-            : <div>未登录</div>
-        }
+                </Link>
+              </div>
+            </div>
+            <div className="footer truncate">
+              <Link to={`/player/video/${data.vid}`} className="">
+                {data.title}
+              </Link>
+            </div>
+            <div className="text creator text-gray-400">
+              <Link to={`/user/${data.creator.userId}`}>
+                {data.creator.nickname}
+              </Link>
+            </div>
+          </div>
+        ))}
       </div>
+      <div ref={domObserver} />
     </div>
   );
-};
+});

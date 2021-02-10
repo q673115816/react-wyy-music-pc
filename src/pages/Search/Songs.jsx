@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -69,7 +69,7 @@ const DomMultimatch = ({ list = [] }) => {
   );
 };
 
-export default ({ songs = [], multimatch = {} }) => {
+export default memo(({ songs = [], multimatch = {} }) => {
   const list = multimatch.orders.map((order) => [multimatch[order][0], Build[order], order]);
   const dispatch = useDispatch();
   const handleRightClick = async (e, item) => {
@@ -211,4 +211,4 @@ export default ({ songs = [], multimatch = {} }) => {
       </div>
     </>
   );
-};
+});

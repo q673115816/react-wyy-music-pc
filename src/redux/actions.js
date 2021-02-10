@@ -22,9 +22,12 @@ import {
   SET_ARTIST_INIT,
   SET_SEARCH_HISTORY,
   SET_SEARCH_VALUE,
+  SET_SEARCH_HOT,
+  SET_SEARCH_SUGGEST,
   SET_MSG_PRIVATE_HISTORY,
   SET_TOAST,
   SET_CONTEXTMENU_SHOW,
+  SET_SEARCH_SHOW,
   SET_DIALOG_SHARE_SHOW,
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
@@ -35,6 +38,7 @@ import {
   SET_VOLUME,
   SET_SCREEN_FULL,
   SET_AUDIO_IMMEDIATE,
+  SET_AUDIO_CURRENTTIME,
 } from './actionTypes';
 
 export const setTheme = (payload) => ({
@@ -74,6 +78,14 @@ export const setSearchValue = (payload) => ({
   type: SET_SEARCH_VALUE,
   payload,
 });
+export const setSearchHot = (payload) => ({
+  type: SET_SEARCH_HOT,
+  payload,
+});
+export const setSearchSuggest = (payload) => ({
+  type: SET_SEARCH_SUGGEST,
+  payload,
+});
 
 export const setMsgPrivate = (payload) => ({
   type: SET_MSG_PRIVATE,
@@ -82,6 +94,11 @@ export const setMsgPrivate = (payload) => ({
 
 export const setAudioImmediate = (payload) => ({
   type: SET_AUDIO_IMMEDIATE,
+  payload,
+});
+
+export const setAudioCurrentTime = (payload) => ({
+  type: SET_AUDIO_CURRENTTIME,
   payload,
 });
 
@@ -192,6 +209,11 @@ export const setGlobalInset = (payload) => ({
 
 export const setContextMenuShow = (payload) => ({
   type: SET_CONTEXTMENU_SHOW,
+  payload,
+});
+
+export const setSearchShow = (payload) => ({
+  type: SET_SEARCH_SHOW,
   payload,
 });
 

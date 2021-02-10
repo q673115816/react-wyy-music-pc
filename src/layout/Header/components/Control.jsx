@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   IconArrowsMinimize,
   IconMinus,
@@ -8,7 +8,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { setScreenFull } from '@/redux/actions';
 
-export default () => {
+export default memo(() => {
   const dispatch = useDispatch();
   return (
     <div className="domHeader_control space-x-3">
@@ -43,4 +43,4 @@ export default () => {
       </button>
     </div>
   );
-};
+});

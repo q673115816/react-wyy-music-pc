@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import './style.scss';
 
 export default () => {
+  console.log('ai');
   const [status, setStatus] = useState('rejected');
   const time = useRef(15);
   return (
@@ -35,7 +36,6 @@ export default () => {
             onClick={() => alert('反馈成功，感谢您的反馈')}
           >
             提交反馈
-
           </button>
         </div>
         )

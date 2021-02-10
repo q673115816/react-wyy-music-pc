@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const base = require('./webpack.base.js');
+const { src, img } = require('./util');
 
 console.log('entry webpack dev');
 
@@ -19,6 +20,23 @@ const dev = {
   },
   module: {
     rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        exclude: /(node_modules|bower_components)/,
+        include: src,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: path.join(src, 'styles/_global.scss'),
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [

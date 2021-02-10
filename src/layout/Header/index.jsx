@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect, useRef, useState, memo,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -27,10 +29,8 @@ import DomAccount from './components/Account';
 import DomControl from './components/Control';
 import DomFunction from './components/Function';
 
-export default ({ handleDrap }) => {
+export default memo(({ handleDrap }) => {
   const dispatch = useDispatch();
-  const refHeader = useRef();
-  const account = useSelector(({ account }) => account);
 
   const handleGetCountriesCodeList = async () => {
     try {
@@ -100,4 +100,4 @@ export default ({ handleDrap }) => {
       <DomControl />
     </div>
   );
-};
+});

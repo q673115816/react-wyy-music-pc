@@ -5,21 +5,15 @@ import {
   SET_NOT_LOGIN,
   SET_POPUP,
   SET_MSG_PRIVATE,
-  SET_SEARCH_HISTORY,
-  SET_SEARCH_VALUE,
   SET_TOAST,
 } from '@/redux/actionTypes';
 
-import { LOCALSTORAGE } from '@/common/utils';
-
 const initialState = {
   history: [],
-  searchHistory: LOCALSTORAGE('searchHistory', []),
   popupStatus: 'false',
   newMsgCount: 0,
   countriesCodeList: [],
   loginVisibility: false,
-  searchValue: '',
   // isLogin: window.localStorage.getItem('cookie') !== null,
   isLogin: false,
   msgs: [],
@@ -52,17 +46,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLogin: false,
-      };
-    case SET_SEARCH_VALUE:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case SET_SEARCH_HISTORY:
-      window.localStorage.setItem('searchHistory', JSON.stringify(action.payload));
-      return {
-        ...state,
-        searchHistory: action.payload,
       };
     case SET_COUNTRIES_CODE_LIST:
       return {

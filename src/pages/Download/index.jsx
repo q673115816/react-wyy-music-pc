@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import classnames from 'classnames';
 
 const nav = [
@@ -8,12 +8,13 @@ const nav = [
   '正在下载',
 ];
 
-export default () => {
+export default memo(() => {
+  console.log('download');
   const [visibility, setVisibility] = useState(false);
   const [current, setCurrent] = useState('已下载单曲');
-  const handleToggleVisibility = () => {
+  const handleToggleVisibility = useCallback(() => {
     setVisibility(!visibility);
-  };
+  }, []);
   return (
     <div className="domManage">
       <div className="domManage_header ui_header">
@@ -33,7 +34,10 @@ export default () => {
           ))}
         </div>
         <div className="domManage_list overflow-auto max-h-full flex-auto" />
-        <div className="domManage_dialog" style={{ display: visibility ? '' : 'none' }}>
+        {
+          visibility
+        && (
+        <div className="domManage_dialog">
           <button type="button" className="close" onClick={handleToggleVisibility}>×</button>
           <div className="title">选择本地音乐文件夹</div>
           <div className="tips">将自动扫描您勾选的目录，文件增删实时同步。</div>
@@ -51,7 +55,9 @@ export default () => {
             <button type="button" className="ui_btn">添加文件</button>
           </div>
         </div>
+        )
+        }
       </div>
     </div>
   );
-};
+});

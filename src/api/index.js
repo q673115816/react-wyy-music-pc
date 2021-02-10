@@ -1,6 +1,9 @@
 import { get, post } from '../common';
 
-// 音乐
+/**
+ * 获取音乐 url
+ * @param {id, br} params
+ */
 export const apiSongUrl = (params) => post('/song/url', params);
 /**
  * 获取歌曲详情

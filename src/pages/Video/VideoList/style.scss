@@ -1,54 +1,9 @@
-.group_select_wrap {
-  position: relative;
-  z-index: 2;
-}
-
 .group_select_box {
-  position: absolute;
-  top: 100%;
-  padding: 10px;
   width: 640px;
   height: 490px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  overflow: auto;
 }
 
 .group_select_button {
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 15px;
-  padding: 4px 12px;
-  background-color: #fff;
-  outline: none;
   width: 100px;
   height: 30px;
-  text-align: center;
-}
-
-.group_select_list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.group_select_check {
-  display: block;
-  margin: 6px 0;
-  padding: 10px 0;
-  width: calc(100% / 6);
-  text-align: center;
-  &:hover {
-    color:var(--themeColor);
-  }
-  &.on {
-    color:var(--themeColor);
-    background-color: #FCEBEB
-  }
-  border-radius: 1000px;
-}
-
-.video_sort_filter_bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }

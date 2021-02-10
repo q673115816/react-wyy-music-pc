@@ -28,8 +28,8 @@ export default () => {
   }, []);
   return (
     <div className="domHome_dj_toplist h-full overflow-auto">
-      <div className="domHome_dj_toplist_header flex py-7">
-        <div className="domHome_dj_toplist_nav h-full flex rounded-full overflow-hidden border">
+      <div className="domHome_dj_toplist_header flex justify-center relative py-7">
+        <div className="domHome_dj_toplist_nav flex rounded-full border">
           <NavLink
             to="/home/dj/toplist"
             exact
@@ -53,7 +53,7 @@ export default () => {
             热门电台榜
           </NavLink>
         </div>
-        <div className="ml-auto text-gray-400">
+        <div className="absolute inset-y-0 m-auto h-0 right-0 text-gray-400">
           最近更新：
           {updateTime && dayjs(updateTime).format('MM月DD日')}
         </div>

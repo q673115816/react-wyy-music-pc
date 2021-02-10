@@ -114,11 +114,9 @@
   --swiper-pagination-color: var(--themeColor);
 
   .cover {
-    position: relative;
     width: 540px;
     height: 200px;
     border-radius: 6px;
-    overflow: hidden;
 
     .typeTitle {
       position: absolute;
@@ -131,9 +129,6 @@
   }
 
   .sub_page {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
 
     &>[role='button'] {
       margin: 0 6px;

@@ -3,15 +3,10 @@
   --HEIGHT: 670px;
   --HEADER: 60px;
   --FOOTER:70px;
-  // position: absolute;
-  // display: flex;
-  // flex-direction: column;
   width: var(--WIDTH);
   height: var(--HEIGHT);
   background-color: #fff;
   transform: translate(0, 0);
-  // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  // overflow: hidden;
 }
 
 @import 'header';

@@ -1,29 +1,28 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import loadable from '@loadable/component';
 
-const Setting = loadable(() => import(/* webpackChunkName: "Setting" */'@/pages/Setting'));
-const Home = loadable(() => import(/* webpackChunkName: "Home" */'@/pages/Home'));
-const DailySong = loadable(() => import(/* webpackChunkName: "DailySong" */'@/pages/DailySong'));
-const Comment = loadable(() => import(/* webpackChunkName: "Comment" */'@/pages/Comment'));
-const Video = loadable(() => import(/* webpackChunkName: "Video" */'@/pages/Video'));
-const AllMv = loadable(() => import(/* webpackChunkName: "AllMv" */'@/pages/AllMv'));
-const Local = loadable(() => import(/* webpackChunkName: "Local" */'@/pages/Local'));
-const Cloud = loadable(() => import(/* webpackChunkName: "Cloud" */'@/pages/Cloud'));
-const Look = loadable(() => import(/* webpackChunkName: "Look" */'@/pages/Look'));
-const Download = loadable(() => import(/* webpackChunkName: "Download" */'@/pages/Download'));
-const Friend = loadable(() => import(/* webpackChunkName: "Friend" */'@/pages/Friend'));
-const Love = loadable(() => import(/* webpackChunkName: "Love" */'@/pages/Love'));
-const Dj = loadable(() => import(/* webpackChunkName: "Dj" */'@/pages/Dj'));
-const DjCategory = loadable(() => import(/* webpackChunkName: "DjCategory" */'@/pages/DjCategory'));
-const Fm = loadable(() => import(/* webpackChunkName: "Fm" */'@/pages/Fm'));
-const ToplistArtist = loadable(() => import(/* webpackChunkName: "ToplistArtist" */'@/pages/ToplistArtist'));
-const Playlist = loadable(() => import(/* webpackChunkName: "Playlist" */'@/pages/Playlist'));
-const User = loadable(() => import(/* webpackChunkName: "User" */'@/pages/User'));
-const Sublist = loadable(() => import(/* webpackChunkName: "Sublist" */'@/pages/Sublist'));
-const Artist = loadable(() => import(/* webpackChunkName: "Artist" */'@/pages/Artist'));
-const Search = loadable(() => import(/* webpackChunkName: "Search" */'@/pages/Search'));
-const Ai = loadable(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
+const Setting = lazy(() => import(/* webpackChunkName: "Setting" */'@/pages/Setting'));
+const Home = lazy(() => import(/* webpackChunkName: "Home" */'@/pages/Home'));
+const DailySong = lazy(() => import(/* webpackChunkName: "DailySong" */'@/pages/DailySong'));
+const Comment = lazy(() => import(/* webpackChunkName: "Comment" */'@/pages/Comment'));
+const Video = lazy(() => import(/* webpackChunkName: "Video" */'@/pages/Video'));
+const AllMv = lazy(() => import(/* webpackChunkName: "AllMv" */'@/pages/AllMv'));
+const Local = lazy(() => import(/* webpackChunkName: "Local" */'@/pages/Local'));
+const Cloud = lazy(() => import(/* webpackChunkName: "Cloud" */'@/pages/Cloud'));
+const Look = lazy(() => import(/* webpackChunkName: "Look" */'@/pages/Look'));
+const Download = lazy(() => import(/* webpackChunkName: "Download" */'@/pages/Download'));
+const Friend = lazy(() => import(/* webpackChunkName: "Friend" */'@/pages/Friend'));
+const Love = lazy(() => import(/* webpackChunkName: "Love" */'@/pages/Love'));
+const Dj = lazy(() => import(/* webpackChunkName: "Dj" */'@/pages/Dj'));
+const DjCategory = lazy(() => import(/* webpackChunkName: "DjCategory" */'@/pages/DjCategory'));
+const Fm = lazy(() => import(/* webpackChunkName: "Fm" */'@/pages/Fm'));
+const ToplistArtist = lazy(() => import(/* webpackChunkName: "ToplistArtist" */'@/pages/ToplistArtist'));
+const Playlist = lazy(() => import(/* webpackChunkName: "Playlist" */'@/pages/Playlist'));
+const User = lazy(() => import(/* webpackChunkName: "User" */'@/pages/User'));
+const Sublist = lazy(() => import(/* webpackChunkName: "Sublist" */'@/pages/Sublist'));
+const Artist = lazy(() => import(/* webpackChunkName: "Artist" */'@/pages/Artist'));
+const Search = lazy(() => import(/* webpackChunkName: "Search" */'@/pages/Search'));
+const Ai = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
 
 export default () => (
   <Switch>

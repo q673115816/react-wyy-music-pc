@@ -93,23 +93,23 @@ export default () => {
         </div>
         <div className="actions">
           <button type="submit" className="submit">注册</button>
-          <div className="hint">其他注册方式</div>
-          <div className="threes">
+          <div className="hint flex items-center justify-between mb-4">其他注册方式</div>
+          <div className="threes flex justify-between">
             <button type="button" className="three">
               <SymbolWX hover />
-              <span className="name">微信</span>
+              <div className="name mt-2">微信</div>
             </button>
             <button type="button" className="three">
               <SymbolQQ hover />
-              <span className="name">QQ</span>
+              <div className="name mt-2">QQ</div>
             </button>
             <button type="button" className="three">
               <SymbolWB hover />
-              <span className="name">新浪微博</span>
+              <div className="name mt-2">新浪微博</div>
             </button>
             <button type="button" className="three">
               <SymbolWY hover />
-              <span className="name">网易邮箱</span>
+              <div className="name mt-2">网易邮箱</div>
             </button>
           </div>
         </div>

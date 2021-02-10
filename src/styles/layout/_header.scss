@@ -14,112 +14,29 @@
   }
 
   &_search {
-    outline: none;
-    border: none;
     width: 160px;
     height: 30px;
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 15px;
     padding-left: 36px;
-    font-size: 12px;
 
     &_box {
-      position: absolute;
-      left: -30%;
-      background-color: #fff;
+      left: 220px;
+      top: calc(var(--HEADER) - 14px);
       color: #333;
-      border-radius: 4px;
       width: 354px;
-      min-height: 400px;
-      max-height: 450px;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-      z-index: 2;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      padding-top: 4px;
-
-      .subtitle {
-        padding: 16px 20px;
-        display: flex;
-        align-items: center;
+      &_value {
+        height: 450px;
       }
 
-      .searchHistory {
-        padding: 0 calc(20px - 0.5em);
-        display: flex;
-        flex-wrap: wrap;
-
-        .item {
-          position: relative;
-          margin: 0 0.5em;
-          margin-bottom: 1em;
-          border: 1px solid #ccc;
-          border-radius: 100px;
-          padding: 6px 16px;
-
-          &:hover {
-            background-color: #F3F3F3;
-
-            .ico {
-              opacity: 1;
-            }
-          }
-
-          .ico {
-            opacity: 0;
-            position: absolute;
-            top: 50%;
-            right: 2px;
-            transform: translate(0, -50%);
-            color: #aaa;
-          }
-        }
+      &_noValue {
+        height: 400px;
       }
 
       .list {
         .item {
-          width: 100%;
           height: 56px;
-          display: flex;
-          align-items: center;
-
-          &:hover {
-            background-color: #F3F3F3;
-          }
 
           .index {
             width: 56px;
-            flex: none;
-            text-align: center;
-            color: gray;
-            font-size: 18px;
-          }
-
-          &:nth-child(-n + 3) {
-            .index {
-              color: var(--themeColor);
-            }
-          }
-
-          .aside {
-            .name {
-              display: flex;
-              align-items: flex-end;
-
-              .searchWord {
-                font-size: 13px;
-              }
-
-              .ico {
-                max-width: 24px;
-                max-height: 12px;
-              }
-            }
-
-            .content {
-              margin-top: 0.6em;
-            }
           }
         }
       }
@@ -368,12 +285,10 @@
 
     .checkin {
       font-size: 14px;
-      // @include flex-center();
     }
 
     .list {
       height: 100%;
-      // display: flex;
       flex-direction: column;
     }
 
@@ -444,16 +359,5 @@
         height: 30px;
       }
     }
-  }
-
-  &_function {
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-
-  &_function_skin {
-    height: 100%;
-    @include flex-center();
   }
 }

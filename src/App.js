@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +19,7 @@ import Playlist from './components/Playlist';
 import PrivateLetter from './components/PrivateLetter';
 import Tosat from './components/Toast';
 import Contextmenu from './components/Contextmenu';
+import HeaderSearch from './components/HeaderSearch';
 
 const handlePopSwitch = (popupStatus) => {
   switch (popupStatus) {
@@ -53,6 +54,7 @@ export default function App() {
     globalLastY,
     globalWidth,
     globalHeight,
+    searchVisibility,
     contextMenuVisibility,
     dialogShareVisibility,
     dialogShareWXVisibility,
@@ -67,11 +69,11 @@ export default function App() {
   const [lastX, setLastX] = useState(0);
   const [lastY, setLastY] = useState(0);
 
-  const dragdown = (e) => {
+  const dragdown = useCallback((e) => {
     setStartX(e.clientX);
     setStartY(e.clientY);
     setDragger(true);
-  };
+  }, []);
 
   const dragmove = (e) => {
     if (dragger) {
@@ -104,7 +106,7 @@ export default function App() {
       <Router>
         <div
           id="NeteaseCloudMusic"
-          className="domWrapper flex flex-col absolute shadow-lg"
+          className="domWrapper flex flex-col absolute shadow-lg select-none"
           style={{
             transform: `translate(${x}px, ${y}px)`,
             '--themeColor': `var(--${theme}, --themeRed)`,
@@ -122,8 +124,7 @@ export default function App() {
           </Switch>
           {handlePopSwitch(popupStatus)}
           {
-            contextMenuVisibility
-            && (
+            contextMenuVisibility && (
               <Contextmenu />
             )
           }
@@ -139,6 +140,10 @@ export default function App() {
           {dialogCreatePlaylistVisibility && (
             <DialogCreatePlaylist />
           )}
+          {
+            searchVisibility
+            && <HeaderSearch />
+          }
           <Tosat />
           {screen === 'normal'
             && <DomCorner />}

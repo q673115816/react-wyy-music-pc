@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import {
   IconSettings,
-  IconTool,
+  IconPalette,
   IconMail,
   IconCheck,
 } from '@tabler/icons';
@@ -138,7 +138,7 @@ const DomSkin = () => {
   );
 };
 
-export default () => {
+export default memo(() => {
   const dispatch = useDispatch();
   const { popupStatus, newMsgCount } = useSelector(({ common }) => common);
   const [visibility, setVisibility] = useState(false);
@@ -150,7 +150,7 @@ export default () => {
     }
   };
   return (
-    <div className="domHeader_function space-x-3">
+    <div className="domHeader_function flex space-x-3">
       <Link
         to="/settings"
         className="relative text-white text-opacity-90 hover:text-opacity-100 "
@@ -165,7 +165,7 @@ export default () => {
           className="focus:outline-none text-white text-opacity-90 hover:text-opacity-100"
           title="换肤"
         >
-          <IconTool size={24} />
+          <IconPalette size={24} />
         </button>
         {
           visibility && <DomSkin />
@@ -182,4 +182,4 @@ export default () => {
       </button>
     </div>
   );
-};
+});

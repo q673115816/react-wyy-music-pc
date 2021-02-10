@@ -32,6 +32,7 @@ body {
   line-height: 1;
   font-size: 12px;
   color: #333;
+  // word-break: break-all;
   // font-family: var(--fontFamily);
 }
 
@@ -48,16 +49,6 @@ input:focus {
   outline: none;
 }
 
-// .mask {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-//   background-color: rgba(0, 0, 0, 0);
-//   z-index: 10;
-// }
-
 .dialogMask {
   position: absolute;
   top: 0;
@@ -65,10 +56,6 @@ input:focus {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0);
-}
-
-#NeteaseCloudMusic {
-  user-select: none;
 }
 
 .animate-zoomin {
@@ -79,25 +66,12 @@ input:focus {
   }
 }
 
-// button {
-//   all: unset;
-//   cursor: pointer;
-//   box-sizing: inherit;
-// }
-
-// input:-webkit-autofill,
-// textarea:-webkit-autofill,
-// select:-webkit-autofill {
-//   background-color: transparent;
-// }
-
 .TAG {
   display: inline-flex;
   align-items: center;
   border: 1px solid;
   padding: 0 0.2em;
   color: var(--themeColor);
-  // letter-spacing: 0.1em;
   border-radius: 0.1em;
   margin-left: 0.3em;
   font-size: 12px;
@@ -161,36 +135,6 @@ input:focus {
   /* Chrome/Opera/Safari */
   color: #B6B6B6;
 }
-
-// input[type="text"] {
-//   border: 1px solid #333333 !important;
-//   padding: 0px 12px 0px 32px;
-//   background: transparent !important;
-// }
-
-// input[type="password"] {
-//   border: 1px solid #333333 !important;
-//   padding: 0px 12px 0px 32px;
-//   background: transparent !important;
-// }
-
-// @-webkit-keyframes autofill {
-//   to {
-//     color: #666;
-//     background: transparent;
-//   }
-// }
-
-// input:-webkit-autofill {
-//   animation-name: autofill !important;
-//   animation-fill-mode: both !important;
-// }
-
-// input:-webkit-autofill,
-// input:-webkit-autofill:hover,
-// input:-webkit-autofill:focus {
-//   background-clip: content-box !important;
-// }
 
 
 .bigScreen {

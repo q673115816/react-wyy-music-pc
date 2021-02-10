@@ -6,14 +6,18 @@ import {
   IconPlayerPlay,
   IconPlayerSkipForward,
 } from '@tabler/icons';
+import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
+import { setAudioCurrentTime } from '@/redux/actions';
 
 export default () => {
   const dispatch = useDispatch();
-  const { running } = useSelector(({ audio }) => audio);
+  const { running, currentTime, currentSong } = useSelector(({ audio }) => audio);
   const handleToggle = () => {
   };
-  const handleProcess = () => {
+  const handleProcess = (e) => {
+    dispatch(setAudioCurrentTime(e.target.value));
+    // console.log(e.target.value);
   };
 
   return (
@@ -44,12 +48,18 @@ export default () => {
       <div className="domfooter_center_bottom flex-center">
         <span className="text-gray-400">00:00</span>
         <input
-          onChange={() => handleProcess()}
+          onChange={handleProcess}
           type="range"
-          value="0"
+          max={currentSong.dt ? currentSong.dt / 1000 : 100}
+          value={currentTime}
+          style={{ '--process': currentTime / (currentSong.dt / 1000) * 100 }}
           className="domfooter_center_process"
         />
-        <span className="text-gray-400">00:00</span>
+        <span className="text-gray-400">
+          {currentSong.dt
+            ? dayjs(currentSong.dt).format('mm:ss')
+            : '00:00'}
+        </span>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useLocation, Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
@@ -26,7 +26,7 @@ const nav = [
   ['用户', '1002', '位'],
 ];
 
-export default () => {
+export default memo(() => {
   console.log('entry search');
   const dispatch = useDispatch();
   const { search } = useLocation();
@@ -136,4 +136,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

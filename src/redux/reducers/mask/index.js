@@ -1,5 +1,6 @@
 import {
   SET_CONTEXTMENU_SHOW,
+  SET_SEARCH_SHOW,
   SET_DIALOG_RESET,
   SET_DIALOG_SHARE_SHOW,
   SET_GLOBAL_INSET,
@@ -21,6 +22,7 @@ const globalState = {
 
 const visibilityState = {
   maskVisibility: false,
+  searchVisibility: false,
   contextMenuVisibility: false,
   dialogShareVisibility: false,
   dialogShareWXVisibility: false,
@@ -60,6 +62,15 @@ export default (state = initialState, action) => {
         ...maskState,
         visibility: true,
         contextMenuVisibility: true,
+        ...action.payload,
+      };
+    case SET_SEARCH_SHOW:
+      return {
+        ...state,
+        ...visibilityState,
+        ...maskState,
+        visibility: true,
+        searchVisibility: true,
         ...action.payload,
       };
     case SET_DIALOG_SHARE_SHOW:

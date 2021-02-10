@@ -45,8 +45,10 @@ export default ({ playlist = [] }) => (
               </Link>
             </div>
           </div>
-          <div className="footer">
-            <Link to={`/playlist/music/${item.id}`} className="name ">{item.name}</Link>
+          <div className="footer break-all">
+            <Link to={`/playlist/music/${item.id}`} className="name">
+              {item.name}
+            </Link>
           </div>
         </div>
       ))

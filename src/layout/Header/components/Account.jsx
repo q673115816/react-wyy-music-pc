@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   IconUser,
@@ -172,7 +172,7 @@ const DomProfile = ({ setVisibliity }) => {
   );
 };
 
-export default () => {
+export default memo(() => {
   const dispatch = useDispatch();
   const { isLogin } = useSelector(({ common }) => common);
   const { profile } = useSelector(({ account }) => account);
@@ -222,4 +222,4 @@ export default () => {
       </button>
     </div>
   );
-};
+});

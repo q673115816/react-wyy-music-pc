@@ -1,14 +1,18 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { memo, lazy, Suspense } from 'react';
 import Router from '@/router';
+// import DomAi from '@/pages/Ai';
 import DomNav from './Nav';
 
-export default () => (
+// const DomAi = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
+
+export default memo(() => (
   <div className="dommain w-full flex flex-auto h-px">
     <DomNav />
     <div className="dommain_split" />
     <div className="dommain_right h-full flex-auto min-w-0 relative">
-      <Router />
+      <Suspense fallback={<div>loading</div>}>
+        <Router />
+      </Suspense>
     </div>
   </div>
-);
+));

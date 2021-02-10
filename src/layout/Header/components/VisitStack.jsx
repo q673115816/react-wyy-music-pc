@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import {
   IconChevronLeft,
   IconChevronRight,
 } from '@tabler/icons';
 import { useHistory } from 'react-router-dom';
 
-export default () => {
+export default memo(() => {
   const {
     goBack,
     goForward,
@@ -38,4 +38,4 @@ export default () => {
       </button>
     </div>
   );
-};
+});

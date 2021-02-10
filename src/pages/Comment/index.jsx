@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import loadable from '@loadable/component';
 import './style.scss';
 
-const DomDefault = loadable(() => import(/* webpackChunkName: "Comment" */'./Default'));
-const DomHot = loadable(() => import(/* webpackChunkName: "Comment_Hot" */'./Hot'));
+const DomDefault = lazy(() => import(/* webpackChunkName: "Comment" */'./Default'));
+const DomHot = lazy(() => import(/* webpackChunkName: "Comment_Hot" */'./Hot'));
 
 export default () => (
-  <Switch>
-    <Route path="/comment/:id/hot" component={DomHot} />
-    <Route component={DomDefault} />
-  </Switch>
+  <Suspense fallback={<div>loading</div>}>
+    <Switch>
+      <Route path="/comment/:id/hot" component={DomHot} />
+      <Route component={DomDefault} />
+    </Switch>
+  </Suspense>
 );

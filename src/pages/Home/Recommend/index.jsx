@@ -11,7 +11,7 @@ import {
   apiPersonalizedDjprogram,
 } from '@/api';
 import { setHomeRecommend } from '@/redux/actions';
-import DomSwiper from '@/components/DomSwiper';
+import DomSwiper from '@/components/Swiper';
 
 import DOMtingting from '@/components/AdLookSquare';
 import DOMkankan from '@/components/AdLookRectangle';
@@ -126,11 +126,16 @@ export default () => {
           </div>
         </div>
         <div className="domHome_recommend_diy">
-          <div className="gary">
+          <div className="text-gray-500">
             现在可以根据个人喜好，自由调整首页栏目顺序啦~
           </div>
           <br />
-          <button type="button" className="btn">调整栏目顺序</button>
+          <button
+            type="button"
+            className="btn ui_themeColor border rounded-sm border-current"
+          >
+            调整栏目顺序
+          </button>
         </div>
       </div>
     </div>
