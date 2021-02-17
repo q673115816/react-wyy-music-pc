@@ -22,9 +22,6 @@
   }
 
   &_main {
-    // position: relative;
-    // width: 100%;
-    // flex: 1;
     padding: 0 30px;
   }
 
@@ -33,28 +30,27 @@
     height: 24px;
   }
 
-  &_check {
+  // &_check {
 
-    input {
-      display: none;
+  //   input {
 
-      &:checked+.ico {
-        background-color: var(--themeColor);
-        color: #fff;
-        border-color:var(--themeColor);
-      }
-    }
+  //     &:checked+.ico {
+  //       background-color: var(--themeColor);
+  //       color: #fff;
+  //       border-color:var(--themeColor);
+  //     }
+  //   }
 
 
-    .ico {
-      background-color: #fff;
-      width: 16px;
-      height: 16px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      color: transparent;
-    }
-  }
+  //   .ico {
+  //     background-color: #fff;
+  //     width: 16px;
+  //     height: 16px;
+  //     border: 1px solid #ccc;
+  //     border-radius: 4px;
+  //     color: transparent;
+  //   }
+  // }
 
   &_radio {
     input {

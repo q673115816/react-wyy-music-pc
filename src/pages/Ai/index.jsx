@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, memo } from 'react';
 import './style.scss';
 
-export default () => {
+export default memo(() => {
   console.log('ai');
   const [status, setStatus] = useState('rejected');
   const time = useRef(15);
@@ -43,4 +43,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

@@ -1,5 +1,6 @@
 import React from 'react';
 import { IconCheck } from '@tabler/icons';
+import DomCheckbox from '@/components/Checkbox';
 
 export default ({ list = [], name = '', handle = () => {} }) => (
   <div className="domSetting_subBlock_content">
@@ -7,7 +8,9 @@ export default ({ list = [], name = '', handle = () => {} }) => (
             list.map(([item, checked, tips]) => (
               <div className="item leading-loose" key={item}>
                 <label className="domSetting_check flex items-center" htmlFor={item}>
-                  <input
+                  <DomCheckbox name={item} />
+                  &nbsp;
+                  {/* <input
                     name={name}
                     type="checkbox"
                     id={item}
@@ -16,7 +19,7 @@ export default ({ list = [], name = '', handle = () => {} }) => (
                   />
                   <i className="ico flex items-center justify-center mr-2">
                     <IconCheck size={12} />
-                  </i>
+                  </i> */}
                   <span>{item}</span>
                   {
                             tips

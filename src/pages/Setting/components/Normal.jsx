@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import CompoenntCheckbox from '@/components/Checkbox';
 import DomRadio from './Radio';
 import DomCheckbox from './Checkbox';
 
@@ -80,9 +81,10 @@ export default () => {
         <div className="domSetting_subBlock_title">定时关机：</div>
         <div className="domSetting_subBlock_content">
           <div className="item">
-            <label className="domSetting_check">
-              <input name="autoOpen" type="checkbox" />
-              <i className="ico">✔</i>
+
+            <label className="domSetting_check flex items-center">
+              <CompoenntCheckbox />
+              &nbsp;
               <span>
                 开启定时关机
               </span>
