@@ -55,7 +55,7 @@ export default memo(() => {
     <Switch>
       {
         router.map(([path, Component]) => (
-          <Route path={path}>
+          <Route path={path} key={path}>
             <Component />
           </Route>
         ))

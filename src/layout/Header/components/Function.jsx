@@ -64,7 +64,7 @@ const DomSkin = () => {
         </button>
       </div>
       <div className="skins">
-        <div className="themes" style={{ display: current === 0 ? null : 'none' }}>
+        <div className="themes mt-2.5 grid gap-2.5" style={{ display: current === 0 ? null : 'none' }}>
           {
             themes.map(([name, classname, stylename]) => (
               <button
@@ -83,7 +83,7 @@ const DomSkin = () => {
           }
         </div>
         <div className="colors" style={{ display: current === 1 ? null : 'none' }}>
-          <div className="default">
+          <div className="default mt-2.5 grid gap-2.5">
             {
               colors.map(([stylename]) => (
                 <button

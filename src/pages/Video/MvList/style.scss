@@ -2,23 +2,9 @@
   &_sublist {
     margin-bottom: 30px;
   }
-
-  &_subLink {
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  &_header {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
 }
 
 .domVideoTop {
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
   grid-template-rows: 132px;
 
   .item {
@@ -36,8 +22,6 @@
 
     .rank {
       width: 40px;
-      flex: none;
-      flex-direction: column;
 
       .num {
         font-size: 24px;
@@ -52,35 +36,6 @@
       height: 92px;
       border-radius: 6px;
       overflow: hidden;
-
-      .inner {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        .score {
-          position: absolute;
-          top: 4px;
-          right: 4px;
-          color: #fff;
-        }
-      }
-    }
-
-    .aside {
-      min-width: 1px;
-      flex: auto;
-      padding: 10px;
-
-      .name {
-        font-size: 14px;
-      }
-
-      .artists {
-        margin-top: 2em;
-      }
     }
   }
 }

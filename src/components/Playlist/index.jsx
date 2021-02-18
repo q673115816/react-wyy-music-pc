@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import {
   IconTrash, IconFolderPlus, IconLink, IconPlayerPlay, IconPlayerPause,
 } from '@tabler/icons';
-import { setPopup } from '@/redux/actions';
+import { setPopup, setAudioClear } from '@/redux/actions';
 
 const Empty = () => {
   const dispatch = useDispatch();
@@ -67,9 +67,17 @@ const DomList = ({ list = [], currentId }) => {
 };
 
 export default () => {
+  const dispatch = useDispatch();
   const audio = useSelector(({ audio }) => audio);
   const { currentSong, playlist, history } = audio;
   const [current, setCurrent] = useState('playlist');
+  const handleClear = () => {
+    if (audio[current].length === 0) {
+      return false;
+    }
+    // console.log('handleClear');
+    return dispatch(setAudioClear());
+  };
   return (
     <div id="playlist">
       <div className="p-6">
@@ -85,20 +93,23 @@ export default () => {
             历史记录
           </button>
         </div>
-        <div className={classnames('actions', { disabled: audio[current].length === 0 })}>
+        <div className="actions">
           <span className="text-gray-400">
             总
             {audio[current].length}
             首
           </span>
-          <div className="right">
-            <button type="button" className="action flex-center">
-              <IconFolderPlus size={18} stroke={1} />
+          <div className="right divide-x">
+            <button type="button" className={classnames('action px-5 flex-center', { 'text-gray-300': audio[current].length === 0 })}>
+              <IconFolderPlus size={20} stroke={1} />
               收藏全部
             </button>
-            <span />
-            <button type="button" className="action flex-center">
-              <IconTrash size={18} stroke={1} />
+            <button
+              type="button"
+              onClick={handleClear}
+              className={classnames('action px-5 flex-center', { 'text-gray-300': audio[current].length === 0 })}
+            >
+              <IconTrash size={20} stroke={1} />
               清空
             </button>
           </div>

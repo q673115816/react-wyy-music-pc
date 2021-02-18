@@ -22,7 +22,9 @@
   }
 
   &.col_3 {
-    grid-template-columns: repeat(3, calc(100% / 3 - var(--columnGap) * 2 / 3));
+    grid-template-columns: repeat(3, 1fr);
+
+    // grid-template-columns: repeat(3, calc(100% / 3 - var(--columnGap) * 2 / 3));
   }
 
   &.rectangle_height {
@@ -30,7 +32,7 @@
   }
 
   &.rectangle_width {
-    --cover: calc(136 / 242 * 100%);
+    --cover: calc(9 / 16 * 100%);
   }
 
   .item {

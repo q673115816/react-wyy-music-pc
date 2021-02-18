@@ -16,21 +16,10 @@
     align-items: center;
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
-    &.disabled {
-      color: #ccc;
-    }
     .right {
       margin-left: auto;
       display: flex;
       align-items: center;
-      span {
-        width: 1px;
-        height: 12px;
-        background-color: #ccc;
-      }
-      .action {
-        margin: 0 20px;
-      }
     }
   }
 

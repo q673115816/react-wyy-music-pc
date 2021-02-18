@@ -12,14 +12,14 @@ import dayjs from 'dayjs';
 import { apiRecommendSongs, apiCommentMusic } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
 import { setContextMenuShow, setAudioImmediate } from '@/redux/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
 
 export default () => {
   const { replace } = useHistory();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-
+  const { likelist } = useSelector(({ account }) => account);
   const handleInit = async () => {
     try {
       const { data = [], code } = await apiRecommendSongs();
@@ -133,8 +133,8 @@ export default () => {
                     {String(index + 1).padStart(2, 0)}
                   </div>
                   <div className="heart">
-                    <button type="button" className="text-gray-400 hover:text-black">
-                      <IconHeart size={20} stroke={1} />
+                    <button type="button" className={classnames(likelist.includes(item.id) ? 'text-red-500 hover:text-red-700' : 'text-gray-400 hover:text-black')}>
+                      <IconHeart size={20} className={classnames({ 'fill-current': likelist.includes(item.id) })} stroke={1} />
                     </button>
                   </div>
                   <div className="download">
@@ -165,6 +165,10 @@ export default () => {
                       }
                     </div>
                     <div className="tags">
+                      {
+                        item.fee === 1
+                        && <span className="TAG word">试听</span>
+                        }
                       {
                         item.privilege.maxbr === 999000
                         && <span className="TAG">SQ</span>

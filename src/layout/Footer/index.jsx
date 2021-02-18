@@ -1,17 +1,6 @@
 import React, {
-  useState, useRef, useEffect, memo,
+  memo,
 } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  IconArrowsSplit2,
-  IconPlayerSkipBack,
-  IconPlayerPlay,
-  IconPlayerPause,
-  IconPlayerSkipForward,
-  IconArrowsDiagonal,
-  IconHeart,
-} from '@tabler/icons';
 
 import DomLeft from './components/Left';
 import DomCenter from './components/Center';

@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   IconArrowsDiagonal,
+  IconArrowsDoubleNeSw,
   IconHeart,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +25,7 @@ export default () => {
         id: currentSong.id,
       });
       refAudio.current.src = data[0].url;
-      refAudio.current.play();
+      // refAudio.current.play();
     } catch (error) {
       console.log(error);
     }
@@ -41,6 +42,14 @@ export default () => {
   }, []);
 
   useEffect(() => {
+    if (running) {
+      refAudio.current.play();
+    } else {
+      refAudio.current.pause();
+    }
+  }, [running]);
+
+  useEffect(() => {
     if (currentSong.id) {
       handleGetUrl();
     }
@@ -51,7 +60,7 @@ export default () => {
       <div hidden>
         <audio
           ref={refAudio}
-          onLoadedData={({ target }) => running && target.play()}
+          // onLoadedData={({ target }) => running && target.play()}
         />
       </div>
       {playlist.length > 0
@@ -62,6 +71,7 @@ export default () => {
               <div className="absolute opacity-0 inset-0 flex-center bg-black group-hover:opacity-60" />
               <div className="absolute opacity-0 inset-0 flex-center group-hover:opacity-100 text-white">
                 <IconArrowsDiagonal size={24} />
+                <IconArrowsDoubleNeSw size={24} />
               </div>
             </Link>
             <div className="domfooter_left_info pl-3">

@@ -23,6 +23,7 @@ const plugins = [
         'https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js',
         'https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js',
         // 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
+        // 'https://cdn.jsdelivr.net/npm/react-id-swiper/lib/react-id-swiper.min.js',
         'https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js',
       ],
       css: [
@@ -120,6 +121,7 @@ module.exports = {
   externals: [
     {
       // swiper: ['Swiper', 'react'],
+      // swiper: 'Swiper',
       'react-router': 'ReactRouter',
       'react-router-dom': 'ReactRouterDOM',
       react: 'React',

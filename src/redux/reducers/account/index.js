@@ -4,6 +4,7 @@ const initialState = {
   profile: {},
   playlist: [],
   bindings: [],
+  likelist: [],
 };
 
 export default (state = initialState, action) => {

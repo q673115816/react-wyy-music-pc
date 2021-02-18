@@ -227,8 +227,8 @@ export default () => {
             </button>
           </div>
         </div>
-        <label className="argument flex items-center whitespace-nowrap mt-9">
-          <DomCheck ref={refArgument} />
+        <label htmlFor="argument" className="argument flex items-center whitespace-nowrap mt-9">
+          <DomCheck ref={refArgument} name="argument" />
           &nbsp;
           <span className="text-gray-400">
             同意

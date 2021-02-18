@@ -105,12 +105,8 @@
     }
 
     .themes {
-      margin-top: 10px;
-      display: grid;
       grid-template-rows: repeat(2, 90px);
       grid-template-columns: repeat(3, 90px);
-      row-gap: 10px;
-      column-gap: 10px;
 
       .theme {
         position: relative;
@@ -167,12 +163,8 @@
 
     .colors {
       .default {
-        margin-top: 10px;
-        display: grid;
         grid-template-rows: repeat(2, 40px);
         grid-template-columns: repeat(6, 40px);
-        row-gap: 10px;
-        column-gap: 10px;
 
         .color {
           background-color: var(--currentColor);
@@ -276,7 +268,6 @@
     left: 50%;
     transform: translate(-50%, 0);
     width: 280px;
-    height: 380px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 0 0 10px 10px;

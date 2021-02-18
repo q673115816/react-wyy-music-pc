@@ -8,12 +8,14 @@ import {
 } from '@tabler/icons';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioCurrentTime } from '@/redux/actions';
+import { setAudioCurrentTime, setAudioRunningToggle } from '@/redux/actions';
 
 export default () => {
   const dispatch = useDispatch();
   const { running, currentTime, currentSong } = useSelector(({ audio }) => audio);
+  // console.log(currentTime);
   const handleToggle = () => {
+    dispatch(setAudioRunningToggle());
   };
   const handleProcess = (e) => {
     dispatch(setAudioCurrentTime(e.target.value));
@@ -46,7 +48,9 @@ export default () => {
         <button type="button" className="mx-2 hover:ui_themeColor">词</button>
       </div>
       <div className="domfooter_center_bottom flex-center">
-        <span className="text-gray-400">00:00</span>
+        <span className="text-gray-400">
+          {currentTime ? dayjs(currentTime * 1000).format('mm:ss') : '00:00'}
+        </span>
         <input
           onChange={handleProcess}
           type="range"

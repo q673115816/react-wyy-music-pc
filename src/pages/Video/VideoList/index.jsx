@@ -128,7 +128,7 @@ export default memo(() => {
   );
 
   return (
-    <div className="domVideoList_content overflow-auto max-h-full flex-auto" ref={domScroll}>
+    <div className="domVideoList_content overflow-auto flex-auto" ref={domScroll}>
       <div className="video_sort_filter_bar flex items-center justify-between">
         <div className="group_select_wrap relative z-10">
           <button
@@ -157,29 +157,28 @@ export default memo(() => {
           ))}
         </div>
       </div>
-      <div className="domVideoList_list ui_grid rectangle_width col_3">
+      <div className="domVideoList_list mt-5 grid gap-4 grid-cols-3">
         {videoList.map(({ data }) => (
           <div className="item" key={data.vid}>
-            <div className="cover">
-              <div className="inner">
-                <Link to={`/player/video/${data.vid}`}>
-                  <img className="ui_coverimg" src={data.coverUrl} alt="" />
-                  <div className="rt whitetext">
-                    {transPlayCount(data.playTime)}
-                  </div>
-                  <div className="rb whitetext">
-                    {dayjs(data.durationms).format('mm:ss')}
-                  </div>
-                </Link>
-              </div>
+            <div className="cover ui_aspect-ratio-16/9 rounded relative overflow-hidden">
+              <Link to={`/player/video/${data.vid}`}>
+                <img className="" src={data.coverUrl} alt="" />
+                <div className="absolute top-0 right-0 text-white p-2">
+                  {transPlayCount(data.playTime)}
+                </div>
+                <div className="absolute bottom-0 right-0 text-white p-2">
+                  {dayjs(data.durationms).format('mm:ss')}
+                </div>
+              </Link>
             </div>
-            <div className="footer truncate">
+            <div className="mt-2 truncate">
               <Link to={`/player/video/${data.vid}`} className="">
                 {data.title}
               </Link>
             </div>
-            <div className="text creator text-gray-400">
-              <Link to={`/user/${data.creator.userId}`}>
+            <div className="creator mt-2 text-gray-300">
+              by&nbsp;
+              <Link to={`/user/${data.creator.userId}`} className="hover:text-gray-500">
                 {data.creator.nickname}
               </Link>
             </div>

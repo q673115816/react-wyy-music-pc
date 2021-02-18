@@ -28,11 +28,19 @@ export default () => {
         </NavLink>
       </div>
       <Switch>
-        <Route path={`${url}/videolist/:id`} component={VideoList} />
-        <Route path={`${url}/videolist`} component={VideoList} />
-        <Route path={`${url}/mvlist/:id`} component={MvList} />
-        <Route path={`${url}/mvlist`} component={MvList} />
-        <Redirect to={`${url}/videolist`} />
+        <Route path={`${url}/videolist/:id`}>
+          <VideoList />
+        </Route>
+        <Route path={`${url}/videolist`}>
+          <VideoList />
+        </Route>
+        <Route path={`${url}/mvlist/:id`}>
+          <MvList />
+        </Route>
+        <Route path={`${url}/mvlist`}>
+          <MvList />
+        </Route>
+        {/* <Redirect to={`${url}/videolist`} /> */}
       </Switch>
     </div>
   );

@@ -101,7 +101,7 @@ export default () => {
   const ownPlaylist = playlist.filter((item) => item.subscribed === false);
   const subscribedPlaylist = playlist.filter((item) => item.subscribed === true);
   return (
-    <div className="dommain_left overflow-auto max-h-full flex-none p-2">
+    <div className="dommain_left overflow-auto max-h-full flex-none p-2.5">
       <nav className="options1 space-y-0.5">
         {
           options1.map((item) => (

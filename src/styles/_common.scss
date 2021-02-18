@@ -29,7 +29,7 @@
 body {
   // min-height: 100vh;
   // text-rendering: optimizeSpeed;
-  line-height: 1;
+  // line-height: 1;
   font-size: 12px;
   color: #333;
   // word-break: break-all;
@@ -75,6 +75,7 @@ input:focus {
   border-radius: 0.1em;
   margin-left: 0.3em;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 .h1 {
@@ -155,6 +156,25 @@ input:focus {
   @include inset-center();
 }
 
+.ui_aspect-ratio-16\/9 {
+  --aspect-ratio: 16 / 9;
+  aspect-ratio: var(--aspect-ratio);
+}
+
+// Fallback (current, using padding hack)
+@supports not (aspect-ratio: 16 / 9) {
+  .ui_aspect-ratio-16\/9::before {
+    float: left;
+    padding-top: 56.25%;
+    content: '';
+  }
+
+  .ui_aspect-ratio-16\/9::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+}
 
 @import 'components';
 @import 'ui';
