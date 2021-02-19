@@ -15,6 +15,7 @@ export default () => {
     currentSong,
     playlist,
     running,
+    currentTime,
   } = useSelector(({ audio }) => audio);
   const { volume } = useSelector(({ setting }) => setting);
   const refAudio = useRef();
@@ -31,14 +32,22 @@ export default () => {
     }
   };
 
+  const handleInitCurrentTime = () => {
+    if (currentTime !== 0) {
+      console.log(currentTime);
+      refAudio.current.currentTime = currentTime;
+      console.log(refAudio.current);
+    }
+  };
+
   useEffect(() => {
     refAudio.current.volume = volume * 0.01;
   }, [volume]);
 
   useEffect(() => {
-    refAudio.current.addEventListener('timeupdate', (e) => {
-      dispatch(setAudioCurrentTime(e.target.currentTime));
-    });
+    // refAudio.current.addEventListener('timeupdate', (e) => {
+    //   dispatch(setAudioCurrentTime(e.target.currentTime));
+    // });
   }, []);
 
   useEffect(() => {
@@ -52,6 +61,7 @@ export default () => {
   useEffect(() => {
     if (currentSong.id) {
       handleGetUrl();
+      handleInitCurrentTime();
     }
     // refAudio.srcObject =
   }, [currentSong]);

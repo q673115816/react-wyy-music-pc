@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   IconArrowsSplit2,
   IconPlayerSkipBack,
   IconPlayerPause,
   IconPlayerPlay,
   IconPlayerSkipForward,
+  IconPlaylist,
+  IconRotate,
+  IconRefreshAlert,
 } from '@tabler/icons';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioCurrentTime, setAudioRunningToggle } from '@/redux/actions';
+import { setAudioCurrentTime, setAudioRunningToggle, setAudioPattern } from '@/redux/actions';
+import { audioPattern } from '@/common/config';
+
+const audioPatternIcon = [
+  IconPlaylist,
+  IconRotate,
+  IconRefreshAlert,
+  IconArrowsSplit2,
+];
 
 export default () => {
   const dispatch = useDispatch();
-  const { running, currentTime, currentSong } = useSelector(({ audio }) => audio);
+  const {
+    running, currentTime, currentSong, pattern,
+  } = useSelector(({ audio }) => audio);
   // console.log(currentTime);
   const handleToggle = () => {
     dispatch(setAudioRunningToggle());
@@ -22,13 +35,28 @@ export default () => {
     // console.log(e.target.value);
   };
 
+  const handleChangePattern = () => {
+    dispatch(setAudioPattern());
+  };
+
+  const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
+
   return (
     <div className="domfooter_center flex-center flex-col flex-1">
       <div className="domfooter_center_Top flex-center">
-        <button type="button" className="mx-2 hover:ui_themeColor">
-          <IconArrowsSplit2 size={22} />
+        <button
+          type="button"
+          className="mx-2 hover:ui_themeColor"
+          title={audioPattern[pattern]}
+          onClick={handleChangePattern}
+        >
+          {/* {audioPatternIcon.find((Icon, index) => index === pattern && <Icon size={22} />) } */}
+          <AudioPatternIcon size={22} />
         </button>
-        <button type="button" className="domfooter_center_prev flex-center mx-2 hover:ui_themeColor">
+        <button
+          type="button"
+          className="domfooter_center_prev flex-center mx-2 hover:ui_themeColor"
+        >
           <IconPlayerSkipBack size={20} className="fill-current" />
         </button>
         <button

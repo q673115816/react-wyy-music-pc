@@ -144,7 +144,7 @@ export default () => {
                   </div>
                   <div className="name">
                     <div className="text truncate">
-                      <span name="" title={item.name}>
+                      <span title={item.name}>
                         {item.name}
                       </span>
                       {

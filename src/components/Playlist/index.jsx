@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import {
   IconTrash, IconFolderPlus, IconLink, IconPlayerPlay, IconPlayerPause,
 } from '@tabler/icons';
-import { setPopup, setAudioClear } from '@/redux/actions';
+import { setPopup, setAudioPlaylistClear, setAudioHistoryClear } from '@/redux/actions';
 
 const Empty = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Empty = () => {
   );
 };
 
-const DomList = ({ list = [], currentId }) => {
+const DomList = ({ list = [], currentId, current = '' }) => {
   if (list.length === 0) return <Empty />;
   const { running } = useSelector(({ audio }) => audio);
   return (
@@ -30,18 +30,56 @@ const DomList = ({ list = [], currentId }) => {
       list.map((item, index) => (
         <div
           tabIndex="2"
-          className={classnames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9', { 'bg-gray-50': index % 2 === 1, ui_themeColor: item.id === currentId })}
+          className={classnames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9', { 'bg-gray-50': index % 2 === 1, ui_themeColor: current === 'playlist' && item.id === currentId })}
           key={item.id}
         >
-          <div className="w-6">
+          <div className="w-6 flex-center">
             {
-              item.id === currentId
-              && running ? <IconPlayerPlay size={12} />
-                : <IconPlayerPause size={12} />
+              current === 'playlist'
+              && item.id === currentId
+              && (running ? <IconPlayerPlay className="fill-current" size={12} />
+                : <IconPlayerPause size={12} className="fill-current" stroke={1} />)
             }
           </div>
-          <div className="flex-auto truncate">
-            {item.name}
+          <div className="flex-auto name flex">
+            <div className="text truncate">
+              <span title={item.name}>
+                {item.name}
+              </span>
+              {
+                item.alia.length > 0
+                && (
+                  <>
+                    &nbsp;
+                    <span
+                      className="alia text-gray-400"
+                      title={item.alia.map((alia) => alia)}
+                    >
+                      （
+                      {item.alia.map((alia) => alia)}
+                      ）
+                    </span>
+                  </>
+                )
+              }
+            </div>
+            <div className="tags">
+              {
+                item.fee === 1
+                && <span className="TAG word">试听</span>
+              }
+              {
+                item.privilege.maxbr === 999000
+                && <span className="TAG">SQ</span>
+              }
+              {item.mv !== 0
+                && (
+                  <Link className="TAG" to={`/player/mv/${item.mv}`}>
+                    MV
+                    <IconPlayerPlay size={8} className="fill-current" />
+                  </Link>
+                )}
+            </div>
           </div>
           <div className="w-24 px-1 flex-none truncate">
             {item.ar.map((artist, index) => (
@@ -76,18 +114,29 @@ export default () => {
       return false;
     }
     // console.log('handleClear');
-    return dispatch(setAudioClear());
+    switch (current) {
+      case 'playlist':
+        return dispatch(setAudioPlaylistClear());
+      case 'history':
+        return dispatch(setAudioHistoryClear());
+      default:
+        break;
+    }
   };
   return (
     <div id="playlist">
       <div className="p-6">
         <div className="nav">
-          <button type="button" className="nav_link on" onClick={() => setCurrent('playlist')}>
+          <button
+            type="button"
+            className={classnames('nav_link', { on: current === 'playlist' })}
+            onClick={() => setCurrent('playlist')}
+          >
             播放列表
           </button>
           <button
             type="button"
-            className="nav_link"
+            className={classnames('nav_link', { on: current === 'history' })}
             onClick={() => setCurrent('history')}
           >
             历史记录
@@ -100,10 +149,18 @@ export default () => {
             首
           </span>
           <div className="right divide-x">
-            <button type="button" className={classnames('action px-5 flex-center', { 'text-gray-300': audio[current].length === 0 })}>
-              <IconFolderPlus size={20} stroke={1} />
-              收藏全部
-            </button>
+            {
+              current === 'playlist'
+              && (
+              <button
+                type="button"
+                className={classnames('action px-5 flex-center', { 'text-gray-300': audio[current].length === 0 })}
+              >
+                <IconFolderPlus size={20} stroke={1} />
+                收藏全部
+              </button>
+              )
+            }
             <button
               type="button"
               onClick={handleClear}
@@ -116,7 +173,7 @@ export default () => {
         </div>
       </div>
       <div className="overflow-auto max-h-full flex-auto">
-        <DomList list={audio[current]} currentId={currentSong.id} />
+        <DomList list={audio[current]} current={current} currentId={currentSong.id} />
       </div>
     </div>
   );

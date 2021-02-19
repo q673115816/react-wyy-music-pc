@@ -39,8 +39,10 @@ import {
   SET_SCREEN_FULL,
   SET_AUDIO_IMMEDIATE,
   SET_AUDIO_CURRENTTIME,
-  SET_AUDIO_CLEAR,
+  SET_AUDIO_PLAYLIST_CLEAR,
+  SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_RUNNING_TOGGLE,
+  SET_AUDIO_PATTERN,
 } from './actionTypes';
 
 export const setTheme = (payload) => ({
@@ -108,8 +110,16 @@ export const setAudioCurrentTime = (payload) => ({
   payload,
 });
 
-export const setAudioClear = () => ({
-  type: SET_AUDIO_CLEAR,
+export const setAudioPlaylistClear = () => ({
+  type: SET_AUDIO_PLAYLIST_CLEAR,
+});
+
+export const setAudioHistoryClear = () => ({
+  type: SET_AUDIO_HISTORY_CLEAR,
+});
+
+export const setAudioPattern = () => ({
+  type: SET_AUDIO_PATTERN,
 });
 
 export const setHomeRecommend = (payload) => ({
