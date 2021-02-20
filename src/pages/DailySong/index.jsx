@@ -7,25 +7,23 @@ import {
   IconFolderPlus,
 } from '@tabler/icons';
 import classnames from 'classnames';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { apiRecommendSongs, apiCommentMusic } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
 import { setContextMenuShow, setAudioImmediate } from '@/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import useLoginStatus from '@/custom/useLoginStatus';
 import './style.scss';
 
 export default () => {
-  const { replace } = useHistory();
+  useLoginStatus();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const { likelist } = useSelector(({ account }) => account);
   const handleInit = async () => {
     try {
-      const { data = [], code } = await apiRecommendSongs();
-      if (code === 301) {
-        replace('/');
-      }
+      const { data = [] } = await apiRecommendSongs();
       setData(data);
     } catch (error) {
       console.log(error);
@@ -163,12 +161,33 @@ export default () => {
                           </>
                         )
                       }
+                      {
+                        item.tns?.length > 0
+                        && (
+                          <>
+                            &nbsp;
+                            <span
+                              className="alia text-gray-400"
+                              title={item.tns.map((alia) => alia)}
+                            >
+                              （
+                              {item.tns.map((alia) => alia)}
+                              ）
+                            </span>
+                          </>
+                        )
+                      }
                     </div>
                     <div className="tags">
                       {
                         item.fee === 1
-                        && <span className="TAG word">试听</span>
-                        }
+                        && (
+                        <>
+                          <span className="TAG word">VIP</span>
+                          <span className="TAG word">试听</span>
+                        </>
+                        )
+                      }
                       {
                         item.privilege.maxbr === 999000
                         && <span className="TAG">SQ</span>

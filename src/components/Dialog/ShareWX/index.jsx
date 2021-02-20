@@ -7,15 +7,15 @@ import './style.scss';
 
 const ShareWX = () => {
   const dispatch = useDispatch();
-  const {} = useSelector(({ mask }) => mask);
+  const { contextMenuShareLink } = useSelector(({ mask }) => mask);
   return (
     <div className="content">
       <div className="qr">
         <QRcode
-          size="110"
+          size={110}
           level="H"
-          value="http://facebook.github.io/react/"
-          title="http://facebook.github.io/react/"
+          value={contextMenuShareLink}
+          title={contextMenuShareLink}
         />
         <div className="tips">打开微信，扫一扫~</div>
       </div>

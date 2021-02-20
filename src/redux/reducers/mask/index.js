@@ -1,5 +1,6 @@
 import {
   SET_CONTEXTMENU_SHOW,
+  SET_CONTEXTMENU_SHARE_LINK,
   SET_SEARCH_SHOW,
   SET_DIALOG_RESET,
   SET_DIALOG_SHARE_SHOW,
@@ -8,6 +9,7 @@ import {
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_SCREEN_FULL,
+  SET_TOAST,
 } from '@/redux/actionTypes';
 import { LOCALSTORAGE } from '@/common/utils';
 
@@ -38,14 +40,23 @@ const maskState = {
   contextMenuItemId: 0,
   contextMenuItem: {},
   contextMenuSechma: [],
+  contextMenuShareLink: '',
 };
 
 const shareState = {
 
 };
 
+const toastState = {
+  toastTitle: '',
+};
+
 const initialState = {
-  ...globalState, ...visibilityState, ...maskState, ...shareState,
+  ...globalState,
+  ...visibilityState,
+  ...maskState,
+  ...shareState,
+  ...toastState,
 };
 
 export default (state = initialState, action) => {
@@ -62,6 +73,11 @@ export default (state = initialState, action) => {
         ...maskState,
         visibility: true,
         contextMenuVisibility: true,
+        ...action.payload,
+      };
+    case SET_CONTEXTMENU_SHARE_LINK:
+      return {
+        ...state,
         ...action.payload,
       };
     case SET_SEARCH_SHOW:
@@ -116,6 +132,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         screen: 'full',
+      };
+    case SET_TOAST:
+      return {
+        ...state,
+        toastTitle: action.payload.toastTitle,
       };
     default:
       return state;

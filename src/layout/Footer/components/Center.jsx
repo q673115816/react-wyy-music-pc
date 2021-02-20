@@ -50,12 +50,12 @@ export default () => {
           title={audioPattern[pattern]}
           onClick={handleChangePattern}
         >
-          {/* {audioPatternIcon.find((Icon, index) => index === pattern && <Icon size={22} />) } */}
           <AudioPatternIcon size={22} />
         </button>
         <button
           type="button"
           className="domfooter_center_prev flex-center mx-2 hover:ui_themeColor"
+          title="上一首（Ctrl + Left）"
         >
           <IconPlayerSkipBack size={20} className="fill-current" />
         </button>
@@ -63,6 +63,7 @@ export default () => {
           type="button"
           onClick={handleToggle}
           className="domfooter_center_play flex-center mx-2 bg-gray-200 hover:bg-gray-300 rounded-full w-9 h-9"
+          title={running ? '暂停（Ctrl + P）' : '播放（Ctrl + P）'}
         >
           {running
             ? <IconPlayerPause size={24} className="fill-current" />
@@ -70,10 +71,20 @@ export default () => {
               <IconPlayerPlay size={24} className="fill-current" stroke="0" />
             )}
         </button>
-        <button type="button" className="domfooter_center_next flex-center mx-2 hover:ui_themeColor">
+        <button
+          type="button"
+          title="下一首（Ctrl + Right）"
+          className="domfooter_center_next flex-center mx-2 hover:ui_themeColor"
+        >
           <IconPlayerSkipForward size={20} className="fill-current" />
         </button>
-        <button type="button" className="mx-2 hover:ui_themeColor">词</button>
+        <button
+          type="button"
+          className="mx-2 hover:ui_themeColor"
+          title="打开歌词"
+        >
+          词
+        </button>
       </div>
       <div className="domfooter_center_bottom flex-center">
         <span className="text-gray-400">

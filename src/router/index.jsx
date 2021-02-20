@@ -27,7 +27,7 @@ const Ai = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
 const router = [
   ['/home', Home],
   ['/dailysong', DailySong],
-  ['//comment/:id', Comment],
+  ['/comment/:id', Comment],
   ['/video', Video],
   ['/allmv', AllMv],
   ['/Look', Look],

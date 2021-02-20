@@ -72,7 +72,7 @@ input:focus {
   border: 1px solid;
   padding: 0 0.2em;
   color: var(--themeColor);
-  border-radius: 0.1em;
+  border-radius: 0.15em;
   margin-left: 0.3em;
   font-size: 12px;
   line-height: 1;
@@ -171,6 +171,26 @@ input:focus {
   }
 
   .ui_aspect-ratio-16\/9::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+}
+
+.ui_aspect-ratio-1\/1 {
+  --aspect-ratio: 1 / 1;
+  aspect-ratio: var(--aspect-ratio);
+}
+
+// Fallback (current, using padding hack)
+@supports not (aspect-ratio: 1 / 1) {
+  .ui_aspect-ratio-1\/1::before {
+    float: left;
+    padding-top: 100%;
+    content: '';
+  }
+
+  .ui_aspect-ratio-1\/1::after {
     display: block;
     content: '';
     clear: both;

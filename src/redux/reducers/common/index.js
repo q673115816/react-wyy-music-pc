@@ -5,7 +5,6 @@ import {
   SET_NOT_LOGIN,
   SET_POPUP,
   SET_MSG_PRIVATE,
-  SET_TOAST,
 } from '@/redux/actionTypes';
 
 const initialState = {
@@ -20,9 +19,7 @@ const initialState = {
   comments: [],
   forwards: [],
   notices: [],
-  toast: { title: null },
   baseUrl: 'https://music.163.com',
-  // toastVisibility: false,
 };
 
 export default (state = initialState, action) => {
@@ -56,11 +53,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loginVisibility: !state.loginVisibility,
-      };
-    case SET_TOAST:
-      return {
-        ...state,
-        ...action.payload,
       };
     default:
       return state;

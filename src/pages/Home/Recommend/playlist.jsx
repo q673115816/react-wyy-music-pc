@@ -5,47 +5,39 @@ import { transPlayCount } from '@/common/utils';
 import { SymbolToday } from '@/components/Symbol';
 
 export default ({ playlist = [] }) => (
-  <div className="domHome_recommend_playlist ui_grid square col_5 mt-4">
+  <div className="domHome_recommend_playlist grid gap-5 grid-cols-5 mt-4">
     <div className="item">
-      <div className="cover">
-        <div className="inner">
-          <Link to="/dailysong">
-            <div className="inner" style={{ color: 'var(--themeColor)' }}>
-              <SymbolToday />
-              <div className="absolute right-0 bottom-0">
-                <i className="playArrow">
-                  <IconPlayerPlay size={16} className="fill-current" />
-                </i>
-              </div>
-            </div>
-          </Link>
-        </div>
+      <div className="cover border relative group rounded-lg overflow-hidden">
+        <Link to="/dailysong">
+          <div className="inner" style={{ color: 'var(--themeColor)' }}>
+            <SymbolToday />
+          </div>
+        </Link>
+        <button type="button" className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute m-2 right-0 bottom-0 rounded-full flex-center w-7 h-7 bg-white bg-opacity-90 ui_themeColor">
+          <IconPlayerPlay size={16} className="fill-current" />
+        </button>
       </div>
-      <div className="footer">
+      <div className="footer break-all text-sm mt-2">
         <Link to="/dailysong">每日歌曲推荐</Link>
       </div>
     </div>
     {
       playlist.slice(0, 9).map((item) => (
         <div key={item.id} className="item">
-          <div className="cover">
-            <div className="inner">
-              <Link to={`/playlist/music/${item.id}`}>
-                <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
-                <div className="absolute top-0 right-0">
-                  <span className="whitetext">
-                    {transPlayCount(item.playcount)}
-                  </span>
-                </div>
-                <div className="absolute right-0 bottom-0">
-                  <i className="playArrow">
-                    <IconPlayerPlay size={16} className="fill-current" />
-                  </i>
-                </div>
-              </Link>
-            </div>
+          <div className="cover relative group rounded-lg overflow-hidden border">
+            <Link to={`/playlist/music/${item.id}`}>
+              <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
+              <div className="absolute top-0 right-0 m-1.5">
+                <span className="text-white">
+                  {transPlayCount(item.playcount)}
+                </span>
+              </div>
+            </Link>
+            <button type="button" className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute m-2 right-0 bottom-0 rounded-full flex-center w-7 h-7 bg-white bg-opacity-90 ui_themeColor">
+              <IconPlayerPlay size={16} className="fill-current" />
+            </button>
           </div>
-          <div className="footer break-all">
+          <div className="footer break-all text-sm mt-2">
             <Link to={`/playlist/music/${item.id}`} className="name">
               {item.name}
             </Link>

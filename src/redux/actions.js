@@ -27,6 +27,7 @@ import {
   SET_MSG_PRIVATE_HISTORY,
   SET_TOAST,
   SET_CONTEXTMENU_SHOW,
+  SET_CONTEXTMENU_SHARE_LINK,
   SET_SEARCH_SHOW,
   SET_DIALOG_SHARE_SHOW,
   SET_DIALOG_SHARE_WX_SHOW,
@@ -229,6 +230,11 @@ export const setGlobalInset = (payload) => ({
 
 export const setContextMenuShow = (payload) => ({
   type: SET_CONTEXTMENU_SHOW,
+  payload,
+});
+
+export const setContextMenuShareLink = (payload) => ({
+  type: SET_CONTEXTMENU_SHARE_LINK,
   payload,
 });
 

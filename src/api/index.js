@@ -1,5 +1,8 @@
 import { get, post } from '../common';
 
+// 登录状态
+export const apiLoginStatus = () => post('/login/status');
+
 /**
  * 获取音乐 url
  * @param {id, br} params
@@ -80,8 +83,7 @@ export const apiLoginQrKey = () => post('/login/qr/key');
 export const apiLoginQrCreate = (params) => post('/login/qr/create', params);
 // 二维码登录 轮询
 export const apiLoginQrCheck = (parmas) => post('/login/qr/check', parmas);
-// 登录状态
-export const apiLoginStatus = (params) => post('/login/status', params);
+
 /**
  * 签到
  * type: 签到类型 , 默认 0, 其中 0 为安卓端签到 ,1 为 web/PC 签到

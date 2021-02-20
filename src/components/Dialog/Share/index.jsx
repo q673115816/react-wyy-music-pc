@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { IconX } from '@tabler/icons';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   SymbolWYY,
@@ -30,6 +29,9 @@ const Share = () => {
   const { baseUrl } = useSelector(({ common }) => common);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
 
+  // useEffect(() => {
+  //   dispatch()
+  // }, [])
   const handleCopyLink = async () => {
     const data = new DataTransfer();
     data.items.add('text/plain', ShareUrl);

@@ -25,9 +25,9 @@ export default () => {
   };
 
   return (
-    <div className="domfooter_right flex items-center justify-end flex-1">
-      <button type="button" className="tone">标准</button>
-      <button type="button" title="打开心动模式">
+    <div className="domfooter_right flex items-center justify-end flex-1 space-x-3">
+      <button type="button" className="tone border border-current px-1 rounded-sm">标准</button>
+      <button type="button" title="打开音效">
         <IconEar size={28} stroke={1} />
       </button>
       <button type="button" className="volume_btn" title="静音/恢复音量">

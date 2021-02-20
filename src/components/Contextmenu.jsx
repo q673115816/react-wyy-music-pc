@@ -1,4 +1,6 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, {
+  useMemo, useState, useCallback, useEffect,
+} from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,8 +18,11 @@ import {
   IconLock,
 } from '@tabler/icons';
 import {
-  setDialogReset, setDialogShareShow, setLoginVisibilty, setDialogCreatePlaylistShow,
+  setDialogReset, setDialogShareShow,
+  setLoginVisibilty, setDialogCreatePlaylistShow, setContextMenuShareLink,
+  setToast, setAudioImmediate,
 } from '@/redux/actions';
+import useCopyLink from '@/custom/useCopyLink';
 import DomMask from './Mask';
 
 const initBuild = (functionClose) => ({
@@ -38,9 +43,13 @@ const initBuild = (functionClose) => ({
       </Link>
     </li>
   ),
-  播放: () => (
+  播放: ({ handlePlay }) => (
     <li className="ui_contextmenu_item">
-      <button type="button" className="ui_contextmenu_btn ">
+      <button
+        type="button"
+        onClick={handlePlay}
+        className="ui_contextmenu_btn "
+      >
         <i className="ico">
           <IconPlayerPlay size={22} stroke={1} />
         </i>
@@ -216,13 +225,30 @@ export default () => {
   // console.log(globalLastY, contextMenuY);
   const ownPlaylist = playlist.filter((item) => item.subscribed === false);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
+  useEffect(() => {
+    dispatch(setContextMenuShareLink({
+      contextMenuShareLink: ShareUrl,
+    }));
+  }, []);
 
-  const handleCopyLink = async () => {
-    const data = new DataTransfer();
-    data.items.add('text/plain', ShareUrl);
-    await navigator.clipboard.writeText(ShareUrl);
+  const handlePlay = () => {
+    dispatch(setAudioImmediate({
+      currentSong: contextMenuItem,
+    }));
     dispatch(setDialogReset());
-    alert('链接复制成功');
+  };
+
+  const handleCopyLink = () => {
+    // const data = new DataTransfer();
+    // data.items.add('text/plain', ShareUrl);
+    // await navigator.clipboard.writeText(ShareUrl);
+    // alert('链接复制成功');
+    useCopyLink(ShareUrl, () => {
+      dispatch(setToast({
+        toastTitle: '复制链接成功',
+      }));
+    });
+    dispatch(setDialogReset());
   };
 
   const handleCreatePlaylist = () => {
@@ -255,6 +281,7 @@ export default () => {
               {...{
                 contextMenuTotal,
                 contextMenuItem,
+                handlePlay,
                 handleDialogShare,
                 handleCopyLink,
                 handleCreatePlaylist,
