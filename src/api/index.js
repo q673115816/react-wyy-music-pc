@@ -75,6 +75,16 @@ export const apiRecommendResource = (params) => post('/recommend/resource', para
 export const apiRecommendSongs = () => post('/recommend/songs');
 // user - 登录
 export const apiLoginCellphone = (params) => post('/login/cellphone', params);
+/**
+ * user - 注册
+ * @param {captcha:验证码, phone, password, nickname} params
+ */
+export const apiRegisterCellphone = (params) => post('/register/cellphone', params);
+/**
+ * user - 发送验证码
+ * @param {phone, ctcode?:国家}
+ */
+export const apiCaptchaSent = (params) => post('/captcha/sent', params);
 // user - 退出
 export const apiLogout = () => get('/logout');
 // 二维码登录 key

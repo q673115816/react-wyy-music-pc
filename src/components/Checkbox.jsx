@@ -8,7 +8,7 @@ export default forwardRef(({
   const [value, setValue] = useState(checked);
   const defaultChange = (e) => {
     setValue(e.target.checked);
-    onChange();
+    onChange(e);
   };
   return (
     <span className="inilne-flex">
@@ -22,7 +22,7 @@ export default forwardRef(({
         onChange={defaultChange}
         hidden
       />
-      <i className={classnames('flex-center rounded w-4 h-4 text-white', value ? ['ui_theme_bg_color'] : ['border', ''])}>
+      <i className={classnames('flex-center rounded w-4 h-4 text-white', value ? 'ui_theme_bg_color' : 'border')}>
         <IconCheck size={14} />
       </i>
     </span>

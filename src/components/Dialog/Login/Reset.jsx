@@ -1,43 +1,33 @@
-import React, { useContext, useState } from 'react';
-import { IconFaceId, IconDeviceMobile } from '@tabler/icons';
-import {
-  SymbolWX,
-  SymbolQQ,
-  SymbolWB,
-  SymbolWY,
-} from '@/components/Symbol';
-import DomSelect from './components/Select';
+import React, { useState, useContext } from 'react';
+import { IconFaceId } from '@tabler/icons';
+import { apiRegisterCellphone } from '@/api';
 import { LoginContext } from './index';
+import DomSelect from './components/Select';
 
 export default () => {
+  const [phone, setPhone] = useState();
+  const [password, setPassword] = useState();
   const [warn, setWarn] = useState('');
   const {
     loginReducer: {
-      registerphone,
-      registerpassword,
       countrycode,
-    }, loginDispatch,
+    },
+    loginDispatch,
   } = useContext(LoginContext);
+
+  const handleFocus = () => {
+
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!registerphone) {
+    if (!phone) {
       setWarn('⚠️请输入手机号码');
-    } else if (!registerpassword) {
+    } else if (!password) {
       setWarn('⚠️请输入登录密码');
+    } else {
+      loginDispatch({ type: 'SET_TYPE', payload: { type: 'identify' } });
     }
-  };
-
-  const handlePhone = () => {
-
-  };
-
-  const handlePassword = () => {
-
-  };
-
-  const handleFocus = () => {
-    setWarn('');
   };
 
   return (
@@ -72,9 +62,9 @@ export default () => {
                   name="phone"
                   placeholder="请输入手机号"
                   className="input"
-                  value={registerphone}
+                  value={phone}
                   onFocus={handleFocus}
-                  onChange={({ target }) => handlePhone(target.value)}
+                  onChange={({ target }) => setPhone(target.value)}
                 />
               </td>
             </tr>
@@ -85,11 +75,11 @@ export default () => {
                   name="password"
                   placeholder="设置登录密码"
                   className="input"
-                  value={registerpassword}
+                  value={password}
                   minLength="8"
                   maxLength="20"
                   onFocus={handleFocus}
-                  onChange={({ target }) => handlePassword(target.value)}
+                  onChange={({ target }) => setPassword(target.value)}
                 />
               </td>
             </tr>
@@ -98,31 +88,12 @@ export default () => {
         <div className="info">
           {
             warn
-              ? <div className="warn ui_red">{warn}</div>
+              ? <div className="warn text-red-500 ml-auto">{warn}</div>
               : <span className="text-gray-400">密码8-20位，至少包含字母/数字/字符2中组合</span>
           }
         </div>
         <div className="actions">
-          <button type="submit" className="submit">注册</button>
-          <div className="hint flex items-center justify-between mt-8 mb-4">其他注册方式</div>
-          <div className="threes flex justify-between">
-            <button type="button" className="three">
-              <SymbolWX hover />
-              <div className="name mt-2">微信</div>
-            </button>
-            <button type="button" className="three">
-              <SymbolQQ hover />
-              <div className="name mt-2">QQ</div>
-            </button>
-            <button type="button" className="three">
-              <SymbolWB hover />
-              <div className="name mt-2">新浪微博</div>
-            </button>
-            <button type="button" className="three">
-              <SymbolWY hover />
-              <div className="name mt-2">网易邮箱</div>
-            </button>
-          </div>
+          <button type="submit" className="submit">下一步</button>
         </div>
       </form>
     </div>

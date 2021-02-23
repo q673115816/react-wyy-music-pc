@@ -45,6 +45,9 @@ export default () => {
   }, [volume]);
 
   useEffect(() => {
+    refAudio.current.addEventListener('durationchange', (e) => {
+      console.log(e);
+    });
     // refAudio.current.addEventListener('timeupdate', (e) => {
     //   dispatch(setAudioCurrentTime(e.target.currentTime));
     // });

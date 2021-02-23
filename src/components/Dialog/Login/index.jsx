@@ -1,16 +1,13 @@
-import React, {
-  useEffect, useRef, useState, createContext, useReducer,
-} from 'react';
-import { Link } from 'react-router-dom';
-
-import { useDispatch, useSelector } from 'react-redux';
+import React, { createContext, useReducer } from 'react';
+import { useDispatch } from 'react-redux';
 import { IconX } from '@tabler/icons';
-import { setLoginVisibilty, setIsLogin, setLoginInfo } from '@/redux/actions';
-import { setCookie } from '@/common/request';
+import { setLoginVisibilty } from '@/redux/actions';
 import './style.scss';
 import DomScan from './Scan';
 import DomSignIn from './SignIn';
 import DomSignUp from './SignUp';
+import DomReset from './Reset';
+import DomIdentify from './Identify';
 
 export const LoginContext = createContext(null);
 
@@ -18,6 +15,8 @@ const Build = {
   scan: () => <DomScan />,
   signin: () => <DomSignIn />,
   signup: () => <DomSignUp />,
+  reset: () => <DomReset />,
+  identify: () => <DomIdentify />,
 };
 
 export default () => {
@@ -61,11 +60,9 @@ export default () => {
     argeeArgument: false,
     loginphone: '',
     loginpassword: '',
-    loginwarn: '',
     registerphone: '',
     registerpassword: '',
-    registerwarn: '',
-    type: 'scan',
+    type: 'identify',
     countrycode: '86',
   });
 

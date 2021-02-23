@@ -80,6 +80,7 @@ module.exports = {
         //   reuseExistingChunk: true,
         // },
         // default: {
+        //   name: 'common',
         //   minChunks: 2,
         //   priority: -20,
         //   reuseExistingChunk: true,
@@ -87,10 +88,12 @@ module.exports = {
         swiper: {
           name: 'swiper',
           test: /[\\/]node_modules[\\/]_?swiper(.*)/,
+          // priority: -10,
         },
         'qrcode.react': {
           name: 'qrcode',
           test: /[\\/]node_modules[\\/]_?qrcode.react(.*)/,
+          // priority: -10,
         },
       },
       // cacheGroups: {

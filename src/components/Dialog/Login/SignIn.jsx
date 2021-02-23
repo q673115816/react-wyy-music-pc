@@ -27,14 +27,15 @@ export default () => {
       argeeArgument,
       loginphone,
       loginpassword,
-      loginwarn,
       countrycode,
     },
     loginDispatch,
   } = useContext(LoginContext);
 
+  const [warn, setWarn] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const refArgument = useRef();
+  const refAutoLogin = useRef();
 
   const handleLogin = async () => {
     try {
@@ -57,28 +58,23 @@ export default () => {
         // dispatch(setIsLogin());
         window.location.reload();
       }
+      if (code === 502) {
+        setWarn('⚠️当前登录失败，请稍后再试');
+      }
     } catch (error) {
       console.log(error);
     }
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    function warntext(loginwarn) {
-      loginDispatch({
-        type: 'SET_WARN',
-        payload: {
-          loginwarn,
-        },
-      });
-    }
-    if (!refArgument.current.checked) {
+    if (!argeeArgument) {
       alert('请先勾选同意《服务条款》《服务条款》《服务条款》');
     } else if (!loginphone) {
-      warntext('⚠️请输入手机号');
+      setWarn('⚠️请输入手机号');
     } else if (!loginpassword) {
-      warntext('⚠️请输入密码');
+      setWarn('⚠️请输入密码');
     } else if (!/\d{11}/.test(loginphone)) {
-      warntext('⚠️请输入11位数字的手机号');
+      setWarn('⚠️请输入11位数字的手机号');
     } else {
       handleLogin();
     }
@@ -112,7 +108,7 @@ export default () => {
   };
 
   const handleToSignUp = () => {
-    if (refArgument.current.checked) {
+    if (argeeArgument) {
       loginDispatch({
         type: 'SET_TYPE',
         payload: { type: 'signup' },
@@ -120,10 +116,6 @@ export default () => {
     } else {
       alert('请先勾选同意《服务条款》《服务条款》《服务条款》');
     }
-  };
-
-  const handleTogglePassword = () => {
-
   };
 
   return (
@@ -140,7 +132,7 @@ export default () => {
       <div style={{ height: 200, color: 'var(--themeColor)' }} className="flex-center">
         <IconFaceId size={100} stroke={1} />
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} autoComplete="off">
         <table className="table">
           <colgroup>
             <col width="84" />
@@ -156,7 +148,6 @@ export default () => {
                 <input
                   type="text"
                   name="phone"
-                  autoComplete="off"
                   placeholder="请输入手机号"
                   className="input"
                   value={loginphone}
@@ -169,7 +160,6 @@ export default () => {
                 <input
                   type={showPassword ? 'text' : 'password'}
                   name="password"
-                  autoComplete="new-password"
                   placeholder="请输入密码"
                   className="input"
                   value={loginpassword}
@@ -189,19 +179,27 @@ export default () => {
               </td>
               <td>
                 <div className="flex-center">
-                  <button type="button" className="text-gray-400">重设密码</button>
+                  <button
+                    type="button"
+                    className="text-gray-400"
+                    onClick={() => loginDispatch({ type: 'SET_TYPE', payload: { type: 'reset' } })}
+                  >
+                    重设密码
+                  </button>
                 </div>
               </td>
             </tr>
           </tbody>
         </table>
         <div className="info">
-          <label className="auto">
-            <input type="checkbox" name="auto" hidden />
-            <i className="ico flex-center">✔</i>
+          <label htmlFor="autoLogin" className="auto">
+            {/* <input type="checkbox" name="auto" hidden />
+            <i className="ico flex-center">✔</i> */}
+            <DomCheck ref={refAutoLogin} name="autoLogin" />
+            &nbsp;
             自动登录
           </label>
-          <div className="warn ui_red">{loginwarn}</div>
+          <div className="warn ml-auto text-red-500">{warn}</div>
         </div>
         <div className="actions">
           <button type="submit" className="submit">登&nbsp;录</button>
@@ -228,7 +226,12 @@ export default () => {
           </div>
         </div>
         <label htmlFor="argument" className="argument flex items-center whitespace-nowrap mt-9">
-          <DomCheck ref={refArgument} name="argument" />
+          <DomCheck
+            ref={refArgument}
+            name="argument"
+            onChange={(e) => handleArgument(e.target.checked)}
+            checked={argeeArgument}
+          />
           &nbsp;
           <span className="text-gray-400">
             同意

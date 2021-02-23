@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 // import Swiper core and required components
 import SwiperCore, {
@@ -37,7 +37,7 @@ const DomContent = ({ item = {}, coverSrc = '' }) => (
   </>
 );
 
-export default ({ list = [], coverSrc = '' }) => (
+export default memo(({ list = [], coverSrc = '' }) => (
   <div className="ui_swiper group">
     <Swiper
       navigation={{
@@ -67,7 +67,10 @@ export default ({ list = [], coverSrc = '' }) => (
     >
       {
         list.map((item) => (
-          <SwiperSlide className="cover overflow-hidden" key={item[coverSrc]}>
+          <SwiperSlide
+            className="cover overflow-hidden"
+            key={item[coverSrc]}
+          >
             {
               item.url
                 ? (
@@ -94,4 +97,4 @@ export default ({ list = [], coverSrc = '' }) => (
       <div className="sub_page flex py-3 justify-center" />
     </Swiper>
   </div>
-);
+));

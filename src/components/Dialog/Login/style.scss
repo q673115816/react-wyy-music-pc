@@ -258,22 +258,6 @@
       display: flex;
       align-items: center;
       flex: none;
-
-      .ico {
-        margin-right: 10px;
-        width: 15px;
-        height: 15px;
-        border: 1px solid #E5E5E5;
-        color: transparent;
-      }
-
-      input:checked+.ico {
-        color: #bd3434;
-      }
-    }
-
-    .warn {
-      margin-left: auto;
     }
   }
 
@@ -297,7 +281,7 @@
   }
 
   .hint {
-    margin-top: 66px;
+    // margin-top: 66px;
 
     &::after,
     &::before {

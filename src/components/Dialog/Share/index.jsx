@@ -9,9 +9,10 @@ import {
   SymbolWB,
   SymbolLJ,
 } from '@/components/Symbol';
-import { setDialogReset, setDialogShareWXShow } from '@/redux/actions';
+import { setDialogReset, setDialogShareWXShow, setToast } from '@/redux/actions';
 import HOCDialog from '../Dialog';
 import './style.scss';
+import useCopyLink from '@/custom/useCopyLink';
 
 const types = {
   songs: '单曲',
@@ -33,10 +34,16 @@ const Share = () => {
   //   dispatch()
   // }, [])
   const handleCopyLink = async () => {
-    const data = new DataTransfer();
-    data.items.add('text/plain', ShareUrl);
-    await navigator.clipboard.writeText(ShareUrl);
-    alert('链接复制成功');
+    // const data = new DataTransfer();
+    // data.items.add('text/plain', ShareUrl);
+    // await navigator.clipboard.writeText(ShareUrl);
+    // alert('链接复制成功');
+    useCopyLink(ShareUrl, () => {
+      dispatch(setToast({
+        toastTitle: '复制链接成功',
+      }));
+    });
+    dispatch(setDialogReset());
   };
 
   const handleShareWX = () => {
