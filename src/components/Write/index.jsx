@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
 import { wordLength } from '@/common/utils';
+import './style.scss';
 
 export default ({
   value, setValue, placeholder, length,
@@ -11,14 +12,16 @@ export default ({
     setN(wordLength(value) >> 0);
   }, [value]);
   return (
-    <div className="ui_write">
+    <div className="ui_write relative">
       <textarea
         onChange={({ target }) => setValue(target.value)}
         value={value}
-        className="textarea"
+        className="textarea border rounded px-2 py-1"
         placeholder={placeholder}
       />
-      <span className={classnames(['length', n > length ? 'red' : 'text-gray-400'])}>{length - n}</span>
+      <span className={classnames('length absolute right-1 bottom-1', n > length ? 'red' : 'text-gray-400')}>
+        {length - n}
+      </span>
     </div>
   );
 };

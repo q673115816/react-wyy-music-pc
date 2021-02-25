@@ -120,17 +120,17 @@ export default () => {
         <div className="domComment_write">
           <DomWrite {...{ value, setValue, length: 140 }} />
           <div className="domComment_write_actions">
-            <button type="button">
-              <IconMoodSmile stroke={1.5} />
-            </button>
-            &nbsp;
-            <button type="button">
-              <IconAt stroke={1.5} />
-            </button>
-            &nbsp;
-            <button type="button">
-              <IconHash stroke={1.5} />
-            </button>
+            <div className="flex space-x-2">
+              <button type="button" className="text-gray-500 hover:text-black">
+                <IconMoodSmile size={20} stroke={1.5} />
+              </button>
+              <button type="button" className="text-gray-500 hover:text-black">
+                <IconAt size={20} stroke={1.5} />
+              </button>
+              <button type="button" className="text-gray-500 hover:text-black">
+                <IconHash size={20} stroke={1.5} />
+              </button>
+            </div>
             <button type="button" className="ui_btn right">评论</button>
           </div>
         </div>
