@@ -14,6 +14,7 @@ import {
   SET_PLAYLIST_CATLIST,
   SET_TOP_PLAYLIST,
   SET_LOGIN_INFO,
+  SET_LIKELIST,
   SET_FRIEND_INIT,
   SET_FRIEND_EVENT,
   SET_COMMENT_EVENT,
@@ -33,6 +34,7 @@ import {
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
+  SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_DIALOG_RESET,
   SET_GLOBAL_INSET,
   SET_THEME,
@@ -71,6 +73,11 @@ export const setNotLogin = () => ({
 
 export const setLoginInfo = (payload) => ({
   type: SET_LOGIN_INFO,
+  payload,
+});
+
+export const setLikelist = (payload) => ({
+  type: SET_LIKELIST,
   payload,
 });
 
@@ -260,6 +267,11 @@ export const setDialogUploadAvatarShow = (payload) => ({
 
 export const setDialogCreatePlaylistShow = (payload) => ({
   type: SET_DIALOG_CREATE_PLAYLIST_SHOW,
+  payload,
+});
+
+export const setDialogUnSubscriptionShow = (payload) => ({
+  type: SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   payload,
 });
 

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { apiArtistDetail } from '@/api';
+import { apiArtistDesc } from '@/api';
 
 export default ({ id }) => {
-  const [detail, setDetail] = useState({});
+  const [desc, setDesc] = useState({});
   const handleInit = async () => {
     try {
-      const { data } = await apiArtistDetail({
+      const desc = await apiArtistDesc({
         id,
       });
-      setDetail(data);
+      setDesc(desc);
     } catch (error) {
       console.log(error);
     }
@@ -18,17 +18,26 @@ export default ({ id }) => {
   }, []);
   return (
     <div className="domArtist_section">
-      <div className="domArtist_subtitle ui_select">
-        {detail.artist?.name}
+      <div className="domArtist_subtitle select-text">
         简介
       </div>
-      <div className="domArtist_article text-gray-400 ui_select">
-        {detail.artist?.briefDesc}
+      <div className="domArtist_article text-gray-400 select-text">
+        {desc.briefDesc}
       </div>
       <br />
       <br />
-      <br />
-      <div className="domArtist_subtitle ui_select">简历</div>
+      {
+        desc.introduction?.map((introduction) => (
+          <div key={introduction.txt}>
+            <div className="domArtist_subtitle ui_select">
+              {introduction.ti}
+            </div>
+            <div className="domArtist_article whitespace-pre-line select-text">
+              {introduction.txt}
+            </div>
+          </div>
+        ))
+      }
     </div>
   );
 };

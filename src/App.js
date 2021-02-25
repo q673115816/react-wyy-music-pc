@@ -15,6 +15,7 @@ import DialogShare from './components/Dialog/Share';
 import DialogShareWX from './components/Dialog/ShareWX';
 import DialogUploadAvatar from './components/Dialog/UploadAvatar';
 import DialogCreatePlaylist from './components/Dialog/CreatePlaylist';
+import DialogUnSubscription from './components/Dialog/UnSubscription';
 import Playlist from './components/Playlist';
 import PrivateLetter from './components/PrivateLetter';
 import Tosat from './components/Toast';
@@ -60,6 +61,7 @@ export default function App() {
     dialogShareWXVisibility,
     dialogUploadAvatarVisibility,
     dialogCreatePlaylistVisibility,
+    dialogUnSubscriptionVisibility,
   } = useSelector(({ mask }) => mask);
   const [dragger, setDragger] = useState(false);
   const [x, setX] = useState(0);
@@ -139,6 +141,9 @@ export default function App() {
           )}
           {dialogCreatePlaylistVisibility && (
             <DialogCreatePlaylist />
+          )}
+          {dialogUnSubscriptionVisibility && (
+            <DialogUnSubscription />
           )}
           {
             searchVisibility

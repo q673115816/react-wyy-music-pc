@@ -15,7 +15,7 @@ import {
   apiVideoCategoryList,
   apiVideoGroup,
 } from '@/api';
-import useInfinite from '@/components/useInfinite';
+import useInfinite from '@/custom/useInfinite';
 import './style.scss';
 
 export default memo(() => {
@@ -26,9 +26,6 @@ export default memo(() => {
   const [categoryList, setCategoryList] = useState([]);
   const [groupListVisibility, setGroupListVisibility] = useState(false);
   const [currentNav, setCurrentNav] = useState(() => groupList.find((group) => group.id === Number(id))?.name || '全部视频');
-  const {
-    isLogin,
-  } = useSelector(({ common }) => common);
 
   const domScroll = useRef();
   const domObserver = useRef();
@@ -49,19 +46,6 @@ export default memo(() => {
       );
     } catch (e) {
       console.log(e);
-    }
-  };
-
-  const handleInitList = async () => {
-    try {
-      const { datas = [] } = await (id
-        ? apiVideoGroup({
-          id,
-        })
-        : apiVideoTimelineRecommend());
-      setVideoList(datas);
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -172,11 +156,11 @@ export default memo(() => {
               </Link>
             </div>
             <div className="mt-2 truncate">
-              <Link to={`/player/video/${data.vid}`} className="">
+              <Link to={`/player/video/${data.vid}`} title={data.title} className="">
                 {data.title}
               </Link>
             </div>
-            <div className="creator mt-2 text-gray-300">
+            <div className="creator mt-1 text-gray-300">
               by&nbsp;
               <Link to={`/user/${data.creator.userId}`} className="hover:text-gray-500">
                 {data.creator.nickname}

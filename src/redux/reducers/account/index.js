@@ -1,15 +1,26 @@
-import { SET_LOGIN_INFO } from '@/redux/actionTypes';
+import { SET_LOGIN_INFO, SET_LIKELIST, SET_ARTIST_SUBLIST } from '@/redux/actionTypes';
 
 const initialState = {
   profile: {},
   playlist: [],
   bindings: [],
   likelist: [],
+  artistSublist: [],
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_INFO:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_LIKELIST:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_ARTIST_SUBLIST:
       return {
         ...state,
         ...action.payload,

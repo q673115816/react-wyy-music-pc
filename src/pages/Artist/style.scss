@@ -7,15 +7,7 @@
     .avatar {
       width: 180px;
       height: 180px;
-      border-radius: 4px;
-      overflow: hidden;
     }
-
-    .content {
-      padding: 4px 20px;
-    }
-
-    .name {}
 
     .enname {
       margin: 1em 0;
@@ -44,6 +36,7 @@
     line-height: 2;
     font-size: 14px;
   }
+
   &_subtitle {
     line-height: 2;
     font-size: 14px;
@@ -59,25 +52,27 @@
   }
 }
 
-.Top50 {
-
-}
+.Top50 {}
 
 .grid_qwe {
   position: relative;
+
   .actions {
     position: absolute;
     right: 0;
     bottom: 100%;
     display: flex;
+
     .handle {
       margin: 0 1px;
       width: 26px;
       height: 20px;
       background-color: #F2F2F2;
+
       &:hover {
         background-color: #E7E7E7;
       }
+
       &.on {
         background-color: #BFBFBF;
         color: #fff;
@@ -98,12 +93,15 @@
       display: flex;
       align-items: center;
       padding-left: 20px;
+
       &:nth-child(odd) {
         background-color: #F9F9F9;
       }
+
       &:hover {
         background-color: #F0F1F2;
       }
+
       .cover {
         flex: none;
         width: 60px;
@@ -130,60 +128,47 @@
   .column {
     &_item {
       display: flex;
+
       .cover {
         width: 150px;
         height: 150px;
         border-radius: 4px;
         flex: none;
+        .Top50 {
+          background-color: rgba(0, 0, 0, 0.5);
+          line-height: 1;
+        }
       }
+
       .aside {
         flex: auto;
         margin-left: 60px;
         min-width: 1px;
       }
+
       .list {
 
         .item {
           display: flex;
           height: 36px;
           align-items: center;
-          &:nth-child(odd) {
-            background-color: #F9F9F9;
-          }
-          &:hover {
-            background-color: #F0F1F2;
-          }
-          &.focus {
-            background-color: #E5E5E5;
-          }
+
           .index {
-            flex: none;
             width: 30px;
             padding-right: 4px;
-            text-align: right;
           }
 
           .heart {
-            flex: none;
             width: 24px;
-            text-align: center;
           }
 
           .download {
-            flex: none;
             width: 24px;
-            text-align: center;
           }
 
-          .name {
-            flex: auto;
-            padding: 0 10px;
-            min-width: 1px;
-            display: flex;
-          }
+          .name {}
 
           .duration {
-            flex: none;
             width: 50px;
           }
         }
@@ -195,7 +180,8 @@
           height: 36px;
           color: #999;
           background-color: #F9F9F9;
-          &:hover{
+
+          &:hover {
             color: #333;
           }
         }

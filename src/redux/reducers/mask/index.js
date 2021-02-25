@@ -8,6 +8,7 @@ import {
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
+  SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_SCREEN_FULL,
   SET_TOAST,
 } from '@/redux/actionTypes';
@@ -30,6 +31,8 @@ const visibilityState = {
   dialogShareWXVisibility: false,
   dialogUploadAvatarVisibility: false,
   dialogCreatePlaylistVisibility: false,
+  dialogUnSubscriptionVisibility: false,
+  artistId: 0,
 };
 
 const maskState = {
@@ -48,7 +51,7 @@ const shareState = {
 };
 
 const toastState = {
-  toastTitle: '',
+  toastTitle: [''],
 };
 
 const initialState = {
@@ -121,6 +124,14 @@ export default (state = initialState, action) => {
         dialogCreatePlaylistVisibility: true,
         ...action.payload,
       };
+    case SET_DIALOG_UN_SUBSCRIPTION_SHOW:
+      return {
+        ...state,
+        ...visibilityState,
+        visibility: true,
+        dialogUnSubscriptionVisibility: true,
+        ...action.payload,
+      };
     case SET_DIALOG_RESET:
       return {
         ...state,
@@ -136,7 +147,7 @@ export default (state = initialState, action) => {
     case SET_TOAST:
       return {
         ...state,
-        toastTitle: action.payload.toastTitle,
+        toastTitle: [action.payload.toastTitle],
       };
     default:
       return state;

@@ -40,7 +40,7 @@ export default () => {
         <Route path={`${url}/mvlist`}>
           <MvList />
         </Route>
-        {/* <Redirect to={`${url}/videolist`} /> */}
+        <Redirect to={`${url}/videolist`} />
       </Switch>
     </div>
   );

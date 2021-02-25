@@ -20,14 +20,13 @@ export default memo(() => {
     prevTime.current = Date.now();
     requestAnimationFrame(handleFadeout);
   };
-  console.log('123123');
+  // console.log('123123');
   useEffect(() => {
     if (toastTitle) {
       time.current = 1500;
       handleFadeout();
       clearTimeout(timer.current);
       timer.current = setTimeout(() => {
-        // console.log(111);
         dispatch(setToast({ toastTitle: '' }));
       }, 1500);
     }
@@ -37,11 +36,11 @@ export default memo(() => {
     <div
       id="toast"
       className={classnames('absolute inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg')}
-      style={{ display: toastTitle ? null : 'none' }}
+      style={{ display: toastTitle?.toString() ? null : 'none' }}
     >
       <IconCircleCheck size={24} />
       &nbsp;
-      {toastTitle}
+      {toastTitle?.toString()}
     </div>
   );
 });

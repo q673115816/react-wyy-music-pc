@@ -4,7 +4,7 @@ import { IconFilter, IconPlayerPlay } from '@tabler/icons';
 import classnames from 'classnames';
 import { apiTopPlaylistHighquality, apiPlaylistHighqualityTags } from '@/api';
 import { transPlayCount } from '@/common/utils';
-import useInfinite from '@/components/useInfinite';
+import useInfinite from '@/custom/useInfinite';
 import './style.scss';
 
 export default () => {

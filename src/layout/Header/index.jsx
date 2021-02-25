@@ -18,6 +18,7 @@ import {
   apiLoginStatus,
   apiUserDetail,
   apiLikelist,
+  apiArtistSublist,
 } from '@/api';
 // import { setCookie } from '@/common/request';
 import {
@@ -53,8 +54,9 @@ export default memo(({ handleDrap }) => {
         });
         const { playlist } = await apiUserPlaylist({ uid: profile.userId });
         const { ids: likelist } = await apiLikelist({ uid: profile.userId });
+        const { data: artistSublist } = await apiArtistSublist();
         dispatch(setLoginInfo({
-          profile: { ...profile, ...accountDetail }, playlist, bindings, likelist,
+          profile: { ...profile, ...accountDetail }, playlist, bindings, likelist, artistSublist,
         }));
         dispatch(setIsLogin());
       }

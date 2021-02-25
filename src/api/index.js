@@ -106,6 +106,11 @@ export const apiUserAccount = () => post('/user/account');
 export const apiUserBinding = (params) => post('/user/binding', params);
 export const apiUserDetail = (params) => post('/user/detail', params);
 export const apiUserPlaylist = (params) => post('/user/playlist', params);
+/**
+ * 喜欢音乐
+ * @param {id, like?:true} params
+ */
+export const apiLike = (params) => post('/like', params);
 // 喜欢音乐列表 uid
 export const apiLikelist = (params) => post('/likelist', params);
 /**

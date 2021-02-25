@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { apiSimiArtist } from '@/api';
 import { Link } from 'react-router-dom';
+import DomLoading from '@/components/Loading';
 
 export default ({ id }) => {
   const [simiArtists, setSimiArtists] = useState([]);
+  const [loading, setLoading] = useState(true);
   const handleInit = async () => {
     try {
       const { artists } = await apiSimiArtist({
         id,
       });
       setSimiArtists(artists);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -17,20 +20,33 @@ export default ({ id }) => {
   useEffect(() => {
     handleInit();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center pt-12">
+        <DomLoading />
+      </div>
+    );
+  }
+  if (simiArtists.length === 0) {
+    return (
+      <div className="text-center text-gray-400 text-sm pt-16">没有相似歌手</div>
+    );
+  }
   return (
     <div className="domArtist_section">
-      <div className="ui_grid col_5">
+      <div className="grid grid-cols-5 gap-5">
         {simiArtists.map((item) => (
           <div className="item" key={item.id}>
-            <div className="cover">
-              <div className="inner">
-                <Link to={`/artist/${item.id}`}>
-                  <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
-                </Link>
-              </div>
+            <div className="cover rounded overflow-hidden border">
+              <Link to={`/artist/${item.id}`}>
+                <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
+              </Link>
             </div>
-            <div className="footer">
-              <Link to={`/artist/${item.id}`}>{item.name}</Link>
+            <div className="footer text-sm mt-2">
+              <Link to={`/artist/${item.id}`} className="">
+                {item.name}
+              </Link>
             </div>
           </div>
         ))}

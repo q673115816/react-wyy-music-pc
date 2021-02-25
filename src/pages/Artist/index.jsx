@@ -3,12 +3,14 @@ import {
   apiArtistDetail, apiArtistSub,
 } from '@/api';
 import classnames from 'classnames';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams, Redirect, Link } from 'react-router-dom';
 import {
   IconFolderPlus,
+  IconCheckbox,
 } from '@tabler/icons';
 import './style.scss';
-
+import { setDialogUnSubscriptionShow, setToast } from '@/redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
 import DomAlbum from './components/Album';
 import DomMv from './components/Mv';
 import DomDetail from './components/Detail';
@@ -23,9 +25,11 @@ const nav = [
 
 export default () => {
   const { id } = useParams();
+  const { artistSublist } = useSelector(({ account }) => account);
   if (!/^\d*$/.test(id)) {
     return <Redirect to="/" />;
   }
+  const dispatch = useDispatch();
   const [detail, setDetail] = useState({});
   const [loading, setLoading] = useState(true);
   const [tab, setTab] = useState('专辑');
@@ -42,17 +46,26 @@ export default () => {
     }
   };
 
+  const handleUnSubscription = () => {
+    dispatch(setDialogUnSubscriptionShow({
+      artistId: id,
+    }));
+  };
+
   const handleSubscription = async () => {
     try {
       const { code } = apiArtistSub({
         id,
-        t: detail.blacklist ? -1 : 1,
+        t: 1,
       });
       if (code === 200) {
-        setDetail({
-          ...detail,
-          blacklist: !detail.blacklist,
-        });
+        dispatch(setToast({
+          toastTitle: '收藏成功！',
+        }));
+        // setDetail({
+        //   ...detail,
+        //   blacklist: !detail.blacklist,
+        // });
       }
     } catch (error) {
       console.log(error);
@@ -66,36 +79,46 @@ export default () => {
   return (
     <div className="domArtist overflow-auto max-h-full flex-auto">
       <div className="domArtist_header">
-        <div className="avatar">
+        <div className="avatar border overflow-hidden rounded">
           <img src={`${detail.artist.cover}?param=200y200`} alt="" />
         </div>
-        <div className="content">
+        <div className="content flex-auto px-5">
           <div className="name h1 ui_select">{detail.artist.name}</div>
           <div className="enname ui_select">{detail.alias?.map((alia) => alia)}</div>
-          <button
-            onClick={() => handleSubscription()}
-            type="button"
-            className="ui_btn flex items-center text-sm"
-          >
-            <IconFolderPlus size={20} stroke={1} />
-            &nbsp;
-            收藏
-            {/* {
-              detail.blacklist
-                ? (
-                  <>
-                    <IconSquareCheck size={22} stroke={1} />
-                    已收藏
-                  </>
-                ) : (
-                  <>
-                    <IconFolderPlus size={22} stroke={1} />
-                    收藏
-                  </>
-                )
-
-            } */}
-          </button>
+          <div className="actions flex space-x-2">
+            {artistSublist.find((item) => item.id === Number(id))
+              ? (
+                <button
+                  onClick={handleUnSubscription}
+                  type="button"
+                  className="ui_btn flex items-center text-sm"
+                >
+                  <IconCheckbox size={20} stroke={1} />
+                  已收藏
+                </button>
+              )
+              : (
+                <button
+                  onClick={handleSubscription}
+                  type="button"
+                  className="ui_btn flex items-center text-sm"
+                >
+                  <IconFolderPlus size={20} stroke={1} />
+                  收藏
+                </button>
+              )}
+            {
+              detail.user
+              && (
+              <Link
+                to={`/user/${detail.user.userId}`}
+                className="ui_btn flex items-center text-sm"
+              >
+                个人主页
+              </Link>
+              )
+              }
+          </div>
           <div className="info">
             <span className="size">
               单曲数:

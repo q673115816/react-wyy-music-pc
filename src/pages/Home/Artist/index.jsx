@@ -9,7 +9,7 @@ import classnames from 'classnames';
 import { IconUser } from '@tabler/icons';
 import { apiArtistList } from '@/api';
 import { addHomeTopArtists, initHomeTopArtists } from '@/redux/actions';
-import useInfinite from '@/components/useInfinite';
+import useInfinite from '@/custom/useInfinite';
 import options from './filter';
 
 const Domitem = ({ item = {} }) => (
