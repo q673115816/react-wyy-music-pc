@@ -1,17 +1,18 @@
 import React, {
-  useState, useEffect, useRef, useLayoutEffect,
+  useState, useEffect, useRef, memo,
 } from 'react';
 import { useParams } from 'react-router-dom';
 import { apiCommentHot, apiCommentLike } from '@/api';
 import DomComment from '@/components/Comment';
+import useInfinite from '@/custom/useInfinite';
 
-export default () => {
+export default memo(() => {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const offset = useRef(0);
-  const observer = useRef();
-  const domHot = useRef();
-  const io = useRef();
+  const domObserver = useRef();
+  const domScroll = useRef();
+  const limit = 20;
 
   const handleLike = async (cid, t) => {
     try {
@@ -39,8 +40,10 @@ export default () => {
       const { hotComments } = await apiCommentHot({
         id,
         type: 0,
-        offset: offset.current * 20,
+        limit,
+        offset: offset.current,
       });
+      offset.current += limit;
       // const a = [...data, ...hotComments];
       // console.log(data.concat(hotComments));
       setData((data) => [...data, ...hotComments]);
@@ -50,36 +53,21 @@ export default () => {
     }
   };
 
-  const handleIo = () => {
-    io.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          handleInit();
-          offset.current += 1;
-        }
-      });
-    }, {
-      // threshold: [1],
-      target: domHot.current,
-      // rootMargin: '200px 0px 0px 0px',// isIntersecting就不顶用了吧
-    });
-    io.current.observe(observer.current);
-  };
-
-  const handleUninstallIo = () => {
-    io.current.disconnect();
-  };
+  const {
+    handleIo,
+    handleUnIo,
+  } = useInfinite(handleInit, domScroll, domObserver);
 
   useEffect(() => {
     handleIo();
     return () => {
-      handleUninstallIo();
+      handleUnIo();
     };
   }, []);
 
   // if (loading) return <div>loading</div>;
   return (
-    <div className="domComment overflow-auto max-h-full flex-auto" ref={domHot}>
+    <div className="domComment overflow-auto max-h-full flex-auto" ref={domScroll}>
       <div className="h1">精彩评论</div>
       <div className="domComment_list">
         <div className="font-bold">精彩评论</div>
@@ -90,8 +78,8 @@ export default () => {
             key={item.commentId}
           />
         ))}
-        <div ref={observer} />
+        <div ref={domObserver} />
       </div>
     </div>
   );
-};
+});

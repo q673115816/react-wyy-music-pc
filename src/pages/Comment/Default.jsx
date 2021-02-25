@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import {
@@ -8,7 +8,7 @@ import { apiCommentMusic, apiSongDetail, apiCommentLike } from '@/api';
 import DomWrite from '@/components/Write';
 import DomComment from '@/components/Comment';
 
-export default () => {
+export default memo(() => {
   const { id } = useParams();
   const { search, pathname } = useLocation();
   const page = new URLSearchParams(search).get('page') || 1;
@@ -82,9 +82,7 @@ export default () => {
   useEffect(() => {
     handleInit();
   }, []);
-  useEffect(() => {
 
-  }, [page]);
   if (loading) return <div>loading</div>;
   return (
     <div className="domComment overflow-auto max-h-full flex-auto">
@@ -178,4 +176,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});
