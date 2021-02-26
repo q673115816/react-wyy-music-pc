@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CompoenntCheckbox from '@/components/Checkbox';
+import { setFont } from '@/redux/actions';
 import DomRadio from './Radio';
 import DomCheckbox from './Checkbox';
 
@@ -20,9 +21,10 @@ const fonts = [
 ];
 
 export default () => {
-  const { font } = useSelector(({ common }) => common);
+  const dispatch = useDispatch();
+  const { font } = useSelector(({ setting }) => setting);
   const handleSelect = (e) => {
-    console.log(e.target.value);
+    dispatch(setFont(e.target.value));
   };
 
   const [关闭主面板, 设置关闭主面板] = useState('最小化到系统托盘');
@@ -33,7 +35,9 @@ export default () => {
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">
           字体选择：
-          <span className="text-gray-400">如果字体显示不清晰，请在控制面板——字体设置中启用系统Clear Type设置</span>
+          <span className="text-gray-400">
+            如果字体显示不清晰，请在控制面板——字体设置中启用系统Clear Type设置
+          </span>
         </div>
         <div className="domSetting_subBlock_content">
           <select className="domSetting_select" onChange={handleSelect} value={font}>

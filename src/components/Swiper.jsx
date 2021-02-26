@@ -28,26 +28,17 @@ SwiperCore.use([
   Mousewheel,
   Autoplay]);
 
-const DomContent = ({ item = {}, coverSrc = '' }) => (
-  <>
-    <img src={item[coverSrc]} alt="" />
-    <div className={classnames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
-      {item.typeTitle}
-    </div>
-  </>
-);
-
 export default memo(({ list = [], coverSrc = '' }) => (
   <div className="ui_swiper group">
     <Swiper
-      navigation={{
-        prevEl: '.ui_swiper_prev',
-        nextEl: '.ui_swiper_next',
-      }}
-      pagination={{
-        clickable: true,
-        el: '.sub_page',
-      }}
+      // navigation={{
+      //   prevEl: '.ui_swiper_prev',
+      //   nextEl: '.ui_swiper_next',
+      // }}
+      // pagination={{
+      //   clickable: true,
+      //   el: '.sub_page',
+      // }}
       lazy
       autoplay
       loop
@@ -75,12 +66,18 @@ export default memo(({ list = [], coverSrc = '' }) => (
               item.url
                 ? (
                   <a href={item.url}>
-                    <DomContent item={item} coverSrc={coverSrc} />
+                    <img src={item[coverSrc]} alt="" />
+                    <div className={classnames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
+                      {item.typeTitle}
+                    </div>
                   </a>
                 )
                 : (
                   <button type="button">
-                    <DomContent item={item} coverSrc={coverSrc} />
+                    <img src={item[coverSrc]} alt="" />
+                    <div className={classnames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
+                      {item.typeTitle}
+                    </div>
                   </button>
                 )
             }

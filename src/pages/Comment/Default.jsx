@@ -89,7 +89,7 @@ export default memo(() => {
       <div className="domComment_header">
         <div className="domComment_infos">
           <div className="cover">
-            <img style={{ height: '100%' }} src={`${detail.al.picUrl}?param=100y100`} alt="" />
+            <img className="h-full" src={`${detail.al.picUrl}?param=100y100`} alt="" />
             <div className="ico">
               <IconPlayerPlay size={16} className="fill-current" />
             </div>
@@ -98,7 +98,12 @@ export default memo(() => {
             <div className="title">{detail.name}</div>
             <div className="info">
               专辑：
-              <Link className="text-gray-600 hover:text-black" to={`/playlist/album/${detail.al.id}`}>{detail.al?.name}</Link>
+              <Link
+                className="text-gray-600 hover:text-black"
+                to={`/playlist/album/${detail.al.id}`}
+              >
+                {detail.al?.name}
+              </Link>
               &nbsp;
               &nbsp;
               &nbsp;
@@ -108,7 +113,12 @@ export default memo(() => {
                 detail.ar.map((item, index) => (
                   <span key={item.id}>
                     {index > 0 && ' / '}
-                    <Link className="text-gray-600 hover:text-black" to={`/artist/${item.id}`}>{item.name}</Link>
+                    <Link
+                      className="text-gray-600 hover:text-black"
+                      to={`/artist/${item.id}`}
+                    >
+                      {item.name}
+                    </Link>
                   </span>
                 ))
               }

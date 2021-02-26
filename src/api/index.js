@@ -59,6 +59,11 @@ export const apiDjProgramToplistHours = () => get('/dj/program/toplist/hours');
 // 歌单 - 详情
 export const apiPlaylistDetail = (params) => post('/playlist/detail', params);
 /**
+ * 歌单收藏者
+ * @param {id, limit?, offset?} params
+ */
+export const apiPlaylistSubscribers = (params) => post('/playlist/subscribers', params);
+/**
  *
  * @param {name, privacy?,type?} params
  */

@@ -3,6 +3,11 @@ export const transPlayCount = (playCount) => {
   return String(playCount).replace(/(?<=\d{2,})\d{4}$/, '万');
 };
 
+export const transSubscribeCount = (subscribeCount) => {
+  if (!subscribeCount) return null;
+  return String(subscribeCount).replace(/(?<=\d{1,})\d{4}$/, '万');
+};
+
 export const wordLength = (word = '') => {
   // console.log(word);
   let length = 0;

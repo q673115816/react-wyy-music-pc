@@ -5,32 +5,12 @@
     display: flex;
 
     .cover {
-      flex: none;
       width: 180px;
       height: 180px;
-      overflow: hidden;
-      border-radius: 10px;
     }
 
     .info {
       margin-left: 20px;
-    }
-
-    .type {
-      margin-right: 6px;
-      padding: 2px 4px;
-      font-size: 14px;
-      border: 1px solid;
-      color: var(--themeColor);
-      border-radius: 4px;
-      font-weight: normal;
-    }
-
-    .name {
-      display: flex;
-      align-items: center;
-      font-size: 20px;
-      font-weight: bold;
     }
 
     .creator {

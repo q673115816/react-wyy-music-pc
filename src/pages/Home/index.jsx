@@ -1,6 +1,6 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, memo, Suspense } from 'react';
 import {
-  NavLink, Switch, Route, Redirect, useHistory,
+  NavLink, Switch, Route, Redirect,
 } from 'react-router-dom';
 import './index.scss';
 
@@ -37,34 +37,31 @@ const nav = [
     name: '最新音乐',
   },
 ];
-export default () => {
-  const { replace } = useHistory();
-  return (
-    <div className="domHome flex flex-col h-full">
-      <div className="domHome_nav ui_header">
-        {nav.map((item) => (
-          <NavLink
-            className="domHome_nav_link"
-            activeClassName="on"
-            to={item.path}
-            key={item.path}
-          >
-            {item.name}
-          </NavLink>
-        ))}
+export default memo(() => (
+  <div className="domHome flex flex-col h-full">
+    <div className="domHome_nav ui_header">
+      {nav.map((item) => (
+        <NavLink
+          className="domHome_nav_link"
+          activeClassName="on"
+          to={item.path}
+          key={item.path}
+        >
+          {item.name}
+        </NavLink>
+      ))}
 
-      </div>
-      <Suspense fallback={<div>loading</div>}>
-        <Switch>
-          <Route path="/home/recommend" component={HomeRecommend} />
-          <Route path="/home/toplist" component={HomeToplist} />
-          <Route path="/home/playlist" component={HomePlaylist} />
-          <Route path="/home/artist" component={HomeArtist} />
-          <Route path="/home/newest" component={HomeNewest} />
-          <Route path="/home/dj" component={HomeDj} />
-          <Redirect to="/home/recommend" />
-        </Switch>
-      </Suspense>
     </div>
-  );
-};
+    <Suspense fallback={<div>loading</div>}>
+      <Switch>
+        <Route path="/home/recommend" component={HomeRecommend} />
+        <Route path="/home/toplist" component={HomeToplist} />
+        <Route path="/home/playlist" component={HomePlaylist} />
+        <Route path="/home/artist" component={HomeArtist} />
+        <Route path="/home/newest" component={HomeNewest} />
+        <Route path="/home/dj" component={HomeDj} />
+        <Redirect to="/home/recommend" />
+      </Switch>
+    </Suspense>
+  </div>
+));

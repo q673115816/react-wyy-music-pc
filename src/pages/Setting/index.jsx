@@ -61,6 +61,7 @@ const DomAccountUnLogined = ({ }) => {
 };
 
 export default () => {
+  console.log('ssetting');
   const { isLogin } = useSelector(({ common }) => common);
   const { profile, bindings } = useSelector(({ account }) => account);
   const main = useRef();

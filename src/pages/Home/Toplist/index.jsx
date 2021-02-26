@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IconPlayerPlay } from '@tabler/icons';
@@ -62,7 +62,7 @@ const DomContent = ({ tracks = [] }) => {
   );
 };
 
-export default () => {
+export default memo(() => {
   const { list = [] } = useSelector(({ home }) => home.toplist);
 
   const [fiveTop, setFiveTop] = useState([]);
@@ -214,4 +214,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

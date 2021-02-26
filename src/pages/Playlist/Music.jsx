@@ -9,8 +9,12 @@ import {
   IconScreenShare,
   IconCloudDownload,
   IconPlus,
+  IconCaretUp,
 } from '@tabler/icons';
-import { transPlayCount } from '@/common/utils';
+import classnames from 'classnames';
+import { transPlayCount, transSubscribeCount } from '@/common/utils';
+import DomLoading from '@/components/Loading';
+import DomSubscribers from './components/Subscribers';
 
 export default () => {
   const [fulfilled, setFulfilled] = useState(false);
@@ -18,7 +22,7 @@ export default () => {
   const [playlist, setPlaylist] = useState([]);
   const [privileges, setPrivileges] = useState([]);
   const { isLogin } = useSelector(({ common }) => common);
-  const handleGet = async () => {
+  const handleInit = async () => {
     try {
       const {
         code,
@@ -38,13 +42,13 @@ export default () => {
   };
 
   useEffect(() => {
-    handleGet();
+    handleInit();
   }, [id]);
-  if (id && !fulfilled) return <div>loading</div>;
+  if (id && !fulfilled) return <DomLoading />;
   return (
-    <div className="domPlaylistDetail">
+    <div className="domPlaylistDetail overflow-auto h-full">
       <div className="domPlaylistDetail_header">
-        <div className="cover">
+        <div className="cover border rounded overflow-hidden flex-none">
           <img
             className="ui_containimg"
             src={`${playlist.coverImgUrl}?params=200y200`}
@@ -52,21 +56,35 @@ export default () => {
           />
         </div>
         <div className="info">
-          <div className="name">
-            <span className="type">歌单</span>
-            {playlist.name || '我喜欢的音乐'}
+          <div className="name flex items-center">
+            <span className="type text-red-500 border border-current px-1 py-0.5 rounded mr-2 leading-none">歌单</span>
+            <span className="h1">
+              {playlist.name || '我喜欢的音乐'}
+            </span>
           </div>
           <div className="creator">
             <Link to="/" className="avator">
-              <img className="ui_containimg" src={`${playlist.creator?.avatarUrl}?params=50y50`} alt="" />
+              <img
+                className="ui_containimg"
+                src={`${playlist.creator?.avatarUrl}?params=50y50`}
+                alt=""
+              />
             </Link>
             {
               isLogin
-                ? <Link to="/" className="nickname ui_link">{playlist.creator?.nickname}</Link>
-                : <button type="button" className="ui_link">未登录&gt;</button>
+                ? (
+                  <Link to="/" className="nickname ui_link">
+                    {playlist.creator?.nickname}
+                  </Link>
+                )
+                : (
+                  <button type="button" className="ui_link">
+                    未登录&gt;
+                  </button>
+                )
             }
               &nbsp;
-            <span className="text-gray-400">
+            <span className="text-gray-500">
               {dayjs(playlist.createTime || Date.now()).format('YYYY-MM-DD')}
               创建
             </span>
@@ -79,7 +97,9 @@ export default () => {
                 播放全部
               </button>
               <i className="ui_playbtn_group_split" />
-              <button type="button" className="ui_playbtn_group_right"><IconPlus size={18} /></button>
+              <button type="button" className="ui_playbtn_group_right">
+                <IconPlus size={18} />
+              </button>
             </div>
             <button type="button" className="ui_btn btn">
               {
@@ -90,16 +110,15 @@ export default () => {
               &nbsp;
               收藏
               (
-              {transPlayCount(playlist.subscribedCount) || 0}
+              {transSubscribeCount(playlist.subscribedCount) || 0}
               )
             </button>
             <button type="button" className="ui_btn btn">
               <IconScreenShare size={20} stroke={1} />
               &nbsp;
-
               分享
               (
-              {transPlayCount(playlist.shareCount) || 0}
+              {transSubscribeCount(playlist.shareCount) || 0}
               )
             </button>
             <button type="button" className="ui_btn btn">
@@ -109,30 +128,49 @@ export default () => {
             </button>
 
           </div>
-          <div className="tags">
-            <span>标签</span>
-            {playlist.tags.map((tag) => (
-              <Link to="/" className="tag ui_link" key={tag}>{tag}</Link>
-            ))}
-          </div>
-          <div>
-            <span>
-              歌曲：
-              {playlist.trackCount}
-            </span>
-            <span>
-              播放：
-              {playlist.playCount}
-            </span>
-          </div>
-          <div>
-            <span>简介：</span>
-            <pre>{playlist.description}</pre>
+          <div className="space-y-1 mt-2">
+            <div className="tags">
+              <span>标签：</span>
+              {playlist.tags.map((tag, index) => (
+                <span key={tag}>
+                  {index > 0 && ' / '}
+                  <Link to="/" className="tag ui_link">{tag}</Link>
+                </span>
+              ))}
+            </div>
+            <div>
+              <span className="mr-3">
+                歌曲：
+                <span className="text-gray-500">
+                  {playlist.trackCount}
+                </span>
+              </span>
+              <span>
+                播放：
+                <span className="text-gray-500">
+                  {transPlayCount(playlist.playCount)}
+                </span>
+              </span>
+            </div>
+            <div className={classnames('whitespace-pre-line leading-6 relative')}>
+              简介：
+              <span className={classnames('text-gray-500 select-text')}>
+                {playlist.description}
+              </span>
+              <button type="button" className="absolute top-0 right-0 text-gray-500">
+                <IconCaretUp size={16} className="fill-current" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
       <div className="domPlaylistDetail_main">
-        <div />
+        <div>
+          <button type="button">歌曲列表</button>
+          <button type="button">评论()</button>
+          <button type="button">收藏者</button>
+        </div>
+        <DomSubscribers id={id} />
       </div>
     </div>
   );

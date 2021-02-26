@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  IconHeart,
   IconDownload,
   IconPlayerPlay,
   IconPlus,
@@ -10,13 +9,13 @@ import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {
-  apiRecommendSongs, apiCommentMusic, apiLike, apiLikelist,
+  apiRecommendSongs, apiCommentMusic,
 } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
 import {
-  setContextMenuShow, setAudioImmediate, setLikelist, setToast,
+  setContextMenuShow, setAudioImmediate,
 } from '@/redux/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import useLoginStatus from '@/custom/useLoginStatus';
 import './style.scss';
 import DomHeart from '@/components/Heart';
@@ -25,8 +24,6 @@ export default () => {
   useLoginStatus();
   const dispatch = useDispatch();
   const [data, setData] = useState([]);
-  const { likelist } = useSelector(({ account }) => account);
-  const { profile } = useSelector(({ account }) => account);
   const handleInit = async () => {
     try {
       const { data = [] } = await apiRecommendSongs();
@@ -37,7 +34,6 @@ export default () => {
   };
 
   const handleDoubleClick = (item) => {
-    // console.log(item);
     dispatch(setAudioImmediate({
       currentSong: item,
     }));

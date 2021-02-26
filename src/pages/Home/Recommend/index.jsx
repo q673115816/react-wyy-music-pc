@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
@@ -12,17 +12,17 @@ import {
 } from '@/api';
 import { setHomeRecommend } from '@/redux/actions';
 import DomSwiper from '@/components/Swiper';
-
-import DOMtingting from '@/components/AdLookSquare';
+import { IconChevronRight } from '@tabler/icons';
 import DOMkankan from '@/components/AdLookRectangle';
 
+import DomLoading from '@/components/Loading';
 import RecommendPlaylist from './playlist';
 import RecommendPrivatecontent from './Privatecontent';
 import RecommendNewsong from './Newsong';
 import RecommendDjprogram from './Djprogram';
 import RecommendMv from './Mv';
 
-export default () => {
+export default memo(() => {
   const {
     banners,
     playlist,
@@ -32,8 +32,9 @@ export default () => {
     djprogram,
   } = useSelector(({ home }) => home.recommend);
   const { isLogin } = useSelector(({ common }) => common);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  const handleGet = async () => {
+  const handleInit = async () => {
     try {
       const [
         { banners },
@@ -60,27 +61,35 @@ export default () => {
         newsong: PersonalizedNewsong.result,
         mv: PersonalizedMv.result,
         djprogram: PersonalizedDjprogram.result,
-
       }));
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
-
   useEffect(() => {
-    handleGet();
+    handleInit();
   }, []);
+  if (loading) {
+    return (
+      <div className="flex-center w-full h-full">
+        <DomLoading />
+      </div>
+    );
+  }
   return (
     <div className="domHome_content overflow-auto max-h-full flex-auto">
       <div className="domHome_recommend">
         <div className="domHome_item">
-          {
-          banners.length > 0 && <DomSwiper list={banners} coverSrc="imageUrl" />
-        }
+          <DomSwiper list={banners} coverSrc="imageUrl" />
         </div>
         <div className="domHome_item">
-          <Link className="domHome_recommend_subtitle h1" to="/home/playlist">
-            推荐歌单 &gt;
+          <Link
+            className="domHome_recommend_subtitle h1 inline-flex items-center"
+            to="/home/playlist"
+          >
+            推荐歌单
+            <IconChevronRight size={24} />
           </Link>
           <div>
             {isLogin ? (
@@ -89,34 +98,54 @@ export default () => {
           </div>
         </div>
         <div className="domHome_item">
-          <Link className="domHome_recommend_subtitle h1" to="/privatecontent">
-            独家放送 &gt;
+          <Link
+            className="domHome_recommend_subtitle h1 inline-flex items-center"
+            to="/privatecontent"
+          >
+            独家放送
+            <IconChevronRight size={24} />
           </Link>
           <RecommendPrivatecontent privatecontent={privatecontent} />
         </div>
         <div className="domHome_item">
-          <Link className="domHome_recommend_subtitle h1" to="/home/playlist">
-            最新音乐 &gt;
+          <Link
+            className="domHome_recommend_subtitle h1 inline-flex items-center"
+            to="/home/playlist"
+          >
+            最新音乐
+            <IconChevronRight size={24} />
           </Link>
           <RecommendNewsong newsong={newsong} />
         </div>
         <div className="domHome_item">
-          <Link className="domHome_recommend_subtitle h1" to="/home/playlist">
-            推荐mv &gt;
+          <Link
+            className="domHome_recommend_subtitle h1 inline-flex items-center"
+            to="/home/playlist"
+          >
+            推荐mv
+            <IconChevronRight size={24} />
           </Link>
           <RecommendMv mv={mv} />
         </div>
         <div className="domHome_item">
-          <Link className="domHome_recommend_subtitle h1" to="/home/playlist">
-            主播电台 &gt;
+          <Link
+            className="domHome_recommend_subtitle h1 inline-flex items-center"
+            to="/home/playlist"
+          >
+            主播电台
+            <IconChevronRight size={24} />
           </Link>
           <RecommendDjprogram djprogram={djprogram} />
         </div>
         <div className="domHome_item">
-          <Link className="domHome_recommend_subtitle h1" to="https://look.163.com/hot?livetype=2">
-            看看 &gt;
+          <Link
+            className="domHome_recommend_subtitle h1 inline-flex items-center"
+            to="https://look.163.com/hot?livetype=2"
+          >
+            看看
+            <IconChevronRight size={24} />
           </Link>
-          <div className="domHome_recommend_kankan ui_grid rectangle_height col_4">
+          <div className="domHome_recommend_kankan grid grid-cols-4 gap-5">
             {
             Object.keys(Array(4).fill(0))
               .map((item) => (
@@ -140,4 +169,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

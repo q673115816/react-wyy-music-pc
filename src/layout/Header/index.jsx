@@ -82,9 +82,7 @@ export default memo(({ handleDrap }) => {
   }, []);
 
   return (
-    <div
-      className="domHeader relative flex items-center"
-    >
+    <div className="domHeader relative flex items-center">
       <button
         type="button"
         className="absolute inset-0 z-0 w-full focus:outline-none cursor-auto"
@@ -92,14 +90,20 @@ export default memo(({ handleDrap }) => {
       >
         {}
       </button>
-      <Link to="/" className="domHeader_logo text-white text-base z-10">
+      <Link
+        to="/"
+        className="domHeader_logo tracking-widest text-white text-base z-10"
+        style={{ width: 200 }}
+      >
         网易云音乐
       </Link>
-      <DomVisitStack />
-      <DomSearch />
-      <Link to="/ai" className="bg-black bg-opacity-5 w-8 h-8 rounded-full text-white flex-center z-10 ml-2">
-        <IconMicrophone size={18} />
-      </Link>
+      <div className="flex items-center space-x-2">
+        <DomVisitStack />
+        <DomSearch />
+        <Link to="/ai" className="bg-black bg-opacity-5 w-8 h-8 rounded-full text-white flex-center z-10">
+          <IconMicrophone size={18} />
+        </Link>
+      </div>
       <DomAccount />
       <DomFunction />
       <span className="domHeader_spilt mx-3 w-px h-4" />

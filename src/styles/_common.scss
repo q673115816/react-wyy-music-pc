@@ -157,45 +157,5 @@ input:focus {
   @include inset-center();
 }
 
-.ui_aspect-ratio-16\/9 {
-  --aspect-ratio: 16 / 9;
-  aspect-ratio: var(--aspect-ratio);
-}
-
-// Fallback (current, using padding hack)
-@supports not (aspect-ratio: 16 / 9) {
-  .ui_aspect-ratio-16\/9::before {
-    float: left;
-    padding-top: 56.25%;
-    content: '';
-  }
-
-  .ui_aspect-ratio-16\/9::after {
-    display: block;
-    content: '';
-    clear: both;
-  }
-}
-
-.ui_aspect-ratio-1\/1 {
-  --aspect-ratio: 1 / 1;
-  aspect-ratio: var(--aspect-ratio);
-}
-
-// Fallback (current, using padding hack)
-@supports not (aspect-ratio: 1 / 1) {
-  .ui_aspect-ratio-1\/1::before {
-    float: left;
-    padding-top: 100%;
-    content: '';
-  }
-
-  .ui_aspect-ratio-1\/1::after {
-    display: block;
-    content: '';
-    clear: both;
-  }
-}
-
 @import 'components';
 @import 'ui';

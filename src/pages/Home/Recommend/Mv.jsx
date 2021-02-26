@@ -7,12 +7,17 @@ export default ({ mv = [] }) => (
     {
       mv.map((item) => (
         <div className="item" key={item.id}>
-          <div className="cover">
+          <div className="cover border relative overflow-hidden group rounded">
             <Link to="/mv/:id">
-              <div className="copywriter absolute top-0 left-0 right-0 bg-black bg-opacity-40 px-2 py-3 text-white">{item.copywriter}</div>
-              <div className="playCount absolute top-0 right-0 p-2 text-white">{item.playCount}</div>
+              <div className="absolute top-0 left-0 right-0 h-1/4 bg-gradient-to-b from-gray-400 to-transparent" />
+              <div className="copywriter absolute top-0 left-0 right-0 bg-black bg-opacity-40 px-2 py-3 text-white transiton duration-100 ease-in">
+                {item.copywriter}
+              </div>
+              <div className="playCount absolute top-0 right-0 px-2 py-1 text-white group-hover:opacity-0">
+                {item.playCount}
+              </div>
               <Lazyload>
-                <img className="ui_containimg" src={item.picUrl} alt="" />
+                <img className="" src={item.picUrl} alt="" />
               </Lazyload>
             </Link>
           </div>
@@ -23,14 +28,16 @@ export default ({ mv = [] }) => (
           </div>
           <div className="artist truncate mt-1">
             {
-              item.artists.map((artist) => (
-                <Link
-                  to="/artist/:id"
-                  className="text-gray-600 hover:text-black"
-                  key={artist.id}
-                >
-                  {artist.name}
-                </Link>
+              item.artists.map((artist, index) => (
+                <span key={artist.id}>
+                  {index > 0 && ' / '}
+                  <Link
+                    to="/artist/:id"
+                    className="text-gray-600 hover:text-black"
+                  >
+                    {artist.name}
+                  </Link>
+                </span>
               ))
             }
           </div>

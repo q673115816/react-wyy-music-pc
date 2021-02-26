@@ -51,6 +51,7 @@ export default function App() {
   const { screen } = useSelector(({ mask }) => mask);
   const { theme } = useSelector(({ setting }) => setting);
   const {
+    toastTitle,
     globalLastX,
     globalLastY,
     globalWidth,
@@ -149,11 +150,14 @@ export default function App() {
             searchVisibility
             && <HeaderSearch />
           }
-          <Tosat />
+          {
+            toastTitle?.toString()
+            && <Tosat />
+          }
           {screen === 'normal'
             && <DomCorner />}
         </div>
-        {loginVisibility && <DialogLogin />}
+        {/* {loginVisibility && <DialogLogin />} */}
         {dragger && <div className="absolute inset-0" onMouseUp={dragup} onMouseMove={dragmove} />}
       </Router>
     </div>

@@ -17,70 +17,34 @@
       }
 
       .content {
-        // padding: 4px 8px;
       }
 
     }
 
     &_mv {
-      // margin-top: 16px;
-      // display: grid;
-      // column-gap: 20px;
-      // grid-template-columns: repeat(3, calc((100% - 40px) /3));
-
       .item:last-child {
         display: none;
       }
 
-      .item {}
-
-      .cover {
-        position: relative;
-        border-radius: 4px;
-        overflow: hidden;
-      }
 
       .cover:hover {
         .copywriter {
           transform: translate(0, 0);
         }
-
-        .playCount {
-          display: none;
-        }
       }
 
       .copywriter {
         transform: translate(0, -100%);
-        transition: linear 0.1s;
       }
 
 
     }
 
     &_djprogram {
-      .cover {
-        // border: 1px solid #ccc;
-      }
-
-      .mask {
-        position: absolute;
-        top: 66%;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-        z-index: 0;
-      }
-
-      .name {
-      }
     }
 
     &_tingting {
       margin-top: 16px;
-      .item {}
-
       .name {
         margin-top: 0.3em;
         font-size: 16px;

@@ -39,6 +39,7 @@ import {
   SET_GLOBAL_INSET,
   SET_THEME,
   SET_VOLUME,
+  SET_FONT,
   SET_SCREEN_FULL,
   SET_AUDIO_IMMEDIATE,
   SET_AUDIO_CURRENTTIME,
@@ -55,6 +56,11 @@ export const setTheme = (payload) => ({
 
 export const setVolume = (payload) => ({
   type: SET_VOLUME,
+  payload,
+});
+
+export const setFont = (payload) => ({
+  type: SET_FONT,
   payload,
 });
 
