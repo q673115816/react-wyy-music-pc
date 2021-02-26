@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,18 +35,6 @@ const handlePopSwitch = (popupStatus) => {
   }
 };
 
-const DomCorner = () => {
-  const dispatch = useDispatch();
-  return (
-    <div
-      className="absolute right-0 bottom-0 text-gray-500"
-      style={{ cursor: 'se-resize' }}
-    >
-      <IconChevronDownRight />
-    </div>
-  );
-};
-
 export default function App() {
   const dispatch = useDispatch();
   const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
@@ -71,6 +61,15 @@ export default function App() {
   const [startY, setStartY] = useState(0);
   const [lastX, setLastX] = useState(0);
   const [lastY, setLastY] = useState(0);
+
+  const DomCorner = useMemo(() => (
+    <div
+      className="absolute right-0 bottom-0 text-gray-500"
+      style={{ cursor: 'se-resize' }}
+    >
+      <IconChevronDownRight />
+    </div>
+  ), []);
 
   const dragdown = useCallback((e) => {
     setStartX(e.clientX);
@@ -157,8 +156,14 @@ export default function App() {
           {screen === 'normal'
             && <DomCorner />}
         </div>
-        {/* {loginVisibility && <DialogLogin />} */}
-        {dragger && <div className="absolute inset-0" onMouseUp={dragup} onMouseMove={dragmove} />}
+        {loginVisibility && <DialogLogin />}
+        {dragger && (
+        <div
+          className="absolute inset-0"
+          onMouseUp={dragup}
+          onMouseMove={dragmove}
+        />
+        )}
       </Router>
     </div>
   );
