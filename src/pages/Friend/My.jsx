@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useRouteMatch } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -31,7 +31,8 @@ const getArticleFromJson = (json) => {
   );
 };
 
-export default () => {
+export default memo(() => {
+  console.log('friend');
   const {
     isLogin,
   } = useSelector(({ common }) => common);
@@ -79,16 +80,16 @@ export default () => {
     handleInit();
   }, []);
   return (
-    <div className="domFriend overflow-auto max-h-full flex-auto">
-      <div className="domFriend_left">
-        <div className="domFriend_header">
+    <div className="domFriend flex overflow-auto min-h-full">
+      <div className="domFriend_left relative flex-auto">
+        <div className="domFriend_header flex items-center justify-between absolute top-0 left-0 right-0 bg-white">
           <span className="h1">动态</span>
-          <button type="button" className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full">
+          <button type="button" className="inline-flex items-center ui_theme_bg_color text-white justify-center h-6 px-3 rounded-full">
             +
             写动态
           </button>
         </div>
-        <div className="domFriend_content">
+        <div className="domFriend_content flex flex-col flex-auto h-0">
           {
             isLogin ? (
               <div className="domFriend_dynamic">
@@ -102,19 +103,16 @@ export default () => {
                 ))}
               </div>
             )
-
               : (
-                <div className="empty inset-center center">
-                  <span className="text-gray-400">
-                    暂无动态
-                  </span>
+                <div className="empty text-center text-gray-400 pt-48">
+                  暂无动态
                 </div>
               )
           }
         </div>
       </div>
-      <div className="domFriend_split" />
-      <div className="domFriend_right">
+      <div className="domFriend_split w-px flex-none" />
+      <div className="domFriend_right flex-none">
         <div className="domFriend_user">
           {
             isLogin
@@ -156,14 +154,14 @@ export default () => {
                 </div>
               )
               : (
-                <div className="nologin">
+                <div className="nologin px-5">
                   <div style={{ height: 170 }} />
-                  <div className="tips">
+                  <div className="tips text-center text-gray-500">
                     登录网易云音乐，可以享受无限收藏的乐趣，并且无限同步到手机
                   </div>
                   <button
                     type="button"
-                    className="login"
+                    className="login ui_theme_bg_color text-white w-full h-10 mt-4"
                     onClick={() => dispatch(setLoginVisibilty(true))}
                   >
                     立即登录
@@ -174,7 +172,7 @@ export default () => {
         </div>
         <div className="domFriend_hotTopic">
           <div className="header">
-            <span>热门话题</span>
+            <span className="font-bold">热门话题</span>
             <Link className="text-gray-400" to={`${url}/hotTopic`}>更多 &gt;</Link>
           </div>
           <div className="list">
@@ -203,4 +201,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

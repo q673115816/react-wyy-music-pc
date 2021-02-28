@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import dayjs from 'dayjs';
 import { useParams, NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,11 +14,13 @@ const nav = [
   ['日本', '8'],
 ];
 
-export default () => {
+export default memo(() => {
+  console.log('song');
   const { type: currentType } = useParams();
   const type = ['0', '7', '96', '8', '16'].includes(currentType) ? currentType : 0;
   const dispatch = useDispatch();
-  const { data = [] } = useSelector(({ home }) => home.newest);
+  const [data] = useState([]);
+  // const { data = [] } = useSelector(({ home }) => home.newest);
 
   const handleGetSong = async () => {
     try {
@@ -92,4 +94,4 @@ export default () => {
       </div>
     </>
   );
-};
+});

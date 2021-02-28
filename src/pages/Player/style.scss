@@ -77,24 +77,6 @@
     margin-top: 2em;
   }
 
-  &_actions {
-    margin-top: 30px;
-    display: flex;
-    .button {
-      height: 32px;
-      border-radius: 15px;
-      border: 1px solid #ccc;
-      padding: 0 30px;
-      margin-right: 10px;
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-      &:hover {
-        background-color: #F2F2F2;
-      }
-    }
-  }
-
   &_related {
 
     .item {

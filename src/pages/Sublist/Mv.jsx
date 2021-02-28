@@ -19,26 +19,37 @@ const ListBuild = (filter, search) => {
         {NAME}
       </Empty>
     );
-  } if (filter.length > 0) {
+  }
+  if (filter.length > 0) {
     return (
-      <div className="ui_grid col_3 rectangle_width">
+      <div className="grid grid-cols-3 gap-5">
         {filter.map((item) => (
           <div className="item" key={item.vid}>
-            <div className="cover">
-              <div className="inner">
-                <Link to={`/player/video/${item.vid}`}>
-                  <img className="ui_coverimg" src={item.coverUrl} alt="" />
-                  <div className="rt whitetext">{transPlayCount(item.playTime)}</div>
-                  <div className="rb whitetext">{dayjs(item.durationms).format('mm:ss')}</div>
-                </Link>
-              </div>
+            <div className="cover relative rounded overflow-hidden">
+              <Link to={`/player/video/${item.vid}`}>
+                <img className="" src={item.coverUrl} alt="" />
+                <div className="absolute top-0 right-0 my-1 mx-2 text-white">
+                  {transPlayCount(item.playTime)}
+                </div>
+                <div className="absolute bottom-0 right-0 my-1 mx-2 text-white">
+                  {dayjs(item.durationms).format('mm:ss')}
+                </div>
+              </Link>
             </div>
-            <div className="footer truncate">
-              <Link to={`/player/video/${item.vid}`} className="">{item.title}</Link>
+            <div className="footer truncate text-sm mt-1">
+              <Link
+                to={`/player/video/${item.vid}`}
+                className=""
+              >
+                {item.title}
+              </Link>
             </div>
-            <div className="text creator text-gray-400">
+            <div className="text creator text-gray-300">
               by &nbsp;
-              <Link to={`/user/${item.creator[0].userId}`}>
+              <Link
+                to={`/user/${item.creator[0].userId}`}
+                className="hover:text-gray-500"
+              >
                 {item.creator[0].userName}
               </Link>
             </div>
@@ -56,10 +67,10 @@ const ListBuild = (filter, search) => {
 };
 
 const filterRule = (data, search) => data
-  .filter((item) => item.title.indexOf(search) >= 0 || item.creator.find((creator) => creator.userName.indexOf(search) >= 0));
+  .filter((item) => item.title.indexOf(search) >= 0
+  || item.creator.find((creator) => creator.userName.indexOf(search) >= 0));
 
 export default () => {
-  const { push } = useHistory();
   const {
     count,
     setSearch,
@@ -81,8 +92,7 @@ export default () => {
         </div>
       </div>
       <div className="domSublist_grid">
-        {ListBuild(filter, search, push)}
-
+        {ListBuild(filter, search)}
       </div>
     </>
   );

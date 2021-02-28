@@ -6,6 +6,9 @@ export const SET_LOGIN_INFO = 'SET_LOGIN_INFO';
 export const SET_LIKELIST = 'SET_LIKELIST';
 
 export const SET_ARTIST_SUBLIST = 'SET_ARTIST_SUBLIST';
+export const SET_TOPIC_SUBLIST = 'SET_TOPIC_SUBLIST';
+export const SET_ALBUM_SUBLIST = 'SET_ALBUM_SUBLIST';
+export const SET_MV_SUBLIST = 'SET_MV_SUBLIST';
 
 // user
 export const SET_MSG_PRIVATE = 'SET_MSG_PRIVATE';

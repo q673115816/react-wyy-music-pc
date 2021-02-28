@@ -35,6 +35,15 @@ const handlePopSwitch = (popupStatus) => {
   }
 };
 
+const DomCorner = () => (
+  <div
+    className="absolute right-0 bottom-0 text-gray-500"
+    style={{ cursor: 'se-resize' }}
+  >
+    <IconChevronDownRight />
+  </div>
+);
+
 export default function App() {
   const dispatch = useDispatch();
   const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
@@ -55,21 +64,13 @@ export default function App() {
     dialogUnSubscriptionVisibility,
   } = useSelector(({ mask }) => mask);
   const [dragger, setDragger] = useState(false);
+  const [resizer, setResizer] = useState(false);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [startX, setStartX] = useState(0);
   const [startY, setStartY] = useState(0);
   const [lastX, setLastX] = useState(0);
   const [lastY, setLastY] = useState(0);
-
-  const DomCorner = useMemo(() => (
-    <div
-      className="absolute right-0 bottom-0 text-gray-500"
-      style={{ cursor: 'se-resize' }}
-    >
-      <IconChevronDownRight />
-    </div>
-  ), []);
 
   const dragdown = useCallback((e) => {
     setStartX(e.clientX);
@@ -164,6 +165,10 @@ export default function App() {
           onMouseMove={dragmove}
         />
         )}
+        {
+          resizer && <div className="absolute inset-0" />
+
+        }
       </Router>
     </div>
   );

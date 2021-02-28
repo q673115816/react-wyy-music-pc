@@ -1,4 +1,8 @@
-import { SET_LOGIN_INFO, SET_LIKELIST, SET_ARTIST_SUBLIST } from '@/redux/actionTypes';
+import {
+  SET_LOGIN_INFO, SET_LIKELIST, SET_ARTIST_SUBLIST, SET_TOPIC_SUBLIST,
+  SET_ALBUM_SUBLIST,
+  SET_MV_SUBLIST,
+} from '@/redux/actionTypes';
 
 const initialState = {
   profile: {},
@@ -6,6 +10,9 @@ const initialState = {
   bindings: [],
   likelist: [],
   artistSublist: [],
+  topicSublist: [],
+  albumSublist: [],
+  mvSublist: [],
 };
 
 export default (state = initialState, action) => {
@@ -21,6 +28,21 @@ export default (state = initialState, action) => {
         ...action.payload,
       };
     case SET_ARTIST_SUBLIST:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_TOPIC_SUBLIST:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_ALBUM_SUBLIST:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_MV_SUBLIST:
       return {
         ...state,
         ...action.payload,

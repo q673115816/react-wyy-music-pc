@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { transPlayCount } from '@/common/utils';
+import { IconPlayerPlay } from '@tabler/icons';
 
 export default ({ related = [] }) => (
   <div className="domVideoDetail_related">
@@ -13,13 +14,12 @@ export default ({ related = [] }) => (
             <Link to={`./${item.vid}`}>
               <img className="ui_containimg" src={item.coverUrl} alt="" />
               <div className="playTime flex-center">
-                <svg className="icon icon-tabler icon-tabler-player-play" width="12" height="12" viewBox="0 0 24 24" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <path d="M7 4v16l13 -8z" />
-                </svg>
+                <IconPlayerPlay size={12} />
                 {transPlayCount(item.playTime)}
               </div>
-              <div className="durationms">{dayjs(item.durationms).format('mm:ss')}</div>
+              <div className="durationms">
+                {dayjs(item.durationms).format('mm:ss')}
+              </div>
             </Link>
           </div>
           <div className="content">

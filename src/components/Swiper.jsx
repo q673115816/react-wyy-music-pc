@@ -31,14 +31,14 @@ SwiperCore.use([
 export default memo(({ list = [], coverSrc = '' }) => (
   <div className="ui_swiper group">
     <Swiper
-      // navigation={{
-      //   prevEl: '.ui_swiper_prev',
-      //   nextEl: '.ui_swiper_next',
-      // }}
-      // pagination={{
-      //   clickable: true,
-      //   el: '.sub_page',
-      // }}
+      navigation={{
+        prevEl: '.ui_swiper_prev',
+        nextEl: '.ui_swiper_next',
+      }}
+      pagination={{
+        clickable: true,
+        el: '.sub_page',
+      }}
       lazy
       autoplay
       loop

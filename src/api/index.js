@@ -27,7 +27,7 @@ export const apiProgramRecommend = () => post('/program/recommend');
 
 /**
  * 电台 - 24小时主播榜
- * @param {limit} parmas
+ * @param {limit} params
  */
 export const apiDjToplistHours = (params) => post('/dj/toplist/hours', params);
 // 电台 - 推荐
@@ -97,7 +97,7 @@ export const apiLoginQrKey = () => post('/login/qr/key');
 // 二维码登录 生成
 export const apiLoginQrCreate = (params) => post('/login/qr/create', params);
 // 二维码登录 轮询
-export const apiLoginQrCheck = (parmas) => post('/login/qr/check', parmas);
+export const apiLoginQrCheck = (params) => post('/login/qr/check', params);
 
 /**
  * 签到
@@ -191,6 +191,8 @@ export const apiVideoGroupList = () => get('/video/group/list');
 export const apiVideoGroup = (params) => post('/video/group', params);
 export const apiVideoCategoryList = () => post('/video/category/list');
 export const apiVideoTimelineRecommend = () => post('/video/timeline/recommend');
+// 收藏视频 id, t = 1
+export const apiVideoSub = (params) => post('/video/sub', params);
 // MV地址
 export const apiMvUrl = (params) => post('/mv/url', params);
 // MV数据

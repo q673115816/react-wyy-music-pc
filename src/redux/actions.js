@@ -47,6 +47,10 @@ import {
   SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_RUNNING_TOGGLE,
   SET_AUDIO_PATTERN,
+  SET_ARTIST_SUBLIST,
+  SET_TOPIC_SUBLIST,
+  SET_ALBUM_SUBLIST,
+  SET_MV_SUBLIST,
 } from './actionTypes';
 
 export const setTheme = (payload) => ({
@@ -61,6 +65,26 @@ export const setVolume = (payload) => ({
 
 export const setFont = (payload) => ({
   type: SET_FONT,
+  payload,
+});
+
+export const setArtistSublist = (payload) => ({
+  type: SET_ARTIST_SUBLIST,
+  payload,
+});
+
+export const setTopicSublist = (payload) => ({
+  type: SET_TOPIC_SUBLIST,
+  payload,
+});
+
+export const setAlbumSublist = (payload) => ({
+  type: SET_ALBUM_SUBLIST,
+  payload,
+});
+
+export const setMvSublist = (payload) => ({
+  type: SET_MV_SUBLIST,
   payload,
 });
 

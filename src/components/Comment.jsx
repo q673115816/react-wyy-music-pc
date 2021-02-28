@@ -26,7 +26,8 @@ export default ({ item = {}, handleLike }) => (
           ：
         </Link>
         <span className="ui_comment_text select-text">
-          {transTextEmoji(item.content)}
+          {item.content}
+          {/* {transTextEmoji()} */}
         </span>
       </div>
       {
@@ -43,7 +44,8 @@ export default ({ item = {}, handleLike }) => (
                 ：
               </Link>
               <span className="ui_comment_text">
-                {transTextEmoji(beReplied.content)}
+                {beReplied.content}
+                {/* {transTextEmoji(beReplied.content)} */}
               </span>
             </div>
           ))

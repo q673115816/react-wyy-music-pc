@@ -15,14 +15,14 @@ export default ({
   const { comments } = useSelector(({ friend }) => friend);
   return (
     <div className="item">
-      <Link to={`/user/${item.user.userId}`} className="avatar">
+      <Link to={`/user/${item.user.userId}`} className="avatar rounded-full overflow-hidden">
         <img
           className="ui_containimg"
           src={`${item.user.avatarUrl}?param=100y100`}
           alt=""
         />
       </Link>
-      <div className="content">
+      <div className="content ml-2.5 flex-auto">
         <div className="name">
           <Link
             className="ui_link"
@@ -34,7 +34,7 @@ export default ({
                         &nbsp;
           <span>分享单曲</span>
         </div>
-        <div className="time">
+        <div className="time mt-2">
           <span className="text-gray-400">
             {dayjs(item.eventTime).locale('zh-cn').format('MM月DD日 hh:mm')}
           </span>
@@ -45,29 +45,32 @@ export default ({
           </p>
           {json.song
             && (
-              <button type="button" className="song">
-                <div className="cover">
+              <button type="button" className="song bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5">
+                <div className="cover relative overflow-hidden rounded">
                   <img
                     className="ui_containimg"
                     src={json.song.album.blurPicUrl}
                     alt=""
                   />
-                  <div className="ico flex-center inset-center">
+                  <div className="ico flex-center inset-center bg-white rounded-full w-6 h-6 ui_themeColor">
                     <IconPlayerPlay size={14} className="fill-current" />
                   </div>
                 </div>
-                <div className="aside">
+                <div className="aside text-left px-3">
                   <div className="name">
                     {json
                       .song.name}
                   </div>
-                  <div className="artist truncate">
+                  <div className="artist truncate mt-1">
                     {
                       json
                         .song
                         .artists
-                        .map((artist) => (
-                          <span className="text-gray-400" key={artist.name}>{artist.name}</span>
+                        .map((artist, index) => (
+                          <span className="text-gray-400" key={artist.name}>
+                            {index > 0 && ' / '}
+                            {artist.name}
+                          </span>
                         ))
                     }
                   </div>

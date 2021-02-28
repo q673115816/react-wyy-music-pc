@@ -41,7 +41,12 @@ const ListBuild = (filter, search, push) => {
         </div>
         <div className="creator">
           {item.artists.map((artist) => (
-            <Link onClick={(e) => e.stopPropagation()} to={`/artist/${artist.id}`} className="text-gray-400 hover">
+            <Link
+              key={artist.id}
+              onClick={(e) => e.stopPropagation()}
+              to={`/artist/${artist.id}`}
+              className="text-gray-400 hover"
+            >
               {artist.name}
             </Link>
           ))}

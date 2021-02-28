@@ -1,6 +1,9 @@
 import React from 'react';
 import {
-  Switch, Route, useRouteMatch, Redirect,
+  Switch,
+  Route,
+  useRouteMatch,
+  Redirect,
   NavLink,
 } from 'react-router-dom';
 
@@ -16,16 +19,24 @@ export default () => {
   return (
     <div className="domSublist overflow-auto max-h-full flex-auto">
       <div className="domSublist_nav">
-        <NavLink to="./album" className="domSublist_nav_link" activeClassName="on">专辑</NavLink>
-        <NavLink to="./artist" className="domSublist_nav_link" activeClassName="on">歌手</NavLink>
-        <NavLink to="./mv" className="domSublist_nav_link" activeClassName="on">视频</NavLink>
-        <NavLink to="./topic" className="domSublist_nav_link" activeClassName="on">专栏</NavLink>
+        <NavLink to="album" className="domSublist_nav_link" activeClassName="on">专辑</NavLink>
+        <NavLink to="artist" className="domSublist_nav_link" activeClassName="on">歌手</NavLink>
+        <NavLink to="mv" className="domSublist_nav_link" activeClassName="on">视频</NavLink>
+        <NavLink to="topic" className="domSublist_nav_link" activeClassName="on">专栏</NavLink>
       </div>
       <Switch>
-        <Route path={`${url}/album`} component={DomAlbum} />
-        <Route path={`${url}/artist`} component={DomArtist} />
-        <Route path={`${url}/mv`} component={DomMv} />
-        <Route path={`${url}/topic`} component={DomTopic} />
+        <Route path={`${url}/album`}>
+          <DomAlbum />
+        </Route>
+        <Route path={`${url}/artist`}>
+          <DomArtist />
+        </Route>
+        <Route path={`${url}/mv`}>
+          <DomMv />
+        </Route>
+        <Route path={`${url}/topic`}>
+          <DomTopic />
+        </Route>
         <Redirect to={`${url}/album`} />
       </Switch>
     </div>
