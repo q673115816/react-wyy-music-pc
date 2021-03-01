@@ -22,18 +22,9 @@
   }
 
   &_creator {
-    margin-top: 16px;
-    display: flex;
-    align-items: center;
     .avatar {
       width: 50px;
       height: 50px;
-      border-radius: 25px;
-      overflow: hidden;
-    }
-
-    .nickname {
-      margin-left: 10px;
     }
 
     .follow {
@@ -54,14 +45,6 @@
     }
   }
 
-  &_title {
-    margin-top: 30px;
-  }
-
-  &_info {
-    margin-top: 16px;
-  }
-
   &_group {
     margin-top: 20px;
     display: flex;
@@ -73,78 +56,21 @@
     }
   }
 
-  &_description {
-    margin-top: 2em;
-  }
-
   &_related {
-
-    .item {
-      display: flex;
-      margin-bottom: 10px;
-    }
-
     .cover {
-      position: relative;
       width: 140px;
       height: 80px;
-      flex: none;
-      border-radius: 6px;
-      overflow: hidden;
-      color: #fff;
-
-      .playTime {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-      }
-      .durationms {
-        position: absolute;
-        bottom: 6px;
-        right: 6px;
-      }
-    }
-
-    .content {
-      padding: 10px;
-      // flex: auto
-      min-width: 1px;
     }
 
     .title {
-      font-size: 14px;
-      line-height: 20px;
       @include ellipse(2);
     }
 
-    .username {
-      // margin-top: 10px;
-    }
   }
 
   &_main {
-    // margin-top: 50px;
     .title {
-      // margin-top: 20px;
       margin-bottom: 20px;
     }
-
-    .subtitle {
-      margin-top: 30px;
-    }
-  }
-
-  &_comments {
-
-  }
-}
-
-#video {
-  height: 354px;
-
-  video {
-    width: 100%;
-    height: 100%;
-    background-color: #000;
   }
 }

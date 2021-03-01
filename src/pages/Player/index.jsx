@@ -1,4 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  useEffect, useMemo, useState, useRef, useLayoutEffect,
+} from 'react';
 
 import {
   useParams, useHistory, Link, Redirect,
@@ -51,6 +53,29 @@ export default () => {
     handleInit,
   } = currentInit();
 
+  const DomVideoWrap = useRef();
+  const DomScroll = useRef();
+  const Io = useRef();
+  const [fixed, setFixed] = useState(false);
+
+  const handleIo = () => {
+    Io.current = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setFixed(false);
+        } else {
+          setFixed(true);
+        }
+      });
+    }, {
+      root: DomScroll.current,
+    });
+    Io.current.observe(DomVideoWrap.current);
+  };
+
+  const handleUnIo = () => {
+    Io.current.disconnect();
+  };
   const isSub = useMemo(() => mvSublist.find((mv) => mv.vid === vid), [vid, mvSublist]);
 
   const { goBack } = useHistory();
@@ -97,10 +122,19 @@ export default () => {
     handleInit(vid);
   }, [vid]);
 
-  if (!pending) return <div>loading</div>;
+  useEffect(() => {
+    handleIo();
+    return () => {
+      handleUnIo();
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log(fixed);
+  }, [fixed]);
 
   return (
-    <div className=" overflow-auto max-h-full flex-auto">
+    <div className=" overflow-auto h-full" ref={DomScroll}>
       <div className="domVideoDetail">
         <div className="domVideoDetail_header domVideoDetail_container">
           <div className="left">
@@ -123,16 +157,16 @@ export default () => {
         </div>
         <div className="domVideoDetail_main domVideoDetail_container">
           <div className="left">
-            <div id="video">
-              <video src={urls?.url} controls playsInline />
+            <div ref={DomVideoWrap} className="ui_aspect-ratio-16/9">
+              <div className={classnames('ui_aspect-ratio-16/9', fixed ? ' absolute bottom-16 right-8 z-10 w-80' : 'relative')}>
+                <video src={urls?.url} className="absolute inset-0 w-full h-full" controls playsInline />
+              </div>
             </div>
-            <div className="domVideoDetail_creator">
-              <Link to={`/user/${detail?.creator?.userId}`}>
-                <div className="avatar">
-                  <img className="ui_containimg" src={detail?.creator?.avatarUrl} alt="" />
-                </div>
+            <div className="domVideoDetail_creator flex items-center mt-5">
+              <Link to={`/user/${detail?.creator?.userId}`} className="avatar rounded-full overflow-hidden">
+                <img className="" src={detail?.creator?.avatarUrl} alt="" />
               </Link>
-              <Link className="nickname" to={`/user/${detail?.creator?.userId}`}>
+              <Link className="nickname ml-2.5" to={`/user/${detail?.creator?.userId}`}>
                 {detail?.creator?.nickname}
               </Link>
               <button
@@ -149,7 +183,7 @@ export default () => {
             </div>
             <button
               type="button"
-              className="domVideoDetail_title h1 flex items-center"
+              className="domVideoDetail_title h1 flex items-center mt-5"
               onClick={() => setDescriptionVisibility(!descriptionVisibility)}
             >
               {detail?.title}
@@ -159,14 +193,14 @@ export default () => {
                   : <IconCaretDown size={24} className="fill-current" />
               }
             </button>
-            <div className="domVideoDetail_info text-gray-400">
+            <div className="domVideoDetail_info text-gray-400 mt-4">
               发布：
               {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
               &nbsp;
               播放
               {transPlayCount(detail?.playCount)}
             </div>
-            <div className="domVideoDetail_group">
+            <div className="domVideoDetail_group space-x-1">
               {detail?.videoGroup?.map((group) => (
                 <Link className="group" to={`/video/list/${group.id}`} key={group.id}>
                   {group.name}
@@ -177,7 +211,7 @@ export default () => {
               descriptionVisibility
               && (
                 <div
-                  className="domVideoDetail_description"
+                  className="domVideoDetail_description mt-4"
                 >
                   {detail.description}
                 </div>

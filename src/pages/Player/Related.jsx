@@ -9,28 +9,26 @@ export default ({ related = [] }) => (
   <div className="domVideoDetail_related">
     {
       related.map((item) => (
-        <div className="item" key={item.vid}>
-          <div className="cover">
-            <Link to={`./${item.vid}`}>
-              <img className="ui_containimg" src={item.coverUrl} alt="" />
-              <div className="playTime flex-center">
-                <IconPlayerPlay size={12} />
-                {transPlayCount(item.playTime)}
-              </div>
-              <div className="durationms">
-                {dayjs(item.durationms).format('mm:ss')}
-              </div>
-            </Link>
-          </div>
-          <div className="content">
+        <div className="item mb-2.5 flex" key={item.vid}>
+          <Link to={`./${item.vid}`} className="cover relative flex-none rounded overflow-hidden">
+            <img className="ui_containimg" src={item.coverUrl} alt="" />
+            <div className="playTime absolute top-0 right-0 mx-2 my-1 flex-center text-white">
+              <IconPlayerPlay size={12} />
+              {transPlayCount(item.playTime)}
+            </div>
+            <div className="durationms absolute bottom-0 right-0 mx-2 my-1 text-white">
+              {dayjs(item.durationms).format('mm:ss')}
+            </div>
+          </Link>
+          <div className="content p-2 flex-auto">
             <div className="title">
-              <Link to={`./${item.vid}`}>
+              <Link to={`./${item.vid}`} className="ui_text_black_hover">
                 {item.title}
               </Link>
             </div>
-            <div className={classnames('text-gray-400', 'username', 'truncate')}>
+            <div className="username truncate text-gray-500">
               by &nbsp;
-              <Link to={`/user/${item.creator[0].userId}`}>
+              <Link to={`/user/${item.creator[0].userId}`} className="ui_text_gray_hover">
                 {item.creator[0].userName}
               </Link>
             </div>

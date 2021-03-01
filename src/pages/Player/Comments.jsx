@@ -6,7 +6,7 @@ import DomComment from '@/components/Comment';
 export default ({ comments = {} }) => (
   <div className="domVideoDetail_comments">
 
-    <div className="subtitle"><b>精彩评论</b></div>
+    <div className="subtitle mt-8 font-bold">精彩评论</div>
     <div className="comments">
       {
         comments?.hotComments?.map((item) => (
@@ -14,14 +14,11 @@ export default ({ comments = {} }) => (
         ))
       }
     </div>
-    <div className="subtitle">
-      <b>
-        最新评论
-        (
-        {comments.total}
-        )
-      </b>
-
+    <div className="subtitle mt-8 font-bold">
+      最新评论
+      (
+      {comments.total}
+      )
     </div>
     <div className="comments">
       {
