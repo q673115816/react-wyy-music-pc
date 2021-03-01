@@ -38,9 +38,9 @@ export default ({ id }) => {
       <div className="grid grid-cols-5 gap-5">
         {simiArtists.map((item) => (
           <div className="item" key={item.id}>
-            <div className="cover rounded overflow-hidden border">
+            <div className="cover rounded overflow-hidden border ui_aspect-ratio-1/1">
               <Link to={`/artist/${item.id}`}>
-                <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
+                <img className="" src={`${item.picUrl}?param=200y200`} alt="" />
               </Link>
             </div>
             <div className="footer text-sm mt-2">

@@ -51,6 +51,8 @@ import {
   SET_TOPIC_SUBLIST,
   SET_ALBUM_SUBLIST,
   SET_MV_SUBLIST,
+  SET_VIDEO_LIST_INIT,
+  SET_VIDEO_LIST_ID,
 } from './actionTypes';
 
 export const setTheme = (payload) => ({
@@ -307,4 +309,14 @@ export const setDialogUnSubscriptionShow = (payload) => ({
 
 export const setDialogReset = () => ({
   type: SET_DIALOG_RESET,
+});
+
+export const setVideoListInit = (payload) => ({
+  type: SET_VIDEO_LIST_INIT,
+  payload,
+});
+
+export const setVideoListId = (payload) => ({
+  type: SET_VIDEO_LIST_ID,
+  payload,
 });

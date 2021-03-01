@@ -29,22 +29,39 @@ export default ({ newsong = [] }) => (
               {item.name}
             </div>
             <div className="artist mt-1 truncate">
-              <span className="TAG">SQ</span>
+              {
+                item.song.fee === 1
+                && (
+                  <>
+                    <span className="TAG word">VIP</span>
+                    <span className="TAG word">试听</span>
+                  </>
+                )
+              }
+              {
+                item.song.privilege.maxbr === 999000
+                && <span className="TAG">SQ</span>
+              }
               {
                 item.song.mvid !== 0
-                && <Link to={`/player/mv/${item.song.mvid}`} className="TAG">MV</Link>
+                && (
+                <Link to={`/player/mv/${item.song.mvid}`} className="TAG">
+                  MV
+                </Link>
+                )
               }
                     &nbsp;
               {
-                item.song.artists.map((artist) => (
-                  <Link
-                    to={`/artist/${artist.id}`}
-                    className="text-gray-400"
-                    key={artist.id}
-                  >
-                    {artist.name}
-
-                  </Link>
+                item.song.artists.map((artist, index) => (
+                  <span key={artist.id} className="text-gray-400">
+                    {index > 0 && ' / '}
+                    <Link
+                      to={`/artist/${artist.id}`}
+                      className="ui_text_gray_hover"
+                    >
+                      {artist.name}
+                    </Link>
+                  </span>
                 ))
               }
             </div>

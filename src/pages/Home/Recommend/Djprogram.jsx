@@ -16,7 +16,7 @@ export default ({ djprogram = [] }) => (
                   alt=""
                 />
               </Lazyload>
-              <div className="mask absolute left-0 right-0 bottom-0 h-1/4 bg-gradient-to-t from-black to-transparent" />
+              <div className="mask absolute left-0 right-0 bottom-0 h-1/4 ui_linear_mask_bottom" />
               <div className="absolute left-0 right-0 bottom-0 p-2">
                 <div className="text-white truncate">
                   {item.program.radio.name}

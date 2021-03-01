@@ -12,12 +12,30 @@
   object-fit: cover;
 }
 
-.ui_select {
-  user-select: text !important;
-}
-
 .ui_themeColor {
   color: var(--themeColor) !important;
+}
+
+.ui_text_gray_hover {
+  color: #9ca3af;
+  &:hover {
+    color: #111827;
+  }
+}
+
+.ui_text_black_hover {
+  color: #555;
+  &:hover {
+    color: #000;
+  }
+}
+
+.ui_linear_mask_top {
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+}
+
+.ui_linear_mask_bottom {
+  background-image: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
 }
 
 .ui_theme_bg_color {
@@ -140,86 +158,13 @@
   .next {}
 }
 
-.ui_recommend_nav {
-  display: flex;
-
-  &_item {
-    position: relative;
-    @include flex-center();
-
-    &:not(:last-of-type) {
-      &::before {
-        content: '';
-        position: absolute;
-        width: 1px;
-        height: 10px;
-        right: 0;
-        background-color: #FCEBEB
-      }
-    }
-  }
-
-  &_link {
-    white-space: nowrap;
-    padding: 4px 8px;
-    margin: 0 4px;
-    color: #666;
-
-    &:hover {
-      color: rgb(14, 10, 10);
-    }
-
-    &.on {
-      color: var(--themeColor);
-      background-color: #FCEBEB
-    }
-
-    border-radius: 1000px;
-  }
-}
-
 .ui_filter {
   .row {
-    display: flex;
-    margin: 10px 0;
-    align-items: baseline;
-
-    .name {
-      flex: none;
-
-    }
-
     .list {
       display: flex;
 
       .item {
         width: 80px;
-        position: relative;
-        @include flex-center();
-
-        &:not(:last-of-type) {
-          &::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            height: 10px;
-            width: 1px;
-            background-color: #ddd;
-          }
-        }
-
-        .btn {
-          white-space: nowrap;
-          padding: 4px 8px;
-          margin: 0 4px;
-          color: #666;
-          border-radius: 1000px;
-
-          &.on {
-            color: var(--themeColor);
-            background-color: #FCEBEB;
-          }
-        }
       }
     }
   }
@@ -312,12 +257,6 @@
       background-color: #CC3232;
     }
   }
-}
-
-.ui_gender {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .ui_header {

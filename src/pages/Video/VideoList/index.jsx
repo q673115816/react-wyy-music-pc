@@ -2,13 +2,9 @@ import React, {
   memo,
   useEffect, useState,
   useRef,
+  useMemo,
 } from 'react';
-import {
-  useParams, NavLink, Link,
-} from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import dayjs from 'dayjs';
-import { transPlayCount } from '@/common/utils';
+import classnames from 'classnames';
 import {
   apiVideoTimelineRecommend,
   apiVideoGroupList,
@@ -16,21 +12,29 @@ import {
   apiVideoGroup,
 } from '@/api';
 import useInfinite from '@/custom/useInfinite';
+import DomGridVideo from '@/components/GridVideo';
+import { setVideoListInit, setVideoListId } from '@/redux/actions';
 import './style.scss';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default memo(() => {
   console.log('videolist');
-  const { id } = useParams();
+  const dispatch = useDispatch();
+  const {
+    id,
+    initStatus,
+    groupList,
+    categoryList,
+  } = useSelector(({ videolist }) => videolist);
   const [videoList, setVideoList] = useState([]);
-  const [groupList, setGroupList] = useState([]);
-  const [categoryList, setCategoryList] = useState([]);
   const [groupListVisibility, setGroupListVisibility] = useState(false);
-  const [currentNav, setCurrentNav] = useState(() => groupList.find((group) => group.id === Number(id))?.name || '全部视频');
+  const currentNav = useMemo(() => groupList.find((group) => group.id === Number(id))?.name, [id]);
 
   const domScroll = useRef();
   const domObserver = useRef();
 
-  const handleInit = async () => {
+  const handlePrevInit = async () => {
+    if (initStatus) return false;
     try {
       const [
         { data: groupList },
@@ -39,11 +43,10 @@ export default memo(() => {
         apiVideoGroupList(),
         apiVideoCategoryList(),
       ]);
-      setGroupList(groupList);
-      setCategoryList(categoryList);
-      setCurrentNav(
-        groupList.find((group) => group.id === Number(id))?.name || '全部视频',
-      );
+      dispatch(setVideoListInit({
+        groupList,
+        categoryList,
+      }));
     } catch (e) {
       console.log(e);
     }
@@ -56,7 +59,14 @@ export default memo(() => {
           id,
         })
         : apiVideoTimelineRecommend());
-      setVideoList((prevList) => [...prevList, ...datas]);
+      setVideoList((prevList) => [...prevList, ...datas.map(({ data }) => ({
+        id: data.vid,
+        cover: data.coverUrl,
+        duration: data.durationms,
+        name: data.title,
+        playCount: data.playTime,
+        creator: data.creator,
+      }))]);
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +78,7 @@ export default memo(() => {
   } = useInfinite(handleAddList, domScroll, domObserver);
 
   useEffect(() => {
-    handleInit();
+    handlePrevInit();
     handleIo();
     return () => {
       handleUnIo();
@@ -76,36 +86,30 @@ export default memo(() => {
   }, []);
 
   useEffect(() => {
-    // handleInitList();
     setVideoList([]);
-    setCurrentNav(
-      groupList.find((group) => group.id === Number(id))?.name || '全部视频',
-    );
-    // setGroupListVisibility(false);
   }, [id]);
 
   const DomSelect = () => (
     <div className="group_select_box absolute top-100 p-5 bg-white overflow-auto shadow">
       <div className="border-b pb-2">
-        <NavLink
-          className="group_select_check text-center rounded-full w-20 h-8 flex-center hover:ui_themeColor"
-          activeClassName="text-red-500 bg-red-50"
-          exact
-          to="/video/videolist"
+        <button
+          type="button"
+          className={classnames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', id === null ? 'text-red-500 bg-red-50' : '')}
+          onClick={() => dispatch(setVideoListId({ id: null }))}
         >
           全部视频
-        </NavLink>
+        </button>
       </div>
       <div className="group_select_list grid grid-cols-6 gap-y-5 p-4">
         {groupList.map((item) => (
-          <NavLink
-            activeClassName="text-red-500 bg-red-50"
-            className="group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor"
+          <button
+            type="button"
+            className={classnames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', item.id === id ? 'text-red-500 bg-red-50' : '')}
             key={item.id}
-            to={`/video/videolist/${item.id}`}
+            onClick={() => dispatch(setVideoListId({ id: item.id }))}
           >
             {item.name}
-          </NavLink>
+          </button>
         ))}
       </div>
     </div>
@@ -120,54 +124,31 @@ export default memo(() => {
             className="group_select_button border rounded-full hover:bg-gray-100 text-sm"
             onClick={() => setGroupListVisibility(!groupListVisibility)}
           >
-            {currentNav}
-            {' '}
+            {currentNav || '全部视频'}
             &gt;
           </button>
           {groupListVisibility
           && <DomSelect />}
         </div>
-        <div className="ui_recommend_nav">
+        <div className="recommend_nav divide-x flex">
           {categoryList.map((item) => (
-            <div className="ui_recommend_nav_item" key={item.id}>
-              <NavLink
-                className="ui_recommend_nav_link"
-                activeClassName="on"
-                to={`/video/videolist/${item.id}`}
+            <div key={item.id}>
+              <button
+                type="button"
+                className={classnames('recommend_nav_link rounded-full px-2 mx-1', id === item.id ? 'bg-red-50 text-red-500' : 'ui_text_black_hover')}
+                onClick={() => dispatch(setVideoListId({ id: item.id }))}
               >
                 {item.name}
-              </NavLink>
+              </button>
             </div>
           ))}
         </div>
       </div>
-      <div className="domVideoList_list mt-5 grid gap-4 grid-cols-3">
-        {videoList.map(({ data }) => (
-          <div className="item" key={data.vid}>
-            <div className="cover ui_aspect-ratio-16/9 rounded relative overflow-hidden">
-              <Link to={`/player/video/${data.vid}`}>
-                <img className="" src={data.coverUrl} alt="" />
-                <div className="absolute top-0 right-0 text-white p-2">
-                  {transPlayCount(data.playTime)}
-                </div>
-                <div className="absolute bottom-0 right-0 text-white p-2">
-                  {dayjs(data.durationms).format('mm:ss')}
-                </div>
-              </Link>
-            </div>
-            <div className="mt-2 truncate">
-              <Link to={`/player/video/${data.vid}`} title={data.title} className="">
-                {data.title}
-              </Link>
-            </div>
-            <div className="creator mt-1 text-gray-300">
-              by&nbsp;
-              <Link to={`/user/${data.creator.userId}`} className="hover:text-gray-500">
-                {data.creator.nickname}
-              </Link>
-            </div>
-          </div>
-        ))}
+      <div className="my-4">
+        <DomGridVideo
+          list={videoList}
+          type="video"
+        />
       </div>
       <div ref={domObserver} />
     </div>

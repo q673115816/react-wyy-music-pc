@@ -7,6 +7,7 @@ export default (scrollCallback, domScroll, domObserver) => {
     io.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
+          console.log('isIntersecting');
           scrollCallback();
         }
       });

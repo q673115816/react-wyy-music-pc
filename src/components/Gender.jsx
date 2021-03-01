@@ -5,7 +5,7 @@ const svgFamale = require('@/assets/images/famale.svg');
 
 export const DomMale = ({ size = 0 }) => (
   <span
-    className="ui_gender rounded-full p-0.5"
+    className="inline-flex items-center justify-center rounded-full p-0.5"
     style={{
       backgroundColor: '#BCEFFB',
       width: size,
@@ -18,7 +18,7 @@ export const DomMale = ({ size = 0 }) => (
 
 export const DomFamale = ({ size = 0 }) => (
   <span
-    className="ui_gender rounded-full p-0.5"
+    className="inline-flex items-center justify-center rounded-full p-0.5"
     style={{
       backgroundColor: '#FBC9E4',
       width: size,

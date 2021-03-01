@@ -1,14 +1,6 @@
 .domAllMv {
-  display: flex;
-  flex-direction: column;
-
   &_header {
-    flex: none;
     height: 60px;
-    padding: 20px 30px;
-  }
-
-  &_main {
-    padding: 0 30px;
+    line-height: 60px;
   }
 }

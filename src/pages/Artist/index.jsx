@@ -83,8 +83,8 @@ export default () => {
           <img src={`${detail.artist.cover}?param=200y200`} alt="" />
         </div>
         <div className="content flex-auto px-5">
-          <div className="name h1 ui_select">{detail.artist.name}</div>
-          <div className="enname ui_select">{detail.alias?.map((alia) => alia)}</div>
+          <div className="name h1 select-text">{detail.artist.name}</div>
+          <div className="enname select-text">{detail.alias?.map((alia) => alia)}</div>
           <div className="actions flex space-x-2">
             {artistSublist.find((item) => item.id === Number(id))
               ? (

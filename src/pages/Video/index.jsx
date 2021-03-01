@@ -28,14 +28,8 @@ export default () => {
         </NavLink>
       </div>
       <Switch>
-        <Route path={`${url}/videolist/:id`}>
-          <VideoList />
-        </Route>
         <Route path={`${url}/videolist`}>
           <VideoList />
-        </Route>
-        <Route path={`${url}/mvlist/:id`}>
-          <MvList />
         </Route>
         <Route path={`${url}/mvlist`}>
           <MvList />

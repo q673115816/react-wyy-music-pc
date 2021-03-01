@@ -1,74 +1,15 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useMemo } from 'react';
 import { apiMvSublist } from '@/api';
-import dayjs from 'dayjs';
-import { transPlayCount } from '@/common/utils';
 import Search from '@/components/HeaderBarSearch';
+import DomGridVideo from '@/components/GridVideo';
 import useInit from './useInit';
 import Empty from './components/Empty';
 
 const NAME = '视频';
 
-const ListBuild = (filter, search) => {
-  if (search && filter.length === 0) {
-    return (
-      <Empty>
-        未能找到与“
-        {search}
-        ”相关的任何
-        {NAME}
-      </Empty>
-    );
-  }
-  if (filter.length > 0) {
-    return (
-      <div className="grid grid-cols-3 gap-5">
-        {filter.map((item) => (
-          <div className="item" key={item.vid}>
-            <div className="cover relative rounded overflow-hidden">
-              <Link to={`/player/video/${item.vid}`}>
-                <img className="" src={item.coverUrl} alt="" />
-                <div className="absolute top-0 right-0 my-1 mx-2 text-white">
-                  {transPlayCount(item.playTime)}
-                </div>
-                <div className="absolute bottom-0 right-0 my-1 mx-2 text-white">
-                  {dayjs(item.durationms).format('mm:ss')}
-                </div>
-              </Link>
-            </div>
-            <div className="footer truncate text-sm mt-1">
-              <Link
-                to={`/player/video/${item.vid}`}
-                className=""
-              >
-                {item.title}
-              </Link>
-            </div>
-            <div className="text creator text-gray-300">
-              by &nbsp;
-              <Link
-                to={`/user/${item.creator[0].userId}`}
-                className="hover:text-gray-500"
-              >
-                {item.creator[0].userName}
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
-  return (
-    <Empty>
-      暂无收藏
-      {NAME}
-    </Empty>
-  );
-};
-
 const filterRule = (data, search) => data
   .filter((item) => item.title.indexOf(search) >= 0
-  || item.creator.find((creator) => creator.userName.indexOf(search) >= 0));
+    || item.creator.find((creator) => creator.userName.indexOf(search) >= 0));
 
 export default () => {
   const {
@@ -77,6 +18,19 @@ export default () => {
     search,
     filter,
   } = useInit(apiMvSublist, filterRule);
+
+  const memoFilter = useMemo(() => filter.map((item) => ({
+    id: item.vid,
+    cover: item.coverUrl,
+    playCount: item.playTime,
+    duration: item.durationms,
+    name: item.title,
+    type: item.type,
+    creator: {
+      userId: item.creator[0].userId,
+      nickname: item.creator[0].userName,
+    },
+  })), [filter, search]);
   return (
     <>
       <div className="ui_headerBar">
@@ -92,7 +46,21 @@ export default () => {
         </div>
       </div>
       <div className="domSublist_grid">
-        {ListBuild(filter, search)}
+        {(search && filter.length === 0)
+          ? (
+            <Empty>
+              未能找到与“
+              {search}
+              ”相关的任何
+              {NAME}
+            </Empty>
+          )
+          : (
+            <DomGridVideo
+              list={memoFilter}
+              type="video"
+            />
+          )}
       </div>
     </>
   );

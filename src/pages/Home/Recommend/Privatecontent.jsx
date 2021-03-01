@@ -9,7 +9,7 @@ export default ({ privatecontent = [] }) => (
       privatecontent.map((item) => (
         <div className="item" key={item.id}>
           <div className="cover relative rounded overflow-hidden">
-            <Link to={`/player/mv${item.id}`}>
+            <Link to={`/player/mv/${item.id}`}>
               <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black bg-opacity-40 flex-center border border-gray-200">
                 <IconPlayerPlay size={14} className="fill-current" />
               </span>
@@ -19,7 +19,9 @@ export default ({ privatecontent = [] }) => (
             </Link>
           </div>
           <div className="name text-sm loading-4 mt-2">
-            <Link to="/">{item.name}</Link>
+            <Link to={`/player/mv/${item.id}`}>
+              {item.name}
+            </Link>
           </div>
         </div>
       ))

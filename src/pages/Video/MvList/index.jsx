@@ -1,11 +1,12 @@
 import React, {
-  useEffect, useMemo, useState, useRef, memo,
+  useEffect, useState, memo,
 } from 'react';
 import './style.scss';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import {
   IconArrowDown, IconArrowUp, IconMinus, IconFlame,
+  IconChevronRight,
 } from '@tabler/icons';
 import {
   apiMvFirst,
@@ -13,14 +14,18 @@ import {
   apiMvExclusiveRcmd,
   apiTopMv,
 } from '@/api';
-import { transPlayCount } from '@/common/utils';
+import DomGridVideo from '@/components/GridVideo';
 
 const BuildLastRank = (lastRank, currentRank) => {
   if (lastRank < currentRank) {
     return <IconArrowDown size={8} />;
   }
   if (lastRank > currentRank) {
-    return <span className="ui_red"><IconArrowUp size={8} /></span>;
+    return (
+      <span className="ui_red">
+        <IconArrowUp size={8} />
+      </span>
+    );
   }
   return <IconMinus size={8} />;
 };
@@ -41,6 +46,7 @@ export default memo(() => {
   const [mvHot, setMvHot] = useState([]);
   const [mvWy, setMvWy] = useState([]);
   const [mvTop, setMvTop] = useState([]);
+  const [loading, setLoading] = useState(true);
   const handleInit = async () => {
     try {
       const [
@@ -57,6 +63,7 @@ export default memo(() => {
       ]);
       setMvHot(hot);
       setMvWy(wy);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -97,152 +104,73 @@ export default memo(() => {
   useEffect(() => {
     handleGetTopArea();
   }, [topArea]);
+  // if (loading) return <div>loading</div>;
   return (
     <div className="domVideoList_content overflow-auto max-h-full flex-auto">
-
       <div className="domMvList_sublist">
         <div className="domMvList_header mb-5 flex justify-between items-center">
           <Link
             to={`/allmv?order=最新&area=${firstArea}`}
-            className="domMvList_subLink font-bold text-base"
+            className="domMvList_subLink font-bold text-base flex items-center"
           >
-            最新MV &gt;
-
+            最新MV
+            <IconChevronRight size={20} />
           </Link>
-          <div className="ui_recommend_nav">
+          <div className="recommend_nav flex divide-x space-x-1">
             {
               category.map((item) => (
-                <div className="ui_recommend_nav_item" key={item}>
+                <div className="item" key={item}>
                   <button
                     onClick={() => setFirstArea(item)}
                     type="button"
-                    className={classnames('ui_recommend_nav_link', { on: firstArea === item })}
+                    className={classnames('link rounded-full px-2.5', firstArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
                   >
                     {item}
-
                   </button>
                 </div>
               ))
             }
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          {mvFirst.map((item) => (
-            <div className="item" key={item.id}>
-              <div className="cover relative ui_aspect-ratio-16/9 rounded overflow-hidden">
-                <Link to={`/player/mv/${item.id}`} className="absolute inset-0">
-                  <img className="h-full object-cover w-full" src={item.cover} alt="" />
-                  <div className="absolute top-0 right-0 p-2 text-white">
-                    {transPlayCount(item.playCount)}
-                  </div>
-                </Link>
-              </div>
-              <div className="mt-2 truncate">
-                <Link to={`/player/mv/${item.id}`} className="text-sm text-black text-opacity-90 hover:text-opacity-100">
-                  {item.name}
-                </Link>
-              </div>
-              <div className="mt-1 truncate">
-                {
-                  item.artists.map((artist, index) => (
-                    <>
-                      {index > 0 && ' / '}
-                      <Link to={`/artist/${artist.id}`} className="text-gray-500 hover:text-gray-700">
-                        {artist.name}
-                      </Link>
-                    </>
-                  ))
-                }
-              </div>
-            </div>
-          ))}
-        </div>
+        <DomGridVideo list={mvFirst} type="mv" />
       </div>
-
       <div className="domMvList_sublist">
         <div className="domMvList_header mb-5 flex justify-between items-center">
           <Link
             to="/allmv?order=最热"
-            className="domMvList_subLink font-bold text-base"
+            className="domMvList_subLink font-bold text-base flex items-center"
           >
-            热播MV &gt;
+            热播MV
+            <IconChevronRight size={20} />
           </Link>
         </div>
-        <div className="grid grid-cols-3 gap-4">
-          {mvHot.map((item) => (
-            <div className="item" key={item.id}>
-              <div className="cover relative rounded overflow-hidden">
-                <Link to={`/player/mv/${item.id}`}>
-                  <img className="ui_coverimg" src={item.cover} alt="" />
-                  <div className="absolute top-0 right-0 p-2 text-white">
-                    {transPlayCount(item.playCount)}
-                  </div>
-                </Link>
-              </div>
-              <div className="mt-2 truncate">
-                <Link to={`/player/mv/${item.id}`} className="text-sm text-black text-opacity-90 hover:text-opacity-100">
-                  {item.name}
-                </Link>
-              </div>
-              <div className="mt-1 truncate">
-                {
-                  item.artists.map((artist, index) => (
-                    <>
-                      {index > 0 && ' / '}
-                      <Link to={`/artist/${artist.id}`} className="text-gray-500 hover:text-gray-700">
-                        {artist.name}
-                      </Link>
-                    </>
-                  ))
-                }
-              </div>
-            </div>
-          ))}
-        </div>
+        <DomGridVideo list={mvHot} type="mv" />
       </div>
       <div className="domMvList_sublist">
         <div className="domMvList_header mb-5 flex justify-between items-center">
           <Link
             to="/allmv?type=网易出品&order=最新"
-            className="domMvList_subLink font-bold text-base"
+            className="domMvList_subLink font-bold text-base flex items-center"
           >
-            网易出品 &gt;
-
+            网易出品
+            <IconChevronRight size={20} />
           </Link>
         </div>
-        <div className="ui_grid rectangle_width col_3">
-          {mvWy.map((item) => (
-            <div className="item" key={item.id}>
-              <div className="cover">
-                <div className="inner">
-                  <Link to={`/player/mv/${item.id}`}>
-                    <img className="ui_coverimg" src={item.cover} alt="" />
-                    <div className="rt whitetext">
-                      {transPlayCount(item.playCount)}
-                    </div>
-                  </Link>
-                </div>
-              </div>
-              <div className="footer">
-                <Link to={`/player/mv/${item.id}`}>
-                  {item.name}
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-
+        <DomGridVideo list={mvWy} type="mv" />
       </div>
       <div className="domMvList_header mb-5 flex justify-between items-center">
-        <Link to="/allmv/" className="domMvList_subLink font-bold text-base">MV排行榜 &gt;</Link>
-        <div className="ui_recommend_nav">
+        <Link to="/allmv/" className="domMvList_subLink font-bold text-base flex items-center">
+          MV排行榜
+          <IconChevronRight size={20} />
+        </Link>
+        <div className="recommend_nav flex divide-x space-x-1">
           {
             category.map((item) => (
-              <div className="ui_recommend_nav_item" key={item}>
+              <div className="item" key={item}>
                 <button
-                  onClick={() => setTopArea(item)}
+                  onClick={() => setFirstArea(item)}
                   type="button"
-                  className={classnames('ui_recommend_nav_link', { on: topArea === item })}
+                  className={classnames('link rounded-full px-2.5', firstArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
                 >
                   {item}
                 </button>
@@ -273,21 +201,22 @@ export default memo(() => {
             </div>
             <div className="aside flex-auto w-px px-2">
               <div className="name truncate">
-                <Link to={`/player/mv/${item.id}`} className="text-sm text-black text-opacity-90 hover:text-opacity-100">{item.name}</Link>
+                <Link to={`/player/mv/${item.id}`} className="text-sm ui_text_black_hover">
+                  {item.name}
+                </Link>
               </div>
-              <div className="artists mt-4 truncate">
+              <div className="artists mt-4 truncate text-gray-300">
                 {
                   item.artists.map((artist, index) => (
-                    <>
+                    <span key={artist.id}>
                       {index > 0 && ' / '}
                       <Link
                         to={`/artist/${artist.id}`}
-                        key={artist.id}
-                        className="text-gray-500 hover:text-gray-700"
+                        className="ui_text_gray_hover"
                       >
                         {artist.name}
                       </Link>
-                    </>
+                    </span>
                   ))
                 }
               </div>

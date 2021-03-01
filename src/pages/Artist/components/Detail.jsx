@@ -21,18 +21,18 @@ export default ({ id }) => {
       <div className="domArtist_subtitle select-text">
         简介
       </div>
-      <div className="domArtist_article text-gray-400 select-text">
+      <div className="domArtist_article text-gray-500 select-text">
         {desc.briefDesc}
       </div>
       <br />
       <br />
       {
         desc.introduction?.map((introduction) => (
-          <div key={introduction.txt}>
-            <div className="domArtist_subtitle ui_select">
+          <div key={introduction.ti} className="select-text">
+            <div className="domArtist_subtitle">
               {introduction.ti}
             </div>
-            <div className="domArtist_article whitespace-pre-line select-text">
+            <div className="domArtist_article text-gray-500 whitespace-pre-line">
               {introduction.txt}
             </div>
           </div>

@@ -111,7 +111,7 @@ const BuildMyContent = (msg) => {
     );
   }
   return (
-    <div className="text ui_select">
+    <div className="text select-text">
       {msg.title
         && (
           <>

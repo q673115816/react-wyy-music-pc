@@ -25,28 +25,34 @@ export default ({ item = {}, handleLike }) => (
           {item.user.nickname}
           ：
         </Link>
-        <span className="ui_comment_text select-text">
-          {item.content}
-          {/* {transTextEmoji()} */}
+        <span className="ui_comment_text select-text text-gray-500">
+          {transTextEmoji(item.content)}
         </span>
       </div>
       {
           item.beReplied.map((beReplied) => (
             <div
-              className="ui_comment_beReplied"
+              className="ui_comment_beReplied p-2 bg-gray-100 mt-2"
               key={beReplied.beRepliedCommentId}
             >
-              <Link
-                className="ui_link"
-                to={`/user/${beReplied.user.userId}`}
-              >
-                {beReplied.user.nickname}
-                ：
-              </Link>
-              <span className="ui_comment_text">
-                {beReplied.content}
-                {/* {transTextEmoji(beReplied.content)} */}
-              </span>
+              {
+                beReplied.content
+                  ? (
+                    <>
+                      <Link
+                        className="ui_link"
+                        to={`/user/${beReplied.user.userId}`}
+                      >
+                        {beReplied.user.nickname}
+                        ：
+                      </Link>
+                      <span className="ui_comment_text select-text text-gray-500">
+                        {transTextEmoji(beReplied.content)}
+                      </span>
+                    </>
+                  )
+                  : <div className="text-center select-text text-gray-500">该评论已删除</div>
+              }
             </div>
           ))
         }
@@ -56,14 +62,14 @@ export default ({ item = {}, handleLike }) => (
         </span>
         <div className="ui_comment_actions ml-auto flex items-center">
           <div className="ui_comment_inform">
-            <button type="button" className="hidden group-hover:black text-gray-600 hover:text-black">
+            <button type="button" className="opacity-0 group-hover:opacity-100 ui_text_black_hover">
               举报
             </button>
             <i className="ui_comment_split" />
           </div>
           <button
             type="button"
-            className="flex-center text-gray-600 hover:text-black"
+            className="flex-center ui_text_black_hover"
             onClick={() => handleLike(item.commentId, !item.liked)}
           >
             {item.liked
@@ -72,11 +78,11 @@ export default ({ item = {}, handleLike }) => (
             {item.likedCount}
           </button>
           <i className="ui_comment_split" />
-          <button type="button" className="flex-center text-gray-600 hover:text-black">
+          <button type="button" className="flex-center ui_text_black_hover">
             <IconScreenShare size={16} stroke={1} />
           </button>
           <i className="ui_comment_split" />
-          <button type="button" className="flex-center text-gray-600 hover:text-black">
+          <button type="button" className="flex-center ui_text_black_hover">
             <IconMessageCircle size={16} stroke={1} />
           </button>
         </div>

@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useRouteMatch, Link, useLocation } from 'react-router-dom';
-import { transPlayCount } from '@/common/utils';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { apiMvAll } from '@/api';
 import './style.scss';
 import classnames from 'classnames';
+
+import DomGridVideo from '@/components/GridVideo';
+import useInfinite from '@/custom/useInfinite';
 
 const filters = [
   ['area', '地区', ['全部', '内地', '港台', '欧美', '韩国', '日本']],
@@ -20,8 +22,12 @@ export default () => {
     order: '上升最快',
   };
 
-  const queryString = new URLSearchParams(search);
+  const limit = 30;
+  const offset = useRef(0);
 
+  const queryString = new URLSearchParams(search);
+  const domScroll = useRef();
+  const domObserver = useRef();
   for (const [k, v] of queryString) {
     defaultSearch[k] = v;
   }
@@ -30,40 +36,57 @@ export default () => {
 
   const handleInit = async () => {
     try {
-      const { data } = await apiMvAll(defaultSearch);
-      setData(data);
+      const { data } = await apiMvAll({
+        ...defaultSearch,
+        limit,
+        offset: offset.current,
+      });
+      offset.current += limit;
+      setData((prev) => [...prev, ...data]);
     } catch (error) {
       console.log(error);
     }
   };
+  const {
+    handleIo,
+    handleUnIo,
+  } = useInfinite(handleInit, domScroll, domObserver);
 
   useEffect(() => {
-    handleInit();
+    // handleInit();
+    handleIo();
+    return () => {
+      handleUnIo();
+    };
   }, [search]);
 
+  // useEffect(() => {
+  //   handleInit();
+  // }, [search]);
+
   return (
-    <div className="domAllMv">
+    <div className="domAllMv overflow-auto h-full px-8" ref={domScroll}>
       <div className="domAllMv_header">
         <Link to="./" className="h1 title">
           全部MV
         </Link>
       </div>
-      <div className="domAllMv_main overflow-auto max-h-full flex-auto">
+      <div className="domAllMv_main flex-auto">
         <div className="ui_filter">
           {
             filters.map((filter) => (
-              <div className="row">
-                <div className="name">
+              <div className="row flex my-2.5" key={filter[1]}>
+                <div className="name flex-none">
                   {filter[1]}
                   :
                 </div>
-                <div className="list">
+                <div className="list divide-x">
                   {
                     filter[2].map((item) => (
-                      <div className="item">
+                      <div className="item flex-center" key={item}>
                         <Link
                           to={`/allmv?${new URLSearchParams({ ...defaultSearch, ...{ [filter[0]]: item } })}`}
-                          className={classnames('btn', { on: item === defaultSearch[filter[0]] })}
+                          className={classnames('btn rounded-full leading-5 px-3 whitespace-nowrap', item === defaultSearch[filter[0]] ? 'bg-red-50 text-red-500' : 'ui_text_gray_hover')}
                         >
                           {item}
                         </Link>
@@ -75,28 +98,10 @@ export default () => {
             ))
           }
         </div>
-        <div className="ui_grid rectangle_width col_3">
-          {data.map((item) => (
-            <div className="item" key={item.id}>
-              <div className="cover">
-                <div className="inner">
-                  <Link to={`/player/mv/${item.id}`}>
-                    <img className="ui_containimg" src={item.cover} alt="" />
-                    <div className="rt whitetext">
-                      {transPlayCount(item.playCount)}
-                    </div>
-                  </Link>
-                </div>
-              </div>
-              <div className="footer">
-                {item.name}
-              </div>
-              <div className="text text-gray-400">
-                {item.artistName}
-              </div>
-            </div>
-          ))}
+        <div className="py-1">
+          <DomGridVideo list={data} type="mv" />
         </div>
+        <div ref={domObserver} />
       </div>
     </div>
   );

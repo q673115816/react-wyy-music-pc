@@ -137,5 +137,7 @@ const faces = kv_face.map((obj) => Object.keys(obj).map((key) => [key, obj[key]]
 //
 const reg = kv_face.reduce((prev, obj) => prev += Object.keys(obj).reduce((prev, key) => `${prev + key}|`, ''), '').slice(0, -1);
 
-export const transTextEmoji = (text = '') => text.replace(new RegExp(`\\[(${reg})\\]`, 'g'), (reg, $1) => hashfaces[$1]);
+export const transTextEmoji = (text = '') =>
+  // console.log(text);
+  text.replace(new RegExp(`\\[(${reg})\\]`, 'g'), (reg, $1) => hashfaces[$1]);
 export default faces;

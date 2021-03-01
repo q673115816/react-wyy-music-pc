@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { transPlayCount } from '@/common/utils';
 import { apiArtistMv } from '@/api';
 import useInfinite from '@/custom/useInfinite';
+import DomGridVideo from '@/components/GridVideo';
 
 export default memo(({ id }) => {
   const [MVs, setMVs] = useState([]);
@@ -40,31 +41,7 @@ export default memo(({ id }) => {
   }, []);
   return (
     <div className="domArtist_section">
-      <div className="grid grid-cols-3 gap-5">
-        {MVs.map((item) => (
-          <div className="item" key={item.id}>
-            <div className="cover relative rounded overflow-hidden ui_aspect-ratio-16/9">
-              <Link
-                to={`/player/mv/${item.id}`}
-                className="absolute inset-0"
-              >
-                <img src={item.imgurl} className="object-cover h-full w-full" alt="" />
-                <div className="absolute top-0 right-0 m-1 text-white">
-                  {transPlayCount(item.playCount)}
-                </div>
-                <div className="absolute bottom-0 right-0 m-1 text-white">
-                  {dayjs(item.duration).format('mm:ss')}
-                </div>
-              </Link>
-            </div>
-            <div className="footer truncate text-sm mt-2">
-              <Link to={`/player/mv/${item.id}`} title={item.name}>
-                {item.name}
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+      <DomGridVideo list={MVs} type="mv" options={{ src: 'imgurl', duration: 'duration' }} />
       <div ref={domObserver} />
     </div>
   );

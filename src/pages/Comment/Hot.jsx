@@ -5,10 +5,12 @@ import { useParams } from 'react-router-dom';
 import { apiCommentHot, apiCommentLike } from '@/api';
 import DomComment from '@/components/Comment';
 import useInfinite from '@/custom/useInfinite';
+import DomLoading from '@/components/Loading';
 
 export default memo(() => {
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
   const offset = useRef(0);
   const domObserver = useRef();
   const domScroll = useRef();
@@ -36,13 +38,16 @@ export default memo(() => {
     }
   };
   const handleInit = async () => {
+    if (!hasMore) return false;
     try {
-      const { hotComments } = await apiCommentHot({
+      const { hotComments, hasMore } = await apiCommentHot({
         id,
         type: 0,
         limit,
         offset: offset.current,
       });
+      setHasMore(hasMore);
+
       offset.current += limit;
       // const a = [...data, ...hotComments];
       // console.log(data.concat(hotComments));
@@ -78,6 +83,10 @@ export default memo(() => {
             key={item.commentId}
           />
         ))}
+        {
+          hasMore
+          && <div className="flex justify-center py-4"><DomLoading /></div>
+        }
         <div ref={domObserver} />
       </div>
     </div>
