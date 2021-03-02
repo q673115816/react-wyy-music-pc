@@ -8,7 +8,6 @@
 
     .cover {
       position: relative;
-      // width: 70px;
       height: 70px;
       border-radius: 4px;
       overflow: hidden;
@@ -27,27 +26,6 @@
     .content {
       padding: 6px 20px;
 
-      .title {
-        font-size: 22px;
-      }
-
-      .info {
-        margin-top: 1em;
-        color: #999;
-      }
-    }
-  }
-
-  &_write {
-    margin-top: 30px;
-
-    &_actions {
-      margin-top: 10px;
-      display: flex;
-
-      .right {
-        margin-left: auto;
-      }
     }
   }
 

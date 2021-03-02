@@ -1,3 +1,4 @@
+import produce from 'immer';
 import { SET_VIDEO_LIST_INIT, SET_VIDEO_LIST_ID } from './actionTypes';
 
 const initialState = {

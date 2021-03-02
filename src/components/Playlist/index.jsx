@@ -4,7 +4,11 @@ import classnames from 'classnames';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import {
-  IconTrash, IconFolderPlus, IconLink, IconPlayerPlay, IconPlayerPause,
+  IconTrash,
+  IconFolderPlus,
+  IconLink,
+  IconPlayerPlay,
+  IconPlayerPause,
 } from '@tabler/icons';
 import { setAudioPlaylistClear, setAudioHistoryClear } from '@/reducers/audio/actions';
 import { setPopup } from '@/reducers/common/actions';
@@ -12,11 +16,17 @@ import { setPopup } from '@/reducers/common/actions';
 const Empty = () => {
   const dispatch = useDispatch();
   return (
-    <div className="empty">
-      <div className="text-gray-400 text">您还没添加任何歌曲！</div>
-      <div className="text-gray-400">
+    <div className="empty w-min m-auto pt-20 whitespace-nowrap">
+      <div className="text-gray-400 text-sm text">您还没添加任何歌曲！</div>
+      <div className="text-gray-400 mt-6">
         去首页
-        <Link to="/" onClick={() => dispatch(setPopup({ popupStatus: '' }))}>发现音乐</Link>
+        <Link
+          to="/"
+          className="ui_text_black_hover underline"
+          onClick={() => dispatch(setPopup({ popupStatus: '' }))}
+        >
+          发现音乐
+        </Link>
       </div>
     </div>
   );
@@ -125,7 +135,7 @@ export default () => {
     }
   };
   return (
-    <div id="playlist">
+    <div id="playlist" className="absolute right-0 shadow bg-white">
       <div className="p-6">
         <div className="nav">
           <button
@@ -143,13 +153,13 @@ export default () => {
             历史记录
           </button>
         </div>
-        <div className="actions">
+        <div className="actions flex items-center pb-2.5 border-b">
           <span className="text-gray-400">
             总
             {audio[current].length}
             首
           </span>
-          <div className="right divide-x">
+          <div className="right ml-auto flex divide-x">
             {
               current === 'playlist'
               && (

@@ -19,7 +19,7 @@ export default ({
         className="textarea border rounded px-2 py-1"
         placeholder={placeholder}
       />
-      <span className={classnames('length absolute right-1 bottom-1', n > length ? 'red' : 'text-gray-400')}>
+      <span className={classnames('length absolute right-0 bottom-0 mx-2', n > length ? 'red' : 'text-gray-300')}>
         {length - n}
       </span>
     </div>

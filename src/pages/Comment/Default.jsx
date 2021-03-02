@@ -7,6 +7,7 @@ import {
 import { apiCommentMusic, apiSongDetail, apiCommentLike } from '@/api';
 import DomWrite from '@/components/Write';
 import DomComment from '@/components/Comment';
+import DomLoading from '@/components/Loading';
 
 export default memo(() => {
   const { id } = useParams();
@@ -83,7 +84,7 @@ export default memo(() => {
     handleInit();
   }, []);
 
-  if (loading) return <div>loading</div>;
+  if (loading) return <div className="w-full h-full flex-center"><DomLoading /></div>;
   return (
     <div className="domComment overflow-auto max-h-full flex-auto">
       <div className="domComment_header">
@@ -95,11 +96,11 @@ export default memo(() => {
             </div>
           </div>
           <div className="content">
-            <div className="title">{detail.name}</div>
-            <div className="info">
+            <div className="title text-lg">{detail.name}</div>
+            <div className="info text-gray-500 mt-2">
               专辑：
               <Link
-                className="text-gray-600 hover:text-black"
+                className="ui_text_gray_hover"
                 to={`/playlist/album/${detail.al.id}`}
               >
                 {detail.al?.name}
@@ -114,7 +115,7 @@ export default memo(() => {
                   <span key={item.id}>
                     {index > 0 && ' / '}
                     <Link
-                      className="text-gray-600 hover:text-black"
+                      className="ui_text_gray_hover"
                       to={`/artist/${item.id}`}
                     >
                       {item.name}
@@ -125,9 +126,9 @@ export default memo(() => {
             </div>
           </div>
         </div>
-        <div className="domComment_write">
+        <div className="domComment_write mt-4">
           <DomWrite {...{ value, setValue, length: 140 }} />
-          <div className="domComment_write_actions">
+          <div className="domComment_write_actions flex mt-2.5">
             <div className="flex space-x-2">
               <button type="button" className="text-gray-500 hover:text-black">
                 <IconMoodSmile size={20} stroke={1.5} />
@@ -139,7 +140,7 @@ export default memo(() => {
                 <IconHash size={20} stroke={1.5} />
               </button>
             </div>
-            <button type="button" className="ui_btn right">评论</button>
+            <button type="button" className="ui_btn ml-auto">评论</button>
           </div>
         </div>
       </div>

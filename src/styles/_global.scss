@@ -19,30 +19,6 @@
   }
 }
 
-// @mixin scrollbar {
-
-//   /*滚动条样式*/
-//   &::-webkit-scrollbar {
-//     width: 4px;
-//     /*height: 4px;*/
-//   }
-
-//   &::-webkit-scrollbar-thumb {
-//     border-radius: 10px;
-//     background: #E1E1E1;
-//   }
-
-//   &::-webkit-scrollbar-track-piece {
-//     background-color: #fff;
-//   }
-// }
-
-// @mixin text-overflow {
-//   overflow: hidden;
-//   white-space: nowrap;
-//   text-overflow: ellipsis;
-// }
-
 @mixin ellipse($line: 2) {
   display: -webkit-box;
   /*! autoprefixer: ignore next */

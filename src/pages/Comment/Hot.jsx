@@ -10,7 +10,7 @@ import DomLoading from '@/components/Loading';
 export default memo(() => {
   const { id } = useParams();
   const [data, setData] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+  const refHasMore = useRef(true);
   const offset = useRef(0);
   const domObserver = useRef();
   const domScroll = useRef();
@@ -38,7 +38,7 @@ export default memo(() => {
     }
   };
   const handleInit = async () => {
-    if (!hasMore) return false;
+    if (!refHasMore.current) return false;
     try {
       const { hotComments, hasMore } = await apiCommentHot({
         id,
@@ -46,7 +46,7 @@ export default memo(() => {
         limit,
         offset: offset.current,
       });
-      setHasMore(hasMore);
+      refHasMore.current = hasMore;
 
       offset.current += limit;
       // const a = [...data, ...hotComments];
@@ -84,7 +84,7 @@ export default memo(() => {
           />
         ))}
         {
-          hasMore
+          refHasMore.current
           && <div className="flex justify-center py-4"><DomLoading /></div>
         }
         <div ref={domObserver} />
