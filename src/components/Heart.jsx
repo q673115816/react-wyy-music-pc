@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconHeart } from '@tabler/icons';
 import { apiLike } from '@/api';
-import { setToast } from '@/redux/actions';
+import { setToast } from '@/reducers/mask/actions';
 
 export default ({ item = {} }) => {
   const dispatch = useDispatch();

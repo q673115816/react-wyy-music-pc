@@ -3,7 +3,7 @@ import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
-import { setLoginVisibilty } from '@/redux/actions';
+import { setLoginVisibilty } from '@/reducers/common/actions';
 import useIsLogin from '@/custom/useIsLogin';
 
 import DomNormal from './components/Normal';
@@ -31,23 +31,26 @@ const BuildBinding = (item) => {
 
 };
 
-const DomAccountLogined = ({ bindings = [], profile = {} }) => (
-  <>
-    <div className="">
-      {
+const DomAccountLogined = () => {
+  const { profile, bindings } = useSelector(({ account }) => account);
+  return (
+    <>
+      <div className="">
+        {
         bindings.map((item) => BuildBinding(item))
       }
-    </div>
-    <div>
-      <Link to={`/user/${profile.userId}/edit`} className="inline-block rounded-full px-3 py-1 border mr-2 hover:bg-gray-100">
-        修改个人信息
-      </Link>
-      <Link to="/friend/invite" className="inline-block rounded-full px-3 py-1 border hover:bg-gray-100">
-        寻找并邀请好友
-      </Link>
-    </div>
-  </>
-);
+      </div>
+      <div>
+        <Link to={`/user/${profile.userId}/edit`} className="inline-block rounded-full px-3 py-1 border mr-2 hover:bg-gray-100">
+          修改个人信息
+        </Link>
+        <Link to="/friend/invite" className="inline-block rounded-full px-3 py-1 border hover:bg-gray-100">
+          寻找并邀请好友
+        </Link>
+      </div>
+    </>
+  );
+};
 
 const DomAccountUnLogined = ({ }) => {
   const dispatch = useDispatch();
@@ -72,7 +75,6 @@ export default () => {
 
   const [isLogin] = useIsLogin();
 
-  const { profile, bindings } = useSelector(({ account }) => account);
   // const main = useRef();
   // const [activeSetting, setActiveSetting] = useState('账号');
 
@@ -115,7 +117,7 @@ export default () => {
         <div data-title="账号">
           {
             isLogin
-              ? <DomAccountLogined bindings={bindings} profile={profile} />
+              ? <DomAccountLogined />
               : <DomAccountUnLogined />
           }
         </div>

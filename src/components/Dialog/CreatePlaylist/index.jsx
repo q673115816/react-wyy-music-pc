@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { apiPlaylistCreate } from '@/api';
 import classnames from 'classnames';
-import { setDialogReset } from '@/redux/actions';
+import { setDialogReset } from '@/reducers/mask/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import DomCheckbox from '@/components/Checkbox';
 import HOCDialog from '../Dialog';

@@ -1,6 +1,6 @@
 import React, { useReducer, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setDialogReset } from '@/redux/actions';
+import { setDialogReset } from '@/reducers/mask/actions';
 import { IconX } from '@tabler/icons';
 import DomMask from '@/components/Mask';
 

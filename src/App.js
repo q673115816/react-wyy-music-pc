@@ -4,7 +4,7 @@ import React, {
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDialogReset, setGlobalInset } from '@/redux/actions';
+import { setGlobalInset } from '@/reducers/mask/actions';
 import { IconChevronDownRight } from '@tabler/icons';
 import DomPlayer from './pages/Player';
 import './styles/index.scss';
@@ -19,7 +19,7 @@ import DialogUploadAvatar from './components/Dialog/UploadAvatar';
 import DialogCreatePlaylist from './components/Dialog/CreatePlaylist';
 import DialogUnSubscription from './components/Dialog/UnSubscription';
 import Playlist from './components/Playlist';
-import PrivateLetter from './components/PrivateLetter';
+import Letter from './components/Letter';
 import Tosat from './components/Toast';
 import Contextmenu from './components/Contextmenu';
 import HeaderSearch from './components/HeaderSearch';
@@ -29,7 +29,7 @@ const handlePopSwitch = (popupStatus) => {
     case 'playlist':
       return <Playlist />;
     case 'privateLetter':
-      return <PrivateLetter />;
+      return <Letter />;
     default:
       return '';
   }

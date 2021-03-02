@@ -25,7 +25,8 @@ import {
   apiVideoSub,
   apiMvSublist,
 } from '@/api';
-import { setMvSublist, setToast } from '@/redux/actions';
+import { setToast } from '@/reducers/mask/actions';
+import { setMvSublist } from '@/reducers/account/actions';
 
 import Write from '@/components/Write';
 

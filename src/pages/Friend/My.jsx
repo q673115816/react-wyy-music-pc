@@ -6,8 +6,10 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { apiHotTopic, apiEvent, apiCommentEvent } from '@/api';
 import {
-  setFriendInit, setFriendEvent, setCommentEvent, setLoginVisibilty,
-} from '@/redux/actions';
+  setFriendInit, setFriendEvent, setCommentEvent,
+} from '@/reducers/friend/actions';
+
+import { setLoginVisibilty } from '@/reducers/common/actions';
 import './style.scss';
 
 import { DomMale, DomFamale } from '@/components/Gender';

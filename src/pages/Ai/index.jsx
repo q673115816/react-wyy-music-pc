@@ -4,7 +4,7 @@ import React, {
 import { IconFileImport } from '@tabler/icons';
 import './style.scss';
 import { useDispatch } from 'react-redux';
-import { setToast } from '@/redux/actions';
+import { setToast } from '@/reducers/mask/actions';
 
 const DomWait = ({ time, handleZeroTime }) => (
   <div className="flex flex-col items-center">

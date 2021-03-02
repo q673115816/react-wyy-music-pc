@@ -30,7 +30,9 @@ export default memo(() => (
         <Route path="/home/newest/song">
           <DomSong />
         </Route>
-        <Route path="/home/newest/album" component={DomAlbum} />
+        <Route path="/home/newest/album">
+          <DomAlbum />
+        </Route>
         <Redirect to="/home/newest/song" />
       </Switch>
     </div>

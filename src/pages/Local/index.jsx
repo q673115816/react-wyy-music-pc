@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 // import './style.scss';
-import { setLocalCurrent } from '@/redux/actions';
+import { setLocalCurrent } from '@/reducers/local/actions';
 
 const nav = [
   '歌曲',

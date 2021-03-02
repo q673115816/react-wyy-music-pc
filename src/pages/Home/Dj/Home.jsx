@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Lazyload from 'react-lazyload';
-import { setHomeDj } from '@/redux/actions';
+import { setHomeDj } from '@/reducers/home/actions';
 
 import {
   apiDjBanner,

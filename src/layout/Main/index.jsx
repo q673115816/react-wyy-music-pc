@@ -5,7 +5,7 @@ import DomNav from './Nav';
 
 // const DomAi = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
 
-export default () =>
+export default memo(() =>
   // console.log('main');
   (
     <div className="dommain w-full flex flex-auto h-px">
@@ -18,4 +18,4 @@ export default () =>
         </Suspense>
       </div>
     </div>
-  );
+  ));

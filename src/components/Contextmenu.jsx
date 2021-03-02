@@ -19,9 +19,11 @@ import {
 } from '@tabler/icons';
 import {
   setDialogReset, setDialogShareShow,
-  setLoginVisibilty, setDialogCreatePlaylistShow, setContextMenuShareLink,
-  setToast, setAudioImmediate,
-} from '@/redux/actions';
+  setDialogCreatePlaylistShow, setContextMenuShareLink,
+  setToast,
+} from '@/reducers/mask/actions';
+import { setLoginVisibilty } from '@/reducers/common/actions';
+import { setAudioImmediate } from '@/reducers/audio/actions';
 import useCopyLink from '@/custom/useCopyLink';
 import DomMask from './Mask';
 

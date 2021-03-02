@@ -9,11 +9,10 @@ import {
 import {
   setSearchValue,
   setSearchHistory,
-  setSearchShow,
   setSearchHot,
   setSearchSuggest,
-  setDialogReset,
-} from '@/redux/actions';
+} from '@/reducers/search/actions';
+import { setSearchShow } from '@/reducers/mask/actions';
 import { useHistory } from 'react-router-dom';
 
 export default memo(() => {

@@ -1,0 +1,3 @@
+export const SET_VIDEO_LIST_INIT = 'SET_VIDEO_LIST_INIT';
+
+export const SET_VIDEO_LIST_ID = 'SET_VIDEO_LIST_ID';

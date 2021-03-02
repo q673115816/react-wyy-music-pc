@@ -1,6 +1,6 @@
 import React, { forwardRef, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { setDialogReset } from '@/redux/actions';
+import { setDialogReset } from '@/reducers/mask/actions';
 
 export default ({ children, ...props }) => {
   const dispatch = useDispatch();

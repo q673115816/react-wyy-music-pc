@@ -13,8 +13,9 @@ import {
 } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
 import {
-  setContextMenuShow, setAudioImmediate,
-} from '@/redux/actions';
+  setContextMenuShow,
+} from '@/reducers/mask/actions';
+import { setAudioImmediate } from '@/reducers/audio/actions';
 import { useDispatch } from 'react-redux';
 import useLoginStatus from '@/custom/useLoginStatus';
 import './style.scss';

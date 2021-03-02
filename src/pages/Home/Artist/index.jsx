@@ -8,7 +8,7 @@ import './style.scss';
 import classnames from 'classnames';
 import { IconUser } from '@tabler/icons';
 import { apiArtistList } from '@/api';
-import { addHomeTopArtists, initHomeTopArtists } from '@/redux/actions';
+import { addHomeTopArtists, initHomeTopArtists } from '@/reducers/home/actions';
 import useInfinite from '@/custom/useInfinite';
 import options from './filter';
 

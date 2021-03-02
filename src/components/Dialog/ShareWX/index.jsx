@@ -1,5 +1,5 @@
 import React from 'react';
-import { setDialogReset } from '@/redux/actions';
+import { setDialogReset } from '@/reducers/mask/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import QRcode from 'qrcode.react';
 import HOCDialog from '../Dialog';

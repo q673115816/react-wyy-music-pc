@@ -5,7 +5,7 @@ import { IconPlayerPlay } from '@tabler/icons';
 import classnames from 'classnames';
 import dayjs from 'dayjs';
 import { apiToplistDetail, apiPlaylistDetail, apiToplistArtist } from '@/api';
-import { setTopListsDetail } from '@/redux/actions';
+import { setTopListsDetail } from '@/reducers/home/actions';
 import { transPlayCount } from '@/common/utils';
 import './style.scss';
 

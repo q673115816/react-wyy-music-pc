@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import LazyLoad from 'react-lazyload';
 import { apiTopAlbum, apiAlbumNew } from '@/api';
-import { setTopAlbum } from '@/redux/actions';
+import { setTopAlbum } from '@/reducers/home/actions';
 import classnames from 'classnames';
 
 import { limit } from '@/common/config';

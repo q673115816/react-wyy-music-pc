@@ -3,7 +3,8 @@ import { Link, useParams, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconPlus } from '@tabler/icons';
 import { apiUserDetail, apiUserFollows, apiFollow } from '@/api';
-import { setPopup, setMsgPrivateHistory } from '@/redux/actions';
+import { setPopup } from '@/reducers/common/actions';
+import { setMsgPrivateHistory } from '@/reducers/letter/actions';
 
 const BuildUserAction = (item, handleFollow) => (item.followed
   ? <span className="follow on">已关注</span>

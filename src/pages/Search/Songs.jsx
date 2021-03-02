@@ -10,7 +10,7 @@ import {
 } from '@tabler/icons';
 import { useDispatch } from 'react-redux';
 import { apiCommentMusic } from '@/api';
-import { setContextMenuShow } from '@/redux/actions';
+import { setContextMenuShow } from '@/reducers/mask/actions';
 
 const Build = {
   artist: ({ item }) => (

@@ -15,7 +15,7 @@ import {
   apiPlaylistHighqualityTags,
   apiPlaylistHot,
 } from '@/api';
-import { setTopPlaylist, setPlaylistCatlist } from '@/redux/actions';
+import { setTopPlaylist, setPlaylistCatlist } from '@/reducers/home/actions';
 import CommonPage from '@/components/Page';
 import { transPlayCount } from '@/common/utils';
 import DomBanner from './components/Banner';

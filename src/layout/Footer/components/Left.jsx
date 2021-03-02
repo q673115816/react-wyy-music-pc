@@ -7,7 +7,7 @@ import {
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiSongUrl } from '@/api';
-import { setAudioCurrentTime } from '@/redux/actions';
+import { setAudioCurrentTime } from '@/reducers/audio/actions';
 
 export default () => {
   const dispatch = useDispatch();

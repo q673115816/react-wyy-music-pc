@@ -13,7 +13,7 @@ import {
 } from '@/api';
 import useInfinite from '@/custom/useInfinite';
 import DomGridVideo from '@/components/GridVideo';
-import { setVideoListInit, setVideoListId } from '@/redux/actions';
+import { setVideoListInit, setVideoListId } from '@/reducers/videolist/actions';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 

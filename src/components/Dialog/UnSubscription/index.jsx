@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { setDialogReset } from '@/redux/actions';
+import { setDialogReset } from '@/reducers/mask/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiArtistSub } from '@/api';
 import HOCDialog from '../Dialog';

@@ -9,7 +9,7 @@ import {
   IconCheckbox,
 } from '@tabler/icons';
 import './style.scss';
-import { setDialogUnSubscriptionShow, setToast } from '@/redux/actions';
+import { setDialogUnSubscriptionShow, setToast } from '@/reducers/mask/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import DomAlbum from './components/Album';
 import DomMv from './components/Mv';

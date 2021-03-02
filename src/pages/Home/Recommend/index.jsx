@@ -10,7 +10,7 @@ import {
   apiPersonalizedMv,
   apiPersonalizedDjprogram,
 } from '@/api';
-import { setHomeRecommend } from '@/redux/actions';
+import { setHomeRecommend } from '@/reducers/home/actions';
 import DomSwiper from '@/components/Swiper';
 import { IconChevronRight } from '@tabler/icons';
 import DOMkankan from '@/components/AdLookRectangle';

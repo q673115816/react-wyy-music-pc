@@ -1,9 +1,11 @@
-import React, { useEffect, memo, useState } from 'react';
+import React, {
+  useEffect, memo, useState, useMemo,
+} from 'react';
 import dayjs from 'dayjs';
 import { useParams, NavLink, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiTopSong, apiSongUrl } from '@/api';
-import { setTopSong } from '@/redux/actions';
+import { setTopSong } from '@/reducers/home/actions';
 import { IconPlayerPlay, IconFolderPlus } from '@tabler/icons';
 
 const nav = [
@@ -16,24 +18,25 @@ const nav = [
 
 export default memo(() => {
   console.log('song');
-  const { type: currentType } = useParams();
-  const type = ['0', '7', '96', '8', '16'].includes(currentType) ? currentType : 0;
-  const dispatch = useDispatch();
-  const [data] = useState([]);
+  // const { type: currentType } = useParams();
+  // const type = useMemo(() => (['0', '7', '96', '8', '16'].find((item) => item === currentType) || '0'), [currentType]);
+  // const dispatch = useDispatch();
+  const [data, setData] = useState([]);
   // const { data = [] } = useSelector(({ home }) => home.newest);
 
-  const handleGetSong = async () => {
+  const handleInit = async () => {
     try {
-      const { data } = await apiTopSong(type);
-      dispatch(setTopSong(data));
+      const { data } = await apiTopSong('0');
+      setData(data);
+      // dispatch(setTopSong(data));
     } catch (error) {
       console.warn(error);
     }
   };
 
   useEffect(() => {
-    handleGetSong();
-  }, [type]);
+    handleInit();
+  }, []);
   return (
     <>
       <div className="domHome_newest_sub_nav">
@@ -51,7 +54,6 @@ export default memo(() => {
           <span className="playAll">
             <IconPlayerPlay size={16} stroke={1} className="fill-current" />
             播放全部
-
           </span>
           <span className="subAll">
             <IconFolderPlus size={16} stroke={1} />
@@ -62,7 +64,9 @@ export default memo(() => {
       <div className="domHome_newest_song_list">
         {data.map((item, index) => (
           <div className="item" key={item.id}>
-            <span className="ranking">{String(index + 1).padStart(2, 0)}</span>
+            <span className="ranking">
+              {String(index + 1).padStart(2, 0)}
+            </span>
             <button
               type="button"
               className="cover"
@@ -83,12 +87,21 @@ export default memo(() => {
             <span className="artists">
               {
                 item.artists.map((artist) => (
-                  <Link to="artist" key={artist.id}>{artist.name}</Link>
+                  <Link to="artist" key={artist.id}>
+                    {artist.name}
+                  </Link>
                 ))
               }
             </span>
-            <span className="album"><Link to="album">{item.album.name}</Link></span>
-            <span className="duration">{dayjs(item.duration).format('mm:ss')}</span>
+            <span className="album">
+              <Link to="album">
+                {item.album.name}
+              </Link>
+
+            </span>
+            <span className="duration">
+              {dayjs(item.duration).format('mm:ss')}
+            </span>
           </div>
         ))}
       </div>

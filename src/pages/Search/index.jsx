@@ -3,7 +3,7 @@ import { useLocation, Link, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames';
 import { apiCloudSearch, apiSearchMultimatch } from '@/api';
-import { setSearchValue } from '@/redux/actions';
+import { setSearchValue } from '@/reducers/search/actions';
 import dayjs from 'dayjs';
 import './style.scss';
 import DomSongs from './Songs';

@@ -13,53 +13,66 @@ const HomeDj = lazy(() => import(/* webpackChunkName: "Home_Dj" */'./Dj'));
 
 const nav = [
   {
+    to: '/home/recommend',
     path: '/home/recommend',
     name: '个性推荐',
+    Children: HomeRecommend,
   },
   {
+    to: '/home/playlist',
     path: '/home/playlist',
     name: '歌单',
+    Children: HomePlaylist,
   },
   {
+    to: '/home/dj',
     path: '/home/dj',
     name: '主播电台',
+    Children: HomeDj,
   },
   {
+    to: '/home/toplist',
     path: '/home/toplist',
     name: '排行榜',
+    Children: HomeToplist,
   },
   {
+    to: '/home/artist',
     path: '/home/artist',
     name: '歌手',
+    Children: HomeArtist,
   },
   {
+    to: '/home/newest',
     path: '/home/newest',
     name: '最新音乐',
+    Children: HomeNewest,
   },
 ];
 export default memo(() => (
   <div className="domHome flex flex-col h-full">
     <div className="domHome_nav ui_header">
-      {nav.map((item) => (
+      {nav.map(({ to, name }) => (
         <NavLink
           className="domHome_nav_link"
           activeClassName="on"
-          to={item.path}
-          key={item.path}
+          to={to}
+          key={name}
         >
-          {item.name}
+          {name}
         </NavLink>
       ))}
 
     </div>
     <Suspense fallback={<div>loading</div>}>
       <Switch>
-        <Route path="/home/recommend" component={HomeRecommend} />
-        <Route path="/home/toplist" component={HomeToplist} />
-        <Route path="/home/playlist" component={HomePlaylist} />
-        <Route path="/home/artist" component={HomeArtist} />
-        <Route path="/home/newest" component={HomeNewest} />
-        <Route path="/home/dj" component={HomeDj} />
+        {
+          nav.map(({ path, name, Children }) => (
+            <Route path={path} key={name}>
+              <Children />
+            </Route>
+          ))
+        }
         <Redirect to="/home/recommend" />
       </Switch>
     </Suspense>

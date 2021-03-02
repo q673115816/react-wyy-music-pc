@@ -49,18 +49,15 @@ const router = [
   ['/ai', Ai],
 ];
 
-export default memo(() => {
-  console.log('router');
-  return (
-    <Switch>
-      {
+export default memo(() => (
+  <Switch>
+    {
         router.map(([path, Component]) => (
           <Route path={path} key={path}>
             <Component />
           </Route>
         ))
       }
-      <Redirect to="/home" />
-    </Switch>
-  );
-});
+    <Redirect to="/home" />
+  </Switch>
+));

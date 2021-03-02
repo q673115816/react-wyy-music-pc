@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
@@ -42,7 +42,7 @@ const loginNav = [
   ['我的收藏', '/sublist', IconStar],
 ];
 
-const DomPlaylist = ({ name = '', playlist = [] }) => {
+const DomPlaylist = memo(({ name = '', playlist = [] }) => {
   const [showplaylist, setPlaylist] = useState(true);
   return (
     <>
@@ -92,14 +92,16 @@ const DomPlaylist = ({ name = '', playlist = [] }) => {
       </nav>
     </>
   );
-};
+});
 
-export default () => {
+export default memo(() => {
   const { profile, playlist } = useSelector(({ account }) => account);
   const { isLogin } = useSelector(({ common }) => common);
 
-  const ownPlaylist = playlist.filter((item) => item.subscribed === false);
-  const subscribedPlaylist = playlist.filter((item) => item.subscribed === true);
+  const ownPlaylist = useMemo(() => playlist
+    .filter((item) => item.subscribed === false), [playlist]);
+  const subscribedPlaylist = useMemo(() => playlist
+    .filter((item) => item.subscribed === true), [playlist]);
   return (
     <div className="dommain_left overflow-auto max-h-full flex-none p-2.5">
       <nav className="options1 space-y-0.5">
@@ -157,4 +159,4 @@ export default () => {
     </div>
 
   );
-};
+});

@@ -5,7 +5,8 @@ import {
   IconVolume,
   IconList,
 } from '@tabler/icons';
-import { setVolume, setPopup } from '@/redux/actions';
+import { setVolume } from '@/reducers/setting/actions';
+import { setPopup } from '@/reducers/common/actions';
 
 export default () => {
   const dispatch = useDispatch();

@@ -1,0 +1,1 @@
+export const SET_ARTIST_INIT = 'SET_ARTIST_INIT';

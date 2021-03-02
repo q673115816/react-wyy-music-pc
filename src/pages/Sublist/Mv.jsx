@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { apiMvSublist } from '@/api';
 import Search from '@/components/HeaderBarSearch';
 import DomGridVideo from '@/components/GridVideo';
@@ -11,7 +11,7 @@ const filterRule = (data, search) => data
   .filter((item) => item.title.indexOf(search) >= 0
     || item.creator.find((creator) => creator.userName.indexOf(search) >= 0));
 
-export default () => {
+export default memo(() => {
   const {
     count,
     setSearch,
@@ -64,4 +64,4 @@ export default () => {
       </div>
     </>
   );
-};
+});

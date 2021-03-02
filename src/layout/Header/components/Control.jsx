@@ -6,7 +6,7 @@ import {
   IconX,
 } from '@tabler/icons';
 import { useDispatch } from 'react-redux';
-import { setScreenFull } from '@/redux/actions';
+import { setScreenFull } from '@/reducers/mask/actions';
 
 export default memo(() => {
   const dispatch = useDispatch();

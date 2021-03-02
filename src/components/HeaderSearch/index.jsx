@@ -9,8 +9,8 @@ import {
   setSearchShow,
   setSearchHot,
   setSearchSuggest,
-  setDialogReset,
-} from '@/redux/actions';
+} from '@/reducers/search/actions';
+import { setDialogReset } from '@/reducers/mask/actions';
 import DomMask from '../Mask';
 
 export default () => {

@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import {
   IconTrash, IconFolderPlus, IconLink, IconPlayerPlay, IconPlayerPause,
 } from '@tabler/icons';
-import { setPopup, setAudioPlaylistClear, setAudioHistoryClear } from '@/redux/actions';
+import { setAudioPlaylistClear, setAudioHistoryClear } from '@/reducers/audio/actions';
+import { setPopup } from '@/reducers/common/actions';
 
 const Empty = () => {
   const dispatch = useDispatch();

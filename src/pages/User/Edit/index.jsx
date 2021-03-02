@@ -3,7 +3,7 @@ import { apiUserDetail, apiUserUpdate } from '@/api';
 import { useParams, Link } from 'react-router-dom';
 import classnames from 'classnames';
 import isEqual from 'lodash/isEqual';
-import { setToast, setDialogUploadAvatarShow } from '@/redux/actions';
+import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/actions';
 import { useDispatch } from 'react-redux';
 import './style.scss';
 import DomBirthday from './components/Birthday';

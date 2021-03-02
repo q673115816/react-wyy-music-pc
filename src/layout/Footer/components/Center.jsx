@@ -11,7 +11,7 @@ import {
 } from '@tabler/icons';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioCurrentTime, setAudioRunningToggle, setAudioPattern } from '@/redux/actions';
+import { setAudioCurrentTime, setAudioRunningToggle, setAudioPattern } from '@/reducers/audio/actions';
 import { audioPattern } from '@/common/config';
 
 const audioPatternIcon = [

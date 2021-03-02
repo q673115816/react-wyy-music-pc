@@ -5,8 +5,14 @@ import DomToplist from './Toplist';
 
 export default () => (
   <Switch>
-    <Route path="/home/dj/toplist/:type" component={DomToplist} />
-    <Route path="/home/dj/toplist" component={DomToplist} />
-    <Route path="/home/dj" component={DomHome} />
+    <Route path="/home/dj/toplist/:type">
+      <DomToplist />
+    </Route>
+    <Route path="/home/dj/toplist">
+      <DomToplist />
+    </Route>
+    <Route path="/home/dj">
+      <DomHome />
+    </Route>
   </Switch>
 );

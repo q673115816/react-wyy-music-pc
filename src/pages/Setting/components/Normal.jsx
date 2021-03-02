@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CompoenntCheckbox from '@/components/Checkbox';
-import { setFont } from '@/redux/actions';
+import { setFont } from '@/reducers/setting/actions';
 import DomRadio from './Radio';
 import DomCheckbox from './Checkbox';
 

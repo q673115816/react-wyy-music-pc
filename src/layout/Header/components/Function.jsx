@@ -8,7 +8,8 @@ import {
   IconCheck,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPopup, setTheme } from '@/redux/actions';
+import { setTheme } from '@/reducers/setting/actions';
+import { setPopup } from '@/reducers/common/actions';
 
 const themes = [
   ['酷炫黑', 'themeBlack'],

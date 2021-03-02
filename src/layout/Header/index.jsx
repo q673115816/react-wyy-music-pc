@@ -1,21 +1,20 @@
 import React, {
-  useEffect, useRef, useState, memo,
+  useEffect, memo,
 } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
-  setLoginVisibilty,
   setContriesCodeList,
-  setLoginInfo,
   setIsLogin,
   setMsgPrivate,
-} from '@/redux/actions';
+
+} from '@/reducers/common/actions';
+import { setLoginInfo } from '@/reducers/account/actions';
 import {
   apiCountriesCodeList,
   apiUserAccount,
   apiMsgPrivate,
   apiUserPlaylist,
-  apiLoginStatus,
   apiUserDetail,
   apiLikelist,
   apiArtistSublist,
@@ -23,7 +22,6 @@ import {
   apiTopicSublist,
   apiAlbumSublist,
 } from '@/api';
-// import { setCookie } from '@/common/request';
 import {
   IconMicrophone,
 } from '@tabler/icons';
@@ -47,8 +45,6 @@ export default memo(({ handleDrap }) => {
   };
 
   const handleCookieInit = async () => {
-    // const cookie = window.localStorage.getItem('cookie');
-    // if (!cookie) return;
     try {
       const { profile } = await apiUserAccount();
       if (profile) {
@@ -79,7 +75,6 @@ export default memo(({ handleDrap }) => {
   };
 
   const handlePrivateLetterInit = async () => {
-    // if (!isLogin) return;
     try {
       const { msgs, newMsgCount } = await apiMsgPrivate();
       dispatch(setMsgPrivate({ msgs, newMsgCount }));
