@@ -234,59 +234,56 @@ export default () => {
             </button>
           </div>
         </div>
-        <div className="domUserDetail_list ui_grid square col_4">
+        <div className="domUserDetail_list grid grid-cols-4 gap-5">
           <div className="item">
             <Link to={`${url}/record`}>
-              <div className="cover">
-                <div className="inner">
+              <div className="cover relative ui_aspect-ratio-1/1">
+                <div className="absolute inset-0">
                   <RainbowCat />
                 </div>
-                <div className="absolute right-0 bottom-0">
-                  <span className="playArrow">
-                    <IconPlayerPlay size={22} className="fill-current" />
-                  </span>
-                </div>
+                <button
+                  type="button"
+                  className="playArrow opacity-0 group-hover:opacity-100 transition-opacity duration-500 ui_themeColor absolute right-0 bottom-0 m-2 bg-white bg-opacity-90 rounded-full p-2"
+                >
+                  <IconPlayerPlay size={22} className="fill-current" />
+                </button>
               </div>
             </Link>
-            <div className="footer">
+            <div className="footer mt-2 text-sm">
               <Link to="/" className="name">
-                {isSelf ? '我的听歌排行' : '听歌排行'}
+                {user.profile.nickname}
+                的听歌排行
               </Link>
             </div>
           </div>
           {ownPlaylist.map((item) => (
             <div className="item" key={item.id}>
-              <Link to={`/playlist/music/${item.id}`}>
-                <div className="cover">
-                  <div className="inner">
-                    <img
-                      src={`${item.coverImgUrl}?param=200y200`}
-                      className="ui_containimg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="topmask" />
+              <div className="cover relative rounded group border overflow-hidden ui_aspect_ratio_1/1">
+                <Link to={`/playlist/music/${item.id}`}>
+                  <img src={`${item.coverImgUrl}?param=200y200`} className="ui_containimg" alt="" />
                   {item.privacy === 10
                   && (
                   <div className="absolute right-0 bottom-0">
-                    <div className="text-white bg-black w-12 h-12" style={{ 'clip-path': 'polygon(100% 0, 0% 100%, 100% 100%)' }}>
+                    <div
+                      className="text-white bg-black w-12 h-12"
+                      style={{ clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)' }}
+                    >
                       <IconLock size={20} className="absolute right-1 bottom-1" />
                     </div>
                   </div>
                   )}
-                  <div className="absolute right-0 bottom-0">
-                    <span className="playArrow">
-                      <IconPlayerPlay size={22} className="fill-current" />
-                    </span>
+                  <button
+                    type="button"
+                    className="playArrow opacity-0 group-hover:opacity-100 transition-opacity duration-500 ui_themeColor absolute right-0 bottom-0 m-2 bg-white bg-opacity-90 rounded-full p-2"
+                  >
+                    <IconPlayerPlay size={22} className="fill-current" />
+                  </button>
+                  <div className="absolute top-0 right-0 mx-2 my-1 text-white">
+                    {transPlayCount(item.playCount)}
                   </div>
-                  <div className="absolute top-0 right-0">
-                    <div className="whitetext">
-                      {transPlayCount(item.playCount)}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-              <div className="footer">
+                </Link>
+              </div>
+              <div className="footer mt-2 text-sm">
                 <Link to={`/playlist/music/${item.id}`}>
                   {item.name}
                 </Link>
@@ -310,30 +307,25 @@ export default () => {
             </button>
           </div>
         </div>
-        <div className="domUserDetail_list ui_grid square col_4">
+        <div className="domUserDetail_list grid grid-cols-4 gap-5">
           {savePlaylist.map((item) => (
             <div className="item" key={item.id}>
-              <Link to={`/playlist/music/${item.id}`}>
-                <div className="cover">
-                  <div className="inner">
-                    <img
-                      src={`${item.coverImgUrl}?param=200y200`}
-                      className="ui_containimg"
-                      alt=""
-                    />
+              <div className="cover relative rounded group border overflow-hidden ui_aspect_ratio_1/1">
+                <Link to={`/playlist/music/${item.id}`}>
+                  <img src={`${item.coverImgUrl}?param=200y200`} className="" alt="" />
+                  <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
+                  <button
+                    type="button"
+                    className="playArrow opacity-0 group-hover:opacity-100 transition-opacity duration-500 ui_themeColor absolute right-0 bottom-0 m-2 bg-white bg-opacity-90 rounded-full p-2"
+                  >
+                    <IconPlayerPlay size={22} className="fill-current" />
+                  </button>
+                  <div className="absolute top-0 right-0 mx-2 my-1 text-white">
+                    {transPlayCount(item.playCount)}
                   </div>
-                  <div className="topmask" />
-                  <div className="absolute right-0 bottom-0">
-                    <span className="playArrow">
-                      <IconPlayerPlay size={22} className="fill-current" />
-                    </span>
-                  </div>
-                  <div className="absolute top-0 right-0">
-                    <div className="whitetext">{transPlayCount(item.playCount)}</div>
-                  </div>
-                </div>
-              </Link>
-              <div className="footer">
+                </Link>
+              </div>
+              <div className="footer mt-2 text-sm">
                 <Link to={`/playlist/music/${item.id}`}>
                   {item.name}
                 </Link>

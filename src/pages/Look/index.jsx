@@ -18,7 +18,7 @@ export default memo(() => {
         <a href="https://look.163.com/hot" className="text-gray-400 more">更多 &gt;</a>
       </div>
       <div className="domLook_content">
-        <div className="ui_grid rectangle_height col_4">
+        <div className="grid grid-cols-4 gap-5">
           {Object.keys(Array(20).fill(0)).map((item) => <DomLook tag key={item} />)}
         </div>
       </div>

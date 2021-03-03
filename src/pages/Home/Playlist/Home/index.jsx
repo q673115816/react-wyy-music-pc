@@ -109,14 +109,14 @@ export default () => {
               </div>
               <div className="p-5 space-y-4">
                 {
-                    toPairs(catlist.categories)
-                      .map(([key, value]) => (
-                        <div key={key} className="flex">
-                          <div className="category text-gray-300">
-                            {value}
-                          </div>
-                          <div className="flex-auto grid grid-cols-6 gap-y-4">
-                            {
+                  toPairs(catlist.categories)
+                    .map(([key, value]) => (
+                      <div key={key} className="flex">
+                        <div className="category text-gray-300">
+                          {value}
+                        </div>
+                        <div className="flex-auto grid grid-cols-6 gap-y-4">
+                          {
                             catlist.sub
                               .filter((item) => item.category === Number(key))
                               .map((item) => (
@@ -133,14 +133,14 @@ export default () => {
                                       {
                                         item.hot
                                         && (
-                                        <svg
-                                          className="absolute left-full top-0 fill-current"
-                                          viewBox="0 0 12 12"
-                                          width="12"
-                                          height="6"
-                                        >
-                                          <text dominantBaseline="middle" textAnchor="middle" x="0.5em" y="0.5em" className="fill-current text-red-500 font-bold">hot</text>
-                                        </svg>
+                                          <svg
+                                            className="absolute left-full top-0 fill-current"
+                                            viewBox="0 0 12 12"
+                                            width="12"
+                                            height="6"
+                                          >
+                                            <text dominantBaseline="middle" textAnchor="middle" x="0.5em" y="0.5em" className="fill-current text-red-500 font-bold">hot</text>
+                                          </svg>
                                         )
                                       }
                                     </span>
@@ -148,10 +148,10 @@ export default () => {
                                 </NavLink>
                               ))
                           }
-                          </div>
                         </div>
-                      ))
-                  }
+                      </div>
+                    ))
+                }
               </div>
             </div>
           </div>
@@ -170,53 +170,47 @@ export default () => {
           </div>
         </div>
       </div>
-      <div className="domHome_playlist_list ui_grid square col_4">
+      <div className="domHome_playlist_list grid grid-cols-4 gap-5">
         {
-            playlists.playlists?.map((item) => (
-              <div className="item" key={item.id}>
-                <div className="cover">
-                  <div className="inner">
-                    <Link to={`/playlist/music/${item.id}`}>
-                      <Lazyload overflow>
-                        <img
-                          className="ui_containimg"
-                          src={`${item.coverImgUrl}?param=200y200`}
-                          alt=""
-                        />
-                      </Lazyload>
-                    </Link>
-                    <div className="absolute top-0 right-0">
-                      <div className="playCount">{transPlayCount(item.playCount)}</div>
+          playlists.playlists?.map((item) => (
+            <div className="item" key={item.id}>
+              <div className="cover relative rounded overflow-hidden group ui_aspect-ratio-1/1">
+                <Link to={`/playlist/music/${item.id}`}>
+                  <Lazyload overflow>
+                    <img className="" src={`${item.coverImgUrl}?param=200y200`} alt="" />
+                  </Lazyload>
+                  <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
+                  <div className="absolute bottom-0 left-0 right-0 h-1/4 ui_linear_mask_bottom" />
+                  <div className="absolute top-0 right-0 text-white mx-2 my-1">
+                    <div className="playCount">
+                      {transPlayCount(item.playCount)}
                     </div>
-                    <div className="absolute left-0 bottom-0 z-10">
-                      <Link to={`/user/${item.userId}/detail`}>
-                        <div className="creator">
-                          {item.creator.nickname}
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="absolute right-0 bottom-0 z-10">
-                      <button
-                        type="button"
-                        className="playArrow"
-                      >
-                        <IconPlayerPlay size={22} className="fill-current" />
-                      </button>
-                    </div>
-                    <div className="bottommask" />
                   </div>
-                </div>
-                <div className="footer">
                   <Link
-                    className="name"
-                    to={`/playlist/music/${item.id}`}
+                    to={`/user/${item.userId}/detail`}
+                    className="absolute left-0 bottom-0 text-white mx-2 my-1"
                   >
-                    {item.name}
+                    {item.creator.nickname}
                   </Link>
-                </div>
+                </Link>
+                <button
+                  type="button"
+                  className="playArrow opacity-0 group-hover:opacity-100 ui_themeColor absolute right-0 bottom-0 m-2 p-2 bg-white bg-opacity-90 rounded-full"
+                >
+                  <IconPlayerPlay size={22} className="fill-current" />
+                </button>
               </div>
-            ))
-          }
+              <div className="footer">
+                <Link
+                  className="name"
+                  to={`/playlist/music/${item.id}`}
+                >
+                  {item.name}
+                </Link>
+              </div>
+            </div>
+          ))
+        }
       </div>
       <div className="flex items-center justify-center pt-10 pb-10 space-x-1">
         <button

@@ -138,7 +138,7 @@ export default () => {
 
   const {
     uid, hint, nickname, privatMsgs,
-  } = useSelector(({ privateletter }) => privateletter);
+  } = useSelector(({ letter }) => letter);
 
   const [visibility, setVisibility] = useState(false);
   const [value, setValue] = useState('');

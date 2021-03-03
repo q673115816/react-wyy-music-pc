@@ -138,17 +138,6 @@ input:focus {
   color: #B6B6B6;
 }
 
-
-.bigScreen {
-  .ui_grid_square {
-    grid-template-columns: repeat(6, 1fr);
-
-    &.col_4 {
-      grid-template-columns: repeat(5, 1fr);
-    }
-  }
-}
-
 .flex-center {
   @include flex-center();
 }

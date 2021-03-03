@@ -11,6 +11,7 @@ const dev = {
   output: {
     publicPath: '/',
     filename: '[name].[hash:8].js',
+    path: path.join(__dirname, '../dist'),
   },
   devServer: {
     // contentBase: content,

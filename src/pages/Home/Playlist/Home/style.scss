@@ -33,29 +33,5 @@
         width: 100px;
       }
     }
-
-    &_list {
-      .item {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .playCount {
-        padding: 10px;
-        color: #fff;
-      }
-
-      .creator {
-        padding: 10px;
-        color: #fff;
-      }
-
-      .name {
-        flex: 0 1 auto;
-        word-break: break-all;
-        margin-top: 0.5em;
-        @include ellipse(2);
-      }
-    }
   }
 }

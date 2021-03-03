@@ -119,7 +119,9 @@ export default function App() {
         >
           <DomHeader handleDrap={dragdown} />
           <Switch>
-            <Route path="/player/:type/:vid" component={DomPlayer} />
+            <Route path="/player/:type/:vid">
+              <DomPlayer />
+            </Route>
             <Route>
               <DomMain />
               <DomFooter />

@@ -37,20 +37,18 @@ SwiperCore.use([
 
 const DomDjNormal = ({ item = {} }) => (
   <div className="item">
-    <div className="cover">
-      <div className="inner">
-        <Link to={`/playlist/dj/${item.id}`}>
-          <Lazyload overflow>
-            <img className="ui_containimg" src={item.picUrl} alt="" />
-          </Lazyload>
-          <div className="absolute left-0 bottom-0">
-            <span className="whitetext">{item.name}</span>
-          </div>
-          <div className="bottommask" />
-        </Link>
-      </div>
+    <div className="cover relative rounded border overflow-hidden ui_aspect-ratio-1/1">
+      <Link to={`/playlist/dj/${item.id}`}>
+        <Lazyload overflow>
+          <img className="" src={item.picUrl} alt="" />
+        </Lazyload>
+        <div className="absolute bottom-0 left-0 right-0 h-1/4 ui_linear_mask_bottom" />
+        <div className="absolute left-0 bottom-0 max-w-full px-2 py-1 text-white truncate">
+          {item.name}
+        </div>
+      </Link>
     </div>
-    <div className="footer">
+    <div className="footer mt-2 text-sm">
       <Link
         to={`/playlist/dj/${item.id}`}
         className="text-gray-600 hover:text-black"
@@ -81,7 +79,7 @@ export default () => {
     ['情感调频', 情感调频],
     ['声音恋人', 声音恋人]];
 
-  const handleInit = async ({ dispatch }) => {
+  const handleInit = async () => {
     try {
       const [
         DjBanner,
@@ -135,7 +133,7 @@ export default () => {
   };
 
   useEffect(() => {
-    handleInit({ dispatch });
+    handleInit();
   }, []);
 
   // const random = (height) => Math.random() * height >> 0;
@@ -194,9 +192,9 @@ export default () => {
         </div>
         <div className="domHome_item">
           <div className="domHome_linktitle h1">电台个性推荐</div>
-          <div className="domHome_dj_list ui_grid square row_1">
+          <div className="domHome_dj_list grid grid-cols-5 gap-5">
             {
-              DjPersonalizeRecommend
+              DjPersonalizeRecommend.slice(0, 5)
                 .map((item) => (
                   <DomDjNormal item={item} key={item.id} />
                 ))
@@ -210,9 +208,9 @@ export default () => {
                 {subitem[0]}
                 &gt;
               </Link>
-              <div className="domHome_dj_list ui_grid square row_1">
+              <div className="domHome_dj_list grid grid-cols-5 gap-5">
                 {
-                  subitem[1]
+                  subitem[1].slice(0, 5)
                     .map((item) => (
                       <DomDjNormal item={item} key={item.id} />
                     ))

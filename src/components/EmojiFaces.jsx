@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { IconX } from '@tabler/icons';
+import classnames from 'classnames';
 import faces from '@/common/faces';
 
 export default ({ visibility, setVisibility, clickface }) => {
@@ -12,12 +14,12 @@ export default ({ visibility, setVisibility, clickface }) => {
   };
   return (
     <div className="emojiFace" onWheel={handleWheel} style={{ display: visibility ? null : 'none' }}>
-      <button type="button" className="close" onClick={() => setVisibility(false)}>
-        ×
+      <button type="button" className="absolute close right-0 top-0 ui_text_gray_hover mx-1" onClick={() => setVisibility(false)}>
+        <IconX size={24} stroke={1} />
       </button>
       {
         faces.map((page, index) => (
-          <div key={index} className="page" style={{ display: index === currpage ? null : 'none' }}>
+          <div key={index} className={classnames('page text-lg grid grid-cols-10 p-4 gap-2', { hidden: currpage === index })}>
             {
               page.map(([name, face]) => (
                 <button
