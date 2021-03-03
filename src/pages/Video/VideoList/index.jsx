@@ -149,8 +149,8 @@ export default memo(() => {
           list={videoList}
           type="video"
         />
+        <div ref={domObserver} />
       </div>
-      <div ref={domObserver} />
     </div>
   );
 });

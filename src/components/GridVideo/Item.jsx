@@ -21,6 +21,7 @@ export default ({ item = {}, type = 'video', options }) => (
           src={item[options.src]}
           alt=""
         />
+        <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
         <div className="absolute top-0 right-0 my-1 mx-2 text-white flex-center">
           <IconPlayerPlay size={12} />
           &nbsp;
@@ -28,9 +29,12 @@ export default ({ item = {}, type = 'video', options }) => (
         </div>
         {options.duration
           && (
-            <div className="absolute bottom-0 right-0 my-1 mx-2 text-white">
-              {dayjs(item[options.duration]).format('mm:ss')}
-            </div>
+            <>
+              <div className="mask absolute left-0 right-0 bottom-0 h-1/4 ui_linear_mask_bottom" />
+              <div className="absolute bottom-0 right-0 my-1 mx-2 text-white">
+                {dayjs(item[options.duration]).format('mm:ss')}
+              </div>
+            </>
           )}
       </Link>
     </div>
@@ -42,14 +46,15 @@ export default ({ item = {}, type = 'video', options }) => (
       {item.type === 0
         && <div className="text-red-500 border leading-none border-current text-xs rounded-sm">MV</div>}
         &nbsp;
-      <span className="flex-auto w-px  truncate">
+      <span className="flex-auto w-px truncate">
         {item[options.name]}
       </span>
     </Link>
-    {
-      item.artists
+    {/* {
+      item[options.artists]
       && (
         <div className="mt-1 truncate">
+          {item.type === 1 && 'by&nbsp;'}
           {
             item.artists.map((artist, index) => (
               <span key={artist.name} className="text-gray-300">
@@ -65,17 +70,6 @@ export default ({ item = {}, type = 'video', options }) => (
           }
         </div>
       )
-    }
-    {
-      item.creator
-      && (
-        <div className="creator mt-1 text-gray-300">
-          by&nbsp;
-          <Link to={`/user/${item.creator.userId}`} className="hover:text-gray-500">
-            {item.creator.nickname}
-          </Link>
-        </div>
-      )
-    }
+    } */}
   </div>
 );

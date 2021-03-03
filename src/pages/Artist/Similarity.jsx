@@ -34,7 +34,7 @@ export default ({ id }) => {
     );
   }
   return (
-    <div className="domArtist_section">
+    <div className="domArtist_section p-8">
       <div className="grid grid-cols-5 gap-5">
         {simiArtists.map((item) => (
           <div className="item" key={item.id}>

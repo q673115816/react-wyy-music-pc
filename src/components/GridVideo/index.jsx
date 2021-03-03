@@ -7,6 +7,7 @@ const defualtOptions = {
   playCount: 'playCount',
   duration: 'duration',
   name: 'name',
+  artists: 'artists',
 };
 
 export default memo(({ list = [], type = 'video', options = null }) => {

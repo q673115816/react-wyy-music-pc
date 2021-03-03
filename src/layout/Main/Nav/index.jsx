@@ -66,30 +66,32 @@ const DomPlaylist = memo(({ name = '', playlist = [] }) => {
           </button>
         </div>
       </div>
-      <nav
-        className="songmenu space-y-0.5"
-        style={{ display: showplaylist ? null : 'none' }}
-      >
-        {
-          playlist.map((item) => (
-            <NavLink
-              key={item.id}
-              className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
-              activeClassName="bg-gray-100"
-              to={`/playlist/music/${item.id}`}
-            >
-              {
-                item.privacy === 10
-                  ? <IconLock size={20} stroke={1} className="flex-none mr-1" />
-                  : <IconMusic size={20} stroke={1} className="flex-none mr-1" />
-              }
-              <span className="truncate">
-                {item.name}
-              </span>
-            </NavLink>
-          ))
-        }
-      </nav>
+      {
+        showplaylist
+          && (
+          <nav className="songmenu space-y-0.5">
+            {
+              playlist.map((item) => (
+                <NavLink
+                  key={item.id}
+                  className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
+                  activeClassName="bg-gray-100"
+                  to={`/playlist/music/${item.id}`}
+                >
+                  {
+                    item.privacy === 10
+                      ? <IconLock size={20} stroke={1} className="flex-none mr-1" />
+                      : <IconMusic size={20} stroke={1} className="flex-none mr-1" />
+                  }
+                  <span className="truncate">
+                    {item.name}
+                  </span>
+                </NavLink>
+              ))
+            }
+          </nav>
+          )
+      }
     </>
   );
 });

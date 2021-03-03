@@ -89,6 +89,10 @@
   }
 }
 
+.ui_ellipse {
+  @include ellipse()
+}
+
 .ui_playbtn_group {
   display: flex;
   border-radius: 1000px;

@@ -191,7 +191,7 @@ export default memo(() => {
             </Link>
             <button
               type="button"
-              className="flex z-10 text-white text-opacity-90 hover:text-opacity-100"
+              className="flex items-center z-10 text-white text-opacity-90 hover:text-opacity-100"
               onClick={() => setVisibliity(!visibility)}
             >
               <span>{profile.nickname}</span>

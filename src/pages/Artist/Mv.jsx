@@ -40,7 +40,7 @@ export default memo(({ id }) => {
     };
   }, []);
   return (
-    <div className="domArtist_section">
+    <div className="domArtist_section p-8">
       <DomGridVideo list={MVs} type="mv" options={{ src: 'imgurl', duration: 'duration' }} />
       <div ref={domObserver} />
     </div>

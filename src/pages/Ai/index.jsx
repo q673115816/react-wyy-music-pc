@@ -1,34 +1,52 @@
 import React, {
-  useRef, useState, memo, useEffect, useCallback,
+  useRef, useState, memo, useEffect, useCallback, forwardRef,
 } from 'react';
 import { IconFileImport } from '@tabler/icons';
 import './style.scss';
 import { useDispatch } from 'react-redux';
 import { setToast } from '@/reducers/mask/actions';
 
-const DomWait = ({ time, handleZeroTime }) => (
-  <div className="flex flex-col items-center">
-    <div>
-      {
+const DomWait = ({ handleReject }) => {
+  const [time, setTime] = useState(15);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTime((prev) => {
+        const next = prev - 1;
+        if (next < 1) {
+          handleReject();
+        } else {
+          return next;
+        }
+      });
+    }, 1000);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+  return (
+    <div className="flex flex-col items-center">
+      <div>
+        {
           (time % 2 === 0 || time % 3 === 0 || time % 5 === 0)
             ? '外部声源无法识别'
             : '正在识别电脑中正在播放的音乐'
         }
-      (
-      {time}
-      s)
+        (
+        {time}
+        s)
+      </div>
+      <button
+        type="button"
+        className="mt-4 text-base hover:bg-gray-100 rounded border h-10 w-28"
+        onClick={handleReject}
+      >
+        停止识别
+      </button>
     </div>
-    <button
-      type="button"
-      className="mt-4 text-base hover:bg-gray-100 rounded border h-10 w-28"
-      onClick={handleZeroTime}
-    >
-      停止识别
-    </button>
-  </div>
-);
+  );
+};
 
-const DomRejected = ({ handleResetTime }) => {
+const DomRejected = ({ handleWait }) => {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col items-center">
@@ -52,7 +70,7 @@ const DomRejected = ({ handleResetTime }) => {
       <button
         type="button"
         className="text-sm ui_theme_bg_color text-white py-2 px-6 rounded mt-4"
-        onClick={handleResetTime}
+        onClick={handleWait}
       >
         重新识别
       </button>
@@ -69,27 +87,10 @@ const DomRejected = ({ handleResetTime }) => {
 
 export default memo(() => {
   const dispatch = useDispatch();
-  const [time, setTime] = useState(15);
-  const handleResetTime = useCallback(() => {
-    setTime(15);
-  }, []);
-
-  const handleZeroTime = useCallback(() => {
-    setTime(0);
-  }, []);
-
-  // useEffect(() => {
-  //   // TODO
-  //   const timer = setInterval(() => {
-  //     if (time > 0) {
-  //       setTime((prev) => prev - 1);
-  //     }
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, []);
-
+  const [listen, setListen] = useState(true);
+  /**
+   * 应该不会有成功吧？
+   */
   return (
     <div className="domAi flex flex-col h-full">
       <div className="domAi_header flex justify-between items-baseline">
@@ -105,9 +106,9 @@ export default memo(() => {
       </div>
       <div className="flex-auto domAi_main flex items-center justify-center">
         {
-          time > 0
-            ? <DomWait time={time} handleZeroTime={handleZeroTime} />
-            : <DomRejected handleResetTime={handleResetTime} />
+          listen
+            ? <DomWait handleReject={() => setListen(false)} />
+            : <DomRejected handleWait={() => setListen(true)} />
         }
       </div>
     </div>

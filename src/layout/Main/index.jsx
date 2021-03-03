@@ -1,9 +1,6 @@
-import React, { memo, lazy, Suspense } from 'react';
+import React, { memo, Suspense } from 'react';
 import Router from '@/router';
-// import DomAi from '@/pages/Ai';
 import DomNav from './Nav';
-
-// const DomAi = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
 
 export default memo(() =>
   // console.log('main');
