@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { apiMvAll } from '@/api';
+import { apiMVAll } from '@/api';
 import './style.scss';
 import classnames from 'classnames';
 
@@ -36,7 +36,7 @@ export default () => {
 
   const handleInit = async () => {
     try {
-      const { data } = await apiMvAll({
+      const { data } = await apiMVAll({
         ...defaultSearch,
         limit,
         offset: offset.current,
@@ -65,13 +65,13 @@ export default () => {
   // }, [search]);
 
   return (
-    <div className="domAllMv overflow-auto h-full px-8" ref={domScroll}>
-      <div className="domAllMv_header">
+    <div className="domAllMV overflow-auto h-full px-8" ref={domScroll}>
+      <div className="domAllMV_header">
         <Link to="./" className="h1 title">
           全部MV
         </Link>
       </div>
-      <div className="domAllMv_main flex-auto">
+      <div className="domAllMV_main flex-auto">
         <div className="ui_filter">
           {
             filters.map((filter) => (

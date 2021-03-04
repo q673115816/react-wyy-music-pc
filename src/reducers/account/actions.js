@@ -32,7 +32,7 @@ export const setAlbumSublist = (payload) => ({
   payload,
 });
 
-export const setMvSublist = (payload) => ({
+export const setMVSublist = (payload) => ({
   type: SET_MV_SUBLIST,
   payload,
 });

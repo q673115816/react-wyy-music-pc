@@ -143,7 +143,7 @@ export default () => {
           {option.type === -1 && option.initial === -1 && artists.length > 0 && (
           <div className="item">
             <div className="cover boarder relative rounded overflow-hidden border">
-              <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.area)[2]}`}>
+              <Link to={`/toplist-artist/${options[0][2].find((item) => item[0] === option.area)[2]}`}>
                 <img
                   className="ui_containimg"
                   src="http://p3.music.126.net/1tSJODTpcbZvNTCdsn4RYA==/109951165034950656.jpg?param=200y200"
@@ -156,7 +156,7 @@ export default () => {
               </Link>
             </div>
             <div className="info mt-2 text-sm text-gray-600 hover:text-black">
-              <Link to={`/toplistartist/${options[0][2].find((item) => item[0] === option.type)[2]}`}>
+              <Link to={`/toplist-artist/${options[0][2].find((item) => item[0] === option.type)[2]}`}>
                 歌手排行榜 &gt;
               </Link>
             </div>

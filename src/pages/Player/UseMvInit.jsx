@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
   apiRelatedAllvideo,
-  apiMvUrl,
-  apiMvDetail,
-  apiMvDetailInfo,
-  apiCommentMv,
+  apiMVUrl,
+  apiMVDetail,
+  apiMVDetailInfo,
+  apiCommentMV,
 } from '@/api';
 
 export default () => {
@@ -24,19 +24,19 @@ export default () => {
         detailInfo = {},
         comments = {},
       ] = await Promise.all([
-        apiMvUrl({
+        apiMVUrl({
           id,
         }),
         apiRelatedAllvideo({
           id,
         }),
-        apiMvDetail({
+        apiMVDetail({
           mvid: id,
         }),
-        apiMvDetailInfo({
+        apiMVDetailInfo({
           mvid: id,
         }),
-        apiCommentMv({
+        apiCommentMV({
           id,
         }),
       ]);

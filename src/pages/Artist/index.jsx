@@ -10,7 +10,7 @@ import {
 import './style.scss';
 
 import DomAlbum from './Album';
-import DomMv from './Mv';
+import DomMV from './MV';
 import DomDetail from './Detail';
 import DomSimilarity from './Similarity';
 import DomHeader from './components/Header';
@@ -80,7 +80,7 @@ export default () => {
         }
         {
           tab === 'MV'
-          && <DomMv id={id} />
+          && <DomMV id={id} />
         }
         {
           tab === '歌手详情'

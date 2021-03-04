@@ -23,16 +23,16 @@ import { transPlayCount } from '@/common/utils';
 import {
   apiFollow,
   apiVideoSub,
-  apiMvSublist,
+  apiMVSublist,
 } from '@/api';
 import { setToast } from '@/reducers/mask/actions';
-import { setMvSublist } from '@/reducers/account/actions';
+import { setMVSublist } from '@/reducers/account/actions';
 
 import Write from '@/components/Write';
 
 import { useDispatch, useSelector } from 'react-redux';
 import UseVideoInit from './UseVideoInit';
-import UseMvInit from './UseMvInit';
+import UseMVInit from './UseMVInit';
 import DomComments from './Comments';
 import DomRelated from './Related';
 
@@ -43,7 +43,7 @@ export default () => {
   }
   const dispatch = useDispatch();
   const { mvSublist } = useSelector(({ account }) => account);
-  const currentInit = type === 'video' ? UseVideoInit : UseMvInit;
+  const currentInit = type === 'video' ? UseVideoInit : UseMVInit;
   const {
     pending,
     urls,
@@ -95,10 +95,10 @@ export default () => {
     }
   };
 
-  const handleGetMvSublist = async () => {
+  const handleGetMVSublist = async () => {
     try {
-      const { data: mvSublist } = await apiMvSublist();
-      dispatch(setMvSublist({
+      const { data: mvSublist } = await apiMVSublist();
+      dispatch(setMVSublist({
         mvSublist,
       }));
     } catch (error) {
@@ -112,7 +112,7 @@ export default () => {
         id: vid,
         t: isSub ? 0 : 1,
       });
-      if (code === 200) handleGetMvSublist();
+      if (code === 200) handleGetMVSublist();
       dispatch(setToast({ toastTitle: isSub ? '取消收藏成功' : '收藏成功' }));
     } catch (error) {
       console.log(error);

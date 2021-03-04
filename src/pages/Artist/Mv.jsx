@@ -4,7 +4,7 @@ import React, {
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { transPlayCount } from '@/common/utils';
-import { apiArtistMv } from '@/api';
+import { apiArtistMV } from '@/api';
 import useInfinite from '@/custom/useInfinite';
 import DomGridVideo from '@/components/GridVideo';
 
@@ -16,7 +16,7 @@ export default memo(({ id }) => {
   const limit = 24;
   const handleInit = async () => {
     try {
-      const { mvs, time } = await apiArtistMv({
+      const { mvs, time } = await apiArtistMV({
         id,
         limit,
         offset: offset.current,

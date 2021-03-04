@@ -18,7 +18,7 @@ import {
   apiUserDetail,
   apiLikelist,
   apiArtistSublist,
-  apiMvSublist,
+  apiMVSublist,
   apiTopicSublist,
   apiAlbumSublist,
 } from '@/api';
@@ -54,7 +54,7 @@ export default memo(({ handleDrap }) => {
         const { playlist } = await apiUserPlaylist({ uid: profile.userId });
         const { ids: likelist } = await apiLikelist({ uid: profile.userId });
         const { data: artistSublist } = await apiArtistSublist();
-        const { data: mvSublist } = await apiMvSublist();
+        const { data: mvSublist } = await apiMVSublist();
         const { data: topicSublist } = await apiTopicSublist();
         const { data: albumSublist } = await apiAlbumSublist();
         dispatch(setLoginInfo({

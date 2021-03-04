@@ -7,7 +7,7 @@ import {
   apiRecommendResource,
   apiPersonalizedPrivatecontent,
   apiPersonalizedNewsong,
-  apiPersonalizedMv,
+  apiPersonalizedMV,
   apiPersonalizedDjprogram,
 } from '@/api';
 import { setHomeRecommend } from '@/reducers/home/actions';
@@ -20,7 +20,7 @@ import RecommendPlaylist from './playlist';
 import RecommendPrivatecontent from './Privatecontent';
 import RecommendNewsong from './Newsong';
 import RecommendDjprogram from './Djprogram';
-import RecommendMv from './Mv';
+import RecommendMV from './MV';
 
 export default memo(() => {
   const {
@@ -41,7 +41,7 @@ export default memo(() => {
         { recommend: playlist },
         PersonalizedPrivatecontent,
         PersonalizedNewsong,
-        PersonalizedMv,
+        PersonalizedMV,
         PersonalizedDjprogram] = await Promise.all([
         apiBanner(),
         apiRecommendResource({
@@ -51,7 +51,7 @@ export default memo(() => {
         apiPersonalizedNewsong({
           limit: 12,
         }),
-        apiPersonalizedMv(),
+        apiPersonalizedMV(),
         apiPersonalizedDjprogram(),
       ]);
       dispatch(setHomeRecommend({
@@ -59,7 +59,7 @@ export default memo(() => {
         playlist,
         privatecontent: PersonalizedPrivatecontent.result,
         newsong: PersonalizedNewsong.result,
-        mv: PersonalizedMv.result,
+        mv: PersonalizedMV.result,
         djprogram: PersonalizedDjprogram.result,
       }));
       setLoading(false);
@@ -125,7 +125,7 @@ export default memo(() => {
             推荐mv
             <IconChevronRight size={24} />
           </Link>
-          <RecommendMv mv={mv} />
+          <RecommendMV mv={mv} />
         </div>
         <div className="domHome_item">
           <Link

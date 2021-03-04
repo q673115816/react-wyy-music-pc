@@ -1,5 +1,5 @@
 import React, { memo, useMemo } from 'react';
-import { apiMvSublist } from '@/api';
+import { apiMVSublist } from '@/api';
 import Search from '@/components/HeaderBarSearch';
 import DomGridVideo from '@/components/GridVideo';
 import useInit from './useInit';
@@ -17,7 +17,7 @@ export default memo(() => {
     setSearch,
     search,
     filter,
-  } = useInit(apiMvSublist, filterRule);
+  } = useInit(apiMVSublist, filterRule);
 
   const memoFilter = useMemo(() => filter.map((item) => ({
     id: item.vid,

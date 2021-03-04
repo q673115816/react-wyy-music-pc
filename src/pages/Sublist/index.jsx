@@ -11,7 +11,7 @@ import {
 
 import DomAlbum from './Album';
 import DomArtist from './Artist';
-import DomMv from './Mv';
+import DomMV from './MV';
 import DomTopic from './Topic';
 
 export default memo(() => (
@@ -30,7 +30,7 @@ export default memo(() => (
         <DomArtist />
       </Route>
       <Route path="/sublist/mv">
-        <DomMv />
+        <DomMV />
       </Route>
       <Route path="/sublist/topic">
         <DomTopic />

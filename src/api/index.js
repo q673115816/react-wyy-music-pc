@@ -21,7 +21,7 @@ export const apiPersonalizedPrivatecontent = () => get('/personalized/privatecon
 // 独家放送列表
 export const apiPersonalizedPrivatecontentList = (params) => get('/personalized/privatecontent/list', params);
 export const apiPersonalizedNewsong = (params) => post('/personalized/newsong', params);
-export const apiPersonalizedMv = () => get('/personalized/mv');
+export const apiPersonalizedMV = () => get('/personalized/mv');
 export const apiPersonalizedDjprogram = () => post('/personalized/djprogram');
 export const apiProgramRecommend = () => post('/program/recommend');
 
@@ -181,7 +181,7 @@ export const apiPlaylistHot = () => get('/playlist/hot');
  * 排行榜 -mv
  * @param {limit?: 30,area?:全部|内地|港台|欧美|日本|韩国, offset?: 0} params
  */
-export const apiTopMv = (params) => post('/top/mv', params);
+export const apiTopMV = (params) => post('/top/mv', params);
 export const apiAlbumNew = (params) => post('/album/new', params);
 
 export const apiPlaylistCatlist = () => get('/playlist/catlist');
@@ -194,11 +194,11 @@ export const apiVideoTimelineRecommend = () => post('/video/timeline/recommend')
 // 收藏视频 id, t = 1
 export const apiVideoSub = (params) => post('/video/sub', params);
 // MV地址
-export const apiMvUrl = (params) => post('/mv/url', params);
+export const apiMVUrl = (params) => post('/mv/url', params);
 // MV数据
-export const apiMvDetail = (params) => post('/mv/detail', params);
+export const apiMVDetail = (params) => post('/mv/detail', params);
 // 获取 mv 点赞转发评论数数据
-export const apiMvDetailInfo = (params) => post('/mv/detail/info', params);
+export const apiMVDetailInfo = (params) => post('/mv/detail/info', params);
 /**
  * 0: 歌曲
 1: mv
@@ -225,7 +225,7 @@ export const apiCommentLike = (params) => post('/comment/like', params);
 // 歌曲评论
 export const apiCommentMusic = (params) => post('/comment/music', params);
 // MV评论
-export const apiCommentMv = (params) => post('/comment/mv', params);
+export const apiCommentMV = (params) => post('/comment/mv', params);
 // 视频评论
 export const apiCommentVideo = (params) => post('/comment/video', params);
 // 视频详情
@@ -253,23 +253,23 @@ export const apiAlbumSublist = () => post('/album/sublist');
 // 我的收藏 - 歌手列表
 export const apiArtistSublist = () => post('/artist/sublist');
 // 我的收藏 - 视频列表
-export const apiMvSublist = () => post('/mv/sublist');
+export const apiMVSublist = () => post('/mv/sublist');
 // 我的收藏 - 专栏列表
 export const apiTopicSublist = () => post('/topic/sublist');
 // 我的电台
 export const apiDjSublist = () => post('/dj/sublist');
 
 // mv - 最新
-export const apiMvFirst = (params) => post('/mv/first', params);
+export const apiMVFirst = (params) => post('/mv/first', params);
 
 // mv - 全部
 /**
  *
  * @param {area?: <全部|内地|港台|欧美|日本|韩国>, type?:<全部|官方版|原生|现场版|网易出品|>, order?:<上升最快|最热|最新>, limit?: 30, offset?:0} params
  */
-export const apiMvAll = (params) => post('/mv/all', params);
+export const apiMVAll = (params) => post('/mv/all', params);
 
-export const apiMvExclusiveRcmd = (params) => post('/mv/exclusive/rcmd', params);
+export const apiMVExclusiveRcmd = (params) => post('/mv/exclusive/rcmd', params);
 
 // 歌手 - 详情
 export const apiArtistDetail = (params) => post('/artist/detail', params);
@@ -283,7 +283,7 @@ export const apiArtistSub = (params) => post('/artist/sub', params);
 // 歌手 - 相似
 export const apiSimiArtist = (params) => post('/simi/artist', params);
 // 歌手 - MV
-export const apiArtistMv = (params) => post('/artist/mv', params);
+export const apiArtistMV = (params) => post('/artist/mv', params);
 // 歌手 - 专辑
 export const apiArtistAlbum = (params) => post('/artist/album', params);
 // 歌手 - 热门50首

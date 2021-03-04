@@ -4,7 +4,7 @@ import {
   useRouteMatch,
 } from 'react-router-dom';
 import VideoList from './VideoList';
-import MvList from './MvList';
+import MVList from './MVList';
 import './style.scss';
 
 export default () => {
@@ -32,7 +32,7 @@ export default () => {
           <VideoList />
         </Route>
         <Route path={`${url}/mvlist`}>
-          <MvList />
+          <MVList />
         </Route>
         <Redirect to={`${url}/videolist`} />
       </Switch>
