@@ -6,6 +6,7 @@ import { transTextEmoji } from '@/common/faces';
 import { apiSendText, apiMsgPrivateHistory } from '@/api';
 import { setMsgPrivateHistory } from '@/reducers/letter/actions';
 import { wordLength } from '@/common/utils';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   IconChevronLeft, IconPhoto, IconMoodSmile, IconPlayerPlay,
@@ -13,15 +14,15 @@ import {
 import EmojiFaces from '../EmojiFaces';
 import Write from '../Write';
 
-const BuildSong = ({ msg = {} }) => (
-  <button type="button" className="share">
-    <div className="avatar">
+const DomSong = ({ msg = {} }) => (
+  <button type="button" className="share flex w-56 rounded p-2 bg-gray-50 mt-2">
+    <div className="avatar flex-none w-10 h-10 rounded relative overflow-hidden">
       <img src={`${msg.song.album.picUrl}?param=100y100`} alt="" />
-      <i className="ico">
+      <i className="absolute inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
         <IconPlayerPlay size={14} className="fill-current" />
       </i>
     </div>
-    <div className="content">
+    <div className="content flex-auto w-0 pl-2.5 text-left">
       <div className="name truncate">
         {msg.song.name}
         {msg.song.alias.length > 0
@@ -34,20 +35,34 @@ const BuildSong = ({ msg = {} }) => (
           )}
       </div>
       <div className="text-gray-400 artist">
-        {msg.song.artists.map((artist) => artist.name)}
+        {msg.song.artists.map((artist, index) => (
+          <span key={artist.name}>
+            {index > 0 && ' / '}
+            {artist.name}
+          </span>
+        ))}
       </div>
     </div>
   </button>
 );
-const BuildAlbum = ({ msg = {} }) => (
-  <button type="button" className="share">
-    <div className="avatar">
+const DomAlbum = ({ msg = {} }) => (
+  <Link
+    to={`/playlist/album/${msg.album.id}`}
+    className="share flex w-56 rounded p-2 bg-gray-50 mt-2"
+  >
+    <button
+      type="button"
+      className="avatar flex-none w-10 h-10 rounded relative overflow-hidden group"
+    >
       <img src={`${msg.album.picUrl}?param=100y100`} alt="" />
-      <i className="ico">
-        <IconPlayerPlay size={14} className="fill-current" />
+      <i className="absolute opacity-0 group-hover:opacity-100 inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
+        <IconPlayerPlay
+          size={14}
+          className="fill-current"
+        />
       </i>
-    </div>
-    <div className="content">
+    </button>
+    <div className="content flex-auto w-0 pl-2.5 text-left">
       <div className="name truncate">
         {msg.album.name}
         {msg.album.alias.length > 0
@@ -60,77 +75,66 @@ const BuildAlbum = ({ msg = {} }) => (
           )}
       </div>
       <div className="text-gray-400 artist">
-        {msg.album.artists.map((artist) => artist.name)}
+        {msg.album.artist.name}
       </div>
     </div>
-  </button>
+  </Link>
 );
 
-const BuildContent = (msg) => {
-  const emptyVideo = msg.hasOwnProperty('video') && msg.video === null;
-  const hasVideo = msg.hasOwnProperty('video') && msg.video;
-  const promotion = msg.hasOwnProperty('promotionUrl') && msg.promotionUrl;
-  return (
-    <div className="content">
-      {msg.msg}
-      {emptyVideo && (
-        <div className="embed center">
-          <span className="null text-gray-400">
-            该视频已删除
-          </span>
-        </div>
-      )}
-      {promotion && (
-        <a href={promotion.url} className="embed">
-          <div className="cover">
-            <img className="ui_containimg" src={promotion.coverUrl} alt="" />
-          </div>
-          <div className="promotion text-gray-400">
-            {promotion.title}
-          </div>
-        </a>
-      )}
-      {
-        msg.type === 1
-        && <BuildSong msg={msg} />
-      }
-      {
-        msg.type === 2
-        && <BuildAlbum msg={msg} />
-      }
+const DomCircle = ({ msg = {} }) => (
+  <div>云圈</div>
+);
+
+const DomPromotion = ({ msg = {} }) => (
+  <a href={msg.promotion.url} className="embed">
+    <div className="cover">
+      <img className="" src={msg.promotion.coverUrl} alt="" />
     </div>
+    <div className="promotion text-gray-400">
+      {msg.promotion.title}
+    </div>
+  </a>
+);
+
+const DomImage = ({ msg = {} }) => (
+  <div className="img">
+    <img src={msg.picInfo.picUrl} className="" alt="" />
+  </div>
+);
+
+const DomMsg = ({ msg = {} }) => transTextEmoji(msg.msg);
+
+const DomContent = ({ msg = {} }) => {
+  const { type } = msg;
+  return (
+    <>
+      {type === 1 && <DomSong msg={msg} />}
+      {type === 2 && <DomAlbum msg={msg} />}
+      {type === 6 && <DomMsg msg={msg} />}
+      {type === 16 && <DomImage msg={msg} />}
+    </>
   );
 };
 
-const BuildMyContent = (msg) => {
-  if (msg.hasOwnProperty('picInfo')) {
-    return (
-      <div className="img">
-        <img src={msg.picInfo.picUrl} className="ui_coverimg" alt="" />
+const DomMsgLeft = ({ msg = {} }) => (
+  <div className="flex">
+    <div className="w-60">
+      <div className="rounded-lg rounded-tl-none bg-blue-50 p-2">
+        <DomContent msg={msg} />
       </div>
-    );
-  }
-  return (
-    <div className="text select-text">
-      {msg.title
-        && (
-          <>
-            {msg.title}
-            ：
-          </>
-        )}
-      {transTextEmoji(msg.msg)}
-      {
-        msg.type === 1
-        && <BuildSong msg={msg} />
-      }
-      {
-        msg.type === 2
-        && <BuildAlbum msg={msg} />
-      }
     </div>
-  );
-};
+  </div>
+);
+
+const DomMsgRight = ({ msg = {} }) => (
+  <div className="flex justify-end">
+    <div className="w-60">
+      <div className="rounded-lg rounded-rb-none bg-blue-50 p-2">
+        <DomContent msg={msg} />
+      </div>
+    </div>
+  </div>
+);
 
 export default () => {
   const dispatch = useDispatch();
@@ -139,6 +143,8 @@ export default () => {
   const {
     uid, hint, nickname, privatMsgs,
   } = useSelector(({ letter }) => letter);
+
+  const { profile } = useSelector(({ account }) => account);
 
   const [visibility, setVisibility] = useState(false);
   const [value, setValue] = useState('');
@@ -195,41 +201,35 @@ export default () => {
       <div className="topbar">
         <button
           type="button"
-          className="back flex-center text-gray-600 hover:text-black"
+          className="back flex-center ui_text_gray_hover"
           onClick={() => dispatch(setMsgPrivateHistory({ showMsgPrivateHistory: false }))}
         >
-          <IconChevronLeft size={22} stroke={1.5} />
+          <IconChevronLeft size={22} />
         </button>
         <span>{nickname}</span>
       </div>
-      <div className="history overflow-auto max-h-full flex-auto" ref={history}>
+      <div className="history overflow-auto max-h-full flex-auto px-5" ref={history}>
         {
           privatMsgs
             .map((item) => (
-              <div className="item" key={item.id}>
+              <div className="item mt-5" key={item.id}>
                 <div className="time text-gray-400">
                   {dayjs(item.time).format('YYYY年MM月DD日 HH:mm')}
                 </div>
-                {item.batchId === 0
+                {item.toUser.userId === profile.userId
                   ? (
-                    <div className="msg right">
-                      <div className="content">
-                        {BuildMyContent(JSON.parse(item.msg))}
-                      </div>
-                    </div>
-                  )
-                  : (
-                    <div className="msg left">
-                      <div className="avatar">
+                    <div className="msg flex justify-start">
+                      <div className="avatar flex-none mr-4 rounded-full overflow-hidden w-8 h-8">
                         <img
-                          className="ui_containimg"
+                          className=""
                           src={item.fromUser.avatarUrl}
                           alt=""
                         />
                       </div>
-                      {BuildContent(JSON.parse(item.msg))}
+                      <DomMsgLeft msg={JSON.parse(item.msg)} />
                     </div>
-                  )}
+                  )
+                  : <DomMsgRight msg={JSON.parse(item.msg)} />}
               </div>
             ))
         }

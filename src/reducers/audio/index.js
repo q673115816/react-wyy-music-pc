@@ -51,7 +51,7 @@ export default (state = initialState, action) => {
         running: !state.running,
       };
     case SET_AUDIO_CURRENTTIME:
-      window.localStorage.setItem('currentTime', JSON.stringify(action.payload));
+      window.localStorage.setItem('currentTime', JSON.stringify(Number(action.payload)));
       return {
         ...state,
         currentTime: action.payload,

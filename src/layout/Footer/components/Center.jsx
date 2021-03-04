@@ -9,10 +9,10 @@ import {
   IconRotate,
   IconRefreshAlert,
 } from '@tabler/icons';
-import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioCurrentTime, setAudioRunningToggle, setAudioPattern } from '@/reducers/audio/actions';
+import { setAudioRunningToggle, setAudioPattern } from '@/reducers/audio/actions';
 import { audioPattern } from '@/common/config';
+import DomProgress from './Progress';
 
 const audioPatternIcon = [
   IconPlaylist,
@@ -24,15 +24,10 @@ const audioPatternIcon = [
 export default () => {
   const dispatch = useDispatch();
   const {
-    running, currentTime, currentSong, pattern,
+    running, pattern,
   } = useSelector(({ audio }) => audio);
-  // console.log(currentTime);
   const handleToggle = () => {
     dispatch(setAudioRunningToggle());
-  };
-  const handleProcess = (e) => {
-    dispatch(setAudioCurrentTime(e.target.value));
-    // console.log(e.target.value);
   };
 
   const handleChangePattern = () => {
@@ -86,24 +81,8 @@ export default () => {
           词
         </button>
       </div>
-      <div className="domfooter_center_bottom flex-center">
-        <span className="text-gray-400">
-          {currentTime ? dayjs(currentTime * 1000).format('mm:ss') : '00:00'}
-        </span>
-        <input
-          onChange={handleProcess}
-          type="range"
-          max={currentSong.dt ? currentSong.dt / 1000 : 100}
-          value={currentTime}
-          style={{ '--process': currentTime / (currentSong.dt / 1000) * 100 }}
-          className="domfooter_center_process"
-        />
-        <span className="text-gray-400">
-          {currentSong.dt
-            ? dayjs(currentSong.dt).format('mm:ss')
-            : '00:00'}
-        </span>
-      </div>
+      <DomProgress />
+
     </div>
   );
 };
