@@ -139,11 +139,11 @@ input:focus {
 }
 
 .flex-center {
-  @include flex-center();
+
 }
 
 .inset-center {
-  @include inset-center();
+
 }
 
 @import 'components';

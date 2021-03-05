@@ -95,8 +95,8 @@
           .title {}
 
           .mask {
-            @include flex-center();
-            @include inset-center();
+
+
             flex-direction: column;
             background-color: rgba(0, 0, 0, 0.8);
             color: #fff;

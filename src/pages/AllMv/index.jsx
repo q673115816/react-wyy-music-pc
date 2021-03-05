@@ -60,9 +60,11 @@ export default () => {
     };
   }, [search]);
 
-  // useEffect(() => {
-  //   handleInit();
-  // }, [search]);
+  useEffect(() => {
+    setData([]);
+    offset.current = 0;
+    // handleInit();
+  }, [search]);
 
   return (
     <div className="domAllMV overflow-auto h-full px-8" ref={domScroll}>

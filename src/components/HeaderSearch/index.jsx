@@ -6,11 +6,10 @@ import classnames from 'classnames';
 import {
   setSearchValue,
   setSearchHistory,
-  setSearchShow,
   setSearchHot,
   setSearchSuggest,
 } from '@/reducers/search/actions';
-import { setDialogReset } from '@/reducers/mask/actions';
+import { setDialogReset, setSearchShow } from '@/reducers/mask/actions';
 import DomMask from '../Mask';
 
 export default () => {

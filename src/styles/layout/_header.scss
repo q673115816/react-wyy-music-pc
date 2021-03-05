@@ -93,7 +93,7 @@
         background-color: var(--themeRed);
         border-radius: 1000px;
         color: #fff;
-        @include flex-center();
+
         border: 2px solid;
         // z-index: 2;
       }
@@ -188,7 +188,7 @@
             background-color: var(--themeRed);
             border-radius: 1000px;
             color: #fff;
-            @include flex-center();
+
             border: 2px solid;
             // z-index: 2;
           }

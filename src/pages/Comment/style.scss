@@ -13,8 +13,8 @@
       overflow: hidden;
 
       .ico {
-        @include inset-center();
-        @include flex-center();
+
+
         color: var(--themeColor);
         width: 30px;
         height: 30px;

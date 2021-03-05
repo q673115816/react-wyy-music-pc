@@ -1,7 +1,9 @@
 import React, {
-  useEffect, useState, memo,
+  useEffect, useState, memo, useMemo,
+
 } from 'react';
-import './style.scss';
+// import { unstable_batchedUpdates } from 'react-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import {
@@ -15,6 +17,12 @@ import {
 } from '@/api';
 import DomGridVideo from '@/components/GridVideo';
 import DomGridMVToplist from '@/components/GridMVToplist';
+import DomLoading from '@/components/Loading';
+import {
+  setMVlistInit, setMVlistTopareaInit,
+  setMVlistFirstareaInit,
+} from '@/reducers/mvlist/actions';
+import './style.scss';
 
 const category = [
   '内地',
@@ -26,18 +34,24 @@ const category = [
 
 export default memo(() => {
   console.log('mv');
-  const [firstArea, setFirstArea] = useState('内地');
-  const [topArea, setTopArea] = useState('内地');
-  const [mvFirst, setMVFirst] = useState([]);
-  const [mvHot, setMVHot] = useState([]);
-  const [mvWy, setMVWy] = useState([]);
-  const [mvTop, setMVTop] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const {
+    firstArea,
+    topArea,
+    first,
+    hot,
+    wy,
+    top,
+    timestamp,
+  } = useSelector(({ mvlist }) => mvlist);
+  const memoLoading = useMemo(() => Date.now() - timestamp > 3600000, [timestamp]);
   const handleInit = async () => {
     try {
       const [
         { data: hot },
         { data: wy },
+        { data: first },
+        { data: top },
       ] = await Promise.all([
         apiMVAll({
           order: '最热',
@@ -46,51 +60,71 @@ export default memo(() => {
         apiMVExclusiveRcmd({
           limit: 6,
         }),
+        apiMVFirst({
+          area: firstArea,
+          limit: 6,
+        }),
+        apiTopMV({
+          area: topArea,
+          limit: 10,
+        }),
       ]);
-      setMVHot(hot);
-      setMVWy(wy);
-      setLoading(false);
+      dispatch(setMVlistInit({
+        first,
+        hot,
+        wy,
+        top,
+        timestamp: Date.now(),
+      }));
+      // unstable_batchedUpdates(() => {
+      //   setMVHot(hot);
+      //   setMVWy(wy);
+      //   setMVFirst(first);
+      //   setMVTop(top);
+      //   setLoading(false);
+      // });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleGetFirstArea = async () => {
+  const handleChangeFirstArea = async (firstArea) => {
     try {
       const { data: first } = await apiMVFirst({
         area: firstArea,
         limit: 6,
       });
-      setMVFirst(first);
+      dispatch(setMVlistFirstareaInit({
+        firstArea,
+        first,
+      }));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleGetTopArea = async () => {
+  const handleChangeTopArea = async (topArea) => {
     try {
       const { data: top } = await apiTopMV({
         area: topArea,
         limit: 10,
       });
-      setMVTop(top);
+      dispatch(setMVlistTopareaInit({
+        topArea,
+        top,
+      }));
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    handleInit();
-  }, []);
+    if (memoLoading) {
+      handleInit();
+    }
+  }, [memoLoading]);
 
-  useEffect(() => {
-    handleGetFirstArea();
-  }, [firstArea]);
-
-  useEffect(() => {
-    handleGetTopArea();
-  }, [topArea]);
-  // if (loading) return <div>loading</div>;
+  if (memoLoading) return <div className="w-full h-full flex-center"><DomLoading /></div>;
   return (
     <div className="domVideoList_content overflow-auto max-h-full flex-auto">
       <div className="domMVList_sublist">
@@ -107,7 +141,7 @@ export default memo(() => {
               category.map((item) => (
                 <div className="item" key={item}>
                   <button
-                    onClick={() => setFirstArea(item)}
+                    onClick={() => handleChangeFirstArea(item)}
                     type="button"
                     className={classnames('link rounded-full px-2.5', firstArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
                   >
@@ -118,7 +152,7 @@ export default memo(() => {
             }
           </div>
         </div>
-        <DomGridVideo list={mvFirst} type="mv" />
+        <DomGridVideo list={first} type="mv" />
       </div>
       <div className="domMVList_sublist">
         <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
@@ -130,7 +164,7 @@ export default memo(() => {
             <IconChevronRight size={20} />
           </Link>
         </div>
-        <DomGridVideo list={mvHot} type="mv" />
+        <DomGridVideo list={hot} type="mv" />
       </div>
       <div className="domMVList_sublist">
         <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
@@ -142,7 +176,7 @@ export default memo(() => {
             <IconChevronRight size={20} />
           </Link>
         </div>
-        <DomGridVideo list={mvWy} type="mv" />
+        <DomGridVideo list={wy} type="mv" />
       </div>
       <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
         <Link to="/toplist-mv/" className="domMVList_subLink font-bold text-base flex items-center">
@@ -154,9 +188,9 @@ export default memo(() => {
             category.map((item) => (
               <div className="item" key={item}>
                 <button
-                  onClick={() => setFirstArea(item)}
+                  onClick={() => handleChangeTopArea(item)}
                   type="button"
-                  className={classnames('link rounded-full px-2.5', firstArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
+                  className={classnames('link rounded-full px-2.5', topArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
                 >
                   {item}
                 </button>
@@ -165,7 +199,7 @@ export default memo(() => {
           }
         </div>
       </div>
-      <DomGridMVToplist list={mvTop} />
+      <DomGridMVToplist list={top} />
     </div>
   );
 });

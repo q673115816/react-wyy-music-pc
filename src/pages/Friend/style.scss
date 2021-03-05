@@ -1,15 +1,8 @@
 .domFriend {
-  &_left {
-    padding-top: 54px;
-  }
-
   &_header {
     padding: 0 30px;
     padding-top: 20px;
     height: 54px;
-  }
-
-  &_content {
   }
 
   &_dynamic {
@@ -29,12 +22,6 @@
       }
 
       .content {
-        .name {
-        }
-
-        .time {
-        }
-
         .article {
           word-break: break-all;
           word-wrap: break-word;
@@ -98,8 +85,6 @@
               .action {
                 cursor: pointer;
                 color: #aaa;
-                // display: flex;
-                // align-items: baseline;
 
                 &.on {
                   color: var(--themeColor);
@@ -152,10 +137,6 @@
         }
       }
     }
-  }
-
-  &_split {
-    background-color: #E0E0E0;
   }
 
   &_right {

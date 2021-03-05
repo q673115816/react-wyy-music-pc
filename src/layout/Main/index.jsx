@@ -8,7 +8,7 @@ export default memo(() =>
     <div className="dommain w-full flex flex-auto h-px">
       <DomNav />
       <div className="dommain_split" />
-      <div className="dommain_right h-full flex-auto min-w-0 relative">
+      <div className="dommain_right flex-auto w-0">
         <Suspense fallback={<div>loading</div>}>
           {/* <DomAi /> */}
           <Router />

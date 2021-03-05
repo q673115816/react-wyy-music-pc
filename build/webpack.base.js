@@ -48,7 +48,7 @@ module.exports = {
   target: 'web',
   // entry: path.join(src, 'index.js'),
   entry: {
-    index: path.join(src, 'index.js'),
+    index: path.join(src, 'index.jsx'),
     // vendor: [
     // 'swiper',
     // 'react',

@@ -9,6 +9,8 @@ import {
   setFriendInit, setFriendEvent, setCommentEvent,
 } from '@/reducers/friend/actions';
 
+import { IconPlus } from '@tabler/icons';
+
 import { setLoginVisibilty } from '@/reducers/common/actions';
 import './style.scss';
 
@@ -82,12 +84,12 @@ export default memo(() => {
     handleInit();
   }, []);
   return (
-    <div className="domFriend flex overflow-auto min-h-full">
+    <div className="domFriend flex overflow-auto h-full">
       <div className="domFriend_left relative flex-auto">
-        <div className="domFriend_header flex items-center justify-between absolute top-0 left-0 right-0 bg-white">
+        <div className="domFriend_header flex items-center sticky top-0 z-10 bg-white">
           <span className="h1">动态</span>
-          <button type="button" className="inline-flex items-center ui_theme_bg_color text-white justify-center h-6 px-3 rounded-full">
-            +
+          <button type="button" className="flex ml-auto items-center ui_theme_bg_color text-white h-6 px-3 rounded-full">
+            <IconPlus size={12} stroke={5} />
             写动态
           </button>
         </div>
@@ -113,7 +115,7 @@ export default memo(() => {
           }
         </div>
       </div>
-      <div className="domFriend_split w-px flex-none" />
+      <div className="domFriend_split w-px flex-none bg-gray-200" />
       <div className="domFriend_right flex-none">
         <div className="domFriend_user">
           {

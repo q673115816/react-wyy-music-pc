@@ -1,24 +1,6 @@
 .domVideoDetail {
-  width: 930px;
-  margin: 0 auto;
-
-  &_container {
-    display: flex;
-    justify-content: space-between;
-
-    .left {
-      width: 620px;
-    }
-
-    .right {
-      width: 280px;
-    }
-  }
-
   &_header {
     height: 50px;
-    align-items: center;
-    font-size: 16px;
   }
 
   &_creator {
@@ -28,20 +10,7 @@
     }
 
     .follow {
-      margin-left: auto;
       width: 80px;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
-      background-color: #FCF4F4;
-      border-radius: 15px;
-      font-size: 14px;
-      color: var(--themeColor);
-
-      &.on {
-        background-color: #F8F8F8;
-        color: #9B9B9B;
-      }
     }
   }
 
@@ -60,17 +29,6 @@
     .cover {
       width: 140px;
       height: 80px;
-    }
-
-    .title {
-      @include ellipse(2);
-    }
-
-  }
-
-  &_main {
-    .title {
-      margin-bottom: 20px;
     }
   }
 }

@@ -69,6 +69,7 @@ export default () => {
   useEffect(() => {
     handleInit();
   }, [uid]);
+
   useEffect(() => {
     if (isEqual(profile, edit)) {
       setDisabled(true);
@@ -76,6 +77,7 @@ export default () => {
       setDisabled(false);
     }
   }, [edit]);
+
   if (loading) return <div>loading</div>;
   return (
     <div className="domUserEdit">

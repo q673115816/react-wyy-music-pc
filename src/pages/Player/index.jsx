@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useMemo, useState, useRef, useLayoutEffect,
+  useEffect, useMemo, useState, useRef,
 } from 'react';
 
 import {
@@ -23,6 +23,7 @@ import { transPlayCount } from '@/common/utils';
 import {
   apiFollow,
   apiVideoSub,
+  apiMVSub,
   apiMVSublist,
 } from '@/api';
 import { setToast } from '@/reducers/mask/actions';
@@ -36,14 +37,27 @@ import UseMVInit from './UseMVInit';
 import DomComments from './Comments';
 import DomRelated from './Related';
 
+const switchs = {
+  video: {
+    init: UseVideoInit,
+    name: '视频详情',
+    sub: 'subscribeCount',
+  },
+  mv: {
+    init: UseMVInit,
+    name: 'MV详情',
+    sub: 'subCount',
+  },
+};
+
 export default () => {
   const { vid, type } = useParams();
-  if ((type !== 'video' && type !== 'mv') || !vid) {
+  if (!['video', 'mv'].includes(type) || !vid) {
     return <Redirect to="/" />;
   }
   const dispatch = useDispatch();
   const { mvSublist } = useSelector(({ account }) => account);
-  const currentInit = type === 'video' ? UseVideoInit : UseMVInit;
+  // const currentInit = type === 'video' ? UseVideoInit : UseMVInit;
   const {
     pending,
     urls,
@@ -52,7 +66,7 @@ export default () => {
     detailInfo,
     comments,
     handleInit,
-  } = currentInit();
+  } = switchs[type].init();
 
   const DomVideoWrap = useRef();
   const DomScroll = useRef();
@@ -108,8 +122,11 @@ export default () => {
 
   const handleSub = async () => {
     try {
-      const { code } = await apiVideoSub({
+      const { code } = type === 'video' ? await apiVideoSub({
         id: vid,
+        t: isSub ? 0 : 1,
+      }) : await apiMVSub({
+        mvid: vid,
         t: isSub ? 0 : 1,
       });
       if (code === 200) handleGetMVSublist();
@@ -130,174 +147,163 @@ export default () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(fixed);
-  }, [fixed]);
+  // useEffect(() => {
+  //   console.log(fixed);
+  // }, [fixed]);
 
   return (
     <div className=" overflow-auto h-full" ref={DomScroll}>
-      <div className="domVideoDetail">
-        <div className="domVideoDetail_header domVideoDetail_container">
-          <div className="left">
+      <div style={{ width: 930 }} className="flex justify-between m-auto">
+        <div className="left" style={{ width: 620 }}>
+          <div className="domVideoDetail_header flex items-center">
             <button
               type="button"
-              className="flex items-center"
+              className="flex items-center text-base font-bold"
               onClick={() => goBack()}
             >
               <IconChevronLeft size={28} stroke={1} />
               {
-                type === 'video'
-                  ? <b>视频详情</b>
-                  : <b>MV详情</b>
+                switchs[type].name
               }
             </button>
           </div>
-          <div className="right">
-            <b>相关推荐</b>
+          <div ref={DomVideoWrap} className="ui_aspect-ratio-16/9">
+            <div className={classnames('ui_aspect-ratio-16/9', fixed ? ' absolute bottom-16 right-8 z-10 w-80' : 'relative')}>
+              <video src={urls?.url} className="absolute inset-0 w-full h-full" controls playsInline />
+            </div>
           </div>
-        </div>
-        <div className="domVideoDetail_main domVideoDetail_container">
-          <div className="left">
-            <div ref={DomVideoWrap} className="ui_aspect-ratio-16/9">
-              <div className={classnames('ui_aspect-ratio-16/9', fixed ? ' absolute bottom-16 right-8 z-10 w-80' : 'relative')}>
-                <video src={urls?.url} className="absolute inset-0 w-full h-full" controls playsInline />
-              </div>
-            </div>
-            <div className="domVideoDetail_creator flex items-center mt-5">
-              <Link to={`/user/${detail?.creator?.userId}`} className="avatar rounded-full overflow-hidden">
-                <img className="" src={detail?.creator?.avatarUrl} alt="" />
-              </Link>
-              <Link className="nickname ml-2.5" to={`/user/${detail?.creator?.userId}`}>
-                {detail?.creator?.nickname}
-              </Link>
-              <button
-                onClick={handleFollow}
-                type="button"
-                className={classnames('follow', { on: detail?.creator?.followed })}
-              >
-                {
-                  detail?.creator?.followed
-                    ? '+ 已关注'
-                    : '+ 关注'
-                }
-              </button>
-            </div>
+          <div className="domVideoDetail_creator flex items-center mt-5">
+            <Link to={`/user/${detail?.creator?.userId}`} className="avatar rounded-full overflow-hidden">
+              <img className="" src={detail?.creator?.avatarUrl} alt="" />
+            </Link>
+            <Link className="nickname ml-2.5" to={`/user/${detail?.creator?.userId}`}>
+              {detail?.creator?.nickname}
+            </Link>
             <button
+              onClick={handleFollow}
               type="button"
-              className="domVideoDetail_title h1 flex items-center mt-5"
-              onClick={() => setDescriptionVisibility(!descriptionVisibility)}
+              className={classnames('follow text-red-500 bg-red-50 ml-auto h-8 rounded-full', { on: detail?.creator?.followed })}
             >
-              {detail?.title}
               {
-                descriptionVisibility
-                  ? <IconCaretUp size={24} className="fill-current" />
-                  : <IconCaretDown size={24} className="fill-current" />
+                detail?.creator?.followed
+                  ? '+ 已关注'
+                  : '+ 关注'
               }
             </button>
-            <div className="domVideoDetail_info text-gray-400 mt-4">
-              发布：
-              {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
-              &nbsp;
-              播放
-              {transPlayCount(detail?.playCount)}
-            </div>
-            <div className="domVideoDetail_group space-x-1">
-              {detail?.videoGroup?.map((group) => (
-                <Link className="group" to={`/video/list/${group.id}`} key={group.id}>
-                  {group.name}
-                </Link>
-              ))}
-            </div>
+          </div>
+          <button
+            type="button"
+            className="domVideoDetail_title h1 flex items-center mt-5"
+            onClick={() => setDescriptionVisibility(!descriptionVisibility)}
+          >
+            {detail?.title}
             {
               descriptionVisibility
-              && (
-                <div
-                  className="domVideoDetail_description mt-4"
-                >
-                  {detail.description}
-                </div>
-              )
+                ? <IconCaretUp size={24} className="fill-current" />
+                : <IconCaretDown size={24} className="fill-current" />
             }
-            <div className="domVideoDetail_actions flex space-x-3 mt-8">
-              <button
-                type="button"
-                className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
+          </button>
+          <div className="domVideoDetail_info text-gray-400 mt-4">
+            发布：
+            {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
+            &nbsp;
+            播放
+            {transPlayCount(detail?.playCount)}
+          </div>
+          <div className="domVideoDetail_group space-x-1">
+            {detail?.videoGroup?.map((group) => (
+              <Link className="group" to={`/video/list/${group.id}`} key={group.id}>
+                {group.name}
+              </Link>
+            ))}
+          </div>
+          {
+            descriptionVisibility
+            && (
+              <div
+                className="domVideoDetail_description mt-4"
               >
-                <IconThumbUp size={20} stroke={1} />
-                {
-                  detailInfo.liked
-                    ? '已赞'
-                    : '赞'
-                }
-                (
-                {detailInfo.likedCount}
-                )
-              </button>
+                {detail.description}
+              </div>
+            )
+          }
+          <div className="domVideoDetail_actions flex space-x-3 mt-8">
+            <button
+              type="button"
+              className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
+            >
+              <IconThumbUp size={20} stroke={1} />
               {
-                isSub ? (
+                detailInfo.liked
+                  ? '已赞'
+                  : '赞'
+              }
+              (
+              {detailInfo.likedCount}
+              )
+            </button>
+            {
+              isSub ? (
 
+                <button
+                  type="button"
+                  className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
+                  onClick={handleSub}
+                >
+                  <IconCheckbox size={20} stroke={1} />
+                  已收藏
+                  (
+                  {detail[switchs[type].sub]}
+                  )
+                </button>
+              )
+                : (
                   <button
                     type="button"
                     className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
                     onClick={handleSub}
                   >
-                    <IconCheckbox size={20} stroke={1} />
-                    已收藏
+                    <IconFolderPlus size={20} stroke={1} />
+                    收藏
                     (
-                    {detail.subscribeCount}
+                    {detail[switchs[type].sub]}
                     )
                   </button>
                 )
-                  : (
-                    <button
-                      type="button"
-                      className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
-                      onClick={handleSub}
-                    >
-                      <IconFolderPlus size={20} stroke={1} />
-                      收藏
-                      (
-                      {detail.subscribeCount}
-                      )
-                    </button>
-                  )
-              }
-              <button
-                type="button"
-                className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
-              >
-                <IconScreenShare size={20} stroke={1} />
-                分享
-                (
-                {detailInfo.shareCount}
-                )
-              </button>
-            </div>
-            <div className="domVideoDetail_main mt-8">
-              <div className="title">
-                <b className="h1">评论</b>
-                &nbsp;
-                <span>
-                  (
-                  {detail.commentCount}
-                  )
-                </span>
-              </div>
-              <div className="domVideoDetail_feedback">
-                <Write {...{
-                  value,
-                  setValue,
-                  length: 140,
-                }}
-                />
-              </div>
-              <DomComments comments={comments} />
-            </div>
+            }
+            <button
+              type="button"
+              className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
+            >
+              <IconScreenShare size={20} stroke={1} />
+              分享
+              (
+              {detailInfo.shareCount}
+              )
+            </button>
           </div>
-          <div className="right">
-            <DomRelated related={related} />
+          <div className="domVideoDetail_main mt-8">
+            <div className="title mb-5">
+              <span className="h1 font-bold">评论</span>
+                  &nbsp;
+              <span>
+                (
+                {detail.commentCount}
+                )
+              </span>
+            </div>
+            <div className="domVideoDetail_feedback">
+              <Write {...{
+                value,
+                setValue,
+                length: 140,
+              }}
+              />
+            </div>
+            <DomComments comments={comments} />
           </div>
         </div>
+        <DomRelated related={related} />
       </div>
     </div>
   );

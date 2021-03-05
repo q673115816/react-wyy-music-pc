@@ -1,10 +1,9 @@
 import React, {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useEffect, useState,
 } from 'react';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setGlobalInset } from '@/reducers/mask/actions';
 import { IconChevronDownRight } from '@tabler/icons';
 import DomPlayer from './pages/Player';
 import './styles/index.scss';
@@ -12,6 +11,7 @@ import DomHeader from './layout/Header';
 import DomMain from './layout/Main';
 import DomFooter from './layout/Footer';
 
+import { setGlobalInset } from './reducers/mask/actions';
 import DialogLogin from './components/Dialog/Login';
 import DialogShare from './components/Dialog/Share';
 import DialogShareWX from './components/Dialog/ShareWX';
@@ -24,27 +24,7 @@ import Tosat from './components/Toast';
 import Contextmenu from './components/Contextmenu';
 import HeaderSearch from './components/HeaderSearch';
 
-const handlePopSwitch = (popupStatus) => {
-  switch (popupStatus) {
-    case 'playlist':
-      return <Playlist />;
-    case 'privateLetter':
-      return <Letter />;
-    default:
-      return '';
-  }
-};
-
-const DomCorner = () => (
-  <div
-    className="absolute right-0 bottom-0 text-gray-500"
-    style={{ cursor: 'se-resize' }}
-  >
-    <IconChevronDownRight />
-  </div>
-);
-
-export default function App() {
+export default () => {
   const dispatch = useDispatch();
   const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
   const { screen } = useSelector(({ mask }) => mask);
@@ -127,7 +107,8 @@ export default function App() {
               <DomFooter />
             </Route>
           </Switch>
-          {handlePopSwitch(popupStatus)}
+          { popupStatus === 'playlist' && <Playlist />}
+          { popupStatus === 'privateLetter' && <Letter />}
           {
             contextMenuVisibility && (
               <Contextmenu />
@@ -157,21 +138,27 @@ export default function App() {
             && <Tosat />
           }
           {screen === 'normal'
-            && <DomCorner />}
+            && (
+            <div
+              className="absolute right-0 bottom-0 text-gray-500"
+              style={{ cursor: 'se-resize' }}
+            >
+              <IconChevronDownRight />
+            </div>
+            )}
         </div>
         {loginVisibility && <DialogLogin />}
         {dragger && (
-        <div
-          className="absolute inset-0"
-          onMouseUp={dragup}
-          onMouseMove={dragmove}
-        />
+          <div
+            className="absolute inset-0"
+            onMouseUp={dragup}
+            onMouseMove={dragmove}
+          />
         )}
         {
           resizer && <div className="absolute inset-0" />
-
         }
       </Router>
     </div>
   );
-}
+};

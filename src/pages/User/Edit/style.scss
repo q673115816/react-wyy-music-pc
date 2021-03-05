@@ -57,7 +57,7 @@
               height: 18px;
               border-radius: 50%;
               border: 1px solid #D0D0D0;
-              @include flex-center();
+
               &::before {
                 opacity: 0;
                 width: 12px;

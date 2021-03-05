@@ -191,8 +191,10 @@ export const apiVideoGroupList = () => get('/video/group/list');
 export const apiVideoGroup = (params) => post('/video/group', params);
 export const apiVideoCategoryList = () => post('/video/category/list');
 export const apiVideoTimelineRecommend = () => post('/video/timeline/recommend');
-// 收藏视频 id, t = 1
+// 收藏视频 id, t = 1收藏
 export const apiVideoSub = (params) => post('/video/sub', params);
+// 收藏mv mvid, t = 1
+export const apiMVSub = (params) => post('/mv/sub', params);
 // MV地址
 export const apiMVUrl = (params) => post('/mv/url', params);
 // MV数据

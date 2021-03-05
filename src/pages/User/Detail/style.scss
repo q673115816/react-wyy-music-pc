@@ -5,12 +5,8 @@
     display: flex;
 
     .avatar {
-      flex: none;
       width: 180px;
       height: 180px;
-      border-radius: 90px;
-      overflow: hidden;
-      border: 1px solid #ccc;
     }
 
     .content {
@@ -53,26 +49,6 @@
           margin-right: 0.5em;
         }
       }
-      .right {
-        margin-left: auto;
-      }
-    }
-
-    .infos {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: 88px 1px 88px 1px 88px;
-      .info {
-        text-align: center;
-
-        .num {
-          font-size: 20px;
-        }
-
-        .string {
-          margin-top: 4px;
-        }
-      }
     }
 
     .list {
@@ -102,7 +78,7 @@
         height: 20px;
         background-color: #F2F2F2;
         color: #7F7F7F;
-        @include flex-center();
+
         &:first-child {
           border-radius: 3px 0 0 3px;
         }

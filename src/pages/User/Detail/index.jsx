@@ -86,7 +86,7 @@ export default () => {
   return (
     <div className="domUserDetail">
       <div className="domUserDetail_header">
-        <div className="avatar">
+        <div className="avatar rounded-full overflow-hidden flex-none">
           <img src={`${user.profile.avatarUrl}?param=200y200`} alt="" className="ui_coverimg" />
         </div>
         <div className="content">
@@ -120,7 +120,7 @@ export default () => {
               {user.profile.gender === 1 && <DomMale size={16} />}
               {user.profile.gender === 2 && <DomFamale size={16} />}
             </div>
-            <div className="right flex-center">
+            <div className="right ml-auto flex-center">
               {
                 isSelf
                   ? (
@@ -166,20 +166,18 @@ export default () => {
               }
             </div>
           </div>
-          <div style={{ height: 1, backgroundColor: '#E5E5E5' }} />
-          <div className="infos">
+          <hr />
+          <div className="infos text-center divide-x grid mt-5" style={{ gridTemplateColumns: 'repeat(3, 88px)' }}>
             <Link to={`${url}/dynamic`} className="info">
-              <div className="num">{user.profile.eventCount}</div>
+              <div className="num text-base">{user.profile.eventCount}</div>
               <div className="string">动态</div>
             </Link>
-            <i style={{ height: 36, width: 1, backgroundColor: '#E5E5E5' }} />
             <Link to={`${url}/follow`} className="info">
-              <div className="num">{user.profile.follows}</div>
+              <div className="num text-base">{user.profile.follows}</div>
               <div className="string">关注</div>
             </Link>
-            <i style={{ height: 36, width: 1, backgroundColor: '#E5E5E5' }} />
             <Link to={`${url}/fans`} className="info">
-              <div className="num">{user.profile.followeds}</div>
+              <div className="num text-base">{user.profile.followeds}</div>
               <div className="string">粉丝</div>
             </Link>
           </div>
@@ -237,7 +235,7 @@ export default () => {
         <div className="domUserDetail_list grid grid-cols-4 gap-5">
           <div className="item">
             <Link to={`${url}/record`}>
-              <div className="cover relative ui_aspect-ratio-1/1">
+              <div className="cover relative border ui_aspect-ratio-1/1">
                 <div className="absolute inset-0">
                   <RainbowCat />
                 </div>
@@ -261,6 +259,7 @@ export default () => {
               <div className="cover relative rounded group border overflow-hidden ui_aspect_ratio_1/1">
                 <Link to={`/playlist/music/${item.id}`}>
                   <img src={`${item.coverImgUrl}?param=200y200`} className="ui_containimg" alt="" />
+                  <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
                   {item.privacy === 10
                   && (
                   <div className="absolute right-0 bottom-0">

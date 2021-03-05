@@ -90,7 +90,11 @@
 }
 
 .ui_ellipse {
-  @include ellipse()
+  display: -webkit-box;
+  /*! autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
 }
 
 .ui_playbtn_group {
@@ -100,7 +104,7 @@
   overflow: hidden;
 
   @mixin btn() {
-    @include flex-center();
+
     background-color: var(--themeColor);
 
     &:hover {
@@ -273,7 +277,7 @@
 
 .ui_dialog {
   background-color: #fff;
-  @include inset-center();
+
   width: min-content;
   height: min-content;
   border-radius: 6px;
@@ -287,7 +291,7 @@
     font-size: 36px;
     z-index: 2;
     color: #999;
-    @include flex-center();
+
   }
 
   &_header {
@@ -307,7 +311,7 @@
   padding: calc(var(--size, 4) / 5 * 1px);
   color: var(--logoColor);
   border-radius: 1000px;
-  @include flex-center();
+
   display: inline-flex;
 
   &.hover {

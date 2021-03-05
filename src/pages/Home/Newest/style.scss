@@ -122,8 +122,8 @@
           margin-right: 10px;
 
           .ico {
-            @include inset-center();
-            @include flex-center();
+
+
             font-size: 24px;
             color: var(--themeColor);
             width: 30px;
@@ -194,7 +194,7 @@
         .name {
           margin-top: 0.5em;
           font-size: 14px;
-          @include ellipse();
+
 
           &:hover {
             opacity: 0.8;

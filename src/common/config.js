@@ -6,3 +6,8 @@ export const audioPattern = [
   '单曲循环',
   '随机播放',
 ];
+
+export const playerTypes = {
+  0: 'mv',
+  1: 'video',
+};
