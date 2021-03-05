@@ -14,6 +14,8 @@ import {
 import classnames from 'classnames';
 import { transPlayCount, transSubscribeCount } from '@/common/utils';
 import DomLoading from '@/components/Loading';
+import DomAllplayGroup from '@/components/AllplayGroup';
+
 import DomSubscribers from './components/Subscribers';
 
 export default () => {
@@ -90,17 +92,7 @@ export default () => {
             </span>
           </div>
           <div className="actions">
-            <div className="ui_playbtn_group btn">
-              <button type="button" className="ui_playbtn_group_left">
-                <IconPlayerPlay size={16} className="fill-current" />
-                &nbsp;
-                播放全部
-              </button>
-              <i className="ui_playbtn_group_split" />
-              <button type="button" className="ui_playbtn_group_right">
-                <IconPlus size={18} />
-              </button>
-            </div>
+            <DomAllplayGroup />
             <button type="button" className="ui_btn btn">
               {
                 playlist.subscribed

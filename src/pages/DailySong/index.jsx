@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import useLoginStatus from '@/custom/useLoginStatus';
 import './style.scss';
 import DomHeart from '@/components/Heart';
+import DomAllplayGroup from '@/components/AllplayGroup';
 
 export default () => {
   useLoginStatus();
@@ -69,6 +70,13 @@ export default () => {
     }
   };
 
+  const handlePlay = () => {
+    alert('asd');
+  };
+  const handleAdd = () => {
+    alert('asd');
+  };
+
   useEffect(() => {
     handleInit();
   }, []);
@@ -87,17 +95,7 @@ export default () => {
           </div>
         </div>
         <div className="actions">
-          <span className="ui_playbtn_group">
-            <button type="button" className="ui_playbtn_group_left">
-              <IconPlayerPlay size={16} className="fill-current" />
-            &nbsp;
-              播放全部
-            </button>
-            <i className="ui_playbtn_group_split" />
-            <button type="button" className="ui_playbtn_group_right">
-              <IconPlus size={18} />
-            </button>
-          </span>
+          <DomAllplayGroup {...{ handlePlay, handleAdd }} />
           &nbsp;
           &nbsp;
           <button type="button" className="ui_btn">

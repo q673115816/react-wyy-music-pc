@@ -105,13 +105,13 @@ export default memo(() => {
                   src={`${item.coverImgUrl}?param=200y200`}
                   alt=""
                 />
-                <div className="inset-center flex-center text-white">
+                <div className="absolute inset-0 m-auto flex-center text-white">
                   <span className="pt-16">
                     {dayjs(item.updateTime).format('MM月DD日')}
                     更新
                   </span>
                 </div>
-                <button type="button" className="opacity-0 group-hover:opacity-100 inset-center flex-center rounded-full w-10 h-10 text-red-500 bg-white bg-opacity-50">
+                <button type="button" className="opacity-0 group-hover:opacity-100 absolute inset-0 m-auto flex-center rounded-full w-10 h-10 text-red-500 bg-white bg-opacity-50">
                   <IconPlayerPlay size={22} className="fill-current" />
                 </button>
               </Link>
@@ -134,7 +134,7 @@ export default memo(() => {
               className="official_rank_cover overflow-hidden relative group"
             >
               歌手榜
-              <div className="inset-center flex-center text-white">
+              <div className="absolute inset-0 m-auto flex-center text-white">
                 <span className="pt-16">
                   {dayjs(artists.list?.updateTime).format('MM月DD日')}
                   更新
@@ -142,7 +142,7 @@ export default memo(() => {
               </div>
               <button
                 type="button"
-                className="opacity-0 group-hover:opacity-100 inset-center flex-center rounded-full w-10 h-10 text-red-500 bg-white bg-opacity-50"
+                className="opacity-0 group-hover:opacity-100 absolute inset-0 m-auto flex-center rounded-full w-10 h-10 text-red-500 bg-white bg-opacity-50"
               >
                 <IconPlayerPlay size={22} className="fill-current" />
               </button>

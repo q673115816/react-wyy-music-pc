@@ -44,26 +44,29 @@ export default () => {
     dialogUnSubscriptionVisibility,
   } = useSelector(({ mask }) => mask);
   const [dragger, setDragger] = useState(false);
+  const [dragInset, setDragInset] = useState({ x: 0, y: 0 });
+  const [dragStartInset, setDragStartInset] = useState({ x: 0, y: 0 });
+  const [dragLastInset, setDragLastInset] = useState({ x: 0, y: 0 });
   const [resizer, setResizer] = useState(false);
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-  const [startX, setStartX] = useState(0);
-  const [startY, setStartY] = useState(0);
-  const [lastX, setLastX] = useState(0);
-  const [lastY, setLastY] = useState(0);
-
+  const [resizeInset, setResizeInset] = useState({ x: 0, y: 0 });
+  const [resizeStartInset, setResizeStartInset] = useState({ x: 0, y: 0 });
+  const [resizeInitRect, setResizeInitRect] = useState({ width: 1022, height: 670 });
+  const [resizeRect, setResizeRect] = useState(resizeInitRect);
   const dragdown = useCallback((e) => {
-    setStartX(e.clientX);
-    setStartY(e.clientY);
+    setDragStartInset({
+      x: e.clientX,
+      y: e.clientY,
+    });
     setDragger(true);
   }, []);
 
   const dragmove = (e) => {
     if (dragger) {
-      const x = e.clientX - startX + lastX;
-      const y = e.clientY - startY + lastY;
-      setX(x);
-      setY(y);
+      const x = e.clientX - dragStartInset.x + dragLastInset.x;
+      const y = e.clientY - dragStartInset.y + dragLastInset.y;
+      setDragInset({
+        x, y,
+      });
       dispatch(setGlobalInset({
         globalLastX: x,
         globalLastY: y,
@@ -71,10 +74,38 @@ export default () => {
     }
   };
 
-  const dragup = (e) => {
+  const dragup = () => {
+    setDragLastInset(dragInset);
     setDragger(false);
-    setLastX(x);
-    setLastY(y);
+  };
+
+  const resizedown = (e) => {
+    setResizer(true);
+    setResizeStartInset({
+      x: e.clientX,
+      y: e.clientY,
+    });
+  };
+  const resizemove = (e) => {
+    if (resizer) {
+      const x = e.clientX - resizeStartInset.x;
+      const y = e.clientY - resizeStartInset.y;
+      setResizeInset({
+        x, y,
+      });
+      setResizeRect({
+        width: resizeInitRect.width + x,
+        height: resizeInitRect.height + y,
+      });
+      // dispatch(setGlobalInset({
+      //   globalLastX: x,
+      //   globalLastY: y,
+      // }));
+    }
+  };
+  const resizeup = () => {
+    setResizeInitRect(resizeRect);
+    setResizer(false);
   };
 
   useEffect(() => {
@@ -91,10 +122,10 @@ export default () => {
           id="NeteaseCloudMusic"
           className="domWrapper flex flex-col absolute shadow-lg select-none"
           style={{
-            transform: `translate(${x}px, ${y}px)`,
+            transform: `translate(${dragInset.x}px, ${dragInset.y}px)`,
             '--themeColor': `var(--${theme}, --themeRed)`,
-            '--WIDTH': `${globalWidth}px`,
-            '--HEIGHT': `${globalHeight}px`,
+            '--WIDTH': `${resizeRect.width}px`,
+            '--HEIGHT': `${resizeRect.height}px`,
           }}
         >
           <DomHeader handleDrap={dragdown} />
@@ -142,6 +173,7 @@ export default () => {
             <div
               className="absolute right-0 bottom-0 text-gray-500"
               style={{ cursor: 'se-resize' }}
+              onMouseDown={resizedown}
             >
               <IconChevronDownRight />
             </div>
@@ -156,7 +188,13 @@ export default () => {
           />
         )}
         {
-          resizer && <div className="absolute inset-0" />
+          resizer && (
+          <div
+            className="absolute inset-0"
+            onMouseMove={resizemove}
+            onMouseUp={resizeup}
+          />
+          )
         }
       </Router>
     </div>

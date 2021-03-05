@@ -52,7 +52,7 @@ export default ({
                     src={json.song.album.blurPicUrl}
                     alt=""
                   />
-                  <div className="ico flex-center inset-center bg-white rounded-full w-6 h-6 ui_themeColor">
+                  <div className="ico flex-center absolute inset-0 m-auto bg-white rounded-full w-6 h-6 ui_themeColor">
                     <IconPlayerPlay size={14} className="fill-current" />
                   </div>
                 </div>

@@ -33,16 +33,6 @@
   justify-content: center;
 }
 
-@mixin inset-center {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-}
-
-
 @mixin select-nav($width: 80px) {
   .nav {
     flex: none;
