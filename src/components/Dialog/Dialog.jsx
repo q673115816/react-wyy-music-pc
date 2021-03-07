@@ -75,7 +75,7 @@ export default (WrapperComponent, id, title) => () => {
     >
       <div
         ref={refDialog}
-        className=" ui_dialog"
+        className="ui_dialog bg-white shadow rounded"
         id={id}
         style={{
           transform: `translate(${dialogState.moveX}px, ${dialogState.moveY}px)`,

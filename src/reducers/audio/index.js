@@ -5,9 +5,11 @@ import {
   SET_AUDIO_IMMEDIATE,
   SET_AUDIO_RUNNING_TOGGLE,
   SET_AUDIO_CURRENTTIME,
+  SET_AUDIO_BUFFERED,
   SET_AUDIO_PLAYLIST_CLEAR,
   SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_PATTERN,
+  SET_VOLUME,
 } from './actionTypes';
 
 const resetState = {
@@ -16,6 +18,9 @@ const resetState = {
   playlist: [],
   history: [],
   currentTime: 0,
+  buffered: 0,
+  volume: 100,
+  muted: false,
 };
 
 const initialState = {
@@ -25,6 +30,7 @@ const initialState = {
   playlist: LOCALSTORAGE('playlist', []),
   history: LOCALSTORAGE('history', []),
   currentTime: LOCALSTORAGE('currentTime', 0),
+  volume: LOCALSTORAGE('volume', '100'),
 };
 
 export default (state = initialState, action) => {
@@ -56,6 +62,11 @@ export default (state = initialState, action) => {
         ...state,
         currentTime: action.payload,
       };
+    case SET_AUDIO_BUFFERED:
+      return {
+        ...state,
+        buffered: action.payload,
+      };
     case SET_AUDIO_PLAYLIST_CLEAR:
       window.localStorage.removeItem('currentSong');
       window.localStorage.removeItem('currentTime');
@@ -76,6 +87,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         pattern,
+      };
+    case SET_VOLUME:
+      window.localStorage.setItem('volume', JSON.stringify(action.payload));
+      return {
+        ...state,
+        volume: action.payload,
       };
     default:
       return state;

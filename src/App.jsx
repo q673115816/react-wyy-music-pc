@@ -24,12 +24,15 @@ import Tosat from './components/Toast';
 import Contextmenu from './components/Contextmenu';
 import HeaderSearch from './components/HeaderSearch';
 
+const MINWIDTH = 1022;
+const MINHEIGHT = 670;
+
 export default () => {
   const dispatch = useDispatch();
   const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
-  const { screen } = useSelector(({ mask }) => mask);
   const { theme } = useSelector(({ setting }) => setting);
   const {
+    screen,
     toastTitle,
     globalLastX,
     globalLastY,
@@ -50,7 +53,7 @@ export default () => {
   const [resizer, setResizer] = useState(false);
   const [resizeInset, setResizeInset] = useState({ x: 0, y: 0 });
   const [resizeStartInset, setResizeStartInset] = useState({ x: 0, y: 0 });
-  const [resizeInitRect, setResizeInitRect] = useState({ width: 1022, height: 670 });
+  const [resizeInitRect, setResizeInitRect] = useState({ width: MINWIDTH, height: MINHEIGHT });
   const [resizeRect, setResizeRect] = useState(resizeInitRect);
   const dragdown = useCallback((e) => {
     setDragStartInset({
@@ -93,9 +96,12 @@ export default () => {
       setResizeInset({
         x, y,
       });
+
+      const nextwidth = resizeInitRect.width + x;
+      const nextheight = resizeInitRect.height + y;
       setResizeRect({
-        width: resizeInitRect.width + x,
-        height: resizeInitRect.height + y,
+        width: nextwidth > MINWIDTH ? nextwidth : MINWIDTH,
+        height: nextheight > MINHEIGHT ? nextheight : MINHEIGHT,
       });
       // dispatch(setGlobalInset({
       //   globalLastX: x,
@@ -121,12 +127,17 @@ export default () => {
         <div
           id="NeteaseCloudMusic"
           className="domWrapper flex flex-col absolute shadow-lg select-none"
-          style={{
+          style={({
             transform: `translate(${dragInset.x}px, ${dragInset.y}px)`,
             '--themeColor': `var(--${theme}, --themeRed)`,
-            '--WIDTH': `${resizeRect.width}px`,
-            '--HEIGHT': `${resizeRect.height}px`,
-          }}
+            ...(screen === 'normal' ? {
+              '--WIDTH': `${resizeRect.width}px`,
+              '--HEIGHT': `${resizeRect.height}px`,
+            } : {
+              '--WIDTH': '100%',
+              '--HEIGHT': '100%',
+            }),
+          })}
         >
           <DomHeader handleDrap={dragdown} />
           <Switch>
@@ -138,8 +149,8 @@ export default () => {
               <DomFooter />
             </Route>
           </Switch>
-          { popupStatus === 'playlist' && <Playlist />}
-          { popupStatus === 'privateLetter' && <Letter />}
+          {popupStatus === 'playlist' && <Playlist />}
+          {popupStatus === 'privateLetter' && <Letter />}
           {
             contextMenuVisibility && (
               <Contextmenu />
@@ -170,13 +181,13 @@ export default () => {
           }
           {screen === 'normal'
             && (
-            <div
-              className="absolute right-0 bottom-0 text-gray-500"
-              style={{ cursor: 'se-resize' }}
-              onMouseDown={resizedown}
-            >
-              <IconChevronDownRight />
-            </div>
+              <div
+                className="absolute right-0 bottom-0 text-gray-500"
+                style={{ cursor: 'se-resize' }}
+                onMouseDown={resizedown}
+              >
+                <IconChevronDownRight />
+              </div>
             )}
         </div>
         {loginVisibility && <DialogLogin />}
@@ -189,11 +200,11 @@ export default () => {
         )}
         {
           resizer && (
-          <div
-            className="absolute inset-0"
-            onMouseMove={resizemove}
-            onMouseUp={resizeup}
-          />
+            <div
+              className="absolute inset-0"
+              onMouseMove={resizemove}
+              onMouseUp={resizeup}
+            />
           )
         }
       </Router>

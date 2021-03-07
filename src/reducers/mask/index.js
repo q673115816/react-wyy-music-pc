@@ -11,6 +11,7 @@ import {
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_SCREEN_FULL,
+  SET_SCREEN_NORMAL,
   SET_TOAST,
 } from './actionTypes';
 
@@ -143,6 +144,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         screen: 'full',
+      };
+    case SET_SCREEN_NORMAL:
+      return {
+        ...state,
+        screen: 'normal',
       };
     case SET_TOAST:
       return {

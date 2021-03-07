@@ -18,10 +18,14 @@
       margin: 0 6px;
       width: 394px;
       height: 3px;
-      background-color: #C2C2C4;
+      background-color: #E6E6E8;
       &:hover {
         height: 5px;
       }
+    }
+
+    .buffered {
+      background-color: #C2C2C4;
     }
   }
 

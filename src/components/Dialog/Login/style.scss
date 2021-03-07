@@ -2,6 +2,9 @@
   position: fixed;
   width: 350px;
   height: 530px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
   .qr {
     display: flex;
@@ -129,9 +132,6 @@
     position: relative;
 
     .angle {
-      position: absolute;
-      top: 0;
-      left: 0;
 
       .tips {
         position: absolute;

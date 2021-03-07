@@ -3,13 +3,15 @@ import {
   IconArrowsMinimize,
   IconMinus,
   IconSquare,
+  IconSquareOff,
   IconX,
 } from '@tabler/icons';
-import { useDispatch } from 'react-redux';
-import { setScreenFull } from '@/reducers/mask/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { setScreenFull, setScreenNormal } from '@/reducers/mask/actions';
 
 export default memo(() => {
   const dispatch = useDispatch();
+  const { screen } = useSelector(({ mask }) => mask);
   return (
     <div className="domHeader_control space-x-3">
       <button
@@ -26,14 +28,29 @@ export default memo(() => {
       >
         <IconMinus size={24} />
       </button>
-      <button
-        type="button"
-        className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
-        title="最大化"
-        onClick={() => dispatch(setScreenFull())}
-      >
-        <IconSquare size={24} />
-      </button>
+      {
+        screen === 'normal'
+          ? (
+            <button
+              type="button"
+              className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
+              title="最大化"
+              onClick={() => dispatch(setScreenFull())}
+            >
+              <IconSquare size={24} />
+            </button>
+          )
+          : (
+            <button
+              type="button"
+              className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
+              title="向下还原"
+              onClick={() => dispatch(setScreenNormal())}
+            >
+              <IconSquareOff size={24} />
+            </button>
+          )
+      }
       <button
         type="button"
         className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"

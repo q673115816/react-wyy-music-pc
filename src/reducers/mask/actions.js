@@ -10,6 +10,7 @@ import {
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_SCREEN_FULL,
+  SET_SCREEN_NORMAL,
   SET_TOAST,
 } from './actionTypes';
 
@@ -69,5 +70,10 @@ export const setDialogReset = () => ({
 
 export const setScreenFull = (payload) => ({
   type: SET_SCREEN_FULL,
+  payload,
+});
+
+export const setScreenNormal = (payload) => ({
+  type: SET_SCREEN_NORMAL,
   payload,
 });

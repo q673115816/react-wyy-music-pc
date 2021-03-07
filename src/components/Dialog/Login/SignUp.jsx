@@ -36,13 +36,9 @@ export default () => {
 
   };
 
-  const handleFocus = () => {
-    setWarn('');
-  };
-
   return (
     <div className="form">
-      <div className="angle">
+      <div className="angle absolute top-0 left-0">
         <button
           className="mt-2.5"
           type="button"
@@ -72,8 +68,9 @@ export default () => {
                   name="phone"
                   placeholder="请输入手机号"
                   className="input"
+                  readOnly
+                  onFocus={({ target }) => target.removeAttribute('readonly')}
                   value={registerphone}
-                  onFocus={handleFocus}
                   onChange={({ target }) => handlePhone(target.value)}
                 />
               </td>
@@ -85,10 +82,11 @@ export default () => {
                   name="password"
                   placeholder="设置登录密码"
                   className="input"
+                  readOnly
+                  onFocus={({ target }) => target.removeAttribute('readonly')}
                   value={registerpassword}
                   minLength="8"
                   maxLength="20"
-                  onFocus={handleFocus}
                   onChange={({ target }) => handlePassword(target.value)}
                 />
               </td>

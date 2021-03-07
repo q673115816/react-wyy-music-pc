@@ -120,7 +120,7 @@ export default () => {
 
   return (
     <div className="form">
-      <div className="angle">
+      <div className="angle absolute top-0 left-0">
         <button
           type="button"
           onClick={() => loginDispatch({ type: 'SET_TYPE', payload: { type: 'scan' } })}
@@ -150,6 +150,8 @@ export default () => {
                   name="phone"
                   placeholder="请输入手机号"
                   className="input"
+                  readOnly
+                  onFocus={({ target }) => target.removeAttribute('readonly')}
                   value={loginphone}
                   onChange={({ target }) => handlePhone(target.value)}
                 />
@@ -162,6 +164,8 @@ export default () => {
                   name="password"
                   placeholder="请输入密码"
                   className="input"
+                  readOnly
+                  onFocus={({ target }) => target.removeAttribute('readonly')}
                   value={loginpassword}
                   onChange={({ target }) => handlePassword(target.value)}
                 />
@@ -261,6 +265,7 @@ export default () => {
             《儿童隐私条款》
           </a>
         </label>
+
       </form>
     </div>
   );

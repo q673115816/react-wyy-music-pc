@@ -7,17 +7,18 @@ import {
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiSongUrl } from '@/api';
-import { setAudioCurrentTime } from '@/reducers/audio/actions';
+import { setAudioCurrentTime, setAudioBuffered } from '@/reducers/audio/actions';
 
 export default () => {
   const dispatch = useDispatch();
   const {
+    volume,
     currentSong,
     playlist,
     running,
     currentTime,
   } = useSelector(({ audio }) => audio);
-  const { volume } = useSelector(({ setting }) => setting);
+
   const refAudio = useRef();
 
   const handleGetUrl = async () => {
@@ -44,22 +45,24 @@ export default () => {
     refAudio.current.volume = volume * 0.01;
   }, [volume]);
 
+  const handleRunningFollow = (e) => {
+    dispatch(setAudioCurrentTime(e.target.currentTime));
+  };
+
   useEffect(() => {
-    // refAudio.current.addEventListener('durationchange', (e) => {
-    //   console.log(e);
-    // });
-    refAudio.current.addEventListener('timeupdate', (e) => {
-      if (running) {
-        dispatch(setAudioCurrentTime(e.target.currentTime));
-      }
+    refAudio.current.addEventListener('progress', (e) => {
+      const buffered = e.target.buffered.end(e.target.buffered.length - 1);
+      dispatch(setAudioBuffered(buffered));
     });
   }, []);
 
   useEffect(() => {
     if (running) {
       refAudio.current.play();
+      refAudio.current.addEventListener('timeupdate', handleRunningFollow);
     } else {
       refAudio.current.pause();
+      refAudio.current.removeEventListener('timeupdate', handleRunningFollow);
     }
   }, [running]);
 
@@ -67,6 +70,7 @@ export default () => {
     if (currentSong.id) {
       handleGetUrl();
       handleInitCurrentTime();
+      // refAudio.current.play();
     }
     // refAudio.srcObject =
   }, [currentSong]);
@@ -75,7 +79,6 @@ export default () => {
       <div hidden>
         <audio
           ref={refAudio}
-          // onLoadedData={({ target }) => running && target.play()}
         />
       </div>
       {playlist.length > 0

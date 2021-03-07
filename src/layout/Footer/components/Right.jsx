@@ -5,7 +5,7 @@ import {
   IconVolume,
   IconList,
 } from '@tabler/icons';
-import { setVolume } from '@/reducers/setting/actions';
+import { setVolume } from '@/reducers/audio/actions';
 import { setPopup } from '@/reducers/common/actions';
 
 export default () => {
@@ -13,7 +13,7 @@ export default () => {
   const {
     popupStatus,
   } = useSelector(({ common }) => common);
-  const { volume } = useSelector(({ setting }) => setting);
+  const { volume } = useSelector(({ audio }) => audio);
   const handleVolume = (e) => {
     dispatch(setVolume(e.target.value));
   };

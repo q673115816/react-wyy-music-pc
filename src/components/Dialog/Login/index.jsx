@@ -62,14 +62,14 @@ export default () => {
     loginpassword: '',
     registerphone: '',
     registerpassword: '',
-    type: 'identify',
+    type: 'scan',
     countrycode: '86',
   });
 
   return (
     <div
       id="dialogLogin"
-      className="ui_dialog"
+      className="ui_dialog bg-white shadow rounded"
     >
       <button
         type="button"
