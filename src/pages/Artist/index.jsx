@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { useParams, Redirect } from 'react-router-dom';
 import {
   IconLayoutGrid,
@@ -47,7 +47,7 @@ export default () => {
                   key={item}
                   onClick={() => setTab(item)}
                   type="button"
-                  className={classnames('domArtist_nav_link', { on: tab === item })}
+                  className={classNames('domArtist_nav_link', { on: tab === item })}
                 >
                   {item}
                 </button>
@@ -63,7 +63,7 @@ export default () => {
                 <button
                   key={layout}
                   type="button"
-                  className={classnames('px-1.5 py-0.5 bg-gray-200', 'handle', { 'bg-gray-300 text-white': view === layout })}
+                  className={classNames('px-1.5 py-0.5 bg-gray-200', 'handle', { 'bg-gray-300 text-white': view === layout })}
                   onClick={() => setView(layout)}
                 >
                   <Icon size={14} stroke={1} />

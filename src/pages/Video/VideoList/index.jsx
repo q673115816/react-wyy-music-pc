@@ -4,7 +4,7 @@ import React, {
   useRef,
   useMemo,
 } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import {
   apiVideoTimelineRecommend,
   apiVideoGroupList,
@@ -94,7 +94,7 @@ export default memo(() => {
       <div className="border-b pb-2">
         <button
           type="button"
-          className={classnames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', id === null ? 'text-red-500 bg-red-50' : '')}
+          className={classNames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', id === null ? 'text-red-500 bg-red-50' : '')}
           onClick={() => dispatch(setVideoListId({ id: null }))}
         >
           全部视频
@@ -104,7 +104,7 @@ export default memo(() => {
         {groupList.map((item) => (
           <button
             type="button"
-            className={classnames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', item.id === id ? 'text-red-500 bg-red-50' : '')}
+            className={classNames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', item.id === id ? 'text-red-500 bg-red-50' : '')}
             key={item.id}
             onClick={() => dispatch(setVideoListId({ id: item.id }))}
           >
@@ -135,7 +135,7 @@ export default memo(() => {
             <div key={item.id}>
               <button
                 type="button"
-                className={classnames('recommend_nav_link rounded-full px-2 mx-1', id === item.id ? 'bg-red-50 text-red-500' : 'ui_text_black_hover')}
+                className={classNames('recommend_nav_link rounded-full px-2 mx-1', id === item.id ? 'bg-red-50 text-red-500' : 'ui_text_black_hover')}
                 onClick={() => dispatch(setVideoListId({ id: item.id }))}
               >
                 {item.name}

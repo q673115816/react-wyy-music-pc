@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, Link, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { apiToplistArtist } from '@/api';
 import './style.scss';
 
@@ -86,7 +86,7 @@ export default () => {
         <div className="domtoplistartist_other_list">
           {other.map((item, index) => (
             <Link
-              className={classnames('domtoplistartist_other_link flex items-center h-20 hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })}
+              className={classNames('domtoplistartist_other_link flex items-center h-20 hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })}
               to={`/artist/${item.id}`}
               key={item.id}
             >

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import {
   apiMsgPrivate,
   apiMsgComments,
@@ -146,7 +146,7 @@ export default () => {
               onClick={() => handleChangeNav(nav)}
               type="button"
               key={nav}
-              className={classnames('nav_link', { on: active === nav })}
+              className={classNames('nav_link', { on: active === nav })}
             >
               {nav}
               {

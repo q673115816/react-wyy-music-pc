@@ -2,7 +2,7 @@ import React, {
   memo, useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { IconCircleCheck } from '@tabler/icons';
 import { setToast } from '@/reducers/mask/actions';
 
@@ -35,7 +35,7 @@ export default memo(() => {
   return (
     <div
       id="toast"
-      className={classnames('absolute whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg')}
+      className={classNames('absolute whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg')}
     >
       <IconCircleCheck size={24} />
       &nbsp;

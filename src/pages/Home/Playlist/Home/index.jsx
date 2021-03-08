@@ -6,7 +6,7 @@ import {
 import './style.scss';
 import Lazyload from 'react-lazyload';
 import toPairs from 'lodash/toPairs';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { IconPlayerPlay, IconChevronRight, IconChevronLeft } from '@tabler/icons';
 import {
   apiTopPlaylist,
@@ -102,7 +102,7 @@ export default () => {
                   className="domHome_playlist_popup_nav_link text-gray-600 hover:ui_themeColor"
                   to="/home/playlist/全部歌单"
                 >
-                  <span className={classnames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: cat === '全部歌单' })}>
+                  <span className={classNames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: cat === '全部歌单' })}>
                     全部歌单
                   </span>
                 </NavLink>
@@ -127,7 +127,7 @@ export default () => {
                                   to={`/home/playlist/${item.name}`}
                                   key={item.name}
                                 >
-                                  <span className={classnames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: item.name === cat })}>
+                                  <span className={classNames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: item.name === cat })}>
                                     <span className="relative">
                                       {item.name}
                                       {

@@ -46,7 +46,8 @@ const router = [
   ['/toplist-mv', ToplistMV],
   ['/playlist', Playlist],
   ['/user', User],
-  ['/search', Search],
+  ['/search/:keywords/:type', Search],
+  ['/search/:keywords', Search],
   ['/settings', Setting],
   ['/ai', Ai],
 ];

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { apiUserRecord } from '@/api';
 import { useDispatch } from 'react-redux';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { IconHeart, IconDownload } from '@tabler/icons';
 import './style.scss';
 
@@ -36,14 +36,14 @@ export default () => {
         <button
           onClick={() => setType(1)}
           type="button"
-          className={classnames('domUser_record_nav_link', { on: type === 1 })}
+          className={classNames('domUser_record_nav_link', { on: type === 1 })}
         >
           最近一周
         </button>
         <button
           onClick={() => setType(0)}
           type="button"
-          className={classnames('domUser_record_nav_link', { on: type === 0 })}
+          className={classNames('domUser_record_nav_link', { on: type === 0 })}
         >
           所有时间
         </button>
@@ -53,7 +53,7 @@ export default () => {
           {data.map(({ song, playCount }, index) => (
             <div
               onClick={() => setFocus(index)}
-              className={classnames('domUser_record_item', { on: focus === index })}
+              className={classNames('domUser_record_item', { on: focus === index })}
               type="button"
               key={song.id}
             >

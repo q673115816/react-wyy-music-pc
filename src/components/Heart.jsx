@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconHeart } from '@tabler/icons';
 import { apiLike } from '@/api';
@@ -35,12 +35,12 @@ export default ({ item = {} }) => {
   return (
     <button
       type="button"
-      className={classnames(likelist.includes(item.id) ? 'text-red-500 hover:text-red-700' : 'text-gray-400 hover:text-black')}
+      className={classNames(likelist.includes(item.id) ? 'text-red-500 hover:text-red-700' : 'text-gray-400 hover:text-black')}
       onClick={handleLike}
     >
       <IconHeart
         size={20}
-        className={classnames({ 'fill-current': likelist.includes(item.id) })}
+        className={classNames({ 'fill-current': likelist.includes(item.id) })}
         stroke={1}
       />
     </button>

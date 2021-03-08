@@ -1,5 +1,5 @@
 import React, { useState, memo, useCallback } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 const nav = [
   '已下载单曲',
@@ -26,7 +26,7 @@ export default memo(() => {
             <button
               onClick={() => setCurrent(item)}
               key={item}
-              className={classnames('domManage_nav_link', { on: item === current })}
+              className={classNames('domManage_nav_link', { on: item === current })}
               type="button"
             >
               {item}

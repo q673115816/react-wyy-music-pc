@@ -11,7 +11,7 @@ import SwiperCore, {
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
-import classnames from 'classnames';
+import classNames from 'classnames';
 // Import Swiper styles
 // import 'swiper/swiper.scss';
 // import 'swiper/components/navigation/navigation.scss';
@@ -44,7 +44,7 @@ export default memo(({ list = [], coverSrc = '' }) => (
       loop
       centeredSlides
       observer="true"
-      observeparents="true"
+      // observeParents="true"//卡爆？？
       observeslidechildren="true"
       effect="coverflow"
       slidesPerView="auto"
@@ -67,7 +67,7 @@ export default memo(({ list = [], coverSrc = '' }) => (
                 ? (
                   <a href={item.url}>
                     <img src={item[coverSrc]} alt="" />
-                    <div className={classnames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
+                    <div className={classNames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
                       {item.typeTitle}
                     </div>
                   </a>
@@ -75,7 +75,7 @@ export default memo(({ list = [], coverSrc = '' }) => (
                 : (
                   <button type="button">
                     <img src={item[coverSrc]} alt="" />
-                    <div className={classnames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
+                    <div className={classNames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
                       {item.typeTitle}
                     </div>
                   </button>

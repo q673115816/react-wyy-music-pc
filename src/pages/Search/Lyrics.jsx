@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {
@@ -10,7 +10,7 @@ import {
 
 import DomLyricsItem from './components/LyricsItem';
 
-export default ({ lyrics = [] }) => (
+export default ({ songs: lyrics = [] }) => (
   <div className="lyrics_list">
     <div className="thead">
       <div className="item text-gray-400">
@@ -30,7 +30,7 @@ export default ({ lyrics = [] }) => (
             <div
               tabIndex="2"
               key={item.id}
-              className={classnames('item hover:bg-gray-100 focus:outline-none focus:bg-gray-200', { 'bg-gray-50': index % 2 === 0 })}
+              className={classNames('item hover:bg-gray-100 focus:outline-none focus:bg-gray-200', { 'bg-gray-50': index % 2 === 0 })}
             >
               <div className="index text-right pr-2 text-gray-400">
                 {String(index + 1).padStart(2, 0)}

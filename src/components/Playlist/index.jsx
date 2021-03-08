@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import {
@@ -41,7 +41,7 @@ const DomList = ({ list = [], currentId, current = '' }) => {
       list.map((item, index) => (
         <div
           tabIndex="2"
-          className={classnames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9', { 'bg-gray-50': index % 2 === 1, ui_themeColor: current === 'playlist' && item.id === currentId })}
+          className={classNames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9', { 'bg-gray-50': index % 2 === 1, ui_themeColor: current === 'playlist' && item.id === currentId })}
           key={item.id}
         >
           <div className="w-6 flex-center">
@@ -140,14 +140,14 @@ export default () => {
         <div className="nav">
           <button
             type="button"
-            className={classnames('nav_link', { on: current === 'playlist' })}
+            className={classNames('nav_link', { on: current === 'playlist' })}
             onClick={() => setCurrent('playlist')}
           >
             播放列表
           </button>
           <button
             type="button"
-            className={classnames('nav_link', { on: current === 'history' })}
+            className={classNames('nav_link', { on: current === 'history' })}
             onClick={() => setCurrent('history')}
           >
             历史记录
@@ -165,7 +165,7 @@ export default () => {
               && (
               <button
                 type="button"
-                className={classnames('action px-5 flex-center', { 'text-gray-300': audio[current].length === 0 })}
+                className={classNames('action px-5 flex-center', { 'text-gray-300': audio[current].length === 0 })}
               >
                 <IconFolderPlus size={20} stroke={1} />
                 收藏全部
@@ -175,7 +175,7 @@ export default () => {
             <button
               type="button"
               onClick={handleClear}
-              className={classnames('action px-5 flex-center', { 'text-gray-300': audio[current].length === 0 })}
+              className={classNames('action px-5 flex-center', { 'text-gray-300': audio[current].length === 0 })}
             >
               <IconTrash size={20} stroke={1} />
               清空

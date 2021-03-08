@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 export default ({ albums = [] }) => (
@@ -7,7 +7,7 @@ export default ({ albums = [] }) => (
     {albums.map((item, index) => (
       <div
         tabIndex="2"
-        className={classnames('item flex items-center relative hover:bg-gray-100', { 'bg-gray-50': index % 2 === 1 })}
+        className={classNames('item flex items-center relative hover:bg-gray-100', { 'bg-gray-50': index % 2 === 1 })}
         key={item.id}
       >
         <Link

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
+import classNames from 'classnames';
 // import './style.scss';
 import { setLocalCurrent } from '@/reducers/local/actions';
 
@@ -37,7 +37,7 @@ export default () => {
             <button
               onClick={() => dispatch(setLocalCurrent({ current: item }))}
               key={item}
-              className={classnames('domManage_nav_link focus:outline-none', { on: item === current })}
+              className={classNames('domManage_nav_link focus:outline-none', { on: item === current })}
               type="button"
             >
               {item}

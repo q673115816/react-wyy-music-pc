@@ -2,7 +2,7 @@ import React, { useEffect, useState, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { IconPlayerPlay } from '@tabler/icons';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { apiToplistDetail, apiPlaylistDetail, apiToplistArtist } from '@/api';
 import { setTopListsDetail } from '@/reducers/home/actions';
@@ -16,7 +16,7 @@ const DomContent = ({ tracks = [] }) => {
       {
         tracks.map((track, index) => (
           <div
-            className={classnames('item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0, 'bg-gray-100': index === focus })}
+            className={classNames('item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0, 'bg-gray-100': index === focus })}
             key={track.name}
             onClick={() => setFocus(index)}
           >
@@ -155,10 +155,10 @@ export default memo(() => {
                   ?.slice(0, 5)
                   .map((item, index) => (
                     <Link
-                      className={classnames('item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })}
+                      className={classNames('item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })}
                       to={`/artist/${item.id}`}
                     >
-                      <div className={classnames('index w-4', { 'text-red-500': index < 3 })}>
+                      <div className={classNames('index w-4', { 'text-red-500': index < 3 })}>
                         {index + 1}
                       </div>
                       <div className="status w-4 flex-center">

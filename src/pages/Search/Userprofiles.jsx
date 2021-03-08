@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { DomMale, DomFamale } from '@/components/Gender';
 
 export default ({ userprofiles = [] }) => (
@@ -9,7 +9,7 @@ export default ({ userprofiles = [] }) => (
       userprofiles.map((item, index) => (
         <Link
           to={`/user/${item.userId}`}
-          className={classnames('item flex items-center hover:bg-gray-100', { 'bg-gray-50': index % 2 === 1 })}
+          className={classNames('item flex items-center hover:bg-gray-100', { 'bg-gray-50': index % 2 === 1 })}
           key={item.userId}
         >
           <div className="cover">

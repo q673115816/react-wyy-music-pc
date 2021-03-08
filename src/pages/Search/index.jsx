@@ -1,11 +1,15 @@
-import React, { memo, useEffect, useState } from 'react';
-import { useLocation, Link, Redirect } from 'react-router-dom';
+import React, {
+  memo, useEffect, useState, Suspense,
+} from 'react';
+import {
+  Redirect, NavLink, Switch, Route, useParams,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { apiCloudSearch, apiSearchMultimatch } from '@/api';
 import { setSearchValue } from '@/reducers/search/actions';
-import dayjs from 'dayjs';
 import './style.scss';
+import DomLoading from '@/components/Loading';
 import DomSongs from './Songs';
 import DomArtists from './Artists';
 import DomAlbums from './Albums';
@@ -15,34 +19,44 @@ import DomLyrics from './Lyrics';
 import DomDjRadios from './DjRadios';
 import DomUserprofiles from './Userprofiles';
 
-const nav = [
-  ['单曲', '1', '首'],
-  ['歌手', '100', '位'],
-  ['专辑', '10', '张'],
-  ['视频', '1014', '个'],
-  ['歌单', '1000', '个'],
-  ['歌词', '1006', '首'],
-  ['主播电台', '1009', '个'],
-  ['用户', '1002', '位'],
+const navs = [
+  ['单曲', '1', '首', DomSongs, 'songCount'],
+  ['歌手', '100', '位', DomArtists, 'artistCount'],
+  ['专辑', '10', '张', DomAlbums, 'albumCount'],
+  ['视频', '1014', '个', DomVideos, 'videoCount'],
+  ['歌单', '1000', '个', DomPlaylists, 'playlistCount'],
+  ['歌词', '1006', '首', DomLyrics, 'songCount'],
+  ['主播电台', '1009', '个', DomDjRadios, 'djRadiosCount'],
+  ['用户', '1002', '位', DomUserprofiles, 'userprofileCount'],
 ];
+
+const counts = {};
+const types = {};
+const names = [];
+const enums = {};
+
+navs.forEach(([name, code, type, Dom, count]) => {
+  names.push(name);
+  enums[name] = code;
+  enums[code] = name;
+  counts[name] = count;
+  types[name] = type;
+});
 
 export default memo(() => {
   console.log('entry search');
   const dispatch = useDispatch();
-  const { search } = useLocation();
   const [result, setResult] = useState({});
   const [multimatch, setMultimatch] = useState({});
-  const [loading, setLoading] = useState(true);
-  const defaultSearch = {
-  };
-  const queryString = new URLSearchParams(search);
+  const {
+    keywords,
+    type,
+  } = useParams();
 
-  const keywords = queryString.get('keywords');
-  const type = queryString.get('type') || '1';
-  const reg = /^(1|10|100|1000|1002|1004|1006|1009|1014|1018)$/;
-  if (!keywords) return <Redirect to="/" />;
-  Object.assign(defaultSearch, { keywords });
-  if (reg.test(type)) Object.assign(defaultSearch, { type });
+  const defaultSearch = {
+    keywords,
+    type: enums[type],
+  };
 
   const { searchValue } = useSelector(({ common }) => common);
   useEffect(() => {
@@ -58,7 +72,7 @@ export default memo(() => {
         ...defaultSearch,
         limit: 100,
       });
-      if (type === '1') {
+      if (type === '单曲') {
         const { result: multimatch = {} } = await apiSearchMultimatch({
           keywords,
         });
@@ -67,7 +81,6 @@ export default memo(() => {
         setMultimatch({});
       }
       setResult(result);
-      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -75,64 +88,40 @@ export default memo(() => {
   useEffect(() => {
     handleInit();
   }, [keywords, type]);
-  if (loading) return <div>loading</div>;
   return (
     <div className="domSearch overflow-auto max-h-full flex-auto">
-      <div className="domSearch_header border-b">
+      <div className="domSearch_header p-8 pb-2.5 border-b">
         <div className="font-bold text-base">
           找到
-          {result.songCount
-          || result.artistCount
-          || result.albumCount
-          || result.videoCount
-          || result.playlistCount
-          || result.djRadiosCount
-          || result.userprofileCount
-          || 0}
-          {
-          nav.find((item) => type === item[1])
-            && nav.find((item) => type === item[1])[2]
-            + nav.find((item) => type === item[1])[0]// "首" + "单曲"
-          }
+          {result[counts[type]] || 0}
+          {types[type]}
         </div>
-        <div className="domSearch_nav">
-          {nav.map(([name, code]) => (
-            <Link
+        <div className="domSearch_nav mt-5 space-x-4">
+          {navs.map(([name]) => (
+            <NavLink
               key={name}
-              to={`/search?keywords=${keywords}&type=${code}`}
-              className={classnames('domSearch_nav_link', { on: type === code })}
+              activeClassName="text-bold"
+              to={`/search/${keywords}/${name}`}
+              className="domSearch_nav_link text-lighter text-sm"
             >
               {name}
-            </Link>
+            </NavLink>
           ))}
         </div>
         { }
       </div>
       <div className="domSearch_main">
-        {
-          (type === '1' && result.songs)
-        && (
-          <>
-            <DomSongs songs={result.songs} multimatch={multimatch} />
-          </>
-        )
-        }
-        {
-          (type === '100' && result.artists)
-          && <DomArtists artists={result.artists} />
-        }
-        {type === '10' && result.albums
-          && <DomAlbums albums={result.albums} />}
-        {type === '1014' && result.videos
-          && <DomVideos videos={result.videos} />}
-        {type === '1000' && result.playlists
-          && <DomPlaylists playlists={result.playlists} />}
-        {type === '1006' && result.songs
-          && <DomLyrics lyrics={result.songs} />}
-        {type === '1009' && result.djRadios
-          && <DomDjRadios djRadios={result.djRadios} />}
-        {type === '1002' && result.userprofiles
-          && <DomUserprofiles userprofiles={result.userprofiles} />}
+        <Suspense fallback={<div className="w-full h-full flex-center"><DomLoading /></div>}>
+          <Switch>
+            {navs.map(([name, code, type, Dom]) => (
+              <Route path={`/search/:keywords/${name}`} key={name}>
+                <Dom {...{ multimatch, ...result }} />
+              </Route>
+            ))}
+            <Redirect to={`/search/${keywords}/单曲`} />
+          </Switch>
+        </Suspense>
+        {/* {Doms[type]({ multimatch, ...result })} */}
       </div>
     </div>
   );

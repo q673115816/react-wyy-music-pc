@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { apiPlaylistCreate } from '@/api';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { setDialogReset } from '@/reducers/mask/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import DomCheckbox from '@/components/Checkbox';
@@ -48,7 +48,7 @@ const ShareWX = () => {
       <div className="flex-center">
         <button
           type="submit"
-          className={classnames('ui_btn red', { disabled: name.length === 0 })}
+          className={classNames('ui_btn red', { disabled: name.length === 0 })}
         >
           创建
         </button>

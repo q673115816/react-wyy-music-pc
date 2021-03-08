@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { apiUserDetail, apiUserUpdate } from '@/api';
 import { useParams, Link } from 'react-router-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/actions';
 import { useDispatch } from 'react-redux';
@@ -107,7 +107,7 @@ export default () => {
                   className="textarea"
                   onChange={({ target }) => handleEdit('signature', target.value)}
                 />
-                <div className={classnames('signatureLength', { ui_red: signature.length > 300 })}>
+                <div className={classNames('signatureLength', { ui_red: signature.length > 300 })}>
                   {300 - signature.length}
                 </div>
               </div>
@@ -177,7 +177,7 @@ export default () => {
               <div className="actions">
                 <button
                   type="button"
-                  className={classnames('ui_btn red', { disabled })}
+                  className={classNames('ui_btn red', { disabled })}
                   style={{ marginRight: '2em' }}
                   disabled={disabled}
                   onClick={handleSave}

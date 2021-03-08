@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { setLoginVisibilty } from '@/reducers/common/actions';
 import useIsLogin from '@/custom/useIsLogin';
 
@@ -102,7 +102,7 @@ export default () => {
               key={item}
               type="button"
               // onClick={() => handleScrollToActive(item)}
-              className={classnames('domSetting_nav_link')}
+              className={classNames('domSetting_nav_link')}
             >
               {item}
             </button>

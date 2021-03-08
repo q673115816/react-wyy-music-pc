@@ -17,7 +17,7 @@ import {
   IconList,
   IconLock,
 } from '@tabler/icons';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { SymbolWB } from '@/components/Symbol';
 import { transPlayCount } from '@/common/utils';
 import RainbowCat from './RainbowCat';
@@ -221,7 +221,7 @@ export default () => {
             歌单
           </span>
           <div className="layouts">
-            <button type="button" className={classnames('layout', 'on')} title="大图模式">
+            <button type="button" className={classNames('layout', 'on')} title="大图模式">
               <IconLayoutGrid size={16} />
             </button>
             <button type="button" className="layout" title="列表模式">
@@ -295,7 +295,7 @@ export default () => {
             歌单
           </span>
           <div className="layouts">
-            <button type="button" className={classnames('layout', 'on')} title="大图模式">
+            <button type="button" className={classNames('layout', 'on')} title="大图模式">
               <IconLayoutGrid size={16} />
             </button>
             <button type="button" className="layout" title="列表模式">

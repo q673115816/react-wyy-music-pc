@@ -5,7 +5,7 @@ import React, {
 import {
   useParams, useHistory, Link, Redirect,
 } from 'react-router-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import dayjs from 'dayjs';
 import {
   IconChevronLeft,
@@ -168,7 +168,7 @@ export default () => {
             </button>
           </div>
           <div ref={DomVideoWrap} className="ui_aspect-ratio-16/9">
-            <div className={classnames('ui_aspect-ratio-16/9', fixed ? ' absolute bottom-16 right-8 z-10 w-80' : 'relative')}>
+            <div className={classNames('ui_aspect-ratio-16/9', fixed ? ' absolute bottom-16 right-8 z-10 w-80' : 'relative')}>
               <video src={urls?.url} className="absolute inset-0 w-full h-full" controls playsInline />
             </div>
           </div>
@@ -182,7 +182,7 @@ export default () => {
             <button
               onClick={handleFollow}
               type="button"
-              className={classnames('follow text-red-500 bg-red-50 ml-auto h-8 rounded-full', { on: detail?.creator?.followed })}
+              className={classNames('follow text-red-500 bg-red-50 ml-auto h-8 rounded-full', { on: detail?.creator?.followed })}
             >
               {
                 detail?.creator?.followed

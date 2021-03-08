@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {
@@ -24,13 +24,13 @@ const Build = {
           {item.name}
           {
             item.alias.length > 0
-          && (
-          <span className="text-gray-400">
-            （
-            {item.alias[0]}
-            ）
-          </span>
-          )
+            && (
+              <span className="text-gray-400">
+                （
+                {item.alias[0]}
+                ）
+              </span>
+            )
           }
         </div>
       </div>
@@ -50,7 +50,7 @@ const Build = {
         </div>
         <div className="subname">{item.artist.name}</div>
       </div>
-      <div className="ico">
+      <div className="ico text-gray-600 group-hover:text-black ml-auto mr-4">
         <IconChevronRight size={24} stroke={1} />
       </div>
     </Link>
@@ -60,17 +60,17 @@ const Build = {
 const DomMultimatch = ({ list = [] }) => {
   if (list.length === 0) return null;
   return (
-    <div className="domSearch_multimatch border-b">
-      <div className="title">最佳匹配</div>
-      <div className="list">
+    <div className="domSearch_multimatch border-b px-8 py-5">
+      <div className="title text-bold">最佳匹配</div>
+      <div className="list mt-5 flex space-x-6">
         {list.map(([item, Dom, order]) => <Dom item={item} key={order} />)}
       </div>
     </div>
   );
 };
 
-export default memo(({ songs = [], multimatch = {} }) => {
-  const list = multimatch.orders.map((order) => [multimatch[order][0], Build[order], order]);
+export default memo(({ songs = [], multimatch = { orders: [] } }) => {
+  const list = multimatch.orders?.map((order) => [multimatch[order][0], Build[order], order]);
   const dispatch = useDispatch();
   const handleRightClick = async (e, item) => {
     try {
@@ -106,89 +106,87 @@ export default memo(({ songs = [], multimatch = {} }) => {
             <div className="index" />
             <div className="heart" />
             <div className="download" />
-            <div className="name">音乐标题</div>
-            <div className="artist">歌手</div>
-            <div className="album">专辑</div>
-            <div className="duration">时长</div>
-            <div className="pop">热度</div>
+            <div className="name flex-auto px-2">音乐标题</div>
+            <div className="artist flex-none px-2">歌手</div>
+            <div className="album flex-none px-2">专辑</div>
+            <div className="duration flex-none px-2">时长</div>
+            <div className="pop flex-none px-2">热度</div>
           </div>
         </div>
         <div className="tbody">
           {songs.map((item, index) => (
             <div
               tabIndex="2"
-              className={classnames('item flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
+              className={classNames('item flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
               key={item.id}
               onContextMenu={(e) => handleRightClick(e, item)}
             >
               <div className="index text-gray-400">
                 {String(index + 1).padStart(2, 0)}
               </div>
-              <div className="heart">
-                <button type="button" className="text-gray-400 hover:text-black">
+              <div className="heart text-center">
+                <button type="button" className="ui_text_gray_hover">
                   <IconHeart size={20} stroke={1} />
                 </button>
               </div>
-              <div className="download">
-                <button type="button" className="text-gray-400 hover:text-black">
+              <div className="download text-center">
+                <button type="button" className="ui_text_gray_hover">
                   <IconDownload size={20} stroke={1} />
                 </button>
               </div>
-              <div className="name w-0" title={item.name}>
+              <div className="name flex-auto px-2 w-0" title={item.name}>
                 <div className="inner flex items-center">
                   <div className="text truncate">
                     <span title={item.name}>
                       {item.name}
                     </span>
                     {
-                item.alia.length > 0
-                && (
-                <span
-                  className="alia text-gray-400"
-                  title={item.alia.map((alia) => alia)}
-                >
-                  （
-                  {item.alia.map((alia) => alia)}
-                  ）
-                </span>
-                )
-              }
+                      item.alia.length > 0
+                      && (
+                        <span
+                          className="alia text-gray-400"
+                          title={item.alia.map((alia) => alia)}
+                        >
+                          （
+                          {item.alia.map((alia) => alia)}
+                          ）
+                        </span>
+                      )
+                    }
                   </div>
                   {
-              item.privilege.maxbr === 999000
-              && <span className="TAG">SQ</span>
-            }
+                    item.privilege.maxbr === 999000
+                    && <span className="TAG">SQ</span>
+                  }
                   {item.mv !== 0
-              && (
-                <Link className="TAG" to={`/player/mv/${item.mv}`}>
-                  MV
-                  <IconPlayerPlay size={8} className="fill-current" />
-                </Link>
-              )}
+                    && (
+                      <Link className="TAG" to={`/player/mv/${item.mv}`}>
+                        MV
+                        <IconPlayerPlay size={8} className="fill-current" />
+                      </Link>
+                    )}
                 </div>
               </div>
               <div
-                className="artist truncate text-gray-400 hover"
+                className="artist flex-none px-2 truncate text-gray-400"
                 title={(item.ar.map((artist) => artist.name)).join(' / ')}
               >
-
-                <div className="truncate">
-                  {
-              item.ar.map((aritst, index) => (
-                <span key={aritst.id}>
-                  {index > 0 && ' / '}
-                  <Link
-                    to={`/artist/${aritst.id}`}
-                  >
-                    {aritst.name}
-                  </Link>
-                </span>
-              ))
-            }
-                </div>
+                {
+                  item.ar.map((artist, index) => (
+                    <span key={artist.name}>
+                      {index > 0 && ' / '}
+                      <Link
+                        to={`/artist/${artist.id}`}
+                        className="ui_text_gray_hover"
+                      >
+                        {artist.name}
+                      </Link>
+                    </span>
+                  ))
+                }
               </div>
               <div
-                className="album truncate"
+                className="album truncate flex-none px-2"
                 title={item.al.name}
               >
                 {item.al.name
@@ -199,7 +197,7 @@ export default memo(({ songs = [], multimatch = {} }) => {
                   )
                   : <span className="text-gray-400">未知专辑</span>}
               </div>
-              <div className="duration text-gray-400 truncate">
+              <div className="duration text-gray-400 truncate flex-none px-2">
                 {dayjs(item.dt).format('mm:ss')}
               </div>
               <div className="pop">

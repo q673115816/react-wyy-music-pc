@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
 import './style.scss';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { IconUser } from '@tabler/icons';
 import { apiArtistList } from '@/api';
 import { addHomeTopArtists, initHomeTopArtists } from '@/reducers/home/actions';
@@ -120,7 +120,7 @@ export default () => {
               <div className="title">
                 {cnType}
               </div>
-              <nav className={classnames('list', enType)}>
+              <nav className={classNames('list', enType)}>
                 {filters.map((item) => (
                   <div
                     className="item flex-center"
@@ -128,7 +128,7 @@ export default () => {
                   >
                     <button
                       type="button"
-                      className={classnames('btn rounded-full focus:outline-none', enType, option[enType] === item[0] && ['ui_themeColor', 'ui_bg_opacity'])}
+                      className={classNames('btn rounded-full focus:outline-none', enType, option[enType] === item[0] && ['ui_themeColor', 'ui_bg_opacity'])}
                       onClick={() => handleChangeOption({ [enType]: item[0] })}
                     >
                       {item[1]}

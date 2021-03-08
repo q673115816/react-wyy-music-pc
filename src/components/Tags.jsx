@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { IconPlayerPlay } from '@tabler/icons';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 export default ({ item = {}, className = '' }) => (
-  <div className={classnames('tags', className)}>
+  <div className={classNames('tags', className)}>
     {
         item.fee === 1
         && (

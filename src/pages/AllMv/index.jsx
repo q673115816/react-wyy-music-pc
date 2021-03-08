@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { apiMVAll } from '@/api';
 import './style.scss';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import DomGridVideo from '@/components/GridVideo';
 import useInfinite from '@/custom/useInfinite';
@@ -88,7 +88,7 @@ export default () => {
                       <div className="item flex-center" key={item}>
                         <Link
                           to={`/allmv?${new URLSearchParams({ ...defaultSearch, ...{ [filter[0]]: item } })}`}
-                          className={classnames('btn rounded-full leading-5 px-3 whitespace-nowrap', item === defaultSearch[filter[0]] ? 'bg-red-50 text-red-500' : 'ui_text_gray_hover')}
+                          className={classNames('btn rounded-full leading-5 px-3 whitespace-nowrap', item === defaultSearch[filter[0]] ? 'bg-red-50 text-red-500' : 'ui_text_gray_hover')}
                         >
                           {item}
                         </Link>

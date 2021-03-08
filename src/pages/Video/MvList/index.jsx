@@ -5,7 +5,7 @@ import React, {
 // import { unstable_batchedUpdates } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import {
   IconChevronRight,
 } from '@tabler/icons';
@@ -143,7 +143,7 @@ export default memo(() => {
                   <button
                     onClick={() => handleChangeFirstArea(item)}
                     type="button"
-                    className={classnames('link rounded-full px-2.5', firstArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
+                    className={classNames('link rounded-full px-2.5', firstArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
                   >
                     {item}
                   </button>
@@ -190,7 +190,7 @@ export default memo(() => {
                 <button
                   onClick={() => handleChangeTopArea(item)}
                   type="button"
-                  className={classnames('link rounded-full px-2.5', topArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
+                  className={classNames('link rounded-full px-2.5', topArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
                 >
                   {item}
                 </button>

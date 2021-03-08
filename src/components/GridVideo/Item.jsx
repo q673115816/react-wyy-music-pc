@@ -3,17 +3,13 @@ import { Link } from 'react-router-dom';
 import { transPlayCount } from '@/common/utils';
 import { IconPlayerPlay } from '@tabler/icons';
 import dayjs from 'dayjs';
+import { playerTypes } from '@/common/config';
 
-const types = {
-  0: 'mv',
-  1: 'video',
-};
-
-export default ({ item = {}, type = 'video', options }) => (
+export default ({ item = {}, options }) => (
   <div className="item">
     <div className="cover relative ui_aspect-ratio-16/9 border rounded overflow-hidden">
       <Link
-        to={`/player/${type}/${item[options.id]}`}
+        to={`/player/${playerTypes[item.type]}/${item[options.id]}`}
         className="absolute inset-0"
       >
         <img
@@ -39,7 +35,7 @@ export default ({ item = {}, type = 'video', options }) => (
       </Link>
     </div>
     <Link
-      to={`/player/${type}/${item[options.id]}`}
+      to={`/player/${playerTypes[item.type]}/${item[options.id]}`}
       className="text-sm ui_text_black_hover mt-2 flex items-center"
       title={item[options.name]}
     >

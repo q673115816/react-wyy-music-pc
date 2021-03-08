@@ -1,5 +1,5 @@
 import React, { forwardRef, useState } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { IconCheck } from '@tabler/icons';
 
 export default forwardRef(({
@@ -22,7 +22,7 @@ export default forwardRef(({
         onChange={defaultChange}
         hidden
       />
-      <i className={classnames('flex-center rounded w-4 h-4 text-white', value ? 'ui_theme_bg_color' : 'border')}>
+      <i className={classNames('flex-center rounded w-4 h-4 text-white', value ? 'ui_theme_bg_color' : 'border')}>
         <IconCheck size={14} />
       </i>
     </span>

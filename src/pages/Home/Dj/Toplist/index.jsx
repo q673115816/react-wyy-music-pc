@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Link, NavLink } from 'react-router-dom';
 import { apiDjProgramToplist, apiDjToplist } from '@/api';
 import './style.scss';
@@ -64,11 +64,11 @@ export default () => {
             data.map((item, index) => (
               <div
                 onMouseDown={(e) => handleClick(e, item)}
-                className={classnames('item flex items-center', { on: item.program.id === focus })}
+                className={classNames('item flex items-center', { on: item.program.id === focus })}
                 key={item.program.id}
               >
                 <div className="index flex flex-col items-center justify-center">
-                  <div className={classnames('font-bold text-sm', {
+                  <div className={classNames('font-bold text-sm', {
                     'text-red-500': index < 3,
                     'text-gray-400': index > 2,
                   })}

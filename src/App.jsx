@@ -128,9 +128,9 @@ export default () => {
           id="NeteaseCloudMusic"
           className="domWrapper flex flex-col absolute shadow-lg select-none"
           style={({
-            transform: `translate(${dragInset.x}px, ${dragInset.y}px)`,
             '--themeColor': `var(--${theme}, --themeRed)`,
             ...(screen === 'normal' ? {
+              transform: `translate(${dragInset.x}px, ${dragInset.y}px)`,
               '--WIDTH': `${resizeRect.width}px`,
               '--HEIGHT': `${resizeRect.height}px`,
             } : {

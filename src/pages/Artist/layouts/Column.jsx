@@ -7,7 +7,7 @@ import {
 } from '@tabler/icons';
 
 import dayjs from 'dayjs';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import DomTags from '@/components/Tags';
 import DomHeart from '@/components/Heart';
 import { apiArtistTopSong } from '@/api';
@@ -62,7 +62,7 @@ export default ({ hotAlbums = [] }) => {
             {
             top50.slice(0, limit).map((item, index) => (
               <div
-                className={classnames('item hover:bg-gray-100 focus:outline-none focus:bg-gray-200', { 'bg-gray-50': index % 2 === 0 })}
+                className={classNames('item hover:bg-gray-100 focus:outline-none focus:bg-gray-200', { 'bg-gray-50': index % 2 === 0 })}
                 tabIndex="2"
                 key={item.id}
               >

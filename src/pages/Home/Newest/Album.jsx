@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import LazyLoad from 'react-lazyload';
 import { apiTopAlbum, apiAlbumNew } from '@/api';
 import { setTopAlbum } from '@/reducers/home/actions';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 import { limit } from '@/common/config';
 
@@ -96,7 +96,7 @@ export default () => {
             <button
               type="button"
               key={item.name}
-              className={classnames('domHome_newest_sub_nav_link', { on: area === item.code })}
+              className={classNames('domHome_newest_sub_nav_link', { on: area === item.code })}
               onClick={() => setArea(item.code)}
             >
               {item.name}
@@ -106,14 +106,14 @@ export default () => {
         <div className="domHome_newest_sub_control_center">
           <button
             type="button"
-            className={classnames('showtype', { on: showtype === 'RECOMMEND' })}
+            className={classNames('showtype', { on: showtype === 'RECOMMEND' })}
             onClick={() => setShowtype('RECOMMEND')}
           >
             推荐
           </button>
           <button
             type="button"
-            className={classnames('showtype', { on: showtype === 'ALL' })}
+            className={classNames('showtype', { on: showtype === 'ALL' })}
             onClick={() => setShowtype('ALL')}
           >
             全部

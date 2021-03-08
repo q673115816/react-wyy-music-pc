@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IconTrash, IconX } from '@tabler/icons';
 import { Link } from 'react-router-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import {
   setSearchValue,
   setSearchHistory,
@@ -11,6 +10,7 @@ import {
 } from '@/reducers/search/actions';
 import { setDialogReset, setSearchShow } from '@/reducers/mask/actions';
 import DomMask from '../Mask';
+import DomHistory from './History';
 
 export default () => {
   const dispatch = useDispatch();
@@ -32,23 +32,13 @@ export default () => {
     // push(`/search?keywords=${keywords}`);
   };
 
-  const handleDeleteSearchHistory = (keywords) => {
-    dispatch(setSearchHistory(
-      searchHistory.filter((search) => search !== keywords),
-    ));
-  };
-
-  const handleDeleteAllSearchHistory = () => {
-    dispatch(setSearchHistory([]));
-  };
-
   return (
     <DomMask>
       <div className="absolute domHeader_search_box shadow rounded bg-white py-2 z-10">
         {searchValue ? (
           <div className="domHeader_search_box_value overflow-auto h-full flex-auto">
             <Link
-              to={`/search?keywords=${searchValue}`}
+              to={`/search/${searchValue}`}
               onClick={() => handleSearch(searchValue)}
             >
               搜索&quot;
@@ -70,60 +60,23 @@ export default () => {
             <div className="domHeader_search_box_noValue overflow-auto h-full flex-auto">
               {
                 searchHistory.length > 0
-                && (
-                  <>
-                    <div className="subtitle flex items-center px-5 py-2 text-sm text-gray-400">
-                      搜索历史
-                      &nbsp;
-                      <button type="button" onClick={handleDeleteAllSearchHistory}>
-                        <IconTrash size={16} stroke={1} />
-                      </button>
-                    </div>
-                    <div className="px-5">
-                      <div className="searchHistory flex flex-wrap -m-1">
-                        {
-                          searchHistory.map((item) => (
-                            <Link
-                              key={item}
-                              to={`/search?keywords=${item}`}
-                              onClick={() => handleSearch(item)}
-                              className="item group hover:bg-gray-100 border rounded-full relative m-1 py-2 px-4"
-                            >
-                              {item}
-                              <button
-                                type="button"
-                                className="ico absolute opacity-0 group-hover:opacity-100 inset-y-0 m-auto text-gray-400"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  handleDeleteSearchHistory(item);
-                                }}
-                              >
-                                <IconX size={14} stroke={2} />
-                              </button>
-                            </Link>
-                          ))
-                        }
-                      </div>
-                    </div>
-                  </>
-                )
+                && <DomHistory handleSearch={handleSearch} />
               }
               <div className="subtitle px-5 py-3 text-sm text-gray-400">热搜榜</div>
               <div className="list">
                 {searchHot.map((item, index) => (
                   <Link
-                    to={`/search?keywords=${item.searchWord}`}
+                    to={`/search/${item.searchWord}`}
                     onClick={() => handleSearch(item.searchWord)}
                     className="item flex items-center w-full hover:bg-gray-100"
                     key={item.content}
                   >
-                    <span className={classnames('index flex-center text-base', index < 3 ? 'text-red-500' : 'text-gray-200')}>
+                    <span className={classNames('index flex-center text-base', index < 3 ? 'text-red-500' : 'text-gray-300')}>
                       {index + 1}
                     </span>
                     <div className="aside flex-auto">
                       <div className="name flex items-baseline">
-                        <span className="searchWord font-bold">
+                        <span className="searchWord font-bold text-sm">
                           {item.searchWord}
                         </span>
                         &nbsp;

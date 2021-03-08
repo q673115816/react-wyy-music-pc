@@ -32,6 +32,19 @@
   &_right {
     padding-right: 20px;
 
+    .toneQuality {
+      filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
+      &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        border: 12px solid transparent;
+        border-top-color: #fff;
+      }
+    }
+
     .volume_value {
       margin: 0;
       margin-left: 10px;

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { IconCaretDown, IconDeviceMobile } from '@tabler/icons';
 import { useSelector } from 'react-redux';
 import { LoginContext } from '../index';
@@ -41,7 +41,7 @@ export default () => {
               <button
                 key={item.zh}
                 type="button"
-                className={classnames('customOption', { on: item.code === countrycode })}
+                className={classNames('customOption', { on: item.code === countrycode })}
                 onClick={() => handleChoose(item.code)}
               >
                 <span className="flag">

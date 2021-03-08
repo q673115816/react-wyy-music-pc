@@ -5,7 +5,7 @@ import {
   IconPlus,
   IconFolderPlus,
 } from '@tabler/icons';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {
@@ -123,7 +123,7 @@ export default () => {
               data.dailySongs?.map((item, index) => (
                 <div
                   tabIndex="2"
-                  className={classnames('item flex items-center hover:bg-gray-100 w-full focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
+                  className={classNames('item flex items-center hover:bg-gray-100 w-full focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
                   key={item.id}
                   onDoubleClick={() => handleDoubleClick(item)}
                   onContextMenu={(e) => handleRightClick(e, item, 'song')}

@@ -11,7 +11,7 @@ import {
   IconPlus,
   IconCaretUp,
 } from '@tabler/icons';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { transPlayCount, transSubscribeCount } from '@/common/utils';
 import DomLoading from '@/components/Loading';
 import DomAllplayGroup from '@/components/AllplayGroup';
@@ -144,9 +144,9 @@ export default () => {
                 </span>
               </span>
             </div>
-            <div className={classnames('whitespace-pre-line leading-6 relative')}>
+            <div className={classNames('whitespace-pre-line leading-6 relative')}>
               简介：
-              <span className={classnames('text-gray-500 select-text')}>
+              <span className={classNames('text-gray-500 select-text')}>
                 {playlist.description}
               </span>
               <button type="button" className="absolute top-0 right-0 text-gray-500">

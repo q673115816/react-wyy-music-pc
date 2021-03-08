@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { wordLength } from '@/common/utils';
 import './style.scss';
 
@@ -19,7 +19,7 @@ export default ({
         className="textarea border rounded px-2 py-1"
         placeholder={placeholder}
       />
-      <span className={classnames('length absolute right-0 bottom-0 mx-2', n > length ? 'red' : 'text-gray-300')}>
+      <span className={classNames('length absolute right-0 bottom-0 mx-2', n > length ? 'red' : 'text-gray-300')}>
         {length - n}
       </span>
     </div>

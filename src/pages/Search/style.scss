@@ -1,36 +1,5 @@
 .domSearch {
-  &_header {
-    padding: 30px;
-    padding-bottom: 10px;
-  }
-
-  &_nav {
-    margin-top: 20px;
-    display: flex;
-
-    &_link {
-      font-size: 14px;
-      margin-right: 2em;
-      font-weight: lighter;
-
-      &.on {
-        font-weight: bold;
-      }
-    }
-  }
-
   &_multimatch {
-    padding: 20px 30px;
-    .title {
-      font-weight: bold;
-    }
-
-    .list {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
-
     .item {
       display: flex;
       align-items: center;
@@ -93,38 +62,25 @@
 
         .heart,
         .download {
-          flex: none;
           width: 24px;
-          text-align: center;
         }
 
         .name {
-          flex: auto;
-          padding: 0 8px;
-          // width: 40%;
         }
 
         .artist {
-          flex: none;
-          padding: 0 8px;
           width: 14%;
         }
 
         .album {
-          flex: none;
-          padding: 0 8px;
           width: 18%;
         }
 
         .duration {
-          flex: none;
-          padding: 0 8px;
           width: 8%;
         }
 
         .pop {
-          flex: none;
-          padding: 0 8px;
           width: 12%;
         }
 

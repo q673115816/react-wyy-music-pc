@@ -1,13 +1,13 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import classnames from 'classnames';
+import classNames from 'classnames';
 
 export default ({ hotAlbums = [] }) => (
   <div className="list mt-4">
     {
       hotAlbums.map((item, index) => (
-        <div className={classnames('list_item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })} key={item.id}>
+        <div className={classNames('list_item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })} key={item.id}>
           <Link className="cover" to={`/playlist/album/${item.id}`}>
             <img className="ui_containimg" src={`${item.picUrl}?param=100y100`} alt="" />
           </Link>

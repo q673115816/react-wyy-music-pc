@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link, NavLink } from 'react-router-dom';
 import { IconFilter, IconPlayerPlay } from '@tabler/icons';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { apiTopPlaylistHighquality, apiPlaylistHighqualityTags } from '@/api';
 import { transPlayCount } from '@/common/utils';
 import useInfinite from '@/custom/useInfinite';
@@ -89,7 +89,7 @@ export default () => {
                 onClick={() => setShowPopup(false)}
                 to="./全部歌单"
               >
-                <span className={classnames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: cat === '全部歌单' })}>
+                <span className={classNames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: cat === '全部歌单' })}>
                   全部歌单
                 </span>
               </NavLink>
@@ -103,7 +103,7 @@ export default () => {
                   className="item hover:ui_themeColor text-sm whitespace-nowrap"
                   key={item.id}
                 >
-                  <span className={classnames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: item.name === cat })}>
+                  <span className={classNames('inline-flex inner px-3 py-1 rounded-full overflow-hidden', { ui_bg_opacity: item.name === cat })}>
                     {item.name}
                   </span>
                 </NavLink>

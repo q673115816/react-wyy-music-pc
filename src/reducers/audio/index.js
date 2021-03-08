@@ -10,6 +10,7 @@ import {
   SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_PATTERN,
   SET_VOLUME,
+  SET_BEFORE_MUTED,
 } from './actionTypes';
 
 const resetState = {
@@ -20,7 +21,7 @@ const resetState = {
   currentTime: 0,
   buffered: 0,
   volume: 100,
-  muted: false,
+  // muted: false,
 };
 
 const initialState = {
@@ -31,6 +32,7 @@ const initialState = {
   history: LOCALSTORAGE('history', []),
   currentTime: LOCALSTORAGE('currentTime', 0),
   volume: LOCALSTORAGE('volume', '100'),
+  beforeMuted: LOCALSTORAGE('beforeMuted', '10'),
 };
 
 export default (state = initialState, action) => {
@@ -93,6 +95,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         volume: action.payload,
+      };
+    case SET_BEFORE_MUTED:
+      window.localStorage.setItem('beforeMuted', JSON.stringify(action.payload));
+      return {
+        ...state,
+        beforeMuted: action.payload,
       };
     default:
       return state;

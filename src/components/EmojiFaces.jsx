@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IconX } from '@tabler/icons';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import faces from '@/common/faces';
 
 export default ({ visibility, setVisibility, clickface }) => {
@@ -19,7 +19,7 @@ export default ({ visibility, setVisibility, clickface }) => {
       </button>
       {
         faces.map((page, index) => (
-          <div key={index} className={classnames('page text-lg grid grid-cols-10 p-4 gap-2', { hidden: currpage === index })}>
+          <div key={index} className={classNames('page text-lg grid grid-cols-10 p-4 gap-2', { hidden: currpage === index })}>
             {
               page.map(([name, face]) => (
                 <button
