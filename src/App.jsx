@@ -18,6 +18,7 @@ import DialogShareWX from './components/Dialog/ShareWX';
 import DialogUploadAvatar from './components/Dialog/UploadAvatar';
 import DialogCreatePlaylist from './components/Dialog/CreatePlaylist';
 import DialogUnSubscription from './components/Dialog/UnSubscription';
+import DialogHomeOrder from './components/Dialog/HomeOrder';
 import Playlist from './components/Playlist';
 import Letter from './components/Letter';
 import Tosat from './components/Toast';
@@ -40,6 +41,7 @@ export default () => {
     globalHeight,
     searchVisibility,
     contextMenuVisibility,
+    dialogHomeOrderVisibility,
     dialogShareVisibility,
     dialogShareWXVisibility,
     dialogUploadAvatarVisibility,
@@ -51,7 +53,6 @@ export default () => {
   const [dragStartInset, setDragStartInset] = useState({ x: 0, y: 0 });
   const [dragLastInset, setDragLastInset] = useState({ x: 0, y: 0 });
   const [resizer, setResizer] = useState(false);
-  const [resizeInset, setResizeInset] = useState({ x: 0, y: 0 });
   const [resizeStartInset, setResizeStartInset] = useState({ x: 0, y: 0 });
   const [resizeInitRect, setResizeInitRect] = useState({ width: MINWIDTH, height: MINHEIGHT });
   const [resizeRect, setResizeRect] = useState(resizeInitRect);
@@ -93,9 +94,6 @@ export default () => {
     if (resizer) {
       const x = e.clientX - resizeStartInset.x;
       const y = e.clientY - resizeStartInset.y;
-      setResizeInset({
-        x, y,
-      });
 
       const nextwidth = resizeInitRect.width + x;
       const nextheight = resizeInitRect.height + y;
@@ -151,30 +149,14 @@ export default () => {
           </Switch>
           {popupStatus === 'playlist' && <Playlist />}
           {popupStatus === 'privateLetter' && <Letter />}
-          {
-            contextMenuVisibility && (
-              <Contextmenu />
-            )
-          }
-          {dialogShareVisibility && (
-            <DialogShare />
-          )}
-          {dialogShareWXVisibility && (
-            <DialogShareWX />
-          )}
-          {dialogUploadAvatarVisibility && (
-            <DialogUploadAvatar />
-          )}
-          {dialogCreatePlaylistVisibility && (
-            <DialogCreatePlaylist />
-          )}
-          {dialogUnSubscriptionVisibility && (
-            <DialogUnSubscription />
-          )}
-          {
-            searchVisibility
-            && <HeaderSearch />
-          }
+          {contextMenuVisibility && <Contextmenu />}
+          {dialogShareVisibility && <DialogShare />}
+          {dialogShareWXVisibility && <DialogShareWX />}
+          {dialogUploadAvatarVisibility && <DialogUploadAvatar />}
+          {dialogCreatePlaylistVisibility && <DialogCreatePlaylist />}
+          {dialogUnSubscriptionVisibility && <DialogUnSubscription />}
+          {dialogHomeOrderVisibility && <DialogHomeOrder />}
+          {searchVisibility && <HeaderSearch />}
           {
             toastTitle?.toString()
             && <Tosat />

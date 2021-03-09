@@ -11,6 +11,7 @@ import {
   apiPersonalizedDjprogram,
 } from '@/api';
 import { setHomeRecommend } from '@/reducers/home/actions';
+import { setDialogHomeOrderShow } from '@/reducers/mask/actions';
 import DomSwiper from '@/components/Swiper';
 import { IconChevronRight } from '@tabler/icons';
 import DOMkankan from '@/components/AdLookRectangle';
@@ -22,6 +23,24 @@ import RecommendNewsong from './Newsong';
 import RecommendDjprogram from './Djprogram';
 import RecommendMV from './MV';
 
+const GridObj = {
+  推荐歌单: ['/home/playlist', RecommendPlaylist],
+  独家放送: ['/exclusive', RecommendPrivatecontent],
+  最新音乐: ['/home/playlist', RecommendNewsong],
+  推荐MV: ['/video/mvlist', RecommendMV],
+  主播电台: ['/home/dj', RecommendDjprogram],
+  看看: ['https://look.163.com/hot?livetype=2', () => (
+    <div className="domHome_recommend_kankan grid grid-cols-4 gap-5">
+      {
+        Object.keys(Array(4).fill(0))
+          .map((item) => (
+            <DOMkankan key={item} />
+          ))
+      }
+    </div>
+  )],
+};
+
 export default memo(() => {
   const {
     banners,
@@ -31,6 +50,7 @@ export default memo(() => {
     mv,
     djprogram,
   } = useSelector(({ home }) => home.recommend);
+  const { homeOrder } = useSelector(({ setting }) => setting);
   const { isLogin } = useSelector(({ common }) => common);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -79,81 +99,34 @@ export default memo(() => {
   }
   return (
     <div className="domHome_content overflow-auto max-h-full flex-auto">
-      <div className="domHome_recommend">
+      <div className="domHome_recommend ui_w1100">
         <div className="domHome_item">
           <DomSwiper list={banners} coverSrc="imageUrl" />
         </div>
-        <div className="domHome_item">
-          <Link
-            className="domHome_recommend_subtitle h1 inline-flex items-center"
-            to="/home/playlist"
-          >
-            推荐歌单
-            <IconChevronRight size={24} />
-          </Link>
-          <div>
-            {isLogin ? (
-              <RecommendPlaylist playlist={playlist} />
-            ) : <div>需要登录</div>}
-          </div>
-        </div>
-        <div className="domHome_item">
-          <Link
-            className="domHome_recommend_subtitle h1 inline-flex items-center"
-            to="/privatecontent"
-          >
-            独家放送
-            <IconChevronRight size={24} />
-          </Link>
-          <RecommendPrivatecontent privatecontent={privatecontent} />
-        </div>
-        <div className="domHome_item">
-          <Link
-            className="domHome_recommend_subtitle h1 inline-flex items-center"
-            to="/home/playlist"
-          >
-            最新音乐
-            <IconChevronRight size={24} />
-          </Link>
-          <RecommendNewsong newsong={newsong} />
-        </div>
-        <div className="domHome_item">
-          <Link
-            className="domHome_recommend_subtitle h1 inline-flex items-center"
-            to="/home/playlist"
-          >
-            推荐mv
-            <IconChevronRight size={24} />
-          </Link>
-          <RecommendMV mv={mv} />
-        </div>
-        <div className="domHome_item">
-          <Link
-            className="domHome_recommend_subtitle h1 inline-flex items-center"
-            to="/home/playlist"
-          >
-            主播电台
-            <IconChevronRight size={24} />
-          </Link>
-          <RecommendDjprogram djprogram={djprogram} />
-        </div>
-        <div className="domHome_item">
-          <Link
-            className="domHome_recommend_subtitle h1 inline-flex items-center"
-            to="https://look.163.com/hot?livetype=2"
-          >
-            看看
-            <IconChevronRight size={24} />
-          </Link>
-          <div className="domHome_recommend_kankan grid grid-cols-4 gap-5">
-            {
-            Object.keys(Array(4).fill(0))
-              .map((item) => (
-                <DOMkankan key={item} />
-              ))
-          }
-          </div>
-        </div>
+        {
+          homeOrder.map((name) => {
+            const [path, Dom] = GridObj[name];
+            return (
+              <div className="domHome_item" key={name}>
+                <Link
+                  className="domHome_recommend_subtitle h1 inline-flex items-center"
+                  to={path}
+                >
+                  {name}
+                  <IconChevronRight size={24} />
+                </Link>
+                <Dom {...{
+                  playlist,
+                  privatecontent,
+                  newsong,
+                  mv,
+                  djprogram,
+                }}
+                />
+              </div>
+            );
+          })
+        }
         <div className="domHome_recommend_diy">
           <div className="text-gray-500">
             现在可以根据个人喜好，自由调整首页栏目顺序啦~
@@ -162,6 +135,7 @@ export default memo(() => {
           <button
             type="button"
             className="btn ui_themeColor border rounded-sm border-current"
+            onClick={() => dispatch(setDialogHomeOrderShow())}
           >
             调整栏目顺序
           </button>

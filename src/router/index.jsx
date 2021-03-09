@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 const Setting = lazy(() => import(/* webpackChunkName: "Setting" */'@/pages/Setting'));
 const Home = lazy(() => import(/* webpackChunkName: "Home" */'@/pages/Home'));
+const Exclusive = lazy(() => import(/* webpackChunkName: "Exclusive" */'@/pages/Exclusive'));
 const DailySong = lazy(() => import(/* webpackChunkName: "DailySong" */'@/pages/DailySong'));
 const Comment = lazy(() => import(/* webpackChunkName: "Comment" */'@/pages/Comment'));
 const Video = lazy(() => import(/* webpackChunkName: "Video" */'@/pages/Video'));
@@ -27,6 +28,7 @@ const Ai = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
 
 const router = [
   ['/home', Home],
+  ['/exclusive', Exclusive],
   ['/dailysong', DailySong],
   ['/comment/:id', Comment],
   ['/video', Video],

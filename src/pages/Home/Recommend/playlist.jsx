@@ -38,7 +38,7 @@ export default ({ playlist = [] }) => (
             </button>
           </div>
           <div className="footer break-all text-sm mt-2">
-            <Link to={`/playlist/music/${item.id}`} className="name">
+            <Link to={`/playlist/music/${item.id}`} className="name ui_ellipse">
               {item.name}
             </Link>
           </div>

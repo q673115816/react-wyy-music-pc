@@ -9,6 +9,7 @@ import {
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
+  SET_DIALOG_HOME_ORDER_SHOW,
   SET_SCREEN_FULL,
   SET_SCREEN_NORMAL,
   SET_TOAST,
@@ -61,6 +62,11 @@ export const setDialogCreatePlaylistShow = (payload) => ({
 
 export const setDialogUnSubscriptionShow = (payload) => ({
   type: SET_DIALOG_UN_SUBSCRIPTION_SHOW,
+  payload,
+});
+
+export const setDialogHomeOrderShow = (payload) => ({
+  type: SET_DIALOG_HOME_ORDER_SHOW,
   payload,
 });
 

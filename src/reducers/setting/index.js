@@ -3,11 +3,13 @@ import { LOCALSTORAGE } from '@/common/utils';
 import {
   SET_THEME,
   SET_FONT,
+  SET_HOMEORDER,
 } from './actionTypes';
 
 const initialState = {
   theme: LOCALSTORAGE('theme', 'themeRed'),
   font: LOCALSTORAGE('font', 'inherit'),
+  homeOrder: LOCALSTORAGE('homeOrder', ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看']),
 };
 
 export default (state = initialState, action) => {
@@ -23,6 +25,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         font: action.payload,
+      };
+    case SET_HOMEORDER:
+      window.localStorage.setItem('homeOrder', JSON.stringify(action.payload));
+      return {
+        ...state,
+        homeOrder: action.payload,
       };
     default:
       return state;

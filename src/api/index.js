@@ -18,8 +18,8 @@ export const apiSongDetail = (params) => post('/song/detail', params);
 export const apiBanner = () => get('/banner');
 // 独家放送
 export const apiPersonalizedPrivatecontent = () => get('/personalized/privatecontent');
-// 独家放送列表
-export const apiPersonalizedPrivatecontentList = (params) => get('/personalized/privatecontent/list', params);
+// 独家放送列表 offset limit
+export const apiPersonalizedPrivatecontentList = (params) => post('/personalized/privatecontent/list', params);
 export const apiPersonalizedNewsong = (params) => post('/personalized/newsong', params);
 export const apiPersonalizedMV = () => get('/personalized/mv');
 export const apiPersonalizedDjprogram = () => post('/personalized/djprogram');

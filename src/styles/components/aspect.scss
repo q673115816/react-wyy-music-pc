@@ -18,6 +18,26 @@
   }
 }
 
+.ui_aspect-ratio-24\/9 {
+  --aspect-ratio: 24 / 9;
+  aspect-ratio: var(--aspect-ratio);
+}
+
+// Fallback (current, using padding hack)
+@supports not (aspect-ratio: 24 / 9) {
+  .ui_aspect-ratio-24\/9::before {
+    float: left;
+    padding-top: calc(24 / 9 * 1%);
+    content: '';
+  }
+
+  .ui_aspect-ratio-24\/9::after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+}
+
 .ui_aspect-ratio-1\/1 {
   --aspect-ratio: 1 / 1;
   aspect-ratio: var(--aspect-ratio);

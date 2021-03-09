@@ -10,6 +10,7 @@ import {
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
+  SET_DIALOG_HOME_ORDER_SHOW,
   SET_SCREEN_FULL,
   SET_SCREEN_NORMAL,
   SET_TOAST,
@@ -28,6 +29,7 @@ const visibilityState = {
   maskVisibility: false,
   searchVisibility: false,
   contextMenuVisibility: false,
+  dialogHomeOrderVisibility: false,
   dialogShareVisibility: false,
   dialogShareWXVisibility: false,
   dialogUploadAvatarVisibility: false,
@@ -131,6 +133,14 @@ export default (state = initialState, action) => {
         ...visibilityState,
         visibility: true,
         dialogUnSubscriptionVisibility: true,
+        ...action.payload,
+      };
+    case SET_DIALOG_HOME_ORDER_SHOW:
+      return {
+        ...state,
+        ...visibilityState,
+        visibility: true,
+        dialogHomeOrderVisibility: true,
         ...action.payload,
       };
     case SET_DIALOG_RESET:
