@@ -1,6 +1,5 @@
 .domHome {
   &_nav {
-
     &_link {
       margin-right: 1em;
       font-size: 16px;
@@ -10,13 +9,4 @@
 
     }
   }
-
-  &_content {
-    flex: auto;
-    padding: 0 30px;
-  }
-
-   &_item {
-     margin-bottom: 36px;
-   }
 }

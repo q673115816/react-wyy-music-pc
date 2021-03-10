@@ -27,17 +27,17 @@ export default ({ lyrics = [] }) => {
       </div>
       <div className="actions">
         <div className="top">
-          <button type="button" className="ui_btn" onClick={() => SetStatus(!status)}>
+          <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full" onClick={() => SetStatus(!status)}>
             {status ? '收起' : '展开'}
             歌词
           </button>
-          <button type="button" className="ui_btn clip" onClick={handleClip}>复制歌词</button>
+          <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full clip" onClick={handleClip}>复制歌词</button>
         </div>
         {status
           && (
             <div className="button">
-              <button type="button" className="ui_btn" onClick={() => SetStatus(false)}>收起歌词</button>
-              <button type="button" className="ui_btn clip" onClick={handleClip}>复制歌词</button>
+              <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full" onClick={() => SetStatus(false)}>收起歌词</button>
+              <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full clip" onClick={handleClip}>复制歌词</button>
             </div>
           )}
       </div>

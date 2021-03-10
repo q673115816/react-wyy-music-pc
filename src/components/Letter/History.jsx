@@ -253,7 +253,7 @@ export default () => {
             </button>
           </div>
           <div className="right">
-            <button type="button" className="ui_btn" onClick={handleSubmit}>发送</button>
+            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full" onClick={handleSubmit}>发送</button>
           </div>
         </div>
       </div>

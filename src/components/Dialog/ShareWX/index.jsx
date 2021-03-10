@@ -19,7 +19,7 @@ const ShareWX = () => {
         />
         <div className="tips">打开微信，扫一扫~</div>
       </div>
-      <button type="button" className="ui_btn red" onClick={() => dispatch(setDialogReset())}>完成</button>
+      <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red" onClick={() => dispatch(setDialogReset())}>完成</button>
     </div>
   );
 };

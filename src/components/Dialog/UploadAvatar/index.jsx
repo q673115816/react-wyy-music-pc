@@ -21,10 +21,10 @@ const UploadAvatar = () => (
       </div>
     </div>
     <div className="actions">
-      <button type="button" className="ui_btn">重新选择</button>
+      <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">重新选择</button>
         &nbsp;
         &nbsp;
-      <button type="button" className="ui_btn red">保持并关闭</button>
+      <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red">保持并关闭</button>
     </div>
   </div>
 );

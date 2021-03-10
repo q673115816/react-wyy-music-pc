@@ -33,18 +33,41 @@ const arealist = [
 
 const AlbumItem = ({ item }) => (
   <div className="item">
-    <div className="cover">
+    <div className="cover rounded overflow-hidden">
       <Link to="/">
         <LazyLoad overflow>
           <img className="ui_containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />
         </LazyLoad>
       </Link>
     </div>
-    <div className="name">
-      <Link to="/">{item.name}</Link>
+    <div className="name text-sm ui_ellipse mt-2">
+      <Link to="/">
+        <span className="ui_text_black_hover">
+          {item.name}
+        </span>
+        &nbsp;
+        {item.alias.length > 0
+          && (
+          <span className="text-gray-400">
+            (
+              {item.alias}
+            )
+          </span>
+          )}
+        {
+          item.transNames
+          && (
+          <span>
+              {item.transNames}
+          </span>
+          )
+          }
+      </Link>
     </div>
-    <div className="artist">
-      <Link to="/artist" key={item.artist.id}>{item.artist.name}</Link>
+    <div className="artist mt-2">
+      <Link to="/artist" key={item.artist.id} className="ui_text_gray_hover">
+        {item.artist.name}
+      </Link>
     </div>
   </div>
 );
@@ -52,7 +75,7 @@ const AlbumItem = ({ item }) => (
 export default () => {
   const dispatch = useDispatch();
   const { monthData = [], weekData = [] } = useSelector(({ home }) => home.newest);
-  console.log(monthData, weekData);
+  // console.log(monthData, weekData);
   const [area, setArea] = useState('ALL');
   const [type, setType] = useState('new');
   const [year, setYear] = useState(new Date().getFullYear());
@@ -89,7 +112,6 @@ export default () => {
   }, [area, type, showtype]);
   return (
     <>
-      <span>{monthData.length}</span>
       <div className="domHome_newest_sub_nav">
         {
           arealist.map((item) => (
@@ -130,7 +152,7 @@ export default () => {
                 <br />
                 新碟
               </div>
-              <div className="list">
+              <div className="list grid grid-cols-4 gap-5">
                 {weekData.map((item) => (
                   <AlbumItem item={item} key={item.id} />
                 ))}
@@ -147,7 +169,7 @@ export default () => {
                 <br />
                 新碟
               </div>
-              <div className="list">
+              <div className="list grid grid-cols-4 gap-5">
                 {
                   monthData.map((item) => (
                     <AlbumItem item={item} key={item.id} />

@@ -51,8 +51,8 @@ export default memo(() => {
             </li>
           </ul>
           <div className="actions">
-            <button type="button" className="ui_btn red">确认</button>
-            <button type="button" className="ui_btn">添加文件</button>
+            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red">确认</button>
+            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">添加文件</button>
           </div>
         </div>
         )

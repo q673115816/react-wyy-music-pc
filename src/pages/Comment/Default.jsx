@@ -140,7 +140,7 @@ export default memo(() => {
                 <IconHash size={20} stroke={1.5} />
               </button>
             </div>
-            <button type="button" className="ui_btn ml-auto">评论</button>
+            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full ml-auto">评论</button>
           </div>
         </div>
       </div>
@@ -162,7 +162,7 @@ export default memo(() => {
                 && (
                   <div className="domComment_list_more flex-center">
                     <Link
-                      className="ui_btn"
+                      className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
                       to={`${pathname}/hot`}
                     >
                       更多精彩评论 &gt;

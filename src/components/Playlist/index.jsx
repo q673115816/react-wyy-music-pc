@@ -17,7 +17,9 @@ const Empty = () => {
   const dispatch = useDispatch();
   return (
     <div className="empty w-min m-auto pt-20 whitespace-nowrap">
-      <div className="text-gray-400 text-sm text">您还没添加任何歌曲！</div>
+      <div className="text-gray-400 text-sm text">
+        您还没添加任何歌曲！
+      </div>
       <div className="text-gray-400 mt-6">
         去首页
         <Link
@@ -41,20 +43,23 @@ const DomList = ({ list = [], currentId, current = '' }) => {
       list.map((item, index) => (
         <div
           tabIndex="2"
-          className={classNames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9', { 'bg-gray-50': index % 2 === 1, ui_themeColor: current === 'playlist' && item.id === currentId })}
+          className={classNames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9 group', { 'bg-gray-50': index % 2 === 1 })}
           key={item.id}
         >
           <div className="w-6 flex-center">
             {
               current === 'playlist'
               && item.id === currentId
-              && (running ? <IconPlayerPlay className="fill-current" size={12} />
-                : <IconPlayerPause size={12} className="fill-current" stroke={1} />)
+              && (running ? <IconPlayerPlay className="fill-current ui_themeColor" size={12} />
+                : <IconPlayerPause size={12} className="fill-current ui_themeColor" stroke={1} />)
             }
           </div>
-          <div className="flex-auto name flex">
+          <div className="flex-auto name flex w-0">
             <div className="text truncate">
-              <span title={item.name}>
+              <span
+                title={item.name}
+                className={classNames({ ui_themeColor: current === 'playlist' && item.id === currentId })}
+              >
                 {item.name}
               </span>
               {
@@ -92,11 +97,16 @@ const DomList = ({ list = [], currentId, current = '' }) => {
                 )}
             </div>
           </div>
-          <div className="w-24 px-1 flex-none truncate">
+          <div className="w-24 px-1 flex-none truncate text-gray-500 group-hover:text-black">
             {item.ar.map((artist, index) => (
               <span key={artist.id}>
                 {index > 0 && ' / '}
-                <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
+                <Link
+                  to={`/artist/${artist.id}`}
+                  className={classNames({ ui_themeColor: current === 'playlist' && item.id === currentId })}
+                >
+                  {artist.name}
+                </Link>
               </span>
             ))}
           </div>
@@ -105,7 +115,7 @@ const DomList = ({ list = [], currentId, current = '' }) => {
               <IconLink size={16} stroke={1} />
             </Link>
           </div>
-          <div className="w-16 px-1 flex-none text-gray-300">
+          <div className="w-16 px-1 flex-none text-gray-300 group-hover:text-black">
             {dayjs(item.dt).format('mm:ss')}
           </div>
         </div>
@@ -135,8 +145,8 @@ export default () => {
     }
   };
   return (
-    <div id="playlist" className="absolute right-0 shadow bg-white">
-      <div className="p-6">
+    <div id="playlist" className="absolute right-0 shadow bg-white z-10 flex flex-col">
+      <div className="p-6 flex-none">
         <div className="nav">
           <button
             type="button"
@@ -183,8 +193,12 @@ export default () => {
           </div>
         </div>
       </div>
-      <div className="overflow-auto max-h-full flex-auto">
-        <DomList list={audio[current]} current={current} currentId={currentSong.id} />
+      <div className="overflow-auto h-full flex-auto">
+        <DomList
+          list={audio[current]}
+          current={current}
+          currentId={currentSong.id}
+        />
       </div>
     </div>
   );

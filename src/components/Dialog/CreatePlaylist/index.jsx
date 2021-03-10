@@ -48,7 +48,7 @@ const ShareWX = () => {
       <div className="flex-center">
         <button
           type="submit"
-          className={classNames('ui_btn red', { disabled: name.length === 0 })}
+          className={classNames('inline-flex items-center justify-center border px-3 h-8 rounded-full red', { disabled: name.length === 0 })}
         >
           创建
         </button>

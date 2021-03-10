@@ -27,13 +27,13 @@ export default memo(() => (
         </NavLink>
       </div>
       <Switch>
-        <Route path="/home/newest/song">
+        <Route path="/home/newest/song/:type">
           <DomSong />
         </Route>
         <Route path="/home/newest/album">
           <DomAlbum />
         </Route>
-        <Redirect to="/home/newest/song" />
+        <Redirect to="/home/newest/song/全部" />
       </Switch>
     </div>
   </div>

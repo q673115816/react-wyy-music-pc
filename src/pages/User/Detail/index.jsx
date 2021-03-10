@@ -124,7 +124,7 @@ export default () => {
               {
                 isSelf
                   ? (
-                    <Link to={`${url}/edit`} className="ui_btn flex-center">
+                    <Link to={`${url}/edit`} className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center">
                       <IconEdit size={18} stroke={1.5} />
                       &nbsp;
                       编辑个人信息
@@ -132,7 +132,7 @@ export default () => {
                   )
                   : (
                     <>
-                      <button type="button" className="ui_btn flex-center">
+                      <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center">
                         <IconMail size={20} stroke={1} />
                                 &nbsp;发私信
                       </button>
@@ -141,7 +141,7 @@ export default () => {
                           ? (
                             <button
                               type="button"
-                              className="ui_btn flex-center"
+                              className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center"
                               onClick={() => handleFollow(user.profile.userId)}
                             >
                               <IconCheck size={16} />
@@ -152,7 +152,7 @@ export default () => {
                           : (
                             <button
                               type="button"
-                              className="ui_btn flex-center"
+                              className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center"
                               onClick={() => handleFollow(user.profile.userId)}
                             >
                               <IconPlus size={16} style={{ color: '#EC4141' }} />

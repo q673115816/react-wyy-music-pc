@@ -1,40 +1,10 @@
 .domDailySong {
-  &_header {
-    padding: 24px 30px 10px;
-    border-bottom: 1px solid #ccc;
-
-    .section {
-      display: flex;
-      align-items: center;
-
-      .date {
-        width: 80px;
-        height: 80px;
-        color: var(--themeColor);
-      }
-
-      .content {
-        margin-left: 30px;
-
-        .tips {
-          margin-top: 10px;
-        }
-      }
-    }
-
-    .actions {
-      margin-top: 20px;
-      display: flex;
-    }
-  }
 
   &_main {
     padding-bottom: 30px;
 
     .item {
       height: 36px;
-      // display: flex;
-      // align-items: center;
       padding: 0 20px;
 
       .index {
@@ -60,10 +30,6 @@
         display: flex;
         align-items: center;
         padding-right: 10px;
-        .tags {
-          margin-left: 0.5em;
-          display: flex;
-        }
       }
 
       .artist {
@@ -82,10 +48,6 @@
         flex: none;
         width: 6%;
       }
-    }
-
-    .tbody {
-
     }
   }
 }

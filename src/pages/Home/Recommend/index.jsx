@@ -98,7 +98,7 @@ export default memo(() => {
     );
   }
   return (
-    <div className="domHome_content overflow-auto max-h-full flex-auto">
+    <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
       <div className="domHome_recommend ui_w1100">
         <div className="domHome_item">
           <DomSwiper list={banners} coverSrc="imageUrl" />

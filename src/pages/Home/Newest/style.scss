@@ -47,28 +47,6 @@
         margin-left: auto;
         display: flex;
 
-        @mixin btn {
-          margin-left: 10px;
-          width: 90px;
-          height: 24px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 12px;
-          cursor: pointer;
-        }
-
-        .playAll {
-          @include btn();
-          color: #fff;
-          background-color: var(--themeColor);
-        }
-
-        .subAll {
-          @include btn();
-          border: 1px solid #f2f2f2;
-        }
-
         .showtype {
           color: #333;
 
@@ -97,55 +75,24 @@
 
       &_list {
         .item {
-          height: 80px;
-          padding: 0 30px;
-          display: flex;
-          align-items: center;
-
-          &:nth-child(odd) {
-            background-color: #F9F9F9;
-          }
-        }
-
-        .ranking {
-          width: 30px;
-          color: #ccc;
         }
 
         .cover {
-          position: relative;
-          cursor: pointer;
-          width: 60px;
-          height: 60px;
-          overflow: hidden;
-          border-radius: 6px;
-          margin-right: 10px;
-
-          .ico {
-
-
-            font-size: 24px;
-            color: var(--themeColor);
-            width: 30px;
-            height: 30px;
-            border-radius: 15px;
-            background-color: rgba(255, 255, 255, 0.8);
-          }
         }
 
         .name {
-          margin-right: 10px;
-          font-size: 14px;
-          width: 300px;
-          display: flex;
         }
 
         .artists {
-          width: 130px;
+          width: 18%;
         }
 
         .album {
-          width: 180px;
+          width: 18%;
+        }
+
+        .duration {
+          width: 10%;
         }
       }
     }
@@ -170,13 +117,6 @@
           font-size: 20px;
         }
 
-        .list {
-          display: grid;
-          column-gap: 40px;
-          row-gap: 40px;
-          grid-template-columns: repeat(4, 1fr);
-        }
-
         .item {
           display: flex;
           flex-direction: column;
@@ -186,28 +126,7 @@
         .cover {
           width: 140px;
           height: 140px;
-          border-radius: 10px;
-          overflow: hidden;
           box-shadow: 3px 0 3px 1px rgba(0, 0, 0, 0.1);
-        }
-
-        .name {
-          margin-top: 0.5em;
-          font-size: 14px;
-
-
-          &:hover {
-            opacity: 0.8;
-          }
-        }
-
-        .artist {
-          margin-top: 0.5em;
-          color: #999;
-
-          &:hover {
-            opacity: 0.8;
-          }
         }
       }
     }

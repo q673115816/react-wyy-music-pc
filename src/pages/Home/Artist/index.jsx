@@ -107,7 +107,7 @@ export default () => {
 
   return (
     <div
-      className="domHome_content overflow-auto h-full flex-auto"
+      className="domHome_content px-8 overflow-auto h-full flex-auto"
       ref={domScroll}
     >
       <div className="domHome_artist">

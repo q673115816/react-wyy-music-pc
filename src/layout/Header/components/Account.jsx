@@ -90,7 +90,7 @@ const DomProfile = ({ setVisibliity }) => {
                 <div className="flex-center">
                   <button
                     type="button"
-                    className="ui_btn checkin"
+                    className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full checkin"
                     onClick={handleCheckIn}
                   >
                     <IconCoin size={16} stroke={1} />

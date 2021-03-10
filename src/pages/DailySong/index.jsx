@@ -21,6 +21,7 @@ import useLoginStatus from '@/custom/useLoginStatus';
 import './style.scss';
 import DomHeart from '@/components/Heart';
 import DomAllplayGroup from '@/components/AllplayGroup';
+import DomTags from '@/components/Tags';
 
 export default () => {
   useLoginStatus();
@@ -82,23 +83,23 @@ export default () => {
   }, []);
   return (
     <div className="domDailySong overflow-auto max-h-full flex-auto">
-      <div className="domDailySong_header">
-        <div className="section">
-          <div className="date">
+      <div className="domDailySong_header px-8 pb-2.5 pt-6 border-b">
+        <div className="section flex items-center">
+          <div className="date w-20 h-20 ui_themeColor">
             <SymbolToday />
           </div>
-          <div className="content">
+          <div className="content ml-8">
             <div className="h1">每日歌曲推荐</div>
             <div className="text-gray-400 tips">
               根据你的音乐口味生成, 每天6:00更新
             </div>
           </div>
         </div>
-        <div className="actions">
+        <div className="actions flex mt-5">
           <DomAllplayGroup {...{ handlePlay, handleAdd }} />
           &nbsp;
           &nbsp;
-          <button type="button" className="ui_btn">
+          <button type="button" className="inline-flex items-center justify-center border px-3 h-8 rounded-full hover:bg-gray-100">
             <IconFolderPlus size={22} stroke={1} />
             &nbsp;
             收藏全部
@@ -177,28 +178,7 @@ export default () => {
                         )
                       }
                     </div>
-                    <div className="tags">
-                      {
-                        item.fee === 1
-                        && (
-                        <>
-                          <span className="TAG word">VIP</span>
-                          <span className="TAG word">试听</span>
-                        </>
-                        )
-                      }
-                      {
-                        item.privilege.maxbr === 999000
-                        && <span className="TAG">SQ</span>
-                      }
-                      {item.mv !== 0
-                        && (
-                          <Link className="TAG" to={`/player/mv/${item.mv}`}>
-                            MV
-                            <IconPlayerPlay size={8} className="fill-current" />
-                          </Link>
-                        )}
-                    </div>
+                    <DomTags item={item} />
                   </div>
                   <div className="artist">
                     <div className="truncate">

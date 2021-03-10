@@ -51,7 +51,7 @@ export default () => {
               </div>
             </div>
             <div className="actions">
-              <button type="button" className="ui_btn">修改密码</button>
+              <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">修改密码</button>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default () => {
                 <div className="name">网易邮箱账号</div>
               </div>
               <div className="actions">
-                <button type="button" className="ui_btn">修改密码</button>
+                <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">修改密码</button>
               </div>
             </div>
             <div className="domUser_binding_bar domUser_binding_item">
@@ -79,7 +79,7 @@ export default () => {
                 </div>
               </div>
               <div className="actions">
-                <button type="button" className="ui_btn">已绑定</button>
+                <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">已绑定</button>
               </div>
             </div>
             <div className="domUser_binding_bar domUser_binding_item">
@@ -92,7 +92,7 @@ export default () => {
                 </div>
               </div>
               <div className="actions">
-                <button type="button" className="ui_btn">已绑定</button>
+                <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">已绑定</button>
               </div>
             </div>
             <div className="domUser_binding_bar domUser_binding_item">
@@ -105,8 +105,8 @@ export default () => {
                 </div>
               </div>
               <div className="actions">
-                <button type="button" className="ui_btn">寻找并邀请好友</button>
-                <button type="button" className="ui_btn">已绑定</button>
+                <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">寻找并邀请好友</button>
+                <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">已绑定</button>
               </div>
             </div>
           </div>

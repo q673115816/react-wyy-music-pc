@@ -2,31 +2,42 @@ import React, {
   useEffect, memo, useState, useMemo,
 } from 'react';
 import dayjs from 'dayjs';
-import { useParams, NavLink, Link } from 'react-router-dom';
+import {
+  useParams, NavLink, Link, Redirect,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiTopSong, apiSongUrl } from '@/api';
 import { setTopSong } from '@/reducers/home/actions';
 import { IconPlayerPlay, IconFolderPlus } from '@tabler/icons';
+import classNames from 'classnames';
+import DomTags from '@/components/Tags';
 
-const nav = [
-  ['全部', '0'],
-  ['华语', '7'],
-  ['欧美', '96'],
-  ['韩国', '16'],
-  ['日本', '8'],
-];
+// const nav = [
+//   ['全部', '0'],
+//   ['华语', '7'],
+//   ['欧美', '96'],
+//   ['韩国', '16'],
+//   ['日本', '8'],
+// ];
+
+const navs = {
+  全部: 0,
+  华语: 7,
+  欧美: 96,
+  韩国: 16,
+  日本: 8,
+};
 
 export default memo(() => {
   console.log('song');
-  // const { type: currentType } = useParams();
-  // const type = useMemo(() => (['0', '7', '96', '8', '16'].find((item) => item === currentType) || '0'), [currentType]);
-  // const dispatch = useDispatch();
+  const { type } = useParams();
+  if (!Object.keys(navs).includes(type)) {
+    return <Redirect to="全部" />;
+  }
   const [data, setData] = useState([]);
-  // const { data = [] } = useSelector(({ home }) => home.newest);
-
   const handleInit = async () => {
     try {
-      const { data } = await apiTopSong('0');
+      const { data } = await apiTopSong({ type: navs[type] });
       setData(data);
       // dispatch(setTopSong(data));
     } catch (error) {
@@ -36,26 +47,26 @@ export default memo(() => {
 
   useEffect(() => {
     handleInit();
-  }, []);
+  }, [type]);
   return (
     <>
       <div className="domHome_newest_sub_nav">
-        {nav.map(([name, code]) => (
+        {Object.keys(navs).map((item) => (
           <NavLink
-            key={name}
+            key={item}
             className="domHome_newest_sub_nav_link"
             activeClassName="on"
-            to={`/home/newest/song/${code}`}
+            to={`/home/newest/song/${item}`}
           >
-            {name}
+            {item}
           </NavLink>
         ))}
-        <div className="domHome_newest_sub_control_center">
-          <span className="playAll">
+        <div className="domHome_newest_sub_control_center space-x-2">
+          <span className="playAll flex-center ui_theme_bg_color text-white rounded-full px-2 py-0.5">
             <IconPlayerPlay size={16} stroke={1} className="fill-current" />
             播放全部
           </span>
-          <span className="subAll">
+          <span className="subAll flex-center rounded-full border px-2 py-0.5">
             <IconFolderPlus size={16} stroke={1} />
             收藏全部
           </span>
@@ -63,43 +74,50 @@ export default memo(() => {
       </div>
       <div className="domHome_newest_song_list">
         {data.map((item, index) => (
-          <div className="item" key={item.id}>
-            <span className="ranking">
+          <div
+            className={classNames('item h-20 py-2.5 flex items-center px-8', { 'bg-gray-50': index % 2 === 0 })}
+            key={item.id}
+          >
+            <span className="ranking text-gray-300 w-8">
               {String(index + 1).padStart(2, 0)}
             </span>
             <button
               type="button"
-              className="cover"
+              className="cover w-16 relative rounded overflow-hidden ui_aspect-ratio-1/1"
             >
               <img
-                className="ui_containimg"
+                className=""
                 src={`${item.album.blurPicUrl}?param=100y100`}
                 alt=""
               />
-              <span className="ico">
-                <IconPlayerPlay size={22} className="fill-current" />
-              </span>
+              <i className="ico absolute w-6 h-6 m-auto flex-center inset-0 ui_themeColor bg-white bg-opacity-90 rounded-full">
+                <IconPlayerPlay size={14} className="fill-current" />
+              </i>
             </button>
-            <span className="name">
+            <span className="name px-2.5 w-0 flex flex-auto">
               <div className="truncate">{item.name}</div>
-              <div className="TAG">SQ</div>
+              {/* <div className="TAG">SQ</div> */}
+              <DomTags item={item} />
             </span>
-            <span className="artists">
+            <span className="artists truncate">
               {
-                item.artists.map((artist) => (
-                  <Link to="artist" key={artist.id}>
-                    {artist.name}
-                  </Link>
+                item.artists.map((artist, index) => (
+                  <span key={artist.id}>
+                    {index > 0 && ' / '}
+                    <Link to="artist" className="ui_text_black_hover">
+                      {artist.name}
+                    </Link>
+                  </span>
                 ))
               }
             </span>
-            <span className="album">
-              <Link to="album">
+            <span className="album truncate">
+              <Link to="album" className="ui_text_black_hover">
                 {item.album.name}
               </Link>
 
             </span>
-            <span className="duration">
+            <span className="duration text-gray-500 text-right">
               {dayjs(item.duration).format('mm:ss')}
             </span>
           </div>

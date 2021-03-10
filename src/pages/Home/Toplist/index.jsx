@@ -87,7 +87,7 @@ export default memo(() => {
     handleInit();
   }, []);
   return (
-    <div className="domHome_content overflow-auto max-h-full flex-auto">
+    <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
       <div className="domHome_toplist">
         <div className="domHome_toplist_title h1 mb-4">官方榜</div>
         <div className="domHome_toplist_official">

@@ -139,7 +139,7 @@ export default () => {
   // const random = (height) => Math.random() * height >> 0;
   // const randomrgb = () => `rgb(${random(255)},${random(255)},${random(255)})`;
   return (
-    <div className="domHome_content overflow-auto max-h-full flex-auto">
+    <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
       <div className="domHome_dj">
         <div className="domHome_dj_banner">
           {

@@ -67,33 +67,6 @@
   margin: 0 auto;
 }
 
-.ui_btn_small {
-  color: #fff;
-  background-color: var(--themeColor);
-}
-
-.ui_btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 80px;
-  padding: 0 12px;
-  height: 32px;
-  border-radius: 16px;
-  border: 1px solid #D8D8D8;
-  background-color: #fff;
-
-  &:hover {
-    background-color: #F2F2F2;
-  }
-
-  &.red {
-    color: #fff;
-    border-color: var(--themeColor);
-    background-color: var(--themeColor);
-  }
-}
-
 .ui_ellipse {
   display: -webkit-box;
   /*! autoprefixer: ignore next */

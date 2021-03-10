@@ -157,7 +157,7 @@ export default () => {
               <IconPlus size={20} />
             </button>
           </div>
-          <button type="button" className="flex-center ui_btn">
+          <button type="button" className="flex-center ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">
             <IconPlus size={20} />
             &nbsp;
             上传音乐
@@ -290,8 +290,8 @@ export default () => {
           </li>
         </ul>
         <div className="actions">
-          <button type="button" className="ui_btn red">确认</button>
-          <button type="button" className="ui_btn">添加文件</button>
+          <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red">确认</button>
+          <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">添加文件</button>
         </div>
       </div>
     </div>

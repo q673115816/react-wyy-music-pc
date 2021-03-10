@@ -5,7 +5,7 @@ import {
 } from '@tabler/icons';
 
 export default ({ handlePlay = () => null, handleAdd = () => null }) => (
-  <span className="flex rounded-full text-white overflow-hidden">
+  <span className="inline-flex h-8 rounded-full text-white overflow-hidden">
     <button
       type="button"
       onClick={handlePlay}

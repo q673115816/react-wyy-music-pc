@@ -72,7 +72,7 @@ export default () => {
               <button
                 onClick={handleUnSubscription}
                 type="button"
-                className="ui_btn flex items-center text-sm"
+                className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex items-center text-sm"
               >
                 <IconCheckbox size={20} stroke={1} />
                 已收藏
@@ -82,7 +82,7 @@ export default () => {
               <button
                 onClick={handleSubscription}
                 type="button"
-                className="ui_btn flex items-center text-sm"
+                className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex items-center text-sm"
               >
                 <IconFolderPlus size={20} stroke={1} />
                 收藏
@@ -93,7 +93,7 @@ export default () => {
           && (
             <Link
               to={`/user/${detail.user?.userId}`}
-              className="ui_btn flex items-center text-sm"
+              className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex items-center text-sm"
             >
               个人主页
             </Link>

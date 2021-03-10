@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { apiUserDetail, apiUserUpdate } from '@/api';
 import { useParams, Link } from 'react-router-dom';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
+import produce from 'immer';
 import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/actions';
 import { useDispatch } from 'react-redux';
 import './style.scss';
@@ -12,8 +13,8 @@ export default () => {
   const dispatch = useDispatch();
   const { uid } = useParams();
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState({});
-  const [edit, setEdit] = useState({});
+  const [profile, setProfile] = useState(produce({}, () => {}));
+  const [edit, setEdit] = useState(produce({}, () => {}));
   const [signature, setSignature] = useState('');
   const [disabled, setDisabled] = useState(true);
   const handleInit = async () => {
@@ -24,8 +25,18 @@ export default () => {
         uid,
       });
       if (code === 200) {
-        setProfile(profile);
-        setEdit(profile);
+        setProfile(produce((draft) => {
+          for (const key in profile) {
+            draft[key] = profile[key];
+          }
+          // draft = profile;
+        }));
+        setEdit(produce((draft) => {
+          for (const key in profile) {
+            draft[key] = profile[key];
+          }
+          // draft = profile;
+        }));
       }
     } catch (error) {
       console.log(error);
@@ -56,7 +67,10 @@ export default () => {
   };
 
   const handleEdit = (name, value) => {
-    setEdit({ ...edit, [name]: value });
+    // setEdit({ ...edit, [name]: value });
+    setEdit(produce((draft) => {
+      draft[name] = value;
+    }));
   };
 
   const handleUpload = (e) => {
@@ -71,6 +85,7 @@ export default () => {
   }, [uid]);
 
   useEffect(() => {
+    // console.log(initialState.current === edit);
     if (isEqual(profile, edit)) {
       setDisabled(true);
     } else {
@@ -137,7 +152,7 @@ export default () => {
                   checked={edit.gender === 1}
                   onChange={() => handleEdit('gender', 1)}
                 />
-                <i className="ico" />
+                <i className="ico flex-center" />
                 <span>男</span>
               </label>
               <label htmlFor="famale" className="gender">
@@ -149,7 +164,7 @@ export default () => {
                   checked={edit.gender === 2}
                   onChange={() => handleEdit('gender', 2)}
                 />
-                <i className="ico" />
+                <i className="ico flex-center" />
                 <span>女</span>
               </label>
             </div>
@@ -177,7 +192,7 @@ export default () => {
               <div className="actions">
                 <button
                   type="button"
-                  className={classNames('ui_btn red', { disabled })}
+                  className={classNames('ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red', { disabled })}
                   style={{ marginRight: '2em' }}
                   disabled={disabled}
                   onClick={handleSave}
@@ -185,7 +200,7 @@ export default () => {
                   保&nbsp;存
 
                 </button>
-                <Link to="./" className="ui_btn">取&nbsp;消</Link>
+                <Link to="./" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">取&nbsp;消</Link>
               </div>
             </div>
           </div>
@@ -203,7 +218,7 @@ export default () => {
               hidden
               accept="image/bmp,image/gif,image/jpg,image/svg,image/png,image/webp,image/ico,image/svgz,image/tif,image/jpeg,image/jfif,image/pjpeg,image/pjp,image/tiff,image/xbm"
             />
-            <span className="ui_btn update">修改头像</span>
+            <span className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full update">修改头像</span>
           </label>
         </div>
       </div>

@@ -154,7 +154,7 @@ export default ({
                       </button>
                     </div>
                     <div className="right">
-                      <button className="ui_btn" type="button">
+                      <button className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full" type="button">
                         评论
                       </button>
                     </div>

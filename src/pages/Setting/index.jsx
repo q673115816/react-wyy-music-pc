@@ -61,7 +61,7 @@ const DomAccountUnLogined = ({ }) => {
       </div>
       <button
         type="button"
-        className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full"
+        className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full_small inline-flex items-center justify-center h-6 px-3 rounded-full"
         onClick={() => dispatch(setLoginVisibilty())}
       >
         立即登录

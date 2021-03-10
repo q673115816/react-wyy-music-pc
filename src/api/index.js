@@ -161,7 +161,7 @@ export const apiToplistArtist = (type) => get(`/toplist/artist?type=${type}`);
 export const apiToplistDetail = () => get('/toplist/detail');
 
 // 排行榜
-export const apiTopSong = (type) => get(`/top/song?type=${type}`);
+export const apiTopSong = (params) => post('/top/song', params);
 export const apiTopAlbum = (params) => post('/top/album', params);
 /**
  * 歌单 ( 网友精选碟 )

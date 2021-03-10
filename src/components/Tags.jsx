@@ -4,7 +4,7 @@ import { IconPlayerPlay } from '@tabler/icons';
 import classNames from 'classnames';
 
 export default ({ item = {}, className = '' }) => (
-  <div className={classNames('tags', className)}>
+  <div className={classNames('tags flex-none', className)}>
     {
         item.fee === 1
         && (

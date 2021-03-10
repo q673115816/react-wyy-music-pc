@@ -93,7 +93,7 @@ export default () => {
           </div>
           <div className="actions">
             <DomAllplayGroup />
-            <button type="button" className="ui_btn btn">
+            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full btn">
               {
                 playlist.subscribed
                   ? <IconFolderPlus size={20} stroke={1} />
@@ -105,7 +105,7 @@ export default () => {
               {transSubscribeCount(playlist.subscribedCount) || 0}
               )
             </button>
-            <button type="button" className="ui_btn btn">
+            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full btn">
               <IconScreenShare size={20} stroke={1} />
               &nbsp;
               分享
@@ -113,7 +113,7 @@ export default () => {
               {transSubscribeCount(playlist.shareCount) || 0}
               )
             </button>
-            <button type="button" className="ui_btn btn">
+            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full btn">
               <IconCloudDownload size={20} stroke={1} />
               &nbsp;
               下载全部

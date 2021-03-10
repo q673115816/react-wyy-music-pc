@@ -11,7 +11,7 @@ export default forwardRef(({
     onChange(e);
   };
   return (
-    <span className="inilne-flex">
+    <span className="inline-flex">
       <input
         ref={ref}
         type="checkbox"

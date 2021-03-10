@@ -75,7 +75,7 @@ export default () => {
   }, [order, cat]);
   if (loading) return <div>loading</div>;
   return (
-    <div className="domHome_playlist overflow-auto max-h-full flex-auto">
+    <div className="domHome_playlist px-8 overflow-auto max-h-full flex-auto">
       {
         cat === '全部歌单'
           ? <DomBanner item={highquality.playlists[0]} cat={cat} />

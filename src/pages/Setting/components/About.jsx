@@ -9,7 +9,7 @@ export default () => (
     <div>
       当前版本……
       {' '}
-      <button type="button" className="ui_btn">检测更新</button>
+      <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">检测更新</button>
     </div>
     <div className="domSetting_subBlock">
       <DomRadio name="更新" list={['自动更新', '有新版本时提醒我']} checked="自动更新" />
@@ -17,20 +17,20 @@ export default () => (
     <br />
     <div className="flex items-center">
       <span className="mr-4">下载移动客户端</span>
-      <a href="https://itunes.apple.com/cn/app/wang-yi-yun-yin-le/id590338362?l=ch" className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full mr-4">
+      <a href="https://itunes.apple.com/cn/app/wang-yi-yun-yin-le/id590338362?l=ch" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full_small inline-flex items-center justify-center h-6 px-3 rounded-full mr-4">
         <IconBrandApple size={16} className="fill-current" />
         iPhone版
       </a>
-      <a href="https://itunes.apple.com/cn/app/wang-yi-yun-yin-lehd/id871041757?l=ch" className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full mr-4">
+      <a href="https://itunes.apple.com/cn/app/wang-yi-yun-yin-lehd/id871041757?l=ch" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full_small inline-flex items-center justify-center h-6 px-3 rounded-full mr-4">
         <IconBrandApple size={16} className="fill-current" />
         iPad版
       </a>
       {/* "https://music.163.com/sso/login?token=&uid=46636813&url=/download&forceReplaceLogin=false" */}
-      <a href="https://music.163.com/#/download" className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full mr-4">
+      <a href="https://music.163.com/#/download" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full_small inline-flex items-center justify-center h-6 px-3 rounded-full mr-4">
         <IconBrandApple size={16} className="fill-current" />
         iPhone版
       </a>
-      <a href="http://www.windowsphone.com/s?appid=db9dbdaa-464e-4370-a078-800fc7983d39" className="ui_btn_small inline-flex items-center justify-center h-6 px-3 rounded-full mr-4">
+      <a href="http://www.windowsphone.com/s?appid=db9dbdaa-464e-4370-a078-800fc7983d39" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full_small inline-flex items-center justify-center h-6 px-3 rounded-full mr-4">
         <IconBrandApple size={16} className="fill-current" />
         iPhone版
       </a>
