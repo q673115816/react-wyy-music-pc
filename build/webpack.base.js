@@ -123,7 +123,7 @@ module.exports = {
   // externalsType: 'script',
   externals: [
     {
-      // swiper: ['Swiper', 'react'],
+      // swiper: ['Swiper', 'swiper-react'],
       // swiper: 'Swiper',
       'react-router': 'ReactRouter',
       'react-router-dom': 'ReactRouterDOM',

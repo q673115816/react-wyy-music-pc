@@ -11,11 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   IconChevronLeft, IconPhoto, IconMoodSmile, IconPlayerPlay,
 } from '@tabler/icons';
-import EmojiFaces from '../EmojiFaces';
-import Write from '../Write';
+import EmojiFaces from '../../EmojiFaces';
+import Write from '../../Write';
 
 const DomSong = ({ msg = {} }) => (
-  <button type="button" className="share flex w-56 rounded p-2 bg-gray-50 mt-2">
+  <button type="button" className="share w-full flex rounded p-2 bg-gray-50 mt-2">
     <div className="avatar flex-none w-10 h-10 rounded relative overflow-hidden">
       <img src={`${msg.song.album.picUrl}?param=100y100`} alt="" />
       <i className="absolute inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
@@ -34,7 +34,7 @@ const DomSong = ({ msg = {} }) => (
             </span>
           )}
       </div>
-      <div className="text-gray-400 artist">
+      <div className="text-gray-400 artist truncate">
         {msg.song.artists.map((artist, index) => (
           <span key={artist.name}>
             {index > 0 && ' / '}
@@ -48,7 +48,7 @@ const DomSong = ({ msg = {} }) => (
 const DomAlbum = ({ msg = {} }) => (
   <Link
     to={`/playlist/album/${msg.album.id}`}
-    className="share flex w-56 rounded p-2 bg-gray-50 mt-2"
+    className="share flex rounded p-2 bg-gray-50 mt-2"
   >
     <button
       type="button"
@@ -74,7 +74,7 @@ const DomAlbum = ({ msg = {} }) => (
             </span>
           )}
       </div>
-      <div className="text-gray-400 artist">
+      <div className="text-gray-400 artist truncate">
         {msg.album.artist.name}
       </div>
     </div>
@@ -119,7 +119,7 @@ const DomContent = ({ msg = {} }) => {
 const DomMsgLeft = ({ msg = {} }) => (
   <div className="flex">
     <div className="w-60">
-      <div className="rounded-lg rounded-tl-none bg-blue-50 p-2">
+      <div className="rounded-lg rounded-tl-none bg-blue-50 p-2.5">
         <DomContent msg={msg} />
       </div>
     </div>
@@ -129,7 +129,7 @@ const DomMsgLeft = ({ msg = {} }) => (
 const DomMsgRight = ({ msg = {} }) => (
   <div className="flex justify-end">
     <div className="w-60">
-      <div className="rounded-lg rounded-rb-none bg-blue-50 p-2">
+      <div className="rounded-lg rounded-br-none bg-blue-50 p-2.5">
         <DomContent msg={msg} />
       </div>
     </div>
@@ -197,7 +197,7 @@ export default () => {
   }, [uid]);
 
   return (
-    <div className="inner">
+    <>
       <div className="topbar">
         <button
           type="button"
@@ -235,12 +235,12 @@ export default () => {
         }
         {hint && <div className="hint">{hint}</div>}
       </div>
-      <div className="feedback">
+      <div className="feedback p-3">
         <Write {...{
           value, setValue, length: 200, placeholder: `回复 ${nickname}`,
         }}
         />
-        <div className="actions">
+        <div className="actions flex mt-2.5">
           <div className="left">
             <div className="faces">
               <EmojiFaces {...{ visibility, setVisibility, clickface }} />
@@ -252,11 +252,9 @@ export default () => {
               <IconPhoto size={24} stroke={1.4} />
             </button>
           </div>
-          <div className="right">
-            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full" onClick={handleSubmit}>发送</button>
-          </div>
+          <button type="button" className="ui_btn ml-auto flex-center border px-3 h-8 rounded-full" onClick={handleSubmit}>发送</button>
         </div>
       </div>
-    </div>
+    </>
   );
 };

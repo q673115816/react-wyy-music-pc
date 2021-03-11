@@ -130,13 +130,13 @@ export default () => {
   };
 
   return (
-    <div className="inner">
-      <div className="header">
-        <span className="title">消息</span>
+    <>
+      <div className="header flex items-baseline p-6 pb-b">
+        <span className="title text-lg">消息</span>
         {
           isLogin
-            ? <button type="button" className="clear ui_link">一键已读</button>
-            : <span className="clear ui_disabled">一键已读</span>
+            ? <button type="button" className="clear text-sm font-bold ml-auto ui_link">一键已读</button>
+            : <span className="clear text-sm font-bold ml-auto ui_disabled">一键已读</span>
         }
       </div>
       <div className="nav">
@@ -157,34 +157,36 @@ export default () => {
           ))
         }
       </div>
-      <div className="list overflow-auto max-h-full flex-auto">
+      <div className="list mt-3 overflow-auto max-h-full flex-auto">
         {data.length > 0 ? data.map((item) => (
-          <div className="item" key={item.fromUser.userId}>
-            <div className="avatar">
-              <Link to={`/user/${item.fromUser.userId}`}>
-                <img className="ui_containimg" src={item.fromUser.avatarUrl} alt="" />
-                <i className="ico">
-                  <img
-                    className="ui_containimg"
-                    src={item.fromUser.avatarDetail?.identityIconUrl}
-                    alt=""
-                  />
-                </i>
-              </Link>
+          <div className="item flex pr-4 pt-4 hover:bg-gray-100" key={item.fromUser.userId}>
+            <div className="w-4 flex-center h-8">
+              {item.newMsgCount > 0
+                && <i className="rounded-full w-1.5 h-1.5 bg-red-500" />}
             </div>
+            <Link to={`/user/${item.fromUser.userId}`} className="avatar w-8 h-8 relative flex-none">
+              <img className="rounded-full" src={item.fromUser.avatarUrl} alt="" />
+              <i className="ico absolute right-0 bottom-0 w-3.5 h-3.5">
+                <img
+                  className="ui_containimg"
+                  src={item.fromUser.avatarDetail?.identityIconUrl}
+                  alt=""
+                />
+              </i>
+            </Link>
             <button
               type="button"
-              className="content"
+              className="content border-b pb-3 flex-auto text-left ml-2.5 w-0"
               onClick={() => handleSeeMsgPrivateHistory(
                 item.fromUser.userId,
                 item.fromUser.nickname,
               )}
             >
-              <div className="top">
+              <div className="top flex">
                 <span className="ui_link">
                   {item.fromUser.nickname}
                 </span>
-                <span className="time text-gray-400">
+                <span className="time ml-auto text-gray-400">
                   {dayjs(item.lastMsgTime).format('YYYY年MM月DD日')}
                 </span>
               </div>
@@ -202,6 +204,6 @@ export default () => {
             </div>
           )}
       </div>
-    </div>
+    </>
   );
 };

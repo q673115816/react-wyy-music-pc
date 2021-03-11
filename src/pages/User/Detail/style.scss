@@ -1,5 +1,5 @@
 .domUserDetail {
-  padding: 30px;
+  // padding: 30px;
 
   &_header {
     display: flex;
@@ -55,46 +55,6 @@
       margin-top: 6px;
       line-height: 22px;
       font-size: 14px;
-    }
-  }
-
-  &_main {
-  }
-
-  &_headerBar {
-    padding-top: 40px;
-    padding-bottom: 20px;
-    display: flex;
-    .name {
-      font-size: 16px;
-      font-weight: bold;
-    }
-    .layouts {
-      margin-left: auto;
-      display: flex;
-      .layout {
-        margin-left: 1px;
-        width: 26px;
-        height: 20px;
-        background-color: #F2F2F2;
-        color: #7F7F7F;
-
-        &:first-child {
-          border-radius: 3px 0 0 3px;
-        }
-
-        &:last-child {
-          border-radius: 0 3px 3px 0;
-        }
-        &:hover {
-          background-color: #E7E7E7;
-        }
-
-        &.on {
-          background-color: #BFBFBF;
-          color: #fff;
-        }
-      }
     }
   }
 }

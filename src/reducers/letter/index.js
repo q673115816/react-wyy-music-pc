@@ -1,10 +1,10 @@
 import { SET_MSG_PRIVATE_HISTORY } from './actionTypes';
 
 const initialState = {
-  nickname: '云音乐小秘书',
+  nickname: '',
   hint: '',
-  uid: '9003',
-  showMsgPrivateHistory: true,
+  uid: '',
+  showMsgPrivateHistory: false,
   privatMsgs: [],
 };
 

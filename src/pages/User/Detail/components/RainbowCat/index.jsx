@@ -1,4 +1,4 @@
-import './RainbowCat.css';
+import './style.css';
 
 import React from 'react';
 

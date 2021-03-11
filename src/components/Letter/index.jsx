@@ -14,15 +14,11 @@ export default () => {
     }));
   }, []);
   return (
-    <div id="privateLetter">
+    <div id="privateLetter" className="flex flex-col">
       {
         showMsgPrivateHistory
-          ? (
-            <DomHistory />
-          )
-          : (
-            <DomList />
-          )
+          ? <DomHistory />
+          : <DomList />
       }
     </div>
   );

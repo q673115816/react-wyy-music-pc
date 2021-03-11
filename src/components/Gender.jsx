@@ -28,3 +28,8 @@ export const DomFamale = ({ size = 0 }) => (
     <img className="w-full h-full" src={svgFamale} alt="" />
   </span>
 );
+
+export default ({ gender, ...props }) => {
+  if (gender === 1) return <DomMale {...props} />;
+  if (gender === 2) return <DomFamale {...props} />;
+};

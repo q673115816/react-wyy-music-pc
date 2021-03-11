@@ -5,7 +5,7 @@ import {
 import { apiUserDetail, apiUserPlaylist, apiFollow } from '@/api';
 import { useSelector } from 'react-redux';
 import './style.scss';
-import { DomMale, DomFamale } from '@/components/Gender';
+import DomGender from '@/components/Gender';
 import {
   IconEdit,
   IconCheck,
@@ -20,7 +20,7 @@ import {
 import classNames from 'classnames';
 import { SymbolWB } from '@/components/Symbol';
 import { transPlayCount } from '@/common/utils';
-import RainbowCat from './RainbowCat';
+import Domlayout from './components/layout';
 
 export default () => {
   const { isLogin } = useSelector(({ common }) => common);
@@ -85,7 +85,7 @@ export default () => {
   }
   return (
     <div className="domUserDetail">
-      <div className="domUserDetail_header">
+      <div className="domUserDetail_header p-8">
         <div className="avatar rounded-full overflow-hidden flex-none">
           <img src={`${user.profile.avatarUrl}?param=200y200`} alt="" className="ui_coverimg" />
         </div>
@@ -117,8 +117,7 @@ export default () => {
                 Lv
                 {user.level}
               </a>
-              {user.profile.gender === 1 && <DomMale size={16} />}
-              {user.profile.gender === 2 && <DomFamale size={16} />}
+              <DomGender gender={user.profile.gender} size={16} />
             </div>
             <div className="right ml-auto flex-center">
               {
@@ -216,122 +215,8 @@ export default () => {
         </div>
       </div>
       <div className="domUserDetail_main">
-        <div className="domUserDetail_headerBar">
-          <span className="name">
-            歌单
-          </span>
-          <div className="layouts">
-            <button type="button" className={classNames('layout', 'on')} title="大图模式">
-              <IconLayoutGrid size={16} />
-            </button>
-            <button type="button" className="layout" title="列表模式">
-              <IconLayoutList size={16} />
-            </button>
-            <button type="button" className="layout" title="图列模式">
-              <IconList size={16} />
-            </button>
-          </div>
-        </div>
-        <div className="domUserDetail_list grid grid-cols-4 gap-5">
-          <div className="item">
-            <Link to={`${url}/record`}>
-              <div className="cover relative border ui_aspect-ratio-1/1">
-                <div className="absolute inset-0">
-                  <RainbowCat />
-                </div>
-                <button
-                  type="button"
-                  className="playArrow opacity-0 group-hover:opacity-100 transition-opacity duration-500 ui_themeColor absolute right-0 bottom-0 m-2 bg-white bg-opacity-90 rounded-full p-2"
-                >
-                  <IconPlayerPlay size={22} className="fill-current" />
-                </button>
-              </div>
-            </Link>
-            <div className="footer mt-2 text-sm">
-              <Link to="/" className="name">
-                {user.profile.nickname}
-                的听歌排行
-              </Link>
-            </div>
-          </div>
-          {ownPlaylist.map((item) => (
-            <div className="item" key={item.id}>
-              <div className="cover relative rounded group border overflow-hidden ui_aspect_ratio_1/1">
-                <Link to={`/playlist/music/${item.id}`}>
-                  <img src={`${item.coverImgUrl}?param=200y200`} className="ui_containimg" alt="" />
-                  <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
-                  {item.privacy === 10
-                  && (
-                  <div className="absolute right-0 bottom-0">
-                    <div
-                      className="text-white bg-black w-12 h-12"
-                      style={{ clipPath: 'polygon(100% 0, 0% 100%, 100% 100%)' }}
-                    >
-                      <IconLock size={20} className="absolute right-1 bottom-1" />
-                    </div>
-                  </div>
-                  )}
-                  <button
-                    type="button"
-                    className="playArrow opacity-0 group-hover:opacity-100 transition-opacity duration-500 ui_themeColor absolute right-0 bottom-0 m-2 bg-white bg-opacity-90 rounded-full p-2"
-                  >
-                    <IconPlayerPlay size={22} className="fill-current" />
-                  </button>
-                  <div className="absolute top-0 right-0 mx-2 my-1 text-white">
-                    {transPlayCount(item.playCount)}
-                  </div>
-                </Link>
-              </div>
-              <div className="footer mt-2 text-sm">
-                <Link to={`/playlist/music/${item.id}`}>
-                  {item.name}
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="domUserDetail_headerBar">
-          <span className="name">
-            歌单
-          </span>
-          <div className="layouts">
-            <button type="button" className={classNames('layout', 'on')} title="大图模式">
-              <IconLayoutGrid size={16} />
-            </button>
-            <button type="button" className="layout" title="列表模式">
-              <IconLayoutList size={16} />
-            </button>
-            <button type="button" className="layout" title="图列模式">
-              <IconList size={16} />
-            </button>
-          </div>
-        </div>
-        <div className="domUserDetail_list grid grid-cols-4 gap-5">
-          {savePlaylist.map((item) => (
-            <div className="item" key={item.id}>
-              <div className="cover relative rounded group border overflow-hidden ui_aspect_ratio_1/1">
-                <Link to={`/playlist/music/${item.id}`}>
-                  <img src={`${item.coverImgUrl}?param=200y200`} className="" alt="" />
-                  <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
-                  <button
-                    type="button"
-                    className="playArrow opacity-0 group-hover:opacity-100 transition-opacity duration-500 ui_themeColor absolute right-0 bottom-0 m-2 bg-white bg-opacity-90 rounded-full p-2"
-                  >
-                    <IconPlayerPlay size={22} className="fill-current" />
-                  </button>
-                  <div className="absolute top-0 right-0 mx-2 my-1 text-white">
-                    {transPlayCount(item.playCount)}
-                  </div>
-                </Link>
-              </div>
-              <div className="footer mt-2 text-sm">
-                <Link to={`/playlist/music/${item.id}`}>
-                  {item.name}
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Domlayout list={ownPlaylist} />
+        <Domlayout list={savePlaylist} />
       </div>
     </div>
   );
