@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { IconCrown } from '@tabler/icons';
 
 export default ({ item = {}, cat = '全部歌单' }) => (
   <Link
     to={`/home/playlist/highquality/${cat}`}
-    className="domHome_playlist_banner flex items-center relative overflow-hidden z-10"
+    className="domHome_playlist_banner flex items-center relative  rounded-lg overflow-hidden z-10"
   >
     <div
       className="absolute inset-0 bg-center"
@@ -14,11 +15,15 @@ export default ({ item = {}, cat = '全部歌单' }) => (
         zIndex: '-1',
       }}
     />
-    <div className="cover">
+    <div className="cover w-36 h-36 rounded-lg overflow-hidden">
       <img src={item.coverImgUrl} alt="" />
     </div>
-    <div className="contennt">
-      <div className="tag border border-current rounded-full">精品歌单</div>
+    <div className="contennt ml-2.5">
+      <div className="tag border border-current flex-center text-sm rounded-full">
+        <IconCrown size={16} />
+        &nbsp;
+        精品歌单
+      </div>
       <div className="text-white text-base mt-4">
         {item.name}
       </div>

@@ -107,7 +107,7 @@ export default memo(() => {
           homeOrder.map((name) => {
             const [path, Dom] = GridObj[name];
             return (
-              <div className="domHome_item" key={name}>
+              <div className="domHome_item mt-8" key={name}>
                 <Link
                   className="domHome_recommend_subtitle h1 inline-flex items-center"
                   to={path}

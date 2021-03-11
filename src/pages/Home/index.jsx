@@ -3,6 +3,7 @@ import {
   NavLink, Switch, Route, Redirect,
 } from 'react-router-dom';
 import './index.scss';
+import DomLoading from '@/components/Loading';
 
 const HomeRecommend = lazy(() => import(/* webpackChunkName: "Home_Recommend" */'./Recommend'));
 const HomeToplist = lazy(() => import(/* webpackChunkName: "Home_Toplist" */'./Toplist'));
@@ -51,20 +52,24 @@ const nav = [
 ];
 export default memo(() => (
   <div className="domHome flex flex-col h-full">
-    <div className="domHome_nav ui_header">
+    <div className="domHome_nav ui_header text-base space-x-5">
       {nav.map(({ to, name }) => (
         <NavLink
           className="domHome_nav_link"
-          activeClassName="on"
+          activeClassName="text-xl font-bold"
           to={to}
           key={name}
         >
           {name}
         </NavLink>
       ))}
-
     </div>
-    <Suspense fallback={<div>loading</div>}>
+    <Suspense fallback={(
+      <div className="flex-center w-full h-full">
+        <DomLoading />
+      </div>
+    )}
+    >
       <Switch>
         {
           nav.map(({ path, name, Children }) => (
