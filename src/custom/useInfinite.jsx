@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 
-export default (scrollCallback, domScroll, domObserver) => {
+export default (scrollCallback, domScroll, domObserver, deps = []) => {
   const io = useRef();
 
   const handleIo = () => {
@@ -22,6 +22,14 @@ export default (scrollCallback, domScroll, domObserver) => {
   const handleUnIo = () => {
     io.current.disconnect();
   };
+
+  useEffect(() => {
+    // handleInit();
+    handleIo();
+    return () => {
+      handleUnIo();
+    };
+  }, deps);
 
   return {
     handleIo,

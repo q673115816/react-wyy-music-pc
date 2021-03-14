@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, memo, useMemo,
+  useEffect, useState, memo, useMemo, useCallback,
 
 } from 'react';
 // import { unstable_batchedUpdates } from 'react-dom';
@@ -45,6 +45,16 @@ export default memo(() => {
     timestamp,
   } = useSelector(({ mvlist }) => mvlist);
   const memoLoading = useMemo(() => Date.now() - timestamp > 3600000, [timestamp]);
+  const listFilter = (arr) => arr.map((({
+    id, playCount, cover, name, artists,
+  }) => ({
+    type: 0,
+    id,
+    cover,
+    playCount,
+    title: name,
+    creator: artists.map(({ id: userId, name: userName }) => ({ userId, userName })),
+  })));
   const handleInit = async () => {
     try {
       const [
@@ -70,9 +80,9 @@ export default memo(() => {
         }),
       ]);
       dispatch(setMVlistInit({
-        first,
-        hot,
-        wy,
+        first: listFilter(first),
+        hot: listFilter(hot),
+        wy: listFilter(wy),
         top,
         timestamp: Date.now(),
       }));
@@ -96,7 +106,7 @@ export default memo(() => {
       });
       dispatch(setMVlistFirstareaInit({
         firstArea,
-        first,
+        first: listFilter(first),
       }));
     } catch (error) {
       console.log(error);
@@ -152,7 +162,7 @@ export default memo(() => {
             }
           </div>
         </div>
-        <DomGridVideo list={first} type="mv" />
+        <DomGridVideo list={first} />
       </div>
       <div className="domMVList_sublist">
         <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
@@ -164,7 +174,7 @@ export default memo(() => {
             <IconChevronRight size={20} />
           </Link>
         </div>
-        <DomGridVideo list={hot} type="mv" />
+        <DomGridVideo list={hot} />
       </div>
       <div className="domMVList_sublist">
         <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
@@ -176,7 +186,7 @@ export default memo(() => {
             <IconChevronRight size={20} />
           </Link>
         </div>
-        <DomGridVideo list={wy} type="mv" />
+        <DomGridVideo list={wy} />
       </div>
       <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
         <Link to="/toplist-mv/" className="domMVList_subLink font-bold text-base flex items-center">

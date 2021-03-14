@@ -57,11 +57,6 @@ export default () => {
 
   const [option, setOption] = useState(initialOptions);
   const refOption = useRef(option);
-
-  useEffect(() => {
-    refOption.current = option;
-  }, [option]);
-
   const domScroll = useRef(null);
   const domObserver = useRef(null);
 
@@ -87,10 +82,7 @@ export default () => {
     }
   };
 
-  const {
-    handleIo,
-    handleUnIo,
-  } = useInfinite(() => {
+  useInfinite(() => {
     handleInit();
     setOption((prev) => ({
       ...prev,
@@ -99,18 +91,15 @@ export default () => {
   }, domScroll, domObserver);
 
   useEffect(() => {
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
-  }, []);
+    refOption.current = option;
+  }, [option]);
 
   return (
     <div
       className="domHome_content px-8 overflow-auto h-full flex-auto"
       ref={domScroll}
     >
-      <div className="domHome_artist">
+      <div className="domHome_artist ui_w1100">
         <div className="domHome_artist_control">
           {options.map(([enType, cnType, filters]) => (
             <div

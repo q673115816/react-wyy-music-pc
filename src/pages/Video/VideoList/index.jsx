@@ -59,30 +59,34 @@ export default memo(() => {
           id,
         })
         : apiVideoTimelineRecommend());
-      setVideoList((prevList) => [...prevList, ...datas.map(({ data }) => ({
-        id: data.vid,
-        cover: data.coverUrl,
-        duration: data.durationms,
-        name: data.title,
-        playCount: data.playTime,
-        creator: data.creator,
+      setVideoList((prevList) => [...prevList, ...datas.map(({
+        data: {
+          vid,
+          coverUrl,
+          durationms,
+          title,
+          playTime,
+          creator: {
+            nickname: userName, userId,
+          },
+        },
+      }) => ({
+        id: vid,
+        cover: coverUrl,
+        duration: durationms,
+        playCount: playTime,
+        title,
+        creator: [{ userName, userId }],
       }))]);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const {
-    handleIo,
-    handleUnIo,
-  } = useInfinite(handleAddList, domScroll, domObserver);
+  useInfinite(handleAddList, domScroll, domObserver);
 
   useEffect(() => {
     handlePrevInit();
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
   }, []);
 
   useEffect(() => {
@@ -128,7 +132,7 @@ export default memo(() => {
             &gt;
           </button>
           {groupListVisibility
-          && <DomSelect />}
+            && <DomSelect />}
         </div>
         <div className="recommend_nav divide-x flex">
           {categoryList.map((item) => (
@@ -147,7 +151,6 @@ export default memo(() => {
       <div className="my-4">
         <DomGridVideo
           list={videoList}
-          type="video"
         />
         <div ref={domObserver} />
       </div>

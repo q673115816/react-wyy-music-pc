@@ -58,19 +58,21 @@ const Build = {
 };
 
 const DomMultimatch = ({ list = [] }) => {
-  if (list.length === 0) return null;
+  const BuildKeys = Object.keys(Build);
   return (
     <div className="domSearch_multimatch border-b px-8 py-5">
       <div className="title text-bold">最佳匹配</div>
       <div className="list mt-5 flex space-x-6">
-        {list.map(([item, Dom, order]) => <Dom item={item} key={order} />)}
+        {list.map(([item, Dom, order]) => BuildKeys.includes(order)
+        && <Dom item={item} key={order} />)}
       </div>
     </div>
   );
 };
-
 export default memo(({ songs = [], multimatch = { orders: [] } }) => {
-  const list = multimatch.orders?.map((order) => [multimatch[order][0], Build[order], order]);
+  const list = multimatch
+    .orders
+    ?.map((order) => [multimatch[order][0], Build[order], order]);
   const dispatch = useDispatch();
   const handleRightClick = async (e, item) => {
     try {

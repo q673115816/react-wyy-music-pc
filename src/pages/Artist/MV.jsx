@@ -10,38 +10,40 @@ import DomGridVideo from '@/components/GridVideo';
 
 export default memo(({ id }) => {
   const [MVs, setMVs] = useState([]);
+  // const [hasMore, setHasMore] = useState(true);
+  const more = useRef(true);
   const offset = useRef(0);
   const domScroll = useRef();
   const domObserver = useRef();
   const limit = 24;
   const handleInit = async () => {
+    if (!more.current) return;
     try {
-      const { mvs, time } = await apiArtistMV({
+      const { mvs, time, hasMore } = await apiArtistMV({
         id,
         limit,
         offset: offset.current,
       });
       offset.current += limit;
-      setMVs((prev) => [...prev, ...mvs]);
+      more.current = hasMore;
+      setMVs((prev) => [...prev, ...mvs.map(({
+        id, imgurl, duration, name, playCount,
+      }) => ({
+        id,
+        duration,
+        playCount,
+        cover: imgurl,
+        title: name,
+      }))]);
     } catch (error) {
       console.log(error);
     }
   };
-  const {
-    handleIo,
-    handleUnIo,
-  } = useInfinite(handleInit, domScroll, domObserver);
+  useInfinite(handleInit, domScroll, domObserver);
 
-  useEffect(() => {
-    // handleInit();
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
-  }, []);
   return (
     <div className="domArtist_section p-8">
-      <DomGridVideo list={MVs} type="mv" options={{ src: 'imgurl', duration: 'duration' }} />
+      <DomGridVideo list={MVs} />
       <div ref={domObserver} />
     </div>
   );

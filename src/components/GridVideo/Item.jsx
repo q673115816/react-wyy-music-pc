@@ -5,67 +5,79 @@ import { IconPlayerPlay } from '@tabler/icons';
 import dayjs from 'dayjs';
 import { playerTypes } from '@/common/config';
 
-export default ({ item = {}, options }) => (
+export default ({ item = {}, item: { type = 1 } }) => (
   <div className="item">
     <div className="cover relative ui_aspect-ratio-16/9 border rounded overflow-hidden">
       <Link
-        to={`/player/${playerTypes[item.type]}/${item[options.id]}`}
+        to={`/player/${playerTypes[type]}/${item.id}`}
         className="absolute inset-0"
       >
         <img
           className="h-full object-cover w-full"
-          src={item[options.src]}
+          src={item.cover}
           alt=""
         />
-        <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
-        <div className="absolute top-0 right-0 my-1 mx-2 text-white flex-center">
-          <IconPlayerPlay size={12} />
-          &nbsp;
-          {transPlayCount(item[options.playCount])}
-        </div>
-        {options.duration
+        {item.playCount && (
+          <>
+            <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
+            <div className="absolute top-0 right-0 my-0.5 mx-2 text-white flex-center">
+              <IconPlayerPlay size={12} />
+              &nbsp;
+              {transPlayCount(item.playCount)}
+            </div>
+          </>
+        )}
+        {item.duration
           && (
             <>
               <div className="mask absolute left-0 right-0 bottom-0 h-1/4 ui_linear_mask_bottom" />
-              <div className="absolute bottom-0 right-0 my-1 mx-2 text-white">
-                {dayjs(item[options.duration]).format('mm:ss')}
+              <div className="absolute bottom-0 right-0 my-0.5 mx-2 text-white">
+                {dayjs(item.duration).format('mm:ss')}
               </div>
             </>
           )}
       </Link>
     </div>
     <Link
-      to={`/player/${playerTypes[item.type]}/${item[options.id]}`}
-      className="text-sm ui_text_black_hover mt-2 flex items-center"
-      title={item[options.name]}
+      to={`/player/${playerTypes[type]}/${item.id}`}
+      className="ui_text_black_hover mt-2 flex items-center"
+      title={item.title}
     >
       {item.type === 0
-        && <div className="text-red-500 border leading-none border-current text-xs rounded-sm">MV</div>}
+        && (
+        <div className="text-red-500 border leading-none border-current rounded-sm">
+          MV
+        </div>
+        )}
         &nbsp;
-      <span className="flex-auto w-px truncate">
-        {item[options.name]}
+      <span className="text-sm flex-auto w-px truncate">
+        {item.title}
       </span>
     </Link>
-    {/* {
-      item[options.artists]
-      && (
-        <div className="mt-1 truncate">
-          {item.type === 1 && 'by&nbsp;'}
+    {
+      item.creator
+        && (
+        <div className="mt-1 truncate text-gray-300">
+          {item.type === 1 && (
+          <>
+            by&nbsp;
+          </>
+          )}
           {
-            item.artists.map((artist, index) => (
-              <span key={artist.name} className="text-gray-300">
+            item.creator.map((creator, index) => (
+              <span key={creator.userId}>
                 {index > 0 && ' / '}
                 <Link
-                  to={`/artist/${artist.id}`}
+                  to={`/artist/${creator.userId}`}
                   className="ui_text_gray_hover"
                 >
-                  {artist.name}
+                  {creator.userName}
                 </Link>
               </span>
             ))
-          }
+              }
         </div>
-      )
-    } */}
+        )
+    }
   </div>
 );

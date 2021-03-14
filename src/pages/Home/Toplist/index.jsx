@@ -9,18 +9,16 @@ import { setTopListsDetail } from '@/reducers/home/actions';
 import { transPlayCount } from '@/common/utils';
 import './style.scss';
 
-const DomContent = ({ tracks = [] }) => {
-  const [focus, setFocus] = useState(-1);
-  return (
-    <div className="official_rank_list mb-3">
-      {
+const DomContent = ({ tracks = [] }) => (
+  <div className="official_rank_list mb-3">
+    {
         tracks.map((track, index) => (
           <div
-            className={classNames('item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0, 'bg-gray-100': index === focus })}
+            tabIndex="2"
+            className={classNames('item hover:bg-gray-100 focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
             key={track.name}
-            onClick={() => setFocus(index)}
           >
-            <span className="index w-4">{index + 1}</span>
+            <span className={classNames('index text-sm w-4', index < 3 ? 'text-red-500' : 'text-gray-300')}>{index + 1}</span>
             <span className="status w-4 flex-center">&nbsp;口&nbsp;</span>
             <span
               className="name"
@@ -58,9 +56,8 @@ const DomContent = ({ tracks = [] }) => {
           </div>
         ))
       }
-    </div>
-  );
-};
+  </div>
+);
 
 export default memo(() => {
   const { list = [] } = useSelector(({ home }) => home.toplist);
@@ -73,7 +70,7 @@ export default memo(() => {
       const { list } = await apiToplistDetail();
       dispatch(setTopListsDetail(list));
       const [飙升榜, 新歌榜, 原创榜, 热歌榜, 歌手榜] = await Promise.all([
-        ...list.slice(0, 4).map((item) => apiPlaylistDetail({ id: item.id })),
+        ...list.slice(0, 4).map((item) => apiPlaylistDetail({ id: item.id, limit: 5 })),
         apiToplistArtist(1),
       ]);
       setFiveTop([飙升榜, 新歌榜, 原创榜, 热歌榜]);
@@ -88,7 +85,7 @@ export default memo(() => {
   }, []);
   return (
     <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
-      <div className="domHome_toplist">
+      <div className="domHome_toplist ui_w1100">
         <div className="domHome_toplist_title h1 mb-4">官方榜</div>
         <div className="domHome_toplist_official">
           {fiveTop.map(({ playlist: item }) => (
@@ -155,6 +152,7 @@ export default memo(() => {
                   ?.slice(0, 5)
                   .map((item, index) => (
                     <Link
+                      key={item.id}
                       className={classNames('item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })}
                       to={`/artist/${item.id}`}
                     >
@@ -187,11 +185,12 @@ export default memo(() => {
                 to={`/playlist/music/${item.id}`}
                 className="cover group rounded overflow-hidden relative"
               >
-                <span className="playCount absolute top-0 right-0 p-2 text-white">
+                <span className="playCount flex items-center absolute top-0 right-0 py-0.5 px-2 text-white">
+                  <IconPlayerPlay size={12} />
                   {transPlayCount(item.playCount)}
                 </span>
                 <img
-                  className="ui_containimg"
+                  className=""
                   src={`${item.coverImgUrl}?param=200y200`}
                   alt=""
                 />

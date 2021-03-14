@@ -36,6 +36,7 @@ import UseVideoInit from './UseVideoInit';
 import UseMVInit from './UseMVInit';
 import DomComments from './Comments';
 import DomRelated from './Related';
+import DomVideo from './components/Video';
 
 const switchs = {
   video: {
@@ -98,6 +99,13 @@ export default () => {
   const [followed, setFollowed] = useState(false);
   const [value, setValue] = useState('');
 
+  const handleDownload = (href) => {
+    // const a = document.createElement('a');
+    // a.setAttribute('download', href);
+    // a.href = href;
+    // a.click();
+  };
+
   const handleFollow = async () => {
     try {
       const { } = await apiFollow({
@@ -147,10 +155,6 @@ export default () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   console.log(fixed);
-  // }, [fixed]);
-
   return (
     <div className=" overflow-auto h-full" ref={DomScroll}>
       <div style={{ width: 930 }} className="flex justify-between m-auto">
@@ -167,11 +171,12 @@ export default () => {
               }
             </button>
           </div>
-          <div ref={DomVideoWrap} className="ui_aspect-ratio-16/9">
+          <div className="ui_aspect-ratio-16/9" ref={DomVideoWrap}>
             <div className={classNames('ui_aspect-ratio-16/9', fixed ? ' absolute bottom-16 right-8 z-10 w-80' : 'relative')}>
-              <video src={urls?.url} className="absolute inset-0 w-full h-full" controls playsInline />
+              <DomVideo url={urls?.url} detail={detail} />
             </div>
           </div>
+          <button type="button" onClick={() => handleDownload(urls?.url)}>下载</button>
           <div className="domVideoDetail_creator flex items-center mt-5">
             <Link to={`/user/${detail?.creator?.userId}`} className="avatar rounded-full overflow-hidden">
               <img className="" src={detail?.creator?.avatarUrl} alt="" />

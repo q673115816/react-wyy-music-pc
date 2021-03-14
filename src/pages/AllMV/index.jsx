@@ -42,23 +42,29 @@ export default () => {
         offset: offset.current,
       });
       offset.current += limit;
-      setData((prev) => [...prev, ...data]);
+      setData((prev) => [...prev, ...data.map(({
+        id, name, cover, playCount, duration, artists,
+      }) => ({
+        id,
+        cover,
+        duration,
+        playCount,
+        title: name,
+        creator: artists.map(({ id: userId, name: userName }) => ({ userId, userName })),
+      }))]);
     } catch (error) {
       console.log(error);
     }
   };
-  const {
-    handleIo,
-    handleUnIo,
-  } = useInfinite(handleInit, domScroll, domObserver);
+  useInfinite(handleInit, domScroll, domObserver, [search]);
 
-  useEffect(() => {
-    // handleInit();
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
-  }, [search]);
+  // useEffect(() => {
+  //   // handleInit();
+  //   handleIo();
+  //   return () => {
+  //     handleUnIo();
+  //   };
+  // }, [search]);
 
   useEffect(() => {
     setData([]);
@@ -101,7 +107,7 @@ export default () => {
           }
         </div>
         <div className="py-1">
-          <DomGridVideo list={data} type="mv" />
+          <DomGridVideo list={data} />
         </div>
         <div ref={domObserver} />
       </div>

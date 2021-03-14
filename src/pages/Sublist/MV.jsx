@@ -19,17 +19,16 @@ export default memo(() => {
     filter,
   } = useInit(apiMVSublist, filterRule);
 
-  const memoFilter = useMemo(() => filter.map((item) => ({
-    id: item.vid,
-    cover: item.coverUrl,
-    playCount: item.playTime,
-    duration: item.durationms,
-    name: item.title,
-    type: item.type,
-    creator: {
-      userId: item.creator[0].userId,
-      nickname: item.creator[0].userName,
-    },
+  const memoFilter = useMemo(() => filter.map(({
+    vid, coverUrl, playTime, durationms, title, type, creator,
+  }) => ({
+    id: vid,
+    cover: coverUrl,
+    playCount: playTime,
+    duration: durationms,
+    title,
+    type,
+    creator,
   })), [filter, search]);
   return (
     <>
@@ -58,7 +57,6 @@ export default memo(() => {
           : (
             <DomGridVideo
               list={memoFilter}
-              type="video"
             />
           )}
       </div>
