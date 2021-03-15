@@ -14,6 +14,7 @@ import useInfinite from '@/custom/useInfinite';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
+import DomReisze from '@/components/ObserverContain';
 
 export default () => {
   const { action } = useHistory();
@@ -37,21 +38,13 @@ export default () => {
   };
   const DomScroll = useRef();
   const DomObserver = useRef();
-  const DomResize = useRef();
-  const {
-    handleIo,
-    handleUnIo,
-  } = useInfinite(handleInit, DomScroll, DomObserver);
+  useInfinite(handleInit, DomScroll, DomObserver);
   useEffect(() => {
     if (action === 'PUSH') {
       dispatch(setExclusiveResultEmpty());
     } else {
       DomScroll.current.scrollTop = scrollTop;
     }
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
   }, []);
   useLayoutEffect(() => () => {
     dispatch(setExclusiveScrollTop({
@@ -60,34 +53,34 @@ export default () => {
   }, []);
   return (
     <div className="overflow-auto p-8 h-full" ref={DomScroll}>
-      <div className="ui_w1100" ref={DomResize}>
+      <DomReisze>
         <div className="h1 pb-4">独家放送</div>
         <div className={classNames('grid gap-5 grid-cols-2')}>
           {
-            result.map((item) => (
-              <div key={item.picUrl}>
-                <Link
-                  to={item.videoId ? `/player/video/${item.videoId}` : `/player/mv/${item.id}`}
-                  className="flex relative rounded border overflow-hidden ui_aspect-ratio-24/9"
-                >
-                  <LazyLoad overflow>
-                    <img src={item.picUrl} className="w-full h-full object-cover" alt="" />
-                  </LazyLoad>
-                  <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black bg-opacity-40 flex-center border border-gray-200">
-                    <IconPlayerPlay size={14} className="fill-current" />
-                  </span>
-                </Link>
-                <div className="mt-2">
-                  <Link to={`/player/mv/${item.id}`} className="text-sm ui_text_black_hover">
-                    {item.name}
+              result.map((item) => (
+                <div key={item.picUrl}>
+                  <Link
+                    to={item.videoId ? `/player/video/${item.videoId}` : `/player/mv/${item.id}`}
+                    className="flex relative rounded border overflow-hidden ui_aspect-ratio-24/9"
+                  >
+                    <LazyLoad overflow>
+                      <img src={item.picUrl} className="w-full h-full object-cover" alt="" />
+                    </LazyLoad>
+                    <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black bg-opacity-40 flex-center border border-gray-200">
+                      <IconPlayerPlay size={14} className="fill-current" />
+                    </span>
                   </Link>
+                  <div className="mt-2">
+                    <Link to={`/player/mv/${item.id}`} className="text-sm ui_text_black_hover">
+                      {item.name}
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))
-          }
+              ))
+            }
         </div>
-      </div>
-      <div ref={DomObserver} />
+        <div ref={DomObserver} />
+      </DomReisze>
     </div>
   );
 };

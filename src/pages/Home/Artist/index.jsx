@@ -14,7 +14,7 @@ import options from './filter';
 
 const Domitem = ({ item = {} }) => (
   <div className="item">
-    <div className="cover boarder relative rounded overflow-hidden border">
+    <div className="cover boarder relative rounded overflow-hidden border ui_aspect-ratio-1/1">
       <Link to={`/artist/${item.id}`}>
         <LazyLoad overflow>
           <img
