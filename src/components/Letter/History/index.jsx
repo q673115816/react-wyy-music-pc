@@ -15,7 +15,7 @@ import EmojiFaces from '../../EmojiFaces';
 import Write from '../../Write';
 
 const DomSong = ({ msg = {} }) => (
-  <button type="button" className="share w-full flex rounded p-2 bg-gray-50 mt-2">
+  <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">
     <div className="avatar flex-none w-10 h-10 rounded relative overflow-hidden">
       <img src={`${msg.song.album.picUrl}?param=100y100`} alt="" />
       <i className="absolute inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
@@ -48,7 +48,7 @@ const DomSong = ({ msg = {} }) => (
 const DomAlbum = ({ msg = {} }) => (
   <Link
     to={`/playlist/album/${msg.album.id}`}
-    className="share flex rounded p-2 bg-gray-50 mt-2"
+    className="share flex rounded p-2 bg-gray-50 mt-2 w-56"
   >
     <button
       type="button"
@@ -106,20 +106,20 @@ const DomMsg = ({ msg = {} }) => transTextEmoji(msg.msg);
 
 const DomContent = ({ msg = {} }) => {
   const { type } = msg;
+  if (type === 16) return <DomImage msg={msg} />;
   return (
     <>
+      {transTextEmoji(msg.msg)}
       {type === 1 && <DomSong msg={msg} />}
       {type === 2 && <DomAlbum msg={msg} />}
-      {type === 6 && <DomMsg msg={msg} />}
-      {type === 16 && <DomImage msg={msg} />}
     </>
   );
 };
 
 const DomMsgLeft = ({ msg = {} }) => (
   <div className="flex">
-    <div className="w-60">
-      <div className="rounded-lg rounded-tl-none bg-blue-50 p-2.5">
+    <div className="w-60 flex">
+      <div className="rounded-lg rounded-tl-none bg-blue-50 p-3 select-text">
         <DomContent msg={msg} />
       </div>
     </div>
@@ -127,9 +127,9 @@ const DomMsgLeft = ({ msg = {} }) => (
 );
 
 const DomMsgRight = ({ msg = {} }) => (
-  <div className="flex justify-end">
-    <div className="w-60">
-      <div className="rounded-lg rounded-br-none bg-blue-50 p-2.5">
+  <div className="flex">
+    <div className="ml-auto w-60 flex">
+      <div className="ml-auto rounded-lg rounded-br-none bg-blue-50 p-3 select-text">
         <DomContent msg={msg} />
       </div>
     </div>
@@ -172,7 +172,7 @@ export default () => {
     try {
       const { newMsgs = [] } = await apiSendText({
         user_ids: uid,
-        value,
+        msg: value,
       });
       dispatch(setMsgPrivateHistory({
         privatMsgs: newMsgs.reverse(),
@@ -243,16 +243,19 @@ export default () => {
         <div className="actions flex mt-2.5">
           <div className="left">
             <div className="faces">
-              <EmojiFaces {...{ visibility, setVisibility, clickface }} />
+              {
+                visibility
+                && <EmojiFaces {...{ setVisibility, clickface }} />
+              }
             </div>
-            <button type="button" className="action" onClick={() => setVisibility(true)}>
+            <button type="button" className="action" onClick={() => setVisibility(!visibility)}>
               <IconMoodSmile size={24} stroke={1.4} />
             </button>
             <button type="button" className="action">
               <IconPhoto size={24} stroke={1.4} />
             </button>
           </div>
-          <button type="button" className="ui_btn ml-auto flex-center border px-3 h-8 rounded-full" onClick={handleSubmit}>发送</button>
+          <button type="button" className="ml-auto border px-4 h-8 rounded-full" onClick={handleSubmit}>发送</button>
         </div>
       </div>
     </>
