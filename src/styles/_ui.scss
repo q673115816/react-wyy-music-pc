@@ -18,6 +18,7 @@
 
 .ui_text_gray_hover {
   color: #9ca3af;
+
   &:hover {
     color: #111827;
   }
@@ -25,17 +26,26 @@
 
 .ui_text_black_hover {
   color: #555;
+
   &:hover {
     color: #000;
   }
 }
 
+.ui_group {
+  &:hover {
+    .ui_group-hover\:block {
+      display: block;
+    }
+  }
+}
+
 .ui_linear_mask_top {
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), transparent);
 }
 
 .ui_linear_mask_bottom {
-  background-image: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.4), transparent);
 }
 
 .ui_theme_bg_color {

@@ -39,7 +39,7 @@ const router = [
   ['/download', Download],
   ['/friend', Friend],
   ['/dj', Dj],
-  ['/dj-category/:id', DjCategory],
+  ['/dj-category/:rid', DjCategory],
   ['/fm', Fm],
   ['/love', Love],
   ['/sublist', Sublist],

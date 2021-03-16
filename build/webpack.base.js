@@ -8,29 +8,33 @@ const { src, img } = require('./util');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
+const minCdn = devMode ? '' : '.min';
+
+const cdn = {
+  js: [
+    `https://cdn.jsdelivr.net/npm/react/umd/react.development${minCdn}.js`,
+    `https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development${minCdn}.js`,
+    `https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom${minCdn}.js`,
+    // `https://cdn.jsdelivr.net/npm/react-router/umd/react-router${minCdn}.js`,
+    `https://cdn.jsdelivr.net/npm/redux/dist/redux${minCdn}.js`,
+    `https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux${minCdn}.js`,
+    // `https://cdn.jsdelivr.net/npm/swiper/swiper-bundle${minCdn}.js`,
+    // `https://cdn.jsdelivr.net/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
+    `https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
+  ],
+  css: [
+    `https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind${minCdn}.css`,
+    `https://cdn.jsdelivr.net/npm/swiper/swiper-bundle${minCdn}.css`,
+  ],
+};
+
 const plugins = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
     favicon: path.join(__dirname, '../public/favicon.ico'),
     template: path.join(__dirname, '../public/index.html'),
     title: '网易云音乐',
-    cdn: {
-      js: [
-        'https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js',
-        'https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js',
-        'https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js',
-        'https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js',
-        'https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js',
-        'https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js',
-        // 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
-        // 'https://cdn.jsdelivr.net/npm/react-id-swiper/lib/react-id-swiper.min.js',
-        'https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js',
-      ],
-      css: [
-        'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css',
-        'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css',
-      ],
-    },
+    cdn,
     // publicPath: '/'
   }),
   // new webpack.DllPlugin({

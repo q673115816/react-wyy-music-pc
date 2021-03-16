@@ -14,7 +14,7 @@ import useInfinite from '@/custom/useInfinite';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
-import DomReisze from '@/components/ObserverContain';
+import DomReisze from '@/components/ResizeObserver';
 
 export default () => {
   const { action } = useHistory();
@@ -53,9 +53,9 @@ export default () => {
   }, []);
   return (
     <div className="overflow-auto p-8 h-full" ref={DomScroll}>
-      <DomReisze>
+      <div className="ui_w1100">
         <div className="h1 pb-4">独家放送</div>
-        <div className={classNames('grid gap-5 grid-cols-2')}>
+        <DomReisze className="grid gap-5" small="grid-cols-2" big="grid-cols-3">
           {
               result.map((item) => (
                 <div key={item.picUrl}>
@@ -78,9 +78,9 @@ export default () => {
                 </div>
               ))
             }
-        </div>
+        </DomReisze>
         <div ref={DomObserver} />
-      </DomReisze>
+      </div>
     </div>
   );
 };

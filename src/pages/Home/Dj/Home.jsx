@@ -140,7 +140,7 @@ export default () => {
   // const randomrgb = () => `rgb(${random(255)},${random(255)},${random(255)})`;
   return (
     <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
-      <div className="domHome_dj">
+      <div className="domHome_dj pb-16 ui_w1100">
         <div className="domHome_dj_banner">
           {
             DjBanner.length > 0 && (

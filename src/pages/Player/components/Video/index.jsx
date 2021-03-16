@@ -7,47 +7,12 @@ import {
 import DomControl from './Control';
 import DomTiming from './Timing';
 
+import videoReducer, { initialState } from './reducer';
+import {
+  actionSetPlay, actionSetBuffered, actionSetCurrentTime, actionSetDuration,
+} from './reducer/actions';
+
 export const VideoContext = createContext();
-
-const initialState = {
-  play: false,
-  full: false,
-  buffered: 0,
-  duration: 0,
-  currentTime: 0,
-};
-
-const SET_PLAY = 'SET_PLAY';
-const SET_BUFFERED = 'SET_BUFFERED';
-const SET_DURATION = 'SET_DURATION';
-const SET_CURRENTTIME = 'SET_CURRENTTIME';
-
-const videoReducer = (state, action) => {
-  switch (action.type) {
-    case SET_PLAY:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case SET_BUFFERED:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case SET_DURATION:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case SET_CURRENTTIME:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    default:
-      return state;
-  }
-};
 
 export default ({ url, detail, brs = [] }) => {
   const [{
@@ -64,26 +29,26 @@ export default ({ url, detail, brs = [] }) => {
     } else {
       ref.current.play();
     }
-    videoDispatch({ type: SET_PLAY, payload: { play: !play } });
+    videoDispatch(actionSetPlay(!play));
     // setPlay(!play);
   };
 
   const handleProgress = ({ target }) => {
     // console.log(e);
-    videoDispatch({ type: SET_BUFFERED, payload: { buffered: target.buffered.end(0) } });
+    videoDispatch(actionSetBuffered(target.buffered.end(0)));
     // setBuffered(target.buffered.end(0));
     // console.log(ref.current.buffered.end(0));
   };
 
   const handleSetTime = ({ target }) => {
     // console.log(e);
-    videoDispatch({ type: SET_CURRENTTIME, payload: { currentTime: target.currentTime } });
+    videoDispatch(actionSetCurrentTime(target.currentTime));
     // setCurrentTime(target.currentTime);// e.timeStamp
   };
 
   const handlePreSetTime = ({ target }) => {
     // console.log(e);
-    videoDispatch({ type: SET_DURATION, payload: { currentTime: target.duration } });
+    videoDispatch(actionSetDuration(target.duration));
     // setDuration(target.duration);// e.timeStamp
   };
 

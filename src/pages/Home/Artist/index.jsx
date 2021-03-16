@@ -10,6 +10,7 @@ import { IconUser } from '@tabler/icons';
 import { apiArtistList } from '@/api';
 import { addHomeTopArtists, initHomeTopArtists } from '@/reducers/home/actions';
 import useInfinite from '@/custom/useInfinite';
+import DomResize from '@/components/ResizeObserver';
 import options from './filter';
 
 const Domitem = ({ item = {} }) => (
@@ -128,7 +129,7 @@ export default () => {
             </div>
           ))}
         </div>
-        <div className="domHome_artist_list grid gap-4 grid-cols-5">
+        <DomResize className="domHome_artist_list grid gap-4" small="grid-cols-5" big="grid-cols-6">
           {option.type === -1 && option.initial === -1 && artists.length > 0 && (
           <div className="item">
             <div className="cover boarder relative rounded overflow-hidden border">
@@ -152,7 +153,7 @@ export default () => {
           </div>
           )}
           {artists.map((item) => <Domitem item={item} key={item.id} />)}
-        </div>
+        </DomResize>
         <div ref={domObserver} />
       </div>
     </div>
