@@ -5,11 +5,13 @@ const initialState = {
   category: [],
   catelist: [],
   DjPersonalizeRecommend: [],
-  创作翻唱: [],
-  声之剧场: [],
-  音乐故事: [],
-  情感调频: [],
-  声音恋人: [],
+  result: {
+    创作翻唱: [],
+    声之剧场: [],
+    音乐故事: [],
+    情感调频: [],
+    声音恋人: [],
+  },
 };
 
 export default (state = initialState, action) => {

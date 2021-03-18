@@ -59,6 +59,13 @@ const DomDjNormal = ({ item = {} }) => (
   </div>
 );
 
+const navs = [
+  '创作翻唱',
+  '声之剧场',
+  '音乐故事',
+  '情感调频',
+  '声音恋人'];
+
 export default () => {
   const dispatch = useDispatch();
   const {
@@ -66,24 +73,14 @@ export default () => {
     category,
     catelist,
     DjPersonalizeRecommend,
-    创作翻唱,
-    声之剧场,
-    音乐故事,
-    情感调频,
-    声音恋人,
+    result,
   } = useSelector(({ home }) => home.dj);
-  const restlist = [
-    ['创作翻唱', 创作翻唱],
-    ['声之剧场', 声之剧场],
-    ['音乐故事', 音乐故事],
-    ['情感调频', 情感调频],
-    ['声音恋人', 声音恋人]];
 
   const handleInit = async () => {
     try {
       const [
         DjBanner,
-        // category,
+        category,
         catelist = [],
         DjPersonalizeRecommend,
         创作翻唱,
@@ -92,8 +89,8 @@ export default () => {
         情感调频,
         声音恋人] = await Promise.all([
         apiDjBanner(),
+        apiDjCategoryRecommend(),
         apiDjCatelist(),
-        // apiDjCategoryRecommend(),
         apiDjPersonalizeRecommend(),
         apiDjRadioHot({
           cateId: 2001,
@@ -118,14 +115,16 @@ export default () => {
       ]);
       dispatch(setHomeDj({
         DjBanner: DjBanner.data,
-        // category: category.data,
+        category: category.data,
         catelist: catelist.categories,
         DjPersonalizeRecommend: DjPersonalizeRecommend.data,
-        创作翻唱: 创作翻唱.djRadios,
-        声之剧场: 声之剧场.djRadios,
-        音乐故事: 音乐故事.djRadios,
-        情感调频: 情感调频.djRadios,
-        声音恋人: 声音恋人.djRadios,
+        result: {
+          创作翻唱: 创作翻唱.djRadios,
+          声之剧场: 声之剧场.djRadios,
+          音乐故事: 音乐故事.djRadios,
+          情感调频: 情感调频.djRadios,
+          声音恋人: 声音恋人.djRadios,
+        },
       }));
     } catch (error) {
       console.log(error);
@@ -173,7 +172,7 @@ export default () => {
                   {
                     catelist.map((item) => (
                       <SwiperSlide className="item" key={item.id}>
-                        <Link to={`/dj-category/${item.id}`}>
+                        <Link to={`/dj-category/${item.name}`}>
                           <div className="inner">
                             <div className="btn flex-center ui_themeColor">
                               <img className="w-8 h-8" src={item.pic56x56Url} alt="" />
@@ -190,7 +189,7 @@ export default () => {
               </div>
             )}
         </div>
-        <div className="domHome_item">
+        <div className="domHome_item mt-8">
           <div className="domHome_linktitle h1">电台个性推荐</div>
           <div className="domHome_dj_list grid grid-cols-5 gap-5">
             {
@@ -202,15 +201,15 @@ export default () => {
           </div>
         </div>
         {
-          restlist.map((subitem) => (
-            <div key={subitem[0]} className="domHome_item">
-              <Link className="domHome_linktitle h1" to="/">
-                {subitem[0]}
+          navs.map((name) => (
+            <div key={name} className="domHome_item mt-8">
+              <Link className="domHome_linktitle h1" to={`/dj-category/${name}`}>
+                {name}
                 &gt;
               </Link>
               <div className="domHome_dj_list grid grid-cols-5 gap-5">
                 {
-                  subitem[1].slice(0, 5)
+                  result[name].slice(0, 5)
                     .map((item) => (
                       <DomDjNormal item={item} key={item.id} />
                     ))

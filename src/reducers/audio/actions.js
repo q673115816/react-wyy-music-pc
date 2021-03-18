@@ -8,6 +8,8 @@ import {
   SET_AUDIO_PATTERN,
   SET_VOLUME,
   SET_BEFORE_MUTED,
+  SET_VOLUME_PLUS_TEN,
+  SET_VOLUME_SUB_TEN,
 } from './actionTypes';
 
 export const setAudioImmediate = (payload) => ({
@@ -44,6 +46,14 @@ export const setAudioPattern = () => ({
 export const setVolume = (payload) => ({
   type: SET_VOLUME,
   payload,
+});
+
+export const setVolumePlusTen = () => ({
+  type: SET_VOLUME_PLUS_TEN,
+});
+
+export const setVolumeSubTen = () => ({
+  type: SET_VOLUME_SUB_TEN,
 });
 
 export const setBeforeMuted = (payload) => ({

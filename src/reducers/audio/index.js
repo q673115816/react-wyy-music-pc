@@ -11,6 +11,8 @@ import {
   SET_AUDIO_PATTERN,
   SET_VOLUME,
   SET_BEFORE_MUTED,
+  SET_VOLUME_PLUS_TEN,
+  SET_VOLUME_SUB_TEN,
 } from './actionTypes';
 
 const resetState = {
@@ -31,8 +33,8 @@ const initialState = {
   playlist: LOCALSTORAGE('playlist', []),
   history: LOCALSTORAGE('history', []),
   currentTime: LOCALSTORAGE('currentTime', 0),
-  volume: LOCALSTORAGE('volume', '100'),
-  beforeMuted: LOCALSTORAGE('beforeMuted', '10'),
+  volume: LOCALSTORAGE('volume', 100),
+  beforeMuted: LOCALSTORAGE('beforeMuted', 10),
 };
 
 export default (state = initialState, action) => {
@@ -91,10 +93,41 @@ export default (state = initialState, action) => {
         pattern,
       };
     case SET_VOLUME:
-      window.localStorage.setItem('volume', JSON.stringify(action.payload));
+      let volume = action.payload;
+      if (volume > 100) volume = 100;
+      if (volume < 0) volume = 0;
+      window.localStorage.setItem('volume', JSON.stringify(volume));
       return {
         ...state,
-        volume: action.payload,
+        volume,
+      };
+    case SET_VOLUME_PLUS_TEN:
+      const plusvolume = state.volume;
+      if (plusvolume >= 90) {
+        window.localStorage.setItem('volume', JSON.stringify(100));
+        return {
+          ...state,
+          volume: 100,
+        };
+      }
+      window.localStorage.setItem('volume', JSON.stringify(plusvolume + 10));
+      return {
+        ...state,
+        volume: plusvolume + 10,
+      };
+    case SET_VOLUME_SUB_TEN:
+      const subvolume = state.volume;
+      if (subvolume <= 10) {
+        window.localStorage.setItem('volume', JSON.stringify(0));
+        return {
+          ...state,
+          volume: 0,
+        };
+      }
+      window.localStorage.setItem('volume', JSON.stringify(subvolume - 10));
+      return {
+        ...state,
+        volume: subvolume - 10,
       };
     case SET_BEFORE_MUTED:
       window.localStorage.setItem('beforeMuted', JSON.stringify(action.payload));

@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect, useRef, memo, useMemo,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import './style.scss';
@@ -18,13 +20,17 @@ import DomBanner from './components/Banner';
 import DomHeaderBar from './components/HeaderBar';
 import DomItem from './components/Item';
 
-export default () => {
+export default memo(() => {
+  console.log('playlist');
   const [order, setOrder] = useState('hot');// new , default = hot
   // const [offer, setOffer] = useState(0);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const DomScroll = useRef();
   const { cat = '全部歌单', page = 1 } = useParams();
+  // const { cat = '全部歌单', page = 1 } = useMemo(() => useParams(), []);
+  // const cat = '全部歌单';
+  // const page = 1;
 
   const {
     highquality,
@@ -46,6 +52,8 @@ export default () => {
   };
 
   const handleInit = async () => {
+    setLoading(true);
+
     try {
       const highquality = await apiTopPlaylistHighquality({
         cat,
@@ -61,10 +69,10 @@ export default () => {
         highquality,
         playlists,
       }));
-      setLoading(false);
     } catch (error) {
       console.log(error);
     } finally {
+      setLoading(false);
       DomScroll.current.scrollTo(0, 0);
     }
   };
@@ -75,6 +83,7 @@ export default () => {
 
   useEffect(() => {
     handleInit();
+
     // setPopup(false);
     // DomScroll.current.scrollTo(0, 0);
   }, [order, cat, page]);
@@ -93,7 +102,7 @@ export default () => {
         <DomResize className="domHome_playlist_list grid gap-5" small="grid-cols-4" big="grid-cols-5">
           {
             playlists.playlists.map((item) => (
-              <DomItem item={item} />
+              <DomItem item={item} key={item.id} />
             ))
           }
         </DomResize>
@@ -101,4 +110,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

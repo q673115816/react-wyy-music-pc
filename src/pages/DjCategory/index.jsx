@@ -25,7 +25,7 @@ export default () => {
       <div className="grid grid-cols-2 gap-5">
         {data.map((item) => (
           <Link to={`/playlist/dj/${item.id}`} className="flex">
-            <div className="w-32 rounded overflow-hidden border">
+            <div className="w-32 rounded overflow-hidden border ui_aspect-ratio-1/1">
               <img src={`${item.picUrl}?param=200y200`} alt="" />
             </div>
             <div className="flex-auto w-0 px-2 pt-8">

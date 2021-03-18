@@ -24,11 +24,13 @@ import Letter from './components/Letter';
 import Tosat from './components/Toast';
 import Contextmenu from './components/Contextmenu';
 import HeaderSearch from './components/HeaderSearch';
+import useKeyActions from './custom/useKeyActions';
 
 const MINWIDTH = 1022;
 const MINHEIGHT = 670;
 
 export default () => {
+  useKeyActions();
   const dispatch = useDispatch();
   const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
   const { theme } = useSelector(({ setting }) => setting);

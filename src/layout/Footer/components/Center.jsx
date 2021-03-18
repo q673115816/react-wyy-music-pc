@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { setAudioRunningToggle, setAudioPattern } from '@/reducers/audio/actions';
 import { audioPattern } from '@/common/config';
-import DomProgress from './Progress';
+import DomTiming from './Timing';
 
 const audioPatternIcon = [
   IconPlaylist,
@@ -81,8 +81,7 @@ export default () => {
           词
         </button>
       </div>
-      <DomProgress />
-
+      <DomTiming />
     </div>
   );
 };
