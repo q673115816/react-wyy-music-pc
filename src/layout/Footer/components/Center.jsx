@@ -10,7 +10,7 @@ import {
   IconRefreshAlert,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioRunningToggle, setAudioPattern } from '@/reducers/audio/actions';
+import { setAudioRunning, setAudioPattern } from '@/reducers/audio/actions';
 import { audioPattern } from '@/common/config';
 import DomTiming from './Timing';
 
@@ -27,7 +27,7 @@ export default () => {
     running, pattern,
   } = useSelector(({ audio }) => audio);
   const handleToggle = () => {
-    dispatch(setAudioRunningToggle());
+    dispatch(setAudioRunning({ running: !running }));
   };
 
   const handleChangePattern = () => {

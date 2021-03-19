@@ -32,3 +32,12 @@ export const LOCALSTORAGE = (key, base) => {
 };
 
 export const sleep = (delay = 1000) => new Promise((resolve) => setTimeout(resolve, delay));
+
+export const computedPositionPercentage = (e, dom) => {
+  const x = e.clientX;
+  const inset = dom.getBoundingClientRect();
+  let percentage = (x - inset.x) / inset.width;
+  if (percentage < 0) percentage = 0;
+  if (percentage > 1) percentage = 1;
+  return percentage;
+};

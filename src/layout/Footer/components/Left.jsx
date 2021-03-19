@@ -7,7 +7,7 @@ import {
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiSongUrl } from '@/api';
-import { setAudioCurrentTime, setAudioBuffered } from '@/reducers/audio/actions';
+import { setAudioCurrentTime, setAudioBuffered, setAudioRunning } from '@/reducers/audio/actions';
 
 export default () => {
   const dispatch = useDispatch();
@@ -28,33 +28,24 @@ export default () => {
       });
       refAudio.current.src = data[0].url;
       // refAudio.current.play();
+      // dispatch(setAudioRunning({ running: true }));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleInitCurrentTime = () => {
-    if (currentTime !== 0) {
-      console.log(currentTime);
-      refAudio.current.currentTime = currentTime;
-      console.log(refAudio.current);
-    }
+  const handleLoadedMetadata = (e) => {
+    if (running) e.target.play();
   };
 
-  useEffect(() => {
-    refAudio.current.volume = volume * 0.01;
-  }, [volume]);
+  const handleProgress = (e) => {
+    const buffered = e.target.buffered.end(e.target.buffered.length - 1);
+    dispatch(setAudioBuffered(buffered));
+  };
 
   const handleRunningFollow = (e) => {
     dispatch(setAudioCurrentTime(e.target.currentTime));
   };
-
-  useEffect(() => {
-    refAudio.current.addEventListener('progress', (e) => {
-      const buffered = e.target.buffered.end(e.target.buffered.length - 1);
-      dispatch(setAudioBuffered(buffered));
-    });
-  }, []);
 
   useEffect(() => {
     if (running) {
@@ -69,16 +60,16 @@ export default () => {
   useEffect(() => {
     if (currentSong.id) {
       handleGetUrl();
-      handleInitCurrentTime();
-      // refAudio.current.play();
     }
-    // refAudio.srcObject =
   }, [currentSong]);
   return (
     <div className="domfooter_left flex p-3 flex-1">
       <div hidden>
         <audio
+          volume={volume * 0.01}
           ref={refAudio}
+          onLoadedMetadata={handleLoadedMetadata}
+          onProgress={handleProgress}
         />
       </div>
       {playlist.length > 0

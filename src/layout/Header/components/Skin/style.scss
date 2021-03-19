@@ -1,24 +1,12 @@
 #skin {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translate(-50%, 0);
   width: 324px;
   height: 250px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 10px 10px;
-  z-index: 20;
-  color: #000;
-  padding: 14px 16px;
 
   .nav {
-    border-bottom: 1px solid #E5E5E5;
     padding-bottom: 6px;
 
     .link {
-      position: relative;
-      margin-right: 14px;
       color: #666;
 
       &::after {
@@ -43,22 +31,6 @@
     }
   }
 
-  .skinbtn {
-    position: relative;
-
-    .ico {
-      position: absolute;
-      right: -5px;
-      bottom: -5px;
-      background-color: var(--themeRed);
-      border-radius: 1000px;
-      color: #fff;
-
-      border: 2px solid;
-      // z-index: 2;
-    }
-  }
-
   .themes {
     grid-template-rows: repeat(2, 90px);
     grid-template-columns: repeat(3, 90px);
@@ -75,43 +47,6 @@
       &:hover {
         outline: 1px solid var(--currentColor);
         outline-offset: 1px;
-      }
-
-      .name {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 20px;
-        padding: 0 2px;
-        line-height: 20px;
-        color: #fff;
-        font-size: 12px;
-        background-color: rgba(0, 0, 0, 0.6);
-      }
-
-      &Black {
-        --currentColor: var(--themeBlack)
-      }
-
-      &Red {
-        --currentColor: var(--themeRed)
-      }
-
-      &Pink {
-        --currentColor: var(--themePink)
-      }
-
-      &Blue {
-        --currentColor: var(--themeBlue)
-      }
-
-      &Green {
-        --currentColor: var(--themeGreen)
-      }
-
-      &Gold {
-        --currentColor: var(--themeGold)
       }
     }
   }
@@ -135,13 +70,6 @@
       display: flex;
 
       .colour {
-        position: relative;
-        flex: none;
-        width: 40px;
-        height: 40px;
-        margin-right: 10px;
-        background-color: #000;
-
         .ico {
           position: absolute;
           right: -5px;

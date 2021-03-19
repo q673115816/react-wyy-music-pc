@@ -1,9 +1,10 @@
 import { LOCALSTORAGE } from '@/common/utils';
 
 import { audioPattern } from '@/common/config';
+import produce from 'immer';
 import {
   SET_AUDIO_IMMEDIATE,
-  SET_AUDIO_RUNNING_TOGGLE,
+  SET_AUDIO_RUNNING,
   SET_AUDIO_CURRENTTIME,
   SET_AUDIO_BUFFERED,
   SET_AUDIO_PLAYLIST_CLEAR,
@@ -37,105 +38,83 @@ const initialState = {
   beforeMuted: LOCALSTORAGE('beforeMuted', 10),
 };
 
-export default (state = initialState, action) => {
+export default produce((draft, action) => {
   switch (action.type) {
     case SET_AUDIO_IMMEDIATE:
       const { currentSong } = action.payload;
-      const playlist = state.playlist.find((song) => song.id === currentSong.id)
-        ? state.playlist
-        : [...state.playlist, currentSong];
-      const history = [currentSong, ...state.history.filter((history) => history.id !== currentSong.id)];
+      // const playlist = draft.playlist.find((song) => song.id === currentSong.id)
+      //   ? draft.playlist
+      //   : [...draft.playlist, currentSong];
+      if (draft.playlist.every((song) => song.id !== currentSong.id)) {
+        draft.playlist = [...draft.playlist, currentSong];
+        window.localStorage.setItem('playlist', JSON.stringify(draft.playlist));
+      }
+      draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
+      draft.currentSong = currentSong;
+      draft.running = true;
+      // draft.currentTime = 0;
       window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
-      window.localStorage.setItem('playlist', JSON.stringify(playlist));
-      window.localStorage.setItem('history', JSON.stringify(history));
-      return {
-        ...state,
-        ...action.payload,
-        running: true,
-        playlist,
-        history,
-      };
-    case SET_AUDIO_RUNNING_TOGGLE:
-      return {
-        ...state,
-        running: !state.running,
-      };
+      window.localStorage.setItem('history', JSON.stringify(draft.history));
+      break;
+    case SET_AUDIO_RUNNING:
+      draft.running = action.payload.running;
+      break;
     case SET_AUDIO_CURRENTTIME:
       window.localStorage.setItem('currentTime', JSON.stringify(Number(action.payload)));
-      return {
-        ...state,
-        currentTime: action.payload,
-      };
+      draft.currentTime = action.payload;
+      break;
     case SET_AUDIO_BUFFERED:
-      return {
-        ...state,
-        buffered: action.payload,
-      };
+      draft.buffered = action.payload;
+      break;
     case SET_AUDIO_PLAYLIST_CLEAR:
-      window.localStorage.removeItem('currentSong');
-      window.localStorage.removeItem('currentTime');
-      window.localStorage.removeItem('playlist');
-      return {
-        ...state,
-        ...resetState,
-        history: state.history,
-      };
+      {
+        window.localStorage.removeItem('currentSong');
+        window.localStorage.removeItem('currentTime');
+        window.localStorage.removeItem('playlist');
+        draft.currentTime = 0;
+        draft.currentSong = {};
+        draft.playlist = [];
+      }
+      break;
     case SET_AUDIO_HISTORY_CLEAR:
-      window.localStorage.removeItem('history');
-      return {
-        ...state,
-        history: [],
-      };
+      {
+        window.localStorage.removeItem('history');
+        draft.history = [];
+      }
+      break;
     case SET_AUDIO_PATTERN:
-      const pattern = (state.pattern + 1) % audioPattern.length;
-      return {
-        ...state,
-        pattern,
-      };
+      {
+        const pattern = (draft.pattern + 1) % audioPattern.length;
+        draft.pattern = pattern;
+      }
+      break;
     case SET_VOLUME:
-      let volume = action.payload;
-      if (volume > 100) volume = 100;
-      if (volume < 0) volume = 0;
-      window.localStorage.setItem('volume', JSON.stringify(volume));
-      return {
-        ...state,
-        volume,
-      };
+      {
+        let volume = action.payload;
+        if (volume > 100) volume = 100;
+        if (volume < 0) volume = 0;
+        window.localStorage.setItem('volume', JSON.stringify(volume));
+        draft.volume = volume;
+      }
+      break;
     case SET_VOLUME_PLUS_TEN:
-      const plusvolume = state.volume;
-      if (plusvolume >= 90) {
-        window.localStorage.setItem('volume', JSON.stringify(100));
-        return {
-          ...state,
-          volume: 100,
-        };
+      {
+        const plusvolume = draft.volume >= 90 ? 100 : draft.valume + 10;
+        window.localStorage.setItem('volume', JSON.stringify(plusvolume));
+        draft.valume = plusvolume;
       }
-      window.localStorage.setItem('volume', JSON.stringify(plusvolume + 10));
-      return {
-        ...state,
-        volume: plusvolume + 10,
-      };
+      break;
     case SET_VOLUME_SUB_TEN:
-      const subvolume = state.volume;
-      if (subvolume <= 10) {
-        window.localStorage.setItem('volume', JSON.stringify(0));
-        return {
-          ...state,
-          volume: 0,
-        };
+      {
+        const subvolume = draft.volume <= 10 ? 0 : draft.volume - 10;
+        window.localStorage.setItem('volume', JSON.stringify(subvolume));
+        draft.valume = subvolume;
       }
-      window.localStorage.setItem('volume', JSON.stringify(subvolume - 10));
-      return {
-        ...state,
-        volume: subvolume - 10,
-      };
+      break;
     case SET_BEFORE_MUTED:
       window.localStorage.setItem('beforeMuted', JSON.stringify(action.payload));
-      return {
-        ...state,
-        beforeMuted: action.payload,
-      };
+      draft.beforeMuted = action.payload;
+      break;
     default:
-      return state;
   }
-};
+}, initialState);

@@ -1,6 +1,6 @@
 import {
   SET_AUDIO_IMMEDIATE,
-  SET_AUDIO_RUNNING_TOGGLE,
+  SET_AUDIO_RUNNING,
   SET_AUDIO_CURRENTTIME,
   SET_AUDIO_BUFFERED,
   SET_AUDIO_PLAYLIST_CLEAR,
@@ -17,8 +17,9 @@ export const setAudioImmediate = (payload) => ({
   payload,
 });
 
-export const setAudioRunningToggle = () => ({
-  type: SET_AUDIO_RUNNING_TOGGLE,
+export const setAudioRunning = (payload) => ({
+  type: SET_AUDIO_RUNNING,
+  payload,
 });
 
 export const setAudioCurrentTime = (payload) => ({

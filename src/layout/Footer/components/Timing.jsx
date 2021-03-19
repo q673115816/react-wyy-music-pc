@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioCurrentTime, setAudioRunningToggle, setAudioPattern } from '@/reducers/audio/actions';
+import { setAudioCurrentTime, setAudioRunning, setAudioPattern } from '@/reducers/audio/actions';
+import { computedPositionPercentage } from '@/common/utils';
 
 export default () => {
   const dispatch = useDispatch();
@@ -12,11 +13,7 @@ export default () => {
 
   const RefProgress = useRef();
   const computedPosition = (e) => {
-    const x = e.clientX;
-    const inset = RefProgress.current.getBoundingClientRect();
-    let percentage = (x - inset.x) / inset.width;
-    if (percentage < 0) percentage = 0;
-    if (percentage > 1) percentage = 1;
+    const percentage = computedPositionPercentage(e, RefProgress.current);
     const jump = percentage * (currentSong.dt / 1000);
     return jump;
   };

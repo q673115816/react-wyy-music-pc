@@ -12,6 +12,15 @@ import { setScreenFull, setScreenNormal } from '@/reducers/mask/actions';
 export default memo(() => {
   const dispatch = useDispatch();
   const { screen } = useSelector(({ mask }) => mask);
+  const handleFullScreen = async () => {
+    await document.documentElement.requestFullscreen();
+    dispatch(setScreenFull());
+  };
+
+  const handleExitFullScreen = async () => {
+    await document.exitFullscreen();
+    dispatch(setScreenNormal());
+  };
   return (
     <div className="domHeader_control space-x-3">
       <button
@@ -35,7 +44,7 @@ export default memo(() => {
               type="button"
               className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
               title="最大化"
-              onClick={() => dispatch(setScreenFull())}
+              onClick={handleFullScreen}
             >
               <IconSquare size={24} />
             </button>
@@ -45,7 +54,7 @@ export default memo(() => {
               type="button"
               className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
               title="向下还原"
-              onClick={() => dispatch(setScreenNormal())}
+              onClick={handleExitFullScreen}
             >
               <IconSquareOff size={24} />
             </button>
