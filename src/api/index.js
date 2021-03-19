@@ -1,4 +1,4 @@
-import { get, post } from '../common';
+import { get, post } from './request';
 
 // 登录状态
 export const apiLoginStatus = () => post('/login/status');

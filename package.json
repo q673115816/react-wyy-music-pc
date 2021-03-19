@@ -32,7 +32,7 @@
     "@tabler/icons": "^1.39.1",
     "classnames": "^2.2.6",
     "dayjs": "^1.10.4",
-    "immer": "^8.0.2",
+    "immer": "^8.0.3",
     "lodash": "^4.17.21",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.1",

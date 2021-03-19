@@ -1,4 +1,5 @@
-export const prodUrl = 'https://neteasecloudmusicapi.herokuapp.com';
+// export const prodUrl = 'https://neteasecloudmusicapi.herokuapp.com';
+export const prodUrl = 'https://netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app';
 
 export const devUrl = 'http://localhost:3000';
 
