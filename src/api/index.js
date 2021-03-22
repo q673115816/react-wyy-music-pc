@@ -2,7 +2,7 @@ import { get, post } from './request';
 
 // 登录状态
 export const apiLoginStatus = () => post('/login/status');
-
+export const apiLyric = (params) => post('/lyric', params);
 /**
  * 获取音乐 url
  * @param {id, br} params

@@ -125,7 +125,7 @@ export default () => {
                 <div
                   tabIndex="2"
                   className={classNames('item flex items-center hover:bg-gray-100 w-full focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
-                  key={item.id}
+                  key={item.name + item.id}
                   onDoubleClick={() => handleDoubleClick(item)}
                   onContextMenu={(e) => handleRightClick(e, item, 'song')}
                 >
@@ -183,7 +183,7 @@ export default () => {
                   <div className="artist">
                     <div className="truncate">
                       {item.ar.map((aritst, index) => (
-                        <span key={aritst.id}>
+                        <span key={aritst.name + aritst.id}>
                           {index > 0 && ' / '}
                           <Link
                             className="text-gray-500 hover:text-black"

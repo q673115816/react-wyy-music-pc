@@ -19,11 +19,11 @@ export default ({ lyrics = [] }) => {
     document.body.removeChild(input);
   };
   return (
-    <div className="lyric">
+    <div className="lrc">
       <div className="content">
         {lyrics
           .slice(0, status ? Infinity : 4)
-          .map((lyric) => <div dangerouslySetInnerHTML={{ __html: lyric }} />)}
+          .map((lrc) => <div dangerouslySetInnerHTML={{ __html: lrc }} />)}
       </div>
       <div className="actions">
         <div className="top">

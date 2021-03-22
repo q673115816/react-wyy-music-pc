@@ -13,6 +13,8 @@ import {
   SET_SCREEN_FULL,
   SET_SCREEN_NORMAL,
   SET_TOAST,
+  SET_LYRIC_SHOW,
+  SET_LYRIC_HIDE,
 } from './actionTypes';
 
 export const setToast = (payload) => ({
@@ -82,4 +84,12 @@ export const setScreenFull = (payload) => ({
 export const setScreenNormal = (payload) => ({
   type: SET_SCREEN_NORMAL,
   payload,
+});
+
+export const setLyricShow = () => ({
+  type: SET_LYRIC_SHOW,
+});
+
+export const setLyricHide = () => ({
+  type: SET_LYRIC_HIDE,
 });

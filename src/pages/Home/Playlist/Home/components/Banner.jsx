@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { IconCrown } from '@tabler/icons';
 
-export default ({ item = {}, cat = '全部歌单' }) => (
+export default memo(({ item = {}, cat = '全部歌单' }) => (
   <Link
     to={`/home/playlist/highquality/${cat}`}
     className="domHome_playlist_banner flex items-center relative  rounded-lg overflow-hidden z-10"
@@ -32,4 +32,4 @@ export default ({ item = {}, cat = '全部歌单' }) => (
       </div>
     </div>
   </Link>
-);
+));

@@ -28,7 +28,7 @@ export default memo(() => {
   const dispatch = useDispatch();
   const DomScroll = useRef();
   const { cat = '全部歌单', page = 1 } = useParams();
-  // const { cat = '全部歌单', page = 1 } = useMemo(() => useParams(), []);
+  // const { cat = '全部歌单', page = 1 } = useMemo(() => params, [params]);
   // const cat = '全部歌单';
   // const page = 1;
 
@@ -106,7 +106,7 @@ export default memo(() => {
             ))
           }
         </DomResize>
-        <DomPage total={Math.ceil(playlists.total / 100)} page={page} />
+        <DomPage total={Math.ceil(playlists.total / 100)} />
       </div>
     </div>
   );

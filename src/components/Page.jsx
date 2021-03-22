@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 import classNames from 'classnames';
 import {
   useHistory, NavLink, useParams,
 } from 'react-router-dom';
 
-export default ({ total }) => {
+export default memo(({ total }) => {
   const { push } = useHistory();
   const { page } = useParams();
   return (
@@ -38,4 +38,4 @@ export default ({ total }) => {
       </button>
     </div>
   );
-};
+});

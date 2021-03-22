@@ -14,6 +14,8 @@ import {
   SET_SCREEN_FULL,
   SET_SCREEN_NORMAL,
   SET_TOAST,
+  SET_LYRIC_SHOW,
+  SET_LYRIC_HIDE,
 } from './actionTypes';
 
 const globalState = {
@@ -26,6 +28,7 @@ const globalState = {
 };
 
 const visibilityState = {
+  lyricVisibility: false,
   maskVisibility: false,
   searchVisibility: false,
   contextMenuVisibility: false,
@@ -164,6 +167,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         toastTitle: [action.payload.toastTitle],
+      };
+    case SET_LYRIC_SHOW:
+      return {
+        ...state,
+        lyricVisibility: true,
+      };
+    case SET_LYRIC_HIDE:
+      return {
+        ...state,
+        lyricVisibility: false,
       };
     default:
       return state;

@@ -1,5 +1,8 @@
 import {
   SET_AUDIO_IMMEDIATE,
+  SET_AUDIO_PREV,
+  SET_AUDIO_NEXT,
+  SET_AUDIO_CURRENT,
   SET_AUDIO_RUNNING,
   SET_AUDIO_CURRENTTIME,
   SET_AUDIO_BUFFERED,
@@ -10,10 +13,26 @@ import {
   SET_BEFORE_MUTED,
   SET_VOLUME_PLUS_TEN,
   SET_VOLUME_SUB_TEN,
+  SET_LYRIC_TEXT,
 } from './actionTypes';
 
 export const setAudioImmediate = (payload) => ({
   type: SET_AUDIO_IMMEDIATE,
+  payload,
+});
+
+export const setAudioPrev = (payload) => ({
+  type: SET_AUDIO_PREV,
+  payload,
+});
+
+export const setAudioNext = (payload) => ({
+  type: SET_AUDIO_NEXT,
+  payload,
+});
+
+export const setAudioCurrent = (payload) => ({
+  type: SET_AUDIO_CURRENT,
   payload,
 });
 
@@ -59,5 +78,10 @@ export const setVolumeSubTen = () => ({
 
 export const setBeforeMuted = (payload) => ({
   type: SET_BEFORE_MUTED,
+  payload,
+});
+
+export const setLyricText = (payload) => ({
+  type: SET_LYRIC_TEXT,
   payload,
 });

@@ -1,0 +1,19 @@
+#lrc {
+  top: var(--HEADER);
+  bottom: var(--FOOTER);
+}
+
+.lrc {
+  &_inner {
+    width: 860px;
+  }
+  &_header {
+    .left {
+
+    }
+
+    .right {
+      width: 390px;
+    }
+  }
+}

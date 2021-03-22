@@ -1,3 +1,5 @@
+// const path = require('path');
+
 module.exports = {
   env: {
     browser: true,
@@ -18,6 +20,7 @@ module.exports = {
   },
   plugins: [
     'react',
+    'import',
   ],
   rules: {
     // 允许js 中写jsx
@@ -27,13 +30,18 @@ module.exports = {
     // postcss 配置文件引入问题
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'global-require': 0,
-
   },
   // settings: {
   //   'import/resolver': {
-  //     alias: [
-  //       ['@', './src'],
-  //     ],
+  //     webpack: {
+  //       config: {
+  //         resolve: {
+  //           alias: {
+  //             '@': './src',
+  //           },
+  //         },
+  //       },
+  //     },
   //   },
   // },
 };

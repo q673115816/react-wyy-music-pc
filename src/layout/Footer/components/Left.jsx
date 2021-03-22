@@ -6,8 +6,11 @@ import {
   IconHeart,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { apiSongUrl } from '@/api';
-import { setAudioCurrentTime, setAudioBuffered, setAudioRunning } from '@/reducers/audio/actions';
+import { apiSongUrl, apiLyric } from '@/api';
+import {
+  setAudioCurrentTime, setAudioBuffered, setAudioCurrent, setLyricText,
+} from '@/reducers/audio/actions';
+import { setLyricShow, setLyricHide } from '@/reducers/mask/actions';
 
 export default () => {
   const dispatch = useDispatch();
@@ -17,8 +20,9 @@ export default () => {
     playlist,
     running,
     currentTime,
+    pattern,
   } = useSelector(({ audio }) => audio);
-
+  const { lyricVisibility } = useSelector(({ mask }) => mask);
   const refAudio = useRef();
 
   const handleGetUrl = async () => {
@@ -27,6 +31,10 @@ export default () => {
         id: currentSong.id,
       });
       refAudio.current.src = data[0].url;
+      const { lrc = '' } = await apiLyric({
+        id: currentSong.id,
+      });
+      dispatch(setLyricText({ lrc }));
       // refAudio.current.play();
       // dispatch(setAudioRunning({ running: true }));
     } catch (error) {
@@ -47,8 +55,29 @@ export default () => {
     dispatch(setAudioCurrentTime(e.target.currentTime));
   };
 
+  const handleEnded = (e) => {
+    dispatch(setAudioCurrent({ currentTime: 0 }));
+    switch (pattern) {
+      case '0':
+
+        break;
+      case '2':
+
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleLyric = () => {
+    dispatch(lyricVisibility ? setLyricHide() : setLyricShow());
+  };
+
   useEffect(() => {
     if (running) {
+      if (currentTime) {
+        refAudio.current.currentTime = currentTime;
+      }
       refAudio.current.play();
       refAudio.current.addEventListener('timeupdate', handleRunningFollow);
     } else {
@@ -70,19 +99,24 @@ export default () => {
           ref={refAudio}
           onLoadedMetadata={handleLoadedMetadata}
           onProgress={handleProgress}
+          onEnded={handleEnded}
         />
       </div>
       {playlist.length > 0
         && (
           <>
-            <Link to="/" className="domfooter_left_img relative group rounded overflow-hidden">
-              <img src={currentSong.al.picUrl} alt="" />
+            <button
+              type="button"
+              onClick={handleLyric}
+              className="domfooter_left_img relative group rounded overflow-hidden"
+            >
+              <img src={currentSong.al.picUrl} className="w-full h-full object-cover" alt="" />
               <div className="absolute opacity-0 inset-0 flex-center bg-black group-hover:opacity-60" />
               <div className="absolute opacity-0 inset-0 flex-center group-hover:opacity-100 text-white">
                 <IconArrowsDiagonal size={24} />
                 <IconArrowsDoubleNeSw size={24} />
               </div>
-            </Link>
+            </button>
             <div className="domfooter_left_info pl-3">
               <div className="domfooter_left_info_name text-base flex items-center w-44">
                 <button type="button" className="group truncate">

@@ -25,3 +25,7 @@ export const SET_DIALOG_RESET = 'SET_DIALOG_RESET';
 export const SET_SCREEN_FULL = 'SET_SCREEN_FULL';
 
 export const SET_SCREEN_NORMAL = 'SET_SCREEN_NORMAL';
+
+export const SET_LYRIC_SHOW = 'SET_LYRIC_SHOW';
+
+export const SET_LYRIC_HIDE = 'SET_LYRIC_HIDE';

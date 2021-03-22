@@ -25,6 +25,7 @@ import Tosat from './components/Toast';
 import Contextmenu from './components/Contextmenu';
 import HeaderSearch from './components/HeaderSearch';
 import useKeyActions from './custom/useKeyActions';
+import DomLrc from './pages/Lrc';
 
 const MINWIDTH = 1022;
 const MINHEIGHT = 670;
@@ -41,6 +42,7 @@ export default () => {
     globalLastY,
     globalWidth,
     globalHeight,
+    lyricVisibility,
     searchVisibility,
     contextMenuVisibility,
     dialogHomeOrderVisibility,
@@ -149,6 +151,8 @@ export default () => {
               <DomFooter />
             </Route>
           </Switch>
+          {lyricVisibility && <DomLrc />}
+
           {popupStatus === 'playlist' && <Playlist />}
           {popupStatus === 'privateLetter' && <Letter />}
           {contextMenuVisibility && <Contextmenu />}

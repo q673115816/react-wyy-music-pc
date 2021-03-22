@@ -4,6 +4,8 @@ import { audioPattern } from '@/common/config';
 import produce from 'immer';
 import {
   SET_AUDIO_IMMEDIATE,
+  SET_AUDIO_PREV,
+  SET_AUDIO_NEXT,
   SET_AUDIO_RUNNING,
   SET_AUDIO_CURRENTTIME,
   SET_AUDIO_BUFFERED,
@@ -14,6 +16,7 @@ import {
   SET_BEFORE_MUTED,
   SET_VOLUME_PLUS_TEN,
   SET_VOLUME_SUB_TEN,
+  SET_LYRIC_TEXT,
 } from './actionTypes';
 
 const resetState = {
@@ -24,6 +27,7 @@ const resetState = {
   currentTime: 0,
   buffered: 0,
   volume: 100,
+  lrc: '',
   // muted: false,
 };
 
@@ -55,6 +59,25 @@ export default produce((draft, action) => {
       // draft.currentTime = 0;
       window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
       window.localStorage.setItem('history', JSON.stringify(draft.history));
+      break;
+    case SET_AUDIO_PREV:
+      break;
+    case SET_AUDIO_NEXT:
+      if (draft.playlist.length === 0) return;
+      draft.running = true;
+      const currentIndex = draft.playlist.findIndex((item) => item.id === currentSong.id);
+      switch (draft.pattern) {
+        case '0':
+          if (currentIndex === draft.playlist.length - 1) {
+            draft.running = false;
+            draft.currentSong = {};
+          } else {
+            draft.currentSong = draft.playlist[currentIndex + 1];
+          }
+          break;
+        default:
+          break;
+      }
       break;
     case SET_AUDIO_RUNNING:
       draft.running = action.payload.running;
@@ -115,6 +138,8 @@ export default produce((draft, action) => {
       window.localStorage.setItem('beforeMuted', JSON.stringify(action.payload));
       draft.beforeMuted = action.payload;
       break;
+    case SET_LYRIC_TEXT:
+      draft.lrc = action.payload.lrc;
     default:
   }
 }, initialState);

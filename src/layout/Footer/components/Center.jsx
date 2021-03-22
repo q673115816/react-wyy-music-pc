@@ -10,7 +10,10 @@ import {
   IconRefreshAlert,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioRunning, setAudioPattern } from '@/reducers/audio/actions';
+import {
+  setAudioRunning, setAudioPattern, setAudioPrev,
+  setAudioNext,
+} from '@/reducers/audio/actions';
 import { audioPattern } from '@/common/config';
 import DomTiming from './Timing';
 
@@ -34,6 +37,14 @@ export default () => {
     dispatch(setAudioPattern());
   };
 
+  const handlePrev = () => {
+
+  };
+
+  const handleNext = () => {
+
+  };
+
   const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
 
   return (
@@ -49,6 +60,7 @@ export default () => {
         </button>
         <button
           type="button"
+          onClick={handlePrev}
           className="domfooter_center_prev flex-center mx-2 hover:ui_themeColor"
           title="上一首（Ctrl + Left）"
         >
@@ -69,6 +81,7 @@ export default () => {
         <button
           type="button"
           title="下一首（Ctrl + Right）"
+          onClick={handleNext}
           className="domfooter_center_next flex-center mx-2 hover:ui_themeColor"
         >
           <IconPlayerSkipForward size={20} className="fill-current" />
