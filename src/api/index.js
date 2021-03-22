@@ -261,6 +261,8 @@ export const apiTopicSublist = () => post('/topic/sublist');
 // 我的电台
 export const apiDjSublist = () => post('/dj/sublist');
 
+// 音乐 - 相似
+export const apiSimiSong = (params) => post('/simi/song', params);
 // mv - 最新
 export const apiMVFirst = (params) => post('/mv/first', params);
 
