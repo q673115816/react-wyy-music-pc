@@ -1,20 +1,25 @@
 import React from 'react';
 import {
-  Switch, Route, useRouteMatch, Redirect,
+  Switch, Route,
 } from 'react-router-dom';
 import PlaylistMusic from './Music';
 import PlaylistDj from './Dj';
 import PlaylistAlbum from './Album';
 import './style.scss';
 
-export default () => {
-  const { url } = useRouteMatch();
-  return (
-    <Switch>
-      <Route path="/playlist/music/:id" component={PlaylistMusic} />
-      <Route path="/playlist/dj/:id" component={PlaylistDj} />
-      <Route path="/playlist/album/:id" component={PlaylistAlbum} />
-      <Route path="/playlist" component={PlaylistMusic} />
-    </Switch>
-  );
-};
+export default () => (
+  <Switch>
+    <Route path="/playlist/music/:id">
+      <PlaylistMusic />
+    </Route>
+    <Route path="/playlist/dj/:id">
+      <PlaylistDj />
+    </Route>
+    <Route path="/playlist/album/:id">
+      <PlaylistAlbum />
+    </Route>
+    <Route path="/playlist">
+      <PlaylistMusic />
+    </Route>
+  </Switch>
+);

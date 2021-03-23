@@ -1,48 +1,9 @@
 .domPlaylistDetail {
-  padding: 30px;
 
   &_header {
-    display: flex;
-
     .cover {
-      width: 180px;
-      height: 180px;
-    }
-
-    .info {
-      margin-left: 20px;
-    }
-
-    .creator {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-    }
-
-    .nickname {
-      margin-left: 10px;
-    }
-
-    .avator {
-      width: 24px;
-      height: 24px;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-
-    .actions {
-      margin-top: 1em;
-      display: flex;
-
-      .btn {
-        margin-right: 10px;
-        font-size: 14px;
-      }
-
-      // .play {
-      //   background-color: var(--themeColor);
-      //   color: #fff;
-      // }
+      width: 184px;
+      height: 184px;
     }
   }
 }

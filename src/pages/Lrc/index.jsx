@@ -9,7 +9,7 @@ import {
   IconPlayerPlay,
 } from '@tabler/icons';
 import './style.scss';
-
+// TOTO
 const transLrc = (lrcs = '') => {
   if (!lrcs) return <div className="absolute inset-0 flex-center">纯音乐</div>;
   // console.log(lrc.match(/^\[(\d:\.)\]/m));
