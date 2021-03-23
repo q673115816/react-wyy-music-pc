@@ -5,7 +5,7 @@ import { IconThumbUp, IconScreenShare, IconMessageCircle } from '@tabler/icons';
 import { transTextEmoji } from '@/common/faces';
 
 export default ({ item = {}, handleLike }) => (
-  <div className="ui_comment flex py-4 border-b group">
+  <div className="ui_comment flex py-4 group">
     <Link to={`/user/${item.user.userId}`} className="ui_comment_avatar w-10 h-10 flex-none relative">
       <img className="border rounded-full" src={item.user.avatarUrl} alt="" />
       {

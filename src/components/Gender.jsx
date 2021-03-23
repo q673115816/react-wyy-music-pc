@@ -30,6 +30,12 @@ export const DomFamale = ({ size = 0 }) => (
 );
 
 export default ({ gender, ...props }) => {
-  if (gender === 1) return <DomMale {...props} />;
-  if (gender === 2) return <DomFamale {...props} />;
+  switch (gender) {
+    case 1:
+      return <DomMale {...props} />;
+    case 2:
+      return <DomFamale {...props} />;
+    default:
+      return null;
+  }
 };

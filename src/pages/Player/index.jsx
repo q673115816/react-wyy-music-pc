@@ -32,9 +32,9 @@ import { setMVSublist } from '@/reducers/account/actions';
 import Write from '@/components/Write';
 
 import { useDispatch, useSelector } from 'react-redux';
+import DomCommentsList from '@/components/CommentsList';
 import UseVideoInit from './UseVideoInit';
 import UseMVInit from './UseMVInit';
-import DomComments from './Comments';
 import DomRelated from './Related';
 import DomVideo from './components/Video';
 
@@ -305,7 +305,7 @@ export default () => {
               }}
               />
             </div>
-            <DomComments comments={comments} />
+            <DomCommentsList comments={comments} />
           </div>
         </div>
         <DomRelated related={related} />

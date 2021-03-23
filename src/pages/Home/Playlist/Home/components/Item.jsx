@@ -33,7 +33,7 @@ export default memo(({ item }) => (
         <IconPlayerPlay size={22} className="fill-current" />
       </button>
     </div>
-    <div className="footer text-sm mt-2">
+    <div className="footer text-sm mt-2 ui_ellipse">
       <Link
         className="name"
         to={`/playlist/music/${item.id}`}

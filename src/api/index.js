@@ -329,3 +329,7 @@ export const apiSearchSuggest = (params) => post('/search/suggest', params);
  * @param {keywords} params
  */
 export const apiSearchMultimatch = (params) => post('/search/multimatch', params);
+
+// comment
+// 歌单评论 id, limit?, offset?, before?
+export const apiCommentPlaylist = (params) => post('/comment/playlist', params);

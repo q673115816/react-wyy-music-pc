@@ -1,8 +1,8 @@
 import React, {
-  useState, useEffect, useRef, memo, useMemo,
+  useState, useEffect, useRef, memo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import './style.scss';
 // import Lazyload from 'react-lazyload';
 import {
@@ -21,7 +21,8 @@ import DomHeaderBar from './components/HeaderBar';
 import DomItem from './components/Item';
 
 export default memo(() => {
-  console.log('playlist');
+  // console.log('playlist');
+  const { push } = useHistory();
   const [order, setOrder] = useState('hot');// new , default = hot
   // const [offer, setOffer] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -106,7 +107,11 @@ export default memo(() => {
             ))
           }
         </DomResize>
-        <DomPage total={Math.ceil(playlists.total / 100)} />
+        <DomPage
+          total={Math.ceil(playlists.total / 100)}
+          page={page}
+          func={(props) => push(`${props}`)}
+        />
       </div>
     </div>
   );
