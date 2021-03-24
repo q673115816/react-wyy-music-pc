@@ -107,10 +107,10 @@ export default () => {
           </button>
         </div>
       </div>
-      <div className="domDailySong_main pb-8">
+      <div className="domDailySong_main pb-8" style={{ '--gridTemplateColumns': '54px 30px 30px 9fr 4fr 6fr 2fr', '--height': '36px' }}>
         <div className="list">
           <div className="thead">
-            <div className="item grid leading-8" style={{ gridTemplateColumns: '54px 30px 30px 9fr 4fr 6fr 2fr', height: 36 }}>
+            <div className="item grid leading-8" style={{ gridTemplateColumns: 'var(--gridTemplateColumns)', height: 36 }}>
               <div className="index" />
               <div className="heart" />
               <div className="download" />
@@ -120,7 +120,7 @@ export default () => {
               <div className="duration text-gray-500 px-1">时长</div>
             </div>
           </div>
-          <div className="tbody">
+          <div className="tbody grid">
             {
               data.dailySongs?.map((item, index) => (
                 <div
@@ -129,7 +129,7 @@ export default () => {
                   key={item.name + item.id}
                   onDoubleClick={() => handleDoubleClick(item)}
                   onContextMenu={(e) => handleRightClick(e, item, 'song')}
-                  style={{ gridTemplateColumns: '54px 30px 30px 9fr 4fr 6fr 2fr', height: 36 }}
+                  style={{ gridTemplateColumns: 'var(--gridTemplateColumns)', height: 'var(--height)' }}
                 >
                   <div className="index text-gray-300 text-right pr-2">
                     {String(index + 1).padStart(2, 0)}
