@@ -9,7 +9,7 @@ import {
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import DomTags from '@/components/Tags';
-import DomHeart from '@/components/Heart';
+import DomHeart from '@/components/Table/Heart';
 import { apiArtistTopSong } from '@/api';
 import { useParams } from 'react-router-dom';
 

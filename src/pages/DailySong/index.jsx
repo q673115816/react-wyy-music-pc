@@ -19,7 +19,8 @@ import { setAudioImmediate } from '@/reducers/audio/actions';
 import { useDispatch } from 'react-redux';
 import useLoginStatus from '@/custom/useLoginStatus';
 import './style.scss';
-import DomHeart from '@/components/Heart';
+import DomHeart from '@/components/Table/Heart';
+import DomDownload from '@/components/Table/Download';
 import DomAllplayGroup from '@/components/AllplayGroup';
 import DomTags from '@/components/Tags';
 
@@ -106,17 +107,17 @@ export default () => {
           </button>
         </div>
       </div>
-      <div className="domDailySong_main">
+      <div className="domDailySong_main pb-8">
         <div className="list">
           <div className="thead">
-            <div className="item flex items-center">
+            <div className="item grid leading-8" style={{ gridTemplateColumns: '54px 30px 30px 9fr 4fr 6fr 2fr', height: 36 }}>
               <div className="index" />
               <div className="heart" />
               <div className="download" />
-              <div className="name ui_hray">音乐标题</div>
-              <div className="artist ui_hray">歌手</div>
-              <div className="album ui_hray">专辑</div>
-              <div className="duration ui_hray">时长</div>
+              <div className="name text-gray-500 px-1">音乐标题</div>
+              <div className="artist text-gray-500 px-1">歌手</div>
+              <div className="album text-gray-500 px-1">专辑</div>
+              <div className="duration text-gray-500 px-1">时长</div>
             </div>
           </div>
           <div className="tbody">
@@ -124,24 +125,23 @@ export default () => {
               data.dailySongs?.map((item, index) => (
                 <div
                   tabIndex="2"
-                  className={classNames('item flex items-center hover:bg-gray-100 w-full focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
+                  className={classNames('item grid items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
                   key={item.name + item.id}
                   onDoubleClick={() => handleDoubleClick(item)}
                   onContextMenu={(e) => handleRightClick(e, item, 'song')}
+                  style={{ gridTemplateColumns: '54px 30px 30px 9fr 4fr 6fr 2fr', height: 36 }}
                 >
-                  <div className="index text-gray-400">
+                  <div className="index text-gray-300 text-right pr-2">
                     {String(index + 1).padStart(2, 0)}
                   </div>
                   <div className="heart">
                     <DomHeart item={item} />
                   </div>
                   <div className="download">
-                    <button type="button" className="text-gray-400 hover:text-black">
-                      <IconDownload size={20} stroke={1} />
-                    </button>
+                    <DomDownload />
                   </div>
-                  <div className="name">
-                    <div className="text truncate">
+                  <div className="name flex px-1">
+                    <div className="text flex-auto w-0 truncate">
                       <span title={item.name}>
                         {item.name}
                       </span>
@@ -152,10 +152,10 @@ export default () => {
                             &nbsp;
                             <span
                               className="alia text-gray-400"
-                              title={item.alia.map((alia) => alia)}
+                              title={item.alia}
                             >
                               （
-                              {item.alia.map((alia) => alia)}
+                              {item.alia}
                               ）
                             </span>
                           </>
@@ -168,10 +168,10 @@ export default () => {
                             &nbsp;
                             <span
                               className="alia text-gray-400"
-                              title={item.tns.map((alia) => alia)}
+                              title={item.tns}
                             >
                               （
-                              {item.tns.map((alia) => alia)}
+                              {item.tns}
                               ）
                             </span>
                           </>
@@ -180,32 +180,28 @@ export default () => {
                     </div>
                     <DomTags item={item} />
                   </div>
-                  <div className="artist">
-                    <div className="truncate">
-                      {item.ar.map((aritst, index) => (
-                        <span key={aritst.name + aritst.id}>
-                          {index > 0 && ' / '}
-                          <Link
-                            className="text-gray-500 hover:text-black"
-                            to={`/artist/${aritst.id}`}
-                          >
-                            {aritst.name}
-                          </Link>
-                        </span>
-                      ))}
-                    </div>
+                  <div className="artist truncate px-1">
+                    {item.ar.map((aritst, index) => (
+                      <span key={aritst.name + aritst.id}>
+                        {index > 0 && ' / '}
+                        <Link
+                          className="text-gray-500 hover:text-black"
+                          to={`/artist/${aritst.id}`}
+                        >
+                          {aritst.name}
+                        </Link>
+                      </span>
+                    ))}
                   </div>
-                  <div className="album">
-                    <div className="truncate">
-                      <Link
-                        className="text-gray-500 hover:text-black"
-                        to={`/playlist/album/${item.al.id}`}
-                      >
-                        {item.al.name}
-                      </Link>
-                    </div>
+                  <div className="album truncate px-1">
+                    <Link
+                      className="ui_text_black_hover"
+                      to={`/playlist/album/${item.al.id}`}
+                    >
+                      {item.al.name}
+                    </Link>
                   </div>
-                  <div className="duration text-gray-300 truncate">
+                  <div className="duration text-gray-400 truncate px-1">
                     {dayjs(item.dt).format('mm:ss')}
                   </div>
                 </div>

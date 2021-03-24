@@ -35,7 +35,7 @@ export default ({ item = {} }) => {
   return (
     <button
       type="button"
-      className={classNames(likelist.includes(item.id) ? 'text-red-500 hover:text-red-700' : 'text-gray-400 hover:text-black')}
+      className={classNames(likelist.includes(item.id) ? 'text-red-500 hover:text-red-700' : 'ui_text_gray_hover')}
       onClick={handleLike}
     >
       <IconHeart

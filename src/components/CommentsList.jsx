@@ -1,18 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import DomComment from './Comment';
 
-export default ({ comments = {} }) => (
+export default ({ comments = { }, more }) => (
   <div className="">
-    <div className="mb-10">
-      <div className="subtitle font-bold">精彩评论</div>
-      <div className="comments divide-y">
+    {
+      comments.hotComments
+      && (
+      <div className="mb-10">
+        <div className="subtitle font-bold">精彩评论</div>
+        <div className="comments divide-y">
+          {
+            comments?.hotComments?.slice(0, 10).map((item) => (
+              <DomComment item={item} key={item.commentId} />
+            ))
+          }
+        </div>
         {
-          comments?.hotComments?.map((item) => (
-            <DomComment item={item} key={item.commentId} />
-          ))
+          more && comments?.hotComments?.length > 10
+          && (
+            <div className="domComment_list_more flex-center">
+              <Link
+                className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
+                to={`/comment/${more}/hot`}
+              >
+                更多精彩评论 &gt;
+
+              </Link>
+            </div>
+          )
         }
       </div>
-    </div>
+      )
+    }
     <div>
       <div className="subtitle font-bold">
         最新评论

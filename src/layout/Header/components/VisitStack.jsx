@@ -4,6 +4,8 @@ import {
   IconChevronRight,
 } from '@tabler/icons';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setLyricHide } from '@/reducers/mask/actions';
 
 export default memo(() => {
   const {
@@ -11,10 +13,12 @@ export default memo(() => {
     goForward,
     listen,
   } = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const unlisten = listen((route) => {
       console.log('listen', route);
+      dispatch(setLyricHide());
     });
     return () => {
       unlisten && unlisten();

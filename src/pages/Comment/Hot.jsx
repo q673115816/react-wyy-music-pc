@@ -58,24 +58,13 @@ export default memo(() => {
     }
   };
 
-  const {
-    handleIo,
-    handleUnIo,
-  } = useInfinite(handleInit, domScroll, domObserver);
-
-  useEffect(() => {
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
-  }, []);
+  useInfinite(handleInit, domScroll, domObserver);
 
   // if (loading) return <div>loading</div>;
   return (
-    <div className="domComment overflow-auto max-h-full flex-auto" ref={domScroll}>
+    <div className="domComment px-8 py-5 overflow-auto max-h-full flex-auto" ref={domScroll}>
       <div className="h1">精彩评论</div>
       <div className="domComment_list">
-        <div className="font-bold">精彩评论</div>
         {data.map((item) => (
           <DomComment
             item={item}

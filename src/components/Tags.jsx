@@ -15,7 +15,7 @@ export default ({ item = {}, className = '' }) => (
         )
       }
     {
-        item.privilege.maxbr === 999000
+      (item.maxbr === 999000 || item.privilege?.maxbr === 999000)
         && <span className="TAG">SQ</span>
       }
     {item.mv !== 0
