@@ -5,7 +5,7 @@ import DomComment from './Comment';
 export default ({ comments = { }, more }) => (
   <div className="">
     {
-      comments.hotComments
+      comments.hotComments?.length > 0
       && (
       <div className="mb-10">
         <div className="subtitle font-bold">精彩评论</div>

@@ -12,6 +12,8 @@ import {
   SET_DIALOG_HOME_ORDER_SHOW,
   SET_SCREEN_FULL,
   SET_SCREEN_NORMAL,
+  SET_POSITION_TRUE,
+  SET_POSITION_FALSE,
   SET_TOAST,
   SET_LYRIC_SHOW,
   SET_LYRIC_HIDE,
@@ -76,14 +78,20 @@ export const setDialogReset = () => ({
   type: SET_DIALOG_RESET,
 });
 
-export const setScreenFull = (payload) => ({
+export const setScreenFull = () => ({
   type: SET_SCREEN_FULL,
-  payload,
 });
 
-export const setScreenNormal = (payload) => ({
+export const setScreenNormal = () => ({
   type: SET_SCREEN_NORMAL,
-  payload,
+});
+
+export const setPositionTrue = () => ({
+  type: SET_POSITION_TRUE,
+});
+
+export const setPositionFalse = () => ({
+  type: SET_POSITION_FALSE,
 });
 
 export const setLyricShow = () => ({

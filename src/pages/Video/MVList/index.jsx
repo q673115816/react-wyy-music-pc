@@ -1,6 +1,5 @@
 import React, {
-  useEffect, useState, memo, useMemo, useCallback,
-
+  useEffect, memo, useMemo,
 } from 'react';
 // import { unstable_batchedUpdates } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,7 +32,7 @@ const category = [
 ];
 
 export default memo(() => {
-  console.log('mv');
+  // console.log('mv');
   const dispatch = useDispatch();
   const {
     firstArea,
@@ -46,11 +45,12 @@ export default memo(() => {
   } = useSelector(({ mvlist }) => mvlist);
   const memoLoading = useMemo(() => Date.now() - timestamp > 3600000, [timestamp]);
   const listFilter = (arr) => arr.map((({
-    id, playCount, cover, name, artists,
+    id, playCount, cover, name, artists, briefDesc,
   }) => ({
     type: 0,
     id,
     cover,
+    briefDesc,
     playCount,
     title: name,
     creator: artists.map(({ id: userId, name: userName }) => ({ userId, userName })),
@@ -86,13 +86,6 @@ export default memo(() => {
         top,
         timestamp: Date.now(),
       }));
-      // unstable_batchedUpdates(() => {
-      //   setMVHot(hot);
-      //   setMVWy(wy);
-      //   setMVFirst(first);
-      //   setMVTop(top);
-      //   setLoading(false);
-      // });
     } catch (error) {
       console.log(error);
     }

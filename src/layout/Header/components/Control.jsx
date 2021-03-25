@@ -7,19 +7,23 @@ import {
   IconX,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { setScreenFull, setScreenNormal } from '@/reducers/mask/actions';
+import {
+  setScreenFull, setScreenNormal, setPositionFalse, setPositionTrue,
+} from '@/reducers/mask/actions';
 
 export default memo(() => {
   const dispatch = useDispatch();
-  const { screen } = useSelector(({ mask }) => mask);
+  const { SCREEN } = useSelector(({ mask }) => mask);
   const handleFullScreen = async () => {
     await document.documentElement.requestFullscreen();
     dispatch(setScreenFull());
+    dispatch(setPositionFalse());
   };
 
   const handleExitFullScreen = async () => {
     await document.exitFullscreen();
     dispatch(setScreenNormal());
+    dispatch(setPositionTrue());
   };
   return (
     <div className="domHeader_control space-x-3">
@@ -38,7 +42,7 @@ export default memo(() => {
         <IconMinus size={24} />
       </button>
       {
-        screen === 'normal'
+        SCREEN === 'normal'
           ? (
             <button
               type="button"

@@ -197,7 +197,7 @@ export const apiVideoSub = (params) => post('/video/sub', params);
 export const apiMVSub = (params) => post('/mv/sub', params);
 // MV地址
 export const apiMVUrl = (params) => post('/mv/url', params);
-// MV数据
+// MV数据 mvid!
 export const apiMVDetail = (params) => post('/mv/detail', params);
 // 获取 mv 点赞转发评论数数据
 export const apiMVDetailInfo = (params) => post('/mv/detail/info', params);
@@ -226,11 +226,11 @@ export const apiCommentHot = (params) => post('/comment/hot', params);
 export const apiCommentLike = (params) => post('/comment/like', params);
 // 歌曲评论
 export const apiCommentMusic = (params) => post('/comment/music', params);
-// MV评论
+// MV评论 id!, limit?, offset?, brfore?
 export const apiCommentMV = (params) => post('/comment/mv', params);
-// 视频评论
+// 视频评论 id!, limit?, offset?,before?
 export const apiCommentVideo = (params) => post('/comment/video', params);
-// 视频详情
+// 视频详情 id!
 export const apiVideoDetail = (params) => post('/video/detail', params);
 // 相关视频
 export const apiRelatedAllvideo = (params) => post('/related/allvideo', params);

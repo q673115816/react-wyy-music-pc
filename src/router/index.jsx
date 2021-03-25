@@ -30,7 +30,7 @@ const router = [
   ['/home', Home],
   ['/exclusive', Exclusive],
   ['/dailysong', DailySong],
-  ['/comment/:id', Comment],
+  ['/comment/:type/:id', Comment],
   ['/video', Video],
   ['/allmv', AllMV],
   ['/Look', Look],

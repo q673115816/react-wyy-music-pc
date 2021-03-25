@@ -25,7 +25,11 @@ export default ({ related = [] }) => (
           </Link>
           <div className="content p-2 flex-auto w-0">
             <div className="title ui_ellipse">
-              <Link to={`/player/${playerTypes[item.type]}/${item.vid}`} className="ui_text_black_hover">
+              <Link
+                title={item.title}
+                to={`/player/${playerTypes[item.type]}/${item.vid}`}
+                className="ui_text_black_hover"
+              >
                 {item.title}
               </Link>
             </div>

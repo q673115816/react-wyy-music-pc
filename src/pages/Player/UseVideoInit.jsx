@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { unstable_batchedUpdates } from 'react-dom';
 import {
   apiRelatedAllvideo,
   apiVideoUrl,
   apiVideoDetail,
   apiVideoDetailInfo,
-  apiCommentVideo,
 } from '@/api';
 
 export default () => {
@@ -13,7 +13,6 @@ export default () => {
   const [related, setRelated] = useState([]);
   const [detail, setDetail] = useState({});
   const [detailInfo, setDetailInfo] = useState({});
-  const [comments, setComments] = useState({});
 
   const handleInit = async (vid) => {
     try {
@@ -22,7 +21,6 @@ export default () => {
         { data: related = [] },
         { data: detail = {} },
         detailInfo = {},
-        comments = {},
       ] = await Promise.all([
         apiVideoUrl({
           id: vid,
@@ -36,17 +34,15 @@ export default () => {
         apiVideoDetailInfo({
           vid,
         }),
-        apiCommentVideo({
-          id: vid,
-        }),
       ]);
       detail.playCount = detail.playTime;
-      setPending(true);
-      setUrls(urls[0]);
-      setRelated(related);
-      setDetail(detail);
-      setDetailInfo(detailInfo);
-      setComments(comments);
+      unstable_batchedUpdates(() => {
+        setUrls(urls[0]);
+        setRelated(related);
+        setDetail(detail);
+        setDetailInfo(detailInfo);
+        setPending(true);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +53,6 @@ export default () => {
     related,
     detail,
     detailInfo,
-    comments,
     handleInit,
   };
 };

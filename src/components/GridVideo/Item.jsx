@@ -37,6 +37,10 @@ export default ({ item = {}, item: { type = 1 } }) => (
             </>
           )}
       </Link>
+      {
+        item.briefDesc
+        && <div className="absolute left-0 bottom-0 mx-1 my-1.5 text-white ">{item.briefDesc}</div>
+      }
     </div>
     <Link
       to={`/player/${playerTypes[type]}/${item.id}`}

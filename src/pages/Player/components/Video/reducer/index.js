@@ -1,4 +1,5 @@
 import {
+  SET_FULL,
   SET_PLAY,
   SET_BUFFERED,
   SET_DURATION,
@@ -16,6 +17,11 @@ export const initialState = {
 export default (state, action) => {
   switch (action.type) {
     case SET_PLAY:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case SET_FULL:
       return {
         ...state,
         ...action.payload,

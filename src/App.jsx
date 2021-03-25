@@ -36,7 +36,8 @@ export default () => {
   const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
   const { theme } = useSelector(({ setting }) => setting);
   const {
-    screen,
+    POSITION,
+    SCREEN,
     toastTitle,
     globalLastX,
     globalLastY,
@@ -128,17 +129,19 @@ export default () => {
       <Router>
         <div
           id="NeteaseCloudMusic"
-          className="domWrapper flex flex-col absolute shadow-lg select-none"
+          className="domWrapper flex flex-col shadow-lg select-none"
           style={({
             '--themeColor': `var(--${theme}, --themeRed)`,
-            ...(screen === 'normal' ? {
-              transform: `translate(${dragInset.x}px, ${dragInset.y}px)`,
+            ...(SCREEN === 'normal' ? {
               '--WIDTH': `${resizeRect.width}px`,
               '--HEIGHT': `${resizeRect.height}px`,
             } : {
               '--WIDTH': '100%',
               '--HEIGHT': '100%',
             }),
+            ...(POSITION ? {
+              transform: `translate(${dragInset.x}px, ${dragInset.y}px)`,
+            } : {}),
           })}
         >
           <DomHeader handleDrap={dragdown} />
@@ -167,7 +170,7 @@ export default () => {
             toastTitle?.toString()
             && <Tosat />
           }
-          {screen === 'normal'
+          {SCREEN === 'normal'
             && (
               <div
                 className="absolute right-0 bottom-0 text-gray-500"

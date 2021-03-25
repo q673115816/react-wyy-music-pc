@@ -1,5 +1,7 @@
 export const limit = 30;
 
+export const commentLimit = 20;
+
 export const audioPattern = [
   '顺序播放',
   '列表循环',

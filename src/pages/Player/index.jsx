@@ -25,6 +25,8 @@ import {
   apiVideoSub,
   apiMVSub,
   apiMVSublist,
+  apiCommentVideo,
+  apiCommentMV,
 } from '@/api';
 import { setToast } from '@/reducers/mask/actions';
 import { setMVSublist } from '@/reducers/account/actions';
@@ -33,6 +35,9 @@ import Write from '@/components/Write';
 
 import { useDispatch, useSelector } from 'react-redux';
 import DomCommentsList from '@/components/CommentsList';
+import DomPage from '@/components/Page';
+import { commentLimit as limit } from '@/common/config';
+import DomLoading from '@/components/Loading';
 import UseVideoInit from './UseVideoInit';
 import UseMVInit from './UseMVInit';
 import DomRelated from './Related';
@@ -43,15 +48,18 @@ const switchs = {
     init: UseVideoInit,
     name: '视频详情',
     sub: 'subscribeCount',
+    apiComments: apiCommentVideo,
   },
   mv: {
     init: UseMVInit,
     name: 'MV详情',
     sub: 'subCount',
+    apiComments: apiCommentMV,
   },
 };
 
 export default () => {
+  // console.log('player');
   const { vid, type } = useParams();
   if (!['video', 'mv'].includes(type) || !vid) {
     return <Redirect to="/" />;
@@ -65,7 +73,6 @@ export default () => {
     related,
     detail,
     detailInfo,
-    comments,
     handleInit,
   } = switchs[type].init();
 
@@ -74,6 +81,14 @@ export default () => {
   const Io = useRef();
   const [fixed, setFixed] = useState(false);
 
+  const { goBack } = useHistory();
+  const [descriptionVisibility, setDescriptionVisibility] = useState(false);
+  const [followed, setFollowed] = useState(false);
+  const [value, setValue] = useState('');
+  const [comments, setComments] = useState({});
+  const [commentsLoading, setCommentsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const isSub = useMemo(() => mvSublist.find((mv) => mv.vid === vid), [vid, mvSublist]);
   const handleIo = () => {
     Io.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -92,12 +107,6 @@ export default () => {
   const handleUnIo = () => {
     Io.current.disconnect();
   };
-  const isSub = useMemo(() => mvSublist.find((mv) => mv.vid === vid), [vid, mvSublist]);
-
-  const { goBack } = useHistory();
-  const [descriptionVisibility, setDescriptionVisibility] = useState(false);
-  const [followed, setFollowed] = useState(false);
-  const [value, setValue] = useState('');
 
   const handleDownload = (href) => {
     // const a = document.createElement('a');
@@ -144,9 +153,29 @@ export default () => {
     }
   };
 
+  const handleComments = async () => {
+    try {
+      const comments = await switchs[type].apiComments({
+        id: vid,
+        limit,
+        offset: (page - 1) * limit,
+      });
+      setComments(comments);
+      if (commentsLoading) {
+        setCommentsLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     handleInit(vid);
   }, [vid]);
+
+  useEffect(() => {
+    handleComments();
+  }, [page]);
 
   useEffect(() => {
     handleIo();
@@ -172,9 +201,7 @@ export default () => {
             </button>
           </div>
           <div className="ui_aspect-ratio-16/9" ref={DomVideoWrap}>
-            <div className={classNames('ui_aspect-ratio-16/9', fixed ? ' absolute bottom-16 right-8 z-10 w-80' : 'relative')}>
-              <DomVideo url={urls?.url} detail={detail} />
-            </div>
+            <DomVideo url={urls?.url} detail={detail} fixed={fixed} />
           </div>
           <button type="button" onClick={() => handleDownload(urls?.url)}>下载</button>
           <div className="domVideoDetail_creator flex items-center mt-5">
@@ -184,17 +211,22 @@ export default () => {
             <Link className="nickname ml-2.5" to={`/user/${detail?.creator?.userId}`}>
               {detail?.creator?.nickname}
             </Link>
-            <button
-              onClick={handleFollow}
-              type="button"
-              className={classNames('follow text-red-500 bg-red-50 ml-auto h-8 rounded-full', { on: detail?.creator?.followed })}
-            >
-              {
-                detail?.creator?.followed
-                  ? '+ 已关注'
-                  : '+ 关注'
-              }
-            </button>
+            {
+              type === 'video'
+              && (
+                <button
+                  onClick={handleFollow}
+                  type="button"
+                  className={classNames('follow text-red-500 bg-red-50 ml-auto h-8 rounded-full', { on: detail?.creator?.followed })}
+                >
+                  {
+                    detail?.creator?.followed
+                      ? '+ 已关注'
+                      : '+ 关注'
+                  }
+                </button>
+              )
+            }
           </div>
           <button
             type="button"
@@ -208,7 +240,7 @@ export default () => {
                 : <IconCaretDown size={24} className="fill-current" />
             }
           </button>
-          <div className="domVideoDetail_info text-gray-400 mt-4">
+          <div className="domVideoDetail_info text-gray-300 mt-4">
             发布：
             {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
             &nbsp;
@@ -289,7 +321,7 @@ export default () => {
           </div>
           <div className="domVideoDetail_main mt-8">
             <div className="title mb-5">
-              <span className="h1 font-bold">评论</span>
+              <Link to={`/comment/${type}/${vid}`} className="h1 font-bold">评论</Link>
                   &nbsp;
               <span>
                 (
@@ -297,7 +329,7 @@ export default () => {
                 )
               </span>
             </div>
-            <div className="domVideoDetail_feedback">
+            <div className="domVideoDetail_feedback mb-10">
               <Write {...{
                 value,
                 setValue,
@@ -305,7 +337,16 @@ export default () => {
               }}
               />
             </div>
-            <DomCommentsList comments={comments} />
+            {commentsLoading ? (
+              <div className="">
+                <DomLoading />
+              </div>
+            ) : (
+              <>
+                <DomCommentsList comments={comments} />
+                <DomPage total={Math.ceil(comments.total / limit)} page={page} func={setPage} />
+              </>
+            )}
           </div>
         </div>
         <DomRelated related={related} />

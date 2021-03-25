@@ -8,7 +8,7 @@ const DomHot = lazy(() => import(/* webpackChunkName: "Comment_Hot" */'./Hot'));
 
 export default memo(() => (
   <Switch>
-    <Route path="/comment/:id/hot">
+    <Route path="/comment/:type/:id/hot">
       <DomHot />
     </Route>
     <Route>

@@ -28,10 +28,10 @@ import useCopyLink from '@/custom/useCopyLink';
 import DomMask from './Mask';
 
 const initBuild = (functionClose) => ({
-  评论: ({ contextMenuItem, contextMenuTotal }) => (
+  评论: ({ contextMenuItem, contextMenuTotal, contextMenuType }) => (
     <li className="ui_contextmenu_item">
       <Link
-        to={`/comment/${contextMenuItem.id}`}
+        to={`/comment/${contextMenuType}/${contextMenuItem.id}`}
         onClick={functionClose}
         className="ui_contextmenu_btn "
       >
@@ -288,6 +288,7 @@ export default () => {
                 handleCopyLink,
                 handleCreatePlaylist,
                 ownPlaylist,
+                contextMenuType,
               }}
               key={item}
             />

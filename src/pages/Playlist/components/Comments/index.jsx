@@ -19,9 +19,9 @@ export default ({ id }) => {
     handleInit();
   }, []);
   return (
-    <div>
+    <div className="px-8">
       {/* TODO */}
-      <div className="mt-10 mb-10">
+      <div className="pt-10 pb-10">
         <DomWrite />
       </div>
       <DomCommentsList comments={comments} />

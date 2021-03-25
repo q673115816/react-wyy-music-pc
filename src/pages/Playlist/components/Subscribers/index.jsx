@@ -29,7 +29,7 @@ export default ({ id }) => {
     handleInit();
   }, [page]);
   return (
-    <div>
+    <div className="px-8">
       <div className="domPlaylistDetail_subscribers flex justify-between flex-wrap">
         {data.map((item) => (
           <div key={item.userId} className="item flex mt-6">

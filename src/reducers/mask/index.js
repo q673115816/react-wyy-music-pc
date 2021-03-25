@@ -13,13 +13,16 @@ import {
   SET_DIALOG_HOME_ORDER_SHOW,
   SET_SCREEN_FULL,
   SET_SCREEN_NORMAL,
+  SET_POSITION_TRUE,
+  SET_POSITION_FALSE,
   SET_TOAST,
   SET_LYRIC_SHOW,
   SET_LYRIC_HIDE,
 } from './actionTypes';
 
 const globalState = {
-  screen: 'normal',
+  POSITION: true,
+  SCREEN: 'normal',
   globalVisibility: false,
   globalLastX: 0,
   globalLastY: 0,
@@ -156,12 +159,22 @@ export default (state = initialState, action) => {
     case SET_SCREEN_FULL:
       return {
         ...state,
-        screen: 'full',
+        SCREEN: 'full',
       };
     case SET_SCREEN_NORMAL:
       return {
         ...state,
-        screen: 'normal',
+        SCREEN: 'normal',
+      };
+    case SET_POSITION_TRUE:
+      return {
+        ...state,
+        POSITION: true,
+      };
+    case SET_POSITION_FALSE:
+      return {
+        ...state,
+        POSITION: false,
       };
     case SET_TOAST:
       return {
