@@ -7,7 +7,7 @@ import {
 } from './actionTypes';
 
 export const initialState = {
-  play: false,
+  play: true,
   full: false,
   buffered: 0,
   duration: 0,

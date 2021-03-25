@@ -15,13 +15,13 @@ export default memo(() => {
   const dispatch = useDispatch();
   const { SCREEN } = useSelector(({ mask }) => mask);
   const handleFullScreen = async () => {
-    await document.documentElement.requestFullscreen();
+    await document.documentElement.webkitRequestFullScreen();
     dispatch(setScreenFull());
     dispatch(setPositionFalse());
   };
 
   const handleExitFullScreen = async () => {
-    await document.exitFullscreen();
+    await document.webkitExitFullscreen();
     dispatch(setScreenNormal());
     dispatch(setPositionTrue());
   };

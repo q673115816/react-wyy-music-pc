@@ -52,7 +52,7 @@ export default memo(() => {
 
   const handleSubmit = () => {
     if (!searchValue) {
-      push(`/search?keywords=${searchValue}`);
+      push(`/search/${searchValue}`);
     }
     return false;
   };

@@ -129,7 +129,7 @@ export default () => {
       <Router>
         <div
           id="NeteaseCloudMusic"
-          className="domWrapper flex flex-col shadow-lg select-none"
+          className="domWrapper flex flex-col shadow-lg select-none absolute"
           style={({
             '--themeColor': `var(--${theme}, --themeRed)`,
             ...(SCREEN === 'normal' ? {
@@ -140,7 +140,8 @@ export default () => {
               '--HEIGHT': '100%',
             }),
             ...(POSITION ? {
-              transform: `translate(${dragInset.x}px, ${dragInset.y}px)`,
+              left: `${dragInset.x}px`,
+              top: `${dragInset.y}px`,
             } : {}),
           })}
         >

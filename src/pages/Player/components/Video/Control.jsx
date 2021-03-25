@@ -16,8 +16,50 @@ const sizes = [
   '1080P',
 ];
 
-export default () => {
+const DomSpeed = () => (
+  <div className="relative w-20">
+    {}
+  </div>
+);
+
+const DomSize = () => {
   const [sizeChange, setSizeChange] = useState(false);
+
+  return (
+    <div className="relative w-20">
+      <button
+        onClick={() => setSizeChange(!sizeChange)}
+        type="button"
+        className="flex-center w-full group"
+      >
+        <IconDeviceDesktop className="text-gray-600 group-hover:text-gray-400" size={20} />
+        <span className="text-gray-400">
+          超清
+        </span>
+      </button>
+      {
+        sizeChange
+        && (
+          <div className="absolute left-0 right-0 bottom-full border text-white divide-y divide-gray-800 transform -translate-y-4 flex flex-col bg-black bg-opacity-80 border-gray-800">
+            {
+              sizes.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  className="text-right py-2 px-4"
+                >
+                  {size}
+                </button>
+              ))
+            }
+          </div>
+        )
+      }
+    </div>
+  );
+};
+
+export default () => {
   const {
     handlechangeFull,
     full,
@@ -51,30 +93,8 @@ export default () => {
           <button type="button">{ }</button>
           <div>{ }</div>
         </div>
-        <div className="relative w-20">
-          <button
-            onClick={() => setSizeChange(!sizeChange)}
-            type="button"
-            className="flex-center w-full group"
-          >
-            <IconDeviceDesktop className="text-gray-600 group-hover:text-gray-400" size={20} />
-            <span className="text-gray-400">
-              超清
-            </span>
-          </button>
-          {
-            sizeChange
-            && (
-              <div className="absolute left-0 right-0 bottom-full border text-white divide-y divide-gray-800 transform -translate-y-4 flex flex-col bg-black bg-opacity-80 border-gray-800">
-                {
-                  sizes.map((size) => (
-                    <button type="button" className="text-right py-2 px-4">{size}</button>
-                  ))
-                }
-              </div>
-            )
-          }
-        </div>
+        {/* <DomSpeed /> */}
+        <DomSize />
         <button
           onClick={handlechangeFull}
           type="button"
