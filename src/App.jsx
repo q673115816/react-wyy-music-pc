@@ -70,6 +70,7 @@ export default () => {
   }, []);
 
   const dragmove = (e) => {
+    e.preventDefault();
     if (dragger) {
       const x = e.clientX - dragStartInset.x + dragLastInset.x;
       const y = e.clientY - dragStartInset.y + dragLastInset.y;
@@ -96,6 +97,7 @@ export default () => {
     });
   };
   const resizemove = (e) => {
+    e.preventDefault();
     if (resizer) {
       const x = e.clientX - resizeStartInset.x;
       const y = e.clientY - resizeStartInset.y;

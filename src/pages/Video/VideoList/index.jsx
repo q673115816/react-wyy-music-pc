@@ -16,6 +16,7 @@ import DomGridVideo from '@/components/GridVideo';
 import { setVideoListInit, setVideoListId } from '@/reducers/videolist/actions';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import DomLoading from '@/components/Loading';
 
 export default memo(() => {
   console.log('videolist');
@@ -152,7 +153,9 @@ export default memo(() => {
         <DomGridVideo
           list={videoList}
         />
-        <div ref={domObserver} />
+        <div ref={domObserver} className="flex-center">
+          <DomLoading />
+        </div>
       </div>
     </div>
   );

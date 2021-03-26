@@ -3,8 +3,14 @@ import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
-  IconThumbUp, IconShare, IconMessage, IconDots,
+  IconThumbUp,
+  IconShare,
+  IconMessage,
+  IconDots,
   IconPlayerPlay,
+  IconMoodSmile,
+  IconAt,
+  IconHash,
 } from '@tabler/icons';
 import { transTextEmoji } from '@/common/faces';
 
@@ -14,11 +20,11 @@ export default ({
   const json = JSON.parse(item.json);
   const { comments } = useSelector(({ friend }) => friend);
   return (
-    <div className="item">
-      <Link to={`/user/${item.user.userId}`} className="avatar rounded-full overflow-hidden">
+    <div className="item py-5 flex">
+      <Link to={`/user/${item.user.userId}`} className="avatar w-10 h-10">
         <img
-          className="ui_containimg"
-          src={`${item.user.avatarUrl}?param=100y100`}
+          className="rounded-full"
+          src={`${item.user.avatarUrl}?param=40y40`}
           alt=""
         />
       </Link>
@@ -48,8 +54,8 @@ export default ({
               <button type="button" className="song bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5">
                 <div className="cover relative overflow-hidden rounded">
                   <img
-                    className="ui_containimg"
-                    src={json.song.album.blurPicUrl}
+                    className="rounded w-10 h-10"
+                    src={`${json.song.album.blurPicUrl}?param=40y40`}
                     alt=""
                   />
                   <div className="ico flex-center absolute inset-0 m-auto bg-white rounded-full w-6 h-6 ui_themeColor">
@@ -80,7 +86,7 @@ export default ({
           {
             item.pics
             && (
-              <div className="pic">
+              <div className="pic mt-2.5">
                 {item.pics.map((pics) => (
                   <img src={pics.originUrl} key={pics.originUrl} alt="" />
                 ))}
@@ -94,7 +100,7 @@ export default ({
                 item?.rcmdInfo?.reason
               }
             </div>
-            <div className="right">
+            <div className="right ml-auto divide-x gap-x-2 flex">
               <button type="button" className="action flex-center">
                 <IconThumbUp size={16} />
                 &nbsp;
@@ -106,7 +112,6 @@ export default ({
                   </>
                 )}
               </button>
-              <i className="vert" />
               <button type="button" className="action flex-center">
                 <IconShare size={16} />
                 &nbsp;
@@ -118,7 +123,6 @@ export default ({
                   </>
                 )}
               </button>
-              <i className="vert" />
               <button type="button" className="action flex-center" onClick={() => handleGetComment(item.info.threadId)}>
                 <IconMessage size={16} />
                 &nbsp;
@@ -130,7 +134,6 @@ export default ({
                   </>
                 )}
               </button>
-              <i className="vert" />
               <button type="button" className="action flex-center">
                 <IconDots size={16} />
               </button>
@@ -142,15 +145,15 @@ export default ({
                 <div className="write">
                   <textarea />
                   <div className="help">
-                    <div className="left">
-                      <button type="button">
-                        <i className="material-icons">sentiment_satisfied_alt</i>
+                    <div className="flex space-x-2">
+                      <button type="button" className="text-gray-500 hover:text-black">
+                        <IconMoodSmile size={20} stroke={1.5} />
                       </button>
-                      <button type="button">
-                        <i className="material-icons">alternate_email</i>
+                      <button type="button" className="text-gray-500 hover:text-black">
+                        <IconAt size={20} stroke={1.5} />
                       </button>
-                      <button type="button">
-                        <i className="material-icons">title</i>
+                      <button type="button" className="text-gray-500 hover:text-black">
+                        <IconHash size={20} stroke={1.5} />
                       </button>
                     </div>
                     <div className="right">

@@ -41,25 +41,5 @@
         padding: 3px 8px;
       }
     }
-
-    &_list {
-      margin-top: 10px;
-
-      .item {
-        .rankmask {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          font-size: 36px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: rgba(188, 124, 218, 0.9);
-          color: #fff;
-        }
-      }
-    }
   }
 }

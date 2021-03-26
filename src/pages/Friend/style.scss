@@ -1,26 +1,11 @@
 .domFriend {
   &_header {
-    padding: 0 30px;
-    padding-top: 20px;
     height: 54px;
   }
 
   &_dynamic {
-    padding: 0 30px;
 
     .item {
-      padding: 20px 0;
-      display: flex;
-
-      &:not(:last-of-type) {
-        border-bottom: 1px solid #E0E0E0;
-      }
-
-      .avatar {
-        width: 40px;
-        height: 40px;
-      }
-
       .content {
         .article {
           word-break: break-all;
@@ -33,16 +18,7 @@
             text-align: justify;
           }
 
-          .song {
-            height: 60px;
-            .cover {
-              width: 40px;
-              height: 40px;
-            }
-          }
-
           .pic {
-            margin-top: 10px;
             cursor: zoom-in;
 
             img {
@@ -71,17 +47,6 @@
             align-items: center;
 
             .right {
-              display: flex;
-              margin-left: auto;
-              align-items: center;
-
-              .vert {
-                margin: 0 10px;
-                width: 1px;
-                height: 12px;
-                background-color: #E8E8EA;
-              }
-
               .action {
                 cursor: pointer;
                 color: #aaa;
@@ -139,10 +104,6 @@
     }
   }
 
-  &_right {
-    width: 248px;
-  }
-
   &_user {
 
     .logined {
@@ -164,79 +125,6 @@
           overflow: hidden;
           border: 1px solid #ccc;
         }
-
-        .nickname {
-          margin-left: 10px;
-        }
-      }
-
-      .bottom {
-        display: flex;
-        text-align: center;
-        .split {
-          // flex: none;
-          height: 40px;
-          width: 1px;
-          background-color: #DDDDDE;
-        }
-        .info {
-          flex: 1;
-          height: 40px;
-          color: #666;
-          &:hover {
-            color: #000;
-          }
-          .num {
-            font-size: 20px;
-          }
-
-          .string {
-            margin-top: 0.5em;
-          }
-        }
-      }
-    }
-
-  }
-
-  &_hotTopic {
-    margin-top: 20px;
-    .header {
-      padding: 0 20px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .list {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .item {
-      display: flex;
-      padding: 5px;
-      padding-left: 20px;
-
-      &:hover {
-        background-color: #F4F4F4;
-      }
-
-      .cover {
-        width: 36px;
-        height: 36px;
-        border-radius: 5px;
-        overflow: hidden;
-      }
-
-      .content {
-        margin-left: 12px;
-        padding: 2px;
-      }
-
-      .participateCount {
-        margin-top: 4px;
       }
     }
   }

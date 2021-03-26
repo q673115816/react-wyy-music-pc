@@ -14,7 +14,7 @@ import { IconPlus } from '@tabler/icons';
 import { setLoginVisibilty } from '@/reducers/common/actions';
 import './style.scss';
 
-import { DomMale, DomFamale } from '@/components/Gender';
+import DomGender from '@/components/Gender';
 import ActItem from './components/ActItem';
 
 // dayjs.extend(relativeTime);
@@ -84,9 +84,9 @@ export default memo(() => {
     handleInit();
   }, []);
   return (
-    <div className="domFriend flex overflow-auto h-full">
+    <div className="domFriend flex overflow-auto h-full divide-x">
       <div className="domFriend_left relative flex-auto">
-        <div className="domFriend_header flex items-center sticky top-0 z-10 bg-white">
+        <div className="domFriend_header px-8 flex items-center sticky top-0 z-10 bg-white">
           <span className="h1">动态</span>
           <button type="button" className="flex ml-auto items-center ui_theme_bg_color text-white h-6 px-3 rounded-full">
             <IconPlus size={12} stroke={5} />
@@ -96,7 +96,7 @@ export default memo(() => {
         <div className="domFriend_content flex flex-col flex-auto h-0">
           {
             isLogin ? (
-              <div className="domFriend_dynamic">
+              <div className="domFriend_dynamic px-8 divide-y">
                 {event.map((item) => (
                   <ActItem
                     actThreadId={actThreadId}
@@ -115,8 +115,7 @@ export default memo(() => {
           }
         </div>
       </div>
-      <div className="domFriend_split w-px flex-none bg-gray-200" />
-      <div className="domFriend_right flex-none">
+      <div className="domFriend_right flex-none" style={{ width: 250 }}>
         <div className="domFriend_user">
           {
             isLogin
@@ -131,27 +130,24 @@ export default memo(() => {
                       />
                     </Link>
                     <div className="flex-center">
-                      <Link to={`/user/${profile.userId}`} className="nickname">
+                      <Link to={`/user/${profile.userId}`} className="nickname ml-2.5">
                         {profile.nickname}
                       </Link>
                       &nbsp;
-                      {profile.gender === 1 && <DomMale size={12} />}
-                      {profile.gender === 2 && <DomFamale size={12} />}
+                      <DomGender gender={profile.gender} size={14} />
                     </div>
                   </div>
-                  <div className="bottom">
-                    <Link to={`/user/${profile.userId}/dynamic`} className="info">
-                      <div className="num">{profile.eventCount}</div>
+                  <div className="infos flex divide-x text-center">
+                    <Link to={`/user/${profile.userId}/dynamic`} className="info flex-1 ui_text_black_hover">
+                      <div className="num text-xl">{profile.eventCount}</div>
                       <div className="string">动态</div>
                     </Link>
-                    <span className="split" />
-                    <Link to={`/user/${profile.userId}/follow`} className="info">
-                      <div className="num">{profile.follows}</div>
+                    <Link to={`/user/${profile.userId}/follow`} className="info flex-1 ui_text_black_hover">
+                      <div className="num text-xl">{profile.follows}</div>
                       <div className="string">关注</div>
                     </Link>
-                    <span className="split" />
-                    <Link to={`/user/${profile.userId}/fans`} className="info">
-                      <div className="num">{profile.followeds}</div>
+                    <Link to={`/user/${profile.userId}/fans`} className="info flex-1 ui_text_black_hover">
+                      <div className="num text-xl">{profile.followeds}</div>
                       <div className="string">粉丝</div>
                     </Link>
                   </div>
@@ -174,25 +170,25 @@ export default memo(() => {
               )
           }
         </div>
-        <div className="domFriend_hotTopic">
-          <div className="header">
+        <div className="domFriend_hotTopic mt-5">
+          <div className="header flex px-5 mb-2.5">
             <span className="font-bold">热门话题</span>
-            <Link className="text-gray-400" to={`${url}/hotTopic`}>更多 &gt;</Link>
+            <Link className="text-gray-400 ml-auto" to={`${url}/hotTopic`}>更多 &gt;</Link>
           </div>
           <div className="list">
             {hot.map((item) => (
-              <Link to={`/friend/${item.actId}`} key={item.actId} className="item">
-                <div className="cover">
-                  <img className="ui_containimg" src={`${item.sharePicUrl}?param=50y50`} alt="" />
+              <Link to={`/friend/${item.actId}`} key={item.actId} className="item py-1 pl-5 flex hover:bg-gray-100">
+                <div className="cover w-10 h-10">
+                  <img className="rounded" src={`${item.sharePicUrl}?param=50y50`} alt="" />
                 </div>
-                <div className="content">
+                <div className="content px-2">
                   <div className="title">
                     #
                     {item.title}
                     #
                   </div>
                   <div className="participateCount">
-                    <span className="text-gray-400">
+                    <span className="text-gray-300">
                       {item.participateCount}
                       人参与
                     </span>

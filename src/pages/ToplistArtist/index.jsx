@@ -33,7 +33,7 @@ export default () => {
   const other = artist.slice(3);
   return (
     <div className="domtoplistartist flex flex-col h-full">
-      <div className="domtoplistartist_header">
+      <div className="domtoplistartist_header border-b px-8 pt-5 pb-2.5">
         <div className="domtoplistartist_title h1">云音乐歌手榜</div>
         <div className="flex items-baseline justify-between mt-6">
           <div className="domtoplistartist_nav flex space-x-6">
@@ -57,7 +57,7 @@ export default () => {
         </div>
       </div>
       <div className="overflow-auto h-full pb-10">
-        <div className="domtoplistartist_top3_list grid grid-cols-3 gap-x-5">
+        <div className="domtoplistartist_top3_list py-5 px-8 grid grid-cols-3 gap-x-5">
           {top3.map((item, index) => (
             <Link
               className="domtoplistartist_top3_link rounded-lg overflow-hidden bg-gray-50 hover:bg-gray-100 flex relative"

@@ -16,6 +16,7 @@ import {
   apiUserAccount, apiLogout, apiDailysignin, apiUserDetail,
 } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
+import DomLoading from '@/components/Loading';
 
 const DomProfile = ({ setVisibliity }) => {
   const [loading, setLoading] = useState(true);
@@ -167,7 +168,7 @@ const DomProfile = ({ setVisibliity }) => {
               </li>
             </ul>
           )
-          : <div>loading</div>
+          : <div className="flex-center"><DomLoading /></div>
       }
     </div>
   );
