@@ -51,7 +51,7 @@ export default memo(() => {
   };
 
   const handleSubmit = () => {
-    if (!searchValue) {
+    if (searchValue) {
       push(`/search/${searchValue}`);
     }
     return false;

@@ -3,23 +3,23 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {
-  IconHeart,
-  IconDownload,
-  IconPlayerPlay,
   IconChevronRight,
 } from '@tabler/icons';
 import { useDispatch } from 'react-redux';
 import { apiCommentMusic } from '@/api';
 import { setContextMenuShow } from '@/reducers/mask/actions';
+import DomHeart from '@/components/Table/Heart';
+import DomDownload from '@/components/Table/Download';
+import DomTags from '@/components/Tags';
 
 const Build = {
   artist: ({ item }) => (
-    <Link to={`/artist/${item.id}`} className="item group">
+    <Link to={`/artist/${item.id}`} className="item group h-20 flex items-center bg-gray-100 rounded overflow-hidden">
       <div className="cover">
-        <img className="ui_coverimg" src={item.picUrl} alt="" />
+        <img className="" src={`${item.picUrl}?param=80y80`} alt="" />
       </div>
-      <div className="content">
-        <div className="name">
+      <div className="content px-2">
+        <div className="name text-sm">
           歌手：
           {item.name}
           {
@@ -40,12 +40,12 @@ const Build = {
     </Link>
   ),
   album: ({ item }) => (
-    <Link to={`/playlist/album/${item.id}`} className="item">
+    <Link to={`/playlist/album/${item.id}`} className="item h-20 flex items-center bg-gray-100 rounded overflow-hidden">
       <div className="cover">
-        <img className="ui_coverimg" src={item.blurPicUrl} alt="" />
+        <img className="" src={`${item.blurPicUrl}?param=80y80`} alt="" />
       </div>
-      <div className="content">
-        <div className="name">
+      <div className="content px-2">
+        <div className="name text-sm">
           {item.name}
         </div>
         <div className="subname">{item.artist.name}</div>
@@ -104,7 +104,7 @@ export default memo(({ songs = [], multimatch = { orders: [] } }) => {
       <DomMultimatch list={list} />
       <div className="songs_list">
         <div className="thead">
-          <div className="item flex items-center text-gray-400">
+          <div className="item grid items-center text-gray-400">
             <div className="index" />
             <div className="heart" />
             <div className="download" />
@@ -119,24 +119,20 @@ export default memo(({ songs = [], multimatch = { orders: [] } }) => {
           {songs.map((item, index) => (
             <div
               tabIndex="2"
-              className={classNames('item flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
+              className={classNames('item grid items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
               key={item.id}
               onContextMenu={(e) => handleRightClick(e, item)}
             >
-              <div className="index text-gray-400">
+              <div className="index text-gray-400 text-right pr-2.5">
                 {String(index + 1).padStart(2, 0)}
               </div>
               <div className="heart text-center">
-                <button type="button" className="ui_text_gray_hover">
-                  <IconHeart size={20} stroke={1} />
-                </button>
+                <DomHeart />
               </div>
               <div className="download text-center">
-                <button type="button" className="ui_text_gray_hover">
-                  <IconDownload size={20} stroke={1} />
-                </button>
+                <DomDownload />
               </div>
-              <div className="name flex-auto px-2 w-0" title={item.name}>
+              <div className="name px-2 " title={item.name}>
                 <div className="inner flex items-center">
                   <div className="text truncate">
                     <span title={item.name}>
@@ -156,17 +152,7 @@ export default memo(({ songs = [], multimatch = { orders: [] } }) => {
                       )
                     }
                   </div>
-                  {
-                    item.privilege.maxbr === 999000
-                    && <span className="TAG">SQ</span>
-                  }
-                  {item.mv !== 0
-                    && (
-                      <Link className="TAG" to={`/player/mv/${item.mv}`}>
-                        MV
-                        <IconPlayerPlay size={8} className="fill-current" />
-                      </Link>
-                    )}
+                  <DomTags item={item} />
                 </div>
               </div>
               <div
@@ -203,7 +189,9 @@ export default memo(({ songs = [], multimatch = { orders: [] } }) => {
                 {dayjs(item.dt).format('mm:ss')}
               </div>
               <div className="pop">
-                <div className="range" style={{ '--pop': item.pop }} />
+                <div className="range w-20 h-1.5 rounded bg-gray-200">
+                  <div className="h-full bg-gray-300 rounded" style={{ width: `${item.pop}%` }} />
+                </div>
               </div>
             </div>
           ))}

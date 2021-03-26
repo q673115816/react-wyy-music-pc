@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import {
-  IconHeart,
-  IconDownload,
-  IconPlayerPlay,
-} from '@tabler/icons';
+import DomHeart from '@/components/Table/Heart';
+import DomDownload from '@/components/Table/Download';
+import DomTags from '@/components/Tags';
+import DomArtists from '@/components/Table/Artists';
 
-import DomLyricsItem from './components/LyricsItem';
+import DomLyricsItem from './Item';
 
 export default ({ songs: lyrics = [] }) => (
   <div className="lyrics_list">
     <div className="thead">
-      <div className="item text-gray-400">
+      <div className="item grid items-center text-gray-400">
         <div className="index" />
         <div className="heart" />
         <div className="download" />
@@ -30,20 +29,16 @@ export default ({ songs: lyrics = [] }) => (
             <div
               tabIndex="2"
               key={item.id}
-              className={classNames('item hover:bg-gray-100 focus:outline-none focus:bg-gray-200', { 'bg-gray-50': index % 2 === 0 })}
+              className={classNames('item grid items-center hover:bg-gray-100 focus:outline-none focus:bg-gray-200', { 'bg-gray-50': index % 2 === 0 })}
             >
               <div className="index text-right pr-2 text-gray-400">
                 {String(index + 1).padStart(2, 0)}
               </div>
               <div className="heart">
-                <button type="button" className="hover:text-black text-gray-500">
-                  <IconHeart size={20} stroke={1} />
-                </button>
+                <DomHeart />
               </div>
               <div className="download">
-                <button type="button" className="hover:text-black text-gray-500">
-                  <IconDownload size={20} stroke={1} />
-                </button>
+                <DomDownload />
               </div>
               <div className="name flex" title={item.name}>
                 <div className="inner flex item-center">
@@ -73,19 +68,7 @@ export default ({ songs: lyrics = [] }) => (
                       )
                     }
                   </div>
-                  <div className="tags">
-                    {
-                      item.privilege.maxbr === 999000
-                      && <span className="TAG">SQ</span>
-                    }
-                    {item.mv !== 0
-                      && (
-                        <Link className="TAG" to={`/player/mv/${item.mv}`}>
-                          MV
-                          <IconPlayerPlay size={8} className="fill-current" />
-                        </Link>
-                      )}
-                  </div>
+                  <DomTags item={item} />
                 </div>
               </div>
               <div
@@ -93,22 +76,14 @@ export default ({ songs: lyrics = [] }) => (
                 title={(item.ar.map((artist) => artist.name)).join('/')}
               >
                 <div className="truncate">
-                  {item.ar.map((artist) => (
-                    <Link
-                      className="text-gray-600 hover:text-black"
-                      to={`/artist/${artist.id}`}
-                      key={artist.id}
-                    >
-                      {artist.name}
-                    </Link>
-                  ))}
+                  <DomArtists artists={item.ar} />
                 </div>
               </div>
               <div
                 className="album truncate"
                 title={item.al.name}
               >
-                <Link className="text-gray-600 hover:text-black" to={`/playlist/album/${item.al.id}`}>
+                <Link className="ui_text_black_hover" to={`/playlist/album/${item.al.id}`}>
                   {item.al.name}
                 </Link>
               </div>
@@ -116,7 +91,9 @@ export default ({ songs: lyrics = [] }) => (
                 {dayjs(item.dt).format('mm:ss')}
               </div>
               <div className="pop">
-                <div className="range" style={{ '--pop': item.pop }} />
+                <div className="range w-20 h-1.5 rounded bg-gray-300">
+                  <div className="h-full bg-gray-400 rounded" style={{ width: `${item.pop}%` }} />
+                </div>
               </div>
               <DomLyricsItem lyrics={item.lyrics} />
 

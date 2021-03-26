@@ -12,31 +12,7 @@ const DomCenter = ({ page, total, func }) => (
       1
     </button>
     <span className="border px-2 h-6 flex-center rounded">…</span>
-    {
-      [...Array(3).keys()].map((item) => (
-        <button
-          type="button"
-          key={page - item}
-          className="border hover:bg-gray-200 px-2 h-6 flex-center rounded"
-          onClick={() => func(page - 3 + (Number(item) + 1))}
-        >
-          {page - 2 + Number(item) + 1}
-        </button>
-      ))
-    }
-    <span className="border px-2 h-6 flex-center rounded ui_theme_bg_color text-white">{page}</span>
-    {
-      [...Array(3).keys()].map((item) => (
-        <button
-          type="button"
-          key={page - item}
-          className="border hover:bg-gray-200 px-2 h-6 flex-center rounded"
-          onClick={() => func(page + (Number(item) + 1))}
-        >
-          {page + Number(item) + 1}
-        </button>
-      ))
-    }
+    <DomList start={page - 3} len={7} page={page} func={func} />
     <span className="border px-2 h-6 flex-center rounded">…</span>
     <button
       type="button"
@@ -120,6 +96,7 @@ const DomPosition = ({ page, total, func }) => {
 export default memo(({
   total, page, func,
 }) => {
+  if (!total || !page || !func) return null;
   page = Number(page);
   total = Number(total);
   return (

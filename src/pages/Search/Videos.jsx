@@ -14,7 +14,7 @@ export default ({ videos = [] }) => {
     cover: coverUrl,
   }));
   return (
-    <div className="videos_list">
+    <div className="videos_list py-5 px-10">
       <DomGridVideo list={list} />
     </div>
   );
