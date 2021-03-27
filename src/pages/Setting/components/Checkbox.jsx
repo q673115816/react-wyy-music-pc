@@ -25,9 +25,7 @@ export default ({ list = [], name = '', handle = () => { } }) => (
               tips
               && (
                 <span className="text-gray-400">
-                  （
-                  {tips}
-                  ）
+                  {`（${tips}）`}
                 </span>
               )
             }

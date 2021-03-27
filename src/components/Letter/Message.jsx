@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   IconChevronLeft, IconPhoto, IconMoodSmile, IconPlayerPlay,
 } from '@tabler/icons';
-import EmojiFaces from '../../EmojiFaces';
-import Write from '../../Write';
+import EmojiFaces from '../EmojiFaces';
+import Write from '../Write';
 
 const DomSong = ({ msg = {} }) => (
   <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">
@@ -28,9 +28,7 @@ const DomSong = ({ msg = {} }) => (
         {msg.song.alias.length > 0
           && (
             <span className="text-gray-400">
-              （
-              {msg.song.alias.join(',')}
-              ）
+              {`（${msg.song.alias.join(',')}）`}
             </span>
           )}
       </div>
@@ -68,9 +66,7 @@ const DomAlbum = ({ msg = {} }) => (
         {msg.album.alias.length > 0
           && (
             <span className="text-gray-400">
-              （
-              {msg.album.alias.join(',')}
-              ）
+              {`（${msg.album.alias.join(',')}）`}
             </span>
           )}
       </div>
@@ -198,10 +194,10 @@ export default () => {
 
   return (
     <>
-      <div className="topbar">
+      <div className="topbar relative text-center text-sm flex-center" style={{ height: 50 }}>
         <button
           type="button"
-          className="back flex-center ui_text_gray_hover"
+          className="back absolute inset-y-0 left-0 p-2.5 flex-center ui_text_gray_hover"
           onClick={() => dispatch(setMsgPrivateHistory({ showMsgPrivateHistory: false }))}
         >
           <IconChevronLeft size={22} />
@@ -241,13 +237,15 @@ export default () => {
         }}
         />
         <div className="actions flex mt-2.5">
-          <div className="left">
-            <div className="faces">
-              {
-                visibility
-                && <EmojiFaces {...{ setVisibility, clickface }} />
-              }
-            </div>
+          <div className="left relative">
+            {
+              visibility
+              && (
+                <div className="-translate-x-3 -translate-y-1/2 absolute faces right-full top-1/2 transform">
+                  <EmojiFaces {...{ setVisibility, clickface }} />
+                </div>
+              )
+            }
             <button type="button" className="action" onClick={() => setVisibility(!visibility)}>
               <IconMoodSmile size={24} stroke={1.4} />
             </button>

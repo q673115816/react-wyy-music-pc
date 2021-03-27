@@ -23,30 +23,36 @@ const DomSpeed = () => (
 );
 
 const DomSize = () => {
-  const [sizeChange, setSizeChange] = useState(false);
-
+  const [sizeListShow, setSizeListShow] = useState(false);
+  const [curr, setCurr] = useState('超清');
+  const handleCheck = (br) => {
+    setCurr(br);
+    setSizeListShow(false);
+  };
   return (
-    <div className="relative w-20">
+    <div className="relative w-16">
       <button
-        onClick={() => setSizeChange(!sizeChange)}
+        onClick={() => setSizeListShow(!sizeListShow)}
         type="button"
         className="flex-center w-full group"
       >
         <IconDeviceDesktop className="text-gray-600 group-hover:text-gray-400" size={20} />
+        &nbsp;
         <span className="text-gray-400">
-          超清
+          {curr}
         </span>
       </button>
       {
-        sizeChange
+        sizeListShow
         && (
-          <div className="absolute left-0 right-0 bottom-full border text-white divide-y divide-gray-800 transform -translate-y-4 flex flex-col bg-black bg-opacity-80 border-gray-800">
+          <div className="absolute left-0 right-0 bottom-full border text-white divide-y divide-gray-400 transform -translate-y-4 bg-black bg-opacity-80 border-gray-400 text-center">
             {
               sizes.map((size) => (
                 <button
                   key={size}
                   type="button"
-                  className="text-right py-2 px-4"
+                  className="black w-full py-1"
+                  onClick={() => handleCheck(size)}
                 >
                   {size}
                 </button>

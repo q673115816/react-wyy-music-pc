@@ -26,9 +26,7 @@ export default ({ albums = [] }) => (
           {item.alias.length > 0
             && (
             <span className="text-gray-400">
-              （
-              {item.alias.map((alia) => alia)}
-              ）
+              {`（${item.alias}）`}
             </span>
             )}
         </div>
@@ -41,9 +39,7 @@ export default ({ albums = [] }) => (
             {item.artist.alias.length > 0
             && (
             <span className="text-gray-400">
-              （
-              {item.artist.alias.map((alia) => alia)}
-              ）
+              {`（${item.artist.alias}）`}
             </span>
             )}
           </Link>

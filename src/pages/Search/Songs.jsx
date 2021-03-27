@@ -10,7 +10,7 @@ import { apiCommentMusic } from '@/api';
 import { setContextMenuShow } from '@/reducers/mask/actions';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';
-import DomTags from '@/components/Tags';
+import DomName from '@/components/Table/Name';
 
 const Build = {
   artist: ({ item }) => (
@@ -26,9 +26,7 @@ const Build = {
             item.alias.length > 0
             && (
               <span className="text-gray-400">
-                （
-                {item.alias[0]}
-                ）
+                {`（${item.alias}）`}
               </span>
             )
           }
@@ -64,7 +62,7 @@ const DomMultimatch = ({ list = [] }) => {
       <div className="title text-bold">最佳匹配</div>
       <div className="list mt-5 flex space-x-6">
         {list.map(([item, Dom, order]) => BuildKeys.includes(order)
-        && <Dom item={item} key={order} />)}
+          && <Dom item={item} key={order} />)}
       </div>
     </div>
   );
@@ -132,28 +130,8 @@ export default memo(({ songs = [], multimatch = { orders: [] } }) => {
               <div className="download text-center">
                 <DomDownload />
               </div>
-              <div className="name px-2 " title={item.name}>
-                <div className="inner flex items-center">
-                  <div className="text truncate">
-                    <span title={item.name}>
-                      {item.name}
-                    </span>
-                    {
-                      item.alia.length > 0
-                      && (
-                        <span
-                          className="alia text-gray-400"
-                          title={item.alia.map((alia) => alia)}
-                        >
-                          （
-                          {item.alia.map((alia) => alia)}
-                          ）
-                        </span>
-                      )
-                    }
-                  </div>
-                  <DomTags item={item} />
-                </div>
+              <div className="name px-2">
+                <DomName item={item} />
               </div>
               <div
                 className="artist flex-none px-2 truncate text-gray-400"

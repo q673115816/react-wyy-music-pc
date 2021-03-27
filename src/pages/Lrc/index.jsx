@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { apiCommentMusic, apiSimiSong } from '@/api';
 import DomLoading from '@/components/Loading';
 import DomPage from '@/components/Page';
+import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import {
   IconHeart,
@@ -18,17 +19,26 @@ import {
 } from '@tabler/icons';
 import DomCommentsList from '@/components/CommentsList';
 import './style.scss';
+import classNames from 'classnames';
 // TOTO
-const transLrc = (lrcs = '') => {
-  if (!lrcs) return <div className="absolute inset-0 flex-center">纯音乐</div>;
+const DomLrc = () => {
+  const { lrc: { lyric = '' } = {}, currentTime } = useSelector(({ audio }) => audio);
+  if (!lyric) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
   // console.log(lrc.match(/^\[(\d:\.)\]/m));
   // console.log(lrc.match(/^\[\d{2}:\d{2}\.\d{3}\]/mg));
 
   // console.log(lrcs.split('\n'));
-
   return (
-    <div className="whitespace-pre-line text-gray-500 leading-8">
-      {lrcs}
+    <div className="whitespace-pre-line text-gray-500">
+      {lyric
+        .match(/^\[\d*:\d*.\d*\].*/mg)
+        .map((line) => line.match(/^\[(?<min>\d*):(?<sec>\d*.\d*)\](?<word>.*)/))
+        .map(({ groups: { min, sec, word } }) => (
+          <div key={sec} className={classNames('leading-8', currentTime >= (min * 60 + sec * 1) && 'font-bold text-base text-black')}>
+            {word.trim()}
+            &nbsp;
+          </div>
+        ))}
     </div>
   );
 };
@@ -72,13 +82,14 @@ const DomRight = ({ simiSong = [] }) => (
 );
 
 export default memo(() => {
-  const { lrc = {}, currentTime, currentSong } = useSelector(({ audio }) => audio);
+  const { currentSong } = useSelector(({ audio }) => audio);
   const memoId = useMemo(() => currentSong.id, [currentSong]);
   const [loading, setLoading] = useState(true);
   const [simiSong, setSimiSong] = useState([]);
   const [comments, setComments] = useState({});
   const [page, setPage] = useState(1);
   const limit = 20;
+  const { running } = useSelector(({ audio }) => audio);
   const handleLeftInit = async () => {
     try {
       const comments = await apiCommentMusic({
@@ -115,14 +126,22 @@ export default memo(() => {
   }, [page]);
 
   return (
-    <div id="lrc" className="absolute inset-x-0 bg-white overflow-auto z-30">
+    <div id="lrc" className="absolute inset-x-0 bg-white overflow-auto z-20">
       <div className="lrc_inner m-auto">
         <div className="lrc_header flex justify-between">
           <div className="left">
-            <div className="">
-              <img src={currentSong.al.picUrl} style={{ width: 220 }} alt="" />
+            <div className="relative">
+              <div id="stylus" className="mb-14 relative m-auto w-min duration-500 transition-transform z-10" style={running ? { transform: 'rotate(30deg)' } : {}}>
+                <div className="point shadow relative transform -translate-y-1/2 rounded-full bg-gray-300 w-5 h-5 border-8 border-white bg-white" />
+                <div className="handle absolute top-0 left-1/2 shadow bg-white h-2 w-48 origin-top-left" style={{ transform: 'rotate(30deg)' }}>
+                  <div className="shadow w-4 h-4 absolute left-full -top-1 bg-white" />
+                </div>
+              </div>
+              <div className={classNames('flex-center rounded-full border-8 bg-gray-300', { on: running })} id="record">
+                <img className="rounded-full border-8 border-black" src={currentSong.al.picUrl} alt="" />
+              </div>
             </div>
-            <div className="flex justify-between">
+            <div className="flex mt-4 justify-between">
               <button type="button" className="w-10 h-10 flex-center rounded-full bg-gray-50 hover:bg-gray-100">
                 <IconHeart size={24} stroke={1} />
               </button>
@@ -151,7 +170,7 @@ export default memo(() => {
               <span className="flex whitespace-nowrap">
                 歌手：
                 {currentSong.ar.map((artist) => (
-                  <Link key={artist.id} to={`/playlist/album/${artist.id}`} className="text-blue-500">
+                  <Link key={artist.id} to={`/artist/${artist.id}`} className="text-blue-500">
                     {artist.name}
                   </Link>
                 ))}
@@ -160,8 +179,12 @@ export default memo(() => {
                 来源：
               </span>
             </div>
-            <div className="overflow-auto relative mt-4" style={{ height: 330 }}>
-              {transLrc(lrc?.lyric)}
+            <div className="relative">
+              <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-white to-transparent z-10" />
+              <div className="absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-t from-white to-transparent z-10" />
+              <div className="overflow-auto relative mt-4 text-sm" style={{ height: 330 }}>
+                <DomLrc />
+              </div>
             </div>
           </div>
         </div>

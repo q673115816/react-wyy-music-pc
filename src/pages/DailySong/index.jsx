@@ -22,6 +22,7 @@ import './style.scss';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';
 import DomAllplayGroup from '@/components/AllplayGroup';
+import DomName from '@/components/Table/Name';
 import DomTags from '@/components/Tags';
 
 export default () => {
@@ -107,10 +108,10 @@ export default () => {
           </button>
         </div>
       </div>
-      <div className="domDailySong_main pb-8" style={{ '--gridTemplateColumns': '54px 30px 30px 9fr 4fr 6fr 2fr', '--height': '36px' }}>
+      <div className="domDailySong_main pb-8" style={{ '--gridTemplate': '36px / 54px 30px 30px 36% 4fr 6fr 2fr', '--height': '36px' }}>
         <div className="list">
           <div className="thead">
-            <div className="item grid leading-8" style={{ gridTemplateColumns: 'var(--gridTemplateColumns)', height: 36 }}>
+            <div className="item grid leading-8" style={{ gridTemplate: 'var(--gridTemplate)' }}>
               <div className="index" />
               <div className="heart" />
               <div className="download" />
@@ -129,7 +130,7 @@ export default () => {
                   key={item.name + item.id}
                   onDoubleClick={() => handleDoubleClick(item)}
                   onContextMenu={(e) => handleRightClick(e, item, 'song')}
-                  style={{ gridTemplateColumns: 'var(--gridTemplateColumns)', height: 'var(--height)' }}
+                  style={{ gridTemplate: 'var(--gridTemplate)' }}
                 >
                   <div className="index text-gray-300 text-right pr-2">
                     {String(index + 1).padStart(2, 0)}
@@ -140,45 +141,8 @@ export default () => {
                   <div className="download">
                     <DomDownload />
                   </div>
-                  <div className="name flex px-1">
-                    <div className="text flex-auto w-0 truncate">
-                      <span title={item.name}>
-                        {item.name}
-                      </span>
-                      {
-                        item.alia.length > 0
-                        && (
-                          <>
-                            &nbsp;
-                            <span
-                              className="alia text-gray-400"
-                              title={item.alia}
-                            >
-                              （
-                              {item.alia}
-                              ）
-                            </span>
-                          </>
-                        )
-                      }
-                      {
-                        item.tns?.length > 0
-                        && (
-                          <>
-                            &nbsp;
-                            <span
-                              className="alia text-gray-400"
-                              title={item.tns}
-                            >
-                              （
-                              {item.tns}
-                              ）
-                            </span>
-                          </>
-                        )
-                      }
-                    </div>
-                    <DomTags item={item} />
+                  <div className="name px-2">
+                    <DomName item={item} />
                   </div>
                   <div className="artist truncate px-1">
                     {item.ar.map((aritst, index) => (
@@ -193,7 +157,7 @@ export default () => {
                       </span>
                     ))}
                   </div>
-                  <div className="album truncate px-1">
+                  <div className="album truncate px-2">
                     <Link
                       className="ui_text_black_hover"
                       to={`/playlist/album/${item.al.id}`}
@@ -201,7 +165,7 @@ export default () => {
                       {item.al.name}
                     </Link>
                   </div>
-                  <div className="duration text-gray-400 truncate px-1">
+                  <div className="duration text-gray-400 truncate px-2">
                     {dayjs(item.dt).format('mm:ss')}
                   </div>
                 </div>

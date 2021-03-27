@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMsgPrivateHistory } from '@/reducers/letter/actions';
 import DomList from './List';
-import DomHistory from './History';
+import DomMessage from './Message';
 
 export default () => {
   const { showMsgPrivateHistory } = useSelector(({ letter }) => letter);
@@ -14,10 +14,10 @@ export default () => {
     }));
   }, []);
   return (
-    <div id="privateLetter" className="flex flex-col">
+    <div id="privateLetter" className="flex flex-col absolute z-40">
       {
         showMsgPrivateHistory
-          ? <DomHistory />
+          ? <DomMessage />
           : <DomList />
       }
     </div>

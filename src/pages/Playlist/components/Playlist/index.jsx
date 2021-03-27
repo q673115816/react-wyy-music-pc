@@ -57,9 +57,7 @@ export default ({ trackIds = [] }) => {
                 song.alia.length > 0
                 && (
                 <span className="text-gray-400">
-                  （
-                  {song.alia}
-                  ）
+                  {`（${song.alia}）`}
                 </span>
                 )
               }

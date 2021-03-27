@@ -72,13 +72,8 @@ export default () => {
                 <div className="truncate">
                   { song.name}
                   {
-                    song.alia.map((alia) => (
-                      <span className="text-gray-400" key={alia}>
-                        （
-                        {alia}
-                        ）
-                      </span>
-                    ))
+                    song.alia.length > 0
+                    && <span>{`${song.alia}`}</span>
                   }
                 </div>
                 {

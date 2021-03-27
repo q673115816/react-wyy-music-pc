@@ -1,5 +1,6 @@
 import React, { memo, Suspense } from 'react';
 import Router from '@/router';
+import DomLoading from '@/components/Loading';
 import DomNav from './Nav';
 
 export default memo(() =>
@@ -9,7 +10,7 @@ export default memo(() =>
       <DomNav />
       <div className="dommain_split" />
       <div className="dommain_right flex-auto w-0">
-        <Suspense fallback={<div>loading</div>}>
+        <Suspense fallback={<div className="flex-center w-full h-full"><DomLoading /></div>}>
           {/* <DomAi /> */}
           <Router />
         </Suspense>

@@ -21,6 +21,7 @@ import {
   apiMVSublist,
   apiTopicSublist,
   apiAlbumSublist,
+  apiPlaylistMylike,
 } from '@/api';
 import {
   IconMicrophone,
@@ -52,6 +53,7 @@ export default memo(({ handleDrap }) => {
           uid: profile.userId,
         });
         const { playlist } = await apiUserPlaylist({ uid: profile.userId });
+        const { } = await apiPlaylistMylike();
         const { ids: likelist } = await apiLikelist({ uid: profile.userId });
         const { data: artistSublist } = await apiArtistSublist();
         const { data: mvSublist } = await apiMVSublist();

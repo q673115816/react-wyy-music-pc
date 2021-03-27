@@ -18,12 +18,10 @@ const BuildList = {
       单曲：「
       {msg.song.name}
       {
-        msg.song.alias
+        msg.song.alias.length > 0
         && (
           <span className="text-gray-400">
-            (
-            {msg.song.alias.join(',')}
-            )
+            {`（${msg.song.alias.join(',')}）`}
           </span>
         )
       }

@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useMemo, useState, useRef,
+  useEffect, useMemo, useState, useRef, useCallback,
 } from 'react';
 
 import {
@@ -27,10 +27,11 @@ import {
   apiMVSublist,
   apiCommentVideo,
   apiCommentMV,
+  apiResourceLike,
 } from '@/api';
 import { setToast } from '@/reducers/mask/actions';
 import { setMVSublist } from '@/reducers/account/actions';
-
+import { setVideoListId } from '@/reducers/videolist/actions';
 import Write from '@/components/Write';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,6 +58,21 @@ const switchs = {
     apiComments: apiCommentMV,
   },
 };
+
+const DomGroup = ({ list = [], func }) => (
+  <div className="domVideoDetail_group mt-3 space-x-1">
+    {list.map((group) => (
+      <Link
+        className="group bg-gray-50 rounded-full px-2 py-1"
+        onClick={() => func(group.id)}
+        to="/video/list"
+        key={group.id}
+      >
+        {group.name}
+      </Link>
+    ))}
+  </div>
+);
 
 export default () => {
   // console.log('player');
@@ -89,6 +105,7 @@ export default () => {
   const [commentsLoading, setCommentsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const isSub = useMemo(() => mvSublist.find((mv) => mv.vid === vid), [vid, mvSublist]);
+  const isLike = useMemo(() => null, [vid]);
   const handleIo = () => {
     Io.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -108,11 +125,12 @@ export default () => {
     Io.current.disconnect();
   };
 
-  const handleDownload = (href) => {
-    // const a = document.createElement('a');
-    // a.setAttribute('download', href);
-    // a.href = href;
-    // a.click();
+  const handleLike = () => {
+    dispatch(apiResourceLike({
+      id: vid,
+      type: type === 'mv' ? '1' : '5',
+      t: isLike ? 0 : 1,
+    }));
   };
 
   const handleFollow = async () => {
@@ -169,6 +187,8 @@ export default () => {
     }
   };
 
+  const CallBackSetVideoListCategrayId = useCallback((id) => dispatch((setVideoListId({ id }))), [vid]);
+
   useEffect(() => {
     handleInit(vid);
   }, [vid]);
@@ -203,9 +223,8 @@ export default () => {
           <div className="ui_aspect-ratio-16/9" ref={DomVideoWrap}>
             <DomVideo url={urls?.url} detail={detail} fixed={fixed} />
           </div>
-          <button type="button" onClick={() => handleDownload(urls?.url)}>下载</button>
           <div className="domVideoDetail_creator flex items-center mt-5">
-            <Link to={`/user/${detail?.creator?.userId}`} className="avatar rounded-full overflow-hidden">
+            <Link to={`/user/${detail?.creator?.userId}`} className="avatar rounded-full overflow-hidden border">
               <img className="" src={detail?.creator?.avatarUrl} alt="" />
             </Link>
             <Link className="nickname ml-2.5" to={`/user/${detail?.creator?.userId}`}>
@@ -240,26 +259,18 @@ export default () => {
                 : <IconCaretDown size={24} className="fill-current" />
             }
           </button>
-          <div className="domVideoDetail_info text-gray-300 mt-4">
+          <div className="domVideoDetail_info text-gray-300 mt-3">
             发布：
             {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
             &nbsp;
             播放
             {transPlayCount(detail?.playCount)}
           </div>
-          <div className="domVideoDetail_group space-x-1">
-            {detail?.videoGroup?.map((group) => (
-              <Link className="group" to={`/video/list/${group.id}`} key={group.id}>
-                {group.name}
-              </Link>
-            ))}
-          </div>
+          <DomGroup list={detail?.videoGroup} func={CallBackSetVideoListCategrayId} />
           {
             descriptionVisibility
             && (
-              <div
-                className="domVideoDetail_description mt-4"
-              >
+              <div className="domVideoDetail_description mt-4">
                 {detail.description}
               </div>
             )
@@ -279,35 +290,21 @@ export default () => {
               {detailInfo.likedCount}
               )
             </button>
-            {
-              isSub ? (
-
-                <button
-                  type="button"
-                  className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
-                  onClick={handleSub}
-                >
-                  <IconCheckbox size={20} stroke={1} />
-                  已收藏
-                  (
-                  {detail[switchs[type].sub]}
-                  )
-                </button>
+            <button
+              type="button"
+              className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
+              onClick={handleSub}
+            >
+              {isSub
+                ? <IconCheckbox size={20} stroke={1} />
+                : <IconFolderPlus size={20} stroke={1} />}
+              {
+                isSub ? '已收藏' : '收藏'
+              }
+              (
+              {detail[switchs[type].sub]}
               )
-                : (
-                  <button
-                    type="button"
-                    className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
-                    onClick={handleSub}
-                  >
-                    <IconFolderPlus size={20} stroke={1} />
-                    收藏
-                    (
-                    {detail[switchs[type].sub]}
-                    )
-                  </button>
-                )
-            }
+            </button>
             <button
               type="button"
               className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"

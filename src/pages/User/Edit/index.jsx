@@ -7,6 +7,7 @@ import produce from 'immer';
 import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/actions';
 import { useDispatch } from 'react-redux';
 import './style.scss';
+import DomLoading from '@/components/Loading';
 import DomBirthday from './components/Birthday';
 
 export default () => {
@@ -93,7 +94,7 @@ export default () => {
     }
   }, [edit]);
 
-  if (loading) return <div>loading</div>;
+  if (loading) return <div className="flex-center w-full h-full"><DomLoading /></div>;
   return (
     <div className="domUserEdit">
       <div className="h1 domUser_subpage_header ui_header">

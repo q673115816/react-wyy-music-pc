@@ -48,9 +48,7 @@ export default ({ songs: lyrics = [] }) => (
                       {item.tns
                         && (
                           <span className="text-gray-400">
-                            （
-                            {item.tns.map((tns) => tns)}
-                            ）
+                            {`（${item.tns}）`}
                           </span>
                         )}
                     </span>
@@ -59,10 +57,8 @@ export default ({ songs: lyrics = [] }) => (
                       && (
                         <>
                           &nbsp;
-                          <span className="alia text-gray-400" title={item.alia.map((alia) => alia)}>
-                            （
-                            {item.alia.map((alia) => alia)}
-                            ）
+                          <span className="alia text-gray-400" title={`（${item.alia}）`}>
+                            {`（${item.alia}）`}
                           </span>
                         </>
                       )

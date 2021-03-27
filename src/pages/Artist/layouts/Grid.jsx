@@ -23,9 +23,7 @@ export default ({ hotAlbums = [] }) => (
             {
               item.alias.map((alia) => (
                 <span className="text-gray-500" key={alia}>
-                  （
-                  {alia}
-                  ）
+                  {`（${alia}）`}
                 </span>
               ))
             }

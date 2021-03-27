@@ -8,7 +8,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { apiSongUrl, apiLyric } from '@/api';
 import {
-  setAudioCurrentTime, setAudioBuffered, setAudioCurrent, setLyricText,
+  setAudioCurrentTime,
+  setAudioBuffered,
+  setAudioCurrent,
+  setLyricText,
+  setAudioRunning,
 } from '@/reducers/audio/actions';
 import { setLyricShow, setLyricHide } from '@/reducers/mask/actions';
 
@@ -56,7 +60,8 @@ export default () => {
   };
 
   const handleEnded = (e) => {
-    dispatch(setAudioCurrent({ currentTime: 0 }));
+    dispatch(setAudioCurrentTime(0));
+    dispatch(setAudioRunning({ running: false }));
     switch (pattern) {
       case '0':
 
@@ -87,6 +92,10 @@ export default () => {
   }, [running]);
 
   useEffect(() => {
+    refAudio.current.volume = volume * 0.01;
+  }, [volume]);
+
+  useEffect(() => {
     if (currentSong.id) {
       handleGetUrl();
     }
@@ -95,7 +104,7 @@ export default () => {
     <div className="domfooter_left flex p-3 flex-1">
       <div hidden>
         <audio
-          volume={volume * 0.01}
+          volume={0.01}
           ref={refAudio}
           onLoadedMetadata={handleLoadedMetadata}
           onProgress={handleProgress}

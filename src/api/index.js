@@ -116,6 +116,17 @@ export const apiUserPlaylist = (params) => post('/user/playlist', params);
  * @param {id, like?:true} params
  */
 export const apiLike = (params) => post('/like', params);
+/**
+ * 资源点赞
+ * type 1: mv, 4: 电台, 5: 视频, 6: 动态
+ * t 1: 点赞， 其他 取消
+ * id
+ * @param {type, t, id} params
+ * @returns
+ */
+export const apiResourceLike = (params) => post('/resource/like', params);
+// 获取点赞过的视频
+export const apiPlaylistMylike = (params) => post('/playlist/mylike', params);
 // 喜欢音乐列表 uid
 export const apiLikelist = (params) => post('/likelist', params);
 /**

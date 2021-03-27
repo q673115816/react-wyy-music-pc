@@ -214,18 +214,14 @@ export default () => {
                   </div>
                   <div
                     className="cell name truncate"
-                    title={`${item.songName}${item.simpleSong?.tns?.length > 0 && `（
-                          ${item.simpleSong.tns.toString()}
-                          ）`}`}
+                    title={item.songName + item.simpleSong?.tns?.length > 0 && `（${item.simpleSong?.tns}）`}
                   >
                     { item.songName }
                     {
                       item.simpleSong?.tns?.length > 0
                       && (
                         <span className="text-gray-500">
-                          （
-                          {item.simpleSong.tns.toString()}
-                          ）
+                          {`（${item.simpleSong.tns}）`}
                         </span>
                       )
                     }

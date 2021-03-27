@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
-  IconEdit,
-  IconCheck,
-  IconMail,
-  IconPlus,
-  IconPlayerPlay,
   IconLayoutGrid,
   IconLayoutList,
   IconList,
-  IconLock,
 } from '@tabler/icons';
 import classNames from 'classnames';
 import DomGrid from './Grid';
@@ -29,7 +22,7 @@ const Mains = {
 };
 
 export default ({ list = [] }) => {
-  const [layout, setLayout] = useState('list');
+  const [layout, setLayout] = useState('grid');
   return (
     <div className="pb-10">
       <div className="domUserDetail_headerBar flex items-center px-8 pb-4">

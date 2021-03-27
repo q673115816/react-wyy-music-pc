@@ -71,9 +71,7 @@ const DomList = ({ list = [], currentId, current = '' }) => {
                       className="alia text-gray-400"
                       title={item.alia.map((alia) => alia)}
                     >
-                      （
-                      {item.alia.map((alia) => alia)}
-                      ）
+                      {`（${item.alia.map((alia) => alia)}）`}
                     </span>
                   </>
                 )
@@ -145,7 +143,7 @@ export default () => {
     }
   };
   return (
-    <div id="playlist" className="absolute right-0 shadow bg-white z-10 flex flex-col">
+    <div id="playlist" className="absolute right-0 shadow bg-white z-40 flex flex-col">
       <div className="p-6 flex-none">
         <div className="nav">
           <button
