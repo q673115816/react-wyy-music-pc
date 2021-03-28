@@ -20,7 +20,7 @@ export default ({ lyrics = [] }) => {
   };
   return (
     <div className="lrc flex pb-2">
-      <div className="content w-2/3 px-2">
+      <div className="content w-2/3 px-2 text-gray-500">
         {lyrics
           .slice(0, status ? Infinity : 4)
           .map((lrc, index) => <div key={lrc + index} dangerouslySetInnerHTML={{ __html: lrc }} />)}

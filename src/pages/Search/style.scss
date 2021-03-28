@@ -21,16 +21,7 @@
       }
     }
 
-    .songs_list {
-      .item {
-        grid-template: 36px / 40px 24px 24px 37% 4fr 5fr 2fr 3fr;
-      }
-    }
-
     .lyrics_list {
-      .item {
-        grid-template: 36px / 40px 24px 24px 37% 4fr 5fr 2fr 3fr;
-      }
 
       .lrc {
         grid-column: 4 / 9;
@@ -38,15 +29,14 @@
         .content {
           word-break: break-all;
           white-space: pre-line;
-
-          :first-child {
-            margin-top: 0.5em;
+          &::first-line {
+            // margin-top: 0.2em;
             margin-bottom: 0.2em;
-
-            b {
-              color: var(--linkColor);
-              font-weight: normal;
-            }
+            font-size: larger;
+          }
+          b {
+            color: var(--linkColor);
+            font-weight: normal;
           }
         }
       }

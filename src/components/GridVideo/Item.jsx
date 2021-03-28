@@ -4,6 +4,7 @@ import { transPlayCount } from '@/common/utils';
 import { IconPlayerPlay } from '@tabler/icons';
 import dayjs from 'dayjs';
 import { playerTypes } from '@/common/config';
+import DomTagMV from '@/components/Tags/Box';
 
 export default ({ item = {}, item: { type = 1 } }) => (
   <div className="item">
@@ -49,9 +50,7 @@ export default ({ item = {}, item: { type = 1 } }) => (
     >
       {item.type === 0
         && (
-        <div className="text-red-500 border leading-none border-current rounded-sm">
-          MV
-        </div>
+        <DomTagMV />
         )}
         &nbsp;
       <span className="text-sm flex-auto w-px truncate">

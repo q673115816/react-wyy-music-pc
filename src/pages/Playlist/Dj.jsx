@@ -19,7 +19,7 @@ export default () => {
   return (
     <div className="domPlaylistDetail">
       <div className="domPlaylistDetail_header">{}</div>
-      <div className="domPlaylistDetail_main">{}</div>
+      <div className="domPlaylistDetail_main">TODO</div>
     </div>
   );
 };

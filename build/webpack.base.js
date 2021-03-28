@@ -23,8 +23,8 @@ const cdn = {
     `https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
   ],
   css: [
-    `https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind${minCdn}.css`,
-    `https://cdn.jsdelivr.net/npm/swiper/swiper-bundle${minCdn}.css`,
+    'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css',
+    'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css',
   ],
 };
 

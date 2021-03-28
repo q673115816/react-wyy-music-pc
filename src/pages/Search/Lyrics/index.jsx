@@ -1,18 +1,20 @@
 import React from 'react';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import DomMenuCreate from '@/components/MenuCreate';
+import DomRank from '@/components/table/Rank';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';
-import DomTags from '@/components/Tags';
+import DomName from '@/components/Table/Name';
 import DomArtists from '@/components/Table/Artists';
-
+import DomAlbum from '@/components/Table/Album';
+import DomPop from '@/components/Table/Pop';
 import DomLyricsItem from './Item';
 
 export default ({ songs: lyrics = [] }) => (
-  <div className="lyrics_list">
+  <div className="lyrics_list" style={{ '--ui_grid_template': '36px / 54px 24px 24px 37% 4fr 5fr 2fr 3fr' }}>
     <div className="thead">
-      <div className="item grid items-center text-gray-400">
+      <div className="item grid items-center text-gray-400 ui_grid_template">
         <div className="index" />
         <div className="heart" />
         <div className="download" />
@@ -25,14 +27,14 @@ export default ({ songs: lyrics = [] }) => (
     </div>
     <div className="tbody">
       {
-          lyrics.map((item, index) => (
+        lyrics.map((item, index) => (
+          <DomMenuCreate item={item} type="song" key={item.id}>
             <div
               tabIndex="2"
-              key={item.id}
-              className={classNames('item grid items-center hover:bg-gray-100 focus:outline-none focus:bg-gray-200', { 'bg-gray-50': index % 2 === 0 })}
+              className={classNames('item grid items-center hover:bg-gray-100 focus:outline-none focus:bg-gray-200 ui_grid_template', { 'bg-gray-50': index % 2 === 0 })}
             >
-              <div className="index text-right pr-2 text-gray-400">
-                {String(index + 1).padStart(2, 0)}
+              <div className="index pr-2">
+                <DomRank index={index} id={item.id} />
               </div>
               <div className="heart">
                 <DomHeart />
@@ -40,62 +42,26 @@ export default ({ songs: lyrics = [] }) => (
               <div className="download">
                 <DomDownload />
               </div>
-              <div className="name flex" title={item.name}>
-                <div className="inner flex item-center">
-                  <div className="text truncate">
-                    <span title={item.name}>
-                      {item.name}
-                      {item.tns
-                        && (
-                          <span className="text-gray-400">
-                            {`（${item.tns}）`}
-                          </span>
-                        )}
-                    </span>
-                    {
-                      item.alia.length > 0
-                      && (
-                        <>
-                          &nbsp;
-                          <span className="alia text-gray-400" title={`（${item.alia}）`}>
-                            {`（${item.alia}）`}
-                          </span>
-                        </>
-                      )
-                    }
-                  </div>
-                  <DomTags item={item} />
-                </div>
+              <div className="name flex">
+                <DomName item={item} />
               </div>
-              <div
-                className="artist truncate"
-                title={(item.ar.map((artist) => artist.name)).join('/')}
-              >
-                <div className="truncate">
-                  <DomArtists artists={item.ar} />
-                </div>
+              <div className="artist truncate">
+                <DomArtists artists={item.ar} />
               </div>
-              <div
-                className="album truncate"
-                title={item.al.name}
-              >
-                <Link className="ui_text_black_hover" to={`/playlist/album/${item.al.id}`}>
-                  {item.al.name}
-                </Link>
+              <div className="album truncate">
+                <DomAlbum name={item.al.name} id={item.al.id} />
               </div>
               <div className="duration text-gray-400 truncate">
                 {dayjs(item.dt).format('mm:ss')}
               </div>
               <div className="pop">
-                <div className="range w-20 h-1.5 rounded bg-gray-300">
-                  <div className="h-full bg-gray-400 rounded" style={{ width: `${item.pop}%` }} />
-                </div>
+                <DomPop pop={item.pop} />
               </div>
               <DomLyricsItem lyrics={item.lyrics} />
-
             </div>
-          ))
-        }
+          </DomMenuCreate>
+        ))
+      }
     </div>
   </div>
 );

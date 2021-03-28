@@ -5,6 +5,8 @@ import {
   SET_TOPIC_SUBLIST,
   SET_ALBUM_SUBLIST,
   SET_MV_SUBLIST,
+  SET_LIKELIST_ADD,
+  SET_LIKELIST_DEL,
 } from './actionTypes';
 
 export const setLoginInfo = (payload) => ({
@@ -14,6 +16,16 @@ export const setLoginInfo = (payload) => ({
 
 export const setLikelist = (payload) => ({
   type: SET_LIKELIST,
+  payload,
+});
+
+export const setLikelistAdd = (payload) => ({
+  type: SET_LIKELIST_ADD,
+  payload,
+});
+
+export const setLikelistDel = (payload) => ({
+  type: SET_LIKELIST_DEL,
   payload,
 });
 

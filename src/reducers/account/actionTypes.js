@@ -5,3 +5,5 @@ export const SET_MV_SUBLIST = 'SET_MV_SUBLIST';
 export const SET_LOGIN_INFO = 'SET_LOGIN_INFO';
 
 export const SET_LIKELIST = 'SET_LIKELIST';
+export const SET_LIKELIST_ADD = 'SET_LIKELIST_ADD';
+export const SET_LIKELIST_DEL = 'SET_LIKELIST_DEL';

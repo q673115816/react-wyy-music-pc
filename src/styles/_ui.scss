@@ -12,6 +12,10 @@
   object-fit: cover;
 }
 
+.ui_grid_template {
+  grid-template: var(--ui_grid_template);
+}
+
 .ui_themeColor {
   color: var(--themeColor) !important;
 }

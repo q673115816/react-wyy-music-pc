@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import {
-  IconDownload,
-  IconPlayerPlay,
-  IconPlus,
   IconFolderPlus,
 } from '@tabler/icons';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {
-  apiRecommendSongs, apiCommentMusic,
+  apiRecommendSongs,
 } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
-import {
-  setContextMenuShow,
-} from '@/reducers/mask/actions';
-import { setAudioImmediate } from '@/reducers/audio/actions';
 import { useDispatch } from 'react-redux';
 import useLoginStatus from '@/custom/useLoginStatus';
 import './style.scss';
+import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';
 import DomAllplayGroup from '@/components/AllplayGroup';
 import DomName from '@/components/Table/Name';
-import DomTags from '@/components/Tags';
+import DomArtist from '@/components/Table/Artists';
+import DomMenuCreate from '@/components/MenuCreate';
 
 export default () => {
   useLoginStatus();
@@ -38,45 +33,10 @@ export default () => {
     }
   };
 
-  const handleDoubleClick = (item) => {
-    dispatch(setAudioImmediate({
-      currentSong: item,
-    }));
-  };
-
-  const handleRightClick = async (e, item, type) => {
-    try {
-      const { total } = await apiCommentMusic({
-        id: item.id,
-      });
-      dispatch(setContextMenuShow({
-        contextMenuX: e.clientX,
-        contextMenuY: e.clientY,
-        contextMenuItem: item,
-        contextMenuTotal: total,
-        contextMenuType: type,
-        contextMenuItemId: item.id,
-        contextMenuSechma: [
-          '评论',
-          '播放',
-          '下一首播放',
-          'divide',
-          '收藏到歌单',
-          '分享',
-          '复制链接',
-          '不感兴趣',
-          '下载',
-        ],
-      }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handlePlay = () => {
+  const handleAllPlay = () => {
     alert('asd');
   };
-  const handleAdd = () => {
+  const handleAllAdd = () => {
     alert('asd');
   };
 
@@ -98,7 +58,7 @@ export default () => {
           </div>
         </div>
         <div className="actions flex mt-5">
-          <DomAllplayGroup {...{ handlePlay, handleAdd }} />
+          <DomAllplayGroup {...{ handleAllPlay, handleAllAdd }} />
           &nbsp;
           &nbsp;
           <button type="button" className="inline-flex items-center justify-center border px-3 h-8 rounded-full hover:bg-gray-100">
@@ -108,67 +68,55 @@ export default () => {
           </button>
         </div>
       </div>
-      <div className="domDailySong_main pb-8" style={{ '--gridTemplate': '36px / 54px 30px 30px 36% 4fr 6fr 2fr', '--height': '36px' }}>
+      <div className="domDailySong_main pb-8" style={{ '--ui_grid_template': '36px / 54px 30px 30px 36% 4fr 6fr 2fr' }}>
         <div className="list">
           <div className="thead">
-            <div className="item grid leading-8" style={{ gridTemplate: 'var(--gridTemplate)' }}>
+            <div className="item grid leading-8 ui_grid_template">
               <div className="index" />
               <div className="heart" />
               <div className="download" />
-              <div className="name text-gray-500 px-1">音乐标题</div>
-              <div className="artist text-gray-500 px-1">歌手</div>
-              <div className="album text-gray-500 px-1">专辑</div>
-              <div className="duration text-gray-500 px-1">时长</div>
+              <div className="name text-gray-500 px-2">音乐标题</div>
+              <div className="artist text-gray-500 px-2">歌手</div>
+              <div className="album text-gray-500 px-2">专辑</div>
+              <div className="duration text-gray-500 px-2">时长</div>
             </div>
           </div>
           <div className="tbody grid">
             {
               data.dailySongs?.map((item, index) => (
-                <div
-                  tabIndex="2"
-                  className={classNames('item grid items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none', { 'bg-gray-50': index % 2 === 0 })}
-                  key={item.name + item.id}
-                  onDoubleClick={() => handleDoubleClick(item)}
-                  onContextMenu={(e) => handleRightClick(e, item, 'song')}
-                  style={{ gridTemplate: 'var(--gridTemplate)' }}
-                >
-                  <div className="index text-gray-300 text-right pr-2">
-                    {String(index + 1).padStart(2, 0)}
+                <DomMenuCreate type="song" item={item} key={item.name + item.id}>
+                  <div
+                    tabIndex="2"
+                    className={classNames('item grid items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template', { 'bg-gray-50': index % 2 === 0 })}
+                  >
+                    <div className="index pr-2">
+                      <DomRank index={index} id={item.id} />
+                    </div>
+                    <div className="heart">
+                      <DomHeart item={item} />
+                    </div>
+                    <div className="download">
+                      <DomDownload />
+                    </div>
+                    <div className="name px-2">
+                      <DomName item={item} />
+                    </div>
+                    <div className="artist truncate px-2">
+                      <DomArtist artists={item.ar} />
+                    </div>
+                    <div className="album truncate px-2">
+                      <Link
+                        className="ui_text_black_hover"
+                        to={`/playlist/album/${item.al.id}`}
+                      >
+                        {item.al.name}
+                      </Link>
+                    </div>
+                    <div className="duration text-gray-400 truncate px-2">
+                      {dayjs(item.dt).format('mm:ss')}
+                    </div>
                   </div>
-                  <div className="heart">
-                    <DomHeart item={item} />
-                  </div>
-                  <div className="download">
-                    <DomDownload />
-                  </div>
-                  <div className="name px-2">
-                    <DomName item={item} />
-                  </div>
-                  <div className="artist truncate px-1">
-                    {item.ar.map((aritst, index) => (
-                      <span key={aritst.name + aritst.id}>
-                        {index > 0 && ' / '}
-                        <Link
-                          className="text-gray-500 hover:text-black"
-                          to={`/artist/${aritst.id}`}
-                        >
-                          {aritst.name}
-                        </Link>
-                      </span>
-                    ))}
-                  </div>
-                  <div className="album truncate px-2">
-                    <Link
-                      className="ui_text_black_hover"
-                      to={`/playlist/album/${item.al.id}`}
-                    >
-                      {item.al.name}
-                    </Link>
-                  </div>
-                  <div className="duration text-gray-400 truncate px-2">
-                    {dayjs(item.dt).format('mm:ss')}
-                  </div>
-                </div>
+                </DomMenuCreate>
               ))
             }
           </div>

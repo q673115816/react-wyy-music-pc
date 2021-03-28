@@ -4,7 +4,9 @@ import {
   SET_AUDIO_NEXT,
   SET_AUDIO_CURRENT,
   SET_AUDIO_RUNNING,
+  SET_AUDIO_DROPPING,
   SET_AUDIO_CURRENTTIME,
+  SET_JUMPTO_AUDIO_CURRENTTIME,
   SET_AUDIO_BUFFERED,
   SET_AUDIO_PLAYLIST_CLEAR,
   SET_AUDIO_HISTORY_CLEAR,
@@ -41,8 +43,18 @@ export const setAudioRunning = (payload) => ({
   payload,
 });
 
+export const setAudioDropping = (payload) => ({
+  type: SET_AUDIO_DROPPING,
+  payload,
+});
+
 export const setAudioCurrentTime = (payload) => ({
   type: SET_AUDIO_CURRENTTIME,
+  payload,
+});
+
+export const setJumpToAudioCurrentTime = (payload) => ({
+  type: SET_JUMPTO_AUDIO_CURRENTTIME,
   payload,
 });
 

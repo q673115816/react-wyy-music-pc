@@ -1,7 +1,10 @@
 import React, { useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioCurrentTime, setAudioRunning, setAudioPattern } from '@/reducers/audio/actions';
+import {
+  setJumpToAudioCurrentTime, setAudioCurrentTime, setAudioDropping, setAudioRunning, setAudioPattern,
+} from '@/reducers/audio/actions';
 import { computedPositionPercentage } from '@/common/utils';
 
 export default () => {
@@ -19,21 +22,22 @@ export default () => {
   };
 
   const handleProcess = (e) => {
-    // dispatch(setAudioCurrentTime(e.target.value));
     dispatch(setAudioCurrentTime(computedPosition(e)));
-    // console.log(e.target.value);
   };
 
-  const handleProcessStart = (e) => {
+  const handleProcessStart = () => {
+    dispatch(setAudioDropping({ dropping: true }));
     setIsDrop(true);
   };
 
   const handleProcessEnd = (e) => {
+    dispatch(setAudioDropping({ dropping: false }));
+    dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
     setIsDrop(false);
   };
 
   const handleClick = (e) => {
-    dispatch(setAudioCurrentTime(computedPosition(e)));
+    dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
   };
 
   return (
@@ -59,7 +63,14 @@ export default () => {
           </button>
         </div>
         {isDrop
-        && <div className="absolute inset-0" onMouseMove={handleProcess} onMouseUp={handleProcessEnd} />}
+          && createPortal(
+            <div
+              className="absolute inset-0"
+              onMouseMove={handleProcess}
+              onMouseUp={handleProcessEnd}
+            />, document.querySelector('#help-root'),
+          )}
+
       </div>
       <span className="text-gray-400">
         {currentSong.dt

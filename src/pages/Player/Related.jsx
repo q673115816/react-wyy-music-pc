@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { transPlayCount } from '@/common/utils';
 import { IconPlayerPlay } from '@tabler/icons';
 import { playerTypes } from '@/common/config';
+import DomTagMV from '@/components/Tags/Box';
 
 export default ({ related = [] }) => (
   <div className="right" style={{ width: 280 }}>
@@ -30,6 +31,8 @@ export default ({ related = [] }) => (
                 to={`/player/${playerTypes[item.type]}/${item.vid}`}
                 className="ui_text_black_hover"
               >
+                {item.type === 0
+                  && <DomTagMV />}
                 {item.title}
               </Link>
             </div>

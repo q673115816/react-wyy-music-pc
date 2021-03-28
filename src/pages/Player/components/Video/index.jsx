@@ -33,6 +33,7 @@ export default ({
   }, videoDispatch] = useReducer(videoReducer, initialState);
   const ref = useRef();
   const dispatch = useDispatch();
+  const [isEnd, setIsEnd] = useState(false);
   const handleChangePlay = () => {
     if (play) {
       ref.current.pause();
@@ -41,6 +42,10 @@ export default ({
     }
     videoDispatch(actionSetPlay(!play));
     // setPlay(!play);
+  };
+
+  const handleEnd = () => {
+    setIsEnd(true);
   };
 
   const handlechangeFull = async () => {
@@ -90,8 +95,9 @@ export default ({
             onLoadedMetadata={handlePreSetTime}
             className="h-full m-auto cursor-pointer"
             onDoubleClick={handlechangeFull}
+            onEnded={handleEnd}
             playsInline
-            autoPlay
+            autoPlay={play}
           />
           {
             !play

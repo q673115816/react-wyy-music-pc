@@ -12,6 +12,7 @@ import {
 } from '@tabler/icons';
 import { setAudioPlaylistClear, setAudioHistoryClear } from '@/reducers/audio/actions';
 import { setPopup } from '@/reducers/common/actions';
+import DomName from '@/components/Table/Name';
 
 const Empty = () => {
   const dispatch = useDispatch();
@@ -43,10 +44,10 @@ const DomList = ({ list = [], currentId, current = '' }) => {
       list.map((item, index) => (
         <div
           tabIndex="2"
-          className={classNames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9 group', { 'bg-gray-50': index % 2 === 1 })}
+          className={classNames('flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9 group ', { 'bg-gray-50': index % 2 === 1, ui_themeColor: current === 'playlist' && item.id === currentId })}
           key={item.id}
         >
-          <div className="w-6 flex-center">
+          <div className="w-6 flex-center flex-none">
             {
               current === 'playlist'
               && item.id === currentId
@@ -54,55 +55,14 @@ const DomList = ({ list = [], currentId, current = '' }) => {
                 : <IconPlayerPause size={12} className="fill-current ui_themeColor" stroke={1} />)
             }
           </div>
-          <div className="flex-auto name flex w-0">
-            <div className="text truncate">
-              <span
-                title={item.name}
-                className={classNames({ ui_themeColor: current === 'playlist' && item.id === currentId })}
-              >
-                {item.name}
-              </span>
-              {
-                item.alia.length > 0
-                && (
-                  <>
-                    &nbsp;
-                    <span
-                      className="alia text-gray-400"
-                      title={item.alia.map((alia) => alia)}
-                    >
-                      {`（${item.alia.map((alia) => alia)}）`}
-                    </span>
-                  </>
-                )
-              }
-            </div>
-            <div className="tags">
-              {
-                item.fee === 1
-                && <span className="TAG word">试听</span>
-              }
-              {
-                item.privilege.maxbr === 999000
-                && <span className="TAG">SQ</span>
-              }
-              {item.mv !== 0
-                && (
-                  <Link className="TAG" to={`/player/mv/${item.mv}`}>
-                    MV
-                    <IconPlayerPlay size={8} className="fill-current" />
-                  </Link>
-                )}
-            </div>
+          <div className="name flex-auto w-0">
+            <DomName item={item} />
           </div>
           <div className="w-24 px-1 flex-none truncate text-gray-500 group-hover:text-black">
             {item.ar.map((artist, index) => (
               <span key={artist.id}>
                 {index > 0 && ' / '}
-                <Link
-                  to={`/artist/${artist.id}`}
-                  className={classNames({ ui_themeColor: current === 'playlist' && item.id === currentId })}
-                >
+                <Link to={`/artist/${artist.id}`}>
                   {artist.name}
                 </Link>
               </span>

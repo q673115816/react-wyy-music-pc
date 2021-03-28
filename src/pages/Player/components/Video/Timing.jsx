@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import dayjs from 'dayjs';
 import { VideoContext } from './index';
 
@@ -15,6 +16,14 @@ export default () => {
 
   const handleDropDown = () => {
     setDroper(true);
+  };
+
+  const handleDropMove = () => {
+
+  };
+
+  const handleDropUp = () => {
+    setDroper(false);
   };
 
   const handleProgressEnter = (e) => {
@@ -80,6 +89,16 @@ export default () => {
         value={currentTime}
         className="absolute bottom-0 left-0 opacity-0 w-full"
       />
+      {
+        droper && createPortal(
+          <div
+            className="absolute inset-0"
+            onMouseMove={handleDropMove}
+            onMouseUp={handleDropUp}
+          />,
+          document.querySelector('#help-root'),
+        )
+      }
     </div>
   );
 };

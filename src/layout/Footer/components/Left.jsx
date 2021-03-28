@@ -23,9 +23,12 @@ export default () => {
     currentSong,
     playlist,
     running,
+    dropping,
     currentTime,
+    jumpTime,
     pattern,
   } = useSelector(({ audio }) => audio);
+  const RefDropping = useRef();
   const { lyricVisibility } = useSelector(({ mask }) => mask);
   const refAudio = useRef();
 
@@ -56,18 +59,20 @@ export default () => {
   };
 
   const handleRunningFollow = (e) => {
-    dispatch(setAudioCurrentTime(e.target.currentTime));
+    !RefDropping.current && dispatch(setAudioCurrentTime(e.target.currentTime));
   };
 
   const handleEnded = (e) => {
     dispatch(setAudioCurrentTime(0));
-    dispatch(setAudioRunning({ running: false }));
+    // dispatch(setAudioRunning({ running: false }));
+    // console.log(pattern);
     switch (pattern) {
-      case '0':
+      case 0:
 
         break;
-      case '2':
-
+      case 2:
+        refAudio.current.play();
+        // dispatch(setAudioRunning({ running: true }));
         break;
       default:
         break;
@@ -77,6 +82,10 @@ export default () => {
   const handleLyric = () => {
     dispatch(lyricVisibility ? setLyricHide() : setLyricShow());
   };
+
+  useEffect(() => {
+    RefDropping.current = dropping;
+  }, [dropping]);
 
   useEffect(() => {
     if (running) {
@@ -90,6 +99,12 @@ export default () => {
       refAudio.current.removeEventListener('timeupdate', handleRunningFollow);
     }
   }, [running]);
+
+  useEffect(() => {
+    if (jumpTime) {
+      refAudio.current.currentTime = jumpTime;
+    }
+  }, [jumpTime]);
 
   useEffect(() => {
     refAudio.current.volume = volume * 0.01;

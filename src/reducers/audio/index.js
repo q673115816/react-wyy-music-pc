@@ -7,7 +7,9 @@ import {
   SET_AUDIO_PREV,
   SET_AUDIO_NEXT,
   SET_AUDIO_RUNNING,
+  SET_AUDIO_DROPPING,
   SET_AUDIO_CURRENTTIME,
+  SET_JUMPTO_AUDIO_CURRENTTIME,
   SET_AUDIO_BUFFERED,
   SET_AUDIO_PLAYLIST_CLEAR,
   SET_AUDIO_HISTORY_CLEAR,
@@ -21,10 +23,12 @@ import {
 
 const resetState = {
   running: false,
+  dropping: false,
   currentSong: {},
   playlist: [],
   history: [],
   currentTime: 0,
+  jumpTime: null,
   buffered: 0,
   volume: 100,
   lrc: '',
@@ -82,9 +86,16 @@ export default produce((draft, action) => {
     case SET_AUDIO_RUNNING:
       draft.running = action.payload.running;
       break;
+    case SET_AUDIO_DROPPING:
+      draft.dropping = action.payload.dropping;
+      break;
     case SET_AUDIO_CURRENTTIME:
       window.localStorage.setItem('currentTime', JSON.stringify(Number(action.payload)));
       draft.currentTime = action.payload;
+      break;
+    case SET_JUMPTO_AUDIO_CURRENTTIME:
+      window.localStorage.setItem('currentTime', JSON.stringify(Number(action.payload)));
+      draft.jumpTime = action.payload;
       break;
     case SET_AUDIO_BUFFERED:
       draft.buffered = action.payload;
