@@ -6,7 +6,7 @@ import {
   IconChevronRight,
 } from '@tabler/icons';
 import DomMenuCreate from '@/components/MenuCreate';
-import DomRank from '@/components/table/Rank';
+import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';
 import DomName from '@/components/Table/Name';
