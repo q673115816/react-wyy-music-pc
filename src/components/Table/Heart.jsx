@@ -9,15 +9,17 @@ import {
   setLikelistDel,
 } from '@/reducers/account/actions';
 
-export default ({ item = {} }) => {
+export default ({
+  id = '', size = 20, className = '', stroke = 1,
+}) => {
   const dispatch = useDispatch();
 
   const { likelist } = useSelector(({ account }) => account);
   const handleLike = async () => {
     try {
       const { code, message } = await apiLike({
-        id: item.id,
-        like: !likelist.has(item.id),
+        id,
+        like: !likelist.has(id),
       });
       if (code !== 200) {
         dispatch(setToast({
@@ -26,11 +28,11 @@ export default ({ item = {} }) => {
         return;
       }
       dispatch(setToast({
-        toastTitle: likelist.has(item.id) ? '取消喜欢成功' : '已添加到我喜欢的音乐',
+        toastTitle: likelist.has(id) ? '取消喜欢成功' : '已添加到我喜欢的音乐',
       }));
-      likelist.has(item.id)
-        ? dispatch(setLikelistDel({ id: item.id }))
-        : dispatch(setLikelistAdd({ id: item.id }));
+      likelist.has(id)
+        ? dispatch(setLikelistDel({ id }))
+        : dispatch(setLikelistAdd({ id }));
       // const { ids: newlikelist } = await apiLikelist({ uid: profile.userId });
       // dispatch(setLikelist({
       //   likelist: newlikelist,
@@ -42,13 +44,13 @@ export default ({ item = {} }) => {
   return (
     <button
       type="button"
-      className={classNames(likelist.has(item.id) ? 'text-red-500 hover:text-red-700' : 'ui_text_gray_hover')}
+      className={classNames(className, likelist.has(id) ? 'text-red-500 hover:text-red-700' : 'ui_text_gray_hover')}
       onClick={handleLike}
     >
       <IconHeart
-        size={20}
-        className={classNames({ 'fill-current': likelist.has(item.id) })}
-        stroke={1}
+        size={size}
+        className={classNames({ 'fill-current': likelist.has(id) })}
+        stroke={stroke}
       />
     </button>
   );

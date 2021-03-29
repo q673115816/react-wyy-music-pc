@@ -16,6 +16,7 @@ const dev = {
   devServer: {
     // contentBase: content,
     hot: true,
+    // https: true,
     // hotOnly: true,
     // historyApiFallback: true,
   },

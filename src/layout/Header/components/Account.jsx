@@ -10,7 +10,7 @@ import {
   IconBrandVimeo,
   IconCoin,
 } from '@tabler/icons';
-import { setLoginInfo } from '@/reducers/account/actions';
+import { setLoginInfoUpdate } from '@/reducers/account/actions';
 import { setLoginVisibilty } from '@/reducers/common/actions';
 import {
   apiUserAccount, apiLogout, apiDailysignin, apiUserDetail,
@@ -29,7 +29,7 @@ const DomProfile = ({ setVisibliity }) => {
       const { profile: accountDetail } = await apiUserDetail({
         uid: profile.userId,
       });
-      dispatch(setLoginInfo({ profile: { ...profile, ...accountDetail } }));
+      dispatch(setLoginInfoUpdate({ profile: accountDetail }));
       setLoading(false);
     } catch (error) {
       console.log(error);

@@ -1,6 +1,8 @@
 import {
   SET_LOGIN_INFO,
+  SET_LOGIN_INFO_UPDATE,
   SET_LIKELIST,
+  SET_PLAYLIST,
   SET_ARTIST_SUBLIST,
   SET_TOPIC_SUBLIST,
   SET_ALBUM_SUBLIST,
@@ -14,8 +16,18 @@ export const setLoginInfo = (payload) => ({
   payload,
 });
 
+export const setLoginInfoUpdate = (payload) => ({
+  type: SET_LOGIN_INFO_UPDATE,
+  payload,
+});
+
 export const setLikelist = (payload) => ({
   type: SET_LIKELIST,
+  payload,
+});
+
+export const setPlaylist = (payload) => ({
+  type: SET_PLAYLIST,
   payload,
 });
 

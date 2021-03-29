@@ -93,7 +93,7 @@ export default () => {
                       <DomRank index={index} id={item.id} />
                     </div>
                     <div className="heart">
-                      <DomHeart item={item} />
+                      <DomHeart id={item.id} />
                     </div>
                     <div className="download">
                       <DomDownload />

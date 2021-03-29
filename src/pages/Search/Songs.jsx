@@ -104,7 +104,7 @@ export default memo(({ songs = [], multimatch = { orders: [] } }) => {
                   <DomRank index={index} id={item.id} />
                 </div>
                 <div className="heart text-center">
-                  <DomHeart />
+                  <DomHeart id={item.id} />
                 </div>
                 <div className="download text-center">
                   <DomDownload />

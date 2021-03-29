@@ -1,10 +1,11 @@
 import React, {
-  memo, useEffect, useMemo, useState,
+  memo, useEffect, useMemo, useState, useRef,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCommentMusic, apiSimiSong } from '@/api';
 import DomLoading from '@/components/Loading';
 import DomPage from '@/components/Page';
+import DomHeart from '@/components/Table/Heart';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import {
@@ -26,15 +27,40 @@ const DomLrc = () => {
   if (!lyric) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
   // console.log(lrc.match(/^\[(\d:\.)\]/m));
   // console.log(lrc.match(/^\[\d{2}:\d{2}\.\d{3}\]/mg));
-
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
+  const RefScroll = useRef();
+  const RefCurrentLine = useRef();
+  const lyricList = lyric
+    .match(/^\[\d*:\d*.\d*\].*/mg)
+    .map((line) => line.match(/^\[(?<min>\d*):(?<sec>\d*.\d*)\](?<word>.*)/).groups);
   // console.log(lrcs.split('\n'));
+  useEffect(() => {
+    setCurrentLineIndex(
+      lyricList
+        .findIndex(({ min, sec }) => (min * 60 + sec * 1) > currentTime) - 1,
+    );
+  }, [currentTime]);
+
+  useEffect(() => {
+    // console.log(RefCurrentLine);
+    // RefCurrentLine.current.offsetTop
+    if (RefCurrentLine?.current) {
+      RefScroll.current.scrollTop = RefCurrentLine.current.offsetTop - (RefScroll.current.clientHeight / 2);
+    }
+  }, [currentLineIndex]);
   return (
-    <div className="whitespace-pre-line text-gray-500">
-      {lyric
-        .match(/^\[\d*:\d*.\d*\].*/mg)
-        .map((line) => line.match(/^\[(?<min>\d*):(?<sec>\d*.\d*)\](?<word>.*)/))
-        .map(({ groups: { min, sec, word } }) => (
-          <div key={sec} className={classNames('leading-8', currentTime >= (min * 60 + sec * 1) && 'font-bold text-base text-black')}>
+    <div
+      style={{ scrollBehavior: 'smooth' }}
+      className="whitespace-pre-line text-gray-500 overflow-auto overscroll-contain h-full"
+      ref={RefScroll}
+    >
+      {lyricList
+        .map(({ min, sec, word }, index) => (
+          <div
+            ref={currentLineIndex === index ? RefCurrentLine : null}
+            key={min * 60 + sec * 1}
+            className={classNames('leading-8', currentLineIndex === index && 'font-bold text-base text-black')}
+          >
             {word.trim()}
             &nbsp;
           </div>
@@ -142,16 +168,19 @@ export default memo(() => {
               </div>
             </div>
             <div className="flex mt-4 justify-between">
-              <button type="button" className="w-10 h-10 flex-center rounded-full bg-gray-50 hover:bg-gray-100">
-                <IconHeart size={24} stroke={1} />
-              </button>
-              <button type="button" className="w-10 h-10 flex-center rounded-full bg-gray-50 hover:bg-gray-100">
+              <DomHeart
+                stroke="2"
+                id={memoId}
+                size={24}
+                className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200"
+              />
+              <button type="button" className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200">
                 <IconFolderPlus size={24} stroke={1} />
               </button>
-              <button type="button" className="w-10 h-10 flex-center rounded-full bg-gray-50 hover:bg-gray-100">
+              <button type="button" className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200">
                 <IconCloudDownload size={24} stroke={1} />
               </button>
-              <button type="button" className="w-10 h-10 flex-center rounded-full bg-gray-50 hover:bg-gray-100">
+              <button type="button" className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200">
                 <IconShare size={24} stroke={1} />
               </button>
             </div>
@@ -182,7 +211,7 @@ export default memo(() => {
             <div className="relative">
               <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-white to-transparent z-10" />
               <div className="absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-t from-white to-transparent z-10" />
-              <div className="overflow-auto relative mt-4 text-sm" style={{ height: 330 }}>
+              <div className="relative mt-4 text-sm" style={{ height: 330 }}>
                 <DomLrc />
               </div>
             </div>

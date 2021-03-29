@@ -35,7 +35,7 @@ export default memo(() => {
   return (
     <div
       id="toast"
-      className={classNames('absolute whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg')}
+      className={classNames('absolute z-50 whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg')}
     >
       <IconCircleCheck size={24} />
       &nbsp;

@@ -37,7 +37,7 @@ export default ({ songs: lyrics = [] }) => (
                 <DomRank index={index} id={item.id} />
               </div>
               <div className="heart">
-                <DomHeart />
+                <DomHeart id={item.id} />
               </div>
               <div className="download">
                 <DomDownload />

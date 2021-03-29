@@ -1,9 +1,11 @@
 import produce, { enableMapSet } from 'immer';
 import {
   SET_LOGIN_INFO,
+  SET_LOGIN_INFO_UPDATE,
   SET_LIKELIST,
   SET_LIKELIST_ADD,
   SET_LIKELIST_DEL,
+  SET_PLAYLIST,
   SET_ARTIST_SUBLIST,
   SET_TOPIC_SUBLIST,
   SET_ALBUM_SUBLIST,
@@ -26,14 +28,22 @@ const initialState = {
 export default produce((draft, action) => {
   switch (action.type) {
     case SET_LOGIN_INFO:
+      draft.profile = action.payload.profile;
+      draft.playlist = action.payload.playlist;
       draft.likelist = new Set(action.payload.likelist);
       draft.artistSublist = action.payload.artistSublist;
       draft.topicSublist = action.payload.topicSublist;
       draft.albumSublist = action.payload.albumSublist;
       draft.mvSublist = action.payload.mvSublist;
       break;
+    case SET_LOGIN_INFO_UPDATE:
+      draft.profile = action.payload.profile;
+      break;
     case SET_LIKELIST:
       draft.likelist = action.payload.likelist;
+      break;
+    case SET_PLAYLIST:
+      draft.playlist = action.payload.playlist;
       break;
     case SET_LIKELIST_ADD:
       draft.likelist.add(action.payload.id);

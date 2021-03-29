@@ -15,6 +15,7 @@ import {
   setAudioRunning,
 } from '@/reducers/audio/actions';
 import { setLyricShow, setLyricHide } from '@/reducers/mask/actions';
+import DomHeart from '@/components/Table/Heart';
 
 export default () => {
   const dispatch = useDispatch();
@@ -143,24 +144,20 @@ export default () => {
             </button>
             <div className="domfooter_left_info pl-3">
               <div className="domfooter_left_info_name text-base flex items-center w-44">
-                <button type="button" className="group truncate">
+                <button type="button" className="group truncate" onClick={handleLyric}>
                   <span className="text-gray-600 group-hover:text-black">
                     {currentSong.name}
                     {
                       currentSong.alia.length > 0
                       && (
                         <span className="text-gray-300">
-                          (
-                          {currentSong.alia.map((alia) => alia)}
-                          )
+                          {`（${currentSong.alia}）`}
                         </span>
                       )
                     }
                   </span>
                 </button>
-                <button type="button" className="text-gray-600 hover:text-black">
-                  <IconHeart size={20} stroke={1} />
-                </button>
+                <DomHeart id={currentSong.id} />
               </div>
               <div className="truncate w-44">
                 {currentSong.ar.map((artist, index) => (

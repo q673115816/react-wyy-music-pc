@@ -7,6 +7,7 @@ import {
   SET_AUDIO_PREV,
   SET_AUDIO_NEXT,
   SET_AUDIO_RUNNING,
+  SET_AUDIO_RUNNING_TOGGLE,
   SET_AUDIO_DROPPING,
   SET_AUDIO_CURRENTTIME,
   SET_JUMPTO_AUDIO_CURRENTTIME,
@@ -85,6 +86,9 @@ export default produce((draft, action) => {
       break;
     case SET_AUDIO_RUNNING:
       draft.running = action.payload.running;
+      break;
+    case SET_AUDIO_RUNNING_TOGGLE:
+      draft.running = !draft.running;
       break;
     case SET_AUDIO_DROPPING:
       draft.dropping = action.payload.dropping;

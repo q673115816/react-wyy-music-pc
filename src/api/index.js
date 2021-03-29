@@ -63,6 +63,8 @@ export const apiPlaylistDetail = (params) => post('/playlist/detail', params);
  * @param {id, limit?, offset?} params
  */
 export const apiPlaylistSubscribers = (params) => post('/playlist/subscribers', params);
+// 收藏/取消收藏歌单 t=1||2 , id
+export const apiPlaylistSubscribe = (params) => post('/playlist/subscribe', params);
 /**
  *
  * @param {name, privacy?,type?} params

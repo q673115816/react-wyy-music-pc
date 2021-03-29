@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { apiPlaylistDetail } from '@/api';
+import { apiPlaylistDetail, apiPlaylistSubscribe } from '@/api';
 import {
   IconPlayerPlay,
   IconFolderPlus,
   IconScreenShare,
   IconCloudDownload,
   IconPlus,
+  IconCheckbox,
   IconCaretUp,
 } from '@tabler/icons';
+import { setToast } from '@/reducers/mask/actions';
 import classNames from 'classnames';
 import { transPlayCount, transSubscribeCount } from '@/common/utils';
 import DomLoading from '@/components/Loading';
 import DomAllplayGroup from '@/components/AllplayGroup';
 
+import produce from 'immer';
 import DomPlaylist from './components/Playlist';
 import DomComments from './components/Comments';
 import DomSubscribers from './components/Subscribers';
@@ -40,25 +43,40 @@ const DomMain = ({ status, id, trackIds }) => {
 };
 
 export default () => {
-  const [fulfilled, setFulfilled] = useState(false);
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
-  const [playlist, setPlaylist] = useState([]);
-  const [privileges, setPrivileges] = useState([]);
+  const [data, setData] = useState({});
+  // const [privileges, setPrivileges] = useState([]);
   const [status, setStatus] = useState('playlist');
   const { isLogin } = useSelector(({ common }) => common);
   const handleInit = async () => {
     try {
-      const {
-        code,
-        playlist,
-        privileges,
-      } = await apiPlaylistDetail({
+      const data = await apiPlaylistDetail({
+        id,
+      });
+      setData(produce((draft) => {
+        for (const key in data) {
+          draft[key] = data[key];
+        }
+      }));
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // TODO
+  const handleSub = async (isSub) => {
+    try {
+      const { code } = await apiPlaylistSubscribe({
+        t: isSub ? 2 : 1,
         id,
       });
       if (code === 200) {
-        setPlaylist(playlist);
-        setPrivileges(privileges);
-        setFulfilled(true);
+        dispatch(setToast({ toastTitle: isSub ? '取消收藏成功！' : '收藏成功！' }));
+        setData(produce((draft) => {
+          draft.playlist.subscribed = !isSub;
+        }));
       }
     } catch (error) {
       console.log(error);
@@ -68,14 +86,14 @@ export default () => {
   useEffect(() => {
     handleInit();
   }, [id]);
-  if (id && !fulfilled) return <div className="w-full h-full flex-center"><DomLoading /></div>;
+  if (loading) return <div className="w-full h-full flex-center"><DomLoading /></div>;
   return (
     <div className="domPlaylistDetail overflow-auto h-full">
       <div className="domPlaylistDetail_header p-8 flex">
         <div className="cover border rounded overflow-hidden flex-none">
           <img
             className=""
-            src={`${playlist.coverImgUrl}?params=200y200`}
+            src={`${data.playlist.coverImgUrl}?params=200y200`}
             alt=""
           />
         </div>
@@ -83,17 +101,17 @@ export default () => {
           <div className="name flex items-center">
             <span className="type text-red-500 border border-current px-1 py-0.5 rounded mr-2 leading-none">歌单</span>
             <span className="h1 select-text">
-              {playlist.name || '我喜欢的音乐'}
+              {data.playlist.name || '我喜欢的音乐'}
             </span>
           </div>
           <div className="creator flex items-center mt-2">
             <Link
-              to={`/user/${playlist.creator?.userId}`}
+              to={`/user/${data.playlist.creator?.userId}`}
               className="avator w-6 h-6 rounded-full overflow-hidden mr-2"
             >
               <img
                 className=""
-                src={`${playlist.creator?.avatarUrl}?param=50y50`}
+                src={`${data.playlist.creator?.avatarUrl}?param=50y50`}
                 alt=""
               />
             </Link>
@@ -101,7 +119,7 @@ export default () => {
               isLogin
                 ? (
                   <Link to="/" className="nickname ui_link mr-2">
-                    {playlist.creator?.nickname}
+                    {data.playlist.creator?.nickname}
                   </Link>
                 )
                 : (
@@ -111,22 +129,30 @@ export default () => {
                 )
             }
             <span className="text-gray-500">
-              {dayjs(playlist.createTime || Date.now()).format('YYYY-MM-DD')}
+              {dayjs(data.playlist.createTime || Date.now()).format('YYYY-MM-DD')}
               创建
             </span>
           </div>
-          <div className="actions space-x-2 mt-2">
+          <div className="actions flex space-x-2 mt-2">
             <DomAllplayGroup />
-            <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full btn">
+            <button
+              onClick={() => handleSub(data.playlist.subscribed)}
+              type="button"
+              className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full btn"
+            >
               {
-                playlist.subscribed
-                  ? <IconFolderPlus size={20} stroke={1} />
+                data.playlist.subscribed
+                  ? <IconCheckbox size={20} stroke={1} />
                   : <IconFolderPlus size={20} stroke={1} />
               }
               &nbsp;
-              收藏
+              {
+                data.playlist.subscribed
+                  ? '已收藏'
+                  : '收藏'
+              }
               (
-              {transSubscribeCount(playlist.subscribedCount) || 0}
+              {transSubscribeCount(data.playlist.subscribedCount) || 0}
               )
             </button>
             <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full btn">
@@ -134,7 +160,7 @@ export default () => {
               &nbsp;
               分享
               (
-              {transSubscribeCount(playlist.shareCount) || 0}
+              {transSubscribeCount(data.playlist.shareCount) || 0}
               )
             </button>
             <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full btn">
@@ -147,7 +173,7 @@ export default () => {
           <div className="space-y-1 mt-2">
             <div className="tags">
               <span>标签：</span>
-              {playlist.tags.map((tag, index) => (
+              {data.playlist.tags.map((tag, index) => (
                 <span key={tag}>
                   {index > 0 && ' / '}
                   <Link to={`/home/playlist/${tag}`} className="tag ui_link">{tag}</Link>
@@ -158,20 +184,20 @@ export default () => {
               <span className="mr-3">
                 歌曲：
                 <span className="text-gray-500">
-                  {playlist.trackCount}
+                  {data.playlist.trackCount}
                 </span>
               </span>
               <span>
                 播放：
                 <span className="text-gray-500">
-                  {transPlayCount(playlist.playCount)}
+                  {transPlayCount(data.playlist.playCount)}
                 </span>
               </span>
             </div>
             <div className={classNames('whitespace-pre-line leading-6 relative')}>
               简介：
               <span className={classNames('text-gray-500 select-text')}>
-                {playlist.description}
+                {data.playlist.description}
               </span>
               <button type="button" className="absolute top-0 right-0 text-gray-500">
                 <IconCaretUp size={16} className="fill-current" />
@@ -191,13 +217,13 @@ export default () => {
                 onClick={() => setStatus(code)}
               >
                 {nav}
-                {nav === '评论' && `(${playlist.commentCount})`}
+                {nav === '评论' && `(${data.playlist.commentCount})`}
               </button>
             ))
           }
         </div>
         <div>
-          <DomMain id={id} status={status} trackIds={playlist.trackIds.map(({ id }) => id)} />
+          <DomMain id={id} status={status} trackIds={data.playlist.trackIds.map(({ id }) => id)} />
         </div>
       </div>
     </div>

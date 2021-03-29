@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from './reducers/store';
 
 import App from './App';
+import Issues from './Issues';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,6 +14,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
+
+ReactDOM.render(<Issues />, document.getElementById('comment-root'));
 
 if (module.hot) {
   module.hot.accept();

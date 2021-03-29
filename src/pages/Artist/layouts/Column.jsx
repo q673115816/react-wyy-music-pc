@@ -72,7 +72,7 @@ export default ({ hotAlbums = [] }) => {
                   }
                 </div>
                 <div className="heart flex-none text-center">
-                  <DomHeart item={item} />
+                  <DomHeart id={item.id} />
                 </div>
                 <div className="download flex-none text-center">
                   <button type="button" className="text-gray-500 hover:text-black">

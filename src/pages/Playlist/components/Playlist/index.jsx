@@ -34,13 +34,13 @@ export default ({ trackIds = [] }) => {
         <div />
         <div />
         <div />
-        <div className="px-1 hover:bg-gray-200 text-gray-500">音乐标题</div>
-        <div className="px-1 hover:bg-gray-200 text-gray-500">歌手</div>
-        <div className="px-1 hover:bg-gray-200 text-gray-500">专辑</div>
-        <div className="px-1 hover:bg-gray-200 text-gray-500">时长</div>
+        <div className="px-1 flex items-center hover:bg-gray-200 text-gray-500">音乐标题</div>
+        <div className="px-1 flex items-center hover:bg-gray-200 text-gray-500">歌手</div>
+        <div className="px-1 flex items-center hover:bg-gray-200 text-gray-500">专辑</div>
+        <div className="px-1 flex items-center hover:bg-gray-200 text-gray-500">时长</div>
       </div>
       {songs.map((item, index) => (
-        <DomMenuCreate type="song" key={item.id}>
+        <DomMenuCreate type="song" item={item} key={item.id}>
           <div
             tabIndex="2"
             className={classNames('grid items-center focus:outline-none focus:bg-gray-200 hover:bg-gray-100 ui_grid_template', index % 2 === 0 && 'bg-gray-50')}
@@ -49,7 +49,7 @@ export default ({ trackIds = [] }) => {
               <DomRank index={index} id={item.id} />
             </div>
             <div className="px-1">
-              <DomHeart item={item} />
+              <DomHeart id={item.id} />
             </div>
             <div className="px-1">
               <DomDownload />

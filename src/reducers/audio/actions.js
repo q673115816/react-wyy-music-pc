@@ -4,6 +4,7 @@ import {
   SET_AUDIO_NEXT,
   SET_AUDIO_CURRENT,
   SET_AUDIO_RUNNING,
+  SET_AUDIO_RUNNING_TOGGLE,
   SET_AUDIO_DROPPING,
   SET_AUDIO_CURRENTTIME,
   SET_JUMPTO_AUDIO_CURRENTTIME,
@@ -41,6 +42,10 @@ export const setAudioCurrent = (payload) => ({
 export const setAudioRunning = (payload) => ({
   type: SET_AUDIO_RUNNING,
   payload,
+});
+
+export const setAudioRunningToggle = () => ({
+  type: SET_AUDIO_RUNNING_TOGGLE,
 });
 
 export const setAudioDropping = (payload) => ({
