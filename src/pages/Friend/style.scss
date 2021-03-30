@@ -1,129 +1,33 @@
 .domFriend {
-  &_header {
-    height: 54px;
-  }
-
   &_dynamic {
 
     .item {
       .content {
         .article {
-          word-break: break-all;
-          word-wrap: break-word;
-
-          .text {
-            margin-top: 0.5em;
-            font-size: 14px;
-            line-height: 20px;
-            text-align: justify;
-          }
-
-          .pic {
-            cursor: zoom-in;
-
-            img {
-              width: 100%;
-              height: 100%;
-              max-width: 245px;
-              max-height: 245px;
-              object-fit: scale-down;
-            }
-
-            &.on {
-              background-color: #F3F3F4;
-              padding: 16px 20px;
-              cursor: zoom-out;
-
+          .pics {
+            .img {
               img {
-                width: 100%;
-                height: 100%;
+                cursor: zoom-in;
               }
-            }
-          }
-
-          .info {
-            display: flex;
-            margin-top: 16px;
-            align-items: center;
-
-            .right {
-              .action {
-                cursor: pointer;
-                color: #aaa;
-
-                &.on {
-                  color: var(--themeColor);
-                }
-
-                &:hover {
-                  color: #bbb;
+              &.on {
+                img {
+                  cursor: zoom-out;
                 }
               }
             }
-          }
-
-          .comment {
-            margin-top: 10px;
-            border-radius: 10px;
-            background-color: #F3F3F4;
-            padding: 12px;
-
-            .write {
-
-              textarea {
-                width: 100%;
-                height: 70px;
-                border-radius: 10px;
-                border: 1px solid #DADADB;
-              }
-
-              .help {
-                margin-top: 10px;
-                display: flex;
-                align-items: center;
-                color: #999;
-
-                button {
-                  cursor: pointer;
-                }
-
-                .left {
-                  display: flex;
-                  align-items: center;
-                  font-size: 22px;
-                }
-
-                .right {
-                  margin-left: auto;
-                }
-              }
+            &.pic_1 {
+              grid-template: 306px / 340px;
+            }
+            &.pic_2 {
+              grid-template-columns: repeat(2, 40%);
+            }
+            &.pic_3 {
+              grid-template-columns: repeat(3, 25%);
+            }
+            &.pic_even {
+              grid-template-columns: repeat(4, 18.75%);
             }
           }
-        }
-      }
-    }
-  }
-
-  &_user {
-
-    .logined {
-      padding-top: 30px;
-      padding-bottom: 20px;
-      background-color: #F5F5F7;
-      height: 164px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .top {
-        display: flex;
-        align-items: flex-start;
-        padding: 0 20px;
-        .avatar {
-          width: 50px;
-          height: 50px;
-          border-radius: 25px;
-          overflow: hidden;
-          border: 1px solid #ccc;
         }
       }
     }

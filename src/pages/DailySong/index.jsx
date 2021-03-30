@@ -84,7 +84,22 @@ export default () => {
           <div className="tbody grid">
             {
               data.dailySongs?.map((item, index) => (
-                <DomMenuCreate type="song" item={item} key={item.name + item.id}>
+                <DomMenuCreate
+                  sechma={[
+                    '评论',
+                    '播放',
+                    '下一首播放',
+                    'divide',
+                    '收藏到歌单',
+                    '分享',
+                    '复制链接',
+                    '不感兴趣',
+                    '下载',
+                  ]}
+                  type="song"
+                  item={item}
+                  key={item.name + item.id}
+                >
                   <div
                     tabIndex="2"
                     className={classNames('item grid items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template', { 'bg-gray-50': index % 2 === 0 })}

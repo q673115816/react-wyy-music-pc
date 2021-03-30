@@ -214,8 +214,7 @@ export default () => {
   const { isLogin, baseUrl } = useSelector(({ common }) => common);
   const { profile, playlist } = useSelector(({ account }) => account);
   const {
-    globalLastX,
-    globalLastY,
+    globalInset,
     contextMenuX,
     contextMenuY,
     contextMenuItem,
@@ -275,7 +274,7 @@ export default () => {
       <ul
         id="contextmenu"
         className="ui_contextmenu"
-        style={{ left: contextMenuX - globalLastX, top: contextMenuY - globalLastY }}
+        style={{ left: contextMenuX - globalInset.x, top: contextMenuY - globalInset.y }}
       >
         {
           Build.map(([item, Dom]) => (

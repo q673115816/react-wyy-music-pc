@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useEffect, useState,
-} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +9,6 @@ import DomHeader from './layout/Header';
 import DomMain from './layout/Main';
 import DomFooter from './layout/Footer';
 
-import { setGlobalInset } from './reducers/mask/actions';
 import DialogLogin from './components/Dialog/Login';
 import DialogShare from './components/Dialog/Share';
 import DialogShareWX from './components/Dialog/ShareWX';
@@ -26,6 +23,7 @@ import Contextmenu from './components/Contextmenu';
 import HeaderSearch from './components/HeaderSearch';
 import useKeyActions from './custom/useKeyActions';
 import DomLrc from './pages/Lrc';
+import { setGlobalRect } from './reducers/inset/actions';
 
 const MINWIDTH = 1022;
 const MINHEIGHT = 670;
@@ -36,13 +34,7 @@ export default () => {
   const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
   const { theme } = useSelector(({ setting }) => setting);
   const {
-    POSITION,
-    SCREEN,
     toastTitle,
-    globalLastX,
-    globalLastY,
-    globalWidth,
-    globalHeight,
     lyricVisibility,
     searchVisibility,
     contextMenuVisibility,
@@ -53,41 +45,18 @@ export default () => {
     dialogCreatePlaylistVisibility,
     dialogUnSubscriptionVisibility,
   } = useSelector(({ mask }) => mask);
-  const [dragger, setDragger] = useState(false);
-  const [dragInset, setDragInset] = useState({ x: 0, y: 0 });
-  const [dragStartInset, setDragStartInset] = useState({ x: 0, y: 0 });
-  const [dragLastInset, setDragLastInset] = useState({ x: 0, y: 0 });
+  const {
+    POSITION,
+    SCREEN,
+    globalX,
+    globalY,
+    globalWidth,
+    globalHeight,
+  } = useSelector(({ inset }) => inset);
   const [resizer, setResizer] = useState(false);
   const [resizeStartInset, setResizeStartInset] = useState({ x: 0, y: 0 });
-  const [resizeInitRect, setResizeInitRect] = useState({ width: MINWIDTH, height: MINHEIGHT });
+  const [resizeInitRect, setResizeInitRect] = useState({ width: globalWidth, height: globalHeight });
   const [resizeRect, setResizeRect] = useState(resizeInitRect);
-  const dragdown = useCallback((e) => {
-    setDragStartInset({
-      x: e.clientX,
-      y: e.clientY,
-    });
-    setDragger(true);
-  }, []);
-
-  const dragmove = (e) => {
-    e.preventDefault();
-    if (dragger) {
-      const x = e.clientX - dragStartInset.x + dragLastInset.x;
-      const y = e.clientY - dragStartInset.y + dragLastInset.y;
-      setDragInset({
-        x, y,
-      });
-      dispatch(setGlobalInset({
-        globalLastX: x,
-        globalLastY: y,
-      }));
-    }
-  };
-
-  const dragup = () => {
-    setDragLastInset(dragInset);
-    setDragger(false);
-  };
 
   const resizedown = (e) => {
     setResizer(true);
@@ -99,19 +68,19 @@ export default () => {
   const resizemove = (e) => {
     e.preventDefault();
     if (resizer) {
-      const x = e.clientX - resizeStartInset.x;
-      const y = e.clientY - resizeStartInset.y;
+      const x = e.clientX - resizeStartInset.x + resizeInitRect.width;
+      const y = e.clientY - resizeStartInset.y + resizeInitRect.height;
 
-      const nextwidth = resizeInitRect.width + x;
-      const nextheight = resizeInitRect.height + y;
+      const nextwidth = x > MINWIDTH ? x : MINWIDTH;
+      const nextheight = y > MINHEIGHT ? y : MINHEIGHT;
       setResizeRect({
-        width: nextwidth > MINWIDTH ? nextwidth : MINWIDTH,
-        height: nextheight > MINHEIGHT ? nextheight : MINHEIGHT,
+        width: nextwidth,
+        height: nextheight,
       });
-      // dispatch(setGlobalInset({
-      //   globalLastX: x,
-      //   globalLastY: y,
-      // }));
+      dispatch(setGlobalRect({
+        width: nextwidth,
+        height: nextheight,
+      }));
     }
   };
   const resizeup = () => {
@@ -135,19 +104,19 @@ export default () => {
           style={({
             '--themeColor': `var(--${theme}, --themeRed)`,
             ...(SCREEN === 'normal' ? {
-              '--WIDTH': `${resizeRect.width}px`,
-              '--HEIGHT': `${resizeRect.height}px`,
+              '--WIDTH': `${globalWidth}px`,
+              '--HEIGHT': `${globalHeight}px`,
             } : {
               '--WIDTH': '100%',
               '--HEIGHT': '100%',
             }),
             ...(POSITION ? {
-              left: `${dragInset.x}px`,
-              top: `${dragInset.y}px`,
+              left: `${globalX}px`,
+              top: `${globalY}px`,
             } : {}),
           })}
         >
-          <DomHeader handleDrap={dragdown} />
+          <DomHeader />
           <Switch>
             <Route path="/player/:type/:vid">
               <DomPlayer />
@@ -185,13 +154,7 @@ export default () => {
             )}
         </div>
         {loginVisibility && <DialogLogin />}
-        {dragger && (
-          <div
-            className="absolute inset-0"
-            onMouseUp={dragup}
-            onMouseMove={dragmove}
-          />
-        )}
+
         {
           resizer && (
             <div

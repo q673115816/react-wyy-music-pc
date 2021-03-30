@@ -1,34 +1,18 @@
-import { LOCALSTORAGE } from '@/common/utils';
 import {
   SET_CONTEXTMENU_SHOW,
   SET_CONTEXTMENU_SHARE_LINK,
   SET_SEARCH_SHOW,
   SET_DIALOG_RESET,
   SET_DIALOG_SHARE_SHOW,
-  SET_GLOBAL_INSET,
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_DIALOG_HOME_ORDER_SHOW,
-  SET_SCREEN_FULL,
-  SET_SCREEN_NORMAL,
-  SET_POSITION_TRUE,
-  SET_POSITION_FALSE,
   SET_TOAST,
   SET_LYRIC_SHOW,
   SET_LYRIC_HIDE,
 } from './actionTypes';
-
-const globalState = {
-  POSITION: true,
-  SCREEN: 'normal',
-  globalVisibility: false,
-  globalLastX: 0,
-  globalLastY: 0,
-  globalWidth: LOCALSTORAGE('width', 1022),
-  globalHeight: LOCALSTORAGE('height', 670),
-};
 
 const visibilityState = {
   lyricVisibility: false,
@@ -64,7 +48,6 @@ const toastState = {
 };
 
 const initialState = {
-  ...globalState,
   ...visibilityState,
   ...maskState,
   ...shareState,
@@ -73,11 +56,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_GLOBAL_INSET:
-      return {
-        ...state,
-        ...action.payload,
-      };
     case SET_CONTEXTMENU_SHOW:
       return {
         ...state,
@@ -156,26 +134,6 @@ export default (state = initialState, action) => {
         ...maskState,
       };
 
-    case SET_SCREEN_FULL:
-      return {
-        ...state,
-        SCREEN: 'full',
-      };
-    case SET_SCREEN_NORMAL:
-      return {
-        ...state,
-        SCREEN: 'normal',
-      };
-    case SET_POSITION_TRUE:
-      return {
-        ...state,
-        POSITION: true,
-      };
-    case SET_POSITION_FALSE:
-      return {
-        ...state,
-        POSITION: false,
-      };
     case SET_TOAST:
       return {
         ...state,

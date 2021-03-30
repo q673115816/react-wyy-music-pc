@@ -5,7 +5,7 @@ import {
   IconPlayerPlay,
 } from '@tabler/icons';
 import classNames from 'classnames';
-import { setPositionFalse, setPositionTrue } from '@/reducers/mask/actions';
+import { setPositionFalse, setPositionTrue } from '@/reducers/inset/actions';
 import { useDispatch } from 'react-redux';
 import DomControl from './Control';
 import DomTiming from './Timing';

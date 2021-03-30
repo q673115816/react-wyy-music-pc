@@ -8,7 +8,21 @@ import {
   apiCommentMusic,
 } from '@/api';
 
-export default ({ children, item = {}, type = 'song' }) => {
+const defaultSechma = [
+  '评论',
+  '播放',
+  '下一首播放',
+  'divide',
+  '收藏到歌单',
+  '分享',
+  '复制链接',
+  '不感兴趣',
+  '下载',
+];
+
+export default ({
+  children, item = {}, type = 'song', sechma = [],
+}) => {
   const dispatch = useDispatch();
   const [state, setstate] = useState();
   const handleDoubleClick = (item) => {
@@ -28,17 +42,7 @@ export default ({ children, item = {}, type = 'song' }) => {
         contextMenuTotal: total,
         contextMenuType: type,
         contextMenuItemId: item.id,
-        contextMenuSechma: [
-          '评论',
-          '播放',
-          '下一首播放',
-          'divide',
-          '收藏到歌单',
-          '分享',
-          '复制链接',
-          '不感兴趣',
-          '下载',
-        ],
+        contextMenuSechma: sechma,
       }));
     } catch (error) {
       console.log(error);

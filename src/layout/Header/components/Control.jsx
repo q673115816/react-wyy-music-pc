@@ -9,11 +9,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setScreenFull, setScreenNormal, setPositionFalse, setPositionTrue,
-} from '@/reducers/mask/actions';
+} from '@/reducers/inset/actions';
 
 export default memo(() => {
   const dispatch = useDispatch();
-  const { SCREEN } = useSelector(({ mask }) => mask);
+  const { SCREEN } = useSelector(({ inset }) => inset);
   const handleFullScreen = async () => {
     await document.documentElement.webkitRequestFullScreen();
     dispatch(setScreenFull());

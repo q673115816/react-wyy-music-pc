@@ -1,4 +1,11 @@
-import { SET_FRIEND_INIT, SET_FRIEND_EVENT, SET_COMMENT_EVENT } from './actionTypes';
+import {
+  SET_FRIEND_INIT,
+  SET_FRIEND_EVENT,
+  SET_FRIEND_EVENT_ADD,
+  SET_FRIEND_EVENT_RESET,
+  SET_COMMENT_EVENT,
+  SET_FRIEND_HOT,
+} from './actionTypes';
 
 const initialState = {
   hot: [],
@@ -13,10 +20,20 @@ export default (state = initialState, action) => {
         ...state,
         ...action.payload,
       };
-    case SET_FRIEND_EVENT:
+    case SET_FRIEND_HOT:
       return {
         ...state,
         ...action.payload,
+      };
+    case SET_FRIEND_EVENT_ADD:
+      return {
+        ...state,
+        event: [...state.event, ...action.payload.event],
+      };
+    case SET_FRIEND_EVENT_RESET:
+      return {
+        ...state,
+        event: [],
       };
     case SET_COMMENT_EVENT:
       return {

@@ -92,6 +92,16 @@ export default memo(({ songs = [], multimatch = { orders: [] } }) => {
         <div className="tbody">
           {songs.map((item, index) => (
             <DomMenuCreate
+              sechma={[
+                '评论',
+                '播放',
+                '下一首播放',
+                'divide',
+                '收藏到歌单',
+                '分享',
+                '复制链接',
+                '下载',
+              ]}
               item={item}
               type="song"
               key={item.id}

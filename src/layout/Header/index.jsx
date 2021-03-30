@@ -1,8 +1,10 @@
 import React, {
   useEffect, memo,
+  useState,
 } from 'react';
+import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   setContriesCodeList,
   setIsLogin,
@@ -23,6 +25,8 @@ import {
   apiAlbumSublist,
   apiPlaylistMylike,
 } from '@/api';
+import { setGlobalInset } from '@/reducers/inset/actions';
+
 import {
   IconMicrophone,
 } from '@tabler/icons';
@@ -33,8 +37,39 @@ import DomAccount from './components/Account';
 import DomControl from './components/Control';
 import DomFunction from './components/Function';
 
-export default memo(({ handleDrap }) => {
+export default memo(() => {
   const dispatch = useDispatch();
+
+  const [dragger, setDragger] = useState(false);
+  const { globalX, globalY } = useSelector(({ inset }) => inset);
+  const [dragInset, setDragInset] = useState({ x: 0, y: 0 });
+  const [dragStartInset, setDragStartInset] = useState({ x: 0, y: 0 });
+  const [dragLastInset, setDragLastInset] = useState(() => ({ x: globalX, y: globalY }));
+  const dragdown = (e) => {
+    setDragStartInset({
+      x: e.clientX,
+      y: e.clientY,
+    });
+    setDragger(true);
+  };
+
+  const dragmove = (e) => {
+    if (dragger) {
+      const x = e.clientX - dragStartInset.x + dragLastInset.x;
+      const y = e.clientY - dragStartInset.y + dragLastInset.y;
+      setDragInset({
+        x, y,
+      });
+      dispatch(setGlobalInset({
+        x, y,
+      }));
+    }
+  };
+
+  const dragup = () => {
+    setDragLastInset(dragInset);
+    setDragger(false);
+  };
 
   const handleGetCountriesCodeList = async () => {
     try {
@@ -96,10 +131,18 @@ export default memo(({ handleDrap }) => {
       <button
         type="button"
         className="absolute inset-0 z-0 w-full focus:outline-none cursor-auto"
-        onMouseDown={(e) => handleDrap(e)}
+        onMouseDown={dragdown}
       >
-        {}
+        { }
       </button>
+      {
+        dragger
+        && createPortal(<div
+          className="absolute inset-0"
+          onMouseMove={dragmove}
+          onMouseUp={dragup}
+        />, document.querySelector('#help-root'))
+      }
       <Link
         to="/"
         className="domHeader_logo tracking-widest text-white text-base z-10"

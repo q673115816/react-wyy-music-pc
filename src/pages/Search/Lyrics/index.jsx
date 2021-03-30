@@ -28,7 +28,21 @@ export default ({ songs: lyrics = [] }) => (
     <div className="tbody">
       {
         lyrics.map((item, index) => (
-          <DomMenuCreate item={item} type="song" key={item.id}>
+          <DomMenuCreate
+            sechma={[
+              '评论',
+              '播放',
+              '下一首播放',
+              'divide',
+              '收藏到歌单',
+              '分享',
+              '复制链接',
+              '下载',
+            ]}
+            item={item}
+            type="song"
+            key={item.id}
+          >
             <div
               tabIndex="2"
               className={classNames('item grid items-center hover:bg-gray-100 focus:outline-none focus:bg-gray-200 ui_grid_template', { 'bg-gray-50': index % 2 === 0 })}

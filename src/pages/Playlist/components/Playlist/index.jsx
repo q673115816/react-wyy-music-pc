@@ -40,7 +40,22 @@ export default ({ trackIds = [] }) => {
         <div className="px-1 flex items-center hover:bg-gray-200 text-gray-500">时长</div>
       </div>
       {songs.map((item, index) => (
-        <DomMenuCreate type="song" item={item} key={item.id}>
+        <DomMenuCreate
+          sechma={[
+            '评论',
+            '播放',
+            '下一首播放',
+            'divide',
+            '收藏到歌单',
+            '分享',
+            '复制链接',
+            '不感兴趣',
+            '下载',
+          ]}
+          type="song"
+          item={item}
+          key={item.id}
+        >
           <div
             tabIndex="2"
             className={classNames('grid items-center focus:outline-none focus:bg-gray-200 hover:bg-gray-100 ui_grid_template', index % 2 === 0 && 'bg-gray-50')}

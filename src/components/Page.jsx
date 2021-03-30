@@ -99,6 +99,7 @@ export default memo(({
   if (!total || !page || !func) return null;
   page = Number(page);
   total = Number(total);
+  if (total === 1) return null;
   return (
     <div className="flex items-center justify-center pt-10 pb-10 space-x-1 flex-wrap">
       <button

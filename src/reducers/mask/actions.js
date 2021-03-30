@@ -4,16 +4,11 @@ import {
   SET_SEARCH_SHOW,
   SET_DIALOG_RESET,
   SET_DIALOG_SHARE_SHOW,
-  SET_GLOBAL_INSET,
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_DIALOG_HOME_ORDER_SHOW,
-  SET_SCREEN_FULL,
-  SET_SCREEN_NORMAL,
-  SET_POSITION_TRUE,
-  SET_POSITION_FALSE,
   SET_TOAST,
   SET_LYRIC_SHOW,
   SET_LYRIC_HIDE,
@@ -21,11 +16,6 @@ import {
 
 export const setToast = (payload) => ({
   type: SET_TOAST,
-  payload,
-});
-
-export const setGlobalInset = (payload) => ({
-  type: SET_GLOBAL_INSET,
   payload,
 });
 
@@ -76,22 +66,6 @@ export const setDialogHomeOrderShow = (payload) => ({
 
 export const setDialogReset = () => ({
   type: SET_DIALOG_RESET,
-});
-
-export const setScreenFull = () => ({
-  type: SET_SCREEN_FULL,
-});
-
-export const setScreenNormal = () => ({
-  type: SET_SCREEN_NORMAL,
-});
-
-export const setPositionTrue = () => ({
-  type: SET_POSITION_TRUE,
-});
-
-export const setPositionFalse = () => ({
-  type: SET_POSITION_FALSE,
 });
 
 export const setLyricShow = () => ({
