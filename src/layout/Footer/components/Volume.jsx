@@ -6,13 +6,13 @@ import {
   IconVolume,
   IconVolume3,
 } from '@tabler/icons';
-import { setVolume, setBeforeMuted } from '@/reducers/audio/actions';
+import { setVolume, setBeforeMuted } from '@/reducers/volume/actions';
 import { createPortal } from 'react-dom';
 import { computedPositionPercentage } from '@/common/utils';
 
 export default () => {
   const dispatch = useDispatch();
-  const { volume, beforeMuted } = useSelector(({ audio }) => audio);
+  const { volume, beforeMuted } = useSelector(({ volume }) => volume);
   const RefProgress = useRef();
   const RefRatio = useRef();
   const [muted, setMuted] = useState(() => volume === 0);

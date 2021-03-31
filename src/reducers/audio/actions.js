@@ -1,4 +1,5 @@
 import {
+  SET_SONG,
   SET_AUDIO_IMMEDIATE,
   SET_AUDIO_PLAYLIST,
   SET_AUDIO_PLAYLIST_ADD,
@@ -16,12 +17,13 @@ import {
   SET_AUDIO_PLAYLIST_CLEAR,
   SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_PATTERN,
-  SET_VOLUME,
-  SET_BEFORE_MUTED,
-  SET_VOLUME_PLUS_TEN,
-  SET_VOLUME_SUB_TEN,
   SET_LYRIC_TEXT,
 } from './actionTypes';
+
+export const setSong = (payload) => ({
+  type: SET_SONG,
+  payload,
+});
 
 export const setAudioImmediate = (payload) => ({
   type: SET_AUDIO_IMMEDIATE,
@@ -100,24 +102,6 @@ export const setAudioHistoryClear = () => ({
 
 export const setAudioPattern = () => ({
   type: SET_AUDIO_PATTERN,
-});
-
-export const setVolume = (payload) => ({
-  type: SET_VOLUME,
-  payload,
-});
-
-export const setVolumePlusTen = () => ({
-  type: SET_VOLUME_PLUS_TEN,
-});
-
-export const setVolumeSubTen = () => ({
-  type: SET_VOLUME_SUB_TEN,
-});
-
-export const setBeforeMuted = (payload) => ({
-  type: SET_BEFORE_MUTED,
-  payload,
 });
 
 export const setLyricText = (payload) => ({

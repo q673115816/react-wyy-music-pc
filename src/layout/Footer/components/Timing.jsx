@@ -11,9 +11,17 @@ export default () => {
   const dispatch = useDispatch();
   const [isDrop, setIsDrop] = useState(false);
   const {
-    currentTime, currentSong, buffered,
+    currentTime, currentSong, buffered, song,
   } = useSelector(({ audio }) => audio);
 
+  // const memoPlayArea = useMemo(() => {
+  //   song?.[0]?.freeTrialInfo ? {
+
+  //   } : {
+  //     start: '0%',
+  //     end: '100%',
+  //   };
+  // }, [song]);
   const RefProgress = useRef();
   const computedPosition = (e) => {
     const percentage = computedPositionPercentage(e, RefProgress.current);
@@ -52,8 +60,19 @@ export default () => {
         onClick={handleClick}
         ref={RefProgress}
       >
-        <div className="buffered absolute h-full l-0" style={{ width: currentSong.dt ? `${buffered / currentSong.dt * 1000 * 100}%` : 0 }} />
-        <div className="played relative h-full ui_theme_bg_color" style={{ width: `${currentSong.dt ? currentTime / (currentSong.dt / 1000) * 100 : 0}%` }}>
+        <div
+          className="buffered absolute h-full"
+          style={{
+            left: 0,
+            right: currentSong.dt ? `${buffered / currentSong.dt * 1000 * 100}%` : 0,
+          }}
+        />
+        <div
+          className="played relative h-full ui_theme_bg_color"
+          style={{
+            width: `${currentSong.dt ? currentTime / (currentSong.dt / 1000) * 100 : 0}%`,
+          }}
+        >
           <button
             type="button"
             className="absolute opacity-0 group-hover:opacity-100 inset-y-0 -right-1 m-auto ui_theme_bg_color rounded-full w-2 h-2 overflow-hidden shadow"

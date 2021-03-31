@@ -1,0 +1,4 @@
+export const SET_VOLUME = 'SET_VOLUME';
+export const SET_VOLUME_PLUS_TEN = 'SET_VOLUME_PLUS_TEN';
+export const SET_VOLUME_SUB_TEN = 'SET_VOLUME_SUB_TEN';
+export const SET_BEFORE_MUTED = 'SET_BEFORE_MUTED';

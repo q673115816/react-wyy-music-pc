@@ -21,29 +21,22 @@ import {
 import DomCommentsList from '@/components/CommentsList';
 import './style.scss';
 import classNames from 'classnames';
-// TOTO
-const DomLrc = () => {
+
+const DomLrcContext = ({ lrc = '', tlyric = '' }) => {
   const {
-    lyric,
     currentTime,
   } = useSelector(({ audio }) => audio);
-  const {
-    tlyric: { lyric: tlyric } = { lyric: '' },
-    lrc: { lyric: lrc } = { lyric: '' },
-  } = lyric;
-  if (!lrc) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
-
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const RefScroll = useRef();
   const RefCurrentLine = useRef();
+  const [currentLineIndex, setCurrentLineIndex] = useState(0);
 
   const reg = /^\[\d*:\d*.\d*\].*/mg;
-  const tlyricList = useMemo(() => new Map(tlyric
+  const tlyricList = useMemo(() => new Map(tlyric.trim() ? tlyric
     .match(reg)
     .map((line) => {
       const { time, word } = line.match(/^\[(?<time>\d*:\d*.\d*)\](?<word>.*)/).groups;
       return [time, word];
-    })), [lyric]);
+    }) : []), [tlyric]);
 
   const fnLrc = (line) => {
     const {
@@ -61,7 +54,7 @@ const DomLrc = () => {
   };
   const lrcList = useMemo(() => lrc
     .match(reg)
-    .map(fnLrc), [lyric]);
+    .map(fnLrc), [lrc]);
   useEffect(() => {
     setCurrentLineIndex(
       lrcList
@@ -71,7 +64,7 @@ const DomLrc = () => {
 
   useEffect(() => {
     RefScroll.current.scrollTop = 0;
-  }, [lyric]);
+  }, [lrc]);
 
   useEffect(() => {
     if (RefCurrentLine?.current) {
@@ -97,6 +90,18 @@ const DomLrc = () => {
         ))}
     </div>
   );
+};
+
+const DomLrc = () => {
+  const {
+    lyric,
+  } = useSelector(({ audio }) => audio);
+  const {
+    tlyric: { lyric: tlyric } = { lyric: '' },
+    lrc: { lyric: lrc } = { lyric: '' },
+  } = lyric;
+  if (!lrc) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
+  return <DomLrcContext {...{ lrc, tlyric }} />;
 };
 
 const DomRight = ({ simiSong = [] }) => (

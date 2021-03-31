@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   IconArrowsDiagonal,
@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { apiSongUrl, apiLyric } from '@/api';
 import {
+  setSong,
   setAudioCurrentTime,
   setAudioBuffered,
   setAudioCurrent,
@@ -21,7 +22,6 @@ import DomHeart from '@/components/Table/Heart';
 export default () => {
   const dispatch = useDispatch();
   const {
-    volume,
     currentSong,
     playlist,
     running,
@@ -30,6 +30,7 @@ export default () => {
     jumpTime,
     pattern,
   } = useSelector(({ audio }) => audio);
+  const { volume } = useSelector(({ volume }) => volume);
   const RefDropping = useRef();
   const { lyricVisibility } = useSelector(({ mask }) => mask);
   const refAudio = useRef();
@@ -40,6 +41,7 @@ export default () => {
         id: currentSong.id,
       });
       refAudio.current.src = data[0].url;
+      dispatch(setSong({ song: data[0] }));
       const lyric = await apiLyric({
         id: currentSong.id,
       });

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setVolumePlusTen, setVolumeSubTen, setAudioRunningToggle } from '@/reducers/audio/actions';
+import { setAudioRunningToggle } from '@/reducers/audio/actions';
+import { setVolumePlusTen, setVolumeSubTen } from '@/reducers/volume/actions';
 
 export default () => {
   const dispatch = useDispatch();
