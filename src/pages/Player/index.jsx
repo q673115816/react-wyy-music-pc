@@ -19,6 +19,7 @@ import {
 import './style.scss';
 
 import { transPlayCount } from '@/common/utils';
+import { setAudioRunningPause } from '@/reducers/audio/actions';
 
 import {
   apiFollow,
@@ -81,6 +82,9 @@ export default () => {
     return <Redirect to="/" />;
   }
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setAudioRunningPause());
+  }, []);
   const { mvSublist } = useSelector(({ account }) => account);
   // const currentInit = type === 'video' ? UseVideoInit : UseMVInit;
   const {
@@ -311,9 +315,7 @@ export default () => {
             >
               <IconScreenShare size={20} stroke={1} />
               分享
-              (
-              {detailInfo.shareCount}
-              )
+              {`(${detailInfo.shareCount})`}
             </button>
           </div>
           <div className="domVideoDetail_main mt-8">
@@ -321,9 +323,7 @@ export default () => {
               <Link to={`/comment/${type}/${vid}`} className="h1 font-bold">评论</Link>
                   &nbsp;
               <span>
-                (
-                {detail.commentCount}
-                )
+                {`(${detail.commentCount})`}
               </span>
             </div>
             <div className="domVideoDetail_feedback mb-10">

@@ -236,18 +236,6 @@
   align-items: center;
 }
 
-.dialogMask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .ui_dialog {
   width: min-content;
   height: min-content;

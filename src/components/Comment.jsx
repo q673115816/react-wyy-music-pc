@@ -7,7 +7,7 @@ import { transTextEmoji } from '@/common/faces';
 export default ({ item = {}, handleLike }) => (
   <div className="ui_comment flex py-4 group">
     <Link to={`/user/${item.user.userId}`} className="ui_comment_avatar w-10 h-10 flex-none relative">
-      <img className="border rounded-full" src={item.user.avatarUrl} alt="" />
+      <img className="border rounded-full w-full h-full" src={`${item.user.avatarUrl}?param=40y40`} alt="" />
       {
         item.user?.avatarDetail?.identityIconUrl
         && (

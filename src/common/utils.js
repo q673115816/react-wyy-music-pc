@@ -1,10 +1,10 @@
 export const transPlayCount = (playCount) => {
-  if (!playCount) return null;
+  if (!playCount) return 0;
   return String(playCount).replace(/(?<=\d{2,})\d{4}$/, '万');
 };
 
 export const transSubscribeCount = (subscribeCount) => {
-  if (!subscribeCount) return null;
+  if (!subscribeCount) return 0;
   return String(subscribeCount).replace(/(?<=\d{1,})\d{4}$/, '万');
 };
 

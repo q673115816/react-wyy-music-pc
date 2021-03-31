@@ -3,26 +3,24 @@ import {
   IconFolderPlus,
 } from '@tabler/icons';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {
   apiRecommendSongs,
 } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
-import { useDispatch } from 'react-redux';
 import useLoginStatus from '@/custom/useLoginStatus';
 import './style.scss';
 import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';
-import DomAllplayGroup from '@/components/AllplayGroup';
+import DomGroupPlay from '@/components/GroupPlay';
 import DomName from '@/components/Table/Name';
 import DomArtist from '@/components/Table/Artists';
+import DomAlbum from '@/components/Table/Album';
 import DomMenuCreate from '@/components/MenuCreate';
 
 export default () => {
   useLoginStatus();
-  const dispatch = useDispatch();
   const [data, setData] = useState([]);
   const handleInit = async () => {
     try {
@@ -31,13 +29,6 @@ export default () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleAllPlay = () => {
-    alert('asd');
-  };
-  const handleAllAdd = () => {
-    alert('asd');
   };
 
   useEffect(() => {
@@ -58,7 +49,7 @@ export default () => {
           </div>
         </div>
         <div className="actions flex mt-5">
-          <DomAllplayGroup {...{ handleAllPlay, handleAllAdd }} />
+          <DomGroupPlay playlist={data.dailySongs} />
           &nbsp;
           &nbsp;
           <button type="button" className="inline-flex items-center justify-center border px-3 h-8 rounded-full hover:bg-gray-100">
@@ -113,20 +104,9 @@ export default () => {
                     <div className="download">
                       <DomDownload />
                     </div>
-                    <div className="name px-2">
-                      <DomName item={item} />
-                    </div>
-                    <div className="artist truncate px-2">
-                      <DomArtist artists={item.ar} />
-                    </div>
-                    <div className="album truncate px-2">
-                      <Link
-                        className="ui_text_black_hover"
-                        to={`/playlist/album/${item.al.id}`}
-                      >
-                        {item.al.name}
-                      </Link>
-                    </div>
+                    <DomName item={item} className="px-2" />
+                    <DomArtist artists={item.ar} className="px-2" />
+                    <DomAlbum className="px-2" name={item.al.name} id={item.al.id} />
                     <div className="duration text-gray-400 truncate px-2">
                       {dayjs(item.dt).format('mm:ss')}
                     </div>

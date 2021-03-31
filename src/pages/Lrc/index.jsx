@@ -23,27 +23,57 @@ import './style.scss';
 import classNames from 'classnames';
 // TOTO
 const DomLrc = () => {
-  const { lrc: { lyric = '' } = {}, currentTime } = useSelector(({ audio }) => audio);
-  if (!lyric) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
-  // console.log(lrc.match(/^\[(\d:\.)\]/m));
-  // console.log(lrc.match(/^\[\d{2}:\d{2}\.\d{3}\]/mg));
+  const {
+    lyric,
+    currentTime,
+  } = useSelector(({ audio }) => audio);
+  const {
+    tlyric: { lyric: tlyric } = { lyric: '' },
+    lrc: { lyric: lrc } = { lyric: '' },
+  } = lyric;
+  if (!lrc) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
+
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const RefScroll = useRef();
   const RefCurrentLine = useRef();
-  const lyricList = lyric
-    .match(/^\[\d*:\d*.\d*\].*/mg)
-    .map((line) => line.match(/^\[(?<min>\d*):(?<sec>\d*.\d*)\](?<word>.*)/).groups);
-  // console.log(lrcs.split('\n'));
+
+  const reg = /^\[\d*:\d*.\d*\].*/mg;
+  const tlyricList = useMemo(() => new Map(tlyric
+    .match(reg)
+    .map((line) => {
+      const { time, word } = line.match(/^\[(?<time>\d*:\d*.\d*)\](?<word>.*)/).groups;
+      return [time, word];
+    })), [lyric]);
+
+  const fnLrc = (line) => {
+    const {
+      time, min, sec, word,
+    } = line.match(/^\[(?<time>(?<min>\d*):(?<sec>\d*.\d*))\](?<word>.*)/).groups;
+
+    return {
+      min,
+      sec,
+      word: (tlyricList?.has(time))
+        ? `${word}
+        ${tlyricList.get(time)}`
+        : word,
+    };
+  };
+  const lrcList = useMemo(() => lrc
+    .match(reg)
+    .map(fnLrc), [lyric]);
   useEffect(() => {
     setCurrentLineIndex(
-      lyricList
+      lrcList
         .findIndex(({ min, sec }) => (min * 60 + sec * 1) > currentTime) - 1,
     );
   }, [currentTime]);
 
   useEffect(() => {
-    // console.log(RefCurrentLine);
-    // RefCurrentLine.current.offsetTop
+    RefScroll.current.scrollTop = 0;
+  }, [lyric]);
+
+  useEffect(() => {
     if (RefCurrentLine?.current) {
       RefScroll.current.scrollTop = RefCurrentLine.current.offsetTop - (RefScroll.current.clientHeight / 2);
     }
@@ -51,15 +81,15 @@ const DomLrc = () => {
   return (
     <div
       style={{ scrollBehavior: 'smooth' }}
-      className="whitespace-pre-line text-gray-500 overflow-auto overscroll-contain h-full"
+      className="whitespace-pre-line select-text text-gray-500 space-y-2 overflow-auto overscroll-contain h-full"
       ref={RefScroll}
     >
-      {lyricList
+      {lrcList
         .map(({ min, sec, word }, index) => (
           <div
             ref={currentLineIndex === index ? RefCurrentLine : null}
-            key={min * 60 + sec * 1}
-            className={classNames('leading-8', currentLineIndex === index && 'font-bold text-base text-black')}
+            key={min * 60 + sec * 1 + word}
+            className={classNames('leading-5', currentLineIndex === index && 'font-bold text-black')}
           >
             {word.trim()}
             &nbsp;
@@ -209,9 +239,9 @@ export default memo(() => {
               </span>
             </div>
             <div className="relative">
-              <div className="absolute left-0 right-0 top-0 h-8 bg-gradient-to-b from-white to-transparent z-10" />
-              <div className="absolute left-0 right-0 bottom-0 h-8 bg-gradient-to-t from-white to-transparent z-10" />
-              <div className="relative mt-4 text-sm" style={{ height: 330 }}>
+              <div className="absolute pointer-events-none left-0 right-0 top-0 h-6 bg-gradient-to-b from-white to-transparent z-10" />
+              <div className="absolute pointer-events-none left-0 right-0 bottom-0 h-6 bg-gradient-to-t from-white to-transparent z-10" />
+              <div className="relative mt-4" style={{ height: 330 }}>
                 <DomLrc />
               </div>
             </div>

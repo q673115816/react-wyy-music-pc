@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IconPlayerPlay } from '@tabler/icons';
 import { transPlayCount } from '@/common/utils';
 import { SymbolToday } from '@/components/Symbol';
+import DomPlaylistReplace from '@/components/GroupPlay/PlaylistReplace';
 
 export default ({ playlist = [] }) => (
   <div className="domHome_recommend_playlist grid gap-5 grid-cols-5 mt-4">
@@ -27,8 +28,9 @@ export default ({ playlist = [] }) => (
           <div className="cover relative group rounded-lg overflow-hidden border">
             <Link to={`/playlist/music/${item.id}`}>
               <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
-              <div className="absolute top-0 right-0 m-1.5">
-                <span className="text-white">
+              <div className="absolute top-0 right-0 my-0.5 mx-2">
+                <span className="text-white flex-center">
+                  <IconPlayerPlay size={12} />
                   {transPlayCount(item.playcount)}
                 </span>
               </div>

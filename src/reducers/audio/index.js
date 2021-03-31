@@ -4,9 +4,13 @@ import { audioPattern } from '@/common/config';
 import produce from 'immer';
 import {
   SET_AUDIO_IMMEDIATE,
+  SET_AUDIO_PLAYLIST,
+  SET_AUDIO_PLAYLIST_ADD,
   SET_AUDIO_PREV,
   SET_AUDIO_NEXT,
   SET_AUDIO_RUNNING,
+  SET_AUDIO_RUNNING_PLAY,
+  SET_AUDIO_RUNNING_PAUSE,
   SET_AUDIO_RUNNING_TOGGLE,
   SET_AUDIO_DROPPING,
   SET_AUDIO_CURRENTTIME,
@@ -32,7 +36,7 @@ const resetState = {
   jumpTime: null,
   buffered: 0,
   volume: 100,
-  lrc: '',
+  lyric: {},
   // muted: false,
 };
 
@@ -55,7 +59,8 @@ export default produce((draft, action) => {
       //   ? draft.playlist
       //   : [...draft.playlist, currentSong];
       if (draft.playlist.every((song) => song.id !== currentSong.id)) {
-        draft.playlist = [...draft.playlist, currentSong];
+        const beforeIndex = draft.playlist.findIndex((item) => item.id === draft.currentSong.id);
+        draft.playlist.splice(beforeIndex + 1, 0, currentSong);
         window.localStorage.setItem('playlist', JSON.stringify(draft.playlist));
       }
       draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
@@ -65,27 +70,71 @@ export default produce((draft, action) => {
       window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
       window.localStorage.setItem('history', JSON.stringify(draft.history));
       break;
+    case SET_AUDIO_PLAYLIST:
+      {
+        const { playlist } = action.payload;
+        const currentSong = playlist[0];
+        window.localStorage.setItem('playlist', JSON.stringify(playlist));
+        draft.playlist = playlist;
+        draft.currentSong = currentSong;
+        draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
+        draft.running = true;
+        window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
+        window.localStorage.setItem('history', JSON.stringify(draft.history));
+      }
+      break;
+    case SET_AUDIO_PLAYLIST_ADD:
+
+      break;
     case SET_AUDIO_PREV:
+      if (draft.playlist.length === 0) return;
+      {
+        draft.running = true;
+        const len = draft.playlist.length;
+        const currentIndex = draft.playlist.findIndex((item) => item.id === draft.currentSong.id);
+        const currentSong = draft.playlist[(currentIndex + len - 1) % len];
+        draft.currentSong = currentSong;
+        window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
+      }
       break;
     case SET_AUDIO_NEXT:
       if (draft.playlist.length === 0) return;
-      draft.running = true;
-      const currentIndex = draft.playlist.findIndex((item) => item.id === currentSong.id);
-      switch (draft.pattern) {
-        case '0':
-          if (currentIndex === draft.playlist.length - 1) {
-            draft.running = false;
-            draft.currentSong = {};
-          } else {
-            draft.currentSong = draft.playlist[currentIndex + 1];
-          }
-          break;
-        default:
-          break;
+      {
+        draft.running = true;
+        const len = draft.playlist.length;
+        // draft.currentSong = currentSong;
+        const currentIndex = draft.playlist.findIndex((item) => item.id === draft.currentSong.id);
+        const currentSong = draft.playlist[(currentIndex + 1) % len];
+        draft.currentSong = currentSong;
+        window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
+        // if (currentIndex === draft.playlist.length - 1) {
+        //   draft.running = false;
+        //   draft.currentSong = {};
+        // } else {
+        //   draft.currentSong = draft.playlist[currentIndex + 1];
+        // }
+        // switch (draft.pattern) {
+        //   case '0':
+        //     if (currentIndex === draft.playlist.length - 1) {
+        //       draft.running = false;
+        //       draft.currentSong = {};
+        //     } else {
+        //       draft.currentSong = draft.playlist[currentIndex + 1];
+        //     }
+        //     break;
+        //   default:
+        //     break;
+        // }
       }
       break;
     case SET_AUDIO_RUNNING:
       draft.running = action.payload.running;
+      break;
+    case SET_AUDIO_RUNNING_PLAY:
+      draft.running = true;
+      break;
+    case SET_AUDIO_RUNNING_PAUSE:
+      draft.running = false;
       break;
     case SET_AUDIO_RUNNING_TOGGLE:
       draft.running = !draft.running;
@@ -154,7 +203,7 @@ export default produce((draft, action) => {
       draft.beforeMuted = action.payload;
       break;
     case SET_LYRIC_TEXT:
-      draft.lrc = action.payload.lrc;
+      draft.lyric = action.payload.lyric;
     default:
   }
 }, initialState);

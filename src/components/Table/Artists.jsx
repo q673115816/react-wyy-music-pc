@@ -1,8 +1,9 @@
+import classNames from 'classnames';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({ artists = [] }) => (
-  <div title={(artists.map((artist) => artist.name)).join(' / ')}>
+export default ({ artists = [], className = '' }) => (
+  <div className={classNames('truncate text-gray-500', className)} title={(artists.map((artist) => artist.name)).join(' / ')}>
     {artists.map((artist, index) => (
       <span key={artist.id + artist.name}>
         {index > 0 && ' / '}

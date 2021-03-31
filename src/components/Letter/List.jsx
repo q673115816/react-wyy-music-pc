@@ -137,19 +137,18 @@ export default () => {
             : <span className="clear text-sm font-bold ml-auto ui_disabled">一键已读</span>
         }
       </div>
-      <div className="nav">
+      <div className="nav flex-none flex m-auto w-min rounded-full border">
         {
           navs.map((nav) => (
             <button
               onClick={() => handleChangeNav(nav)}
               type="button"
               key={nav}
-              className={classNames('nav_link', { on: active === nav })}
+              className={classNames('nav_link relative w-20 h-8 rounded-full', active === nav ? 'bg-gray-400 text-white' : 'hover:bg-gray-200')}
             >
               {nav}
               {
-                nav === '私信' && isLogin
-                && <span className="lt_ico">{newMsgCount}</span>
+                nav === '私信' && <span className="lt_ico border border-white rounded-full leading-tight px-1 absolute top-0 right-0 bg-red-500 transform translate-x-1/2 -translate-y-1/2 z-10">{newMsgCount}</span>
               }
             </button>
           ))

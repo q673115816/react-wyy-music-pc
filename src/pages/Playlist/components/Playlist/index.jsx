@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
-import { apiSongDetail } from '@/api';
 
 import DomMenuCreate from '@/components/MenuCreate';
 import DomRank from '@/components/Table/Rank';
@@ -11,23 +9,13 @@ import DomDownload from '@/components/Table/Download';
 import DomName from '@/components/Table/Name';
 import DomArtists from '@/components/Table/Artists';
 import DomAlbum from '@/components/Table/Album';
-import DomPop from '@/components/Table/Pop';
 
-export default ({ trackIds = [] }) => {
-  const [songs, setSongs] = useState([]);
-  const handleInit = async () => {
-    try {
-      const { songs } = await apiSongDetail({
-        ids: trackIds,
-      });
-      setSongs(songs);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleInit();
-  }, []);
+export default ({ songs = [] }) => {
+  if (songs.length === 0) {
+    return (
+      <div className="pt-16 text-center text-sm text-gray-400">暂无音乐</div>
+    );
+  }
   return (
     <div style={{ '--ui_grid_template': '36px / 54px 30px 30px 36% 4fr 6fr 2fr' }}>
       <div className="grid ui_grid_template">
@@ -69,15 +57,9 @@ export default ({ trackIds = [] }) => {
             <div className="px-1">
               <DomDownload />
             </div>
-            <div className="px-1">
-              <DomName item={item} />
-            </div>
-            <div className="truncate text-gray-500 px-1">
-              <DomArtists artists={item.ar} />
-            </div>
-            <div className="truncate px-1">
-              <DomAlbum name={item.al.name} id={item.al.id} />
-            </div>
+            <DomName className="px-1" item={item} />
+            <DomArtists className="px-1" artists={item.ar} />
+            <DomAlbum className="px-1" name={item.al.name} id={item.al.id} />
             <div className="text-gray-500 px-1">
               {dayjs(item.dt).format('mm:ss')}
             </div>

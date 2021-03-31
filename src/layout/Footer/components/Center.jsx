@@ -38,11 +38,11 @@ export default () => {
   };
 
   const handlePrev = () => {
-
+    dispatch(setAudioPrev());
   };
 
   const handleNext = () => {
-
+    dispatch(setAudioNext());
   };
 
   const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);

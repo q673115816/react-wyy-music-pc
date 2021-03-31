@@ -1,9 +1,13 @@
 import {
   SET_AUDIO_IMMEDIATE,
+  SET_AUDIO_PLAYLIST,
+  SET_AUDIO_PLAYLIST_ADD,
   SET_AUDIO_PREV,
   SET_AUDIO_NEXT,
   SET_AUDIO_CURRENT,
   SET_AUDIO_RUNNING,
+  SET_AUDIO_RUNNING_PLAY,
+  SET_AUDIO_RUNNING_PAUSE,
   SET_AUDIO_RUNNING_TOGGLE,
   SET_AUDIO_DROPPING,
   SET_AUDIO_CURRENTTIME,
@@ -21,6 +25,16 @@ import {
 
 export const setAudioImmediate = (payload) => ({
   type: SET_AUDIO_IMMEDIATE,
+  payload,
+});
+
+export const setAudioPlaylist = (payload) => ({
+  type: SET_AUDIO_PLAYLIST,
+  payload,
+});
+
+export const setAudioPlaylistAdd = (payload) => ({
+  type: SET_AUDIO_PLAYLIST_ADD,
   payload,
 });
 
@@ -42,6 +56,14 @@ export const setAudioCurrent = (payload) => ({
 export const setAudioRunning = (payload) => ({
   type: SET_AUDIO_RUNNING,
   payload,
+});
+
+export const setAudioRunningPlay = () => ({
+  type: SET_AUDIO_RUNNING_PLAY,
+});
+
+export const setAudioRunningPause = () => ({
+  type: SET_AUDIO_RUNNING_PAUSE,
 });
 
 export const setAudioRunningToggle = () => ({

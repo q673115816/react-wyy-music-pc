@@ -13,6 +13,7 @@ import {
   setAudioCurrent,
   setLyricText,
   setAudioRunning,
+  setAudioNext,
 } from '@/reducers/audio/actions';
 import { setLyricShow, setLyricHide } from '@/reducers/mask/actions';
 import DomHeart from '@/components/Table/Heart';
@@ -39,10 +40,10 @@ export default () => {
         id: currentSong.id,
       });
       refAudio.current.src = data[0].url;
-      const { lrc = '' } = await apiLyric({
+      const lyric = await apiLyric({
         id: currentSong.id,
       });
-      dispatch(setLyricText({ lrc }));
+      dispatch(setLyricText({ lyric }));
       // refAudio.current.play();
       // dispatch(setAudioRunning({ running: true }));
     } catch (error) {
@@ -64,20 +65,18 @@ export default () => {
   };
 
   const handleEnded = (e) => {
-    dispatch(setAudioCurrentTime(0));
-    // dispatch(setAudioRunning({ running: false }));
-    // console.log(pattern);
-    switch (pattern) {
-      case 0:
+    dispatch(setAudioNext());
+    // dispatch(setAudioCurrentTime(0));
+    // switch (pattern) {
+    //   case 0:
 
-        break;
-      case 2:
-        refAudio.current.play();
-        // dispatch(setAudioRunning({ running: true }));
-        break;
-      default:
-        break;
-    }
+    //     break;
+    //   case 2:
+    //     refAudio.current.play();
+    //     break;
+    //   default:
+    //     break;
+    // }
   };
 
   const handleLyric = () => {

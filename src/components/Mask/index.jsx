@@ -14,7 +14,7 @@ export default ({ children, ...props }) => {
   return (
     <div
       ref={ref}
-      className="dialogMask"
+      className="dialogMask absolute inset-0 flex-center z-50"
       onMouseDown={handleMaskClick}
       {...props}
     >

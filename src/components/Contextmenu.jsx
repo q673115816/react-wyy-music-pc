@@ -214,7 +214,6 @@ export default () => {
   const { isLogin, baseUrl } = useSelector(({ common }) => common);
   const { profile, playlist } = useSelector(({ account }) => account);
   const {
-    globalInset,
     contextMenuX,
     contextMenuY,
     contextMenuItem,
@@ -223,6 +222,7 @@ export default () => {
     contextMenuType,
     contextMenuItemId,
   } = useSelector(({ mask }) => mask);
+  const { globalX, globalY } = useSelector(({ inset }) => inset);
   // console.log(globalLastY, contextMenuY);
   const ownPlaylist = playlist.filter((item) => item.subscribed === false);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
@@ -274,7 +274,7 @@ export default () => {
       <ul
         id="contextmenu"
         className="ui_contextmenu"
-        style={{ left: contextMenuX - globalInset.x, top: contextMenuY - globalInset.y }}
+        style={{ left: contextMenuX - globalX, top: contextMenuY - globalY }}
       >
         {
           Build.map(([item, Dom]) => (

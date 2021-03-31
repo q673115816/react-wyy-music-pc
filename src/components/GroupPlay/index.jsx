@@ -3,25 +3,25 @@ import {
   IconPlayerPlay,
   IconPlus,
 } from '@tabler/icons';
+import DomPlaylistAdd from './PlaylistAdd';
+import DomPlaylistReplace from './PlaylistReplace';
 
-export default ({ handlePlay = () => null, handleAdd = () => null }) => (
+export default ({ playlist = [] }) => (
   <span className="inline-flex h-8 rounded-full text-white overflow-hidden">
-    <button
-      type="button"
-      onClick={handlePlay}
+    <DomPlaylistReplace
+      playlist={playlist}
       className="flex-center ui_theme_bg_color w-24 hover:opacity-80"
     >
       <IconPlayerPlay size={16} className="fill-current" />
       &nbsp;
       播放全部
-    </button>
+    </DomPlaylistReplace>
     <i className="w-px bg-white" />
-    <button
-      type="button"
-      onClick={handleAdd}
+    <DomPlaylistAdd
+      playlist={playlist}
       className="flex-center ui_theme_bg_color w-8 hover:opacity-80"
     >
       <IconPlus size={18} />
-    </button>
+    </DomPlaylistAdd>
   </span>
 );

@@ -51,7 +51,7 @@ export default () => {
         {
           visibility
         && (
-        <div className="toneQuality absolute w-32 left-1/2 bottom-full transform -translate-x-1/2 -translate-y-4 bg-white flex flex-col whitespace-nowrap rounded-lg">
+        <div className="toneQuality absolute w-32 left-1/2 bottom-full transform -translate-x-1/2 -translate-y-4 bg-white flex flex-col whitespace-nowrap rounded-lg z-50">
           {
             currentSong
               ?.privilege

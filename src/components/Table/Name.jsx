@@ -1,8 +1,9 @@
 import React from 'react';
 import DomTags from '@/components/Tags';
+import classNames from 'classnames';
 
-export default ({ item = {} }) => (
-  <div className="flex items-center">
+export default ({ item = {}, className = '' }) => (
+  <div className={classNames('flex items-center', className)}>
     <div className="truncate">
       {/* {item.name} */}
       <span title={item.name}>
