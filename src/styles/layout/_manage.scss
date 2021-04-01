@@ -56,12 +56,6 @@
     white-space: nowrap;
     table-layout: fixed;
 
-    .tr {
-      display: grid;
-      line-height: 36px;
-      grid-template-columns: 30px 30px 8fr 3fr 3fr 2fr 2fr 4fr;
-    }
-
     .th {
       position: relative;
       color: gray;
@@ -83,35 +77,6 @@
           opacity: 1;
         }
       }
-    }
-
-    .cell {
-      height: 100%;
-      padding: 0 6px;
-    }
-
-    .index {
-      text-align: right;
-    }
-    .thead {
-      .tr {
-        .th{
-          &:not(:empty):hover {
-            background-color: #F0F1F2;
-          }
-        }
-      }
-    }
-    .tbody {
-      .tr {
-        &:nth-child(odd) {
-          background-color: #F9F9F9;
-        }
-        &:hover {
-          background-color: #F0F1F2;
-        }
-      }
-
     }
   }
 

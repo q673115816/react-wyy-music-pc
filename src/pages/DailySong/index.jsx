@@ -77,15 +77,14 @@ export default () => {
               data.dailySongs?.map((item, index) => (
                 <DomMenuCreate
                   sechma={[
-                    '评论',
-                    '播放',
-                    '下一首播放',
-                    'divide',
-                    '收藏到歌单',
-                    '分享',
-                    '复制链接',
-                    '不感兴趣',
-                    '下载',
+                    ['评论',
+                      '播放',
+                      '下一首播放'],
+                    ['收藏到歌单',
+                      '分享',
+                      '复制链接',
+                      '不感兴趣',
+                      '下载'],
                   ]}
                   type="song"
                   item={item}

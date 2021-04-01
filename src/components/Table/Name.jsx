@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import DomTags from '@/components/Tags';
 import classNames from 'classnames';
 
-export default ({ item = {}, className = '' }) => (
+export default memo(({ item = {}, className = '' }) => (
   <div className={classNames('flex items-center', className)}>
     <div className="truncate">
       {/* {item.name} */}
@@ -36,4 +36,4 @@ export default ({ item = {}, className = '' }) => (
     </div>
     <DomTags item={item} />
   </div>
-);
+));

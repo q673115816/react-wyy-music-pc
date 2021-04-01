@@ -2,6 +2,8 @@ export const SET_SONG = 'SET_SONG';
 
 export const SET_AUDIO_IMMEDIATE = 'SET_AUDIO_IMMEDIATE';
 
+export const SET_AUDIO_IMMEDIATE_NEXT = 'SET_AUDIO_IMMEDIATE_NEXT';
+
 export const SET_AUDIO_PREV = 'SET_AUDIO_PREV';
 
 export const SET_AUDIO_NEXT = 'SET_AUDIO_NEXT';

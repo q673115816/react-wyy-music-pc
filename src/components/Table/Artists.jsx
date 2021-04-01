@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 
-export default ({ artists = [], className = '' }) => (
+export default memo(({ artists = [], className = '' }) => (artists?.length > 0 ? (
   <div className={classNames('truncate text-gray-500', className)} title={(artists.map((artist) => artist.name)).join(' / ')}>
     {artists.map((artist, index) => (
       <span key={artist.id + artist.name}>
@@ -13,4 +13,4 @@ export default ({ artists = [], className = '' }) => (
       </span>
     ))}
   </div>
-);
+) : <span className="text-gray-400">未知歌手</span>));

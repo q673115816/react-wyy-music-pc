@@ -23,7 +23,7 @@ import {
   setToast,
 } from '@/reducers/mask/actions';
 import { setLoginVisibilty } from '@/reducers/common/actions';
-import { setAudioImmediate } from '@/reducers/audio/actions';
+import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/actions';
 import useCopyLink from '@/custom/useCopyLink';
 import DomMask from './Mask';
 
@@ -59,9 +59,9 @@ const initBuild = (functionClose) => ({
       </button>
     </li>
   ),
-  下一首播放: () => (
+  下一首播放: ({ handlePlayNext }) => (
     <li className="ui_contextmenu_item">
-      <button type="button" className="ui_contextmenu_btn ">
+      <button onClick={handlePlayNext} type="button" className="ui_contextmenu_btn ">
         <i className="ico">
           <IconArrowForward size={22} stroke={1} />
         </i>
@@ -69,7 +69,6 @@ const initBuild = (functionClose) => ({
       </button>
     </li>
   ),
-  divide: () => <li className="hr" />,
   收藏到歌单: ({ handleCreatePlaylist, ownPlaylist = [] }) => (
     <li className="ui_contextmenu_item">
       <span className="ui_contextmenu_btn ">
@@ -99,10 +98,10 @@ const initBuild = (functionClose) => ({
               <button type="button" className="ui_contextmenu_btn ">
                 <i className="ico">
                   {
-                      item.privacy === 10
-                        ? <IconLock size={22} stroke={1} />
-                        : <IconMusic size={22} stroke={1} />
-                    }
+                    item.privacy === 10
+                      ? <IconLock size={22} stroke={1} />
+                      : <IconMusic size={22} stroke={1} />
+                  }
                 </i>
                 {item.name}
               </button>
@@ -239,6 +238,13 @@ export default () => {
     dispatch(setDialogReset());
   };
 
+  const handlePlayNext = () => {
+    dispatch(setAudioImmediateNext({
+      currentSong: contextMenuItem,
+    }));
+    dispatch(setDialogReset());
+  };
+
   const handleCopyLink = () => {
     // const data = new DataTransfer();
     // data.items.add('text/plain', ShareUrl);
@@ -266,31 +272,36 @@ export default () => {
 
   const Build = useMemo(() => {
     const Dom = initBuild(() => dispatch(setDialogReset()));
-    return contextMenuSechma.map((item) => [item, Dom[item]]);
+    return contextMenuSechma.map((block) => [block.join(','), block.map((item) => [item, Dom[item]])]);
   }, []);
 
   return (
     <DomMask>
       <ul
         id="contextmenu"
-        className="ui_contextmenu"
+        className="ui_contextmenu divide-y"
         style={{ left: contextMenuX - globalX, top: contextMenuY - globalY }}
       >
         {
-          Build.map(([item, Dom]) => (
-            <Dom
-              {...{
-                contextMenuTotal,
-                contextMenuItem,
-                handlePlay,
-                handleDialogShare,
-                handleCopyLink,
-                handleCreatePlaylist,
-                ownPlaylist,
-                contextMenuType,
-              }}
-              key={item}
-            />
+          Build.map(([wrapname, block]) => (
+            <div key={wrapname}>
+              {block.map(([item, Dom]) => (
+                <Dom
+                  {...{
+                    contextMenuTotal,
+                    contextMenuItem,
+                    handlePlay,
+                    handlePlayNext,
+                    handleDialogShare,
+                    handleCopyLink,
+                    handleCreatePlaylist,
+                    ownPlaylist,
+                    contextMenuType,
+                  }}
+                  key={item}
+                />
+              ))}
+            </div>
           ))
         }
       </ul>

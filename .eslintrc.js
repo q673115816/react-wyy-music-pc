@@ -1,10 +1,12 @@
-// const path = require('path');
+const path = require('path');
 
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
     node: true,
+    // 'shared-node-browser': true,
+    es6: true,
+    amd: true,
   },
   extends: [
     'eslint:recommended',
@@ -20,7 +22,6 @@ module.exports = {
   },
   plugins: [
     'react',
-    'import',
   ],
   rules: {
     // 允许js 中写jsx
@@ -32,16 +33,26 @@ module.exports = {
     'global-require': 0,
   },
   // settings: {
-  //   'import/resolver': {
-  //     webpack: {
-  //       config: {
-  //         resolve: {
-  //           alias: {
-  //             '@': './src',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
+  //   'import/resolver': 'webpack',
   // },
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: {
+          resolve: {
+            alias: {
+              '@': path.resolve('src'),
+            },
+            extensions: ['.js', '.jsx'],
+          },
+        },
+      },
+      // node: {
+      //   extensions: [
+      //     '.js',
+      //     '.jsx',
+      //   ],
+      // },
+    },
+  },
 };

@@ -4,7 +4,16 @@ import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import Search from '@/components/HeaderBarSearch';
 import { apiUserCloud } from '@/api';
+
 import './style.scss';
+import DomMenuCreate from '@/components/MenuCreate';
+import DomRank from '@/components/Table/Rank';
+import DomHeart from '@/components/Table/Heart';
+import DomDownload from '@/components/Table/Download';
+import DomGroupPlay from '@/components/GroupPlay';
+import DomName from '@/components/Table/Name';
+import DomArtists from '@/components/Table/Artists';
+import DomAlbum from '@/components/Table/Album';
 
 import {
   IconCaretUp,
@@ -145,23 +154,13 @@ export default () => {
         &nbsp;
         <a href="https://music.163.com/#/store/product/detail?id=34001" className="ui_link">扩容</a>
       </div>
-      <div className="ui_headerBar">
-        <div className="left">
-          <div className="ui_playall" style={{ marginRight: 20 }}>
-            <button type="button" className="flex-center play">
-              <IconPlayerPlay size={18} className="fill-current" />
-              &nbsp;
-              播放全部
-            </button>
-            <button type="button" className="flex-center add">
-              <IconPlus size={20} />
-            </button>
-          </div>
+      <div className="ui_headerBar border-b">
+        <div className="left space-x-2">
+          <DomGroupPlay />
           <button type="button" className="flex-center ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full">
             <IconPlus size={20} />
             &nbsp;
             上传音乐
-
           </button>
         </div>
         <div className="right">
@@ -169,26 +168,16 @@ export default () => {
         </div>
       </div>
       <div className="overflow-auto max-h-full flex-auto" style={{ paddingLeft: 30, paddingRight: 20 }}>
-        <div className="domManage_table">
-          {/* <colgroup>
-            <col style={{ width: '30px' }} />
-            <col style={{ width: '30px' }} />
-            <col style={{ width: '30%' }} />  // 270
-            <col style={{ width: '8%' }} />  // 90
-            <col style={{ width: '8%' }} />  // 70
-            <col style={{ width: '5%' }} />  // 60
-            <col style={{ width: '6%' }} /> // 70
-            <col style={{ width: '10%' }} /> // 116
-          </colgroup> */}
+        <div className="domManage_table" style={{ '--ui_grid_template': '36px / 30px 30px 8fr 3fr 3fr 2fr 2fr 4fr' }}>
           <div className="thead">
-            <div className="tr">
+            <div className="tr grid ui_grid_template items-center">
               <div />
               <div />
               {
                 th.map(([item, code, callback]) => (
                   <div
                     key={item}
-                    className={classNames('cell', 'th', { on: item === sort.name })}
+                    className={classNames('cell px-1', 'th', { on: item === sort.name })}
                     onClick={() => handleSort({ item, code, callback })}
                   >
                     {item}
@@ -203,70 +192,55 @@ export default () => {
           <div className="tbody">
             {
               data.map((item, index) => (
-                <div className="tr" tabIndex="2" key={item.songId}>
-                  <div className="cell index text-gray-400">
-                    {String(index + 1)}
-                  </div>
-                  <div className="cell download">
-                    <button type="button" className="ui_text_gray_hover">
-                      <IconCloudDownload size={20} stroke={1.5} />
-                    </button>
-                  </div>
-                  <div
-                    className="cell name truncate"
-                    title={item.songName + item.simpleSong?.tns?.length > 0 && `（${item.simpleSong?.tns}）`}
-                  >
-                    { item.songName }
-                    {
-                      item.simpleSong?.tns?.length > 0
-                      && (
-                        <span className="text-gray-500">
-                          {`（${item.simpleSong.tns}）`}
-                        </span>
-                      )
-                    }
-                  </div>
-                  <div className="cell truncate uppercase">
-                    {
-                      item.simpleSong.ar
-                        ? (
-                          <Link
-                            to={`/artist/${item.simpleSong.ar && item.simpleSong.ar[0]?.id}`}
-                            className="ui_text_black_hover"
-                            title={item.artist}
-                          >
-                            {item.artist}
-                          </Link>
+                <DomMenuCreate
+                  type="song"
+                  item={item}
+                  sechma={[
+                    ['播放',
+                      '下一首播放'],
+                    ['收藏到歌单',
+                      '分享',
+                      '下载'],
+                    ['删除'],
+                  ]}
+                  key={item.songId}
+                >
+                  <div className={classNames('tr grid ui_grid_template items-center hover:bg-gray-100 focus:outline-none focus:bg-gray-200', index % 2 === 0 && 'bg-gray-50')} tabIndex="2">
+                    <div className="cell px-1 index text-gray-400">
+                      <DomRank index={index} id={item.songId} />
+                    </div>
+                    <div className="cell px-1 download">
+                      <DomDownload />
+                    </div>
+                    <div
+                      className="cell px-1 name truncate"
+                      title={item.songName + item.simpleSong?.tns?.length > 0 && `（${item.simpleSong?.tns}）`}
+                    >
+                      {item.songName}
+                      {
+                        item.simpleSong?.tns?.length > 0
+                        && (
+                          <span className="text-gray-500">
+                            {`（${item.simpleSong.tns}）`}
+                          </span>
                         )
-                        : <span className="text-gray-400">未知歌手</span>
-                    }
+                      }
+                    </div>
+                    <DomArtists className="px-1" artists={item.simpleSong.ar} />
+                    <DomAlbum className="px-1" name={item.album} id={item.simpleSong?.al?.id} />
+                    <div className="cell px-1 truncate uppercase">
+                      {/(?<=\.)(\w*)$/.exec(item.fileName)[0]}
+                    </div>
+                    <div className="cell px-1 truncate">
+                      {(item.fileSize / 1024 / 1024).toFixed(1)}
+                      MB
+                    </div>
+                    <div className="cell px-1 truncate text-gray-400">
+                      {dayjs(item.addTime).format('YYYY-MM-DD')}
+                    </div>
                   </div>
-                  <div className="cell truncate">
-                    {
-                      item.simpleSong.al
-                        ? (
-                          <Link
-                            className="ui_text_black_hover"
-                            to={`/playlist/album/${item.simpleSong.al.id}`}
-                            title={item.album}
-                          >
-                            {item.album}
-                          </Link>
-                        )
-                        : <span className="text-gray-400">未知专辑</span>
-                    }
-                  </div>
-                  <div className="cell truncate uppercase">
-                    {/(?<=\.)(\w*)$/.exec(item.fileName)[0]}
-                  </div>
-                  <div className="cell truncate">
-                    {(item.fileSize / 1024 / 1024).toFixed(1)}
-                    MB
-                  </div>
-                  <div className="cell truncate text-gray-400">
-                    {dayjs(item.addTime).format('YYYY-MM-DD')}
-                  </div>
-                </div>
+
+                </DomMenuCreate>
               ))
             }
           </div>

@@ -5,6 +5,7 @@ import produce from 'immer';
 import {
   SET_SONG,
   SET_AUDIO_IMMEDIATE,
+  SET_AUDIO_IMMEDIATE_NEXT,
   SET_AUDIO_PLAYLIST,
   SET_AUDIO_PLAYLIST_ADD,
   SET_AUDIO_PREV,
@@ -45,11 +46,30 @@ const initialState = {
   currentTime: LOCALSTORAGE('currentTime', 0),
 };
 
+// 切歌通用
 const FnChange = (draft) => {
   window.localStorage.setItem('currentTime', 0);
   draft.currentTime = 0;
   draft.buffered = 0;
   draft.running = true;
+};
+
+const FnAddNext = (draft, currentSong) => {
+  if (draft.playlist.every((song) => song.id !== currentSong.id)) { // 未在歌单中的新歌
+    const beforeIndex = draft.playlist.findIndex((item) => item.id === draft.currentSong.id);
+    draft.playlist.splice(beforeIndex + 1, 0, currentSong);
+    window.localStorage.setItem('playlist', JSON.stringify(draft.playlist));
+  }
+};
+
+const FnAddHistory = (draft, currentSong) => {
+  if (draft.history.some((song) => song.id === currentSong.id)) {
+    const historyIndex = draft.history.findIndex((song) => song.id === currentSong.id);
+    draft.history.splice(historyIndex, 1);
+    // draft.history = draft.history.filter((history) => history.id !== currentSong.id)
+  }
+  draft.history.unshift(currentSong);
+  window.localStorage.setItem('history', JSON.stringify(draft.history));
 };
 
 export default produce((draft, action) => {
@@ -58,18 +78,22 @@ export default produce((draft, action) => {
       draft.song = action.payload.song;
       break;
     case SET_AUDIO_IMMEDIATE:
-      const { currentSong } = action.payload;
-      FnChange(draft);
-      if (draft.playlist.every((song) => song.id !== currentSong.id)) {
-        const beforeIndex = draft.playlist.findIndex((item) => item.id === draft.currentSong.id);
-        draft.playlist.splice(beforeIndex + 1, 0, currentSong);
-        window.localStorage.setItem('playlist', JSON.stringify(draft.playlist));
+      {
+        const { currentSong } = action.payload;
+        FnChange(draft);
+        FnAddNext(draft, currentSong);
+        FnAddHistory(draft, currentSong);
+        // draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
+        draft.currentSong = currentSong;
+        // draft.currentTime = 0;
+        window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
       }
-      draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
-      draft.currentSong = currentSong;
-      // draft.currentTime = 0;
-      window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
-      window.localStorage.setItem('history', JSON.stringify(draft.history));
+      break;
+    case SET_AUDIO_IMMEDIATE_NEXT:
+      {
+        const { currentSong } = action.payload;
+        FnAddNext(draft, currentSong);
+      }
       break;
     case SET_AUDIO_PLAYLIST:
       {
@@ -79,7 +103,8 @@ export default produce((draft, action) => {
         window.localStorage.setItem('playlist', JSON.stringify(playlist));
         draft.playlist = playlist;
         draft.currentSong = currentSong;
-        draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
+        FnAddHistory(draft, currentSong);
+        // draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
         window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
         window.localStorage.setItem('history', JSON.stringify(draft.history));
       }
@@ -95,6 +120,7 @@ export default produce((draft, action) => {
         const currentIndex = draft.playlist.findIndex((item) => item.id === draft.currentSong.id);
         const currentSong = draft.playlist[(currentIndex + len - 1) % len];
         draft.currentSong = currentSong;
+        FnAddHistory(draft, currentSong);
         window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
       }
       break;
@@ -107,6 +133,7 @@ export default produce((draft, action) => {
         const currentIndex = draft.playlist.findIndex((item) => item.id === draft.currentSong.id);
         const currentSong = draft.playlist[(currentIndex + 1) % len];
         draft.currentSong = currentSong;
+        FnAddHistory(draft, currentSong);
         window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
         // if (currentIndex === draft.playlist.length - 1) {
         //   draft.running = false;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconHeart } from '@tabler/icons';
@@ -9,7 +9,7 @@ import {
   setLikelistDel,
 } from '@/reducers/account/actions';
 
-export default ({
+export default memo(({
   id = '', size = 20, className = '', stroke = 1,
 }) => {
   const dispatch = useDispatch();
@@ -54,4 +54,4 @@ export default ({
       />
     </button>
   );
-};
+});

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
 import { IconVolume, IconVolume3, Iconvol } from '@tabler/icons';
 
-export default ({ id, index }) => {
+export default memo(({ id, index }) => {
   const { currentSong, running } = useSelector(({ audio }) => audio);
   if (currentSong.id === id) {
     return (
@@ -17,4 +17,4 @@ export default ({ id, index }) => {
       {String(index + 1).padStart(2, 0)}
     </div>
   );
-};
+});

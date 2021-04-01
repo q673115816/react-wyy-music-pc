@@ -197,37 +197,6 @@
   }
 }
 
-.ui_playall {
-  display: inline-flex;
-  height: 32px;
-  width: 140px;
-  background-color: var(--themeColor);
-  border-radius: 16px;
-  color: #fff;
-  overflow: hidden;
-  font-size: 14px;
-
-  &:hover {
-    background-color: #D73535;
-  }
-
-  .play {
-    width: 104px;
-
-    &:hover {
-      background-color: #CC3232;
-    }
-  }
-
-  .add {
-    width: 36px;
-
-    &:hover {
-      background-color: #CC3232;
-    }
-  }
-}
-
 .ui_header {
   flex: none;
   height: 60px;

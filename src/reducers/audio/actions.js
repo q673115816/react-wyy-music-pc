@@ -1,6 +1,7 @@
 import {
   SET_SONG,
   SET_AUDIO_IMMEDIATE,
+  SET_AUDIO_IMMEDIATE_NEXT,
   SET_AUDIO_PLAYLIST,
   SET_AUDIO_PLAYLIST_ADD,
   SET_AUDIO_PREV,
@@ -27,6 +28,11 @@ export const setSong = (payload) => ({
 
 export const setAudioImmediate = (payload) => ({
   type: SET_AUDIO_IMMEDIATE,
+  payload,
+});
+
+export const setAudioImmediateNext = (payload) => ({
+  type: SET_AUDIO_IMMEDIATE_NEXT,
   payload,
 });
 
