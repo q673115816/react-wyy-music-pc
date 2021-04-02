@@ -145,7 +145,9 @@ export default memo(() => {
               <IconHash size={20} stroke={1.5} />
             </button>
           </div>
-          <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full ml-auto">评论</button>
+          <button type="button" className="ui_btn flex-center border px-4 h-8 text-sm hover:bg-gray-100 rounded-full ml-auto">
+            评论
+          </button>
         </div>
       </div>
       <div className="domComment_main mt-8">
