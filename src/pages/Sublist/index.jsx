@@ -14,13 +14,19 @@ import DomArtist from './Artist';
 import DomMV from './MV';
 import DomTopic from './Topic';
 
+const navs = [
+  ['专辑', 'album'],
+  ['歌手', 'artist'],
+  ['视频', 'mv'],
+  ['专栏', 'topic'],
+];
+
 export default memo(() => (
   <div className="domSublist overflow-auto max-h-full flex-auto">
-    <div className="domSublist_nav">
-      <NavLink to="album" className="domSublist_nav_link" activeClassName="on">专辑</NavLink>
-      <NavLink to="artist" className="domSublist_nav_link" activeClassName="on">歌手</NavLink>
-      <NavLink to="mv" className="domSublist_nav_link" activeClassName="on">视频</NavLink>
-      <NavLink to="topic" className="domSublist_nav_link" activeClassName="on">专栏</NavLink>
+    <div className="domSublist_nav px-8 py-5 space-x-4 text-base">
+      {navs.map(([name, nav]) => (
+        <NavLink to={nav} className="domSublist_nav_link" activeClassName="text-xl font-black ui_underline">{name}</NavLink>
+      ))}
     </div>
     <Switch>
       <Route path="/sublist/album">

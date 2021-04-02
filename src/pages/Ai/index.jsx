@@ -9,20 +9,17 @@ import { setToast } from '@/reducers/mask/actions';
 const DomWait = ({ handleReject }) => {
   const [time, setTime] = useState(15);
   useEffect(() => {
-    const id = setInterval(() => {
-      setTime((prev) => {
-        const next = prev - 1;
-        if (next < 1) {
-          handleReject();
-        } else {
-          return next;
-        }
-      });
+    const id = setTimeout(() => {
+      if (time > 1) {
+        setTime(time - 1);
+      } else {
+        handleReject();
+      }
     }, 1000);
     return () => {
-      clearInterval(id);
+      clearTimeout(id);
     };
-  }, []);
+  }, [time]);
   return (
     <div className="flex flex-col items-center">
       <div>
@@ -92,7 +89,7 @@ export default memo(() => {
    * 应该不会有成功吧？
    */
   return (
-    <div className="domAi flex flex-col h-full">
+    <div className="domAi py-5 px-8 flex flex-col h-full">
       <div className="domAi_header flex justify-between items-baseline">
         <div className="h1">听歌识曲</div>
         <button

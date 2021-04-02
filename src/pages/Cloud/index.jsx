@@ -195,7 +195,7 @@ export default () => {
                 <DomMenuCreate
                   type="song"
                   item={item}
-                  sechma={[
+                  schema={[
                     ['播放',
                       '下一首播放'],
                     ['收藏到歌单',

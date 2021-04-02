@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { apiTopPlaylistHighquality, apiPlaylistHighqualityTags } from '@/api';
 import { transPlayCount } from '@/common/utils';
 import useInfinite from '@/custom/useInfinite';
+import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
+import DomTagsBox from '@/components/Tags/Box';
 import './style.scss';
 
 export default () => {
@@ -37,14 +39,10 @@ export default () => {
     }
   };
 
-  const { handleIo, handleUnIo } = useInfinite(handleInit, domScroll, domObserver);
+  useInfinite(handleInit, domScroll, domObserver);
 
   useEffect(() => {
     handleBeforeInit();
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
   }, []);
 
   useEffect(() => {
@@ -116,24 +114,30 @@ export default () => {
         {
           data.map((item) => (
             <div className="item flex items-center" key={item.id}>
-              <Link
-                className="cover rounded-lg overflow-hidden flex-none relative"
-                to={`/playlist/music/${item.id}`}
-              >
-                <img src={`${item.coverImgUrl}?param=200y200`} alt="" />
-                <div className="absolute text-white top-0 right-0 p-2 flex">
-                  <IconPlayerPlay size={12} />
-                  &nbsp;
-                  {transPlayCount(item.playCount)}
-                </div>
-              </Link>
+              <div className="cover rounded-lg group overflow-hidden flex-none relative">
+                <Link
+                  to={`/playlist/music/${item.id}`}
+                >
+                  <img src={`${item.coverImgUrl}?param=200y200`} alt="" />
+                  <div className="absolute text-white top-0 right-0 py-1 px-2 flex-center">
+                    <IconPlayerPlay size={12} />
+                    {transPlayCount(item.playCount)}
+                  </div>
+                </Link>
+                <DomPlaylistAsyncReplace
+                  id={item.id}
+                  className="playArrow opacity-0 group-hover:opacity-100 ui_themeColor absolute right-0 bottom-0 m-2 p-2 bg-white bg-opacity-90 rounded-full"
+                >
+                  <IconPlayerPlay size={16} className="fill-current" />
+                </DomPlaylistAsyncReplace>
+              </div>
               <div className="ml-2 flex-auto w-0">
-                <div className="text-sm truncate text-gray-600 hover:text-black">
+                <div className="text-sm truncate ui_text_black_hover">
                   <Link to={`/playlist/music/${item.id}`} className="">{item.name}</Link>
                 </div>
-                <div className="mt-3 flex items-center text-gray-400">
+                <div className="mt-3 flex items-center ui_text_gray_hover">
                   by&nbsp;
-                  <Link to={`/user/${item.userId}`} className="text-gray-400 hover:text-gray-600">
+                  <Link to={`/user/${item.userId}`} className="">
                     {item.creator.nickname}
                   </Link>
                   &nbsp;
@@ -143,7 +147,7 @@ export default () => {
                   }
                 </div>
                 <div className="mt-8 text-gray-300 truncate">
-                  <span className="TAG">{item.tag}</span>
+                  <DomTagsBox text={item.tag} />
                   &nbsp;
                   {item.copywriter}
                 </div>

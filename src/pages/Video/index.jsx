@@ -6,23 +6,25 @@ import VideoList from './VideoList';
 import MVList from './MVList';
 import './style.scss';
 
+const navs = [
+  ['视频', '/video/videolist'],
+  ['MV', '/video/mvlist'],
+];
+
 export default memo(() => (
-  <div className="domVideoList">
-    <div className="domVideoList_header ui_header">
-      <NavLink
-        className="domVideoList_link"
-        activeClassName="on"
-        to="/video/videolist"
-      >
-        视频
-      </NavLink>
-      <NavLink
-        className="domVideoList_link"
-        activeClassName="on"
-        to="/video/mvlist"
-      >
-        MV
-      </NavLink>
+  <div className="domVideoList flex flex-col h-full">
+    <div className="domVideoList_header ui_header text-base space-x-4">
+      {
+        navs.map(([name, path]) => (
+          <NavLink
+            className="domVideoList_link"
+            activeClassName="text-xl ui_underline font-bold"
+            to={path}
+          >
+            {name}
+          </NavLink>
+        ))
+      }
     </div>
     <Switch>
       <Route path="/video/videolist">

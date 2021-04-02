@@ -44,7 +44,7 @@ const DomList = ({ list = [], currentId, current = '' }) => {
       {
       list.map((item, index) => (
         <DomMenuCreate
-          sechma={[
+          schema={[
             ['评论',
               '播放'],
             ['收藏到歌单',

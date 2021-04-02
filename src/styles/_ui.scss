@@ -89,6 +89,20 @@
   overflow: hidden;
 }
 
+.ui_underline {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0.3em;
+    right: 0.3em;
+    bottom: -0.3em;
+    height: 0.15em;
+    background-color: var(--themeColor);
+  }
+
+}
+
 .ui_link {
   color: var(--linkColor);
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { IconPlayerPlay } from '@tabler/icons';
 import { transPlayCount } from '@/common/utils';
 import { SymbolToday } from '@/components/Symbol';
-import DomPlaylistReplace from '@/components/GroupPlay/PlaylistReplace';
+import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
 
 export default ({ playlist = [] }) => (
   <div className="domHome_recommend_playlist grid gap-5 grid-cols-5 mt-4">
@@ -35,9 +35,9 @@ export default ({ playlist = [] }) => (
                 </span>
               </div>
             </Link>
-            <button type="button" className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute m-2 right-0 bottom-0 rounded-full flex-center w-7 h-7 bg-white bg-opacity-90 ui_themeColor">
+            <DomPlaylistAsyncReplace id={item.id} className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute m-2 right-0 bottom-0 rounded-full flex-center w-7 h-7 bg-white bg-opacity-90 ui_themeColor">
               <IconPlayerPlay size={16} className="fill-current" />
-            </button>
+            </DomPlaylistAsyncReplace>
           </div>
           <div className="footer break-all text-sm mt-2">
             <Link to={`/playlist/music/${item.id}`} className="name ui_ellipse">

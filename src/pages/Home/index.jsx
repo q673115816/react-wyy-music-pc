@@ -56,7 +56,7 @@ export default memo(() => (
       {nav.map(({ to, name }) => (
         <NavLink
           className="domHome_nav_link"
-          activeClassName="text-xl font-bold"
+          activeClassName="text-xl font-bold ui_underline"
           to={to}
           key={name}
         >

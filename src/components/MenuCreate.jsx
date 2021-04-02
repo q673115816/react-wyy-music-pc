@@ -6,9 +6,11 @@ import {
 } from '@/reducers/mask/actions';
 import {
   apiCommentMusic,
+  apiCommentMV,
+  apiCommentVideo,
 } from '@/api';
 
-const defaultSechma = [
+const defaultSchema = [
   [
     '评论',
     '播放',
@@ -23,8 +25,20 @@ const defaultSechma = [
   ],
 ];
 
+const switchs = {
+  song: {
+    comment: apiCommentMusic,
+  },
+  mv: {
+    comment: apiCommentMV,
+  },
+  video: {
+    comment: apiCommentVideo,
+  },
+};
+
 export default ({
-  children, item = {}, type = 'song', sechma = defaultSechma,
+  children, item = {}, type = 'song', schema = defaultSchema,
 }) => {
   const dispatch = useDispatch();
   const [state, setstate] = useState();
@@ -35,7 +49,7 @@ export default ({
   };
   const handleRightClick = async (e, item, type) => {
     try {
-      const { total } = await apiCommentMusic({
+      const { total } = await switchs[type].comment({
         id: item.id,
       });
       dispatch(setContextMenuShow({
@@ -45,7 +59,7 @@ export default ({
         contextMenuTotal: total,
         contextMenuType: type,
         contextMenuItemId: item.id,
-        contextMenuSechma: sechma,
+        contextMenuSechma: schema,
       }));
     } catch (error) {
       console.log(error);
@@ -53,7 +67,7 @@ export default ({
   };
   return (
     <div
-      onDoubleClick={() => handleDoubleClick(item)}
+      onDoubleClick={type === 'song' ? () => handleDoubleClick(item) : undefined}
       onContextMenu={(e) => handleRightClick(e, item, type)}
     >
       {children}

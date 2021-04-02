@@ -121,7 +121,7 @@ export default memo(() => {
   );
 
   return (
-    <div className="domVideoList_content overflow-auto flex-auto" ref={domScroll}>
+    <div className="domVideoList_content px-8 overflow-auto flex-auto" ref={domScroll}>
       <div className="video_sort_filter_bar flex items-center justify-between">
         <div className="group_select_wrap relative z-10">
           <button

@@ -1,21 +1,5 @@
 .domSublist {
 
-  &_nav {
-    padding: 20px 30px;
-
-    &_link {
-      font-size: 16px;
-      margin-right: 1em;
-
-      &.on {
-        font-size: 22px;
-      }
-
-
-    }
-  }
-
-
   &_list {
     .item {
       display: grid;

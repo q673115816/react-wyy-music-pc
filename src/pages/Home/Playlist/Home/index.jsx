@@ -16,9 +16,9 @@ import { setTopPlaylist, setPlaylistCatlist } from '@/reducers/home/actions';
 import DomLoading from '@/components/Loading';
 import DomResize from '@/components/ResizeObserver';
 import DomPage from '@/components/Page';
+import DomItem from '@/components/GridPlaylist/Item';
 import DomBanner from './components/Banner';
 import DomHeaderBar from './components/HeaderBar';
-import DomItem from './components/Item';
 
 export default memo(() => {
   // console.log('playlist');

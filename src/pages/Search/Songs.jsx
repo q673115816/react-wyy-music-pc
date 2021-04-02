@@ -92,7 +92,7 @@ export default memo(({ songs = [], multimatch = { orders: [] } }) => {
         <div className="tbody">
           {songs.map((item, index) => (
             <DomMenuCreate
-              sechma={[
+              schema={[
                 ['评论',
                   '播放',
                   '下一首播放'],

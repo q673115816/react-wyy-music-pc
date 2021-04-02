@@ -129,7 +129,7 @@ export default memo(() => {
 
   if (memoLoading) return <div className="w-full h-full flex-center"><DomLoading /></div>;
   return (
-    <div className="domVideoList_content overflow-auto max-h-full flex-auto">
+    <div className="domVideoList_content px-8 overflow-auto max-h-full flex-auto">
       <div className="domMVList_sublist">
         <div className="domMVList_header mb-5 flex justify-between items-center">
           <Link
@@ -202,7 +202,13 @@ export default memo(() => {
           }
         </div>
       </div>
-      <DomGridMVToplist list={top} />
+      <DomGridMVToplist
+        list={top}
+        schema={[
+          ['评论', '播放'],
+          ['收藏', '分享', '下载MV', '复制链接'],
+        ]}
+      />
     </div>
   );
 });

@@ -29,7 +29,7 @@ export default ({ songs = [] }) => {
       </div>
       {songs.map((item, index) => (
         <DomMenuCreate
-          sechma={[
+          schema={[
             ['评论',
               '播放',
               '下一首播放'],
