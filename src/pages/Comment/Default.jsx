@@ -15,7 +15,7 @@ import DomCommentsList from '@/components/CommentsList';
 import DomLoading from '@/components/Loading';
 import DomPage from '@/components/Page';
 
-const DomSongHeader = ({ detail }) => {
+const DomSongHeader = ({ detail }) => (
   <div className="domComment_header">
     <div className="domComment_infos flex ">
       <div className="cover h-20 rounded overflow-hidden relative">
@@ -57,8 +57,8 @@ const DomSongHeader = ({ detail }) => {
         </div>
       </div>
     </div>
-  </div>;
-};
+  </div>
+);
 
 const switchs = {
   song: {
