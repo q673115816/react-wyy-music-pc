@@ -63,17 +63,17 @@ export default memo(() => {
         PersonalizedNewsong,
         PersonalizedMV,
         PersonalizedDjprogram] = await Promise.all([
-        apiBanner(),
-        apiRecommendResource({
-          limit: 9,
-        }),
-        apiPersonalizedPrivatecontent(),
-        apiPersonalizedNewsong({
-          limit: 12,
-        }),
-        apiPersonalizedMV(),
-        apiPersonalizedDjprogram(),
-      ]);
+          apiBanner(),
+          apiRecommendResource({
+            limit: 9,
+          }),
+          apiPersonalizedPrivatecontent(),
+          apiPersonalizedNewsong({
+            limit: 12,
+          }),
+          apiPersonalizedMV(),
+          apiPersonalizedDjprogram(),
+        ]);
       dispatch(setHomeRecommend({
         banners,
         playlist,
