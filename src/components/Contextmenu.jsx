@@ -18,12 +18,15 @@ import {
   IconLock,
 } from '@tabler/icons';
 import {
-  setDialogReset, setDialogShareShow,
-  setDialogCreatePlaylistShow, setContextMenuShareLink,
+  setDialogReset,
+  setDialogShareShow,
+  setDialogCreatePlaylistShow,
+  setContextMenuShareLink,
   setToast,
 } from '@/reducers/mask/actions';
 import { setLoginVisibilty } from '@/reducers/common/actions';
 import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/actions';
+import { apiMVSub } from '@/api';
 import useCopyLink from '@/custom/useCopyLink';
 import DomMask from './Mask';
 
@@ -56,6 +59,30 @@ const initBuild = (functionClose) => ({
           <IconPlayerPlay size={22} stroke={1} />
         </i>
         播放(Enter)
+      </button>
+    </li>
+  ),
+  播放MV: ({ contextMenuItem, contextMenuType }) => (
+    <li className="ui_contextmenu_item">
+      <Link
+        to={`/player/${contextMenuType}/${contextMenuItem.id}`}
+        onClick={functionClose}
+        className="ui_contextmenu_btn "
+      >
+        <i className="ico">
+          <IconPlayerPlay size={22} stroke={1} />
+        </i>
+        播放MV
+      </Link>
+    </li>
+  ),
+  收藏MV: ({ handleSubscribeMV }) => (
+    <li className="ui_contextmenu_item">
+      <button onClick={handleSubscribeMV} type="button" className="ui_contextmenu_btn ">
+        <i className="ico">
+          <IconFolderPlus size={22} stroke={1} />
+        </i>
+        收藏MV
       </button>
     </li>
   ),
@@ -206,6 +233,7 @@ const initBuild = (functionClose) => ({
       </ul>
     </li>
   ),
+
 });
 
 export default () => {
@@ -245,15 +273,26 @@ export default () => {
     dispatch(setDialogReset());
   };
 
+  const handleSubscribeMV = async () => {
+    try {
+      const { message } = await apiMVSub({
+        mvid: contextMenuItemId,
+        t: 1,
+      });
+      dispatch(setDialogReset());
+      dispatch(setToast(message));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleCopyLink = () => {
     // const data = new DataTransfer();
     // data.items.add('text/plain', ShareUrl);
     // await navigator.clipboard.writeText(ShareUrl);
     // alert('链接复制成功');
     useCopyLink(ShareUrl, () => {
-      dispatch(setToast({
-        toastTitle: '复制链接成功',
-      }));
+      dispatch(setToast('复制链接成功'));
     });
     dispatch(setDialogReset());
   };
@@ -295,6 +334,7 @@ export default () => {
                     handleDialogShare,
                     handleCopyLink,
                     handleCreatePlaylist,
+                    handleSubscribeMV,
                     ownPlaylist,
                     contextMenuType,
                   }}

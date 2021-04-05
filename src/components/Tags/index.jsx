@@ -4,7 +4,7 @@ import { IconPlayerPlay } from '@tabler/icons';
 import classNames from 'classnames';
 import DomBox from './Box';
 
-export default ({ item = {}, className = '' }) => (
+export default ({ item = {}, className = '', sq = false, mv = item.mv }) => (
   <div className={classNames('tags flex-none pl-1', className)}>
     {
       item.fee === 1
@@ -16,12 +16,12 @@ export default ({ item = {}, className = '' }) => (
       )
     }
     {
-      (item.maxbr === 999000 || item.privilege?.maxbr === 999000)
+      (sq || item.maxbr === 999000 || item.privilege?.maxbr === 999000)
       && <DomBox text="SQ" />
     }
-    {item.mv !== 0
+    {mv > 0
       && (
-        <Link className="TAG" to={`/player/mv/${item.mv}`}>
+        <Link className="TAG" to={`/player/mv/${mv}`}>
           <DomBox text="MV" />
         </Link>
       )}

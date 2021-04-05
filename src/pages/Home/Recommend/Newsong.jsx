@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Lazyload from 'react-lazyload';
 import { IconPlayerPlay } from '@tabler/icons';
+import DomTags from '@/components/Tags'
 
 export default ({ newsong = [] }) => (
   <div className="domHome_recommend_newsong grid gap-x-2 gap-y-4 mt-4 grid-cols-3 grid-rows-4 grid-flow-col">
@@ -28,42 +29,24 @@ export default ({ newsong = [] }) => (
             <div className="name text-sm truncate">
               {item.name}
             </div>
-            <div className="artist mt-1 truncate">
-              {
-                item.song.fee === 1
-                && (
-                  <>
-                    <span className="TAG word">VIP</span>
-                    <span className="TAG word">试听</span>
-                  </>
-                )
-              }
-              {
-                item.song.privilege.maxbr === 999000
-                && <span className="TAG">SQ</span>
-              }
-              {
-                item.song.mvid !== 0
-                && (
-                <Link to={`/player/mv/${item.song.mvid}`} className="TAG">
-                  MV
-                </Link>
-                )
-              }
+            <div className="artist mt-1 flex">
+              <DomTags item={item} sq={item.song.privilege.maxbr === 999000} mv={item.song.mvid} />
                     &nbsp;
-              {
-                item.song.artists.map((artist, index) => (
-                  <span key={artist.id} className="text-gray-400">
-                    {index > 0 && ' / '}
-                    <Link
-                      to={`/artist/${artist.id}`}
-                      className="ui_text_gray_hover"
-                    >
-                      {artist.name}
-                    </Link>
-                  </span>
-                ))
-              }
+                    <div className="truncate">
+                {
+                  item.song.artists.map((artist, index) => (
+                    <span key={artist.id} className="text-gray-400">
+                      {index > 0 && ' / '}
+                      <Link
+                        to={`/artist/${artist.id}`}
+                        className="ui_text_gray_hover"
+                      >
+                        {artist.name}
+                      </Link>
+                    </span>
+                  ))
+                }
+              </div>
             </div>
           </div>
         </div>

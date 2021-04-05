@@ -50,9 +50,11 @@ export default () => {
     SCREEN,
     globalX,
     globalY,
+    globalDragger,
     globalWidth,
     globalHeight,
   } = useSelector(({ inset }) => inset);
+  const { font } = useSelector(({ setting }) => setting)
   const [resizer, setResizer] = useState(false);
   const [resizeStartInset, setResizeStartInset] = useState({ x: 0, y: 0 });
   const [resizeInitRect, setResizeInitRect] = useState({ width: globalWidth, height: globalHeight });
@@ -100,17 +102,21 @@ export default () => {
       <Router>
         <div
           id="NeteaseCloudMusic"
-          className="domWrapper flex flex-col shadow-lg select-none absolute"
+          className="domWrapper flex flex-col shadow-lg select-none"
           style={({
+            fontFamily: font,
             '--themeColor': `var(--${theme}, --themeRed)`,
             ...(SCREEN === 'normal' ? {
               '--WIDTH': `${globalWidth}px`,
               '--HEIGHT': `${globalHeight}px`,
             } : {
-              '--WIDTH': '100%',
-              '--HEIGHT': '100%',
+              '--WIDTH': '100vw',
+              '--HEIGHT': '100vh',
             }),
-            ...(POSITION ? {
+            ...(POSITION ? globalDragger ? {
+              transform: `translate(${globalX}px, ${globalY}px)`
+            } : {
+              position: 'absolute',
               left: `${globalX}px`,
               top: `${globalY}px`,
             } : {}),

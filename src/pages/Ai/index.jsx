@@ -74,7 +74,7 @@ const DomRejected = ({ handleWait }) => {
       <button
         type="button"
         className="mt-3 text-blue-400 text-sm"
-        onClick={() => dispatch(setToast({ toastTitle: '反馈成功，感谢您的反馈' }))}
+        onClick={() => dispatch(setToast('反馈成功，感谢您的反馈'))}
       >
         提交反馈
       </button>
@@ -95,7 +95,7 @@ export default memo(() => {
         <button
           type="button"
           className="flex items-center"
-          onClick={() => dispatch(setToast({ toastTitle: '创建【听歌识曲】图标至桌面成功' }))}
+          onClick={() => dispatch(setToast('创建【听歌识曲】图标至桌面成功'))}
         >
           <IconFileImport size={16} stroke={1} />
           创建桌面快捷方式

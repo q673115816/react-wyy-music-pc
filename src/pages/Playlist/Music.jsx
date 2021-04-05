@@ -128,7 +128,7 @@ export default () => {
         id,
       });
       if (code === 200) {
-        dispatch(setToast({ toastTitle: isSub ? '取消收藏成功！' : '收藏成功！' }));
+        dispatch(setToast(isSub ? '取消收藏成功！' : '收藏成功！'));
         setData(produce((draft) => {
           draft.playlist.subscribed = !isSub;
         }));

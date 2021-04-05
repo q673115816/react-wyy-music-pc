@@ -169,7 +169,7 @@ export default () => {
         t: isSub ? 0 : 1,
       });
       if (code === 200) handleGetMVSublist();
-      dispatch(setToast({ toastTitle: isSub ? '取消收藏成功' : '收藏成功' }));
+      dispatch(setToast(isSub ? '取消收藏成功' : '收藏成功'));
     } catch (error) {
       console.log(error);
     }
@@ -195,6 +195,7 @@ export default () => {
 
   useEffect(() => {
     handleInit(vid);
+    handleComments();
   }, [vid]);
 
   useEffect(() => {

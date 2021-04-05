@@ -7,6 +7,7 @@ import { IconBulb, IconMenu } from '@tabler/icons';
 import HOCDialog from '../Dialog';
 import './style.scss';
 import classNames from 'classnames';
+import produce from 'immer'
 
 const defaultOrder = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
 function swap(arr, index1, index2) {
@@ -18,42 +19,44 @@ const ShareWX = () => {
   const { homeOrder } = useSelector(({ setting }) => setting);
   const [tempHomeOrder, setTempHomeOrder] = useState(homeOrder)
   const [droper, setDroper] = useState(false);
-  const downY = useRef(0)
-  const moveY = useRef(0)
-  const [index, setIndex] = useState(-1)
-  const [beforeIndex, setBeforeIndex] = useState(-1)
-  const RefCurr = useRef()
   const [curr, setCurr] = useState('')
+  const [top, setTop] = useState(0)
+  const [startY, setStartY] = useState()
+  const DomList = useRef()
+  const RefIndex = useRef()
   const handleDown = (e, curr, index) => {
-    setCurr(curr)
     setDroper(true);
-    downY.current = e.clientY
-    moveY.current = e.clientY
-    setIndex(index)
+    setCurr(curr)
+    setStartY(e.clientY)
+    RefIndex.current = index
   };
 
-  const funcMoveUp = (e) => {
-    downY.current -= RefCurr.current.clientHeight
-    setIndex((prev) => {
-      setBeforeIndex(prev)
-      return prev + 1
-    })
-  }
-
-  const funcMoveDown = (e) => {
-    downY.current += RefCurr.current.clientHeight
-    setIndex((prev) => {
-      setBeforeIndex(prev)
-      return prev - 1
-    })
-  }
 
   const handleMove = (e) => {
-    moveY.current = e.clientY
-    if (moveY.current - downY.current > (RefCurr.current.clientHeight >> 1)) {
-      funcMoveUp(e)
-    } else if (moveY.current - downY.current < -(RefCurr.current.clientHeight >> 1)) {
-      funcMoveDown(e)
+    if (droper) {
+      const apart = e.clientY - startY
+      const { current: index } = RefIndex
+      if (index <= 0 && apart <= 0) return false
+      if (index >= tempHomeOrder.length - 1 && apart >= 0) return false
+      if (apart >= 48 * (3 / 4)) {
+        setStartY((prev) => prev + 48)
+        setTempHomeOrder(produce((draft) => {
+          [draft[index], draft[index + 1]] = [draft[index + 1], draft[index]]
+        }))
+        RefIndex.current += 1
+        setTop(-48 * (1 / 4))
+        return false
+      }
+      else if (apart <= -48 * (3 / 4)) {
+        setStartY((prev) => prev - 48)
+        setTempHomeOrder(produce((draft) => {
+          [draft[index], draft[index - 1]] = [draft[index - 1], draft[index]]
+        }))
+        RefIndex.current -= 1
+        setTop(48 * (1 / 4))
+        return false
+      }
+      setTop(apart)
     }
   };
 
@@ -62,18 +65,12 @@ const ShareWX = () => {
     setCurr('')
   };
 
-  useEffect(() => {
-    if (beforeIndex === -1) return false
-    setTempHomeOrder((prev) => {
-      return swap([...prev], beforeIndex, index)
-    })
-  }, [beforeIndex, index])
-
   const handleReset = () => {
     setTempHomeOrder(defaultOrder)
   }
 
   const handleConfirm = () => {
+    dispatch(setDialogReset())
     dispatch(setHomeOrder(tempHomeOrder))
   }
 
@@ -85,24 +82,20 @@ const ShareWX = () => {
           想调整首页栏目的顺序?按住右边的按钮拖动即可
         </span>
       </div>
-      <div className="flex flex-col relative">
+      <div className="flex flex-col relative" ref={DomList}>
         {
           tempHomeOrder.map((order, index) => (
-            <button
-              ref={curr === order ? RefCurr : null}
-              type="button"
-              key={order}
-              className={classNames("hover:bg-gray-200 transform bg-white", curr === order && 'shadow z-10')}
-              style={curr === order ? { transform: `translate(0, ${moveY - downY}px)` } : null}
-              onMouseDown={(e) => handleDown(e, order, index)}
-            >
-              <div className="border-b h-12 flex items-center mx-10 text-base text-gray-500">
-                <span>
-                  {order}
-                </span>
+            <div key={order} className="h-12 text-base text-gray-500">
+              <button
+                type="button"
+                className={classNames("w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center", curr === order && 'absolute shadow z-10')}
+                style={curr === order ? { transform: `translate(0, ${top}px)` } : null}
+                onMouseDown={(e) => handleDown(e, order, index)}
+              >
+                {order}
                 <IconMenu className="ml-auto cursor-move" />
-              </div>
-            </button>
+              </button>
+            </div>
           ))
         }
         {

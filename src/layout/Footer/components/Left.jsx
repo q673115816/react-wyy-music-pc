@@ -85,6 +85,11 @@ export default () => {
     dispatch(lyricVisibility ? setLyricHide() : setLyricShow());
   };
 
+  const handleReGet = () => {
+    console.log('出现错误，重新请求');
+    handleGetUrl()
+  }
+
   useEffect(() => {
     RefDropping.current = dropping;
   }, [dropping]);
@@ -126,6 +131,7 @@ export default () => {
           onLoadedMetadata={handleLoadedMetadata}
           onProgress={handleProgress}
           onEnded={handleEnded}
+          onError={handleReGet}
         />
       </div>
       {playlist.length > 0

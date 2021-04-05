@@ -137,7 +137,7 @@ export default (state = initialState, action) => {
     case SET_TOAST:
       return {
         ...state,
-        toastTitle: [action.payload.toastTitle],
+        toastTitle: [action.payload],
       };
     case SET_LYRIC_SHOW:
       return {

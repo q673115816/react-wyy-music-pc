@@ -35,18 +35,18 @@ module.exports = {
   // settings: {
   //   'import/resolver': 'webpack',
   // },
-  // settings: [{
-  //   'import/resolver': {
-  //     webpack: {
-  //       config: {
-  //         resolve: {
-  //           alias: {
-  //             '@': path.resolve('src'),
-  //           },
-  //           extensions: ['.js', '.jsx'],
-  //         },
-  //       },
-  //     },
-  //   },
-  // }],
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: {
+          resolve: {
+            alias: {
+              '@': path.resolve('src'),
+            },
+            extensions: ['.js', '.jsx'],
+          },
+        },
+      },
+    },
+  },
 };

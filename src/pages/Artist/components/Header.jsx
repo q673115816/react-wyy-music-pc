@@ -42,9 +42,7 @@ export default () => {
         t: 1,
       });
       if (code === 200) {
-        dispatch(setToast({
-          toastTitle: '收藏成功！',
-        }));
+        dispatch(setToast('收藏成功！'));
         // setDetail({
         //   ...detail,
         //   blacklist: !detail.blacklist,

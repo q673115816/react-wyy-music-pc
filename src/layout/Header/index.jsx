@@ -25,7 +25,7 @@ import {
   apiAlbumSublist,
   apiPlaylistMylike,
 } from '@/api';
-import { setGlobalInset } from '@/reducers/inset/actions';
+import { setGlobalInset, setGlobaDragger } from '@/reducers/inset/actions';
 
 import {
   IconMicrophone,
@@ -40,8 +40,7 @@ import DomFunction from './components/Function';
 export default memo(() => {
   const dispatch = useDispatch();
 
-  const [dragger, setDragger] = useState(false);
-  const { globalX, globalY } = useSelector(({ inset }) => inset);
+  const { globalX, globalY, globalDragger } = useSelector(({ inset }) => inset);
   const [dragInset, setDragInset] = useState({ x: 0, y: 0 });
   const [dragStartInset, setDragStartInset] = useState({ x: 0, y: 0 });
   const [dragLastInset, setDragLastInset] = useState(() => ({ x: globalX, y: globalY }));
@@ -50,11 +49,11 @@ export default memo(() => {
       x: e.clientX,
       y: e.clientY,
     });
-    setDragger(true);
+    dispatch(setGlobaDragger(true))
   };
 
   const dragmove = (e) => {
-    if (dragger) {
+    if (globalDragger) {
       const x = e.clientX - dragStartInset.x + dragLastInset.x;
       const y = e.clientY - dragStartInset.y + dragLastInset.y;
       setDragInset({
@@ -68,7 +67,7 @@ export default memo(() => {
 
   const dragup = () => {
     setDragLastInset(dragInset);
-    setDragger(false);
+    dispatch(setGlobaDragger(false))
   };
 
   const handleGetCountriesCodeList = async () => {
@@ -136,7 +135,7 @@ export default memo(() => {
         { }
       </button>
       {
-        dragger
+        globalDragger
         && createPortal(<div
           className="absolute inset-0"
           onMouseMove={dragmove}

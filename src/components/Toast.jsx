@@ -27,7 +27,7 @@ export default memo(() => {
       handleFadeout();
       clearTimeout(timer.current);
       timer.current = setTimeout(() => {
-        dispatch(setToast({ toastTitle: '' }));
+        dispatch(setToast(""));
       }, 1500);
     }
   }, [toastTitle]);

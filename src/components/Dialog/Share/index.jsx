@@ -39,9 +39,7 @@ const Share = () => {
     // await navigator.clipboard.writeText(ShareUrl);
     // alert('链接复制成功');
     useCopyLink(ShareUrl, () => {
-      dispatch(setToast({
-        toastTitle: '复制链接成功',
-      }));
+      dispatch(setToast('复制链接成功'));
     });
     dispatch(setDialogReset());
   };

@@ -22,14 +22,10 @@ export default memo(({
         like: !likelist.has(id),
       });
       if (code !== 200) {
-        dispatch(setToast({
-          toastTitle: message,
-        }));
+        dispatch(setToast(message));
         return;
       }
-      dispatch(setToast({
-        toastTitle: likelist.has(id) ? '取消喜欢成功' : '已添加到我喜欢的音乐',
-      }));
+      dispatch(setToast(likelist.has(id) ? '取消喜欢成功' : '已添加到我喜欢的音乐'));
       likelist.has(id)
         ? dispatch(setLikelistDel({ id }))
         : dispatch(setLikelistAdd({ id }));

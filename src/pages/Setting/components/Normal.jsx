@@ -4,6 +4,7 @@ import CompoenntCheckbox from '@/components/Checkbox';
 import { setFont } from '@/reducers/setting/actions';
 import DomRadio from './Radio';
 import DomCheckbox from './Checkbox';
+import { setToast} from '@/reducers/mask/actions'
 
 const fonts = [
   ['inherit', '默认'],
@@ -25,6 +26,7 @@ export default () => {
   const { font } = useSelector(({ setting }) => setting);
   const handleSelect = (e) => {
     dispatch(setFont(e.target.value));
+    dispatch(setToast('设置已更新'))
   };
 
   const [关闭主面板, 设置关闭主面板] = useState('最小化到系统托盘');

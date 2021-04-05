@@ -11,11 +11,6 @@ import {
   IconCheck,
   IconMail,
   IconPlus,
-  IconPlayerPlay,
-  IconLayoutGrid,
-  IconLayoutList,
-  IconList,
-  IconLock,
 } from '@tabler/icons';
 import classNames from 'classnames';
 import { SymbolWB } from '@/components/Symbol';

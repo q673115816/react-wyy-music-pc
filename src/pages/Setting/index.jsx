@@ -74,35 +74,19 @@ export default () => {
   console.log('ssetting');
 
   const [isLogin] = useIsLogin();
-
-  // const main = useRef();
-  // const [activeSetting, setActiveSetting] = useState('账号');
-
-  // const handleFollow = ({ target }) => {
-  //   const hr = target.querySelectorAll('[data-title]');
-  //   hr.forEach((item) => {
-  //     if (item.offsetTop <= target.scrollTop) {
-  //       setActiveSetting(item.dataset.title);
-  //     }
-  //   });
-  // };
-
-  // const handleScrollToActive = (active) => {
-  //   const target = main.current.querySelector(`[data-title="${active}"]`);
-  //   target.scrollIntoView();
-  // };
+  const [active, setActive] = useState()
+  const DomScroll = useRef()
 
   return (
     <div className="domSetting flex flex-col h-full">
       <div className="domSetting_header">
         <div className="domSetting_title h1">设置</div>
         <div className="domSetting_nav">
-          {nav.map((item) => (
+          {nav.map((item, index) => (
             <button
               key={item}
               type="button"
-              // onClick={() => handleScrollToActive(item)}
-              className={classNames('domSetting_nav_link')}
+              className={classNames('domSetting_nav_link', active === item && 'ui_underline font-bold')}
             >
               {item}
             </button>
@@ -110,43 +94,42 @@ export default () => {
         </div>
       </div>
       <div
-        className="domSetting_main overflow-auto max-h-full flex-auto divide-y"
+        className="domSetting_main overflow-auto max-h-full flex-auto"
         // onScroll={handleFollow}
-        // ref={main}
+        ref={DomScroll}
       >
-        <div data-title="账号">
+        <div data-title="账号" className="pb-8 mb-8 border-b">
           {
             isLogin
               ? <DomAccountLogined />
               : <DomAccountUnLogined />
           }
         </div>
-        <div data-title="常规" className="mt-8 pt-8">
+        <div data-title="常规" className="pb-8 mb-8 border-b">
           <DomNormal />
         </div>
-        <div data-title="播放" className="mt-8 pt-8">
+        <div data-title="播放" className="pb-8 mb-8 border-b">
           <DomPlay />
         </div>
-        <div data-title="消息与隐私" className="mt-8 pt-8">
+        <div data-title="消息与隐私" className="pb-8 mb-8 border-b">
           <DomMessage />
         </div>
-        <div data-title="快捷键" className="mt-8 pt-8">
+        <div data-title="快捷键" className="pb-8 mb-8 border-b">
           <DomKeyboard />
         </div>
-        <div data-title="下载设置" className="mt-8 pt-8">
+        <div data-title="下载设置" className="pb-8 mb-8 border-b">
           <DomDownload />
         </div>
-        <div data-title="歌词" className="mt-8 pt-8">
+        <div data-title="歌词" className="pb-8 mb-8 border-b">
           <DomLyric />
         </div>
-        <div data-title="工具" className="mt-8 pt-8">
+        <div data-title="工具" className="pb-8 mb-8 border-b">
           <DomTool />
         </div>
-        <div data-title="关于网易云音乐" className="mt-8 pt-8">
+        <div data-title="关于网易云音乐">
           <DomAbout />
         </div>
       </div>
-
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import {
   SET_GLOBAL_INSET,
+  SET_GLOBAL_DRAGGER,
   SET_GLOBAL_RECT,
   SET_SCREEN_FULL,
   SET_SCREEN_NORMAL,
@@ -9,6 +10,11 @@ import {
 
 export const setGlobalInset = (payload) => ({
   type: SET_GLOBAL_INSET,
+  payload,
+});
+
+export const setGlobaDragger = (payload) => ({
+  type: SET_GLOBAL_DRAGGER,
   payload,
 });
 
