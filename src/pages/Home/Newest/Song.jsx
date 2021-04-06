@@ -28,12 +28,58 @@ const navs = {
   日本: 8,
 };
 
-export default memo(() => {
-  console.log('song');
+const DomItem = memo(({ item, index }) => (
+  <div
+    className={classNames('item h-20 py-2.5 flex items-center px-8 text-sm', { 'bg-gray-50': index % 2 === 0 })}
+  >
+    <span className="ranking text-gray-300 w-8">
+      {String(index + 1).padStart(2, 0)}
+    </span>
+    <button
+      type="button"
+      className="cover w-16 relative rounded overflow-hidden ui_aspect-ratio-1/1"
+    >
+      <img
+        className=""
+        src={`${item.album.blurPicUrl}?param=100y100`}
+        alt=""
+      />
+      <i className="ico absolute w-6 h-6 m-auto flex-center inset-0 ui_themeColor bg-white bg-opacity-90 rounded-full">
+        <IconPlayerPlay size={14} className="fill-current" />
+      </i>
+    </button>
+    <span className="name px-2.5 w-0 flex items-center flex-auto">
+      <div className="truncate">{item.name}</div>
+      {/* <div className="TAG">SQ</div> */}
+      <DomTags item={item} mv={item.mvid} />
+    </span>
+    <span className="artists truncate">
+      {
+        item.artists.map((artist, index) => (
+          <span key={artist.id}>
+            {index > 0 && ' / '}
+            <Link to={`/artist/${artist.id}`} className="ui_text_gray_hover">
+              {artist.name}
+            </Link>
+          </span>
+        ))
+      }
+    </span>
+    <span className="album truncate">
+      <Link to={`/playlist/album/${item.album.id}`} className="ui_text_gray_hover">
+        {item.album.name}
+      </Link>
+
+    </span>
+    <span className="duration text-gray-500 text-right">
+      {dayjs(item.duration).format('mm:ss')}
+    </span>
+  </div>
+));
+
+const DomMain = memo(() => {
+  console.log('song main');
   const { type } = useParams();
-  if (!Object.keys(navs).includes(type)) {
-    return <Redirect to="全部" />;
-  }
   const [data, setData] = useState([]);
   const handleInit = async () => {
     try {
@@ -49,80 +95,38 @@ export default memo(() => {
     handleInit();
   }, [type]);
   return (
-    <>
-      <div className="domHome_newest_sub_nav">
-        {Object.keys(navs).map((item) => (
-          <NavLink
-            key={item}
-            className="domHome_newest_sub_nav_link"
-            activeClassName="on"
-            to={`/home/newest/song/${item}`}
-          >
-            {item}
-          </NavLink>
-        ))}
-        <div className="domHome_newest_sub_control_center space-x-2">
-          <span className="playAll flex-center ui_theme_bg_color text-white rounded-full px-2 py-0.5">
-            <IconPlayerPlay size={16} stroke={1} className="fill-current" />
-            播放全部
-          </span>
-          <span className="subAll flex-center rounded-full border px-2 py-0.5">
-            <IconFolderPlus size={16} stroke={1} />
-            收藏全部
-          </span>
-        </div>
-      </div>
-      <div className="domHome_newest_song_list">
-        {data.map((item, index) => (
-          <div
-            className={classNames('item h-20 py-2.5 flex items-center px-8', { 'bg-gray-50': index % 2 === 0 })}
-            key={item.id}
-          >
-            <span className="ranking text-gray-300 w-8">
-              {String(index + 1).padStart(2, 0)}
-            </span>
-            <button
-              type="button"
-              className="cover w-16 relative rounded overflow-hidden ui_aspect-ratio-1/1"
-            >
-              <img
-                className=""
-                src={`${item.album.blurPicUrl}?param=100y100`}
-                alt=""
-              />
-              <i className="ico absolute w-6 h-6 m-auto flex-center inset-0 ui_themeColor bg-white bg-opacity-90 rounded-full">
-                <IconPlayerPlay size={14} className="fill-current" />
-              </i>
-            </button>
-            <span className="name px-2.5 w-0 flex flex-auto">
-              <div className="truncate">{item.name}</div>
-              {/* <div className="TAG">SQ</div> */}
-              <DomTags item={item} />
-            </span>
-            <span className="artists truncate">
-              {
-                item.artists.map((artist, index) => (
-                  <span key={artist.id}>
-                    {index > 0 && ' / '}
-                    <Link to="artist" className="ui_text_black_hover">
-                      {artist.name}
-                    </Link>
-                  </span>
-                ))
-              }
-            </span>
-            <span className="album truncate">
-              <Link to="album" className="ui_text_black_hover">
-                {item.album.name}
-              </Link>
-
-            </span>
-            <span className="duration text-gray-500 text-right">
-              {dayjs(item.duration).format('mm:ss')}
-            </span>
-          </div>
-        ))}
-      </div>
-    </>
+    <div className="domHome_newest_song_list">
+      {data.map((item, index) => (
+        <DomItem key={item.id} item={item} index={index} />
+      ))}
+    </div>
   );
 });
+
+export default memo(() => (
+  <>
+    <div className="domHome_newest_sub_nav">
+      {Object.keys(navs).map((item) => (
+        <NavLink
+          key={item}
+          className="domHome_newest_sub_nav_link"
+          activeClassName="on"
+          to={`/home/newest/song/${item}`}
+        >
+          {item}
+        </NavLink>
+      ))}
+      <div className="domHome_newest_sub_control_center space-x-2">
+        <span className="playAll flex-center ui_theme_bg_color text-white rounded-full px-2 py-0.5">
+          <IconPlayerPlay size={16} stroke={1} className="fill-current" />
+          播放全部
+        </span>
+        <span className="subAll flex-center rounded-full border px-2 py-0.5">
+          <IconFolderPlus size={16} stroke={1} />
+          收藏全部
+        </span>
+      </div>
+    </div>
+    <DomMain />
+  </>
+));

@@ -34,14 +34,14 @@ const arealist = [
 const AlbumItem = ({ item }) => (
   <div className="item">
     <div className="cover rounded overflow-hidden">
-      <Link to="/">
+      <Link to={`/playlist/album/${item.id}`}>
         <LazyLoad overflow>
           <img className="ui_containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />
         </LazyLoad>
       </Link>
     </div>
     <div className="name text-sm ui_ellipse mt-2">
-      <Link to="/">
+      <Link to={`/playlist/album/${item.id}`}>
         <span className="ui_text_black_hover">
           {item.name}
         </span>
@@ -65,7 +65,7 @@ const AlbumItem = ({ item }) => (
       </Link>
     </div>
     <div className="artist mt-2">
-      <Link to="/artist" key={item.artist.id} className="ui_text_gray_hover">
+      <Link to={`/artist/${item.artist.id}`} key={item.artist.id} className="ui_text_gray_hover">
         {item.artist.name}
       </Link>
     </div>

@@ -4,8 +4,10 @@ import { IconPlayerPlay } from '@tabler/icons';
 import classNames from 'classnames';
 import DomBox from './Box';
 
-export default ({ item = {}, className = '', sq = false, mv = item.mv }) => (
-  <div className={classNames('tags flex-none pl-1', className)}>
+export default ({
+  item = {}, className = '', sq = false, mv = item.mv,
+}) => (
+  <div className={classNames('tags flex-none flex items-center space-x-1 px-1', className)}>
     {
       item.fee === 1
       && (
