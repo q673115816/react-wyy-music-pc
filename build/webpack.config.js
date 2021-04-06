@@ -1,11 +1,12 @@
 const { merge } = require('webpack-merge');
 const base = require('./webpack.base');
 const dev = require('./webpack.dev');
-const prod = require('./webpack.pord');
+const prod = require('./webpack.prod');
 
-module.exports = function (env = {}, argv) {
+module.exports = (env = {}, argv) => {
+  console.log(env, argv);
   const { mode } = argv;
   const isProduction = mode === 'production';
-  const setting = !isProduction ? dev : prod;
+  const setting = isProduction ? prod : dev;
   return merge(base, setting);
 };
