@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -18,7 +18,7 @@ import DomSwiper from '@/components/Swiper';
 import SwiperCore, {
   Navigation, A11y,
 } from 'swiper';
-
+import DomLoading from '@/components/Loading';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import {
@@ -68,6 +68,7 @@ const navs = [
 
 export default () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
   const {
     DjBanner,
     category,
@@ -126,6 +127,7 @@ export default () => {
           声音恋人: 声音恋人.djRadios,
         },
       }));
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -134,9 +136,7 @@ export default () => {
   useEffect(() => {
     handleInit();
   }, []);
-
-  // const random = (height) => Math.random() * height >> 0;
-  // const randomrgb = () => `rgb(${random(255)},${random(255)},${random(255)})`;
+  if (loading) return <div className="flex-center w-full h-full"><DomLoading /></div>;
   return (
     <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
       <div className="domHome_dj pb-16 ui_w1100">

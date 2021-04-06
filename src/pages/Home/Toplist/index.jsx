@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { apiToplistDetail, apiPlaylistDetail, apiToplistArtist } from '@/api';
 import { setTopListsDetail } from '@/reducers/home/actions';
 import { transPlayCount } from '@/common/utils';
+import DomLoading from '@/components/Loading';
 import './style.scss';
 
 const DomContent = ({ tracks = [] }) => (
@@ -64,6 +65,7 @@ export default memo(() => {
 
   const [fiveTop, setFiveTop] = useState([]);
   const [artists, setArtists] = useState({});
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const handleInit = async () => {
     try {
@@ -75,6 +77,7 @@ export default memo(() => {
       ]);
       setFiveTop([飙升榜, 新歌榜, 原创榜, 热歌榜]);
       setArtists(歌手榜);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -83,6 +86,7 @@ export default memo(() => {
   useEffect(() => {
     handleInit();
   }, []);
+  if (loading) return <div className="flex-center w-full h-full"><DomLoading /></div>;
   return (
     <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
       <div className="domHome_toplist ui_w1100">
