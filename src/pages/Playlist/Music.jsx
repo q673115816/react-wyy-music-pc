@@ -240,7 +240,7 @@ export default () => {
             navs.map(([nav, code]) => (
               <button
                 type="button"
-                className={classNames('text-sm', status === code && 'text-base font-bold')}
+                className={classNames('text-sm', status === code && 'text-base font-bold ui_underline')}
                 key={nav}
                 onClick={() => setStatus(code)}
               >

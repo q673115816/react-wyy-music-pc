@@ -17,7 +17,7 @@ export default ({ songs = [] }) => {
     );
   }
   return (
-    <div style={{ '--ui_grid_template': '36px / 54px 30px 30px 36% 4fr 6fr 2fr' }}>
+    <div style={{ '--ui_grid_template': '36px / 54px 30px 30px 36% 4fr 6fr 2fr' }} className="mt-4">
       <div className="grid ui_grid_template">
         <div />
         <div />

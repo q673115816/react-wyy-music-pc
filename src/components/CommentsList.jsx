@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import DomComment from './Comment';
 
-export default ({ comments = { }, more }) => (
+export default ({ comments = { }, more, type }) => (
   <div className="">
     {
       comments.hotComments?.length > 0
@@ -22,7 +22,7 @@ export default ({ comments = { }, more }) => (
             <div className="domComment_list_more flex-center">
               <Link
                 className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
-                to={`/comment/${more}/hot`}
+                to={`/comment/${type}/${more}/hot`}
               >
                 更多精彩评论 &gt;
 

@@ -278,7 +278,7 @@ export default memo(() => {
                   )
                   : (
                     <>
-                      <DomCommentsList comments={comments} more={memoId} />
+                      <DomCommentsList comments={comments} more={memoId} type="song" />
                       <DomPage total={Math.ceil(comments.total / limit)} page={1} func={setPage} />
                     </>
                   )

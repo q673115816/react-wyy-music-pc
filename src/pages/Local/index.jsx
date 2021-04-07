@@ -37,7 +37,7 @@ export default () => {
             <button
               onClick={() => dispatch(setLocalCurrent({ current: item }))}
               key={item}
-              className={classNames('domManage_nav_link focus:outline-none', { on: item === current })}
+              className={classNames('domManage_nav_link focus:outline-none', item === current && 'ui_underline font-bold')}
               type="button"
             >
               {item}
