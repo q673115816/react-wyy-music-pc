@@ -6,10 +6,8 @@ import { apiCommentMusic, apiSimiSong } from '@/api';
 import DomLoading from '@/components/Loading';
 import DomPage from '@/components/Page';
 import DomHeart from '@/components/Table/Heart';
-import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import {
-  IconHeart,
   IconFolderPlus,
   IconCloudDownload,
   IconShare,
@@ -21,6 +19,7 @@ import {
 import DomCommentsList from '@/components/CommentsList';
 import './style.scss';
 import classNames from 'classnames';
+import { setLyricHide } from '@/reducers/mask/actions';
 
 const DomLrcContext = ({ lrc = '', tlyric = '' }) => {
   const {
@@ -143,6 +142,8 @@ const DomRight = ({ simiSong = [] }) => (
 );
 
 export default memo(() => {
+  const dispatch = useDispatch();
+  const { listen } = useHistory();
   const { currentSong } = useSelector(({ audio }) => audio);
   const memoId = useMemo(() => currentSong.id, [currentSong]);
   const [loading, setLoading] = useState(true);
@@ -185,6 +186,12 @@ export default memo(() => {
       handleLeftInit();
     }
   }, [page]);
+  useEffect(() => {
+    const unlisten = listen((route) => {
+      dispatch(setLyricHide());
+    });
+    return unlisten;
+  });
 
   return (
     <div id="lrc" className="absolute inset-x-0 bg-white overflow-auto z-20">
