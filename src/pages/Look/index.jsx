@@ -1,7 +1,7 @@
 import React, { useState, memo, useRef } from 'react';
 import DomLook from '@/components/AdLookRectangle';
 import useInfinite from '@/custom/useInfinite';
-import './style.scss';
+// import './style.scss';
 
 export default memo(() => {
   const [size, setSize] = useState(20);

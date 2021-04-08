@@ -2,7 +2,7 @@ import React, {
   useRef, useState, memo, useEffect, useCallback, forwardRef,
 } from 'react';
 import { IconFileImport } from '@tabler/icons';
-import './style.scss';
+// import './style.scss';
 import { useDispatch } from 'react-redux';
 import { setToast } from '@/reducers/mask/actions';
 

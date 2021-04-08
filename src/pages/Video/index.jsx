@@ -17,6 +17,7 @@ export default memo(() => (
       {
         navs.map(([name, path]) => (
           <NavLink
+            key={name}
             className="domVideoList_link"
             activeClassName="text-xl ui_underline font-bold"
             to={path}

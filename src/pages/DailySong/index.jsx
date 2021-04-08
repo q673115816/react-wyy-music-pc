@@ -9,7 +9,7 @@ import {
 } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
 import useLoginStatus from '@/custom/useLoginStatus';
-import './style.scss';
+// import './style.scss';
 import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';

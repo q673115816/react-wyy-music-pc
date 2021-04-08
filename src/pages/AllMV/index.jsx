@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { apiMVAll } from '@/api';
-import './style.scss';
+// import './style.scss';
 import classNames from 'classnames';
 
 import DomGridVideo from '@/components/GridVideo';
@@ -73,13 +73,13 @@ export default () => {
   }, [search]);
 
   return (
-    <div className="domAllMV overflow-auto h-full px-8" ref={domScroll}>
-      <div className="domAllMV_header">
+    <div className="domAllMV overflow-auto h-full" ref={domScroll}>
+      <div className="domAllMV_header ui_header">
         <Link to="./" className="h1 title">
           全部MV
         </Link>
       </div>
-      <div className="domAllMV_main flex-auto">
+      <div className="domAllMV_main px-8 flex-auto">
         <div className="ui_filter">
           {
             filters.map((filter) => (

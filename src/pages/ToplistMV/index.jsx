@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { apiTopMV } from '@/api';
 import DomGridMVToplist from '@/components/GridMVToplist';
 
-import './style.scss';
+// import './style.scss';
 
 const navs = [
   '内地',

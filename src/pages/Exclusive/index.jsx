@@ -11,7 +11,7 @@ import {
   setExclusiveScrollTop,
 } from '@/reducers/exclusive/actions';
 import useInfinite from '@/custom/useInfinite';
-import './style.scss';
+// import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import DomReisze from '@/components/ResizeObserver';

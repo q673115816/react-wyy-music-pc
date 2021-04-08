@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Search from '@/components/HeaderBarSearch';
 import { apiUserCloud } from '@/api';
 
-import './style.scss';
+// import './style.scss';
 import DomMenuCreate from '@/components/MenuCreate';
 import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';

@@ -1,5 +1,6 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const path = require('path');
 const webpack = require('webpack');
@@ -37,14 +38,20 @@ const plugins = [
     cdn,
     // publicPath: '/'
   }),
+  new MiniCssExtractPlugin({
+    // Options similar to the same options in webpackOptions.output
+    // both options are optional
+    filename: '[name].[contenthash:8].css',
+    chunkFilename: '[name].[contenthash:8].css',
+  }),
   // new webpack.DllPlugin({
   //   name: '[name]_[fullhash]',
-  //   path: path.join(dist, '[name]-manifest.json'),
+  //   path: path.join(__dirname, '../dll/[name]-manifest.json'),
   //   context: __dirname,
   // }),
   // new webpack.DllReferencePlugin({
   //   context: __dirname,
-  //   manifest: require('../dist/vendor-manifest.json'),
+  //   manifest: require('../dll/vendor-manifest.json'),
   // }),
 ];
 
@@ -54,10 +61,11 @@ module.exports = {
   entry: {
     index: path.join(src, 'index.jsx'),
     // vendor: [
-    // 'swiper',
-    // 'react',
-    // 'react-dom',
-    // 'react-router-dom',
+    //   'swiper',
+    //   'qrcode.react',
+    //   'react',
+    //   'react-dom',
+    //   'react-router-dom',
     // ],
   },
 
@@ -89,6 +97,10 @@ module.exports = {
         //   priority: -20,
         //   reuseExistingChunk: true,
         // },
+        lodash: {
+          name: 'lodash',
+          test: /[\\/]node_modules[\\/]_?lodash(.*)/,
+        },
         swiper: {
           name: 'swiper',
           test: /[\\/]node_modules[\\/]_?swiper(.*)/,
@@ -136,7 +148,7 @@ module.exports = {
       'react-redux': 'ReactRedux',
       '@tabler/icons': 'tablerIcons',
       redux: 'Redux',
-    // swiper: /^swiper$/,
+      // swiper: /^swiper$/,
       // react: ['https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js', 'React'],
       // 'react-dom': ['https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js', 'ReactDOM'],
       // 'react-router-dom': ['https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js', 'ReactDOM'],
@@ -146,17 +158,31 @@ module.exports = {
       // 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
       // '@tabler/icons': ['https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js', 'Redux'],
     }],
-  // externals: [
-  //   'react-router',
-  //   'react-router-dom',
-  //   'react',
-  //   'react-dom',
-  //   'react-redux',
-  //   '@tabler/icons',
-  //   'redux',
-  // ],
   module: {
     rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        exclude: /(node_modules|bower_components)/,
+        include: src,
+        use: [
+          devMode
+            ? 'style-loader' : {
+              loader: MiniCssExtractPlugin.loader,
+              // options: {
+              //   publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
+              // },
+            },
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: path.join(src, 'styles/_global.scss'),
+            },
+          },
+        ],
+      },
       {
         test: /\.[jt]sx?$/,
         exclude: /(node_modules|bower_components)/,
