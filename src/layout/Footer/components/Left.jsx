@@ -40,7 +40,8 @@ export default () => {
       const { data } = await apiSongUrl({
         id: currentSong.id,
       });
-      refAudio.current.src = data[0].url;
+      if (!data[0].url) console.log('无音乐地址');
+      refAudio.current.src = data[0]?.url || `https://music.163.com/song/media/outer/url?id=${currentSong.id}.mp3`;
       dispatch(setSong({ song: data[0] }));
       const lyric = await apiLyric({
         id: currentSong.id,
@@ -87,8 +88,8 @@ export default () => {
 
   const handleReGet = () => {
     console.log('出现错误，重新请求');
-    handleGetUrl()
-  }
+    handleGetUrl();
+  };
 
   useEffect(() => {
     RefDropping.current = dropping;
