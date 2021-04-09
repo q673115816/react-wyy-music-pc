@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { memo, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronDownRight } from '@tabler/icons';
@@ -23,16 +23,13 @@ import Contextmenu from './components/Contextmenu';
 import HeaderSearch from './components/HeaderSearch';
 import useKeyActions from './custom/useKeyActions';
 import DomLrc from './pages/Lrc';
+import GlobalLrc from './components/Lrc';
 import { setGlobalRect } from './reducers/inset/actions';
 
 const MINWIDTH = 1022;
 const MINHEIGHT = 670;
 
-export default () => {
-  useKeyActions();
-  const dispatch = useDispatch();
-  const { popupStatus, loginVisibility } = useSelector(({ common }) => common);
-  const { theme } = useSelector(({ setting }) => setting);
+const DomVisibility = memo(() => {
   const {
     toastTitle,
     lyricVisibility,
@@ -44,7 +41,37 @@ export default () => {
     dialogUploadAvatarVisibility,
     dialogCreatePlaylistVisibility,
     dialogUnSubscriptionVisibility,
+    globalLrcVisibility,
   } = useSelector(({ mask }) => mask);
+  const { popupStatus } = useSelector(({ common }) => common);
+  return (
+    <>
+      {lyricVisibility && <DomLrc />}
+
+      {popupStatus === 'playlist' && <Playlist />}
+      {popupStatus === 'privateLetter' && <Letter />}
+      {contextMenuVisibility && <Contextmenu />}
+      {dialogShareVisibility && <DialogShare />}
+      {dialogShareWXVisibility && <DialogShareWX />}
+      {dialogUploadAvatarVisibility && <DialogUploadAvatar />}
+      {dialogCreatePlaylistVisibility && <DialogCreatePlaylist />}
+      {dialogUnSubscriptionVisibility && <DialogUnSubscription />}
+      {dialogHomeOrderVisibility && <DialogHomeOrder />}
+      {searchVisibility && <HeaderSearch />}
+      {globalLrcVisibility && createPortal(<GlobalLrc />, document.querySelector('#lrc-root'))}
+      {
+        toastTitle?.toString()
+        && <Tosat />
+      }
+    </>
+  );
+});
+
+export default () => {
+  useKeyActions();
+  const dispatch = useDispatch();
+  const { loginVisibility } = useSelector(({ common }) => common);
+  const { theme, font } = useSelector(({ setting }) => setting);
   const {
     POSITION,
     SCREEN,
@@ -54,7 +81,6 @@ export default () => {
     globalWidth,
     globalHeight,
   } = useSelector(({ inset }) => inset);
-  const { font } = useSelector(({ setting }) => setting)
   const [resizer, setResizer] = useState(false);
   const [resizeStartInset, setResizeStartInset] = useState({ x: 0, y: 0 });
   const [resizeInitRect, setResizeInitRect] = useState({ width: globalWidth, height: globalHeight });
@@ -114,7 +140,7 @@ export default () => {
               '--HEIGHT': '100vh',
             }),
             ...(POSITION ? globalDragger ? {
-              transform: `translate(${globalX}px, ${globalY}px)`
+              transform: `translate(${globalX}px, ${globalY}px)`,
             } : {
               position: 'absolute',
               left: `${globalX}px`,
@@ -132,22 +158,7 @@ export default () => {
               <DomFooter />
             </Route>
           </Switch>
-          {lyricVisibility && <DomLrc />}
-
-          {popupStatus === 'playlist' && <Playlist />}
-          {popupStatus === 'privateLetter' && <Letter />}
-          {contextMenuVisibility && <Contextmenu />}
-          {dialogShareVisibility && <DialogShare />}
-          {dialogShareWXVisibility && <DialogShareWX />}
-          {dialogUploadAvatarVisibility && <DialogUploadAvatar />}
-          {dialogCreatePlaylistVisibility && <DialogCreatePlaylist />}
-          {dialogUnSubscriptionVisibility && <DialogUnSubscription />}
-          {dialogHomeOrderVisibility && <DialogHomeOrder />}
-          {searchVisibility && <HeaderSearch />}
-          {
-            toastTitle?.toString()
-            && <Tosat />
-          }
+          <DomVisibility />
           {SCREEN === 'normal'
             && (
               <div

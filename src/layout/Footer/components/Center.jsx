@@ -11,10 +11,16 @@ import {
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setAudioRunning, setAudioPattern, setAudioPrev,
+  setAudioRunning,
+  setAudioPattern,
+  setAudioPrev,
   setAudioNext,
 } from '@/reducers/audio/actions';
+import {
+  setGlobalLrcToggle,
+} from '@/reducers/mask/actions';
 import { audioPattern } from '@/common/config';
+import classNames from 'classnames';
 import DomTiming from './Timing';
 
 const audioPatternIcon = [
@@ -29,6 +35,7 @@ export default () => {
   const {
     running, pattern,
   } = useSelector(({ audio }) => audio);
+  const { globalLrcVisibility } = useSelector(({ mask }) => mask);
   const handleToggle = () => {
     dispatch(setAudioRunning({ running: !running }));
   };
@@ -88,8 +95,9 @@ export default () => {
         </button>
         <button
           type="button"
-          className="mx-2 hover:ui_themeColor"
+          className={classNames('mx-2 hover:ui_themeColor', globalLrcVisibility && 'ui_themeColor')}
           title="打开歌词"
+          onClick={() => dispatch(setGlobalLrcToggle())}
         >
           词
         </button>

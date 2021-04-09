@@ -12,9 +12,14 @@ import {
   SET_TOAST,
   SET_LYRIC_SHOW,
   SET_LYRIC_HIDE,
+
+  SET_GLOBAL_LRC_TOGGLE,
+  SET_GLOBAL_LRC_SHOW,
+  SET_GLOBAL_LRC_HIDE,
 } from './actionTypes';
 
 const visibilityState = {
+  globalLrcVisibility: false,
   lyricVisibility: false,
   maskVisibility: false,
   searchVisibility: false,
@@ -148,6 +153,22 @@ export default (state = initialState, action) => {
       return {
         ...state,
         lyricVisibility: false,
+      };
+
+    case SET_GLOBAL_LRC_TOGGLE:
+      return {
+        ...state,
+        globalLrcVisibility: !state.globalLrcVisibility,
+      };
+    case SET_GLOBAL_LRC_SHOW:
+      return {
+        ...state,
+        globalLrcVisibility: true,
+      };
+    case SET_GLOBAL_LRC_HIDE:
+      return {
+        ...state,
+        globalLrcVisibility: false,
       };
     default:
       return state;

@@ -6,6 +6,8 @@ import {
   SET_SCREEN_NORMAL,
   SET_POSITION_TRUE,
   SET_POSITION_FALSE,
+  SET_GLOBAL_LRC_INSET,
+
 } from './actionTypes';
 
 export const setGlobalInset = (payload) => ({
@@ -37,4 +39,9 @@ export const setPositionTrue = () => ({
 
 export const setPositionFalse = () => ({
   type: SET_POSITION_FALSE,
+});
+
+export const setGlobalLrcInset = (payload) => ({
+  type: SET_GLOBAL_LRC_INSET,
+  payload,
 });

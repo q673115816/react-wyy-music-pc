@@ -37,11 +37,28 @@ const DomLrcContext = ({ lrc = '', tlyric = '' }) => {
       return [time, word];
     }) : []), [tlyric]);
 
+  const repetition = [];
+
   const fnLrc = (line) => {
     const {
-      time, min, sec, word,
-    } = line.match(/^\[(?<time>(?<min>\d*):(?<sec>\d*.\d*))\](?<word>.*)/).groups;
-
+      time2,
+      min2,
+      sec2,
+      time,
+      min,
+      sec,
+      word,
+    } = line.match(/^(\[(?<time2>(?<min2>\d*):(?<sec2>\d*.\d*))\])?(\[(?<time>(?<min>\d*):(?<sec>\d*.\d*))\])(?<word>.*)/).groups;
+    if (time2) {
+      repetition.push({
+        min: min2,
+        sec: sec2,
+        word: (tlyricList?.has(time))
+          ? `${word}
+        ${tlyricList.get(time)}`
+          : word,
+      });
+    }
     return {
       min,
       sec,
@@ -53,7 +70,8 @@ const DomLrcContext = ({ lrc = '', tlyric = '' }) => {
   };
   const lrcList = useMemo(() => lrc
     .match(reg)
-    .map(fnLrc), [lrc]);
+    .map(fnLrc).concat(repetition), [lrc]);
+
   useEffect(() => {
     setCurrentLineIndex(
       lrcList

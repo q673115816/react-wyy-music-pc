@@ -12,6 +12,10 @@ import {
   SET_TOAST,
   SET_LYRIC_SHOW,
   SET_LYRIC_HIDE,
+
+  SET_GLOBAL_LRC_TOGGLE,
+  SET_GLOBAL_LRC_SHOW,
+  SET_GLOBAL_LRC_HIDE,
 } from './actionTypes';
 
 export const setToast = (payload) => ({
@@ -74,4 +78,16 @@ export const setLyricShow = () => ({
 
 export const setLyricHide = () => ({
   type: SET_LYRIC_HIDE,
+});
+
+export const setGlobalLrcToggle = () => ({
+  type: SET_GLOBAL_LRC_TOGGLE,
+});
+
+export const setGlobalLrcShow = () => ({
+  type: SET_GLOBAL_LRC_SHOW,
+});
+
+export const setGlobalLrcHide = () => ({
+  type: SET_GLOBAL_LRC_HIDE,
 });

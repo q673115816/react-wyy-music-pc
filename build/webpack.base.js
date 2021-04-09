@@ -1,7 +1,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const querystring = require('querystring');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -11,23 +11,44 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 const minCdn = devMode ? '' : '.min';
 
+const cdnBase = '//cdn.jsdelivr.net';
+
 const cdn = {
   js: [
-    `https://cdn.jsdelivr.net/npm/react/umd/react.development${minCdn}.js`,
-    `https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development${minCdn}.js`,
-    `https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom${minCdn}.js`,
-    // `https://cdn.jsdelivr.net/npm/react-router/umd/react-router${minCdn}.js`,
-    `https://cdn.jsdelivr.net/npm/redux/dist/redux${minCdn}.js`,
-    `https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux${minCdn}.js`,
-    // `https://cdn.jsdelivr.net/npm/swiper/swiper-bundle${minCdn}.js`,
-    // `https://cdn.jsdelivr.net/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
-    `https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
+    `https:${cdnBase}/npm/react/umd/react.development${minCdn}.js`,
+    `https:${cdnBase}/npm/react-dom/umd/react-dom.development${minCdn}.js`,
+    `https:${cdnBase}/npm/react-router-dom/umd/react-router-dom${minCdn}.js`,
+    // `https:${cdnBase}/npm/react-router/umd/react-router${minCdn}.js`,
+    `https:${cdnBase}/npm/redux/dist/redux${minCdn}.js`,
+    `https:${cdnBase}/npm/react-redux/dist/react-redux${minCdn}.js`,
+    // `https:${cdnBase}/npm/swiper/swiper-bundle${minCdn}.js`,
+    // `https:${cdnBase}/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
+    `https:${cdnBase}/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
   ],
   css: [
-    'https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css',
-    'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css',
+    `https:${cdnBase}/npm/tailwindcss/dist/tailwind.min.css`,
+    `https:${cdnBase}/npm/swiper/swiper-bundle.min.css`,
   ],
 };
+
+const meta = {
+  author: 'q673115816',
+  'x-dns-prefetch-control': {
+    'http-equiv': 'x-dns-prefetch-control',
+    content: 'on',
+  },
+};
+
+const prefetch = [
+  'rel="dns-prefetch" href="//q673115816.github.io"',
+  'rel="dns-prefetch" href="//cdn.jsdelivr.net"',
+  'rel="dns-prefetch" href="//netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app"',
+  'rel="dns-prefetch" href="//p1.music.126.net"',
+  'rel="dns-prefetch" href="//p2.music.126.net"',
+  'rel="dns-prefetch" href="//p3.music.126.net"',
+  'rel="dns-prefetch" href="//m7.music.126.net"',
+  'rel="dns-prefetch" href="//m8.music.126.net"',
+];
 
 const plugins = [
   new CleanWebpackPlugin(),
@@ -36,6 +57,8 @@ const plugins = [
     template: path.join(__dirname, '../public/index.html'),
     title: '网易云音乐',
     cdn,
+    prefetch,
+    // meta,
     // publicPath: '/'
   }),
   new MiniCssExtractPlugin({
@@ -97,10 +120,10 @@ module.exports = {
         //   priority: -20,
         //   reuseExistingChunk: true,
         // },
-        lodash: {
-          name: 'lodash',
-          test: /[\\/]node_modules[\\/]_?lodash(.*)/,
-        },
+        // lodash: {
+        //   name: 'lodash',
+        //   test: /[\\/]node_modules[\\/]_?lodash(.*)/,
+        // },
         swiper: {
           name: 'swiper',
           test: /[\\/]node_modules[\\/]_?swiper(.*)/,

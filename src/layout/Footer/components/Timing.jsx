@@ -3,7 +3,11 @@ import { createPortal } from 'react-dom';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setJumpToAudioCurrentTime, setAudioCurrentTime, setAudioDropping, setAudioRunning, setAudioPattern,
+  setJumpToAudioCurrentTime,
+  setAudioCurrentTime,
+  setAudioDropping,
+  setAudioRunning,
+  setAudioPattern,
 } from '@/reducers/audio/actions';
 import { computedPositionPercentage } from '@/common/utils';
 
@@ -29,13 +33,13 @@ export default () => {
     return jump;
   };
 
-  const handleProcess = (e) => {
-    dispatch(setAudioCurrentTime(computedPosition(e)));
-  };
-
   const handleProcessStart = () => {
     dispatch(setAudioDropping({ dropping: true }));
     setIsDrop(true);
+  };
+
+  const handleProcess = (e) => {
+    dispatch(setAudioCurrentTime(computedPosition(e)));
   };
 
   const handleProcessEnd = (e) => {
@@ -45,6 +49,7 @@ export default () => {
   };
 
   const handleClick = (e) => {
+    dispatch(setAudioCurrentTime(computedPosition(e)));
     dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
   };
 

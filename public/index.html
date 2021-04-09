@@ -24,6 +24,9 @@
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
+  <% for(var prefetch of htmlWebpackPlugin.options.prefetch) { %>
+    <link <%=prefetch%>>
+  <% } %>
   <!-- <script src="https://cdn.polyfill.io/v2/polyfill.js"></script> -->
   <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-icons/font/bootstrap-icons.css"> -->
   <!-- <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css"> -->
@@ -39,6 +42,7 @@
     You need to enable JavaScript to run this app.
   </noscript>
   <div id="root"></div>
+  <div id="lrc-root"></div>
   <div id="help-root"></div>
   <div id="comment-root"></div>
   <!--
