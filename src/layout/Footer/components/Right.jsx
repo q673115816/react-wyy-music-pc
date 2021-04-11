@@ -6,7 +6,7 @@ import {
   IconVolume3,
   IconList,
 } from '@tabler/icons';
-import { setPopup } from '@/reducers/common/actions';
+import { setPopupPlaylistToggle } from '@/reducers/mask/actions';
 import classNames from 'classnames';
 import DomVolume from './Volume';
 
@@ -21,18 +21,8 @@ export default () => {
   const dispatch = useDispatch();
   const [toneQuality, settoneQuality] = useState('normal');
   const [visibility, setVisibility] = useState(false);
-  const {
-    popupStatus,
-  } = useSelector(({ common }) => common);
-  const { currentSong } = useSelector(({ audio }) => audio);
 
-  const handlesetPopup = () => {
-    if (popupStatus === 'playlist') {
-      dispatch(setPopup({ popupStatus: '' }));
-    } else {
-      dispatch(setPopup({ popupStatus: 'playlist' }));
-    }
-  };
+  const { currentSong } = useSelector(({ audio }) => audio);
 
   const handleVisibilityChange = () => {
     // setVisibility(!visibility);
@@ -74,7 +64,7 @@ export default () => {
         <IconEar size={28} stroke={1} />
       </button>
       <DomVolume />
-      <button type="button" onClick={handlesetPopup}>
+      <button type="button" onClick={() => dispatch(setPopupPlaylistToggle())}>
         <IconList size={26} stroke={1} />
       </button>
     </div>

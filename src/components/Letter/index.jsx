@@ -6,6 +6,7 @@ import DomMessage from './Message';
 
 export default () => {
   const { showMsgPrivateHistory } = useSelector(({ letter }) => letter);
+  const { popupStatus } = useSelector(({ mask }) => mask);
   const dispatch = useDispatch();
 
   useEffect(() => () => {
@@ -13,6 +14,7 @@ export default () => {
       showMsgPrivateHistory: false,
     }));
   }, []);
+  if (popupStatus !== 'letter') return null;
   return (
     <div id="privateLetter" className="flex flex-col absolute z-40">
       {

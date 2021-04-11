@@ -4,7 +4,6 @@ import {
   SET_MSG_PRIVATE,
   SET_COUNTRIES_CODE_LIST,
   SET_LOGIN_VISIBILTY,
-  SET_POPUP,
 } from './actionTypes';
 
 export const setIsLogin = () => ({
@@ -27,10 +26,4 @@ export const setContriesCodeList = (payload) => ({
 
 export const setLoginVisibilty = () => ({
   type: SET_LOGIN_VISIBILTY,
-});
-
-// common
-export const setPopup = (payload) => ({
-  type: SET_POPUP,
-  payload,
 });

@@ -37,21 +37,14 @@ const DomVisibility = memo(() => {
     dialogCreatePlaylistVisibility,
     dialogUnSubscriptionVisibility,
   } = useSelector(({ mask }) => mask);
-  const { popupStatus } = useSelector(({ common }) => common);
   return (
     <>
-      <DomLrc />
-      {popupStatus === 'playlist' && <Playlist />}
-      {popupStatus === 'privateLetter' && <Letter />}
       {contextMenuVisibility && <Contextmenu />}
       {dialogShareVisibility && <DialogShare />}
       {dialogShareWXVisibility && <DialogShareWX />}
       {dialogUploadAvatarVisibility && <DialogUploadAvatar />}
       {dialogCreatePlaylistVisibility && <DialogCreatePlaylist />}
       {dialogUnSubscriptionVisibility && <DialogUnSubscription />}
-      <HeaderSearch />
-
-      <Tosat />
     </>
   );
 });
@@ -152,6 +145,11 @@ export default () => {
             </Route>
           </Switch>
           <DomVisibility />
+          <DomLrc />
+          <Playlist />
+          <Letter />
+          <HeaderSearch />
+          <Tosat />
           {SCREEN === 'normal'
             && (
               <div

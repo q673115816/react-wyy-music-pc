@@ -17,6 +17,9 @@ import {
   SET_GLOBAL_LRC_TOGGLE,
   SET_GLOBAL_LRC_SHOW,
   SET_GLOBAL_LRC_HIDE,
+
+  SET_POPUP_LETTER_TOGGLE,
+  SET_POPUP_PLAYLIST_TOGGLE,
 } from './actionTypes';
 
 const visibilityState = {
@@ -32,6 +35,7 @@ const visibilityState = {
   dialogCreatePlaylistVisibility: false,
   dialogUnSubscriptionVisibility: false,
   artistId: 0,
+  popupStatus: 'false',
 };
 
 const maskState = {
@@ -175,6 +179,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         globalLrcVisibility: false,
+      };
+
+    case SET_POPUP_LETTER_TOGGLE:
+      return {
+        ...state,
+        popupStatus: state.popupStatus === 'letter' ? 'false' : 'letter',
+      };
+    case SET_POPUP_PLAYLIST_TOGGLE:
+      return {
+        ...state,
+        popupStatus: state.popupStatus === 'playlist' ? 'false' : 'playlist',
       };
     default:
       return state;

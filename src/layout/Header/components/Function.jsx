@@ -6,20 +6,13 @@ import {
   IconMail,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPopup } from '@/reducers/common/actions';
+import { setPopupLetterToggle } from '@/reducers/mask/actions';
 import DomSkin from './Skin';
 
 export default memo(() => {
   const dispatch = useDispatch();
-  const { popupStatus, newMsgCount } = useSelector(({ common }) => common);
+  const { newMsgCount } = useSelector(({ common }) => common);
   const [visibility, setVisibility] = useState(false);
-  const handlesetPopup = () => {
-    if (popupStatus === 'privateLetter') {
-      dispatch(setPopup({ popupStatus: '' }));
-    } else {
-      dispatch(setPopup({ popupStatus: 'privateLetter' }));
-    }
-  };
   return (
     <div className="domHeader_function flex space-x-3">
       <Link
@@ -45,7 +38,7 @@ export default memo(() => {
       <button
         type="button"
         className="focus:outline-none text-white text-opacity-90 hover:text-opacity-100 relative"
-        onClick={handlesetPopup}
+        onClick={() => dispatch(setPopupLetterToggle())}
         title="私信"
       >
         <IconMail size={24} />

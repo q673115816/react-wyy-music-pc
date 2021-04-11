@@ -11,7 +11,7 @@ import {
   IconPlayerPause,
 } from '@tabler/icons';
 import { setAudioPlaylistClear, setAudioHistoryClear } from '@/reducers/audio/actions';
-import { setPopup } from '@/reducers/common/actions';
+import { setPopupPlaylistToggle } from '@/reducers/mask/actions';
 import DomName from '@/components/Table/Name';
 import DomMenuCreate from '@/components/MenuCreate';
 
@@ -27,7 +27,7 @@ const Empty = () => {
         <Link
           to="/"
           className="ui_text_black_hover underline"
-          onClick={() => dispatch(setPopup({ popupStatus: '' }))}
+          onClick={() => dispatch(setPopupPlaylistToggle({}))}
         >
           发现音乐
         </Link>
@@ -112,6 +112,7 @@ const navs = [
 
 export default () => {
   const dispatch = useDispatch();
+  const { popupStatus } = useSelector(({ mask }) => mask);
   const audio = useSelector(({ audio }) => audio);
   const { currentSong, playlist, history } = audio;
   const [current, setCurrent] = useState('playlist');
@@ -129,6 +130,7 @@ export default () => {
         break;
     }
   };
+  if (popupStatus !== 'playlist') return null;
   return (
     <div id="playlist" className="absolute right-0 shadow bg-white z-40 flex flex-col">
       <div className="px-5 flex-none">

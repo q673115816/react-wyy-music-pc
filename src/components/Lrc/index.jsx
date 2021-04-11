@@ -66,7 +66,7 @@ const DomLrcContent = memo(() => {
 const DomLrc = memo(() => {
   const { lrcList, currentSong } = useSelector(({ audio }) => audio);
   if (currentSong && !currentSong.name) return '网易云音乐';
-  if (!lrcList.length) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
+  if (!lrcList.length) return '纯音乐，请您欣赏';
   return <DomLrcContent />;
 });
 

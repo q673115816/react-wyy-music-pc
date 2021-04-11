@@ -3,7 +3,7 @@ import { Link, useParams, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { IconPlus } from '@tabler/icons';
 import { apiUserDetail, apiUserFollows, apiFollow } from '@/api';
-import { setPopup } from '@/reducers/common/actions';
+import { setPopupLetterToggle } from '@/reducers/mask/actions';
 import { setMsgPrivateHistory } from '@/reducers/letter/actions';
 
 const BuildUserAction = (item, handleFollow) => (item.followed
@@ -68,7 +68,7 @@ export default () => {
   };
 
   const handlePrivateLetter = (uid, nickname) => {
-    dispatch(setPopup({ popupStatus: 'privateLetter' }));
+    dispatch(setPopupLetterToggle());
     dispatch(setMsgPrivateHistory({
       uid,
       nickname,

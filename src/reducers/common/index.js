@@ -3,13 +3,11 @@ import {
   SET_COUNTRIES_CODE_LIST,
   SET_IS_LOGIN,
   SET_NOT_LOGIN,
-  SET_POPUP,
   SET_MSG_PRIVATE,
 } from './actionTypes';
 
 const initialState = {
   history: [],
-  popupStatus: 'false',
   newMsgCount: 0,
   countriesCodeList: [],
   loginVisibility: false,
@@ -30,11 +28,6 @@ export default (state = initialState, action) => {
         isLogin: true,
       };
     case SET_MSG_PRIVATE:
-      return {
-        ...state,
-        ...action.payload,
-      };
-    case SET_POPUP:
       return {
         ...state,
         ...action.payload,

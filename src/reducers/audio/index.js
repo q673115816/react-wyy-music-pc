@@ -241,7 +241,7 @@ export default produce((draft, action) => {
         });
       }
       Object.entries(temp).forEach(([key, word]) => {
-        const { groups: { min, sec } } = key.match(/\[(?<min>\d{2,}):(?<sec>\d{2,}\.\d{2,})\]/);
+        const { groups: { min, sec } } = key.match(/\[(?<min>\d{0,}):(?<sec>\d{0,}\.?\d{0,})\]/);
         const time = min * 60 + sec * 1;
         arr.push({ time, word });
       });
@@ -258,7 +258,7 @@ function formatLrc(lrc, callback) {
     .forEach((line) => {
       const { groups: { time, word } } = line.match(/(?<time>\[.*\])(?<word>.*)/);
       time
-        .match(/\[(\d{2,}:\d{2,}\.\d{2,})\]/g)
+        .match(/\[(\d{0,}:\d{0,}\.?\d{0,})\]/g)
         .forEach((onetime) => {
           callback(onetime, word);
           // const { groups: { min, sec } } = onetime.match(/(?<min>\d{2,}):(?<sec>\d{2,}\.\d{2,})/);

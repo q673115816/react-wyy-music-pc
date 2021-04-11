@@ -17,6 +17,9 @@ import {
   SET_GLOBAL_LRC_TOGGLE,
   SET_GLOBAL_LRC_SHOW,
   SET_GLOBAL_LRC_HIDE,
+
+  SET_POPUP_LETTER_TOGGLE,
+  SET_POPUP_PLAYLIST_TOGGLE,
 } from './actionTypes';
 
 export const setToast = (payload) => ({
@@ -95,4 +98,12 @@ export const setGlobalLrcShow = () => ({
 
 export const setGlobalLrcHide = () => ({
   type: SET_GLOBAL_LRC_HIDE,
+});
+
+export const setPopupLetterToggle = () => ({
+  type: SET_POPUP_LETTER_TOGGLE,
+});
+
+export const setPopupPlaylistToggle = () => ({
+  type: SET_POPUP_PLAYLIST_TOGGLE,
 });

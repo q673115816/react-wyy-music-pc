@@ -84,9 +84,6 @@ export default memo(() => {
 
   useEffect(() => {
     handleInit();
-
-    // setPopup(false);
-    // DomScroll.current.scrollTo(0, 0);
   }, [order, cat, page]);
   if (loading) {
     return (
