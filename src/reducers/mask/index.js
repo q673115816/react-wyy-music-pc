@@ -12,6 +12,7 @@ import {
   SET_TOAST,
   SET_LYRIC_SHOW,
   SET_LYRIC_HIDE,
+  SET_LYRIC_TOGGLE,
 
   SET_GLOBAL_LRC_TOGGLE,
   SET_GLOBAL_LRC_SHOW,
@@ -153,6 +154,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         lyricVisibility: false,
+      };
+    case SET_LYRIC_TOGGLE:
+      return {
+        ...state,
+        lyricVisibility: !state.lyricVisibility,
       };
 
     case SET_GLOBAL_LRC_TOGGLE:

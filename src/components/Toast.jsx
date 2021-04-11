@@ -22,16 +22,15 @@ export default memo(() => {
   };
   // console.log('123123');
   useEffect(() => {
-    if (toastTitle) {
-      time.current = 1500;
-      handleFadeout();
-      clearTimeout(timer.current);
-      timer.current = setTimeout(() => {
-        dispatch(setToast(""));
-      }, 1500);
-    }
+    if (!toastTitle?.toString()) return false;
+    time.current = 1500;
+    handleFadeout();
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      dispatch(setToast(''));
+    }, 1500);
   }, [toastTitle]);
-
+  if (!toastTitle?.toString()) return null;
   return (
     <div
       id="toast"

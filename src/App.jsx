@@ -15,7 +15,6 @@ import DialogShareWX from './components/Dialog/ShareWX';
 import DialogUploadAvatar from './components/Dialog/UploadAvatar';
 import DialogCreatePlaylist from './components/Dialog/CreatePlaylist';
 import DialogUnSubscription from './components/Dialog/UnSubscription';
-import DialogHomeOrder from './components/Dialog/HomeOrder';
 import Playlist from './components/Playlist';
 import Letter from './components/Letter';
 import Tosat from './components/Toast';
@@ -31,23 +30,17 @@ const MINHEIGHT = 670;
 
 const DomVisibility = memo(() => {
   const {
-    toastTitle,
-    lyricVisibility,
-    searchVisibility,
     contextMenuVisibility,
-    dialogHomeOrderVisibility,
     dialogShareVisibility,
     dialogShareWXVisibility,
     dialogUploadAvatarVisibility,
     dialogCreatePlaylistVisibility,
     dialogUnSubscriptionVisibility,
-    globalLrcVisibility,
   } = useSelector(({ mask }) => mask);
   const { popupStatus } = useSelector(({ common }) => common);
   return (
     <>
-      {lyricVisibility && <DomLrc />}
-
+      <DomLrc />
       {popupStatus === 'playlist' && <Playlist />}
       {popupStatus === 'privateLetter' && <Letter />}
       {contextMenuVisibility && <Contextmenu />}
@@ -56,13 +49,9 @@ const DomVisibility = memo(() => {
       {dialogUploadAvatarVisibility && <DialogUploadAvatar />}
       {dialogCreatePlaylistVisibility && <DialogCreatePlaylist />}
       {dialogUnSubscriptionVisibility && <DialogUnSubscription />}
-      {dialogHomeOrderVisibility && <DialogHomeOrder />}
-      {searchVisibility && <HeaderSearch />}
-      {globalLrcVisibility && createPortal(<GlobalLrc />, document.querySelector('#lrc-root'))}
-      {
-        toastTitle?.toString()
-        && <Tosat />
-      }
+      <HeaderSearch />
+
+      <Tosat />
     </>
   );
 });
@@ -124,14 +113,18 @@ export default () => {
     };
   }, []);
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{
+        fontFamily: font,
+        '--themeColor': `var(--${theme}, --themeRed)`,
+      }}
+    >
       <Router>
         <div
           id="NeteaseCloudMusic"
           className="domWrapper flex flex-col shadow-lg select-none"
           style={({
-            fontFamily: font,
-            '--themeColor': `var(--${theme}, --themeRed)`,
             ...(SCREEN === 'normal' ? {
               '--WIDTH': `${globalWidth}px`,
               '--HEIGHT': `${globalHeight}px`,
@@ -170,6 +163,7 @@ export default () => {
               </div>
             )}
         </div>
+        <GlobalLrc />
         {loginVisibility && <DialogLogin />}
 
         {

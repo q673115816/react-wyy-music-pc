@@ -20,7 +20,7 @@ export default () => {
     searchSuggest,
     searchHistory,
   } = useSelector(({ search }) => search);
-
+  const { searchVisibility } = useSelector(({ mask }) => mask);
   const handleSearch = (keywords) => {
     // setSearchVisibility(false);
     dispatch(setDialogReset());
@@ -31,6 +31,7 @@ export default () => {
     ]));
     // push(`/search?keywords=${keywords}`);
   };
+  if (!searchVisibility) return null;
 
   return (
     <DomMask>

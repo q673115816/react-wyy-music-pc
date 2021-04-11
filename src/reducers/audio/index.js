@@ -22,9 +22,13 @@ import {
   SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_PATTERN,
   SET_LYRIC_TEXT,
+
+  SET_RUNERROR_ADD,
+  SET_RUNERROR_DESC,
 } from './actionTypes';
 
 const resetState = {
+  errorCount: 0,
   song: {},
   running: false,
   dropping: false,
@@ -35,6 +39,7 @@ const resetState = {
   jumpTime: null,
   buffered: 0,
   lyric: {},
+  lrcList: [],
 };
 
 const initialState = {
@@ -181,6 +186,12 @@ export default produce((draft, action) => {
     case SET_AUDIO_BUFFERED:
       draft.buffered = action.payload;
       break;
+    case SET_RUNERROR_ADD:
+      draft.errorCount += 1;
+      break;
+    case SET_RUNERROR_DESC:
+      draft.errorCount -= 1;
+      break;
     case SET_AUDIO_PLAYLIST_CLEAR:
       {
         window.localStorage.removeItem('currentSong');
@@ -204,7 +215,53 @@ export default produce((draft, action) => {
       }
       break;
     case SET_LYRIC_TEXT:
-      draft.lyric = action.payload.lyric;
+    {
+      const { lyric } = action.payload;
+      draft.lyric = lyric;
+      const {
+        tlyric: { lyric: tlyric } = { lyric: '' },
+        lrc: { lyric: lrc } = { lyric: '' },
+      } = lyric;
+      if (!lrc) {
+        draft.lrcList = [];
+        return;
+      }
+
+      const arr = [];
+      const temp = {};
+
+      formatLrc(lrc, (onetime, word) => {
+        temp[onetime] = word;
+      });
+
+      if (tlyric) {
+        formatLrc(tlyric, (onetime, word) => {
+          temp[onetime] += `
+              ${word}`;
+        });
+      }
+      Object.entries(temp).forEach(([key, word]) => {
+        const { groups: { min, sec } } = key.match(/\[(?<min>\d{2,}):(?<sec>\d{2,}\.\d{2,})\]/);
+        const time = min * 60 + sec * 1;
+        arr.push({ time, word });
+      });
+      arr.sort(({ time: time1 }, { time: time2 }) => time1 - time2);
+      draft.lrcList = arr;
+    }
     default:
   }
 }, initialState);
+
+function formatLrc(lrc, callback) {
+  lrc
+    .match(/^\[\d*:\d*.\d*\].*/mg)
+    .forEach((line) => {
+      const { groups: { time, word } } = line.match(/(?<time>\[.*\])(?<word>.*)/);
+      time
+        .match(/\[(\d{2,}:\d{2,}\.\d{2,})\]/g)
+        .forEach((onetime) => {
+          callback(onetime, word);
+          // const { groups: { min, sec } } = onetime.match(/(?<min>\d{2,}):(?<sec>\d{2,}\.\d{2,})/);
+        });
+    });
+}

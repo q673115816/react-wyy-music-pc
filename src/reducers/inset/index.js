@@ -65,6 +65,8 @@ export default produce((draft, action) => {
       draft.POSITION = false;
       break;
     case SET_GLOBAL_LRC_INSET:
+      window.localStorage.setItem('lrcX', action.payload.globalLrcX);
+      window.localStorage.setItem('lrcY', action.payload.globalLrcY);
       draft.globalLrcX = action.payload.globalLrcX;
       draft.globalLrcY = action.payload.globalLrcY;
       break;

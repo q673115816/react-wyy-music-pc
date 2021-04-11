@@ -21,67 +21,25 @@ import './style.scss';
 import classNames from 'classnames';
 import { setLyricHide } from '@/reducers/mask/actions';
 
-const DomLrcContext = ({ lrc = '', tlyric = '' }) => {
+const DomLrcContext = () => {
   const {
     currentTime,
+    lrcList,
   } = useSelector(({ audio }) => audio);
   const RefScroll = useRef();
   const RefCurrentLine = useRef();
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
 
-  const reg = /^\[\d*:\d*.\d*\].*/mg;
-  const tlyricList = useMemo(() => new Map(tlyric.trim() ? tlyric
-    .match(reg)
-    .map((line) => {
-      const { time, word } = line.match(/^\[(?<time>\d*:\d*.\d*)\](?<word>.*)/).groups;
-      return [time, word];
-    }) : []), [tlyric]);
-
-  const repetition = [];
-
-  const fnLrc = (line) => {
-    const {
-      time2,
-      min2,
-      sec2,
-      time,
-      min,
-      sec,
-      word,
-    } = line.match(/^(\[(?<time2>(?<min2>\d*):(?<sec2>\d*.\d*))\])?(\[(?<time>(?<min>\d*):(?<sec>\d*.\d*))\])(?<word>.*)/).groups;
-    if (time2) {
-      repetition.push({
-        min: min2,
-        sec: sec2,
-        word: (tlyricList?.has(time))
-          ? `${word}
-        ${tlyricList.get(time)}`
-          : word,
-      });
-    }
-    return {
-      min,
-      sec,
-      word: (tlyricList?.has(time))
-        ? `${word}
-        ${tlyricList.get(time)}`
-        : word,
-    };
-  };
-  const lrcList = useMemo(() => lrc
-    .match(reg)
-    .map(fnLrc).concat(repetition), [lrc]);
-
   useEffect(() => {
     setCurrentLineIndex(
       lrcList
-        .findIndex(({ min, sec }) => (min * 60 + sec * 1) > currentTime) - 1,
+        .findIndex(({ time }) => time > currentTime) - 1,
     );
   }, [currentTime]);
 
   useEffect(() => {
     RefScroll.current.scrollTop = 0;
-  }, [lrc]);
+  }, [lrcList]);
 
   useEffect(() => {
     if (RefCurrentLine?.current) {
@@ -95,10 +53,10 @@ const DomLrcContext = ({ lrc = '', tlyric = '' }) => {
       ref={RefScroll}
     >
       {lrcList
-        .map(({ min, sec, word }, index) => (
+        .map(({ time, word }, index) => (
           <div
             ref={currentLineIndex === index ? RefCurrentLine : null}
-            key={min * 60 + sec * 1 + word}
+            key={time}
             className={classNames('leading-5', currentLineIndex === index && 'font-bold text-black')}
           >
             {word.trim()}
@@ -111,14 +69,10 @@ const DomLrcContext = ({ lrc = '', tlyric = '' }) => {
 
 const DomLrc = () => {
   const {
-    lyric,
+    lrcList,
   } = useSelector(({ audio }) => audio);
-  const {
-    tlyric: { lyric: tlyric } = { lyric: '' },
-    lrc: { lyric: lrc } = { lyric: '' },
-  } = lyric;
-  if (!lrc) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
-  return <DomLrcContext {...{ lrc, tlyric }} />;
+  if (!lrcList.length) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
+  return <DomLrcContext />;
 };
 
 const DomRight = ({ simiSong = [] }) => (
@@ -163,13 +117,14 @@ export default memo(() => {
   const dispatch = useDispatch();
   const { listen } = useHistory();
   const { currentSong } = useSelector(({ audio }) => audio);
+  const { lyricVisibility } = useSelector(({ mask }) => mask);
+  const { running } = useSelector(({ audio }) => audio);
   const memoId = useMemo(() => currentSong.id, [currentSong]);
   const [loading, setLoading] = useState(true);
   const [simiSong, setSimiSong] = useState([]);
   const [comments, setComments] = useState({});
   const [page, setPage] = useState(1);
   const limit = 20;
-  const { running } = useSelector(({ audio }) => audio);
   const handleLeftInit = async () => {
     try {
       const comments = await apiCommentMusic({
@@ -211,6 +166,7 @@ export default memo(() => {
     return unlisten;
   });
 
+  if (!lyricVisibility) return null;
   return (
     <div id="lrc" className="absolute inset-x-0 bg-white overflow-auto z-20">
       <div className="lrc_inner m-auto">
@@ -250,23 +206,27 @@ export default memo(() => {
               {currentSong.name}
             </div>
             <div className="grid grid-cols-3 gap-1 mt-2">
-              <span className="flex whitespace-nowrap">
-                专辑：
-                <Link to={`/playlist/album/${currentSong.al.id}`} className="text-blue-500 truncate">
-                  {currentSong.al.name}
-                </Link>
-              </span>
-              <span className="flex whitespace-nowrap">
-                歌手：
-                {currentSong.ar.map((artist) => (
-                  <Link key={artist.id} to={`/artist/${artist.id}`} className="text-blue-500">
-                    {artist.name}
+              <div className="flex whitespace-nowrap">
+                <div className="truncate">
+                  专辑：
+                  <Link to={`/playlist/album/${currentSong.al.id}`} className="text-blue-500">
+                    {currentSong.al.name}
                   </Link>
-                ))}
-              </span>
-              <span className="flex whitespace-nowrap">
+                </div>
+              </div>
+              <div className="flex whitespace-nowrap">
+                <div className="truncate">
+                  歌手：
+                  {currentSong.ar.map((artist) => (
+                    <Link key={artist.id} to={`/artist/${artist.id}`} className="text-blue-500">
+                      {artist.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div className="flex whitespace-nowrap">
                 来源：
-              </span>
+              </div>
             </div>
             <div className="relative">
               <div className="absolute pointer-events-none left-0 right-0 top-0 h-6 bg-gradient-to-b from-white to-transparent z-10" />

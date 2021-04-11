@@ -19,6 +19,9 @@ import {
   SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_PATTERN,
   SET_LYRIC_TEXT,
+
+  SET_RUNERROR_ADD,
+  SET_RUNERROR_DESC,
 } from './actionTypes';
 
 export const setSong = (payload) => ({
@@ -113,4 +116,12 @@ export const setAudioPattern = () => ({
 export const setLyricText = (payload) => ({
   type: SET_LYRIC_TEXT,
   payload,
+});
+
+export const setRunErrorAdd = () => ({
+  type: SET_RUNERROR_ADD,
+});
+
+export const setRunErrorDesc = () => ({
+  type: SET_RUNERROR_DESC,
 });

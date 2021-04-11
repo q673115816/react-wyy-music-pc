@@ -95,11 +95,15 @@ export default () => {
         </button>
         <button
           type="button"
-          className={classNames('mx-2 hover:ui_themeColor', globalLrcVisibility && 'ui_themeColor')}
+          className={classNames('mx-2 px-1 hover:ui_themeColor relative', globalLrcVisibility && 'ui_themeColor')}
           title="打开歌词"
           onClick={() => dispatch(setGlobalLrcToggle())}
         >
           词
+          {
+            globalLrcVisibility
+            && <span className="absolute right-0 rounded-full bottom-0 w-1.5 h-1.5 ui_theme_bg_color" />
+          }
         </button>
       </div>
       <DomTiming />

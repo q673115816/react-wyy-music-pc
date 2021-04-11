@@ -15,6 +15,7 @@ import { setDialogHomeOrderShow } from '@/reducers/mask/actions';
 import DomSwiper from '@/components/Swiper';
 import { IconChevronRight } from '@tabler/icons';
 import DOMkankan from '@/components/AdLookRectangle';
+import DialogHomeOrder from '@/components/Dialog/HomeOrder';
 
 import DomLoading from '@/components/Loading';
 import RecommendPlaylist from './playlist';
@@ -51,7 +52,7 @@ export default memo(() => {
     djprogram,
   } = useSelector(({ home }) => home.recommend);
   const { homeOrder } = useSelector(({ setting }) => setting);
-  const { isLogin } = useSelector(({ common }) => common);
+  const { dialogHomeOrderVisibility } = useSelector(({ mask }) => mask);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const handleInit = async () => {
@@ -63,17 +64,17 @@ export default memo(() => {
         PersonalizedNewsong,
         PersonalizedMV,
         PersonalizedDjprogram] = await Promise.all([
-          apiBanner(),
-          apiRecommendResource({
-            limit: 9,
-          }),
-          apiPersonalizedPrivatecontent(),
-          apiPersonalizedNewsong({
-            limit: 12,
-          }),
-          apiPersonalizedMV(),
-          apiPersonalizedDjprogram(),
-        ]);
+        apiBanner(),
+        apiRecommendResource({
+          limit: 9,
+        }),
+        apiPersonalizedPrivatecontent(),
+        apiPersonalizedNewsong({
+          limit: 12,
+        }),
+        apiPersonalizedMV(),
+        apiPersonalizedDjprogram(),
+      ]);
       dispatch(setHomeRecommend({
         banners,
         playlist,
@@ -140,6 +141,10 @@ export default memo(() => {
             调整栏目顺序
           </button>
         </div>
+        {
+          dialogHomeOrderVisibility
+          && <DialogHomeOrder />
+        }
       </div>
     </div>
   );

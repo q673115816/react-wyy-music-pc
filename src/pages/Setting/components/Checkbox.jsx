@@ -1,14 +1,18 @@
 import React from 'react';
 import { IconCheck } from '@tabler/icons';
 import DomCheckbox from '@/components/Checkbox';
+import { setToast } from '@/reducers/mask/actions';
+import { useDispatch } from 'react-redux';
 
-export default ({ list = [], name = '', handle = () => { } }) => (
-  <div className="domSetting_subBlock_content">
-    {
+export default ({ list = [], name = '', handle = () => { } }) => {
+  const dispatch = useDispatch();
+  return (
+    <div className="domSetting_subBlock_content">
+      {
       list.map(([item, checked, tips]) => (
         <div className="item leading-loose" key={item}>
           <label className="domSetting_check flex items-center" htmlFor={item}>
-            <DomCheckbox name={item} />
+            <DomCheckbox name={item} onChange={() => dispatch(setToast('设置已更新'))} />
                   &nbsp;
             {/* <input
                     name={name}
@@ -33,5 +37,6 @@ export default ({ list = [], name = '', handle = () => { } }) => (
         </div>
       ))
     }
-  </div>
-);
+    </div>
+  );
+};

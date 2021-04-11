@@ -15,8 +15,10 @@ import {
   setLyricText,
   setAudioRunning,
   setAudioNext,
+  setRunErrorAdd,
+  setRunErrorDesc,
 } from '@/reducers/audio/actions';
-import { setLyricShow, setLyricHide } from '@/reducers/mask/actions';
+import { setLyricToggle } from '@/reducers/mask/actions';
 import DomHeart from '@/components/Table/Heart';
 
 export default () => {
@@ -29,10 +31,10 @@ export default () => {
     currentTime,
     jumpTime,
     pattern,
+    errorCount,
   } = useSelector(({ audio }) => audio);
   const { volume } = useSelector(({ volume }) => volume);
   const RefDropping = useRef();
-  const { lyricVisibility } = useSelector(({ mask }) => mask);
   const refAudio = useRef();
 
   const handleGetUrl = async () => {
@@ -83,12 +85,18 @@ export default () => {
   };
 
   const handleLyric = () => {
-    dispatch(lyricVisibility ? setLyricHide() : setLyricShow());
+    dispatch(setLyricToggle());
   };
 
   const handleReGet = () => {
-    console.log('出现错误，重新请求');
-    handleGetUrl();
+    console.log('出现错误，切换下一首');
+    if (errorCount >= 5) {
+      // TODO
+      console.log('出错过多');
+    }
+    dispatch(setAudioNext());
+    dispatch(setRunErrorAdd());
+    // handleGetUrl();
   };
 
   useEffect(() => {
@@ -124,10 +132,9 @@ export default () => {
     }
   }, [currentSong]);
   return (
-    <div className="domfooter_left flex p-3 flex-1">
+    <div className="domfooter_left flex p-2.5 flex-1">
       <div hidden>
         <audio
-          volume={0.01}
           ref={refAudio}
           onLoadedMetadata={handleLoadedMetadata}
           onProgress={handleProgress}
@@ -135,13 +142,13 @@ export default () => {
           onError={handleReGet}
         />
       </div>
-      {playlist.length > 0
+      {!!currentSong?.name
         && (
           <>
             <button
               type="button"
               onClick={handleLyric}
-              className="domfooter_left_img relative group rounded overflow-hidden"
+              className="domfooter_left_img w-12 h-12 relative group rounded overflow-hidden"
             >
               <img src={currentSong.al.picUrl} className="w-full h-full object-cover" alt="" />
               <div className="absolute opacity-0 inset-0 flex-center bg-black group-hover:opacity-60" />
@@ -150,10 +157,10 @@ export default () => {
                 <IconArrowsDoubleNeSw size={24} />
               </div>
             </button>
-            <div className="domfooter_left_info pl-3">
-              <div className="domfooter_left_info_name text-base flex items-center w-44">
+            <div className="domfooter_left_info pl-3 w-44">
+              <div className="domfooter_left_info_name text-base flex items-center">
                 <button type="button" className="group truncate" onClick={handleLyric}>
-                  <span className="text-gray-600 group-hover:text-black">
+                  <span className="ui_text_black_hover">
                     {currentSong.name}
                     {
                       currentSong.alia.length > 0
@@ -167,7 +174,7 @@ export default () => {
                 </button>
                 <DomHeart id={currentSong.id} />
               </div>
-              <div className="truncate w-44">
+              <div className="truncate mt-1">
                 {currentSong.ar.map((artist, index) => (
                   <span className="" key={artist.id}>
                     {index > 0 && ' / '}

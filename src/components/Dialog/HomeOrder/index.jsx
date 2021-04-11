@@ -1,78 +1,74 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom'
+import { createPortal } from 'react-dom';
 import { setDialogReset } from '@/reducers/mask/actions';
-import { setHomeOrder } from '@/reducers/setting/actions'
+import { setHomeOrder } from '@/reducers/setting/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconBulb, IconMenu } from '@tabler/icons';
-import HOCDialog from '../Dialog';
 import './style.scss';
 import classNames from 'classnames';
-import produce from 'immer'
+import produce from 'immer';
+import HOCDialog from '../Dialog';
 
 const defaultOrder = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
-function swap(arr, index1, index2) {
-  [arr[index1], arr[index2]] = [arr[index2], arr[index1]]
-  return arr
-}
+
 const ShareWX = () => {
   const dispatch = useDispatch();
   const { homeOrder } = useSelector(({ setting }) => setting);
-  const [tempHomeOrder, setTempHomeOrder] = useState(homeOrder)
+  const [tempHomeOrder, setTempHomeOrder] = useState(homeOrder);
   const [droper, setDroper] = useState(false);
-  const [curr, setCurr] = useState('')
-  const [top, setTop] = useState(0)
-  const [startY, setStartY] = useState()
-  const DomList = useRef()
-  const RefIndex = useRef()
+  const [curr, setCurr] = useState('');
+  const [top, setTop] = useState(0);
+  const [startY, setStartY] = useState();
+  const DomList = useRef();
+  const RefIndex = useRef();
   const handleDown = (e, curr, index) => {
     setDroper(true);
-    setCurr(curr)
-    setStartY(e.clientY)
-    RefIndex.current = index
+    setCurr(curr);
+    setStartY(e.clientY);
+    RefIndex.current = index;
   };
-
 
   const handleMove = (e) => {
     if (droper) {
-      const apart = e.clientY - startY
-      const { current: index } = RefIndex
-      if (index <= 0 && apart <= 0) return false
-      if (index >= tempHomeOrder.length - 1 && apart >= 0) return false
+      const apart = e.clientY - startY;
+      const { current: index } = RefIndex;
+      if (index <= 0 && apart <= 0) return false;
+      if (index >= tempHomeOrder.length - 1 && apart >= 0) return false;
       if (apart >= 48 * (3 / 4)) {
-        setStartY((prev) => prev + 48)
+        setStartY((prev) => prev + 48);
         setTempHomeOrder(produce((draft) => {
-          [draft[index], draft[index + 1]] = [draft[index + 1], draft[index]]
-        }))
-        RefIndex.current += 1
-        setTop(-48 * (1 / 4))
-        return false
+          [draft[index], draft[index + 1]] = [draft[index + 1], draft[index]];
+        }));
+        RefIndex.current += 1;
+        setTop(-48 * (1 / 4));
+        return false;
       }
-      else if (apart <= -48 * (3 / 4)) {
-        setStartY((prev) => prev - 48)
+      if (apart <= -48 * (3 / 4)) {
+        setStartY((prev) => prev - 48);
         setTempHomeOrder(produce((draft) => {
-          [draft[index], draft[index - 1]] = [draft[index - 1], draft[index]]
-        }))
-        RefIndex.current -= 1
-        setTop(48 * (1 / 4))
-        return false
+          [draft[index], draft[index - 1]] = [draft[index - 1], draft[index]];
+        }));
+        RefIndex.current -= 1;
+        setTop(48 * (1 / 4));
+        return false;
       }
-      setTop(apart)
+      setTop(apart);
     }
   };
 
   const handleUp = () => {
     setDroper(false);
-    setCurr('')
+    setCurr('');
   };
 
   const handleReset = () => {
-    setTempHomeOrder(defaultOrder)
-  }
+    setTempHomeOrder(defaultOrder);
+  };
 
   const handleConfirm = () => {
-    dispatch(setDialogReset())
-    dispatch(setHomeOrder(tempHomeOrder))
-  }
+    dispatch(setDialogReset());
+    dispatch(setHomeOrder(tempHomeOrder));
+  };
 
   return (
     <div className="content">
@@ -88,7 +84,7 @@ const ShareWX = () => {
             <div key={order} className="h-12 text-base text-gray-500">
               <button
                 type="button"
-                className={classNames("w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center", curr === order && 'absolute shadow z-10')}
+                className={classNames('w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center', curr === order && 'absolute shadow z-10')}
                 style={curr === order ? { transform: `translate(0, ${top}px)` } : null}
                 onMouseDown={(e) => handleDown(e, order, index)}
               >
@@ -105,7 +101,7 @@ const ShareWX = () => {
               onMouseMove={handleMove}
               onMouseUp={handleUp}
               className="absolute inset-0 z-50"
-            />, document.getElementById('help-root')
+            />, document.getElementById('help-root'),
           )
         }
       </div>
@@ -113,7 +109,8 @@ const ShareWX = () => {
         <button
           onClick={handleReset}
           type="button"
-          className="underline text-gray-400 block">
+          className="underline text-gray-400 block"
+        >
           恢复默认排序
         </button>
       </div>
@@ -121,7 +118,8 @@ const ShareWX = () => {
         <button
           onClick={handleConfirm}
           type="button"
-          className="rounded-full ui_theme_bg_color text-white h-8 w-20">
+          className="rounded-full ui_theme_bg_color text-white h-8 w-20"
+        >
           完成
         </button>
         <button
@@ -132,7 +130,7 @@ const ShareWX = () => {
           取消
         </button>
       </div>
-    </div >
+    </div>
   );
 };
 
