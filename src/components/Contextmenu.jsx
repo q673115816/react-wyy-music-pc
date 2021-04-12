@@ -62,6 +62,54 @@ const initBuild = (functionClose) => ({
       </button>
     </li>
   ),
+  下一首播放: ({ handlePlayNext }) => (
+    <li className="ui_contextmenu_item">
+      <button onClick={handlePlayNext} type="button" className="ui_contextmenu_btn ">
+        <i className="ico">
+          <IconArrowForward size={22} stroke={1} />
+        </i>
+        下一首播放
+      </button>
+    </li>
+  ),
+  播放歌单: ({ handlePlayPlaylist }) => (
+    <li className="ui_contextmenu_item">
+      <button
+        type="button"
+        onClick={handlePlayPlaylist}
+        className="ui_contextmenu_btn "
+      >
+        <i className="ico">
+          <IconPlayerPlay size={22} stroke={1} />
+        </i>
+        播放(Enter)
+      </button>
+    </li>
+  ),
+  下一首播放歌单: ({ handlePlayNextPlaylist }) => (
+    <li className="ui_contextmenu_item">
+      <button onClick={handlePlayNextPlaylist} type="button" className="ui_contextmenu_btn ">
+        <i className="ico">
+          <IconArrowForward size={22} stroke={1} />
+        </i>
+        下一首播放
+      </button>
+    </li>
+  ),
+  查看歌单: ({ contextMenuItem }) => (
+    <li className="ui_contextmenu_item">
+      <Link
+        to={`/playlist/music/${contextMenuItem.id}`}
+        onClick={functionClose}
+        className="ui_contextmenu_btn "
+      >
+        <i className="ico">
+          <IconPlayerPlay size={22} stroke={1} />
+        </i>
+        查看歌单
+      </Link>
+    </li>
+  ),
   播放MV: ({ contextMenuItem, contextMenuType }) => (
     <li className="ui_contextmenu_item">
       <Link
@@ -83,16 +131,6 @@ const initBuild = (functionClose) => ({
           <IconFolderPlus size={22} stroke={1} />
         </i>
         收藏MV
-      </button>
-    </li>
-  ),
-  下一首播放: ({ handlePlayNext }) => (
-    <li className="ui_contextmenu_item">
-      <button onClick={handlePlayNext} type="button" className="ui_contextmenu_btn ">
-        <i className="ico">
-          <IconArrowForward size={22} stroke={1} />
-        </i>
-        下一首播放
       </button>
     </li>
   ),
@@ -273,6 +311,13 @@ export default () => {
     dispatch(setDialogReset());
   };
 
+  const handlePlayPlaylist = () => {
+    console.log('播放歌单');
+  };
+  const handlePlayNextPlaylist = () => {
+    console.log('下一首播放歌单');
+  };
+
   const handleSubscribeMV = async () => {
     try {
       const { message } = await apiMVSub({
@@ -331,6 +376,8 @@ export default () => {
                     contextMenuItem,
                     handlePlay,
                     handlePlayNext,
+                    handlePlayPlaylist,
+                    handlePlayNextPlaylist,
                     handleDialogShare,
                     handleCopyLink,
                     handleCreatePlaylist,

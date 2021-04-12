@@ -15,15 +15,17 @@ import {
   IconMusic,
 } from '@tabler/icons';
 import { setGlobalLrcInset } from '@/reducers/inset/actions';
-import { setGlobalLrcHide, setLyricToggle } from '@/reducers/mask/actions';
+import { setGlobalLrcHide, setLyricToggle } from '@/reducers/lrc/actions';
 import {
   setAudioRunningToggle,
   setAudioPrev,
   setAudioNext,
 } from '@/reducers/audio/actions';
+import './style.scss';
 
 const DomLrcContent = memo(() => {
-  const { currentTime, lrcList } = useSelector(({ audio }) => audio);
+  const { currentTime } = useSelector(({ audio }) => audio);
+  const { lrcList } = useSelector(({ lrc }) => lrc);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [percentage, setPercentage] = useState(0);
 
@@ -47,15 +49,8 @@ const DomLrcContent = memo(() => {
   return (
     <div
       id="global_lrc_text"
-      className="text-center relative text-transparent whitespace-pre-line"
-      style={{
-        WebkitBackgroundClip: 'text',
-        backgroundImage: `linear-gradient(to right,
-            var(--lrcColor) 0%,
-            var(--lrcColor) ${percentage}%,
-            var(--themeColor) ${percentage}%,
-            var(--themeColor) 100%)`,
-      }}
+      className="text-center select-none text-transparent whitespace-pre-line pointer-events-none px-4"
+      style={{ '--p': `${percentage}%` }}
     >
       {lrcList?.[currentLineIndex]?.word}
       &nbsp;
@@ -64,7 +59,8 @@ const DomLrcContent = memo(() => {
 });
 
 const DomLrc = memo(() => {
-  const { lrcList, currentSong } = useSelector(({ audio }) => audio);
+  const { currentSong } = useSelector(({ audio }) => audio);
+  const { lrcList } = useSelector(({ lrc }) => lrc);
   if (currentSong && !currentSong.name) return '网易云音乐';
   if (!lrcList.length) return '纯音乐，请您欣赏';
   return <DomLrcContent />;
@@ -78,7 +74,7 @@ export default memo(() => {
     globalLrcWidth: width,
     globalLrcHeight: height,
   } = useSelector(({ inset }) => inset);
-  const { globalLrcVisibility } = useSelector(({ mask }) => mask);
+  const { globalLrcVisibility } = useSelector(({ lrc }) => lrc);
   const { running } = useSelector(({ audio }) => audio);
   const [dropper, setDropper] = useState(false);
   const [active, setActive] = useState(false);
@@ -110,7 +106,7 @@ export default memo(() => {
   if (!globalLrcVisibility) return null;
   return (
     <div
-      className={classNames('flex-center text-xl', !dropper && 'fixed')}
+      className={classNames('flex-center z-50 text-xl', !dropper && 'fixed')}
       style={{ width, height, ...(dropper ? { transform: `translate(${x}px, ${y}px)` } : { top: y, left: x }) }}
     >
       <div onMouseEnter={() => setActive(true)}>
@@ -121,7 +117,7 @@ export default memo(() => {
         && (
           <div
             onMouseLeave={() => setActive(false)}
-            className="absolute w-full h-full bg-black bg-opacity-20 border border-gray-400 shadow"
+            className={`absolute w-full h-full bg-black bg-opacity-20 border border-gray-400 shadow pointer-events-${(active || dropper) ? 'auto' : 'none'}`}
           >
             <div className="w-full h-full" onMouseDown={handleDropDown} />
             <div className="absolute left-0 right-0 mx-auto flex items-center space-x-4 top-0 w-min z-10 text-white my-2">

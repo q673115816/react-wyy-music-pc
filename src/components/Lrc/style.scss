@@ -1,0 +1,8 @@
+#global_lrc_text {
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right,
+      var(--lrcColor) 0%,
+      var(--lrcColor) var(--p, 0),
+      var(--themeColor) var(--p, 0),
+      var(--themeColor) 100%);
+}

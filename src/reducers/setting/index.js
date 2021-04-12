@@ -18,16 +18,15 @@ export default produce((draft, action) => {
   switch (action.type) {
     case SET_THEME:
       window.localStorage.setItem('theme', JSON.stringify(action.payload));
-      draft.theme = action.payload
-      break
+      draft.theme = action.payload;
+      break;
     case SET_FONT:
       window.localStorage.setItem('font', JSON.stringify(action.payload));
-      draft.font = action.payload
-      break
+      draft.font = action.payload;
+      break;
     case SET_HOMEORDER:
       window.localStorage.setItem('homeOrder', JSON.stringify(action.payload));
-      draft.homeOrder = action.payload
+      draft.homeOrder = action.payload;
     default:
-      return
   }
 }, initialState);

@@ -12,20 +12,18 @@ import {
   setAudioCurrentTime,
   setAudioBuffered,
   setAudioCurrent,
-  setLyricText,
   setAudioRunning,
   setAudioNext,
   setRunErrorAdd,
   setRunErrorDesc,
 } from '@/reducers/audio/actions';
-import { setLyricToggle } from '@/reducers/mask/actions';
+import { setLyricText, setLyricToggle } from '@/reducers/lrc/actions';
 import DomHeart from '@/components/Table/Heart';
 
 export default () => {
   const dispatch = useDispatch();
   const {
     currentSong,
-    playlist,
     running,
     dropping,
     currentTime,

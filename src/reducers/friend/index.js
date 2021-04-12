@@ -11,6 +11,7 @@ const initialState = {
   hot: [],
   event: [],
   comments: [],
+  hotComments: [],
 };
 
 export default (state = initialState, action) => {

@@ -44,7 +44,7 @@ export default () => {
   };
 
   return (
-    <div className="domHeader_popup_skin absolute top-full left-1/2 transform -translate-x-1/2 bg-white shadow text-black z-20 py-3 px-4" id="skin">
+    <div className="domHeader_popup_skin absolute top-full left-1/2 transform -translate-x-1/2 bg-white shadow text-black z-30 py-3 px-4" id="skin">
       <div className="nav border-b space-x-3 pb-1.5">
         <button
           onClick={() => setCurrent(0)}

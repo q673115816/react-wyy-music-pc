@@ -88,11 +88,11 @@ export default memo(() => {
       return;
     }
     try {
-      const { comments } = await apiCommentEvent({
+      const { comments, hotComments } = await apiCommentEvent({
         threadId,
       });
       setActThreadId(threadId);
-      dispatch(setCommentEvent({ comments }));
+      dispatch(setCommentEvent({ comments, hotComments }));
     } catch (error) {
       console.log(error);
     }

@@ -10,20 +10,12 @@ import {
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_DIALOG_HOME_ORDER_SHOW,
   SET_TOAST,
-  SET_LYRIC_SHOW,
-  SET_LYRIC_HIDE,
-  SET_LYRIC_TOGGLE,
-
-  SET_GLOBAL_LRC_TOGGLE,
-  SET_GLOBAL_LRC_SHOW,
-  SET_GLOBAL_LRC_HIDE,
 
   SET_POPUP_LETTER_TOGGLE,
   SET_POPUP_PLAYLIST_TOGGLE,
 } from './actionTypes';
 
 const visibilityState = {
-  globalLrcVisibility: false,
   lyricVisibility: false,
   maskVisibility: false,
   searchVisibility: false,
@@ -148,37 +140,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         toastTitle: [action.payload],
-      };
-    case SET_LYRIC_SHOW:
-      return {
-        ...state,
-        lyricVisibility: true,
-      };
-    case SET_LYRIC_HIDE:
-      return {
-        ...state,
-        lyricVisibility: false,
-      };
-    case SET_LYRIC_TOGGLE:
-      return {
-        ...state,
-        lyricVisibility: !state.lyricVisibility,
-      };
-
-    case SET_GLOBAL_LRC_TOGGLE:
-      return {
-        ...state,
-        globalLrcVisibility: !state.globalLrcVisibility,
-      };
-    case SET_GLOBAL_LRC_SHOW:
-      return {
-        ...state,
-        globalLrcVisibility: true,
-      };
-    case SET_GLOBAL_LRC_HIDE:
-      return {
-        ...state,
-        globalLrcVisibility: false,
       };
 
     case SET_POPUP_LETTER_TOGGLE:

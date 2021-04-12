@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IconX } from '@tabler/icons';
 import { setLoginVisibilty } from '@/reducers/common/actions';
 import './style.scss';
@@ -21,6 +21,7 @@ const Build = {
 
 export default () => {
   const dispatch = useDispatch();
+  const { loginVisibility } = useSelector(({ common }) => common);
   const [loginReducer, loginDispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'SET_TYPE':
@@ -65,7 +66,7 @@ export default () => {
     type: 'scan',
     countrycode: '86',
   });
-
+  if (!loginVisibility) return null;
   return (
     <div
       id="dialogLogin"

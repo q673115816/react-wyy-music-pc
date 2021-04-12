@@ -18,7 +18,7 @@ import {
 } from '@/reducers/audio/actions';
 import {
   setGlobalLrcToggle,
-} from '@/reducers/mask/actions';
+} from '@/reducers/lrc/actions';
 import { audioPattern } from '@/common/config';
 import classNames from 'classnames';
 import DomTiming from './Timing';
@@ -35,7 +35,7 @@ export default () => {
   const {
     running, pattern,
   } = useSelector(({ audio }) => audio);
-  const { globalLrcVisibility } = useSelector(({ mask }) => mask);
+  const { globalLrcVisibility } = useSelector(({ lrc }) => lrc);
   const handleToggle = () => {
     dispatch(setAudioRunning({ running: !running }));
   };

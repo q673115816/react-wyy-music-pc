@@ -18,7 +18,6 @@ import {
   SET_AUDIO_PLAYLIST_CLEAR,
   SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_PATTERN,
-  SET_LYRIC_TEXT,
 
   SET_RUNERROR_ADD,
   SET_RUNERROR_DESC,
@@ -111,11 +110,6 @@ export const setAudioHistoryClear = () => ({
 
 export const setAudioPattern = () => ({
   type: SET_AUDIO_PATTERN,
-});
-
-export const setLyricText = (payload) => ({
-  type: SET_LYRIC_TEXT,
-  payload,
 });
 
 export const setRunErrorAdd = () => ({

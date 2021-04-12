@@ -49,7 +49,7 @@ export default ({
   };
   const handleRightClick = async (e, item, type) => {
     try {
-      const { total } = await switchs[type].comment({
+      const { total } = await switchs[type]?.comment({
         id: item.id,
       });
       dispatch(setContextMenuShow({

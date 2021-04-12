@@ -52,7 +52,6 @@ const DomVisibility = memo(() => {
 export default () => {
   useKeyActions();
   const dispatch = useDispatch();
-  const { loginVisibility } = useSelector(({ common }) => common);
   const { theme, font } = useSelector(({ setting }) => setting);
   const {
     POSITION,
@@ -162,7 +161,7 @@ export default () => {
             )}
         </div>
         <GlobalLrc />
-        {loginVisibility && <DialogLogin />}
+        <DialogLogin />
 
         {
           resizer && (

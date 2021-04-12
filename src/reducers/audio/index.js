@@ -21,7 +21,6 @@ import {
   SET_AUDIO_PLAYLIST_CLEAR,
   SET_AUDIO_HISTORY_CLEAR,
   SET_AUDIO_PATTERN,
-  SET_LYRIC_TEXT,
 
   SET_RUNERROR_ADD,
   SET_RUNERROR_DESC,
@@ -214,54 +213,6 @@ export default produce((draft, action) => {
         draft.pattern = pattern;
       }
       break;
-    case SET_LYRIC_TEXT:
-    {
-      const { lyric } = action.payload;
-      draft.lyric = lyric;
-      const {
-        tlyric: { lyric: tlyric } = { lyric: '' },
-        lrc: { lyric: lrc } = { lyric: '' },
-      } = lyric;
-      if (!lrc) {
-        draft.lrcList = [];
-        return;
-      }
-
-      const arr = [];
-      const temp = {};
-
-      formatLrc(lrc, (onetime, word) => {
-        temp[onetime] = word;
-      });
-
-      if (tlyric) {
-        formatLrc(tlyric, (onetime, word) => {
-          temp[onetime] += `
-              ${word}`;
-        });
-      }
-      Object.entries(temp).forEach(([key, word]) => {
-        const { groups: { min, sec } } = key.match(/\[(?<min>\d{0,}):(?<sec>\d{0,}\.?\d{0,})\]/);
-        const time = min * 60 + sec * 1;
-        arr.push({ time, word });
-      });
-      arr.sort(({ time: time1 }, { time: time2 }) => time1 - time2);
-      draft.lrcList = arr;
-    }
     default:
   }
 }, initialState);
-
-function formatLrc(lrc, callback) {
-  lrc
-    .match(/^\[\d*:\d*.\d*\].*/mg)
-    .forEach((line) => {
-      const { groups: { time, word } } = line.match(/(?<time>\[.*\])(?<word>.*)/);
-      time
-        .match(/\[(\d{0,}:\d{0,}\.?\d{0,})\]/g)
-        .forEach((onetime) => {
-          callback(onetime, word);
-          // const { groups: { min, sec } } = onetime.match(/(?<min>\d{2,}):(?<sec>\d{2,}\.\d{2,})/);
-        });
-    });
-}

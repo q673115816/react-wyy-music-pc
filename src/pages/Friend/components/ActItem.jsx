@@ -14,6 +14,7 @@ import {
 } from '@tabler/icons';
 import { transTextEmoji } from '@/common/faces';
 import classNames from 'classnames';
+import DomComment from './Comment';
 
 const types = {
   18: '分享单曲',
@@ -91,7 +92,7 @@ export default ({
 }) => {
   const json = JSON.parse(item.json);
   // console.log(json);
-  const { comments } = useSelector(({ friend }) => friend);
+  const { comments, hotComments } = useSelector(({ friend }) => friend);
   if (item.type === 33) {
     // console.log(json);
     return (
@@ -176,51 +177,44 @@ export default ({
           </div>
           {item.info.threadId === actThreadId
             && (
-              <div className="comment bg-gray-100 mt-3 rounded">
-                <div className="write">
-                  <div className="help">
+              <div className="comment bg-gray-50 mt-3 rounded">
+                <div className="write p-3">
+                  <div className="help flex">
                     <div className="flex space-x-2">
-                      <button type="button" className="text-gray-500 hover:text-black">
+                      <button type="button" className="ui_text_black_hover">
                         <IconMoodSmile size={20} />
                       </button>
-                      <button type="button" className="text-gray-500 hover:text-black">
+                      <button type="button" className="ui_text_black_hover">
                         <IconAt size={20} />
                       </button>
-                      <button type="button" className="text-gray-500 hover:text-black">
+                      <button type="button" className="ui_text_black_hover">
                         <IconHash size={20} />
                       </button>
                     </div>
-                    <div className="right">
-                      <button className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full" type="button">
-                        评论
-                      </button>
-                    </div>
+                    <button className="ml-auto border px-4 py-1 rounded-full hover:bg-gray-100" type="button">
+                      评论
+                    </button>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500 font-bold">
+                {hotComments.length > 0 && (
+                  <>
+                    <div className="text-sm px-3 text-gray-500 font-bold">
+                      精彩评论
+                    </div>
+                    <div className="divide-y">
+                      {hotComments.slice(0, 10).map((comment) => (
+                        <DomComment key={comment.commentId} comment={comment} />
+                      ))}
+                    </div>
+                  </>
+                )}
+                <div className="text-sm px-3 text-gray-500 font-bold">
                   最新评论
                   {`(${comments.length})`}
                 </div>
                 <div className="divide-y">
                   {comments.slice(0, 10).map((comment) => (
-                    <div className="flex py-5 px-3" key={comment.commentId}>
-                      <Link to={`/user/${comment.user.userId}`} className="avatar w-10 h-10 rounded-full border flex-none">
-                        <img className="rounded-full w-full h-full" src={`${comment.user.avatarUrl}?param=40y40`} alt="" />
-                      </Link>
-                      <div className="commentContent pl-3">
-                        <div className="select-text">
-                          <Link to={`/user/${comment.user.userId}`} className="ui_link">
-                            {`${comment.user.nickname}：`}
-                          </Link>
-                          {comment.content}
-                        </div>
-                        <div className="mt-2">
-                          <span className="text-gray-300">
-                            {dayjs(comment.time).format('YYYY年MM月DD日 HH:mm:ss')}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+                    <DomComment key={comment.commentId} comment={comment} />
                   ))}
                 </div>
               </div>

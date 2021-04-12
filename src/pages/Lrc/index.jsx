@@ -19,13 +19,13 @@ import {
 import DomCommentsList from '@/components/CommentsList';
 import './style.scss';
 import classNames from 'classnames';
-import { setLyricHide } from '@/reducers/mask/actions';
+import { setLyricHide } from '@/reducers/lrc/actions';
 
 const DomLrcContext = () => {
   const {
     currentTime,
-    lrcList,
   } = useSelector(({ audio }) => audio);
+  const { lrcList } = useSelector(({ lrc }) => lrc);
   const RefScroll = useRef();
   const RefCurrentLine = useRef();
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
@@ -70,7 +70,7 @@ const DomLrcContext = () => {
 const DomLrc = () => {
   const {
     lrcList,
-  } = useSelector(({ audio }) => audio);
+  } = useSelector(({ lrc }) => lrc);
   if (!lrcList.length) return <div className="absolute inset-0 flex-center">纯音乐，请您欣赏</div>;
   return <DomLrcContext />;
 };
@@ -117,7 +117,7 @@ export default memo(() => {
   const dispatch = useDispatch();
   const { listen } = useHistory();
   const { currentSong } = useSelector(({ audio }) => audio);
-  const { lyricVisibility } = useSelector(({ mask }) => mask);
+  const { lyricVisibility } = useSelector(({ lrc }) => lrc);
   const { running } = useSelector(({ audio }) => audio);
   const memoId = useMemo(() => currentSong.id, [currentSong]);
   const [loading, setLoading] = useState(true);
@@ -153,12 +153,13 @@ export default memo(() => {
     setLoading(false);
   };
   useEffect(() => {
+    if (!lyricVisibility) return false;
     if (loading) {
       handleInit();
     } else {
       handleLeftInit();
     }
-  }, [page]);
+  }, [lyricVisibility, page]);
   useEffect(() => {
     const unlisten = listen((route) => {
       dispatch(setLyricHide());

@@ -4,8 +4,17 @@ import Lazyload from 'react-lazyload';
 import { IconPlayerPlay, IconLock } from '@tabler/icons';
 import { transPlayCount } from '@/common/utils';
 import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
+import DomMenuCreate from '@/components/MenuCreate';
 
 export default memo(({ item }) => (
+  // <DomMenuCreate
+  //   item={item}
+  //   type="playlist"
+  //   schema={[
+  //     ['查看歌单', '播放歌单', '下一首播放'],
+  //     ['不感兴趣'],
+  //   ]}
+  // >
   <div className="item">
     <div className="cover relative rounded overflow-hidden group ui_aspect-ratio-1/1">
       <Link to={`/playlist/music/${item.id}`}>

@@ -7,7 +7,7 @@ import DomBox from './Box';
 export default ({
   item = {}, className = '', sq = false, mv = item.mv,
 }) => (
-  <div className={classNames('tags flex-none flex items-center space-x-1 px-1', className)}>
+  <div className={classNames('tags flex-none px-1 space-x-1 flex items-center', className)}>
     {
       item.fee === 1
       && (
