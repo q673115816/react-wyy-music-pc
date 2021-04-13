@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { IconPlayerPlay } from '@tabler/icons';
 import { transPlayCount } from '@/common/utils';
 import { SymbolToday } from '@/components/Symbol';
 import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
 
-export default ({ playlist = [] }) => (
+export default memo(({ playlist = [] }) => (
   <div className="domHome_recommend_playlist grid gap-5 grid-cols-5 mt-4">
     <div className="item">
       <div className="cover border relative group rounded-lg overflow-hidden">
@@ -48,4 +48,4 @@ export default ({ playlist = [] }) => (
       ))
     }
   </div>
-);
+));

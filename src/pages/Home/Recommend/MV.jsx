@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import Lazyload from 'react-lazyload';
 import DomMenuCreate from '@/components/MenuCreate';
 
-export default ({ mv = [] }) => (
+export default memo(({ mv = [] }) => (
   <div className="domHome_recommend_mv grid gap-x-5 grid-cols-3 mt-4">
     {
       mv.map((item) => (
@@ -56,4 +56,4 @@ export default ({ mv = [] }) => (
       ))
     }
   </div>
-);
+));

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import Lazyload from 'react-lazyload';
 
-export default ({ djprogram = [] }) => (
+export default memo(({ djprogram = [] }) => (
   <div className="domHome_recommend_djprogram grid grid-cols-5 gap-5 mt-4">
     {
       djprogram.slice(0, 5).map((item) => (
@@ -36,4 +36,4 @@ export default ({ djprogram = [] }) => (
       ))
     }
   </div>
-);
+));

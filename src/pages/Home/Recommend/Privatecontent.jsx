@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import Lazyload from 'react-lazyload';
 import { IconPlayerPlay } from '@tabler/icons';
 import DomMenuCreate from '@/components/MenuCreate';
 
-export default ({ privatecontent = [] }) => (
+export default memo(({ privatecontent = [] }) => (
   <div className="domHome_recommend_privatecontent grid grid-cols-3 gap-4 mt-4">
     {
       privatecontent.map((item) => (
@@ -36,4 +36,4 @@ export default ({ privatecontent = [] }) => (
       ))
     }
   </div>
-);
+));

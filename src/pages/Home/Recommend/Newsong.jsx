@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import Lazyload from 'react-lazyload';
 import { IconPlayerPlay } from '@tabler/icons';
 import DomTags from '@/components/Tags';
 import DomMenuCreate from '@/components/MenuCreate';
 
-export default ({ newsong = [] }) => (
+export default memo(({ newsong = [] }) => (
   <div className="domHome_recommend_newsong grid gap-x-2 gap-y-4 mt-4 grid-cols-3 grid-rows-4 grid-flow-col">
     {
       newsong.map((item) => (
@@ -63,4 +63,4 @@ export default ({ newsong = [] }) => (
       ))
     }
   </div>
-);
+));

@@ -1,3 +1,5 @@
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   presets: [
     [
@@ -14,5 +16,6 @@ module.exports = {
     "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
     // 'add-module-exports'// 结构使用default导出
-  ]
+    isDevelopment && 'react-refresh/babel',
+  ].filter(Boolean)
 }
