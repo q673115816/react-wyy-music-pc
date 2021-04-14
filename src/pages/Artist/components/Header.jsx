@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   IconFolderPlus,
   IconCheckbox,
@@ -6,16 +6,17 @@ import {
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDialogUnSubscriptionShow, setToast } from '@/reducers/mask/actions';
-
 import {
   apiArtistDetail, apiArtistSub,
 } from '@/api';
+import { useRefreshArtistSublist } from '@/custom/useHelp';
 
 export default () => {
   const { id } = useParams();
 
   const { artistSublist } = useSelector(({ account }) => account);
 
+  const isSub = useMemo(() => artistSublist.find((item) => item.id === Number(id)), [artistSublist, id]);
   const dispatch = useDispatch();
   const [detail, setDetail] = useState({});
   const handleInit = async () => {
@@ -28,7 +29,6 @@ export default () => {
       console.log(error);
     }
   };
-
   const handleUnSubscription = () => {
     dispatch(setDialogUnSubscriptionShow({
       artistId: id,
@@ -37,20 +37,19 @@ export default () => {
 
   const handleSubscription = async () => {
     try {
-      const { code } = apiArtistSub({
+      await apiArtistSub({
         id,
         t: 1,
       });
-      if (code === 200) {
-        dispatch(setToast('收藏成功！'));
-        // setDetail({
-        //   ...detail,
-        //   blacklist: !detail.blacklist,
-        // });
-      }
+      dispatch(setToast('收藏成功！'));
+      useRefreshArtistSublist(dispatch);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleToggleSub = async () => {
+    isSub ? handleUnSubscription() : await handleSubscription();
   };
 
   useEffect(() => {
@@ -65,38 +64,34 @@ export default () => {
         <div className="name h1 select-text">{detail.artist?.name}</div>
         <div className="enname my-3 select-text">{detail.alias?.map((alia) => alia)}</div>
         <div className="actions mt-3 flex space-x-2">
-          {artistSublist.find((item) => item.id === Number(id))
-            ? (
-              <button
-                onClick={handleUnSubscription}
-                type="button"
-                className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex items-center text-sm"
-              >
+          <button
+            onClick={handleToggleSub}
+            type="button"
+            className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex items-center text-sm"
+          >
+            {isSub ? (
+              <>
                 <IconCheckbox size={20} stroke={1} />
                 已收藏
-              </button>
-            )
-            : (
-              <button
-                onClick={handleSubscription}
-                type="button"
-                className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex items-center text-sm"
-              >
+              </>
+            ) : (
+              <>
                 <IconFolderPlus size={20} stroke={1} />
                 收藏
-              </button>
+              </>
             )}
+          </button>
           {
-          detail.user
-          && (
-            <Link
-              to={`/user/${detail.user?.userId}`}
-              className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex items-center text-sm"
-            >
-              个人主页
-            </Link>
-          )
-        }
+            detail.user
+            && (
+              <Link
+                to={`/user/${detail.user?.userId}`}
+                className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex items-center text-sm"
+              >
+                个人主页
+              </Link>
+            )
+          }
         </div>
         <div className="info mt-5 space-x-5">
           <span className="size">

@@ -52,7 +52,6 @@ export default memo(() => {
     djprogram,
   } = useSelector(({ home }) => home.recommend);
   const { homeOrder } = useSelector(({ setting }) => setting);
-  const { dialogHomeOrderVisibility } = useSelector(({ mask }) => mask);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const handleInit = async () => {
@@ -141,10 +140,7 @@ export default memo(() => {
             调整栏目顺序
           </button>
         </div>
-        {
-          dialogHomeOrderVisibility
-          && <DialogHomeOrder />
-        }
+        <DialogHomeOrder />
       </div>
     </div>
   );

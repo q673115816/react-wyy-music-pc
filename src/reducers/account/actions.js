@@ -4,6 +4,7 @@ import {
   SET_LIKELIST,
   SET_PLAYLIST,
   SET_ARTIST_SUBLIST,
+  SET_ARTIST_SUBLIST_ADD,
   SET_TOPIC_SUBLIST,
   SET_ALBUM_SUBLIST,
   SET_MV_SUBLIST,
@@ -43,6 +44,11 @@ export const setLikelistDel = (payload) => ({
 
 export const setArtistSublist = (payload) => ({
   type: SET_ARTIST_SUBLIST,
+  payload,
+});
+
+export const setArtistSublistAdd = (payload) => ({
+  type: SET_ARTIST_SUBLIST_ADD,
   payload,
 });
 

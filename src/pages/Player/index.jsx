@@ -15,6 +15,7 @@ import {
   IconFolderPlus,
   IconCheckbox,
   IconScreenShare,
+  IconDownload,
 } from '@tabler/icons';
 import './style.scss';
 
@@ -283,7 +284,7 @@ export default () => {
           <div className="domVideoDetail_actions flex space-x-3 mt-8">
             <button
               type="button"
-              className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
+              className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100"
             >
               <IconThumbUp size={20} stroke={1} />
               {
@@ -297,7 +298,7 @@ export default () => {
             </button>
             <button
               type="button"
-              className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
+              className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100"
               onClick={handleSub}
             >
               {isSub
@@ -312,11 +313,15 @@ export default () => {
             </button>
             <button
               type="button"
-              className="flex-center border h-8 rounded-full px-4 hover:bg-gray-100"
+              className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100"
             >
               <IconScreenShare size={20} stroke={1} />
               分享
               {`(${detailInfo.shareCount})`}
+            </button>
+            <button type="button" className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100">
+              <IconDownload size={20} stroke={1} />
+              下载
             </button>
           </div>
           <div className="domVideoDetail_main mt-8">

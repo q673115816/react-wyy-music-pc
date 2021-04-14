@@ -25,7 +25,14 @@ export default memo(() => (
   <div className="domSublist overflow-auto max-h-full flex-auto">
     <div className="domSublist_nav px-8 py-5 space-x-4 text-base">
       {navs.map(([name, nav]) => (
-        <NavLink to={nav} className="domSublist_nav_link" activeClassName="text-xl font-black ui_underline">{name}</NavLink>
+        <NavLink
+          key={name}
+          to={nav}
+          className="domSublist_nav_link"
+          activeClassName="text-xl font-black ui_underline"
+        >
+          {name}
+        </NavLink>
       ))}
     </div>
     <Switch>

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { apiArtistDesc } from '@/api';
 
-export default ({ id }) => {
+export default memo(({ id }) => {
   const [desc, setDesc] = useState({});
   const handleInit = async () => {
     try {
@@ -40,4 +40,4 @@ export default ({ id }) => {
       }
     </div>
   );
-};
+});

@@ -4,14 +4,16 @@ import {
   SET_BUFFERED,
   SET_DURATION,
   SET_CURRENTTIME,
+  SET_JUMPTIME,
 } from './actionTypes';
 
 export const initialState = {
   play: false,
   full: false,
-  buffered: 0,
+  buffered: [],
   duration: 0,
   currentTime: 0,
+  jumpTime: 0,
 };
 
 export default (state, action) => {
@@ -29,17 +31,22 @@ export default (state, action) => {
     case SET_BUFFERED:
       return {
         ...state,
-        ...action.payload,
+        buffered: action.payload.buffered,
       };
     case SET_DURATION:
       return {
         ...state,
-        ...action.payload,
+        duration: action.payload.duration,
       };
     case SET_CURRENTTIME:
       return {
         ...state,
         ...action.payload,
+      };
+    case SET_JUMPTIME:
+      return {
+        ...state,
+        jumpTime: action.payload.jumpTime,
       };
     default:
       return state;

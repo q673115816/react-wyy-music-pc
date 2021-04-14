@@ -1,4 +1,4 @@
-import React, { useReducer, useRef } from 'react';
+import React, { useReducer } from 'react';
 import { useDispatch } from 'react-redux';
 import { setDialogReset } from '@/reducers/mask/actions';
 import { IconX } from '@tabler/icons';
@@ -13,9 +13,8 @@ const initialState = {
   lastX: 0,
   lastY: 0,
 };
-export default (WrapperComponent, id, title) => () => {
+export default ({ children, id, title }) => {
   const dispatch = useDispatch();
-  const refDialog = useRef();
   const [dialogState, dialogDispatch] = useReducer((state, action) => {
     switch (action.type) {
       case 'MOUSE_DOWN':
@@ -63,7 +62,7 @@ export default (WrapperComponent, id, title) => () => {
       });
     }
   };
-  const handleMouseUp = (e) => {
+  const handleMouseUp = () => {
     dialogDispatch({
       type: 'MOUSE_UP',
     });
@@ -74,7 +73,6 @@ export default (WrapperComponent, id, title) => () => {
       onMouseUp={handleMouseUp}
     >
       <div
-        ref={refDialog}
         className="ui_dialog bg-white shadow rounded"
         id={id}
         style={{
@@ -95,7 +93,7 @@ export default (WrapperComponent, id, title) => () => {
           <div className="ui_dialog_title">{title}</div>
         </div>
         <div className="ui_dialog_main">
-          <WrapperComponent />
+          {children}
         </div>
       </div>
     </DomMask>

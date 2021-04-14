@@ -276,9 +276,10 @@ const initBuild = (functionClose) => ({
 
 export default () => {
   const dispatch = useDispatch();
-  const { isLogin, baseUrl } = useSelector(({ common }) => common);
+  const { baseUrl } = useSelector(({ common }) => common);
   const { profile, playlist } = useSelector(({ account }) => account);
   const {
+    contextMenuVisibility,
     contextMenuX,
     contextMenuY,
     contextMenuItem,
@@ -346,19 +347,19 @@ export default () => {
     dispatch(setDialogCreatePlaylistShow());
   };
 
-  const handleDialogShare = useCallback(() => {
-    if (!isLogin) {
-      dispatch(setLoginVisibilty());
-      return dispatch(setDialogReset());
-    }
-    return dispatch(setDialogShareShow());
-  }, []);
+  const handleDialogShare = useCallback(() =>
+    // if (!isLogin) {
+    //   dispatch(setLoginVisibilty());
+    //   return dispatch(setDialogReset());
+    // }
+    dispatch(setDialogShareShow()),
+  []);
 
   const Build = useMemo(() => {
     const Dom = initBuild(() => dispatch(setDialogReset()));
     return contextMenuSechma.map((block) => [block.join(','), block.map((item) => [item, Dom[item]])]);
-  }, []);
-
+  }, [contextMenuSechma]);
+  if (!contextMenuVisibility) return null;
   return (
     <DomMask>
       <ul

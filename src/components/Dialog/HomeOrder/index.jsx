@@ -11,8 +11,9 @@ import HOCDialog from '../Dialog';
 
 const defaultOrder = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
 
-const ShareWX = () => {
+export default () => {
   const dispatch = useDispatch();
+  const { dialogHomeOrderVisibility } = useSelector(({ mask }) => mask);
   const { homeOrder } = useSelector(({ setting }) => setting);
   const [tempHomeOrder, setTempHomeOrder] = useState(homeOrder);
   const [droper, setDroper] = useState(false);
@@ -69,69 +70,69 @@ const ShareWX = () => {
     dispatch(setDialogReset());
     dispatch(setHomeOrder(tempHomeOrder));
   };
-
+  if (!dialogHomeOrderVisibility) return null;
   return (
-    <div className="content">
-      <div className="tips mx-10 text-gray-400 mb-6 flex items-center">
-        <IconBulb size={14} />
-        <span className="ml-1">
-          想调整首页栏目的顺序?按住右边的按钮拖动即可
-        </span>
+    <HOCDialog id="dialogHomeOrder" title="调整栏目顺序">
+      <div className="content">
+        <div className="tips mx-10 text-gray-400 mb-6 flex items-center">
+          <IconBulb size={14} />
+          <span className="ml-1">
+            想调整首页栏目的顺序?按住右边的按钮拖动即可
+          </span>
+        </div>
+        <div className="flex flex-col relative" ref={DomList}>
+          {
+            tempHomeOrder.map((order, index) => (
+              <div key={order} className="h-12 text-base text-gray-500">
+                <button
+                  type="button"
+                  className={classNames('w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center', curr === order && 'absolute shadow z-10')}
+                  style={curr === order ? { transform: `translate(0, ${top}px)` } : null}
+                  onMouseDown={(e) => handleDown(e, order, index)}
+                >
+                  {order}
+                  <IconMenu className="ml-auto cursor-move" />
+                </button>
+              </div>
+            ))
+          }
+          {
+            droper
+            && createPortal(
+              <div
+                onMouseMove={handleMove}
+                onMouseUp={handleUp}
+                className="absolute inset-0 z-50"
+              />, document.getElementById('help-root'),
+            )
+          }
+        </div>
+        <div className="flex-center py-4">
+          <button
+            onClick={handleReset}
+            type="button"
+            className="underline text-gray-400 block"
+          >
+            恢复默认排序
+          </button>
+        </div>
+        <div className="flex-center pt-4 pb-8 space-x-2">
+          <button
+            onClick={handleConfirm}
+            type="button"
+            className="rounded-full ui_theme_bg_color text-white h-8 w-20"
+          >
+            完成
+          </button>
+          <button
+            type="button"
+            className="border rounded-full h-8 w-20"
+            onClick={() => dispatch(setDialogReset())}
+          >
+            取消
+          </button>
+        </div>
       </div>
-      <div className="flex flex-col relative" ref={DomList}>
-        {
-          tempHomeOrder.map((order, index) => (
-            <div key={order} className="h-12 text-base text-gray-500">
-              <button
-                type="button"
-                className={classNames('w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center', curr === order && 'absolute shadow z-10')}
-                style={curr === order ? { transform: `translate(0, ${top}px)` } : null}
-                onMouseDown={(e) => handleDown(e, order, index)}
-              >
-                {order}
-                <IconMenu className="ml-auto cursor-move" />
-              </button>
-            </div>
-          ))
-        }
-        {
-          droper
-          && createPortal(
-            <div
-              onMouseMove={handleMove}
-              onMouseUp={handleUp}
-              className="absolute inset-0 z-50"
-            />, document.getElementById('help-root'),
-          )
-        }
-      </div>
-      <div className="flex-center py-4">
-        <button
-          onClick={handleReset}
-          type="button"
-          className="underline text-gray-400 block"
-        >
-          恢复默认排序
-        </button>
-      </div>
-      <div className="flex-center pt-4 pb-8 space-x-2">
-        <button
-          onClick={handleConfirm}
-          type="button"
-          className="rounded-full ui_theme_bg_color text-white h-8 w-20"
-        >
-          完成
-        </button>
-        <button
-          type="button"
-          className="border rounded-full h-8 w-20"
-          onClick={() => dispatch(setDialogReset())}
-        >
-          取消
-        </button>
-      </div>
-    </div>
+    </HOCDialog>
   );
 };
-
-export default HOCDialog(ShareWX, 'dialogHomeOrder', '调整栏目顺序');

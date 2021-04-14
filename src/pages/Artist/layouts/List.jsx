@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 export default ({ hotAlbums = [] }) => (
-  <div className="list mt-4">
+  <div className="list pt-4">
     {
       hotAlbums.map((item, index) => (
         <div className={classNames('list_item hover:bg-gray-100', { 'bg-gray-50': index % 2 === 0 })} key={item.id}>

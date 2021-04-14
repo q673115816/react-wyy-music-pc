@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { apiSimiArtist } from '@/api';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import DomLoading from '@/components/Loading';
 
-export default ({ id }) => {
+export default memo(({ id }) => {
   const [simiArtists, setSimiArtists] = useState([]);
   const [loading, setLoading] = useState(true);
   const handleInit = async () => {
@@ -53,4 +53,4 @@ export default ({ id }) => {
       </div>
     </div>
   );
-};
+});

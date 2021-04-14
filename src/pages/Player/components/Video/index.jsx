@@ -28,6 +28,7 @@ export default ({
     play,
     duration,
     currentTime,
+    jumpTime,
     buffered,
     full,
   }, videoDispatch] = useReducer(videoReducer, initialState);
@@ -64,8 +65,14 @@ export default ({
   };
 
   const handleProgress = ({ target }) => {
-    // console.log(e);
-    videoDispatch(actionSetBuffered(target.buffered.end(0)));
+    // console.log(target.buffered.length);
+    const buffered = [];
+    for (let i = 0; i < target.buffered.length; i += 1) {
+      const onebuffered = [target.buffered.start(i), target.buffered.end(i)];
+      buffered.push(onebuffered);
+      // console.log(onebuffered);
+    }
+    videoDispatch(actionSetBuffered(buffered));
     // setBuffered(target.buffered.end(0));
     // console.log(ref.current.buffered.end(0));
   };
@@ -82,6 +89,11 @@ export default ({
     // setDuration(target.duration);// e.timeStamp
   };
 
+  useEffect(() => {
+    // videoDispatch(actionSetCurrentTime(jumptime));
+    ref.current.currentTime = jumpTime;
+  }, [jumpTime]);
+
   return (
     <div className={classNames('ui_aspect-ratio-16/9', fixed ? ' absolute bottom-16 right-8 z-10 w-80' : 'relative')}>
       <div className={classNames('flex flex-col inset-0', full ? 'fixed z-50' : 'absolute')}>
@@ -91,6 +103,7 @@ export default ({
             ref={ref}
             onClick={handleChangePlay}
             onProgress={handleProgress}
+
             onTimeUpdate={handleSetTime}
             onLoadedMetadata={handlePreSetTime}
             className="h-full m-auto cursor-pointer"
@@ -120,6 +133,7 @@ export default ({
           buffered,
           handlechangeFull,
           full,
+          videoDispatch,
         }}
         >
           <DomTiming />

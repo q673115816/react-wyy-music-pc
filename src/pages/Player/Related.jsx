@@ -32,7 +32,7 @@ export default ({ related = [] }) => (
                 className="ui_text_black_hover"
               >
                 {item.type === 0
-                  && <DomTagMV />}
+                  && <DomTagMV className="inline-block" />}
                 {item.title}
               </Link>
             </div>

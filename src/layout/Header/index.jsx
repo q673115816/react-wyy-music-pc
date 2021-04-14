@@ -49,7 +49,7 @@ export default memo(() => {
       x: e.clientX,
       y: e.clientY,
     });
-    dispatch(setGlobaDragger(true))
+    dispatch(setGlobaDragger(true));
   };
 
   const dragmove = (e) => {
@@ -67,7 +67,7 @@ export default memo(() => {
 
   const dragup = () => {
     setDragLastInset(dragInset);
-    dispatch(setGlobaDragger(false))
+    dispatch(setGlobaDragger(false));
   };
 
   const handleGetCountriesCodeList = async () => {

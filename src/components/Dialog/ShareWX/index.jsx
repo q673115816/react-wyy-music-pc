@@ -5,23 +5,24 @@ import QRcode from 'qrcode.react';
 import HOCDialog from '../Dialog';
 import './style.scss';
 
-const ShareWX = () => {
+export default () => {
   const dispatch = useDispatch();
-  const { contextMenuShareLink } = useSelector(({ mask }) => mask);
+  const { contextMenuShareLink, dialogShareWXVisibility } = useSelector(({ mask }) => mask);
+  if (!dialogShareWXVisibility) return null;
   return (
-    <div className="content">
-      <div className="qr">
-        <QRcode
-          size={110}
-          level="H"
-          value={contextMenuShareLink}
-          title={contextMenuShareLink}
-        />
-        <div className="tips">打开微信，扫一扫~</div>
+    <HOCDialog id="dialogShareWX" title="分享">
+      <div className="content">
+        <div className="qr">
+          <QRcode
+            size={110}
+            level="H"
+            value={contextMenuShareLink}
+            title={contextMenuShareLink}
+          />
+          <div className="tips">打开微信，扫一扫~</div>
+        </div>
+        <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red" onClick={() => dispatch(setDialogReset())}>完成</button>
       </div>
-      <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red" onClick={() => dispatch(setDialogReset())}>完成</button>
-    </div>
+    </HOCDialog>
   );
 };
-
-export default HOCDialog(ShareWX, 'dialogShareWX', '分享');

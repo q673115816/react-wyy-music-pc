@@ -28,27 +28,6 @@ import { setGlobalRect } from './reducers/inset/actions';
 const MINWIDTH = 1022;
 const MINHEIGHT = 670;
 
-const DomVisibility = memo(() => {
-  const {
-    contextMenuVisibility,
-    dialogShareVisibility,
-    dialogShareWXVisibility,
-    dialogUploadAvatarVisibility,
-    dialogCreatePlaylistVisibility,
-    dialogUnSubscriptionVisibility,
-  } = useSelector(({ mask }) => mask);
-  return (
-    <>
-      {contextMenuVisibility && <Contextmenu />}
-      {dialogShareVisibility && <DialogShare />}
-      {dialogShareWXVisibility && <DialogShareWX />}
-      {dialogUploadAvatarVisibility && <DialogUploadAvatar />}
-      {dialogCreatePlaylistVisibility && <DialogCreatePlaylist />}
-      {dialogUnSubscriptionVisibility && <DialogUnSubscription />}
-    </>
-  );
-});
-
 export default () => {
   useKeyActions();
   const dispatch = useDispatch();
@@ -143,11 +122,18 @@ export default () => {
               <DomFooter />
             </Route>
           </Switch>
-          <DomVisibility />
+
+          <DialogShare />
+          <DialogShareWX />
+          <DialogUploadAvatar />
+          <DialogCreatePlaylist />
+          <DialogUnSubscription />
+
           <DomLrc />
           <Playlist />
           <Letter />
           <HeaderSearch />
+          <Contextmenu />
           <Tosat />
           {SCREEN === 'normal'
             && (

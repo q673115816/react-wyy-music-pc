@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import dayjs from 'dayjs';
 import { VideoContext } from './index';
+import { actionSetJumpTime } from './reducer/actions';
 
 export default () => {
   const [timeTips, setTimeTips] = useState(false);
@@ -12,6 +13,7 @@ export default () => {
     duration,
     currentTime,
     buffered,
+    videoDispatch,
   } = useContext(VideoContext);
 
   const handleDropDown = () => {
@@ -48,6 +50,14 @@ export default () => {
     setDroper(false);
   };
 
+  const handleClick = ({ clientX, target }) => {
+    // console.log('click');
+    const { left, width } = target.getBoundingClientRect();
+    const ratio = (clientX - left) / width;
+    setPlayerLengthRatio(ratio);
+    videoDispatch(actionSetJumpTime(ratio * duration));
+  };
+
   useEffect(() => {
     if (!droper) {
       setPlayerLengthRatio((currentTime / duration));
@@ -63,10 +73,19 @@ export default () => {
           </div>
         )}
       <div
-        className="absolute inset-0 w-0 bg-gray-400"
+        className="absolute inset-0"
         alt="缓存"
-        style={{ width: `${(buffered / duration) * 100}%` }}
-      />
+      >
+        {
+          buffered.map(([start, end]) => (
+            <div
+              key={`${start}-${end}`}
+              className="absolute inset-y-0 bg-gray-400"
+              style={{ left: `${(start / duration) * 100}%`, right: `${(1 - (end / duration)) * 100}%` }}
+            />
+          ))
+        }
+      </div>
       <div
         className="h-full relative w-0 ui_theme_bg_color"
         alt="播放进度"
@@ -85,6 +104,7 @@ export default () => {
         onMouseMove={handleProgressMove}
         onMouseLeave={handleProgressLeave}
         onMouseUp={handleProgressDropUp}
+        onClick={handleClick}
         max={duration}
         value={currentTime}
         className="absolute bottom-0 left-0 opacity-0 w-full"
