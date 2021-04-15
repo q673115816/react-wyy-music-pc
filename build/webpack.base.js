@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
-require('dotenv').config();
 
 const { src, img } = require('./util');
 
@@ -64,7 +63,7 @@ const plugins = [
     prefetch,
     // meta,
     // publicPath: '/'
-    ...(devMode ? {} : { filename, publicPath: process.env.PUBLIC_PATH }),
+    ...(devMode ? {} : { filename, publicPath: '/wyy-pc/' }),
   }),
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
