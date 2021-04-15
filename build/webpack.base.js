@@ -64,7 +64,7 @@ const plugins = [
     prefetch,
     // meta,
     // publicPath: '/'
-    ...(devMode ? {} : { filename }),
+    ...(devMode ? {} : { filename, publicPath: process.env.PUBLIC_PATH }),
   }),
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
