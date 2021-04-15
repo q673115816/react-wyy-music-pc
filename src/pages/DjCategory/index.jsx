@@ -1,30 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { apiDjRadioHot } from '@/api';
+import useInfinite from '@/custom/useInfinite';
+import DomLoading from '@/components/Loading';
 
 export default () => {
-  const { rid } = useParams();
+  const { type, rid } = useParams();
   const [data, setData] = useState([]);
+  const DomScroll = useRef();
+  const DomObserver = useRef();
+  const offset = useRef(0);
+  const limit = 40;
+
   const handleInit = async () => {
     try {
       const { djRadios } = await apiDjRadioHot({
         cateId: rid,
-        limit: 40,
+        limit,
+        offset: offset.current,
       });
-      setData(djRadios);
+      offset.current += limit;
+      setData((prev) => [...prev, ...djRadios]);
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    handleInit();
+    setData([]);
+    offset.current = 0;
+    // handleInit();
   }, [rid]);
+  useInfinite(handleInit, DomScroll, DomObserver);
   return (
-    <div className="overflow-auto h-full p-8">
-      <div className="h1">{}</div>
-      <div className="grid grid-cols-2 gap-5">
+    <div className="overflow-auto h-full" ref={DomScroll}>
+      <div className="ui_header h1">{type}</div>
+      <div className="grid grid-cols-2 gap-5 px-8">
         {data.map((item) => (
-          <Link to={`/playlist/dj/${item.id}`} className="flex">
+          <Link key={item.id} to={`/playlist/dj/${item.id}`} className="flex">
             <div className="w-32 rounded overflow-hidden border ui_aspect-ratio-1/1">
               <img src={`${item.picUrl}?param=200y200`} alt="" />
             </div>
@@ -41,6 +53,7 @@ export default () => {
           </Link>
         ))}
       </div>
+      <div ref={DomObserver} className="flex-center"><DomLoading /></div>
     </div>
   );
 };

@@ -16,7 +16,6 @@ module.exports = {
     // ["@babel/plugin-syntax-decorators", { "legacy": true }],
     "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
-    // 'add-module-exports'// 结构使用default导出
     isDevelopment && 'react-refresh/babel',
   ].filter(Boolean)
 }

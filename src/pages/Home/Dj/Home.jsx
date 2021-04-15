@@ -172,7 +172,7 @@ export default () => {
                   {
                     catelist.map((item) => (
                       <SwiperSlide className="item" key={item.id}>
-                        <Link to={`/dj-category/${item.name}`}>
+                        <Link to={`/dj-category/${item.name}/${item.id}`}>
                           <div className="inner">
                             <div className="btn flex-center ui_themeColor">
                               <img className="w-8 h-8" src={item.pic56x56Url} alt="" />

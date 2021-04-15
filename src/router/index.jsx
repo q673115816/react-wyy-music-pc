@@ -39,7 +39,7 @@ const router = [
   ['/download', Download],
   ['/friend', Friend],
   ['/dj', Dj],
-  ['/dj-category/:rid', DjCategory],
+  ['/dj-category/:type/:rid', DjCategory],
   ['/fm', Fm],
   ['/love', Love],
   ['/sublist', Sublist],
@@ -57,12 +57,12 @@ const router = [
 export default memo(() => (
   <Switch>
     {
-        router.map(([path, Component]) => (
-          <Route path={path} key={path}>
-            <Component />
-          </Route>
-        ))
-      }
+      router.map(([path, Component]) => (
+        <Route path={path} key={path}>
+          <Component />
+        </Route>
+      ))
+    }
     <Redirect to="/home" />
   </Switch>
 ));

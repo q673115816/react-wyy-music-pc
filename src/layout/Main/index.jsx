@@ -7,7 +7,9 @@ export default memo(() =>
   // console.log('main');
   (
     <div className="dommain w-full flex flex-auto h-px">
-      <DomNav />
+      <div>
+        <DomNav />
+      </div>
       <div className="dommain_split" />
       <div className="dommain_right flex-auto w-0">
         <Suspense fallback={<div className="flex-center w-full h-full"><DomLoading /></div>}>

@@ -138,6 +138,22 @@ export default () => {
     }));
   };
 
+  const handleDownload = () => {
+    fetch(urls?.url)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const { pathname } = new URL(urls?.url);
+        const ext = pathname.substr(pathname.lastIndexOf('.'));
+        const url = window.URL.createObjectURL(blob);
+        // console.log(url);
+        const a = document.createElement('a');
+        a.download = `${detail?.title}.${ext}`;
+        a.href = url;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+  };
+
   const handleFollow = async () => {
     try {
       const { } = await apiFollow({
@@ -319,7 +335,7 @@ export default () => {
               分享
               {`(${detailInfo.shareCount})`}
             </button>
-            <button type="button" className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100">
+            <button type="button" onClick={handleDownload} className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100">
               <IconDownload size={20} stroke={1} />
               下载
             </button>
