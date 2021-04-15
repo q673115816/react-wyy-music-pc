@@ -1,6 +1,5 @@
-import React, { memo, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronDownRight } from '@tabler/icons';
 import DomPlayer from './pages/Player';

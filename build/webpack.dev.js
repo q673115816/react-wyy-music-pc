@@ -20,7 +20,7 @@ const dev = {
     // host: '0.0.0.0',
     // https: true,
     // hotOnly: true,
-    // historyApiFallback: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [

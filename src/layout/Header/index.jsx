@@ -145,7 +145,7 @@ export default memo(() => {
       <Link
         to="/"
         className="domHeader_logo tracking-widest text-white text-base z-10"
-        style={{ width: 200 }}
+        style={{ width: 210 }}
       >
         网易云音乐
       </Link>

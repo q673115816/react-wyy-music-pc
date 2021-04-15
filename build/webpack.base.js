@@ -50,16 +50,20 @@ const prefetch = [
   'rel="dns-prefetch" href="//m8.music.126.net"',
 ];
 
+const filename = '404.html';
+
 const plugins = [
   new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
     favicon: path.join(__dirname, '../public/favicon.ico'),
     template: path.join(__dirname, '../public/index.html'),
+    // filename: '404.html',
     title: '网易云音乐',
     cdn,
     prefetch,
     // meta,
     // publicPath: '/'
+    ...(devMode ? {} : { filename }),
   }),
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
