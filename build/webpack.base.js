@@ -69,8 +69,8 @@ const plugins = [
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
     // both options are optional
-    filename: '[name].[contenthash:8].css',
-    chunkFilename: '[name].[contenthash:8].css',
+    filename: `${process.env.PUBLIC_PATH}/[name].[contenthash:8].css`,
+    chunkFilename: `${process.env.PUBLIC_PATH}/[name].[contenthash:8].css`,
   }),
   // new webpack.DllPlugin({
   //   name: '[name]_[fullhash]',
@@ -193,14 +193,17 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         include: src,
         use: [
-          devMode
-            ? 'style-loader' : {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
-                publicPath: process.env.PUBLIC_PATH,
-              },
-            },
+          // devMode
+          //   ? 'style-loader' : {
+          //     loader: MiniCssExtractPlugin.loader,
+          //     options: {
+          //       // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
+          //       publicPath: process.env.PUBLIC_PATH,
+          //     },
+          //   },
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
           'css-loader',
           'postcss-loader',
           'sass-loader',

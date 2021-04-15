@@ -7,7 +7,7 @@ console.log('entry webpack prod');
 const prod = {
   mode: 'production',
   output: {
-    publicPath: '/wyy-pc',
+    publicPath: process.env.PUBLIC_PATH,
     path: path.join(__dirname, '../dist'),
     filename: '[name].[chunkhash:8].js',
     // library: '[name]_[fullhash]',
