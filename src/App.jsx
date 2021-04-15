@@ -90,7 +90,7 @@ export default () => {
         '--themeColor': `var(--${theme}, --themeRed)`,
       }}
     >
-      <Router basename={process.env.NODE_ENV !== 'production' ? '/' : '/wyy'}>
+      <Router basename={process.env.NODE_ENV !== 'production' ? '/' : '/wyy-pc'}>
         <div
           id="NeteaseCloudMusic"
           className="domWrapper flex flex-col shadow-lg select-none"
