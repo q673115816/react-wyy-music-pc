@@ -1,7 +1,6 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const querystring = require('querystring');
 const path = require('path');
 const webpack = require('webpack');
 require('dotenv').config();
@@ -42,6 +41,7 @@ const meta = {
 
 const prefetch = [
   'rel="dns-prefetch" href="//q673115816.github.io"',
+  'rel="dns-prefetch" href="//q673115816.github.io/wyy-pc"',
   'rel="dns-prefetch" href="//cdn.jsdelivr.net"',
   'rel="dns-prefetch" href="//netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app"',
   'rel="dns-prefetch" href="//p1.music.126.net"',
@@ -69,8 +69,8 @@ const plugins = [
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
     // both options are optional
-    filename: `${process.env.PUBLIC_PATH}/[name].[contenthash:8].css`,
-    chunkFilename: `${process.env.PUBLIC_PATH}/[name].[contenthash:8].css`,
+    filename: '[name].[contenthash:8].css',
+    chunkFilename: '[name].[contenthash:8].css',
   }),
   // new webpack.DllPlugin({
   //   name: '[name]_[fullhash]',
@@ -193,17 +193,14 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         include: src,
         use: [
-          // devMode
-          //   ? 'style-loader' : {
-          //     loader: MiniCssExtractPlugin.loader,
-          //     options: {
-          //       // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
-          //       publicPath: process.env.PUBLIC_PATH,
-          //     },
-          //   },
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
+          devMode
+            ? 'style-loader' : {
+              loader: MiniCssExtractPlugin.loader,
+              // options: {
+              //   // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
+              //   publicPath: process.env.PUBLIC_PATH,
+              // },
+            },
           'css-loader',
           'postcss-loader',
           'sass-loader',
