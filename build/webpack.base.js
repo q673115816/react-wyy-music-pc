@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const querystring = require('querystring');
 const path = require('path');
 const webpack = require('webpack');
+require('dotenv').config();
 
 const { src, img } = require('./util');
 
@@ -195,9 +196,10 @@ module.exports = {
           devMode
             ? 'style-loader' : {
               loader: MiniCssExtractPlugin.loader,
-              // options: {
-              //   publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
-              // },
+              options: {
+                // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
+                publicPath: process.env.PUBLIC_PATH,
+              },
             },
           'css-loader',
           'postcss-loader',

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { IconX } from '@tabler/icons';
 import faces from '@/common/faces';
+import './style.scss';
+import classNames from 'classnames';
 
 export default ({ setVisibility, clickface }) => {
   const [currpage, setCurrpage] = useState(0);
@@ -12,7 +14,7 @@ export default ({ setVisibility, clickface }) => {
     }
   };
   return (
-    <div className="emojiFace" onWheel={handleWheel}>
+    <div className="emojiFace bg-white rounded shadow" onWheel={handleWheel}>
       <button type="button" className="absolute close right-0 top-0 ui_text_gray_hover mx-1" onClick={() => setVisibility(false)}>
         <IconX size={24} stroke={1} />
       </button>
@@ -29,16 +31,16 @@ export default ({ setVisibility, clickface }) => {
               {face}
             </button>
           ))
-          }
+        }
       </div>
-      <div className="jump">
+      <div className="jump flex-center pb-2.5">
         {
           faces.map((item, index) => (
             <button
               key={index}
               onClick={() => setCurrpage(index)}
               type="button"
-              className={currpage === index ? 'on' : null}
+              className={classNames('m-1 w-1 h-1 rounded-full bg-gray-200', currpage === index && 'bg-gray-400')}
             />
           ))
         }
