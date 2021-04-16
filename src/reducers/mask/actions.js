@@ -6,6 +6,7 @@ import {
   SET_DIALOG_SHARE_SHOW,
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
+  SET_DIALOG_DOWNLOAD_VIDEO_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_DIALOG_HOME_ORDER_SHOW,
@@ -47,6 +48,11 @@ export const setDialogShareWXShow = (payload) => ({
 
 export const setDialogUploadAvatarShow = (payload) => ({
   type: SET_DIALOG_UPLOAD_AVATAR_SHOW,
+  payload,
+});
+
+export const setDialogDownloadVideoShow = (payload) => ({
+  type: SET_DIALOG_DOWNLOAD_VIDEO_SHOW,
   payload,
 });
 

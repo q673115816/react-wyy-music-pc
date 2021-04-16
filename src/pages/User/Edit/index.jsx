@@ -8,14 +8,15 @@ import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/actions';
 import { useDispatch } from 'react-redux';
 import './style.scss';
 import DomLoading from '@/components/Loading';
+import DialogUploadAvatar from '@/components/Dialog/UploadAvatar';
 import DomBirthday from './components/Birthday';
 
 export default () => {
   const dispatch = useDispatch();
   const { uid } = useParams();
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState(produce({}, () => {}));
-  const [edit, setEdit] = useState(produce({}, () => {}));
+  const [profile, setProfile] = useState(produce({}, () => { }));
+  const [edit, setEdit] = useState(produce({}, () => { }));
   const [signature, setSignature] = useState('');
   const [disabled, setDisabled] = useState(true);
   const handleInit = async () => {
@@ -74,11 +75,15 @@ export default () => {
     }));
   };
 
-  const handleUpload = (e) => {
-    console.log(e);
-    dispatch(
-      setDialogUploadAvatarShow(),
-    );
+  const handleUpload = ({ target }) => {
+    // console.log(target);
+    const reader = new FileReader();
+    reader.readAsDataURL(target.files[0]);
+    reader.onload = function (event) {
+      dispatch(setDialogUploadAvatarShow({
+        avatar: event.target.result,
+      }));
+    };
   };
 
   useEffect(() => {
@@ -221,6 +226,7 @@ export default () => {
             />
             <span className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full update">修改头像</span>
           </label>
+          <DialogUploadAvatar />
         </div>
       </div>
     </div>

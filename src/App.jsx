@@ -11,7 +11,6 @@ import DomFooter from './layout/Footer';
 import DialogLogin from './components/Dialog/Login';
 import DialogShare from './components/Dialog/Share';
 import DialogShareWX from './components/Dialog/ShareWX';
-import DialogUploadAvatar from './components/Dialog/UploadAvatar';
 import DialogCreatePlaylist from './components/Dialog/CreatePlaylist';
 import DialogUnSubscription from './components/Dialog/UnSubscription';
 import Playlist from './components/Playlist';
@@ -124,7 +123,7 @@ export default () => {
 
           <DialogShare />
           <DialogShareWX />
-          <DialogUploadAvatar />
+
           <DialogCreatePlaylist />
           <DialogUnSubscription />
 

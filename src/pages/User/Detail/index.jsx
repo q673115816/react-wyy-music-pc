@@ -14,7 +14,8 @@ import {
 } from '@tabler/icons';
 import classNames from 'classnames';
 import { SymbolWB } from '@/components/Symbol';
-import { transPlayCount } from '@/common/utils';
+import DomLoading from '@/components/Loading';
+
 import Domlayout from './components/layout';
 
 export default () => {
@@ -76,7 +77,7 @@ export default () => {
     );
   }
   if (!loading) {
-    return <div>loading</div>;
+    return <div className="flex-center"><DomLoading /></div>;
   }
   return (
     <div className="domUserDetail">

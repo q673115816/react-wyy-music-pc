@@ -31,7 +31,7 @@ import {
   apiCommentMV,
   apiResourceLike,
 } from '@/api';
-import { setToast } from '@/reducers/mask/actions';
+import { setToast, setDialogDownloadVideoShow } from '@/reducers/mask/actions';
 import { setMVSublist } from '@/reducers/account/actions';
 import { setVideoListId } from '@/reducers/videolist/actions';
 import Write from '@/components/Write';
@@ -41,6 +41,8 @@ import DomCommentsList from '@/components/CommentsList';
 import DomPage from '@/components/Page';
 import { commentLimit as limit } from '@/common/config';
 import DomLoading from '@/components/Loading';
+import DialogDownloadVideo from '@/components/Dialog/DownloadVideo';
+import produce from 'immer';
 import UseVideoInit from './UseVideoInit';
 import UseMVInit from './UseMVInit';
 import DomRelated from './Related';
@@ -111,6 +113,10 @@ export default () => {
   const [page, setPage] = useState(1);
   const isSub = useMemo(() => mvSublist.find((mv) => mv.vid === vid), [vid, mvSublist]);
   const isLike = useMemo(() => null, [vid]);
+  const [downloadState, setDownloadState] = useState({
+    state: '下载',
+    process: 0,
+  });
   const handleIo = () => {
     Io.current = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -138,20 +144,59 @@ export default () => {
     }));
   };
 
+  const callback = () => {
+    setDownloadState(produce((draft) => {
+      draft.state = '缓存中';
+    }));
+    const send = new XMLHttpRequest();
+    send.open('GET', urls?.url);
+
+    // send.setRequestHeader('Content-Type', 'blob');
+    send.responseType = 'blob';
+    send.addEventListener('progress', ({ loaded, total }) => {
+      console.log('progress', `${loaded / total * 100}%`);
+      setDownloadState(produce((draft) => {
+        draft.process = loaded / total;
+      }));
+    });
+    send.addEventListener('readystatechange', (e) => {
+      // console.log(e);
+      if (send.readyState !== 4) return;
+      // console.log('finish', send.response);
+      setDownloadState(produce((draft) => {
+        draft.state = '已缓存';
+      }));
+      const { pathname } = new URL(urls?.url);
+      const ext = pathname.substr(pathname.lastIndexOf('.'));
+      const url = window.URL.createObjectURL(send.response);
+      // console.log(url);
+      const a = document.createElement('a');
+      a.download = `${detail?.title}.${ext}`;
+      a.href = url;
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+    send.send();
+    // fetch(urls?.url)
+    //   .then((res) => res.blob())
+    //   .then((blob) => {
+    //     const { pathname } = new URL(urls?.url);
+    //     const ext = pathname.substr(pathname.lastIndexOf('.'));
+    //     const url = window.URL.createObjectURL(blob);
+    //     // console.log(url);
+    //     const a = document.createElement('a');
+    //     a.download = `${detail?.title}.${ext}`;
+    //     a.href = url;
+    //     a.click();
+    //     window.URL.revokeObjectURL(url);
+    //   });
+  };
+
   const handleDownload = () => {
-    fetch(urls?.url)
-      .then((res) => res.blob())
-      .then((blob) => {
-        const { pathname } = new URL(urls?.url);
-        const ext = pathname.substr(pathname.lastIndexOf('.'));
-        const url = window.URL.createObjectURL(blob);
-        // console.log(url);
-        const a = document.createElement('a');
-        a.download = `${detail?.title}.${ext}`;
-        a.href = url;
-        a.click();
-        window.URL.revokeObjectURL(url);
-      });
+    if (downloadState.state !== '下载') return;
+    dispatch(setDialogDownloadVideoShow({
+      callback,
+    }));
   };
 
   const handleFollow = async () => {
@@ -335,10 +380,25 @@ export default () => {
               分享
               {`(${detailInfo.shareCount})`}
             </button>
-            <button type="button" onClick={handleDownload} className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100">
-              <IconDownload size={20} stroke={1} />
-              下载
+            <button
+              type="button"
+              onClick={handleDownload}
+              className={classNames('relative w-24 h-8 rounded-full overflow-hidden', downloadState.process === 0 ? ' border' : '')}
+            >
+              <div className="absolute inset-0 flex justify-end overflow-hidden">
+                <span className="w-24 h-8 flex-center bg-white">
+                  <IconDownload size={20} stroke={1} />
+                  {downloadState.state}
+                </span>
+              </div>
+              <div className="absolute inset-y-0 left-0 overflow-hidden" style={{ right: `${(1 - downloadState.process) * 100}%` }}>
+                <span className="w-24 h-8 flex-center ui_theme_bg_color text-white">
+                  <IconDownload size={20} stroke={1} />
+                  {downloadState.state}
+                </span>
+              </div>
             </button>
+            <DialogDownloadVideo />
           </div>
           <div className="domVideoDetail_main mt-8">
             <div className="title mb-5">

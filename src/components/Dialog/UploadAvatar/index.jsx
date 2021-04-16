@@ -4,22 +4,23 @@ import HOCDialog from '../Dialog';
 import './style.scss';
 
 export default () => {
-  const { dialogUploadAvatarVisibility } = useSelector(({ mask }) => mask);
+  const { dialogUploadAvatarVisibility, avatar } = useSelector(({ mask }) => mask);
   if (!dialogUploadAvatarVisibility) return null;
+  console.log(avatar);
   return (
     <HOCDialog id="dialogUploadAvatar" title="上传头像">
       <div className="main">
         <div className="content">
           <div className="fullSize flex-center">
-            <span className="ui_red">请选择不超过5M的图片</span>
-            <img src="" alt="" />
+            <span className="">请选择不超过5M的图片</span>
+            <img src={avatar} alt="" />
           </div>
           <div className="aside">
-            <div className="bigSize">
+            <div className="bigSize border rounded">
               img
             </div>
             <div className="text-gray-400">大尺寸封面</div>
-            <div className="smallSize">
+            <div className="smallSize border rounded">
               <img src="" alt="" />
             </div>
             <div className="text-gray-400">小尺寸封面</div>

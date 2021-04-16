@@ -6,6 +6,7 @@ import {
   SET_DIALOG_SHARE_SHOW,
   SET_DIALOG_SHARE_WX_SHOW,
   SET_DIALOG_UPLOAD_AVATAR_SHOW,
+  SET_DIALOG_DOWNLOAD_VIDEO_SHOW,
   SET_DIALOG_CREATE_PLAYLIST_SHOW,
   SET_DIALOG_UN_SUBSCRIPTION_SHOW,
   SET_DIALOG_HOME_ORDER_SHOW,
@@ -20,6 +21,7 @@ const visibilityState = {
   maskVisibility: false,
   searchVisibility: false,
   contextMenuVisibility: false,
+  dialogDownloadVideoVisibility: false,
   dialogHomeOrderVisibility: false,
   dialogShareVisibility: false,
   dialogShareWXVisibility: false,
@@ -28,6 +30,7 @@ const visibilityState = {
   dialogUnSubscriptionVisibility: false,
   artistId: 0,
   popupStatus: 'false',
+  avatar: '',
 };
 
 const maskState = {
@@ -111,6 +114,14 @@ export default (state = initialState, action) => {
         ...visibilityState,
         visibility: true,
         dialogCreatePlaylistVisibility: true,
+        ...action.payload,
+      };
+    case SET_DIALOG_DOWNLOAD_VIDEO_SHOW:
+      return {
+        ...state,
+        ...visibilityState,
+        visibility: true,
+        dialogDownloadVideoVisibility: true,
         ...action.payload,
       };
     case SET_DIALOG_UN_SUBSCRIPTION_SHOW:
