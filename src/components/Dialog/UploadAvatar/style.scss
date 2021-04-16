@@ -2,35 +2,10 @@
   width: 470px;
 
   .content {
-    display: flex;
-    justify-content: center;
     .fullSize {
       width: 220px;
       height: 220px;
-      border-radius: 4px;
-      background-color: #000;
     }
 
-    .aside {
-      margin-left: 30px;
-    }
-
-    .bigSize {
-      margin: 10px 0;
-      width: 100px;
-      height: 100px;
-    }
-
-    .smallSize {
-      margin: 10px 0;
-      width: 64px;
-      height: 64px;
-    }
-  }
-
-  .actions {
-
-    padding-top: 18px;
-    padding-bottom: 24px;
   }
 }

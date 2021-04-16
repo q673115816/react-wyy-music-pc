@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  memo, useEffect, useRef, useState,
+} from 'react';
 import { apiUserDetail, apiUserUpdate } from '@/api';
 import { useParams, Link } from 'react-router-dom';
 import classNames from 'classnames';
-import isEqual from 'lodash/isEqual';
 import produce from 'immer';
 import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/actions';
 import { useDispatch } from 'react-redux';
@@ -11,12 +12,13 @@ import DomLoading from '@/components/Loading';
 import DialogUploadAvatar from '@/components/Dialog/UploadAvatar';
 import DomBirthday from './components/Birthday';
 
-export default () => {
+export default memo(() => {
   const dispatch = useDispatch();
   const { uid } = useParams();
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState(produce({}, () => { }));
-  const [edit, setEdit] = useState(produce({}, () => { }));
+  const [profile, setProfile] = useState();
+  const [edit, setEdit] = useState();
+
   const [signature, setSignature] = useState('');
   const [disabled, setDisabled] = useState(true);
   const handleInit = async () => {
@@ -26,20 +28,9 @@ export default () => {
       } = await apiUserDetail({
         uid,
       });
-      if (code === 200) {
-        setProfile(produce((draft) => {
-          for (const key in profile) {
-            draft[key] = profile[key];
-          }
-          // draft = profile;
-        }));
-        setEdit(produce((draft) => {
-          for (const key in profile) {
-            draft[key] = profile[key];
-          }
-          // draft = profile;
-        }));
-      }
+      if (code !== 200) return;
+      setProfile(profile);
+      setEdit(() => produce(profile, () => {}));
     } catch (error) {
       console.log(error);
     } finally {
@@ -58,18 +49,16 @@ export default () => {
         signature: edit.signature,
       };
       const { code } = await apiUserUpdate(params);
-      if (code === 200) {
-        setDisabled(true);
-        setProfile(edit);
-        dispatch(setToast({ toast: { title: '修改个人资料成功' } }));
-      }
+      if (code !== 200) return;
+      setDisabled(true);
+      setProfile(edit);
+      dispatch(setToast('修改个人资料成功'));
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleEdit = (name, value) => {
-    // setEdit({ ...edit, [name]: value });
     setEdit(produce((draft) => {
       draft[name] = value;
     }));
@@ -78,8 +67,10 @@ export default () => {
   const handleUpload = ({ target }) => {
     // console.log(target);
     const reader = new FileReader();
-    reader.readAsDataURL(target.files[0]);
-    reader.onload = function (event) {
+    const [file] = target.files;
+    if (!file) return;
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
       dispatch(setDialogUploadAvatarShow({
         avatar: event.target.result,
       }));
@@ -92,11 +83,9 @@ export default () => {
 
   useEffect(() => {
     // console.log(initialState.current === edit);
-    if (isEqual(profile, edit)) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
+    // console.log(JSON.stringify(profile) === JSON.stringify(edit));
+    // 可以保存修改值判断
+    setDisabled(JSON.stringify(profile) === JSON.stringify(edit));
   }, [edit]);
 
   if (loading) return <div className="flex-center w-full h-full"><DomLoading /></div>;
@@ -146,7 +135,7 @@ export default () => {
                   checked={edit.gender === 0}
                   onChange={() => handleEdit('gender', 0)}
                 />
-                <i className="ico" />
+                <i className="ico flex-center" />
                 <span>保密</span>
               </label>
               <label htmlFor="male" className="gender">
@@ -211,11 +200,11 @@ export default () => {
             </div>
           </div>
         </div>
-        <div className="right">
-          <div className="avatar">
-            <img className="ui_coverimg" src={edit.avatarUrl} alt="" />
+        <div className="right ml-20">
+          <div className="avatar border rounded overflow-hidden w-40 h-40">
+            <img className="" src={edit.avatarUrl} alt="" />
           </div>
-          <label htmlFor="avatar">
+          <label htmlFor="avatar" className="border cursor-pointer hover:bg-gray-50 flex-center h-8 m-auto mt-5 px-3 rounded-full update w-min whitespace-nowrap">
             <input
               onChange={handleUpload}
               type="file"
@@ -224,11 +213,11 @@ export default () => {
               hidden
               accept="image/bmp,image/gif,image/jpg,image/svg,image/png,image/webp,image/ico,image/svgz,image/tif,image/jpeg,image/jfif,image/pjpeg,image/pjp,image/tiff,image/xbm"
             />
-            <span className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full update">修改头像</span>
+            修改头像
           </label>
           <DialogUploadAvatar />
         </div>
       </div>
     </div>
   );
-};
+});
