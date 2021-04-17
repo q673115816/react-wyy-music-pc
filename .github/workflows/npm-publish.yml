@@ -15,7 +15,7 @@ jobs:
           npm run build
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@latest
+        uses: JamesIves/github-pages-deploy-action@4.1.1
         env:
           ACCESS_TOKEN: ${{ secrets.ACTIONS }}
           BRANCH: gh-pages # The branch the action should deploy to.
