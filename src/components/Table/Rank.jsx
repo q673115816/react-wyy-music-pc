@@ -13,7 +13,7 @@ export default memo(({ id, index }) => {
     );
   }
   return (
-    <div className="text-right text-gray-300">
+    <div className="text-gray-300">
       {String(index + 1).padStart(2, 0)}
     </div>
   );

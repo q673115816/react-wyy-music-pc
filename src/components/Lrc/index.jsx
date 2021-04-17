@@ -106,7 +106,7 @@ export default memo(() => {
   if (!globalLrcVisibility) return null;
   return (
     <div
-      className={classNames('flex-center z-50 text-xl', !dropper && 'fixed')}
+      className={classNames('flex-center z-40 text-xl', !dropper && 'fixed')}
       style={{ width, height, ...(dropper ? { transform: `translate(${x}px, ${y}px)` } : { top: y, left: x }) }}
     >
       <div onMouseEnter={() => setActive(true)}>

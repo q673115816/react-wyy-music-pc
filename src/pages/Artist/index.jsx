@@ -45,6 +45,7 @@ export default memo(() => {
           </div>
           <div className="domArtist_album_layout ml-auto" />
         </div>
+        {/* <DomSimilarity id={id} /> */}
         {
           ((Dom, id) => <Dom id={id} />)(nav[tab], id)
         }

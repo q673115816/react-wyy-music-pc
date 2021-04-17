@@ -169,7 +169,7 @@ export default memo(() => {
 
   if (!lyricVisibility) return null;
   return (
-    <div id="lrc" className="absolute inset-x-0 bg-white overflow-auto z-20">
+    <div id="lrc" className="absolute inset-x-0 bg-white overflow-auto">
       <div className="lrc_inner m-auto">
         <div className="lrc_header flex justify-between">
           <div className="left">
@@ -230,11 +230,11 @@ export default memo(() => {
               </div>
             </div>
             <div className="relative">
-              <div className="absolute pointer-events-none left-0 right-0 top-0 h-6 bg-gradient-to-b from-white to-transparent z-10" />
-              <div className="absolute pointer-events-none left-0 right-0 bottom-0 h-6 bg-gradient-to-t from-white to-transparent z-10" />
               <div className="relative mt-4" style={{ height: 330 }}>
                 <DomLrc />
               </div>
+              <div className="absolute pointer-events-none left-0 right-0 top-0 h-6 bg-gradient-to-b from-white to-transparent" />
+              <div className="absolute pointer-events-none left-0 right-0 bottom-0 h-6 bg-gradient-to-t from-white to-transparent" />
             </div>
           </div>
         </div>

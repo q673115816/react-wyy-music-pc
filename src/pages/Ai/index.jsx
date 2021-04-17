@@ -1,8 +1,8 @@
 import React, {
-  useRef, useState, memo, useEffect, useCallback, forwardRef,
+  useState, memo, useEffect,
 } from 'react';
-import { IconFileImport } from '@tabler/icons';
-// import './style.scss';
+import { IconFileImport, IconMicrophone } from '@tabler/icons';
+import './style.scss';
 import { useDispatch } from 'react-redux';
 import { setToast } from '@/reducers/mask/actions';
 
@@ -22,15 +22,18 @@ const DomWait = ({ handleReject }) => {
   }, [time]);
   return (
     <div className="flex flex-col items-center">
+      <div id="ai_work" className="p-32 relative">
+        <div className="flex-center rounded-full text-white bg-red-500 w-32 h-32">
+          <IconMicrophone size={64} />
+        </div>
+      </div>
       <div>
         {
           (time % 2 === 0 || time % 3 === 0 || time % 5 === 0)
             ? '外部声源无法识别'
             : '正在识别电脑中正在播放的音乐'
         }
-        (
-        {time}
-        s)
+        {`(${time}s)`}
       </div>
       <button
         type="button"

@@ -64,7 +64,7 @@ export default (state = initialState, action) => {
     case SET_CONTEXTMENU_SHOW:
       return {
         ...state,
-        ...visibilityState,
+        // ...visibilityState,
         ...maskState,
         visibility: true,
         contextMenuVisibility: true,

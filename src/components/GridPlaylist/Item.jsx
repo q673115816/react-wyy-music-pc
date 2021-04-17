@@ -16,8 +16,8 @@ export default memo(({ item }) => (
   //   ]}
   // >
   <div className="item">
-    <div className="cover relative rounded overflow-hidden group ui_aspect-ratio-1/1">
-      <Link to={`/playlist/music/${item.id}`}>
+    <div className="cover relative rounded overflow-hidden group">
+      <Link to={`/playlist/music/${item.id}`} className="ui_aspect-ratio-1/1">
         <Lazyload overflow resize>
           <img className="w-full h-full" src={`${item.coverImgUrl}?param=200y200`} alt="" />
         </Lazyload>

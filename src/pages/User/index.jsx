@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, memo } from 'react';
 import {
   Switch,
   Route,
@@ -14,8 +14,8 @@ const UserRecord = lazy(() => import(/* webpackChunkName: "User_Record" */'./Rec
 const UserEdit = lazy(() => import(/* webpackChunkName: "User_Edit" */'./Edit'));
 const UserBinding = lazy(() => import(/* webpackChunkName: "User_Binding" */'./Binding'));
 
-export default () => (
-  <div className="domUser overflow-auto max-h-full flex-auto">
+export default memo(() => (
+  <div className="domUser overflow-auto h-full flex-auto">
     <Suspense fallback={<div className="flex-center h-full w-full"><DomLoading /></div>}>
       <Switch>
         <Route path="/user/:uid/record">
@@ -42,4 +42,4 @@ export default () => (
       </Switch>
     </Suspense>
   </div>
-);
+));

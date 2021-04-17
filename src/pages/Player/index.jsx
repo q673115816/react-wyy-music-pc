@@ -1,10 +1,13 @@
 import React, {
-  useEffect, useMemo, useState, useRef, useCallback,
+  useEffect, useState, memo,
 } from 'react';
 
 import {
-  useParams, useHistory, Link, Redirect,
+  useHistory, Link,
 } from 'react-router-dom';
+
+import { commentLimit as limit } from '@/common/config';
+
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import {
@@ -24,44 +27,22 @@ import { setAudioRunningPause } from '@/reducers/audio/actions';
 
 import {
   apiFollow,
-  apiVideoSub,
-  apiMVSub,
-  apiMVSublist,
   apiCommentVideo,
   apiCommentMV,
-  apiResourceLike,
 } from '@/api';
-import { setToast, setDialogDownloadVideoShow } from '@/reducers/mask/actions';
-import { setMVSublist } from '@/reducers/account/actions';
 import { setVideoListId } from '@/reducers/videolist/actions';
 import Write from '@/components/Write';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import DomCommentsList from '@/components/CommentsList';
 import DomPage from '@/components/Page';
-import { commentLimit as limit } from '@/common/config';
+
 import DomLoading from '@/components/Loading';
 import DialogDownloadVideo from '@/components/Dialog/DownloadVideo';
-import produce from 'immer';
-import UseVideoInit from './UseVideoInit';
-import UseMVInit from './UseMVInit';
 import DomRelated from './Related';
 import DomVideo from './components/Video';
-
-const switchs = {
-  video: {
-    init: UseVideoInit,
-    name: '视频详情',
-    sub: 'subscribeCount',
-    apiComments: apiCommentVideo,
-  },
-  mv: {
-    init: UseMVInit,
-    name: 'MV详情',
-    sub: 'subCount',
-    apiComments: apiCommentMV,
-  },
-};
+import FNInit from './Init';
+import FNIO from './IO';
 
 const DomGroup = ({ list = [], func }) => (
   <div className="domVideoDetail_group mt-3 space-x-1">
@@ -78,126 +59,42 @@ const DomGroup = ({ list = [], func }) => (
   </div>
 );
 
-export default () => {
-  // console.log('player');
-  const { vid, type } = useParams();
-  if (!['video', 'mv'].includes(type) || !vid) {
-    return <Redirect to="/" />;
-  }
+export default memo(() => {
+  console.log('player');
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(setAudioRunningPause());
   }, []);
-  const { mvSublist } = useSelector(({ account }) => account);
-  // const currentInit = type === 'video' ? UseVideoInit : UseMVInit;
+
   const {
+    name,
+    sub,
+    params,
+    isSub,
+    isLike,
     pending,
     urls,
     related,
     detail,
     detailInfo,
+    handleSub,
     handleInit,
-  } = switchs[type].init();
+    downloadProcess,
+    downloadState,
+    handleDownload,
 
-  const DomVideoWrap = useRef();
-  const DomScroll = useRef();
-  const Io = useRef();
-  const [fixed, setFixed] = useState(false);
+    page,
+    comments,
+    commentsLoading,
+    setPage,
+  } = FNInit();
+
+  const { type, vid } = params;
 
   const { goBack } = useHistory();
   const [descriptionVisibility, setDescriptionVisibility] = useState(false);
-  const [followed, setFollowed] = useState(false);
   const [value, setValue] = useState('');
-  const [comments, setComments] = useState({});
-  const [commentsLoading, setCommentsLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const isSub = useMemo(() => mvSublist.find((mv) => mv.vid === vid), [vid, mvSublist]);
-  const isLike = useMemo(() => null, [vid]);
-  const [downloadState, setDownloadState] = useState({
-    state: '下载',
-    process: 0,
-  });
-  const handleIo = () => {
-    Io.current = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setFixed(false);
-        } else {
-          setFixed(true);
-        }
-      });
-    }, {
-      root: DomScroll.current,
-    });
-    Io.current.observe(DomVideoWrap.current);
-  };
-
-  const handleUnIo = () => {
-    Io.current.disconnect();
-  };
-
-  const handleLike = () => {
-    dispatch(apiResourceLike({
-      id: vid,
-      type: type === 'mv' ? '1' : '5',
-      t: isLike ? 0 : 1,
-    }));
-  };
-
-  const callback = () => {
-    setDownloadState(produce((draft) => {
-      draft.state = '缓存中';
-    }));
-    const send = new XMLHttpRequest();
-    send.open('GET', urls?.url);
-
-    // send.setRequestHeader('Content-Type', 'blob');
-    send.responseType = 'blob';
-    send.addEventListener('progress', ({ loaded, total }) => {
-      console.log('progress', `${loaded / total * 100}%`);
-      setDownloadState(produce((draft) => {
-        draft.process = loaded / total;
-      }));
-    });
-    send.addEventListener('readystatechange', (e) => {
-      // console.log(e);
-      if (send.readyState !== 4) return;
-      // console.log('finish', send.response);
-      setDownloadState(produce((draft) => {
-        draft.state = '已缓存';
-      }));
-      const { pathname } = new URL(urls?.url);
-      const ext = pathname.substr(pathname.lastIndexOf('.'));
-      const url = window.URL.createObjectURL(send.response);
-      // console.log(url);
-      const a = document.createElement('a');
-      a.download = `${detail?.title}.${ext}`;
-      a.href = url;
-      a.click();
-      window.URL.revokeObjectURL(url);
-    });
-    send.send();
-    // fetch(urls?.url)
-    //   .then((res) => res.blob())
-    //   .then((blob) => {
-    //     const { pathname } = new URL(urls?.url);
-    //     const ext = pathname.substr(pathname.lastIndexOf('.'));
-    //     const url = window.URL.createObjectURL(blob);
-    //     // console.log(url);
-    //     const a = document.createElement('a');
-    //     a.download = `${detail?.title}.${ext}`;
-    //     a.href = url;
-    //     a.click();
-    //     window.URL.revokeObjectURL(url);
-    //   });
-  };
-
-  const handleDownload = () => {
-    if (downloadState.state !== '下载') return;
-    dispatch(setDialogDownloadVideoShow({
-      callback,
-    }));
-  };
 
   const handleFollow = async () => {
     try {
@@ -210,66 +107,11 @@ export default () => {
     }
   };
 
-  const handleGetMVSublist = async () => {
-    try {
-      const { data: mvSublist } = await apiMVSublist();
-      dispatch(setMVSublist({
-        mvSublist,
-      }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleSub = async () => {
-    try {
-      const { code } = type === 'video' ? await apiVideoSub({
-        id: vid,
-        t: isSub ? 0 : 1,
-      }) : await apiMVSub({
-        mvid: vid,
-        t: isSub ? 0 : 1,
-      });
-      if (code === 200) handleGetMVSublist();
-      dispatch(setToast(isSub ? '取消收藏成功' : '收藏成功'));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleComments = async () => {
-    try {
-      const comments = await switchs[type].apiComments({
-        id: vid,
-        limit,
-        offset: (page - 1) * limit,
-      });
-      setComments(comments);
-      if (commentsLoading) {
-        setCommentsLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const CallBackSetVideoListCategrayId = useCallback((id) => dispatch((setVideoListId({ id }))), [vid]);
-
-  useEffect(() => {
-    handleInit(vid);
-    handleComments();
-  }, [vid]);
-
-  useEffect(() => {
-    handleComments();
-  }, [page]);
-
-  useEffect(() => {
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
-  }, []);
+  const {
+    DomVideoWrap,
+    DomScroll,
+    fixed,
+  } = FNIO();
 
   return (
     <div className=" overflow-auto h-full" ref={DomScroll}>
@@ -282,9 +124,7 @@ export default () => {
               onClick={() => goBack()}
             >
               <IconChevronLeft size={28} stroke={1} />
-              {
-                switchs[type].name
-              }
+              {name}
             </button>
           </div>
           <div className="ui_aspect-ratio-16/9" ref={DomVideoWrap}>
@@ -316,7 +156,7 @@ export default () => {
           </div>
           <button
             type="button"
-            className="domVideoDetail_title h1 flex items-center mt-5"
+            className="domVideoDetail_title h1 flex items-center mt-5 text-left"
             onClick={() => setDescriptionVisibility(!descriptionVisibility)}
           >
             {detail?.title}
@@ -333,7 +173,7 @@ export default () => {
             播放
             {transPlayCount(detail?.playCount)}
           </div>
-          <DomGroup list={detail?.videoGroup} func={CallBackSetVideoListCategrayId} />
+          <DomGroup list={detail?.videoGroup} func={(id) => dispatch((setVideoListId({ id })))} />
           {
             descriptionVisibility
             && (
@@ -369,7 +209,7 @@ export default () => {
                 isSub ? '已收藏' : '收藏'
               }
               (
-              {detail[switchs[type].sub]}
+              {detail[sub]}
               )
             </button>
             <button
@@ -383,18 +223,18 @@ export default () => {
             <button
               type="button"
               onClick={handleDownload}
-              className={classNames('relative w-24 h-8 rounded-full overflow-hidden', downloadState.process === 0 ? ' border' : '')}
+              className={classNames('relative w-24 h-8 rounded-full overflow-hidden', downloadProcess === 0 ? ' border' : '')}
             >
               <div className="absolute inset-0 flex justify-end overflow-hidden">
                 <span className="w-24 h-8 flex-center bg-white">
                   <IconDownload size={20} stroke={1} />
-                  {downloadState.state}
+                  {downloadState}
                 </span>
               </div>
-              <div className="absolute inset-y-0 left-0 overflow-hidden" style={{ right: `${(1 - downloadState.process) * 100}%` }}>
+              <div className="absolute inset-y-0 left-0 overflow-hidden" style={{ right: `${(1 - downloadProcess) * 100}%` }}>
                 <span className="w-24 h-8 flex-center ui_theme_bg_color text-white">
                   <IconDownload size={20} stroke={1} />
-                  {downloadState.state}
+                  {downloadState}
                 </span>
               </div>
             </button>
@@ -432,4 +272,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

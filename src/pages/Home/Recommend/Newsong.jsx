@@ -28,7 +28,7 @@ export default memo(({ newsong = [] }) => (
             <span className="ico absolute text-red-500 bg-white rounded-full bg-opacity-90 inset-0 m-auto flex-center w-6 h-6">
               <IconPlayerPlay size={16} className="fill-current" />
             </span>
-            <Lazyload overflow>
+            <Lazyload overflow resize>
               <img
                 className="w-full h-full"
                 src={`${item.picUrl}?param=50y50`}

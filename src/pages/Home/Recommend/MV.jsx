@@ -26,7 +26,7 @@ export default memo(({ mv = [] }) => (
                 <div className="playCount absolute top-0 right-0 px-2 py-1 text-white group-hover:opacity-0">
                   {item.playCount}
                 </div>
-                <Lazyload>
+                <Lazyload overflow resize>
                   <img className="" src={item.picUrl} alt="" />
                 </Lazyload>
               </Link>

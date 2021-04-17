@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -35,11 +35,11 @@ SwiperCore.use([
   Navigation,
   A11y]);
 
-const DomDjNormal = ({ item = {} }) => (
+const DomDjNormal = memo(({ item = {} }) => (
   <div className="item">
-    <div className="cover relative rounded border overflow-hidden ui_aspect-ratio-1/1">
-      <Link to={`/playlist/dj/${item.id}`}>
-        <Lazyload overflow>
+    <div className="cover relative rounded border overflow-hidden">
+      <Link to={`/playlist/dj/${item.id}`} className="ui_aspect-ratio-1/1">
+        <Lazyload overflow resize>
           <img className="" src={item.picUrl} alt="" />
         </Lazyload>
         <div className="absolute bottom-0 left-0 right-0 h-1/4 ui_linear_mask_bottom" />
@@ -57,7 +57,7 @@ const DomDjNormal = ({ item = {} }) => (
       </Link>
     </div>
   </div>
-);
+));
 
 const navs = [
   '创作翻唱',
@@ -66,7 +66,7 @@ const navs = [
   '情感调频',
   '声音恋人'];
 
-export default () => {
+export default memo(() => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const {
@@ -154,7 +154,7 @@ export default () => {
                 <Swiper
                   navigation
                   spaceBetween={40}
-                  slidesPerView="7"
+                  slidesPerView="8"
                   slidesPerGroup="8"
                 >
                   <SwiperSlide className="item">
@@ -222,4 +222,4 @@ export default () => {
 
     </div>
   );
-};
+});

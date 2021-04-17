@@ -1,7 +1,9 @@
 import React, {
-  useState, useEffect, useRef,
+  useState,
+  useEffect,
+  useRef,
+  memo,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
 import './style.scss';
@@ -13,13 +15,13 @@ import useInfinite from '@/custom/useInfinite';
 import DomResize from '@/components/ResizeObserver';
 import DomLoading from '@/components/Loading';
 
-const Domitem = ({ item = {} }) => (
+const Domitem = memo(({ item = {} }) => (
   <div className="item">
-    <div className="cover boarder relative rounded overflow-hidden border ui_aspect-ratio-1/1">
-      <Link to={`/artist/${item.id}`}>
+    <div className="cover boarder relative rounded overflow-hidden border">
+      <Link to={`/artist/${item.id}`} className="ui_aspect-ratio-1/1">
         <LazyLoad overflow>
           <img
-            className="ui_containimg"
+            className=""
             src={`${item.img1v1Url}?param=200y200`}
             alt={item.name}
           />
@@ -43,7 +45,7 @@ const Domitem = ({ item = {} }) => (
       }
     </div>
   </div>
-);
+));
 
 const navs = [
   {
@@ -82,7 +84,7 @@ const initialOptions = {
   initial: -1,
 };
 
-export default () => {
+export default memo(() => {
   const [option, setOption] = useState(() => initialOptions);
   const RefOption = useRef(option);
   const limit = 30;
@@ -182,4 +184,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

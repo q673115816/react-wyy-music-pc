@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { IconChevronDownRight } from '@tabler/icons';
+import DomResizer from '@/components/Resizer';
 import DomPlayer from './pages/Player';
 import './styles/index.scss';
 import DomHeader from './layout/Header';
@@ -21,14 +21,9 @@ import HeaderSearch from './components/HeaderSearch';
 import useKeyActions from './custom/useKeyActions';
 import DomLrc from './pages/Lrc';
 import GlobalLrc from './components/Lrc';
-import { setGlobalRect } from './reducers/inset/actions';
-
-const MINWIDTH = 1022;
-const MINHEIGHT = 670;
 
 export default () => {
   useKeyActions();
-  const dispatch = useDispatch();
   const { theme, font } = useSelector(({ setting }) => setting);
   const {
     POSITION,
@@ -39,40 +34,6 @@ export default () => {
     globalWidth,
     globalHeight,
   } = useSelector(({ inset }) => inset);
-  const [resizer, setResizer] = useState(false);
-  const [resizeStartInset, setResizeStartInset] = useState({ x: 0, y: 0 });
-  const [resizeInitRect, setResizeInitRect] = useState({ width: globalWidth, height: globalHeight });
-  const [resizeRect, setResizeRect] = useState(resizeInitRect);
-
-  const resizedown = (e) => {
-    setResizer(true);
-    setResizeStartInset({
-      x: e.clientX,
-      y: e.clientY,
-    });
-  };
-  const resizemove = (e) => {
-    e.preventDefault();
-    if (resizer) {
-      const x = e.clientX - resizeStartInset.x + resizeInitRect.width;
-      const y = e.clientY - resizeStartInset.y + resizeInitRect.height;
-
-      const nextwidth = x > MINWIDTH ? x : MINWIDTH;
-      const nextheight = y > MINHEIGHT ? y : MINHEIGHT;
-      setResizeRect({
-        width: nextwidth,
-        height: nextheight,
-      });
-      dispatch(setGlobalRect({
-        width: nextwidth,
-        height: nextheight,
-      }));
-    }
-  };
-  const resizeup = () => {
-    setResizeInitRect(resizeRect);
-    setResizer(false);
-  };
 
   useEffect(() => {
     const fn = (e) => e.preventDefault();
@@ -112,7 +73,7 @@ export default () => {
         >
           <DomHeader />
           <Switch>
-            <Route path="/player/:type/:vid">
+            <Route path="/player/:type(video|mv)/:vid">
               <DomPlayer />
             </Route>
             <Route>
@@ -133,29 +94,10 @@ export default () => {
           <HeaderSearch />
           <Contextmenu />
           <Tosat />
-          {SCREEN === 'normal'
-            && (
-              <div
-                className="absolute right-0 bottom-0 text-gray-500"
-                style={{ cursor: 'se-resize' }}
-                onMouseDown={resizedown}
-              >
-                <IconChevronDownRight />
-              </div>
-            )}
+          <DomResizer />
         </div>
         <GlobalLrc />
         <DialogLogin />
-
-        {
-          resizer && (
-            <div
-              className="absolute inset-0"
-              onMouseMove={resizemove}
-              onMouseUp={resizeup}
-            />
-          )
-        }
       </Router>
     </div>
   );

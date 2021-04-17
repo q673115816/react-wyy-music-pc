@@ -14,6 +14,7 @@ const sizes = [
   '高清',
   '超清',
   '1080P',
+  '没这功能',
 ];
 
 const DomSpeed = () => (
