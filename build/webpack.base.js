@@ -63,7 +63,7 @@ const plugins = [
     prefetch,
     // meta,
     // publicPath: '/'
-    ...(devMode ? {} : { filename, publicPath: '/wyy-pc/' }),
+    ...(devMode ? {} : { filename, publicPath: '/react-wyy-music-pc/' }),
   }),
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
