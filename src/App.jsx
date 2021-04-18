@@ -51,7 +51,7 @@ export default () => {
         '--themeColor': `var(--${theme}, --themeRed)`,
       }}
     >
-      <Router basename={process.env.NODE_ENV !== 'production' ? '/' : '/wyy-pc'}>
+      <Router basename={process.env.NODE_ENV !== 'production' ? '/' : '/react-wyy-music-pc'}>
         <div
           id="NeteaseCloudMusic"
           className="domWrapper flex flex-col shadow-lg select-none"

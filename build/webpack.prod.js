@@ -7,7 +7,7 @@ console.log('entry webpack prod');
 const prod = {
   mode: 'production',
   output: {
-    publicPath: '/wyy-pc/',
+    publicPath: '/react-wyy-music-pc/',
     path: path.join(__dirname, '../dist'),
     filename: '[name].[chunkhash:8].js',
     // library: '[name]_[fullhash]',
