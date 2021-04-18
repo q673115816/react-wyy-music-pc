@@ -78,11 +78,12 @@ const switchs = {
   },
 };
 
-export default memo(() => {
-  const { id, type } = useParams();
-  if (!Object.keys(switchs).includes(type)) {
-    return <Redirect to="/" />;
-  }
+export default memo(({ id, type }) => {
+  console.log('comment');
+  // const { id, type } = useParams();
+  // if (!Object.keys(switchs).includes(type)) {
+  //   return <Redirect to="/" />;
+  // }
   const [detail, setDetail] = useState({});
   const [comments, setComments] = useState({});
   const [value, setValue] = useState('');

@@ -30,7 +30,7 @@ const router = [
   ['/home', Home],
   ['/exclusive', Exclusive],
   ['/dailysong', DailySong],
-  ['/comment/:type/:id', Comment],
+  ['/comment/:type(song|mv|video)/:id', Comment],
   ['/video', Video],
   ['/allmv', AllMV],
   ['/Look', Look],
@@ -59,7 +59,10 @@ export default memo(() => (
     {
       router.map(([path, Component]) => (
         <Route path={path} key={path}>
-          <Component />
+          {
+            ({ match: { params } }) => <Component {...params} />
+          }
+
         </Route>
       ))
     }

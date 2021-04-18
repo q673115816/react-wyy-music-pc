@@ -1,73 +1,73 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useParams, Redirect } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { IconPlus } from '@tabler/icons';
+import React, {
+  useRef,
+  memo, useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { apiUserDetail, apiUserFollows, apiFollow } from '@/api';
+import { Link } from 'react-router-dom';
+import produce from 'immer';
+
 import { setPopupLetterToggle } from '@/reducers/mask/actions';
 import { setMsgPrivateHistory } from '@/reducers/letter/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import DomLoading from '@/components/Loading';
+import useInfinite from '@/custom/useInfinite';
+import DomCardList from '../components/CardList';
 
-const BuildUserAction = (item, handleFollow) => (item.followed
-  ? <span className="follow on">已关注</span>
-  : (
-    <button
-      onClick={() => handleFollow(item.userId)}
-      type="button"
-      className="follow"
-    >
-      <IconPlus size={16} style={{ color: '#EC4141' }} />
-                            &nbsp; 关注
-    </button>
-  ));
-
-export default () => {
+export default memo(({ uid }) => {
+  console.log('user_follow');
   const dispatch = useDispatch();
-
   const [profile, setProfile] = useState({});
   const [data, setData] = useState([]);
-  const { uid } = useParams();
+  // const { uid } = useParams()
   const account = useSelector(({ account }) => account);
-
-  // if (!account.profile.userId) return <Redirect to="/" />;
-  const isSelf = String(account.profile.userId) === uid;
-
-  const handleInit = async () => {
+  const isSelf = useMemo(() => account.profile.userId === Number(uid), [uid]);
+  const DomScroll = useRef();
+  const DomObserver = useRef();
+  const limit = 30;
+  const offset = useRef(0);
+  const hasMore = useRef(true);
+  const handlePrveInit = async () => {
     try {
-      const [{ profile }, { follow }] = await Promise.all([
-        apiUserDetail({
-          uid,
-        }),
-        apiUserFollows({
-          uid,
-        }),
-      ]);
+      const { profile } = await apiUserDetail({
+        uid,
+      });
       setProfile(profile);
-      setData(follow);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleFollow = async (id) => {
+  const handleAddData = async () => {
+    if (!hasMore.current) return;
     try {
-      const { code } = await apiFollow({
+      const { follow, more } = await apiUserFollows({
+        uid,
+        limit,
+        offset: offset.current,
+      });
+      offset.current += limit;
+      hasMore.current = more;
+      setData((prev) => [...prev, ...follow]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClick = useCallback(async (id) => {
+    try {
+      const { } = await apiFollow({
         id,
         t: 1,
       });
-      if (code === 200) {
-        setData(data.map((item) => {
-          if (item.userId === id) {
-            item.followed = true;
-          }
-          return item;
-        }));
-      }
-      // toast 通知
+      setData(produce((draft) => {
+        draft[draft.findIndex((item) => item.userId === id)].followed = true;
+      }));
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
-  const handlePrivateLetter = (uid, nickname) => {
+  const handleLetter = (uid, nickname) => {
     dispatch(setPopupLetterToggle());
     dispatch(setMsgPrivateHistory({
       uid,
@@ -77,11 +77,12 @@ export default () => {
   };
 
   useEffect(() => {
-    handleInit();
+    handlePrveInit();
   }, []);
+  useInfinite(handleAddData, DomScroll, DomObserver);
   return (
 
-    <div className="domUser_followlist">
+    <div className="domUser_followlist h-full overflow-auto" ref={DomScroll}>
       <div className="h1 domUser_subpage_header ui_header">
         <Link to="./">
           {profile.nickname}
@@ -89,57 +90,23 @@ export default () => {
         的关注
       </div>
       <div className="domUser_followlist_main">
-        <div className="list">
-          {data.map((item) => (
-            <div className="item" key={item.userId}>
-              <Link to={`/user/${item.userId}`} className="avatar">
-                <img src={`${item.avatarUrl}?param=100y100`} alt="" />
-                {
-                    item.avatarDetail
-                    && (
-                      <div className="ico">
-                        <img src={item.avatarDetail.identityIconUrl} alt="" />
-                      </div>
-                    )
-                  }
-              </Link>
-              <div className="content">
-                <div className="contain">
-                  <div className="left">
-                    <Link
-                      className="nickname"
-                      to={`/user/${item.userId}`}
-                    >
-                      {item.nickname}
-                    </Link>
-                  </div>
-                </div>
-                <div className="contain">
-                  <div className="left">
-                    <div className="truncate">{item.signature}</div>
-                  </div>
-                  <div className="right">
-                    {BuildUserAction(item, handleFollow)}
-                  </div>
-                </div>
-                <div className="contain">
-                  <div className="left">
-                    <span>
-                      歌单：
-                      {item.playlistCount}
-                    </span>
-                    <span style={{ height: 12, width: 1, backgroundColor: '#E1CAE1' }} />
-                    <span>
-                      歌单：
-                      {item.followeds}
-                    </span>
-                  </div>
-                </div>
-              </div>
+        <DomCardList
+          isSelf={isSelf}
+          list={data}
+          handleClick={handleClick}
+          handleLetter={handleLetter}
+        >
+          <div className="empty">
+            还没有关注
+          </div>
+          {(() => (
+            <div div ref={DomObserver}>
+              <DomLoading />
             </div>
-          ))}
-        </div>
+          )
+          )()}
+        </DomCardList>
       </div>
     </div>
   );
-};
+});

@@ -33,9 +33,9 @@ const switchs = {
   },
 };
 
-export default () => {
+export default ({ vid, type }) => {
   const dispatch = useDispatch();
-  const { vid, type } = useParams();
+  // const { vid, type } = useParams();
   const { mvSublist } = useSelector(({ account }) => account);
 
   const [page, setPage] = useState(1);

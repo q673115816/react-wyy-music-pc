@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 import './style.scss';
 
+import useMemoParams from '@/custom/useMemoParams';
 import DomSong from './Song';
 import DomAlbum from './Album';
 
@@ -28,7 +29,7 @@ export default memo(() => (
       </div>
       <Switch>
         <Route path="/home/newest/song/:type">
-          <DomSong />
+          {useMemoParams(DomSong)}
         </Route>
         <Route path="/home/newest/album">
           <DomAlbum />

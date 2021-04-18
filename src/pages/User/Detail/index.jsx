@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import {
   useParams, Link, Redirect, useRouteMatch,
 } from 'react-router-dom';
@@ -18,14 +18,15 @@ import DomLoading from '@/components/Loading';
 
 import Domlayout from './components/layout';
 
-export default () => {
+export default memo(({ uid }) => {
+  console.log('user_detail');
   const { isLogin } = useSelector(({ common }) => common);
   const [user, setUser] = useState({});
   const [playlist, setPlaylist] = useState([]);
 
   const account = useSelector(({ account }) => account);
   const { url } = useRouteMatch();
-  const { uid } = useParams();
+  // const { uid } = useParams();
   const [loading, setLoading] = useState(false);
   const [isSelf, setIsSelf] = useState(false);
 
@@ -216,4 +217,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

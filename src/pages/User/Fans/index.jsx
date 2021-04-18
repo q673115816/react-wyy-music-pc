@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  memo, useCallback, useEffect, useState,
+} from 'react';
 import { apiUserDetail, apiUserFolloweds, apiFollow } from '@/api';
-import { Link, useParams } from 'react-router-dom';
-import { IconPlus } from '@tabler/icons';
+import { Link } from 'react-router-dom';
+import produce from 'immer';
+import DomCardList from '../components/CardList';
 
-export default () => {
+export default memo(({ uid }) => {
+  console.log('user_fans');
   const [profile, setProfile] = useState({});
   const [data, setData] = useState([]);
-  const { uid } = useParams();
+  // const { uid } = useParams();
 
   const handleInit = async () => {
     try {
@@ -25,16 +29,20 @@ export default () => {
     }
   };
 
-  const handleFollow = async (id) => {
+  const handleClick = useCallback(async (id) => {
     try {
       const { } = await apiFollow({
         id,
         t: 1,
       });
+      setData(produce((draft) => {
+        draft[draft.findIndex((item) => item.userId === id)].followed = true;
+      }));
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
+
   useEffect(() => {
     handleInit();
   }, []);
@@ -47,70 +55,12 @@ export default () => {
         的粉丝
       </div>
       <div className="domUser_followlist_main">
-        <div className="list">
-          {data.map((item) => (
-            <div className="item" key={item.userId}>
-              <Link to={`/user/${item.userId}`} className="avatar">
-                <img src={`${item.avatarUrl}?param=100y100`} alt="" />
-                {
-                    item.avatarDetail
-                    && (
-                      <div className="ico">
-                        <img src={item.avatarDetail.identityIconUrl} alt="" />
-                      </div>
-                    )
-                  }
-              </Link>
-              <div className="content">
-                <div className="contain">
-                  <div className="left">
-                    <Link
-                      className="nickname"
-                      to={`/user/${item.userId}`}
-                    >
-                      {item.nickname}
-                    </Link>
-                  </div>
-                </div>
-                <div className="contain">
-                  <div className="left">
-                    <div className="truncate">{item.signature}</div>
-                  </div>
-                  <div className="right">
-                    {
-                        item.followed
-                          ? <span className="follow on">已关注</span>
-                          : (
-                            <button
-                              onClick={() => handleFollow(item.userId)}
-                              type="button"
-                              className="follow"
-                            >
-                              <IconPlus size={16} style={{ color: '#EC4141' }} />
-                            &nbsp; 关注
-                            </button>
-                          )
-                      }
-                  </div>
-                </div>
-                <div className="contain">
-                  <div className="left">
-                    <span>
-                      歌单：
-                      {item.playlistCount}
-                    </span>
-                    <span style={{ height: 12, width: 1, backgroundColor: '#E1CAE1' }} />
-                    <span>
-                      歌单：
-                      {item.followeds}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <DomCardList list={data} handleClick={handleClick}>
+          <div className="empty">
+            还没有粉丝
+          </div>
+        </DomCardList>
       </div>
     </div>
   );
-};
+});

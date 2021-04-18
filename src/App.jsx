@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DomResizer from '@/components/Resizer';
+import useMemoParmas from '@/custom/useMemoParams';
 import DomPlayer from './pages/Player';
 import './styles/index.scss';
 import DomHeader from './layout/Header';
@@ -73,8 +74,15 @@ export default () => {
         >
           <DomHeader />
           <Switch>
-            <Route path="/player/:type(video|mv)/:vid">
-              <DomPlayer />
+            {/* <Route path="/player/:type(video|mv)/:vid" component={DomPlayer}> */}
+            <Route
+              path="/player/:type(video|mv)/:vid"
+            >
+              {useMemoParmas(DomPlayer)}
+              {/* {
+                ({ match: { params } }) => <DomPlayer {...params} />
+              } */}
+              {/* <DomPlayer /> */}
             </Route>
             <Route>
               <DomMain />

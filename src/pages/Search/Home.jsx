@@ -78,17 +78,17 @@ const switchs = {
   },
 };
 
-export default memo(() => {
+export default memo(({ keywords, type }) => {
   console.log('entry search');
   const dispatch = useDispatch();
   const [result, setResult] = useState({});
   const [multimatch, setMultimatch] = useState({});
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const {
-    keywords,
-    type,
-  } = useParams();
+  // const {
+  //   keywords,
+  //   type,
+  // } = useParams();
 
   const {
     code,

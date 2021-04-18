@@ -59,8 +59,9 @@ const DomGroup = ({ list = [], func }) => (
   </div>
 );
 
-export default memo(() => {
+export default memo(({ type, vid }) => {
   console.log('player');
+  // console.log('props', props);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,7 +71,6 @@ export default memo(() => {
   const {
     name,
     sub,
-    params,
     isSub,
     isLike,
     pending,
@@ -88,9 +88,9 @@ export default memo(() => {
     comments,
     commentsLoading,
     setPage,
-  } = FNInit();
+  } = FNInit({ type, vid });
 
-  const { type, vid } = params;
+  // const { type, vid } = params;
 
   const { goBack } = useHistory();
   const [descriptionVisibility, setDescriptionVisibility] = useState(false);

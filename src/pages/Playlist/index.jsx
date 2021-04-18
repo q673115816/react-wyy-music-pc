@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Switch, Route,
 } from 'react-router-dom';
+import useMemoParams from '@/custom/useMemoParams';
 import PlaylistMusic from './Music';
 import PlaylistDj from './Dj';
 import PlaylistAlbum from './Album';
 import './style.scss';
 
-export default () => (
+export default memo(() => (
   <Switch>
     <Route path="/playlist/music/:id">
-      <PlaylistMusic />
+      {useMemoParams(PlaylistMusic)}
     </Route>
     <Route path="/playlist/dj/:id">
-      <PlaylistDj />
+      {useMemoParams(PlaylistDj)}
     </Route>
     <Route path="/playlist/album/:id">
-      <PlaylistAlbum />
+      {useMemoParams(PlaylistAlbum)}
     </Route>
     <Route path="/playlist">
       <PlaylistMusic />
     </Route>
   </Switch>
-);
+));

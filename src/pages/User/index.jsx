@@ -14,30 +14,24 @@ const UserRecord = lazy(() => import(/* webpackChunkName: "User_Record" */'./Rec
 const UserEdit = lazy(() => import(/* webpackChunkName: "User_Edit" */'./Edit'));
 const UserBinding = lazy(() => import(/* webpackChunkName: "User_Binding" */'./Binding'));
 
+const navs = {
+  record: UserRecord,
+  dynamic: UserDynamic,
+  follow: UserFollow,
+  fans: UserFans,
+  edit: UserEdit,
+  binding: UserBinding,
+  detail: UserDetail,
+};
+
 export default memo(() => (
   <div className="domUser overflow-auto h-full flex-auto">
     <Suspense fallback={<div className="flex-center h-full w-full"><DomLoading /></div>}>
       <Switch>
-        <Route path="/user/:uid/record">
-          <UserRecord />
-        </Route>
-        <Route path="/user/:uid/dynamic">
-          <UserDynamic />
-        </Route>
-        <Route path="/user/:uid/follow">
-          <UserFollow />
-        </Route>
-        <Route path="/user/:uid/fans">
-          <UserFans />
-        </Route>
-        <Route path="/user/:uid/edit">
-          <UserEdit />
-        </Route>
-        <Route path="/user/:uid/binding">
-          <UserBinding />
-        </Route>
-        <Route path="/user/:uid">
-          <UserDetail />
+        <Route path="/user/:uid/:nav?">
+          {
+            ({ match: { params: { nav = 'detail', uid } } }) => ((Page) => <Page uid={uid} />)(navs[nav])
+          }
         </Route>
       </Switch>
     </Suspense>

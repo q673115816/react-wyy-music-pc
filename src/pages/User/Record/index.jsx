@@ -8,7 +8,7 @@ import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';
 import DomName from '@/components/Table/Name';
-import './style.scss';
+// import './style.scss';
 
 export default memo(() => {
   const { uid } = useParams();
