@@ -74,15 +74,10 @@ export default () => {
         >
           <DomHeader />
           <Switch>
-            {/* <Route path="/player/:type(video|mv)/:vid" component={DomPlayer}> */}
             <Route
               path="/player/:type(video|mv)/:vid"
             >
               {useMemoParmas(DomPlayer)}
-              {/* {
-                ({ match: { params } }) => <DomPlayer {...params} />
-              } */}
-              {/* <DomPlayer /> */}
             </Route>
             <Route>
               <DomMain />

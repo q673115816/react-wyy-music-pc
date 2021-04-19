@@ -1,17 +1,9 @@
 import React, {
-  memo, useEffect, useRef, useState,
+  memo, useCallback, useEffect, useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { apiHotTopic, apiEvent, apiCommentEvent } from '@/api';
-import {
-  setFriendInit,
-  setFriendEvent,
-  setCommentEvent,
-  setFriendHot,
-  setFriendEventAdd,
-  setFriendEventReset,
-} from '@/reducers/friend/actions';
 
 import { IconPlus } from '@tabler/icons';
 
@@ -21,7 +13,8 @@ import './style.scss';
 import DomGender from '@/components/Gender';
 import useInfinite from '@/custom/useInfinite';
 import DomLoading from '@/components/Loading';
-import ActItem from './components/ActItem';
+import DomDynamic from '@/components/Dynamic';
+import DomTopicList from './components/TopicList';
 
 const getArticleFromJson = (json) => {
   const obj = JSON.parse(json);
@@ -43,24 +36,20 @@ export default memo(() => {
   console.log('friend');
   const { profile } = useSelector(({ account }) => account);
   // const [hot, setHot] = useState([]);
-  // const [event, setEvent] = useState([]);
-  const {
-    hot = [],
-    event = [],
-  } = useSelector(({ friend }) => friend);
+  const [event, setEvent] = useState([]);
+  const [hot, setHot] = useState([]);
   // const { url } = useRouteMatch();
   const dispatch = useDispatch();
 
   const DomScroll = useRef();
   const DomObserver = useRef();
   const refLasttime = useRef(-1);
-  const [actThreadId, setActThreadId] = useState('');
   const handleInitHot = async () => {
     try {
       const { hot } = await apiHotTopic({
         limit: 5,
       });
-      dispatch(setFriendHot({ hot }));
+      setHot(hot);
     } catch (error) {
       console.log(error);
     }
@@ -71,8 +60,8 @@ export default memo(() => {
         lasttime: refLasttime.current,
       });
       refLasttime.current = lasttime;
-      dispatch(setFriendEventAdd({ event }));
-      // setEvent((prev) => [...prev, ...event]);
+      // dispatch(setFriendEventAdd({ event }));
+      setEvent((prev) => [...prev, ...event]);
     } catch (error) {
       console.log(error);
     }
@@ -82,24 +71,8 @@ export default memo(() => {
   //   await handleInitEvent()
   // };
 
-  const handleGetComment = async (threadId) => {
-    if (actThreadId === threadId) {
-      setActThreadId('');
-      return;
-    }
-    try {
-      const { comments, hotComments } = await apiCommentEvent({
-        threadId,
-      });
-      setActThreadId(threadId);
-      dispatch(setCommentEvent({ comments, hotComments }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    dispatch(setFriendEventReset());
+    setEvent([]);
     handleInitHot();
   }, []);
   useInfinite(handleInitEvent, DomScroll, DomObserver);
@@ -116,15 +89,8 @@ export default memo(() => {
             </button>
           </div>
           <div className="domFriend_content">
-            <div className="domFriend_dynamic px-8 divide-y">
-              {event.map((item) => (
-                <ActItem
-                  actThreadId={actThreadId}
-                  key={item.id}
-                  item={item}
-                  handleGetComment={handleGetComment}
-                />
-              ))}
+            <div className="px-8">
+              <DomDynamic list={event} />
             </div>
             <div className="flex-center" ref={DomObserver}>
               {event.length === 0
@@ -197,27 +163,7 @@ export default memo(() => {
               <span className="font-bold">热门话题</span>
               <Link className="text-gray-400 ml-auto" to="/friend/hotTopic">更多 &gt;</Link>
             </div>
-            <div className="list">
-              {hot.map((item) => (
-                <Link
-                  to={`/friend/${item.actId}`}
-                  key={item.actId}
-                  className="item py-1 pl-5 flex hover:bg-gray-100"
-                >
-                  <div className="cover w-10 h-10">
-                    <img className="rounded" src={`${item.sharePicUrl}?param=50y50`} alt="" />
-                  </div>
-                  <div className="content px-2">
-                    <div className="title">
-                      {`#${item.title}#`}
-                    </div>
-                    <div className="participateCount text-gray-300">
-                      {`${item.participateCount}人参与`}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <DomTopicList list={hot} />
           </div>
         </div>
       </div>

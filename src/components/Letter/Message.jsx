@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   IconChevronLeft, IconPhoto, IconMoodSmile, IconPlayerPlay,
 } from '@tabler/icons';
-import EmojiFaces from '../EmojiFaces';
-import Write from '../Write';
+import EmojiFaces from '@/components/EmojiFaces';
+import Write from '@/components/Write';
 
 const DomSong = ({ msg = {} }) => (
   <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">
@@ -253,7 +253,9 @@ export default () => {
               <IconPhoto size={24} stroke={1.4} />
             </button>
           </div>
-          <button type="button" className="ml-auto border px-4 h-8 rounded-full" onClick={handleSubmit}>发送</button>
+          <button type="button" className="ml-auto border px-4 h-8 rounded-full" onClick={handleSubmit}>
+            发送
+          </button>
         </div>
       </div>
     </>

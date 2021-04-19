@@ -11,14 +11,15 @@ import DomArtists from '@/components/Table/Artists';
 import DomAlbum from '@/components/Table/Album';
 
 export default ({ songs = [] }) => {
+  // console.log('playlist_music_playlist');
   if (songs.length === 0) {
     return (
       <div className="pt-16 text-center text-sm text-gray-400">暂无音乐</div>
     );
   }
   return (
-    <div style={{ '--ui_grid_template': '36px / 54px 30px 30px 36% 4fr 6fr 2fr' }} className="mt-4">
-      <div className="grid ui_grid_template">
+    <div style={{ '--ui_grid_template': '36px / 30px 30px 30px 36% 4fr 6fr 2fr' }} className="mt-4">
+      <div className="grid ui_grid_template pl-8">
         <div />
         <div />
         <div />
@@ -45,9 +46,9 @@ export default ({ songs = [] }) => {
         >
           <div
             tabIndex="2"
-            className={classNames('grid items-center focus:outline-none focus:bg-gray-200 hover:bg-gray-100 ui_grid_template', index % 2 === 0 && 'bg-gray-50')}
+            className={classNames('grid items-center focus:outline-none focus:bg-gray-200 hover:bg-gray-100 ui_grid_template pl-8', index % 2 === 0 && 'bg-gray-50')}
           >
-            <div className="pr-2">
+            <div className="px-1">
               <DomRank index={index} id={item.id} />
             </div>
             <div className="px-1">

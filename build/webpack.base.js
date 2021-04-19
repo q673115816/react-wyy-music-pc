@@ -72,6 +72,10 @@ const plugins = [
     chunkFilename: '[name].[contenthash:8].css',
   }),
   // new webpack.DllPlugin({
+  //   PUBLIC_PATH: '/react-wyy-music-pc/',
+  //   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+  // }),
+  // new webpack.DllPlugin({
   //   name: '[name]_[fullhash]',
   //   path: path.join(__dirname, '../dll/[name]-manifest.json'),
   //   context: __dirname,

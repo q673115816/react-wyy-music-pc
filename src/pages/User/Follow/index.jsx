@@ -99,13 +99,16 @@ export default memo(({ uid }) => {
           <div className="empty">
             还没有关注
           </div>
-          {(() => (
-            <div div ref={DomObserver}>
-              <DomLoading />
-            </div>
-          )
-          )()}
         </DomCardList>
+        <div ref={DomObserver} />
+        {
+          hasMore.current
+          && (
+          <div className="flex-center">
+            <DomLoading />
+          </div>
+          )
+        }
       </div>
     </div>
   );

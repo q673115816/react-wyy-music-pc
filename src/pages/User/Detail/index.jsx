@@ -1,6 +1,8 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, {
+  memo, useEffect, useState, useMemo,
+} from 'react';
 import {
-  useParams, Link, Redirect, useRouteMatch,
+  Link,
 } from 'react-router-dom';
 import { apiUserDetail, apiUserPlaylist, apiFollow } from '@/api';
 import { useSelector } from 'react-redux';
@@ -25,7 +27,7 @@ export default memo(({ uid }) => {
   const [playlist, setPlaylist] = useState([]);
 
   const account = useSelector(({ account }) => account);
-  const { url } = useRouteMatch();
+  // const { url } = useRouteMatch();
   // const { uid } = useParams();
   const [loading, setLoading] = useState(false);
   const [isSelf, setIsSelf] = useState(false);
@@ -35,6 +37,7 @@ export default memo(({ uid }) => {
       setIsSelf(String(account.profile.userId) === uid);
     }
   }, [isLogin]);
+
   const ownPlaylist = playlist.filter((item) => String(item.userId) === uid);
 
   const savePlaylist = playlist.filter((item) => String(item.userId) !== uid);
@@ -120,7 +123,7 @@ export default memo(({ uid }) => {
               {
                 isSelf
                   ? (
-                    <Link to={`${url}/edit`} className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center">
+                    <Link to={({ pathname }) => `${pathname}/edit`} className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center">
                       <IconEdit size={18} stroke={1.5} />
                       &nbsp;
                       编辑个人信息
@@ -164,15 +167,15 @@ export default memo(({ uid }) => {
           </div>
           <hr />
           <div className="infos text-center divide-x grid mt-5" style={{ gridTemplateColumns: 'repeat(3, 88px)' }}>
-            <Link to={`${url}/dynamic`} className="info">
+            <Link to={({ pathname }) => `${pathname}/dynamic`} className="info">
               <div className="num text-base">{user.profile.eventCount}</div>
               <div className="string">动态</div>
             </Link>
-            <Link to={`${url}/follow`} className="info">
+            <Link to={({ pathname }) => `${pathname}/follow`} className="info">
               <div className="num text-base">{user.profile.follows}</div>
               <div className="string">关注</div>
             </Link>
-            <Link to={`${url}/fans`} className="info">
+            <Link to={({ pathname }) => `${pathname}/fans`} className="info">
               <div className="num text-base">{user.profile.followeds}</div>
               <div className="string">粉丝</div>
             </Link>

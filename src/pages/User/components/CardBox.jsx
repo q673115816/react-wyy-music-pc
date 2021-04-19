@@ -42,10 +42,10 @@ export default memo(({
   item, handleClick, handleLetter, isSelf,
 }) => (
   <div className="item w-96 flex p-4 hover:bg-gray-50" key={item.userId}>
-    <Link to={`/user/${item.userId}`} className="relative avatar rounded-full border flex-none">
-      <img className="rounded-full" src={`${item.avatarUrl}?param=90y90`} alt="" />
+    <Link to={`/user/${item.userId}`} className="relative avatar w-24 h-24 rounded-full border flex-none">
+      <img className="rounded-full" src={`${item.avatarUrl}?param=100y100`} alt="" />
       {
-        item.avatarDetail
+        item?.avatarDetail?.identityIconUrl
         && (
           <div className="ico w-6 h-6 absolute right-0 bottom-0">
             <img src={item.avatarDetail.identityIconUrl} alt="" />

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import {
   IconThumbUp,
   IconShare,
@@ -12,9 +11,11 @@ import {
   IconAt,
   IconHash,
 } from '@tabler/icons';
+import { apiCommentEvent } from '@/api';
 import { transTextEmoji } from '@/common/faces';
 import classNames from 'classnames';
 import DomComment from './Comment';
+import './style.scss';
 
 const types = {
   18: '分享单曲',
@@ -62,7 +63,6 @@ const DomSong = ({ item }) => {
 const DomPics = ({ item }) => {
   if (!item) return null;
   let len = item.length;
-  if (len === 8) len = 'even';
   if (len === 1) {
     return (
       <div className="pics grid gap-1 mt-2.5 pic_1">
@@ -72,6 +72,8 @@ const DomPics = ({ item }) => {
       </div>
     );
   }
+  if (len === 8) len = 'even';
+  else len = 3;
   return (
     <div className={classNames('pics grid gap-1 mt-2.5', `pic_${len}`)}>
       {item.map((pic) => (
@@ -80,19 +82,38 @@ const DomPics = ({ item }) => {
             <img src={pic.originUrl} className="w-full object-cover h-full" alt="" />
           </div>
           {pic.width / pic.height < 0.75
-            && <div className=" absolute bottom-0 right-0 mx-1 my-2 border leading-tight text-white border-current px-1 rounded-full">长图</div>}
+            && <div className="absolute bottom-0 right-0 mx-1 my-2 border leading-tight bg-black bg-opacity-20 text-white border-current px-1 rounded-full">长图</div>}
         </div>
       ))}
     </div>
   );
 };
 
-export default ({
-  item = {}, handleGetComment, actThreadId,
+export default memo(({
+  item = {}, commentIsShow, handleToggleComment,
 }) => {
+  // console.log('event');
   const json = JSON.parse(item.json);
+  const [comments, setComments] = useState([]);
+  const [hotComments, setHotComments] = useState([]);
   // console.log(json);
-  const { comments, hotComments } = useSelector(({ friend }) => friend);
+  // const { comments, hotComments } = useSelector(({ friend }) => friend);
+  const handleGetComment = async (threadId) => {
+    try {
+      const { comments, hotComments } = await apiCommentEvent({
+        threadId,
+      });
+      setComments(comments);
+      setHotComments(hotComments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (commentIsShow) {
+      handleGetComment(item.info.threadId);
+    }
+  }, [commentIsShow]);
   if (item.type === 33) {
     // console.log(json);
     return (
@@ -100,15 +121,19 @@ export default ({
         <div className="relative rounded-xl overflow-hidden">
           <img src={json.coverPCUrl} alt="" />
           <div className="absolute border-b border-opacity-20 border-t border-white flex-center h-20 inset-0 m-auto text-center text-white w-min whitespace-nowrap">
-            <div className="text-xl">{`#${json.title}#`}</div>
-            <div className="-translate-y-1/2 absolute top-full transform">{`${json.participateCount}参与`}</div>
+            <div className="text-xl">
+              {`#${json.title}#`}
+            </div>
+            <div className="-translate-y-1/2 absolute top-full transform">
+              {`${json.participateCount}参与`}
+            </div>
           </div>
         </div>
       </div>
     );
   }
   return (
-    <div className="item py-5 flex">
+    <div className="ui_event_item py-5 flex">
       <Link to={`/user/${item.user.userId}`} className="avatar flex-none w-10 h-10">
         <img
           className="rounded-full"
@@ -161,7 +186,7 @@ export default ({
                 <button
                   type="button"
                   className="action ui_text_gray_hover flex-center"
-                  onClick={() => handleGetComment(item.info.threadId)}
+                  onClick={() => handleToggleComment(item.info.threadId)}
                 >
                   <IconMessage size={16} />
                   &nbsp;
@@ -175,9 +200,9 @@ export default ({
               </div>
             </div>
           </div>
-          {item.info.threadId === actThreadId
+          {commentIsShow
             && (
-              <div className="comment bg-gray-50 mt-3 rounded">
+              <div className="comment bg-gray-100 mt-3 rounded">
                 <div className="write p-3">
                   <div className="help flex">
                     <div className="flex space-x-2">
@@ -223,4 +248,4 @@ export default ({
       </div>
     </div>
   );
-};
+});
