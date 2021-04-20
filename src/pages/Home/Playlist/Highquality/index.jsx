@@ -1,16 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams, Link, NavLink } from 'react-router-dom';
-import { IconFilter, IconPlayerPlay } from '@tabler/icons';
+import React, {
+  useEffect, useRef, useState, memo,
+} from 'react';
+import {
+  Link, NavLink,
+} from 'react-router-dom';
+import { IconFilter, IconPlayerPlay, IconCrown } from '@tabler/icons';
 import classNames from 'classnames';
 import { apiTopPlaylistHighquality, apiPlaylistHighqualityTags } from '@/api';
 import { transPlayCount } from '@/common/utils';
 import useInfinite from '@/custom/useInfinite';
 import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
 import DomTagsBox from '@/components/Tags/Box';
-import './style.scss';
 
-export default () => {
-  const { cat = '全部歌单' } = useParams();
+// import './style.scss';
+
+export default memo(({ cat = '全部歌单' }) => {
+  console.log('home_playlist_high');
   const [data, setData] = useState([]);
   const [tags, setTags] = useState([]);
   const before = useRef(0);
@@ -113,11 +118,15 @@ export default () => {
       <div className="domHome_playlist_highquality_list grid gap-6 grid-cols-2">
         {
           data.map((item) => (
-            <div className="item flex items-center" key={item.id}>
-              <div className="cover rounded-lg group overflow-hidden flex-none relative">
+            <div className="item flex" key={item.id}>
+              <div className="cover w-32 h-32 rounded-lg group overflow-hidden flex-none relative">
                 <Link
                   to={`/playlist/music/${item.id}`}
+                  className="ui_aspect-ratio-1/1"
                 >
+                  <span className="absolute top-0 left-0 p-0.5 w-8 h-8 bg-yellow-500 text-white ui_angle_top_left">
+                    <IconCrown size={14} className="transform -rotate-45" />
+                  </span>
                   <img src={`${item.coverImgUrl}?param=200y200`} alt="" />
                   <div className="absolute text-white top-0 right-0 py-1 px-2 flex-center">
                     <IconPlayerPlay size={12} />
@@ -131,9 +140,11 @@ export default () => {
                   <IconPlayerPlay size={16} className="fill-current" />
                 </DomPlaylistAsyncReplace>
               </div>
-              <div className="ml-2 flex-auto w-0">
+              <div className="ml-2 flex-auto w-0 pt-5">
                 <div className="text-sm truncate ui_text_black_hover">
-                  <Link to={`/playlist/music/${item.id}`} className="">{item.name}</Link>
+                  <Link to={`/playlist/music/${item.id}`} className="">
+                    {item.name}
+                  </Link>
                 </div>
                 <div className="mt-3 flex items-center ui_text_gray_hover">
                   by&nbsp;
@@ -146,10 +157,11 @@ export default () => {
                     && <img className="w-3 h-3" src={item.creator.avatarDetail.identityIconUrl} alt="" />
                   }
                 </div>
-                <div className="mt-8 text-gray-300 truncate">
-                  <DomTagsBox text={item.tag} />
-                  &nbsp;
-                  {item.copywriter}
+                <div className="mt-4 text-gray-300 flex items-center">
+                  <DomTagsBox text={item.tag} className="flex-none mr-1" />
+                  <span className="flex-auto truncate">
+                    {item.copywriter}
+                  </span>
                 </div>
               </div>
             </div>
@@ -159,4 +171,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

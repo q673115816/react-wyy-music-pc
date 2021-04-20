@@ -20,7 +20,7 @@ import DomItem from '@/components/GridPlaylist/Item';
 import DomBanner from './components/Banner';
 import DomHeaderBar from './components/HeaderBar';
 
-export default memo(() => {
+export default memo(({ cat = '全部歌单', page = 1 }) => {
   // console.log('playlist');
   const { push } = useHistory();
   const [order, setOrder] = useState('hot');// new , default = hot
@@ -28,10 +28,7 @@ export default memo(() => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const DomScroll = useRef();
-  const { cat = '全部歌单', page = 1 } = useParams();
-  // const { cat = '全部歌单', page = 1 } = useMemo(() => params, [params]);
-  // const cat = '全部歌单';
-  // const page = 1;
+  // const { cat = '全部歌单', page = 1 } = useParams();
 
   const {
     highquality,

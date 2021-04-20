@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
+import { apiCommentLike } from '@/api';
 import { IconThumbUp, IconScreenShare, IconMessageCircle } from '@tabler/icons';
 import { transTextEmoji } from '@/common/faces';
 
@@ -9,15 +10,15 @@ export default ({ item = {}, handleLike }) => (
     <Link to={`/user/${item.user.userId}`} className="ui_comment_avatar w-10 h-10 flex-none relative">
       <img className="border rounded-full w-full h-full" src={`${item.user.avatarUrl}?param=40y40`} alt="" />
       {
-        item.user?.avatarDetail?.identityIconUrl
-        && (
-        <img
-          className="absolute right-0 bottom-0 w-3 h-3"
-          src={item.user.avatarDetail.identityIconUrl}
-          alt=""
-        />
-        )
-      }
+          item.user?.avatarDetail?.identityIconUrl
+          && (
+            <img
+              className="absolute right-0 bottom-0 w-3 h-3"
+              src={item.user.avatarDetail.identityIconUrl}
+              alt=""
+            />
+          )
+        }
     </Link>
     <div className="ui_comment_content pl-4 flex-auto">
       <div className="ui_comment_comment">
@@ -70,7 +71,7 @@ export default ({ item = {}, handleLike }) => (
           <button
             type="button"
             className="flex-center ui_text_black_hover"
-            onClick={() => handleLike(item.commentId, !item.liked)}
+            onClick={() => handleLike(item.commentId, item.liked)}
           >
             {item.liked
               ? <IconThumbUp size={16} stroke={0} fill="var(--themeColor)" />

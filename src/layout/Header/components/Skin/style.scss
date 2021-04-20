@@ -3,37 +3,8 @@
   height: 250px;
   border-radius: 0 0 10px 10px;
 
-  .nav {
-    padding-bottom: 6px;
-
-    .link {
-      color: #666;
-
-      &::after {
-        visibility: hidden;
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -7px;
-        height: 2px;
-        background-color: #959595;
-      }
-
-      &.on::after {
-        visibility: visible;
-      }
-
-      &.on,
-      &:hover {
-        color: #000;
-      }
-    }
-  }
-
   .themes {
-    grid-template-rows: repeat(2, 90px);
-    grid-template-columns: repeat(3, 90px);
+    grid-template: repeat(2, 90px) / repeat(3, 90px);
 
     .theme {
       position: relative;
@@ -69,6 +40,10 @@
     .custom {
       display: flex;
 
+      &>button {
+        background-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+      }
+
       .colour {
         .ico {
           position: absolute;
@@ -92,13 +67,13 @@
 
         &::-webkit-slider-runnable-track {
           background-image: linear-gradient(to right,
-              rgb(255, 0, 0) 0,
-              rgb(255, 255, 0) 100% / 6 * 1,
-              rgb(0, 255, 0) 100% / 6 * 2,
-              rgb(0, 255, 255)100% / 6 * 3,
-              rgb(0, 0, 255) 100% / 6 * 4,
-              rgb(255, 0, 255) 100% / 6 * 5,
-              rgb(255, 0, 0) 100%,
+              red,
+              yellow,
+              lime,
+              aqua,
+              blue,
+              magenta,
+              red
             );
         }
       }
@@ -108,8 +83,8 @@
 
         &::-webkit-slider-runnable-track {
           background-image: linear-gradient(to right,
-              hsl(0, 0%, 20%) 0,
-              hsl(0, 100%, 50%) 100%,
+              hsl(0, 0%, 0%) 0,
+              var(--themeColor) 100%,
             );
         }
       }

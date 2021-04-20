@@ -1,4 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+  useState, useRef, useEffect, memo,
+} from 'react';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -70,12 +72,12 @@ const DomAccountUnLogined = ({ }) => {
   );
 };
 
-export default () => {
+export default memo(() => {
   console.log('ssetting');
 
   const [isLogin] = useIsLogin();
-  const [active, setActive] = useState()
-  const DomScroll = useRef()
+  const [active, setActive] = useState();
+  const DomScroll = useRef();
 
   return (
     <div className="domSetting flex flex-col h-full">
@@ -83,13 +85,14 @@ export default () => {
         <div className="domSetting_title h1">设置</div>
         <div className="domSetting_nav">
           {nav.map((item, index) => (
-            <button
+            <a
+              href={`#${item}`}
               key={item}
               type="button"
               className={classNames('domSetting_nav_link', active === item && 'ui_underline font-bold')}
             >
               {item}
-            </button>
+            </a>
           ))}
         </div>
       </div>
@@ -98,38 +101,38 @@ export default () => {
         // onScroll={handleFollow}
         ref={DomScroll}
       >
-        <div data-title="账号" className="pb-8 mb-8 border-b">
+        <div id="账号" className="pb-8 mb-8 border-b">
           {
             isLogin
               ? <DomAccountLogined />
               : <DomAccountUnLogined />
           }
         </div>
-        <div data-title="常规" className="pb-8 mb-8 border-b">
+        <div id="常规" className="pb-8 mb-8 border-b">
           <DomNormal />
         </div>
-        <div data-title="播放" className="pb-8 mb-8 border-b">
+        <div id="播放" className="pb-8 mb-8 border-b">
           <DomPlay />
         </div>
-        <div data-title="消息与隐私" className="pb-8 mb-8 border-b">
+        <div id="消息与隐私" className="pb-8 mb-8 border-b">
           <DomMessage />
         </div>
-        <div data-title="快捷键" className="pb-8 mb-8 border-b">
+        <div id="快捷键" className="pb-8 mb-8 border-b">
           <DomKeyboard />
         </div>
-        <div data-title="下载设置" className="pb-8 mb-8 border-b">
+        <div id="下载设置" className="pb-8 mb-8 border-b">
           <DomDownload />
         </div>
-        <div data-title="歌词" className="pb-8 mb-8 border-b">
+        <div id="歌词" className="pb-8 mb-8 border-b">
           <DomLyric />
         </div>
-        <div data-title="工具" className="pb-8 mb-8 border-b">
+        <div id="工具" className="pb-8 mb-8 border-b">
           <DomTool />
         </div>
-        <div data-title="关于网易云音乐">
+        <div id="关于网易云音乐">
           <DomAbout />
         </div>
       </div>
     </div>
   );
-};
+});

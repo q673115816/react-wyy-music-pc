@@ -5,6 +5,10 @@
   object-fit: contain;
 }
 
+.ui_angle_top_left {
+  clip-path: polygon(0 0, 0% 100%, 100% 0);
+}
+
 .ui_coverimg {
   display: block;
   width: 100%;

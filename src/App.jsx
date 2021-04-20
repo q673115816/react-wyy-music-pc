@@ -25,7 +25,9 @@ import GlobalLrc from './components/Lrc';
 
 export default () => {
   useKeyActions();
-  const { theme, font } = useSelector(({ setting }) => setting);
+  const {
+    theme, font,
+  } = useSelector(({ setting }) => setting);
   const {
     POSITION,
     SCREEN,
@@ -48,7 +50,7 @@ export default () => {
       className="App"
       style={{
         fontFamily: font,
-        '--themeColor': `var(--${theme}, --themeRed)`,
+        '--themeColor': `#${theme}`,
       }}
     >
       <Router basename={process.env.NODE_ENV !== 'production' ? '/' : '/react-wyy-music-pc'}>

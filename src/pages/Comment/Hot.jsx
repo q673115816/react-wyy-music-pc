@@ -6,9 +6,10 @@ import { apiCommentHot, apiCommentLike } from '@/api';
 import DomComment from '@/components/Comment';
 import useInfinite from '@/custom/useInfinite';
 import DomLoading from '@/components/Loading';
+import produce from 'immer';
 
-export default memo(() => {
-  const { id } = useParams();
+export default memo(({ id }) => {
+  // const { id } = useParams();
   const [data, setData] = useState([]);
   const refHasMore = useRef(true);
   const offset = useRef(0);
@@ -21,22 +22,24 @@ export default memo(() => {
       const { code } = await apiCommentLike({
         id,
         cid,
-        t: t ? 1 : 0,
+        t: t ? 0 : 1,
         type: 0,
       });
       if (code === 200) {
-        setData(data.map((item) => {
-          if (item.commentId === cid) {
-            item.liked = t;
-            item.likedCount += t ? 1 : -1;
-          }
-          return item;
+        setData(produce((draft) => {
+          draft.forEach((item) => {
+            if (item.commentId === cid) {
+              item.liked = !t;
+              item.likedCount += t ? -1 : 1;
+            }
+          });
         }));
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleInit = async () => {
     if (!refHasMore.current) return false;
     try {

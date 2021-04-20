@@ -152,7 +152,7 @@ export default memo(({ id, type }) => {
         </div>
       </div>
       <div className="domComment_main mt-8">
-        <DomCommentsList comments={comments} more={id} />
+        <DomCommentsList comments={comments} more={id} type={type} />
         <DomPage total={Math.ceil(comments.total / limit)} page={page} func={setPage} />
       </div>
     </div>

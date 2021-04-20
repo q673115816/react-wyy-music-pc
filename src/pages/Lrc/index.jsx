@@ -99,12 +99,9 @@ const DomRight = ({ simiSong = [] }) => (
           <div className="w-0 flex-auto px-2 py-1 text-gray-600">
             <div className="truncate">
               {song.name}
-              {
-                song.alias.length > 0
-                && <span className="text-gray-500">{song.alias}</span>
-              }
+              <span className="text-gray-500">{song.alias}</span>
             </div>
-            <div className="mt-1">{song.artists.map((artist) => artist.name)}</div>
+            <div className="mt-1 truncate">{song.artists.map((artist) => artist.name)}</div>
           </div>
         </button>
       ))}
