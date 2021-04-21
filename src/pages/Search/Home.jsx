@@ -2,7 +2,7 @@ import React, {
   memo, useEffect, useState,
 } from 'react';
 import {
-  NavLink, useParams,
+  NavLink,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCloudSearch, apiSearchMultimatch } from '@/api';
@@ -85,11 +85,6 @@ export default memo(({ keywords, type }) => {
   const [multimatch, setMultimatch] = useState({});
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  // const {
-  //   keywords,
-  //   type,
-  // } = useParams();
-
   const {
     code,
     unit,

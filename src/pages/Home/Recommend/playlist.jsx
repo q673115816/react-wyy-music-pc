@@ -9,7 +9,7 @@ export default memo(({ playlist = [] }) => (
   <div className="domHome_recommend_playlist grid gap-5 grid-cols-5 mt-4">
     <div className="item">
       <div className="cover border relative group rounded-lg overflow-hidden">
-        <Link to="/dailysong">
+        <Link to="/dailysong" className="ui_aspect-ratio-1/1">
           <div className="inner" style={{ color: 'var(--themeColor)' }}>
             <SymbolToday />
           </div>
@@ -26,7 +26,7 @@ export default memo(({ playlist = [] }) => (
       playlist.slice(0, 9).map((item) => (
         <div key={item.id} className="item">
           <div className="cover relative group rounded-lg overflow-hidden border">
-            <Link to={`/playlist/music/${item.id}`}>
+            <Link to={`/playlist/music/${item.id}`} className="ui_aspect-ratio-1/1">
               <img className="ui_containimg" src={`${item.picUrl}?param=200y200`} alt="" />
               <div className="absolute top-0 right-0 my-0.5 mx-2">
                 <span className="text-white flex-center">

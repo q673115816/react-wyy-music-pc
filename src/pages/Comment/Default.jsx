@@ -1,7 +1,7 @@
 import React, {
   memo, useEffect, useState, useMemo,
 } from 'react';
-import { useParams, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
 import {
   IconPlayerPlay, IconMoodSmile, IconAt, IconHash,
@@ -80,10 +80,6 @@ const switchs = {
 
 export default memo(({ id, type }) => {
   console.log('comment');
-  // const { id, type } = useParams();
-  // if (!Object.keys(switchs).includes(type)) {
-  //   return <Redirect to="/" />;
-  // }
   const [detail, setDetail] = useState({});
   const [comments, setComments] = useState({});
   const [value, setValue] = useState('');

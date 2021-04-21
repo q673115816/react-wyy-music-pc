@@ -14,21 +14,17 @@ import {
   IconMail,
   IconPlus,
 } from '@tabler/icons';
-import classNames from 'classnames';
 import { SymbolWB } from '@/components/Symbol';
 import DomLoading from '@/components/Loading';
 
 import Domlayout from './components/layout';
 
 export default memo(({ uid }) => {
-  console.log('user_detail');
   const { isLogin } = useSelector(({ common }) => common);
   const [user, setUser] = useState({});
   const [playlist, setPlaylist] = useState([]);
 
   const account = useSelector(({ account }) => account);
-  // const { url } = useRouteMatch();
-  // const { uid } = useParams();
   const [loading, setLoading] = useState(false);
   const [isSelf, setIsSelf] = useState(false);
 
@@ -215,8 +211,8 @@ export default memo(({ uid }) => {
         </div>
       </div>
       <div className="domUserDetail_main">
-        <Domlayout list={ownPlaylist} />
-        <Domlayout list={savePlaylist} />
+        <Domlayout uid={uid} list={ownPlaylist} />
+        <Domlayout uid={uid} list={savePlaylist} />
       </div>
     </div>
   );

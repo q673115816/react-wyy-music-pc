@@ -18,7 +18,6 @@ export default memo(({ uid }) => {
   const dispatch = useDispatch();
   const [profile, setProfile] = useState({});
   const [data, setData] = useState([]);
-  // const { uid } = useParams()
   const account = useSelector(({ account }) => account);
   const isSelf = useMemo(() => account.profile.userId === Number(uid), [uid]);
   const DomScroll = useRef();

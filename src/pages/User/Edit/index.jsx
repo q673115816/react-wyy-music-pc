@@ -2,7 +2,7 @@ import React, {
   memo, useEffect, useRef, useState,
 } from 'react';
 import { apiUserDetail, apiUserUpdate } from '@/api';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import produce from 'immer';
 import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/actions';
@@ -12,9 +12,8 @@ import DomLoading from '@/components/Loading';
 import DialogUploadAvatar from '@/components/Dialog/UploadAvatar';
 import DomBirthday from './components/Birthday';
 
-export default memo(() => {
+export default memo(({ uid }) => {
   const dispatch = useDispatch();
-  const { uid } = useParams();
   const [loading, setLoading] = useState(true);
   const [profile, setProfile] = useState();
   const [edit, setEdit] = useState();
@@ -30,7 +29,7 @@ export default memo(() => {
       });
       if (code !== 200) return;
       setProfile(profile);
-      setEdit(() => produce(profile, () => {}));
+      setEdit(() => produce(profile, () => { }));
     } catch (error) {
       console.log(error);
     } finally {

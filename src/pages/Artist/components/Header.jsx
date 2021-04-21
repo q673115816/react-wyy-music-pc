@@ -1,9 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, {
+  memo, useEffect, useMemo, useState,
+} from 'react';
 import {
   IconFolderPlus,
   IconCheckbox,
 } from '@tabler/icons';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setDialogUnSubscriptionShow, setToast } from '@/reducers/mask/actions';
 import {
@@ -11,9 +13,7 @@ import {
 } from '@/api';
 import { useRefreshArtistSublist } from '@/custom/useHelp';
 
-export default () => {
-  const { id } = useParams();
-
+export default memo(({ id }) => {
   const { artistSublist } = useSelector(({ account }) => account);
 
   const isSub = useMemo(() => artistSublist.find((item) => item.id === Number(id)), [artistSublist, id]);
@@ -110,4 +110,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

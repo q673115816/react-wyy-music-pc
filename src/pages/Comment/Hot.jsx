@@ -1,7 +1,6 @@
 import React, {
   useState, useEffect, useRef, memo,
 } from 'react';
-import { useParams } from 'react-router-dom';
 import { apiCommentHot, apiCommentLike } from '@/api';
 import DomComment from '@/components/Comment';
 import useInfinite from '@/custom/useInfinite';
@@ -9,7 +8,6 @@ import DomLoading from '@/components/Loading';
 import produce from 'immer';
 
 export default memo(({ id }) => {
-  // const { id } = useParams();
   const [data, setData] = useState([]);
   const refHasMore = useRef(true);
   const offset = useRef(0);

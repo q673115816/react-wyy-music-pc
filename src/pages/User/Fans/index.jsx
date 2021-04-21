@@ -10,7 +10,6 @@ export default memo(({ uid }) => {
   console.log('user_fans');
   const [profile, setProfile] = useState({});
   const [data, setData] = useState([]);
-  // const { uid } = useParams();
 
   const handleInit = async () => {
     try {

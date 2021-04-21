@@ -1,7 +1,6 @@
 import React, {
   useState, useRef, memo,
 } from 'react';
-import { useParams } from 'react-router-dom';
 import { apiArtistMV } from '@/api';
 import useInfinite from '@/custom/useInfinite';
 import DomGridVideo from '@/components/GridVideo';

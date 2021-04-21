@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DomResizer from '@/components/Resizer';
@@ -23,7 +23,7 @@ import useKeyActions from './custom/useKeyActions';
 import DomLrc from './pages/Lrc';
 import GlobalLrc from './components/Lrc';
 
-export default () => {
+export default memo(() => {
   useKeyActions();
   const {
     theme, font,
@@ -101,9 +101,9 @@ export default () => {
           <Tosat />
           <DomResizer />
         </div>
-        <GlobalLrc />
         <DialogLogin />
       </Router>
+      <GlobalLrc />
     </div>
   );
-};
+});

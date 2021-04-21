@@ -43,7 +43,7 @@ const router = [
   ['/fm', Fm],
   ['/love', Love],
   ['/sublist', Sublist],
-  ['/artist/:id', Artist],
+  ['/artist/:id(\\d+)', Artist],
   ['/toplist-artist/:type', ToplistArtist],
   ['/toplist-mv', ToplistMV],
   ['/playlist', Playlist],

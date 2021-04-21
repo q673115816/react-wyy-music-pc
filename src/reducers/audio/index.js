@@ -76,6 +76,16 @@ const FnAddHistory = (draft, currentSong) => {
   window.localStorage.setItem('history', JSON.stringify(draft.history));
 };
 
+function FnImmediate(draft, currentSong) {
+  FnChange(draft);
+  FnAddNext(draft, currentSong);
+  FnAddHistory(draft, currentSong);
+  // draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
+  draft.currentSong = currentSong;
+  // draft.currentTime = 0;
+  window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
+}
+
 export default produce((draft, action) => {
   switch (action.type) {
     case SET_SONG:
@@ -84,13 +94,7 @@ export default produce((draft, action) => {
     case SET_AUDIO_IMMEDIATE:
       {
         const { currentSong } = action.payload;
-        FnChange(draft);
-        FnAddNext(draft, currentSong);
-        FnAddHistory(draft, currentSong);
-        // draft.history = [currentSong, ...draft.history.filter((history) => history.id !== currentSong.id)];
-        draft.currentSong = currentSong;
-        // draft.currentTime = 0;
-        window.localStorage.setItem('currentSong', JSON.stringify(currentSong));
+        FnImmediate(draft, currentSong);
       }
       break;
     case SET_AUDIO_IMMEDIATE_NEXT:
@@ -160,7 +164,14 @@ export default produce((draft, action) => {
       }
       break;
     case SET_AUDIO_RUNNING:
-      draft.running = action.payload.running;
+      if (draft?.currentSong?.id) {
+        draft.running = action.payload.running;
+      } else if (draft.playlist.length > 0) {
+        const currentSong = draft.playlist[0];
+        FnImmediate(draft, currentSong);
+      } else {
+        draft.running = false;
+      }
       break;
     case SET_AUDIO_RUNNING_PLAY:
       draft.running = true;

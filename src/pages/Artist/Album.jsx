@@ -8,8 +8,6 @@ import classNames from 'classnames';
 import { apiArtistAlbum } from '@/api';
 import { useSelector, useDispatch } from 'react-redux';
 import { setArtistLayout } from '@/reducers/artist/actions';
-import { useParams } from 'react-router-dom';
-import { createPortal } from 'react-dom';
 import DomGrid from './layouts/Grid';
 import DomList from './layouts/List';
 import DomColumn from './layouts/Column';
@@ -60,7 +58,7 @@ export default memo(({ id }) => {
       </div>
       <div className="domArtist_section_layout">
         {
-          ((View, hotAlbums) => <View hotAlbums={hotAlbums} />)(layouts[layout].View, album.hotAlbums)
+          ((View, hotAlbums) => <View hotAlbums={hotAlbums} id={id} />)(layouts[layout].View, album.hotAlbums)
         }
       </div>
     </div>

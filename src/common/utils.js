@@ -26,9 +26,14 @@ function typeToString(target) {
 }
 
 export const LOCALSTORAGE = (key, base) => {
-  const value = JSON.parse(localStorage.getItem(key));
-  // console.log(base, typeToString(value) === typeToString(base));
-  return typeToString(value) === typeToString(base) ? value : base;
+  try {
+    const item = localStorage.getItem(key);
+    const value = JSON.parse(item);
+    // console.log(base, typeToString(value) === typeToString(base));
+    return typeToString(value) === typeToString(base) ? value : base;
+  } catch {
+    return base;
+  }
 };
 
 export const sleep = (delay = 1000) => new Promise((resolve) => setTimeout(resolve, delay));

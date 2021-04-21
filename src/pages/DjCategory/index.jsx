@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, {
+  memo, useEffect, useRef, useState,
+} from 'react';
+import { Link } from 'react-router-dom';
 import { apiDjRadioHot } from '@/api';
 import useInfinite from '@/custom/useInfinite';
 import DomLoading from '@/components/Loading';
 
-export default () => {
-  const { type, rid } = useParams();
+export default memo(({ type, rid }) => {
   const [data, setData] = useState([]);
   const DomScroll = useRef();
   const DomObserver = useRef();
@@ -56,4 +57,4 @@ export default () => {
       <div ref={DomObserver} className="flex-center"><DomLoading /></div>
     </div>
   );
-};
+});

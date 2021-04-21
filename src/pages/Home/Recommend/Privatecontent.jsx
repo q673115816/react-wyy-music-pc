@@ -17,7 +17,7 @@ export default memo(({ privatecontent = [] }) => (
             ]}
           >
             <div className="cover relative rounded overflow-hidden">
-              <Link to={`/player/mv/${item.id}`}>
+              <Link to={`/player/mv/${item.id}`} className="ui_aspect-ratio-16/9">
                 <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black bg-opacity-40 flex-center border border-gray-200">
                   <IconPlayerPlay size={14} className="fill-current" />
                 </span>

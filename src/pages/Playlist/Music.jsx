@@ -45,7 +45,6 @@ export default memo(({ id }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
-  // const { id } = useParams();
   const [data, setData] = useState({});
   // const [privileges, setPrivileges] = useState([]);
   const [status, setStatus] = useState('playlist');

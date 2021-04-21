@@ -2,7 +2,7 @@ import React, {
   useState, useEffect, useRef, memo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './style.scss';
 // import Lazyload from 'react-lazyload';
 import {
@@ -28,7 +28,6 @@ export default memo(({ cat = '全部歌单', page = 1 }) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const DomScroll = useRef();
-  // const { cat = '全部歌单', page = 1 } = useParams();
 
   const {
     highquality,
@@ -93,7 +92,7 @@ export default memo(({ cat = '全部歌单', page = 1 }) => {
     <div className="domHome_playlist px-8 overflow-auto max-h-full flex-auto" ref={DomScroll}>
       <div className="ui_w1100">
         {highquality.playlists.length > 0 && <DomBanner item={highquality.playlists[0]} cat={cat} />}
-        <DomHeaderBar />
+        <DomHeaderBar cat={cat} />
         <DomResize className="domHome_playlist_list grid gap-5" small="grid-cols-4" big="grid-cols-5">
           {
             playlists.playlists.map((item) => (

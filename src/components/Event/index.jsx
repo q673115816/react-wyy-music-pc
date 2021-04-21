@@ -134,12 +134,16 @@ export default memo(({
   }
   return (
     <div className="ui_event_item py-5 flex">
-      <Link to={`/user/${item.user.userId}`} className="avatar flex-none w-10 h-10">
+      <Link to={`/user/${item.user.userId}`} className="avatar flex-none w-10 h-10 relative border rounded-full">
         <img
           className="rounded-full"
           src={`${item.user.avatarUrl}?param=40y40`}
           alt=""
         />
+        {
+          item?.user?.avatarDetail?.identityIconUrl
+          && <img className="absolute bottom-0 right-0 w-3.5 h-3.5" src={item.user.avatarDetail.identityIconUrl} alt="" />
+        }
       </Link>
       <div className="content ml-2.5 flex-auto">
         <div className="name">

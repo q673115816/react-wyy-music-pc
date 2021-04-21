@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import {
 
   IconPlayerPlay,
@@ -11,10 +11,9 @@ import classNames from 'classnames';
 import DomTags from '@/components/Tags';
 import DomHeart from '@/components/Table/Heart';
 import { apiArtistTopSong } from '@/api';
-import { useParams } from 'react-router-dom';
 
-export default ({ hotAlbums = [] }) => {
-  const { id } = useParams();
+export default memo(({ hotAlbums = [], id }) => {
+  console.log('artist_column');
   const [top50, setTop50] = useState([]);
   const [limit, setLimit] = useState(10);
   const handleInit = async () => {
@@ -117,4 +116,4 @@ export default ({ hotAlbums = [] }) => {
       </div>
     </div>
   );
-};
+});

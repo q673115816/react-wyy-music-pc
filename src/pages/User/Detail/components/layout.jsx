@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import {
   IconLayoutGrid,
   IconLayoutList,
@@ -16,12 +16,12 @@ const layouts = [
 ];
 
 const Mains = {
-  grid: (list) => <DomGrid list={list} />,
-  list: (list) => <DomList list={list} />,
-  column: (list) => <DomColumn list={list} />,
+  grid: DomGrid,
+  list: DomList,
+  column: DomColumn,
 };
 
-export default ({ list = [] }) => {
+export default memo(({ list = [], uid }) => {
   const [layout, setLayout] = useState('grid');
   return (
     <div className="pb-10">
@@ -45,7 +45,9 @@ export default ({ list = [] }) => {
           }
         </div>
       </div>
-      {Mains[layout](list)}
+      {
+        ((Layout) => <Layout list={list} uid={uid} />)(Mains[layout])
+      }
     </div>
   );
-};
+});

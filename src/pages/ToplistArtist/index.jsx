@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink, Link, useParams } from 'react-router-dom';
+import React, { memo, useEffect, useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import classNames from 'classnames';
 import { apiToplistArtist } from '@/api';
@@ -12,8 +12,7 @@ const navs = [
   ['日本', '4'],
 ];
 
-export default () => {
-  const { type = 1 } = useParams();
+export default memo(({ type = 1 }) => {
   const [artist, setArtist] = useState([]);
   const [updateTime, setUpdateTime] = useState(0);
   const handleGetArtist = async () => {
@@ -124,4 +123,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

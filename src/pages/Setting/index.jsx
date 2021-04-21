@@ -88,7 +88,6 @@ export default memo(() => {
             <a
               href={`#${item}`}
               key={item}
-              type="button"
               className={classNames('domSetting_nav_link', active === item && 'ui_underline font-bold')}
             >
               {item}

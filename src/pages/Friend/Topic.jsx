@@ -8,7 +8,6 @@ import { IconShare, IconPencil } from '@tabler/icons';
 import DomTopicList from './components/TopicList';
 
 export default memo(({ id }) => {
-  // const { id } = useParams();
   const [detail, setDetail] = useState({});
   const [hot, setHot] = useState([]);
   const [data, setData] = useState([]);

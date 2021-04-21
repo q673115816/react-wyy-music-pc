@@ -1,5 +1,4 @@
 import { useMemo, useState, useEffect } from 'react';
-import { useParams, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -35,7 +34,6 @@ const switchs = {
 
 export default ({ vid, type }) => {
   const dispatch = useDispatch();
-  // const { vid, type } = useParams();
   const { mvSublist } = useSelector(({ account }) => account);
 
   const [page, setPage] = useState(1);

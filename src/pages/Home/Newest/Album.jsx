@@ -33,7 +33,7 @@ const arealist = [
 
 const AlbumItem = ({ item }) => (
   <div className="item">
-    <div className="cover rounded overflow-hidden">
+    <div className="cover shadow rounded overflow-hidden">
       <Link to={`/playlist/album/${item.id}`}>
         <LazyLoad overflow>
           <img className="ui_containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />

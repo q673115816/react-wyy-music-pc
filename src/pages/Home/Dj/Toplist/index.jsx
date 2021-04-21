@@ -7,7 +7,7 @@ import {
   IconPlayerPlay, IconArrowUp, IconArrowDown, IconMinus,
 } from '@tabler/icons';
 import classNames from 'classnames';
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { apiDjProgramToplist, apiDjToplist } from '@/api';
 import './style.scss';
 
@@ -16,6 +16,65 @@ const navs = [
   ['新晋电台榜', '/home/dj/toplist/now'],
   ['热门电台榜', '/home/dj/toplist/hot'],
 ];
+
+const switchs = {
+  default: {
+    map({
+      lastRank,
+      rank,
+      score,
+      program: {
+        id,
+        name,
+        coverUrl,
+        radio: {
+          name: userName,
+          id: userId,
+          category,
+        },
+      },
+    }) {
+      return {
+        id,
+        name,
+        lastRank,
+        rank,
+        coverUrl,
+        score,
+        userName,
+        userId,
+        category,
+      };
+    },
+  },
+  other: {
+    map({
+      id,
+      name,
+      lastRank,
+      rank,
+      picUrl: coverUrl,
+      score,
+      dj: {
+        nickname: userName,
+        userId,
+      },
+      category,
+    }) {
+      return {
+        id,
+        name,
+        lastRank,
+        rank,
+        coverUrl,
+        score,
+        userName,
+        userId,
+        category,
+      };
+    },
+  },
+};
 
 const TransRank = memo(({ lastRank, rank }) => {
   switch (true) {
@@ -108,9 +167,9 @@ const DomItem = memo(({ item, index, maxScore }) => (
     <div className="radio flex-auto truncate">
       <Link
         className="ui_text_gray_hover"
-        to={`/playlist/dj/${item.radio.userId}`}
+        to={`/playlist/dj/${item.userId}`}
       >
-        {item.radio.userName}
+        {item.userName}
       </Link>
     </div>
     <div className="category">
@@ -126,12 +185,10 @@ const DomItem = memo(({ item, index, maxScore }) => (
   </div>
 ));
 
-export default () => {
-  // console.log('toplist');
-  const { type } = useParams();
-  console.log(type);
+export default memo(({ type }) => {
   const [data, setData] = useState([]);
   const [updateTime, setUpdateTime] = useState();
+  const memoType = useMemo(() => (type ? 'other' : 'default'), [type]);
   // const obj = {
   //   lastRank,
   //   rank,
@@ -151,29 +208,7 @@ export default () => {
         ? (await apiDjToplist({ type }))
         : (await apiDjProgramToplist());
       unstable_batchedUpdates(() => {
-        setData(toplist.map(({
-          lastRank,
-          rank,
-          score,
-          program: {
-            id,
-            name,
-            coverUrl,
-            radio,
-          },
-        }) => ({
-          id,
-          name,
-          lastRank,
-          rank,
-          coverUrl,
-          score,
-          radio: {
-            userName: radio.name,
-            userId: radio.id,
-          },
-          category: radio.category,
-        })));
+        setData(toplist.map(switchs[memoType].map));
         setUpdateTime(updateTime);
       });
     } catch (error) {
@@ -200,4 +235,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

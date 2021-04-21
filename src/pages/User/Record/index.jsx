@@ -1,5 +1,5 @@
 import React, { useEffect, useState, memo } from 'react';
-import { useParams, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { apiUserRecord } from '@/api';
 import DomMenuCreate from '@/components/MenuCreate';
 import { useSelector } from 'react-redux';
@@ -10,8 +10,7 @@ import DomDownload from '@/components/Table/Download';
 import DomName from '@/components/Table/Name';
 // import './style.scss';
 
-export default memo(() => {
-  const { uid } = useParams();
+export default memo(({ uid }) => {
   const { profile } = useSelector(({ account }) => account);
   // console.log(profile, uid);
   if (profile?.userId !== Number(uid)) return <Redirect to="/" />;

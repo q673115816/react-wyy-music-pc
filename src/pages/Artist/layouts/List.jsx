@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
-export default ({ hotAlbums = [] }) => (
+export default memo(({ hotAlbums = [] }) => (
   <div className="list pt-4">
     {
       hotAlbums.map((item, index) => (
@@ -40,4 +40,4 @@ export default ({ hotAlbums = [] }) => (
       ))
     }
   </div>
-);
+));

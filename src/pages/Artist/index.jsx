@@ -1,7 +1,6 @@
 import React, { memo, useState } from 'react';
 
 import classNames from 'classnames';
-import { useParams, Redirect } from 'react-router-dom';
 
 import './style.scss';
 
@@ -18,15 +17,14 @@ const nav = {
   相似歌手: DomSimilarity,
 };
 
-export default memo(() => {
-  const { id } = useParams();
-  if (!/^\d*$/.test(id)) {
-    return <Redirect to="/" />;
-  }
+export default memo(({ id }) => {
+  // if (!/^\d*$/.test(id)) {
+  //   return <Redirect to="/" />;
+  // }
   const [tab, setTab] = useState('专辑');
   return (
     <div className="domArtist overflow-auto max-h-full flex-auto">
-      <DomHeader />
+      <DomHeader id={id} />
       <div className="domArtist_main">
         <div className="domArtist_nav flex mx-8">
           <div className="flex space-x-4 text-sm">

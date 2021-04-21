@@ -166,7 +166,7 @@ export default memo(() => {
 
   if (!lyricVisibility) return null;
   return (
-    <div id="lrc" className="absolute inset-x-0 bg-white overflow-auto">
+    <div id="lrc" className="absolute inset-x-0 bg-white overflow-auto z-10">
       <div className="lrc_inner m-auto">
         <div className="lrc_header flex justify-between">
           <div className="left">

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { NavLink, useParams } from 'react-router-dom';
+import React, { memo, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 import { IconChevronRight } from '@tabler/icons';
 import { useSelector } from 'react-redux';
@@ -15,7 +15,7 @@ const DomSmallHot = () => (
   </svg>
 );
 
-const DomSubList = ({ sub = [], category = null, cat = '' }) => (
+const DomSubList = memo(({ sub = [], category = null, cat = '' }) => (
   <div className="flex-auto grid grid-cols-6 gap-y-4">
     {
       sub
@@ -39,10 +39,9 @@ const DomSubList = ({ sub = [], category = null, cat = '' }) => (
         ))
     }
   </div>
-);
-export default () => {
+));
+export default memo(({ cat }) => {
   const [popup, setPopup] = useState(false);
-  const { cat = '全部歌单' } = useParams();
   const {
     hot,
     catlist,
@@ -106,4 +105,4 @@ export default () => {
 
     </div>
   );
-};
+});

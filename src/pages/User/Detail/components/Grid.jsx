@@ -1,18 +1,15 @@
 import React, { memo } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   IconPlayerPlay,
 } from '@tabler/icons';
-import { transPlayCount } from '@/common/utils';
 import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
 import DomItem from '@/components/GridPlaylist/Item';
 import { useSelector } from 'react-redux';
 import RainbowCat from './RainbowCat';
 
-const DomRank = () => {
-  const { uid } = useParams();
+const DomRank = ({ uid }) => {
   const { profile } = useSelector(({ account }) => account);
-  // console.log(profile, uid);
   if (profile?.userId !== Number(uid)) return null;
   return (
     <div className="item">
@@ -39,11 +36,11 @@ const DomRank = () => {
   );
 };
 
-export default memo(({ list = [] }) => (
+export default memo(({ list = [], uid }) => (
   <div className="domUserDetail_list px-8 grid grid-cols-4 gap-5">
     <DomRank />
     {list.map((item) => (
-      <DomItem item={item} key={item.id} />
+      <DomItem item={item} uid={uid} key={item.id} />
     ))}
   </div>
 ));

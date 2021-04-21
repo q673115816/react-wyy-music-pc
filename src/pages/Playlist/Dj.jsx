@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import { apiDjDetail } from '@/api';
-import { useParams } from 'react-router-dom';
 
-export default () => {
-  const { id } = useParams();
+export default memo(({ id }) => {
   const handleInit = async () => {
     try {
       const { } = await apiDjDetail({
@@ -22,4 +20,4 @@ export default () => {
       <div className="domPlaylistDetail_main">TODO</div>
     </div>
   );
-};
+});

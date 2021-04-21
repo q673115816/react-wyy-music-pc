@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import './style.scss';
 import {
   SymbolPhone, SymbolWY, SymbolWX, SymbolQQ, SymbolWB,
 } from '@/components/Symbol';
 import { apiUserBinding } from '@/api';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const maskPhone = (str = '') => (str.length === 11 ? str.replace(/(?<=\d{3})(\d{4})(?=\d{4})/, '****') : str);
 
-export default () => {
-  const { uid } = useParams();
+export default memo(({ uid }) => {
   const [bindings, setBindings] = useState([]);
   const [loading, setLoading] = useState(true);
   const handleInit = async () => {
@@ -114,4 +111,4 @@ export default () => {
       </div>
     </>
   );
-};
+});

@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import dayjs from 'dayjs';
 import {
-  useParams, NavLink, Link, Redirect,
+  NavLink, Link,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiTopSong, apiSongUrl } from '@/api';
@@ -11,14 +11,6 @@ import { setTopSong } from '@/reducers/home/actions';
 import { IconPlayerPlay, IconFolderPlus } from '@tabler/icons';
 import classNames from 'classnames';
 import DomTags from '@/components/Tags';
-
-// const nav = [
-//   ['全部', '0'],
-//   ['华语', '7'],
-//   ['欧美', '96'],
-//   ['韩国', '16'],
-//   ['日本', '8'],
-// ];
 
 const navs = {
   全部: 0,
@@ -77,9 +69,7 @@ const DomItem = memo(({ item, index }) => (
   </div>
 ));
 
-const DomMain = memo(() => {
-  console.log('song main');
-  const { type } = useParams();
+const DomMain = memo(({ type }) => {
   const [data, setData] = useState([]);
   const handleInit = async () => {
     try {
@@ -103,7 +93,7 @@ const DomMain = memo(() => {
   );
 });
 
-export default memo(() => (
+export default memo(({ type }) => (
   <>
     <div className="domHome_newest_sub_nav">
       {Object.keys(navs).map((item) => (
@@ -117,16 +107,16 @@ export default memo(() => (
         </NavLink>
       ))}
       <div className="domHome_newest_sub_control_center space-x-2">
-        <span className="playAll flex-center ui_theme_bg_color text-white rounded-full px-2 py-0.5">
+        <button type="button" className="playAll flex-center ui_theme_bg_color text-white rounded-full px-2 py-0.5">
           <IconPlayerPlay size={16} stroke={1} className="fill-current" />
           播放全部
-        </span>
-        <span className="subAll flex-center rounded-full border px-2 py-0.5">
+        </button>
+        <button type="button" className="subAll flex-center rounded-full border px-2 py-0.5">
           <IconFolderPlus size={16} stroke={1} />
           收藏全部
-        </span>
+        </button>
       </div>
     </div>
-    <DomMain />
+    <DomMain type={type} />
   </>
 ));
