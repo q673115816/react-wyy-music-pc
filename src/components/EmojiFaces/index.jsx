@@ -4,7 +4,7 @@ import faces from '@/common/faces';
 import './style.scss';
 import classNames from 'classnames';
 
-export default ({ setVisibility, clickface }) => {
+export default ({ handleHide, clickface }) => {
   const [currpage, setCurrpage] = useState(0);
   const handleWheel = (e) => {
     if (e.deltaY < 0) {
@@ -15,7 +15,7 @@ export default ({ setVisibility, clickface }) => {
   };
   return (
     <div className="emojiFace bg-white rounded shadow" onWheel={handleWheel}>
-      <button type="button" className="absolute close right-0 top-0 ui_text_gray_hover mx-1" onClick={() => setVisibility(false)}>
+      <button type="button" className="absolute close right-0 top-0 ui_text_gray_hover mx-1" onClick={handleHide}>
         <IconX size={24} stroke={1} />
       </button>
       <div className="page text-lg grid grid-cols-10 p-4 gap-2">

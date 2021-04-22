@@ -50,7 +50,7 @@ export default memo(() => {
       className="App"
       style={{
         fontFamily: font,
-        '--themeColor': `#${theme}`,
+        '--themeColor': theme,
       }}
     >
       <Router basename={process.env.NODE_ENV !== 'production' ? '/' : '/react-wyy-music-pc'}>

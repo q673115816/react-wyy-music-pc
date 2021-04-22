@@ -83,8 +83,8 @@
 
         &::-webkit-slider-runnable-track {
           background-image: linear-gradient(to right,
-              hsl(0, 0%, 0%) 0,
-              var(--themeColor) 100%,
+              hsl(0, 100%, 0%) 0,
+              hsl(var(--h), 100%, 50%) 100%,
             );
         }
       }

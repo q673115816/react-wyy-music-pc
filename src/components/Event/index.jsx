@@ -7,14 +7,12 @@ import {
   IconMessage,
   IconDots,
   IconPlayerPlay,
-  IconMoodSmile,
-  IconAt,
-  IconHash,
 } from '@tabler/icons';
 import { apiCommentEvent } from '@/api';
 import { transTextEmoji } from '@/common/faces';
 import classNames from 'classnames';
 import DomComment from './Comment';
+import DomTextarea from './Textarea';
 import './style.scss';
 
 const types = {
@@ -38,7 +36,7 @@ const DomSong = ({ item }) => {
   if (!item) return null;
   return (
     <button type="button" className="song bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5">
-      <div className="cover relative overflow-hidden rounded">
+      <div className="cover relative overflow-hidden rounded flex-none">
         <img
           className="rounded w-10 h-10"
           src={`${item.album.blurPicUrl}?param=40y40`}
@@ -48,11 +46,11 @@ const DomSong = ({ item }) => {
           <IconPlayerPlay size={14} className="fill-current" />
         </div>
       </div>
-      <div className="aside text-left px-3">
+      <div className="aside text-left px-3 w-0 flex-auto">
         <div className="name">
           {item.name}
         </div>
-        <div className="artist truncate mt-1">
+        <div className="artist truncate mt-1 text-gray-400">
           {item.artists.map(({ name }) => name).join(' / ')}
         </div>
       </div>
@@ -134,7 +132,10 @@ export default memo(({
   }
   return (
     <div className="ui_event_item py-5 flex">
-      <Link to={`/user/${item.user.userId}`} className="avatar flex-none w-10 h-10 relative border rounded-full">
+      <Link
+        to={`/user/${item.user.userId}`}
+        className="avatar flex-none w-10 h-10 relative border rounded-full"
+      >
         <img
           className="rounded-full"
           src={`${item.user.avatarUrl}?param=40y40`}
@@ -142,7 +143,13 @@ export default memo(({
         />
         {
           item?.user?.avatarDetail?.identityIconUrl
-          && <img className="absolute bottom-0 right-0 w-3.5 h-3.5" src={item.user.avatarDetail.identityIconUrl} alt="" />
+          && (
+          <img
+            className="absolute bottom-0 right-0 w-3.5 h-3.5"
+            src={item.user.avatarDetail.identityIconUrl}
+            alt=""
+          />
+          )
         }
       </Link>
       <div className="content ml-2.5 flex-auto">
@@ -154,7 +161,9 @@ export default memo(({
             {item.user.nickname}
           </Link>
           &nbsp;
-          <span className="text-gray-500">{types[item.type]}</span>
+          <span className="text-gray-500">
+            {types[item.type]}
+          </span>
         </div>
         <div className="time mt-2">
           <Link to={`/comment/event/${item.id}`} className="ui_text_gray_hover">
@@ -207,23 +216,8 @@ export default memo(({
           {commentIsShow
             && (
               <div className="comment bg-gray-100 mt-3 rounded">
-                <div className="write p-3">
-                  <div className="help flex">
-                    <div className="flex space-x-2">
-                      <button type="button" className="ui_text_black_hover">
-                        <IconMoodSmile size={20} />
-                      </button>
-                      <button type="button" className="ui_text_black_hover">
-                        <IconAt size={20} />
-                      </button>
-                      <button type="button" className="ui_text_black_hover">
-                        <IconHash size={20} />
-                      </button>
-                    </div>
-                    <button className="ml-auto border px-4 py-1 rounded-full hover:bg-gray-100" type="button">
-                      评论
-                    </button>
-                  </div>
+                <div className="p-3">
+                  <DomTextarea />
                 </div>
                 {hotComments.length > 0 && (
                   <>
@@ -237,15 +231,25 @@ export default memo(({
                     </div>
                   </>
                 )}
-                <div className="text-sm px-3 text-gray-500 font-bold">
-                  最新评论
-                  {`(${comments.length})`}
-                </div>
-                <div className="divide-y">
-                  {comments.slice(0, 10).map((comment) => (
-                    <DomComment key={comment.commentId} comment={comment} />
-                  ))}
-                </div>
+                {
+                  comments.length > 0 ? (
+                    <>
+                      <div className="text-sm px-3 text-gray-500 font-bold">
+                        最新评论
+                        {`(${comments.length})`}
+                      </div>
+                      <div className="divide-y">
+                        {comments.slice(0, 10).map((comment) => (
+                          <DomComment key={comment.commentId} comment={comment} />
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex-center py-10 text-gray-500">
+                      还没有评论哦，快来抢沙发~
+                    </div>
+                  )
+                }
               </div>
             )}
         </div>

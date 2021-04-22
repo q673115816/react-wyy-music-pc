@@ -242,7 +242,7 @@ export default () => {
               visibility
               && (
                 <div className="-translate-x-3 -translate-y-1/2 absolute faces right-full top-1/2 transform">
-                  <EmojiFaces {...{ setVisibility, clickface }} />
+                  <EmojiFaces {...{ handleHide: () => setVisibility(false), clickface }} />
                 </div>
               )
             }

@@ -9,83 +9,104 @@ import classNames from 'classnames';
 
 import { setTheme, setCustom } from '@/reducers/setting/actions';
 import './style.scss';
+// https://css-tricks.com/converting-color-spaces-in-javascript/
+function HSLToHex(h, s, l) {
+  s /= 100;
+  l /= 100;
 
-const RGBToHSL = (r, g, b) => {
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  const m = l - c / 2;
+  let r = 0;
+  let g = 0;
+  let b = 0;
+
+  if (h >= 0 && h < 60) {
+    r = c; g = x; b = 0;
+  } else if (h >= 60 && h < 120) {
+    r = x; g = c; b = 0;
+  } else if (h >= 120 && h < 180) {
+    r = 0; g = c; b = x;
+  } else if (h >= 180 && h < 240) {
+    r = 0; g = x; b = c;
+  } else if (h >= 240 && h < 300) {
+    r = x; g = 0; b = c;
+  } else if (h >= 300 && h < 360) {
+    r = c; g = 0; b = x;
+  }
+  // Having obtained RGB, convert channels to hex
+  r = Math.round((r + m) * 255).toString(16);
+  g = Math.round((g + m) * 255).toString(16);
+  b = Math.round((b + m) * 255).toString(16);
+
+  // Prepend 0s, if necessary
+  if (r.length == 1) { r = `0${r}`; }
+  if (g.length == 1) { g = `0${g}`; }
+  if (b.length == 1) { b = `0${b}`; }
+
+  return `#${r}${g}${b}`;
+}
+
+function hexToHSL(H) {
+  // Convert hex to RGB first
+  let r = 0; let g = 0; let
+    b = 0;
+  if (H.length == 4) {
+    r = `0x${H[1]}${H[1]}`;
+    g = `0x${H[2]}${H[2]}`;
+    b = `0x${H[3]}${H[3]}`;
+  } else if (H.length == 7) {
+    r = `0x${H[1]}${H[2]}`;
+    g = `0x${H[3]}${H[4]}`;
+    b = `0x${H[5]}${H[6]}`;
+  }
+  // Then to HSL
   r /= 255;
   g /= 255;
   b /= 255;
-  const l = Math.max(r, g, b);
-  const s = l - Math.min(r, g, b);
-  const h = s
-    ? l === r
-      ? (g - b) / s
-      : l === g
-        ? 2 + (b - r) / s
-        : 4 + (r - g) / s
-    : 0;
-  return [
-    60 * h < 0 ? 60 * h + 360 : 60 * h,
-    100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
-    (100 * (2 * l - s)) / 2,
-  ];
-};
+  const cmin = Math.min(r, g, b);
+  const cmax = Math.max(r, g, b);
+  const delta = cmax - cmin;
+  let h = 0;
+  let s = 0;
+  let l = 0;
 
-const hexToRGB = (hex) => {
-  // let alpha = false;
-  let h = hex.slice(hex.startsWith('#') ? 1 : 0);
-  // if (h.length === 3) h = [...h].map((x) => x + x).join('');
-  // else if (h.length === 8) alpha = true;
-  h = parseInt(h, 16);
-  return [
-    h >>> 16,
-    (h & 0x00ff00) >>> 8,
-    (h & 0x0000ff) >>> 0,
-  ];
-  return (
-    `rgb${alpha ? 'a' : ''
-    }(${h >>> (alpha ? 24 : 16)
-    }, ${(h & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8)
-    }, ${(h & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0)
-    }${alpha ? `, ${h & 0x000000ff}` : ''
-    })`
-  );
-};
+  if (delta == 0) { h = 0; } else if (cmax == r) { h = ((g - b) / delta) % 6; } else if (cmax == g) { h = (b - r) / delta + 2; } else { h = (r - g) / delta + 4; }
 
-const HSLToRGB = (h, s, l) => {
-  s /= 100;
-  l /= 100;
-  const k = (n) => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  return [255 * f(0), 255 * f(8), 255 * f(4)];
-};
+  h = Math.round(h * 60);
 
-const RGBToHex = (r, g, b) => ((r << 16) + (g << 8) + (b >> 0)).toString(16).padStart(6, '0');
+  if (h < 0) { h += 360; }
 
-const HexToHSL = (hex) => RGBToHSL(...hexToRGB(hex));
+  l = (cmax + cmin) / 2;
+  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  s = +(s * 100).toFixed(1);
+  l = +(l * 100).toFixed(1);
+  return [h, s, l];
+  // return "hsl(" + h + "," + s + "%," + l + "%)";
+}
 
 const themes = [
-  ['酷炫黑', '000000'],
-  ['官方红', 'EC4141'],
-  ['可爱粉', 'ffc0cb'],
-  ['天际蓝', '87ceeb'],
-  ['清新绿', '008000'],
-  ['土豪金', 'ffd700'],
+  ['酷炫黑', '#393D44'],
+  ['官方红', '#D03535'],
+  ['可爱粉', '#F95A92'],
+  ['天际蓝', '#5AB4F9'],
+  ['清新绿', '#38B277'],
+  ['土豪金', '#D18E35'],
 ];
 
 const colors = [
-  'ff69b4',
-  'ffb6c1',
-  'add8e6',
-  'f08080',
-  'e0ffff',
-  'd3d3d3',
-  '90ee90',
-  'ffa07a',
-  '20b2aa',
-  '87cefa',
-  '778899',
-  'b0c4de',
+  '#FF5C8A',
+  '#FF7A9E',
+  '#FE76C8',
+  '#717FF9',
+  '#4791EB',
+  '#39AFEA',
+  '#2BB669',
+  '#6ACC19',
+  '#E2AB12',
+  '#FF8F57',
+  '#FD726D',
+  '#FD544E',
 ];
 
 const DomCheck = () => (
@@ -98,11 +119,11 @@ export default memo(() => {
   const dispatch = useDispatch();
   const { theme, custom } = useSelector(({ setting }) => setting);
   const [current, setCurrent] = useState(0);
-  const [[h, s, l], setHSL] = useState(() => RGBToHSL(...hexToRGB(theme)));
+  const [[h, s, l], setHSL] = useState(() => hexToHSL(theme));
 
   // const memoHSL = useMemo(() => RGBToHSL(...hexToRGB(theme)), [theme]);
   useEffect(() => {
-    setHSL(RGBToHSL(...hexToRGB(theme)));
+    setHSL(hexToHSL(theme));
   }, [theme]);
   const handleSelectTheme = (theme) => {
     if (custom) dispatch(setCustom(false));
@@ -111,16 +132,12 @@ export default memo(() => {
 
   const handleRGB = (val) => {
     if (!custom) dispatch(setCustom(true));
-    const rgb = HSLToRGB(val, s, l);
-    const theme = RGBToHex(...rgb);
-    dispatch(setTheme(theme));
+    dispatch(setTheme(HSLToHex(val, s, l)));
   };
 
   const handleHSL = (val) => {
     if (!custom) dispatch(setCustom(true));
-    const rgb = HSLToRGB(h, s, val);
-    const theme = RGBToHex(...rgb);
-    dispatch(setTheme(theme));
+    dispatch(setTheme(HSLToHex(h, s, val)));
   };
 
   return (
@@ -150,7 +167,7 @@ export default memo(() => {
                 key={name}
                 type="button"
                 className="focus:outline-none skinbtn relative theme"
-                style={{ '--currentColor': `#${hex}` }}
+                style={{ '--currentColor': hex }}
               >
                 <span className="name absolute flex-center inset-x-0 bottom-0 bg-black bg-opacity-60 h-5 text-white">
                   {name}
@@ -174,7 +191,7 @@ export default memo(() => {
                   onClick={() => handleSelectTheme(hex)}
                   type="button"
                   className="focus:outline-none skinbtn relative color"
-                  style={{ '--currentColor': `#${hex}` }}
+                  style={{ '--currentColor': hex }}
                 >
                   {
                     (!custom && theme === hex)
@@ -214,10 +231,11 @@ export default memo(() => {
                 className="hsl"
                 type="range"
                 min="0"
-                max="100"
+                max="50"
                 step="1"
                 value={l}
                 onChange={(e) => handleHSL(e.target.value)}
+                style={{ '--h': h }}
               />
             </div>
           </div>
