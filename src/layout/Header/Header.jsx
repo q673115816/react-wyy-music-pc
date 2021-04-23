@@ -2,7 +2,7 @@ import React, {
   useEffect, memo,
   useState,
 } from 'react';
-import { createPortal } from 'react-dom';
+import DomHelpMask from '@/components/HelpMask';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -36,7 +36,7 @@ import DomSearch from './components/Search';
 import DomAccount from './components/Account';
 import DomControl from './components/Control';
 import DomFunction from './components/Function';
-import './style.scss'
+import './style.scss';
 
 export default memo(() => {
   const dispatch = useDispatch();
@@ -135,14 +135,7 @@ export default memo(() => {
       >
         { }
       </button>
-      {
-        globalDragger
-        && createPortal(<div
-          className="absolute inset-0"
-          onMouseMove={dragmove}
-          onMouseUp={dragup}
-        />, document.querySelector('#help-root'))
-      }
+      <DomHelpMask {...{ dragger: globalDragger, onMouseMove: dragmove, onMouseUp: dragup }} />
       <Link
         to="/"
         className="domHeader_logo tracking-widest text-white text-base z-10"

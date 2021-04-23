@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import DomHelpMask from '@/components/HelpMask';
 import { setDialogReset } from '@/reducers/mask/actions';
 import { setHomeOrder } from '@/reducers/setting/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,49 +16,48 @@ export default () => {
   const { dialogHomeOrderVisibility } = useSelector(({ mask }) => mask);
   const { homeOrder } = useSelector(({ setting }) => setting);
   const [tempHomeOrder, setTempHomeOrder] = useState(homeOrder);
-  const [droper, setDroper] = useState(false);
+  const [dragger, setDragger] = useState(false);
   const [curr, setCurr] = useState('');
   const [top, setTop] = useState(0);
   const [startY, setStartY] = useState();
   const DomList = useRef();
   const RefIndex = useRef();
   const handleDown = (e, curr, index) => {
-    setDroper(true);
+    setDragger(true);
     setCurr(curr);
     setStartY(e.clientY);
     RefIndex.current = index;
   };
 
   const handleMove = (e) => {
-    if (droper) {
-      const apart = e.clientY - startY;
-      const { current: index } = RefIndex;
-      if (index <= 0 && apart <= 0) return false;
-      if (index >= tempHomeOrder.length - 1 && apart >= 0) return false;
-      if (apart >= 48 * (3 / 4)) {
-        setStartY((prev) => prev + 48);
-        setTempHomeOrder(produce((draft) => {
-          [draft[index], draft[index + 1]] = [draft[index + 1], draft[index]];
-        }));
-        RefIndex.current += 1;
-        setTop(-48 * (1 / 4));
-        return false;
-      }
-      if (apart <= -48 * (3 / 4)) {
-        setStartY((prev) => prev - 48);
-        setTempHomeOrder(produce((draft) => {
-          [draft[index], draft[index - 1]] = [draft[index - 1], draft[index]];
-        }));
-        RefIndex.current -= 1;
-        setTop(48 * (1 / 4));
-        return false;
-      }
-      setTop(apart);
+    if (!dragger) return;
+    const apart = e.clientY - startY;
+    const { current: index } = RefIndex;
+    if (index <= 0 && apart <= 0) return false;
+    if (index >= tempHomeOrder.length - 1 && apart >= 0) return false;
+    if (apart >= 48 * (3 / 4)) {
+      setStartY((prev) => prev + 48);
+      setTempHomeOrder(produce((draft) => {
+        [draft[index], draft[index + 1]] = [draft[index + 1], draft[index]];
+      }));
+      RefIndex.current += 1;
+      setTop(-48 * (1 / 4));
+      return false;
     }
+    if (apart <= -48 * (3 / 4)) {
+      setStartY((prev) => prev - 48);
+      setTempHomeOrder(produce((draft) => {
+        [draft[index], draft[index - 1]] = [draft[index - 1], draft[index]];
+      }));
+      RefIndex.current -= 1;
+      setTop(48 * (1 / 4));
+      return false;
+    }
+    setTop(apart);
   };
 
   const handleUp = () => {
-    setDroper(false);
+    setDragger(false);
     setCurr('');
   };
 
@@ -96,16 +95,8 @@ export default () => {
               </div>
             ))
           }
-          {
-            droper
-            && createPortal(
-              <div
-                onMouseMove={handleMove}
-                onMouseUp={handleUp}
-                className="absolute inset-0 z-50"
-              />, document.getElementById('help-root'),
-            )
-          }
+          <DomHelpMask {...{ dragger, onMouseMove: handleMove, onMouseUp: handleUp }} />
+
         </div>
         <div className="flex-center py-4">
           <button

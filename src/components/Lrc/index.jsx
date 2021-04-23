@@ -4,7 +4,7 @@ import React, {
   useEffect,
   memo,
 } from 'react';
-import { createPortal } from 'react-dom';
+import DomHelpMask from '@/components/HelpMask';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   IconX,
@@ -76,19 +76,19 @@ export default memo(() => {
   } = useSelector(({ inset }) => inset);
   const { globalLrcVisibility } = useSelector(({ lrc }) => lrc);
   const { running } = useSelector(({ audio }) => audio);
-  const [dropper, setDropper] = useState(false);
+  const [dragger, setDragger] = useState(false);
   const [active, setActive] = useState(false);
   const [startInset, setStartInset] = useState({ x: 0, y: 0 });
   const [beforeInset, setBeforeInset] = useState({ x, y });
   const handleDropDown = (e) => {
-    setDropper(true);
+    setDragger(true);
     setStartInset({
       x: e.clientX,
       y: e.clientY,
     });
   };
   const handleDropMove = (e) => {
-    if (!dropper) return false;
+    if (!dragger) return false;
     const newx = beforeInset.x + e.clientX - startInset.x;
     const newy = beforeInset.y + e.clientY - startInset.y;
     return dispatch(setGlobalLrcInset({
@@ -97,7 +97,7 @@ export default memo(() => {
     }));
   };
   const handleDropUp = () => {
-    setDropper(false);
+    setDragger(false);
     setActive(true); //
     setBeforeInset({
       x, y,
@@ -106,18 +106,18 @@ export default memo(() => {
   if (!globalLrcVisibility) return null;
   return (
     <div
-      className={classNames('flex-center z-40 text-xl', !dropper ? 'fixed' : 'relative')}
-      style={{ width, height, ...(dropper ? { transform: `translate(${x}px, ${y}px)` } : { top: y, left: x }) }}
+      className={classNames('flex-center z-40 text-xl', !dragger ? 'fixed' : 'relative')}
+      style={{ width, height, ...(dragger ? { transform: `translate(${x}px, ${y}px)` } : { top: y, left: x }) }}
     >
       <div onMouseEnter={() => setActive(true)}>
         <DomLrc />
       </div>
       {
-        (active || dropper)
+        (active || dragger)
         && (
           <div
             onMouseLeave={() => setActive(false)}
-            className={`absolute w-full h-full bg-black bg-opacity-20 border border-gray-400 shadow pointer-events-${(active || dropper) ? 'auto' : 'none'}`}
+            className={`absolute w-full h-full bg-black bg-opacity-20 border border-gray-400 shadow pointer-events-${(active || dragger) ? 'auto' : 'none'}`}
           >
             <div className="w-full h-full" onMouseDown={handleDropDown} />
             <div className="absolute left-0 right-0 mx-auto flex items-center space-x-4 top-0 w-min z-10 text-white my-2">
@@ -144,14 +144,7 @@ export default memo(() => {
           </div>
         )
       }
-      {
-        dropper
-        && createPortal(<div
-          className="absolute inset-0 z-50"
-          onMouseMove={handleDropMove}
-          onMouseUp={handleDropUp}
-        />, document.querySelector('#help-root'))
-      }
+      <DomHelpMask {...{ dragger, onMouseMove: handleDropMove, onMouseUp: handleDropUp }} />
     </div>
   );
 });

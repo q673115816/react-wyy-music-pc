@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { createPortal } from 'react-dom';
+import DomHelpMask from '@/components/HelpMask';
 import dayjs from 'dayjs';
 import { VideoContext } from './index';
 import { actionSetJumpTime } from './reducer/actions';
@@ -109,16 +109,7 @@ export default () => {
         value={currentTime}
         className="absolute bottom-0 left-0 opacity-0 w-full"
       />
-      {
-        droper && createPortal(
-          <div
-            className="absolute inset-0"
-            onMouseMove={handleDropMove}
-            onMouseUp={handleDropUp}
-          />,
-          document.querySelector('#help-root'),
-        )
-      }
+      <DomHelpMask {...{ dragger: droper, onMouseMove: handleDropMove, onMouseUp: handleDropUp }} />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import React, { memo, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronDownRight } from '@tabler/icons';
 import { setGlobalRect } from '@/reducers/inset/actions';
+import DomHelpMask from '@/components/HelpMask';
 
 const MINWIDTH = 1022;
 const MINHEIGHT = 670;
@@ -55,13 +55,7 @@ export default memo(() => {
       onMouseDown={resizedown}
     >
       <IconChevronDownRight />
-      {
-        resizer && createPortal(<div
-          className="absolute inset-0"
-          onMouseMove={resizemove}
-          onMouseUp={resizeup}
-        />, document.getElementById('help-root'))
-      }
+      <DomHelpMask {...{ dragger: resizer, onMouseMove: resizemove, onMouseUp: resizeup }} />
     </div>
   );
 });

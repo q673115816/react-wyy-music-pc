@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import DomHelpMask from '@/components/HelpMask';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -13,7 +13,7 @@ import { computedPositionPercentage } from '@/common/utils';
 
 export default () => {
   const dispatch = useDispatch();
-  const [isDrop, setIsDrop] = useState(false);
+  const [dragger, setDragger] = useState(false);
   const {
     currentTime, currentSong, buffered, song,
   } = useSelector(({ audio }) => audio);
@@ -35,7 +35,7 @@ export default () => {
 
   const handleProcessStart = () => {
     dispatch(setAudioDropping({ dropping: true }));
-    setIsDrop(true);
+    setDragger(true);
   };
 
   const handleProcess = (e) => {
@@ -45,7 +45,7 @@ export default () => {
   const handleProcessEnd = (e) => {
     dispatch(setAudioDropping({ dropping: false }));
     dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
-    setIsDrop(false);
+    setDragger(false);
   };
 
   const handleClick = (e) => {
@@ -86,15 +86,7 @@ export default () => {
             { }
           </button>
         </div>
-        {isDrop
-          && createPortal(
-            <div
-              className="absolute inset-0"
-              onMouseMove={handleProcess}
-              onMouseUp={handleProcessEnd}
-            />, document.querySelector('#help-root'),
-          )}
-
+        <DomHelpMask {...{ dragger, onMouseMove: handleProcess, onMouseUp: handleProcessEnd }} />
       </div>
       <span className="text-gray-400">
         {currentSong.dt

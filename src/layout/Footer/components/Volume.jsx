@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useRef, useMemo,
+  useState, useEffect, useRef,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -7,8 +7,8 @@ import {
   IconVolume3,
 } from '@tabler/icons';
 import { setVolume, setBeforeMuted } from '@/reducers/volume/actions';
-import { createPortal } from 'react-dom';
 import { computedPositionPercentage } from '@/common/utils';
+import DomHelpMask from '@/components/HelpMask';
 
 export default () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export default () => {
   const RefProgress = useRef();
   const RefRatio = useRef();
   const [muted, setMuted] = useState(() => volume === 0);
-  const [droper, setDroper] = useState(false);
+  const [dragger, SetDragger] = useState(false);
   const currentVolume = muted ? 0 : volume;
   const [beforeDropVolume, setBeforeDropVolume] = useState(0);
   const [startX, setStartX] = useState(0);
@@ -44,7 +44,7 @@ export default () => {
   };
 
   const handleDropDown = ({ clientX }) => {
-    setDroper(true);
+    SetDragger(true);
     setBeforeDropVolume(volume);
     setStartX(clientX);
   };
@@ -56,7 +56,7 @@ export default () => {
   };
 
   const handleDropUp = () => {
-    setDroper(false);
+    SetDragger(false);
   };
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export default () => {
       >
         <div className="curr width-full h-full ui_theme_bg_color relative" style={{ width: `${currentVolume}%` }}>
           {
-            (droper || active)
+            (dragger || active)
           && (
           <button
             type="button"
@@ -108,11 +108,7 @@ export default () => {
           }
         </div>
       </div>
-      {droper && createPortal(<div
-        className="fixed inset-0"
-        onMouseMove={handleDropMove}
-        onMouseUp={handleDropUp}
-      />, document.querySelector('#help-root'))}
+      <DomHelpMask {...{ dragger, onMouseMove: handleDropMove, onMouseUp: handleDropUp }} />
     </div>
   );
 };
