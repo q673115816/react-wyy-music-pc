@@ -23,6 +23,7 @@ const cdn = {
     // `https:${cdnBase}/npm/swiper/swiper-bundle${minCdn}.js`,
     // `https:${cdnBase}/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
     `https:${cdnBase}/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
+    `https:${cdnBase}/npm/immer/dist/immer.umd.development${minCdn}.js`,
   ],
   css: [
     `https:${cdnBase}/npm/tailwindcss/dist/tailwind.min.css`,
@@ -179,6 +180,7 @@ module.exports = {
       'react-redux': 'ReactRedux',
       '@tabler/icons': 'tablerIcons',
       redux: 'Redux',
+      immer: 'immer',
       // swiper: /^swiper$/,
       // react: ['https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js', 'React'],
       // 'react-dom': ['https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js', 'ReactDOM'],

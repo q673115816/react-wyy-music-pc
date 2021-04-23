@@ -9,7 +9,7 @@ import {
 
 const defaultOrder = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
 
-const theme = LOCALSTORAGE('theme', 'EC4141');
+const theme = LOCALSTORAGE('theme', '#D03535');
 const custom = LOCALSTORAGE('custom', false);
 const font = LOCALSTORAGE('font', 'inherit');
 const homeOrder = LOCALSTORAGE('homeOrder', defaultOrder);
