@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import DomComment from './Comment';
 
-export default ({ comments = { }, more, type }) => (
+export default memo(({ comments = { }, more, type }) => (
   <div className="">
     {
       comments.hotComments?.length > 0
@@ -50,4 +50,4 @@ export default ({ comments = { }, more, type }) => (
     </div>
 
   </div>
-);
+));

@@ -5,6 +5,7 @@ import React, {
 import DomLeft from './components/Left';
 import DomCenter from './components/Center';
 import DomRight from './components/Right';
+import './style.scss';
 
 export default memo(() => (
   <div className="domfooter flex flex-none">

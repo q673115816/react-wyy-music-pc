@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { IconCircleCheck } from '@tabler/icons';
 import { setToast } from '@/reducers/mask/actions';
+import './style.scss';
 
 export default memo(() => {
   const { toastTitle } = useSelector(({ mask }) => mask);

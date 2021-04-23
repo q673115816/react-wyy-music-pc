@@ -228,6 +228,21 @@ module.exports = {
         }],
       },
       {
+        test: /\.worker\.(c|m)?js$/i,
+        use: [
+          {
+            loader: 'worker-loader',
+            // options: {
+            // esModule: false,
+            // filename: '[name].[contenthash].worker.js',
+            // },
+          },
+          // {
+          //   loader: 'babel-loader',
+          // },
+        ],
+      },
+      {
         test: /\.(png|jpg|gif|svg)$/,
         exclude: /(node_modules|bower_components)/,
         type: 'asset',

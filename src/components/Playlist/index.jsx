@@ -14,6 +14,7 @@ import { setAudioPlaylistClear, setAudioHistoryClear } from '@/reducers/audio/ac
 import { setPopupPlaylistToggle } from '@/reducers/mask/actions';
 import DomName from '@/components/Table/Name';
 import DomMenuCreate from '@/components/MenuCreate';
+import './style.scss';
 
 const Empty = () => {
   const dispatch = useDispatch();

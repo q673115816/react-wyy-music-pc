@@ -2,6 +2,7 @@ import React, { memo, Suspense } from 'react';
 import Router from '@/router';
 import DomLoading from '@/components/Loading';
 import DomNav from './Nav';
+import './style.scss';
 
 export default memo(() =>
   // console.log('main');

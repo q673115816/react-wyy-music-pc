@@ -28,7 +28,8 @@ import { setLoginVisibilty } from '@/reducers/common/actions';
 import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/actions';
 import { apiMVSub } from '@/api';
 import useCopyLink from '@/custom/useCopyLink';
-import DomMask from './Mask';
+import DomMask from '@/components/Mask';
+import './Contextmenu.scss';
 
 const initBuild = (functionClose) => ({
   评论: ({ contextMenuItem, contextMenuTotal, contextMenuType }) => (

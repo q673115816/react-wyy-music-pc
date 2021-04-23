@@ -69,7 +69,7 @@ export default memo(({ id }) => {
         {data.map((item) => (
           <DomComment
             item={item}
-            handleLike={handleLike}
+            // handleLike={handleLike}
             key={item.commentId}
           />
         ))}

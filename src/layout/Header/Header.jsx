@@ -36,6 +36,7 @@ import DomSearch from './components/Search';
 import DomAccount from './components/Account';
 import DomControl from './components/Control';
 import DomFunction from './components/Function';
+import './style.scss'
 
 export default memo(() => {
   const dispatch = useDispatch();

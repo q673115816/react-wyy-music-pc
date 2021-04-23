@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setMsgPrivateHistory } from '@/reducers/letter/actions';
 import DomList from './List';
 import DomMessage from './Message';
+import './style.scss';
 
 export default () => {
   const { showMsgPrivateHistory } = useSelector(({ letter }) => letter);
