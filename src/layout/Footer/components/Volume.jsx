@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useRef,
+  useState, useEffect, useRef, memo, useMemo,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,7 +10,7 @@ import { setVolume, setBeforeMuted } from '@/reducers/volume/actions';
 import { computedPositionPercentage } from '@/common/utils';
 import DomHelpMask from '@/components/HelpMask';
 
-export default () => {
+export default memo(() => {
   const dispatch = useDispatch();
   const { volume, beforeMuted } = useSelector(({ volume }) => volume);
   const RefProgress = useRef();
@@ -111,4 +111,4 @@ export default () => {
       <DomHelpMask {...{ dragger, onMouseMove: handleDropMove, onMouseUp: handleDropUp }} />
     </div>
   );
-};
+});
