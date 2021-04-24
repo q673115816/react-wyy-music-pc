@@ -4,6 +4,7 @@ import Slider from 'react-slick';
 
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
 import classNames from 'classnames';
+import './Swiper.scss';
 
 const PrevArrow = memo(({ onClick }) => (
   <button
@@ -31,9 +32,9 @@ export default memo(({ list = [], coverSrc = '' }) => {
     dots: true,
     infinite: true,
     centerMode: true,
-    adaptiveHeight: true,
+    // adaptiveHeight: true,
     draggable: false,
-    // autoplay: true,
+    autoplay: true,
     variableWidth: true,
     speed: 500,
     slidesToShow: 1,
@@ -48,7 +49,7 @@ export default memo(({ list = [], coverSrc = '' }) => {
         {
           list.map((item, index) => (
             <div
-              className="cover overflow-hidden flex"
+              className="cover overflow-hidden"
               key={item[coverSrc]}
               style={{
                 width: 540,
