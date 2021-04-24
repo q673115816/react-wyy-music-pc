@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { setLoginVisibilty } from '@/reducers/common/actions';
-import useIsLogin from '@/custom/useIsLogin';
+// import useIsLogin from '@/custom/useIsLogin';
 
 import DomNormal from './components/Normal';
 import DomPlay from './components/Play';
@@ -75,7 +75,8 @@ const DomAccountUnLogined = ({ }) => {
 export default memo(() => {
   console.log('ssetting');
 
-  const [isLogin] = useIsLogin();
+  // const [isLogin] = useIsLogin();
+  const { isLogin } = useSelector(({ common }) => common);
   const [active, setActive] = useState();
   const DomScroll = useRef();
 

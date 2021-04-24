@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DomResizer from '@/components/Resizer';
 import useMemoParmas from '@/custom/useMemoParams';
+import useIsLogin from '@/custom/useIsLogin';
 import DomLoading from '@/components/Loading';
 import DomHeader from './layout/Header';
 import DomMain from './layout/Main';
@@ -41,6 +42,7 @@ const HeaderSearch = lazy(() => import(/* webpackChunkName: "Components_HeaderSe
 
 export default memo(() => {
   useKeyActions();
+  useIsLogin();
   const {
     theme, font,
   } = useSelector(({ setting }) => setting);

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setContriesCodeList,
-  setIsLogin,
+  // setIsLogin,
   setMsgPrivate,
 
 } from '@/reducers/common/actions';
@@ -104,7 +104,7 @@ export default memo(() => {
           topicSublist,
           albumSublist,
         }));
-        dispatch(setIsLogin());
+        // dispatch(setIsLogin());
       }
     } catch (error) {
       console.log(error);
