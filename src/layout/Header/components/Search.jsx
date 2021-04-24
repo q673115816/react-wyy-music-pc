@@ -12,7 +12,7 @@ import {
   setSearchHot,
   setSearchSuggest,
 } from '@/reducers/search/actions';
-import { setSearchShow } from '@/reducers/mask/actions';
+import { setSearchShow, setDialogReset } from '@/reducers/mask/actions';
 import { useHistory } from 'react-router-dom';
 
 export default memo(() => {
@@ -50,9 +50,11 @@ export default memo(() => {
     dispatch(setSearchValue({ searchValue: e.target.value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (searchValue) {
       push(`/search/${searchValue}`);
+      dispatch(setDialogReset());// temp
     }
     return false;
   };
