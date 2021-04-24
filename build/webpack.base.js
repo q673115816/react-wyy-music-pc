@@ -21,6 +21,7 @@ const cdn = {
     `https:${cdnBase}/npm/redux/dist/redux${minCdn}.js`,
     `https:${cdnBase}/npm/react-redux/dist/react-redux${minCdn}.js`,
     // `https:${cdnBase}/npm/swiper/swiper-bundle${minCdn}.js`,
+    `https:${cdnBase}/npm/react-slick/dist/react-slick${minCdn}.js`,
     // `https:${cdnBase}/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
     `https:${cdnBase}/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
     `https:${cdnBase}/npm/immer/dist/immer.umd.development${minCdn}.js`,
@@ -28,6 +29,8 @@ const cdn = {
   css: [
     `https:${cdnBase}/npm/tailwindcss/dist/tailwind.min.css`,
     `https:${cdnBase}/npm/swiper/swiper-bundle.min.css`,
+    `https:${cdnBase}/npm/slick-carousel@1.8.1/slick/slick.min.css`,
+    `https:${cdnBase}/npm/slick-carousel/slick/slick-theme.min.css`,
   ],
 };
 
@@ -133,10 +136,14 @@ module.exports = {
         //   name: 'lodash',
         //   test: /[\\/]node_modules[\\/]_?lodash(.*)/,
         // },
-        swiper: {
-          name: 'swiper',
-          test: /[\\/]node_modules[\\/]_?swiper(.*)/,
-          // priority: -10,
+        // swiper: {
+        //   name: 'swiper',
+        //   test: /[\\/]node_modules[\\/]_?swiper(.*)/,
+        //   // priority: -10,
+        // },
+        'core-js': {
+          name: 'core-js',
+          test: /[\\/]node_modules[\\/]_?core-js(.*)/,
         },
         'qrcode.react': {
           name: 'qrcode',
@@ -181,6 +188,7 @@ module.exports = {
       '@tabler/icons': 'tablerIcons',
       redux: 'Redux',
       immer: 'immer',
+      'react-slick': 'Slider',
       // swiper: /^swiper$/,
       // react: ['https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js', 'React'],
       // 'react-dom': ['https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js', 'ReactDOM'],

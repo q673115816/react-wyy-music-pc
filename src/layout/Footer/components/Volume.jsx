@@ -14,24 +14,17 @@ export default memo(() => {
   const dispatch = useDispatch();
   const { volume, beforeMuted } = useSelector(({ volume }) => volume);
   const RefProgress = useRef();
-  const RefRatio = useRef();
   const [muted, setMuted] = useState(() => volume === 0);
   const [dragger, SetDragger] = useState(false);
-  const currentVolume = muted ? 0 : volume;
-  const [beforeDropVolume, setBeforeDropVolume] = useState(0);
-  const [startX, setStartX] = useState(0);
   const [active, setActive] = useState(false);
-  const handleVolume = (e) => {
-    dispatch(setVolume(e.target.value));
-    if (e.target.value === 0) {
-      dispatch(setBeforeMuted(10));
-    }
+
+  const computedPosition = (e) => {
+    const percentage = computedPositionPercentage(e, RefProgress.current);
+    return percentage * 100;
   };
 
   const handleClickSetVolume = (e) => {
-    const percentage = computedPositionPercentage(e, RefProgress.current);
-    dispatch(setVolume(percentage * 100));
-    // console.log(percentage);
+    dispatch(setVolume(computedPosition(e)));
   };
 
   const handleMutedChange = () => {
@@ -43,16 +36,12 @@ export default memo(() => {
     }
   };
 
-  const handleDropDown = ({ clientX }) => {
+  const handleDropDown = () => {
     SetDragger(true);
-    setBeforeDropVolume(volume);
-    setStartX(clientX);
   };
 
-  const handleDropMove = ({ clientX }) => {
-    const moveX = clientX - startX;
-    // console.log(moveX);
-    dispatch(setVolume(beforeDropVolume + moveX * RefRatio.current));
+  const handleDropMove = (e) => {
+    dispatch(setVolume(computedPosition(e)));
   };
 
   const handleDropUp = () => {
@@ -66,10 +55,6 @@ export default memo(() => {
       setMuted(false);
     }
   }, [volume]);
-
-  useEffect(() => {
-    RefRatio.current = 100 / RefProgress.current.clientWidth;
-  }, []);
 
   return (
     <div className="flex items-center space-x-2">
@@ -93,7 +78,7 @@ export default memo(() => {
         onMouseLeave={() => setActive(false)}
         className="volume_value w-14 h-1 bg-gray-200"
       >
-        <div className="curr width-full h-full ui_theme_bg_color relative" style={{ width: `${currentVolume}%` }}>
+        <div className="curr width-full h-full ui_theme_bg_color relative" style={{ width: `${volume}%` }}>
           {
             (dragger || active)
           && (

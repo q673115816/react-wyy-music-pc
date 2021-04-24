@@ -4,7 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Lazyload from 'react-lazyload';
 import { setHomeDj } from '@/reducers/home/actions';
-
+import Slider from 'react-slick';
+import {
+  IconChevronLeft,
+  IconChevronRight,
+  IconChartBar,
+} from '@tabler/icons';
 import {
   apiDjBanner,
   apiDjCatelist,
@@ -13,27 +18,10 @@ import {
   apiDjRadioHot,
 } from '@/api';
 import DomSwiper from '@/components/Swiper';
-
-// import Swiper core and required components
-import SwiperCore, {
-  Navigation, A11y,
-} from 'swiper';
 import DomLoading from '@/components/Loading';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import {
-  IconChartBar,
-} from '@tabler/icons';
 
 import './style.scss';
-// Import Swiper styles
-// import 'swiper/swiper.scss';
-// import 'swiper/components/navigation/navigation.scss';
-
-// install Swiper components
-SwiperCore.use([
-  Navigation,
-  A11y]);
+import classNames from 'classnames';
 
 const DomDjNormal = memo(({ item = {} }) => (
   <div className="item">
@@ -58,6 +46,72 @@ const DomDjNormal = memo(({ item = {} }) => (
     </div>
   </div>
 ));
+
+const PrevArrow = ({ onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="absolute right-full inset-y-0 z-10 w-8 h-8 flex-center text-gray-500 m-auto"
+  >
+    <IconChevronLeft size={30} stroke={1} />
+  </button>
+);
+
+const NextArrow = ({ onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="absolute left-full inset-y-0 z-10 w-8 h-8 flex-center text-gray-500 m-auto"
+  >
+    <IconChevronRight size={30} stroke={1} />
+  </button>
+);
+
+const DomCategary = ({ catelist = [] }) => {
+  const settings = {
+    speed: 500,
+    infinite: false,
+    slidesToShow: 8,
+    slidesToScroll: 8,
+    draggable: false,
+    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow />,
+  };
+  return (
+    <div className="domHome_dj_nav px-10 mt-9">
+      <Slider {...settings}>
+        <div className="item">
+          <Link to="/home/dj/toplist">
+            <div className="inner">
+              <div className="btn flex-center ui_themeColor">
+                <IconChartBar stroke={1} />
+              </div>
+              <div className="name text-gray-500 mt-2">
+                排行榜
+              </div>
+            </div>
+          </Link>
+        </div>
+        {
+          catelist.map((item) => (
+            <div className="item" key={item.id}>
+              <Link to={`/dj-category/${item.name}/${item.id}`}>
+                <div className="inner">
+                  <div className="btn flex-center ui_themeColor">
+                    <img className="w-8 h-8" src={item.pic56x56Url} alt="" />
+                  </div>
+                  <div className="name text-gray-500 mt-2">
+                    {item.name}
+                  </div>
+                </div>
+              </Link>
+            </div>
+          ))
+        }
+      </Slider>
+    </div>
+  );
+};
 
 const navs = [
   '创作翻唱',
@@ -148,46 +202,7 @@ export default memo(() => {
           }
         </div>
         <div className="domHome_item">
-          {catelist.length > 0
-            && (
-              <div className="domHome_dj_nav px-10 mt-2">
-                <Swiper
-                  navigation
-                  spaceBetween={40}
-                  slidesPerView="8"
-                  slidesPerGroup="8"
-                >
-                  <SwiperSlide className="item">
-                    <Link to="/home/dj/toplist">
-                      <div className="inner">
-                        <div className="btn flex-center ui_themeColor">
-                          <IconChartBar stroke={1} />
-                        </div>
-                        <div className="name text-gray-500 mt-2">
-                          排行榜
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                  {
-                    catelist.map((item) => (
-                      <SwiperSlide className="item" key={item.id}>
-                        <Link to={`/dj-category/${item.name}/${item.id}`}>
-                          <div className="inner">
-                            <div className="btn flex-center ui_themeColor">
-                              <img className="w-8 h-8" src={item.pic56x56Url} alt="" />
-                            </div>
-                            <div className="name text-gray-500 mt-2">
-                              {item.name}
-                            </div>
-                          </div>
-                        </Link>
-                      </SwiperSlide>
-                    ))
-                  }
-                </Swiper>
-              </div>
-            )}
+          <DomCategary catelist={catelist} />
         </div>
         <div className="domHome_item mt-8">
           <div className="domHome_linktitle h1">电台个性推荐</div>
