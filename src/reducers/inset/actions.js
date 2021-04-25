@@ -3,6 +3,7 @@ import {
   SET_GLOBAL_START_INSET,
   SET_GLOBAL_DRAGGER,
   SET_GLOBAL_RESIZER,
+  SET_GLOBAL_START_RECT_LOCK,
   SET_GLOBAL_START_RECT,
   SET_GLOBAL_RECT,
   SET_SCREEN_FULL,
@@ -31,6 +32,11 @@ export const setGlobalDragger = (payload) => ({
 
 export const setGlobalResizer = (payload) => ({
   type: SET_GLOBAL_RESIZER,
+  payload,
+});
+
+export const setGlobalStartRectLock = (payload) => ({
+  type: SET_GLOBAL_START_RECT_LOCK,
   payload,
 });
 

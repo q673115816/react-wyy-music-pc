@@ -5,6 +5,7 @@ import {
   SET_GLOBAL_START_INSET,
   SET_GLOBAL_DRAGGER,
   SET_GLOBAL_RESIZER,
+  SET_GLOBAL_START_RECT_LOCK,
   SET_GLOBAL_START_RECT,
   SET_GLOBAL_RECT,
   SET_SCREEN_FULL,
@@ -35,8 +36,9 @@ const initialState = {
   globalX,
   globalY,
 
-  globalStartWidth: globalWidth,
-  globalStartHeight: globalHeight,
+  GlobalRectLock: false,
+  globalStartRectX: 0,
+  globalStartRectY: 0,
   globalBeforeWidth: globalWidth,
   globalBeforeHeight: globalHeight,
   globalWidth,
@@ -79,23 +81,27 @@ export default produce((draft, action) => {
         draft.globalY = y;
       }
       break;
+    case SET_GLOBAL_START_RECT_LOCK:
+      draft.GlobalRectLock = true;
+      break;
     case SET_GLOBAL_START_RECT:
-      draft.globalStartWidth = action.payload.x;
-      draft.globalStartHeight = action.payload.y;
+      draft.globalStartRectX = action.payload.x;
+      draft.globalStartRectY = action.payload.y;
       draft.globalBeforeWidth = draft.globalWidth;
       draft.globalBeforeHeight = draft.globalHeight;
       break;
     case SET_GLOBAL_RECT:
       {
-        const x = action.payload.x - draft.globalStartWidth + draft.globalBeforeWidth;
-        const y = action.payload.y - draft.globalStartHeight + draft.globalBeforeHeight;
+        const width = action.payload.x - draft.globalStartRectX + draft.globalBeforeWidth;
+        const height = action.payload.y - draft.globalStartRectY + draft.globalBeforeHeight;
 
-        const nextwidth = x > MINWIDTH ? x : MINWIDTH;
-        const nextheight = y > MINHEIGHT ? y : MINHEIGHT;
+        const nextwidth = width > MINWIDTH ? width : MINWIDTH;
+        const nextheight = height > MINHEIGHT ? height : MINHEIGHT;
         window.localStorage.setItem('width', nextwidth);
         window.localStorage.setItem('height', nextheight);
         draft.globalWidth = nextwidth;
         draft.globalHeight = nextheight;
+        draft.GlobalRectLock = false;
       }
       break;
     case SET_SCREEN_FULL:

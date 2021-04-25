@@ -1,21 +1,28 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronDownRight } from '@tabler/icons';
-import { setGlobalRect, setGlobalStartRect, setGlobalResizer } from '@/reducers/inset/actions';
+import {
+  setGlobalRect, setGlobalStartRect, setGlobalResizer, setGlobalStartRectLock,
+} from '@/reducers/inset/actions';
 import { setDragInit } from '@/reducers/drag/actions';
 
 export default memo(() => {
   const dispatch = useDispatch();
   const {
-    SCREEN,
+    SCREEN, GlobalRectLock,
   } = useSelector(({ inset }) => inset);
 
   const resizemove = (e) => {
     e.preventDefault();
-    dispatch(setGlobalRect({
-      x: e.clientX,
-      y: e.clientY,
-    }));
+    if (GlobalRectLock) return;
+    dispatch(setGlobalStartRectLock());
+    requestAnimationFrame(() => {
+      // console.log('raf');
+      dispatch(setGlobalRect({
+        x: e.clientX,
+        y: e.clientY,
+      }));
+    });
   };
 
   const resizeup = () => {
