@@ -8,7 +8,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { apiSongUrl, apiLyric } from '@/api';
 import {
-  setSong,
   setAudioCurrentTime,
   setAudioBuffered,
   setAudioCurrent,
@@ -42,7 +41,6 @@ export default () => {
       });
       if (!data[0].url) console.log('无音乐地址');
       refAudio.current.src = data[0]?.url || `https://music.163.com/song/media/outer/url?id=${currentSong.id}.mp3`;
-      dispatch(setSong({ song: data[0] }));
       const lyric = await apiLyric({
         id: currentSong.id,
       });
@@ -58,8 +56,14 @@ export default () => {
     if (running) e.target.play();
   };
 
-  const handleProgress = (e) => {
-    const buffered = e.target.buffered.end(e.target.buffered.length - 1);
+  const handleProgress = ({ target }) => {
+    const buffered = [];
+    for (let i = 0; i < target.buffered.length; i += 1) {
+      const onebuffered = [target.buffered.start(i), target.buffered.end(i)];
+      buffered.push(onebuffered);
+      // console.log(onebuffered);
+    }
+    // const buffered = e.target.buffered.end(e.target.buffered.length - 1);
     dispatch(setAudioBuffered(buffered));
   };
 

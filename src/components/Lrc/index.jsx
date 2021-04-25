@@ -4,7 +4,6 @@ import React, {
   useEffect,
   memo,
 } from 'react';
-import DomHelpMask from '@/components/HelpMask';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   IconX,
@@ -14,7 +13,7 @@ import {
   IconPlayerSkipForward,
   IconMusic,
 } from '@tabler/icons';
-import { setGlobalLrcInset } from '@/reducers/inset/actions';
+import { setGlobalLrcInset, setGlobalLrcStartInset } from '@/reducers/inset/actions';
 import { setGlobalLrcHide, setLyricToggle } from '@/reducers/lrc/actions';
 import {
   setAudioRunningToggle,
@@ -22,6 +21,7 @@ import {
   setAudioNext,
 } from '@/reducers/audio/actions';
 import './style.scss';
+import { setDragInit } from '@/reducers/drag/actions';
 
 const DomLrcContent = memo(() => {
   const { currentTime } = useSelector(({ audio }) => audio);
@@ -78,31 +78,32 @@ export default memo(() => {
   const { running } = useSelector(({ audio }) => audio);
   const [dragger, setDragger] = useState(false);
   const [active, setActive] = useState(false);
-  const [startInset, setStartInset] = useState({ x: 0, y: 0 });
-  const [beforeInset, setBeforeInset] = useState({ x, y });
-  const handleDropDown = (e) => {
-    setDragger(true);
-    setStartInset({
+
+  const handleDropMove = (e) => {
+    e.preventDefault();
+    return dispatch(setGlobalLrcInset({
       x: e.clientX,
       y: e.clientY,
-    });
-  };
-  const handleDropMove = (e) => {
-    if (!dragger) return false;
-    const newx = beforeInset.x + e.clientX - startInset.x;
-    const newy = beforeInset.y + e.clientY - startInset.y;
-    return dispatch(setGlobalLrcInset({
-      globalLrcX: newx,
-      globalLrcY: newy,
     }));
   };
+
   const handleDropUp = () => {
     setDragger(false);
-    setActive(true); //
-    setBeforeInset({
-      x, y,
-    });
+    setActive(true);
   };
+
+  const handleDropDown = (e) => {
+    setDragger(true);
+    dispatch(setGlobalLrcStartInset({
+      x: e.clientX,
+      y: e.clientY,
+    }));
+    dispatch(setDragInit({
+      onMouseMove: handleDropMove,
+      onMouseUp: handleDropUp,
+    }));
+  };
+
   if (!globalLrcVisibility) return null;
   return (
     <div
@@ -144,7 +145,6 @@ export default memo(() => {
           </div>
         )
       }
-      <DomHelpMask {...{ dragger, onMouseMove: handleDropMove, onMouseUp: handleDropUp }} />
     </div>
   );
 });

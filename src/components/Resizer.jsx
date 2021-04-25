@@ -1,52 +1,39 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronDownRight } from '@tabler/icons';
-import { setGlobalRect } from '@/reducers/inset/actions';
-import DomHelpMask from '@/components/HelpMask';
-
-const MINWIDTH = 1022;
-const MINHEIGHT = 670;
+import { setGlobalRect, setGlobalStartRect, setGlobalResizer } from '@/reducers/inset/actions';
+import { setDragInit } from '@/reducers/drag/actions';
 
 export default memo(() => {
   const dispatch = useDispatch();
   const {
     SCREEN,
-    globalWidth,
-    globalHeight,
   } = useSelector(({ inset }) => inset);
-  const [resizer, setResizer] = useState(false);
-  const [resizeStartInset, setResizeStartInset] = useState({ x: 0, y: 0 });
-  const [resizeInitRect, setResizeInitRect] = useState({ width: globalWidth, height: globalHeight });
-  const [resizeRect, setResizeRect] = useState(resizeInitRect);
-  const resizedown = (e) => {
-    setResizer(true);
-    setResizeStartInset({
-      x: e.clientX,
-      y: e.clientY,
-    });
-  };
+
   const resizemove = (e) => {
     e.preventDefault();
-    if (resizer) {
-      const x = e.clientX - resizeStartInset.x + resizeInitRect.width;
-      const y = e.clientY - resizeStartInset.y + resizeInitRect.height;
+    dispatch(setGlobalRect({
+      x: e.clientX,
+      y: e.clientY,
+    }));
+  };
 
-      const nextwidth = x > MINWIDTH ? x : MINWIDTH;
-      const nextheight = y > MINHEIGHT ? y : MINHEIGHT;
-      setResizeRect({
-        width: nextwidth,
-        height: nextheight,
-      });
-      dispatch(setGlobalRect({
-        width: nextwidth,
-        height: nextheight,
-      }));
-    }
-  };
   const resizeup = () => {
-    setResizeInitRect(resizeRect);
-    setResizer(false);
+    // dispatch(setGlobalResizer(false));
   };
+
+  const resizedown = (e) => {
+    // dispatch(setGlobalResizer(true));
+    dispatch(setGlobalStartRect({
+      x: e.clientX,
+      y: e.clientY,
+    }));
+    dispatch(setDragInit({
+      onMouseMove: resizemove,
+      onMouseUp: resizeup,
+    }));
+  };
+
   if (SCREEN !== 'normal') return null;
   return (
     <div
@@ -55,7 +42,6 @@ export default memo(() => {
       onMouseDown={resizedown}
     >
       <IconChevronDownRight />
-      <DomHelpMask {...{ dragger: resizer, onMouseMove: resizemove, onMouseUp: resizeup }} />
     </div>
   );
 });

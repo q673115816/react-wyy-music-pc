@@ -1,5 +1,4 @@
 import {
-  SET_SONG,
   SET_AUDIO_IMMEDIATE,
   SET_AUDIO_IMMEDIATE_NEXT,
   SET_AUDIO_PLAYLIST,
@@ -22,11 +21,6 @@ import {
   SET_RUNERROR_ADD,
   SET_RUNERROR_DESC,
 } from './actionTypes';
-
-export const setSong = (payload) => ({
-  type: SET_SONG,
-  payload,
-});
 
 export const setAudioImmediate = (payload) => ({
   type: SET_AUDIO_IMMEDIATE,

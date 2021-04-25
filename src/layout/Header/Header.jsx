@@ -1,13 +1,11 @@
 import React, {
   useEffect, memo,
-  useState,
+  useCallback,
 } from 'react';
-import DomHelpMask from '@/components/HelpMask';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setContriesCodeList,
-  // setIsLogin,
   setMsgPrivate,
 
 } from '@/reducers/common/actions';
@@ -25,7 +23,8 @@ import {
   apiAlbumSublist,
   apiPlaylistMylike,
 } from '@/api';
-import { setGlobalInset, setGlobaDragger } from '@/reducers/inset/actions';
+import { setGlobalInset, setGlobalDragger, setGlobalStartInset } from '@/reducers/inset/actions';
+import { setDragInit } from '@/reducers/drag/actions';
 
 import {
   IconMicrophone,
@@ -41,34 +40,27 @@ import './style.scss';
 export default memo(() => {
   const dispatch = useDispatch();
 
-  const { globalX, globalY, globalDragger } = useSelector(({ inset }) => inset);
-  const [dragInset, setDragInset] = useState({ x: 0, y: 0 });
-  const [dragStartInset, setDragStartInset] = useState({ x: 0, y: 0 });
-  const [dragLastInset, setDragLastInset] = useState(() => ({ x: globalX, y: globalY }));
-  const dragdown = (e) => {
-    setDragStartInset({
+  const dragmove = (e) => {
+    dispatch(setGlobalInset({
       x: e.clientX,
       y: e.clientY,
-    });
-    dispatch(setGlobaDragger(true));
-  };
-
-  const dragmove = (e) => {
-    if (globalDragger) {
-      const x = e.clientX - dragStartInset.x + dragLastInset.x;
-      const y = e.clientY - dragStartInset.y + dragLastInset.y;
-      setDragInset({
-        x, y,
-      });
-      dispatch(setGlobalInset({
-        x, y,
-      }));
-    }
+    }));
   };
 
   const dragup = () => {
-    setDragLastInset(dragInset);
-    dispatch(setGlobaDragger(false));
+    dispatch(setGlobalDragger(false));
+  };
+
+  const dragdown = (e) => {
+    dispatch(setGlobalDragger(true));
+    dispatch(setGlobalStartInset({
+      x: e.clientX,
+      y: e.clientY,
+    }));
+    dispatch(setDragInit({
+      onMouseMove: dragmove,
+      onMouseUp: dragup,
+    }));
   };
 
   const handleGetCountriesCodeList = async () => {
@@ -135,7 +127,6 @@ export default memo(() => {
       >
         { }
       </button>
-      <DomHelpMask {...{ dragger: globalDragger, onMouseMove: dragmove, onMouseUp: dragup }} />
       <Link
         to="/"
         className="domHeader_logo tracking-widest text-white text-base z-10"

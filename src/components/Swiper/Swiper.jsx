@@ -1,5 +1,6 @@
-import React, { memo, PureComponent } from 'react';
-import { Link } from 'react-router-dom';
+import React, {
+  memo, PureComponent, useMemo, useState,
+} from 'react';
 import Slider from 'react-slick';
 
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons';
@@ -26,15 +27,25 @@ const NextArrow = memo(({ onClick }) => (
   </button>
 ));
 
+const DomMain = ({ item, coverSrc }) => (
+  <a href={item.url || 'javascript:;'} className="block">
+    <img src={item[coverSrc]} alt="" />
+    <div className={classNames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
+      {item.typeTitle}
+    </div>
+  </a>
+);
+
 export default memo(({ list = [], coverSrc = '' }) => {
+  const [curr, setCurr] = useState(0);
   const settings = {
-    className: 'slider variable-width',
+    // className: 'slider variable-width',
     dots: true,
     infinite: true,
     centerMode: true,
-    // adaptiveHeight: true,
+    adaptiveHeight: true,
     draggable: false,
-    autoplay: true,
+    // autoplay: true,
     variableWidth: true,
     speed: 500,
     slidesToShow: 1,
@@ -42,6 +53,7 @@ export default memo(({ list = [], coverSrc = '' }) => {
     pauseOnHover: true,
     prevArrow: <PrevArrow />,
     nextArrow: <NextArrow />,
+    beforeChange: (current, next) => setCurr(next),
   };
   return (
     <div className="ui_swiper group">
@@ -49,31 +61,13 @@ export default memo(({ list = [], coverSrc = '' }) => {
         {
           list.map((item, index) => (
             <div
-              className="cover overflow-hidden"
+              className="cover overflow-hidden border rounded-lg transition relative"
               key={item[coverSrc]}
               style={{
-                width: 540,
+                width: 1080 * 0.5,
               }}
             >
-              {
-                item.url
-                  ? (
-                    <a href={item.url}>
-                      <img src={item[coverSrc]} alt="" />
-                      <div className={classNames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
-                        {item.typeTitle}
-                      </div>
-                    </a>
-                  )
-                  : (
-                    <button type="button">
-                      <img src={item[coverSrc]} alt="" />
-                      <div className={classNames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
-                        {item.typeTitle}
-                      </div>
-                    </button>
-                  )
-              }
+              <DomMain item={item} coverSrc={coverSrc} />
             </div>
           ))
         }

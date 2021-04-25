@@ -1,12 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
-import DomHelpMask from '@/components/HelpMask';
 import dayjs from 'dayjs';
+import { setDragInit } from '@/reducers/drag/actions';
+import { useDispatch } from 'react-redux';
 import { VideoContext } from './index';
 import { actionSetJumpTime } from './reducer/actions';
 
 export default () => {
+  const dispatch = useDispatch();
   const [timeTips, setTimeTips] = useState(false);
-  const [droper, setDroper] = useState(false);
+  const [dragger, setDragger] = useState(false);
   const [mousePosition, setMousePosition] = useState(0);
   const [playerLengthRatio, setPlayerLengthRatio] = useState(0);
   const {
@@ -16,16 +18,20 @@ export default () => {
     videoDispatch,
   } = useContext(VideoContext);
 
-  const handleDropDown = () => {
-    setDroper(true);
-  };
-
   const handleDropMove = () => {
 
   };
 
   const handleDropUp = () => {
-    setDroper(false);
+    setDragger(false);
+  };
+
+  const handleDropDown = () => {
+    setDragger(true);
+    dispatch(setDragInit({
+      onMouseMove: handleDropMove,
+      onMouseUp: handleDropUp,
+    }));
   };
 
   const handleProgressEnter = (e) => {
@@ -37,7 +43,7 @@ export default () => {
     const { left, width } = target.getBoundingClientRect();
     // console.log((clientX - left) / width);
     setMousePosition((clientX - left) / width);
-    if (droper) {
+    if (dragger) {
       setPlayerLengthRatio((clientX - left) / width);
     }
   };
@@ -47,7 +53,7 @@ export default () => {
   };
 
   const handleProgressDropUp = () => {
-    setDroper(false);
+    setDragger(false);
   };
 
   const handleClick = ({ clientX, target }) => {
@@ -59,7 +65,7 @@ export default () => {
   };
 
   useEffect(() => {
-    if (!droper) {
+    if (!dragger) {
       setPlayerLengthRatio((currentTime / duration));
     }
   }, [currentTime]);
@@ -109,7 +115,6 @@ export default () => {
         value={currentTime}
         className="absolute bottom-0 left-0 opacity-0 w-full"
       />
-      <DomHelpMask {...{ dragger: droper, onMouseMove: handleDropMove, onMouseUp: handleDropUp }} />
     </div>
   );
 };

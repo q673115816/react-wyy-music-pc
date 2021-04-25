@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import DomHelpMask from '@/components/HelpMask';
 import { setDialogReset } from '@/reducers/mask/actions';
 import { setHomeOrder } from '@/reducers/setting/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +6,7 @@ import { IconBulb, IconMenu } from '@tabler/icons';
 import './style.scss';
 import classNames from 'classnames';
 import produce from 'immer';
+import { setDragInit } from '@/reducers/drag/actions';
 import HOCDialog from '../Dialog';
 
 const defaultOrder = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
@@ -22,12 +22,6 @@ export default () => {
   const [startY, setStartY] = useState();
   const DomList = useRef();
   const RefIndex = useRef();
-  const handleDown = (e, curr, index) => {
-    setDragger(true);
-    setCurr(curr);
-    setStartY(e.clientY);
-    RefIndex.current = index;
-  };
 
   const handleMove = (e) => {
     if (!dragger) return;
@@ -59,6 +53,17 @@ export default () => {
   const handleUp = () => {
     setDragger(false);
     setCurr('');
+  };
+
+  const handleDown = (e, curr, index) => {
+    setDragger(true);
+    setCurr(curr);
+    setStartY(e.clientY);
+    RefIndex.current = index;
+    dispatch(setDragInit({
+      onMouseMove: handleMove,
+      onMouseUp: handleUp,
+    }));
   };
 
   const handleReset = () => {
@@ -95,8 +100,6 @@ export default () => {
               </div>
             ))
           }
-          <DomHelpMask {...{ dragger, onMouseMove: handleMove, onMouseUp: handleUp }} />
-
         </div>
         <div className="flex-center py-4">
           <button

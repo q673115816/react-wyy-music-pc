@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import DomHelpMask from '@/components/HelpMask';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -10,6 +9,7 @@ import {
   setAudioPattern,
 } from '@/reducers/audio/actions';
 import { computedPositionPercentage } from '@/common/utils';
+import { setDragInit, setDragUnload } from '@/reducers/drag/actions';
 
 export default () => {
   const dispatch = useDispatch();
@@ -33,11 +33,6 @@ export default () => {
     return jump;
   };
 
-  const handleProcessStart = () => {
-    dispatch(setAudioDropping({ dropping: true }));
-    setDragger(true);
-  };
-
   const handleProcess = (e) => {
     dispatch(setAudioCurrentTime(computedPosition(e)));
   };
@@ -46,6 +41,16 @@ export default () => {
     dispatch(setAudioDropping({ dropping: false }));
     dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
     setDragger(false);
+    ;
+  };
+
+  const handleProcessStart = () => {
+    dispatch(setAudioDropping({ dropping: true }));
+    setDragger(true);
+    dispatch(setDragInit({
+      onMouseMove: handleProcess,
+      onMouseUp: handleProcessEnd,
+    }));
   };
 
   const handleClick = (e) => {
@@ -66,12 +71,22 @@ export default () => {
         ref={RefProgress}
       >
         <div
-          className="buffered absolute h-full"
-          style={{
-            left: 0,
-            right: currentSong.dt ? `${buffered / currentSong.dt * 1000 * 100}%` : 0,
-          }}
-        />
+          className="absolute inset-0"
+          alt="缓存"
+        >
+          {
+            currentSong.dt && buffered.map(([start, end]) => (
+              <div
+                key={`${start}-${end}`}
+                className="absolute inset-y-0 bg-gray-400"
+                style={{
+                  left: `${(start / (currentSong.dt / 1000)) * 100}%`,
+                  right: `${(1 - (end / (currentSong.dt / 1000))) * 100}%`,
+                }}
+              />
+            ))
+          }
+        </div>
         <div
           className="played relative h-full ui_theme_bg_color"
           style={{
@@ -86,7 +101,6 @@ export default () => {
             { }
           </button>
         </div>
-        <DomHelpMask {...{ dragger, onMouseMove: handleProcess, onMouseUp: handleProcessEnd }} />
       </div>
       <span className="text-gray-400">
         {currentSong.dt

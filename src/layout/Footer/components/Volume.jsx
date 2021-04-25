@@ -8,7 +8,7 @@ import {
 } from '@tabler/icons';
 import { setVolume, setBeforeMuted } from '@/reducers/volume/actions';
 import { computedPositionPercentage } from '@/common/utils';
-import DomHelpMask from '@/components/HelpMask';
+import { setDragInit, setDragUnload } from '@/reducers/drag/actions';
 
 export default memo(() => {
   const dispatch = useDispatch();
@@ -36,16 +36,21 @@ export default memo(() => {
     }
   };
 
-  const handleDropDown = () => {
-    SetDragger(true);
-  };
-
   const handleDropMove = (e) => {
     dispatch(setVolume(computedPosition(e)));
   };
 
   const handleDropUp = () => {
     SetDragger(false);
+    ;
+  };
+
+  const handleDropDown = () => {
+    SetDragger(true);
+    dispatch(setDragInit({
+      onMouseMove: handleDropMove,
+      onMouseUp: handleDropUp,
+    }));
   };
 
   useEffect(() => {
@@ -93,7 +98,6 @@ export default memo(() => {
           }
         </div>
       </div>
-      <DomHelpMask {...{ dragger, onMouseMove: handleDropMove, onMouseUp: handleDropUp }} />
     </div>
   );
 });

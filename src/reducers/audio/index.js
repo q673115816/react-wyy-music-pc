@@ -3,7 +3,6 @@ import { LOCALSTORAGE } from '@/common/utils';
 import { audioPattern } from '@/common/config';
 import produce from 'immer';
 import {
-  SET_SONG,
   SET_AUDIO_IMMEDIATE,
   SET_AUDIO_IMMEDIATE_NEXT,
   SET_AUDIO_PLAYLIST,
@@ -28,7 +27,6 @@ import {
 
 const resetState = {
   errorCount: 0,
-  song: {},
   running: false,
   dropping: false,
   currentSong: {},
@@ -36,7 +34,7 @@ const resetState = {
   history: [],
   currentTime: 0,
   jumpTime: null,
-  buffered: 0,
+  buffered: [],
   lyric: {},
   lrcList: [],
 };
@@ -54,7 +52,7 @@ const initialState = {
 const FnChange = (draft) => {
   window.localStorage.setItem('currentTime', 0);
   draft.currentTime = 0;
-  draft.buffered = 0;
+  draft.buffered = [];
   draft.running = true;
 };
 
@@ -88,9 +86,6 @@ function FnImmediate(draft, currentSong) {
 
 export default produce((draft, action) => {
   switch (action.type) {
-    case SET_SONG:
-      draft.song = action.payload.song;
-      break;
     case SET_AUDIO_IMMEDIATE:
       {
         const { currentSong } = action.payload;
