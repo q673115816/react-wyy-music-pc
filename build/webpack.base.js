@@ -145,6 +145,10 @@ module.exports = {
           name: 'core-js',
           test: /[\\/]node_modules[\\/]_?core-js(.*)/,
         },
+        dayjs: {
+          name: 'dayjs',
+          test: /[\\/]node_modules[\\/]_?dayjs(.*)/,
+        },
         'qrcode.react': {
           name: 'qrcode',
           test: /[\\/]node_modules[\\/]_?qrcode.react(.*)/,

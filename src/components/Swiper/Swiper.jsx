@@ -28,7 +28,7 @@ const NextArrow = memo(({ onClick }) => (
 ));
 
 const DomMain = ({ item, coverSrc }) => (
-  <a href={item.url || 'javascript:;'} className="block">
+  <a {...{ ...(item.url ? { href: item.url } : { onClick: (e) => e.preventDefault(), href: '#' }) }} className="block">
     <img src={item[coverSrc]} alt="" />
     <div className={classNames('typeTitle px-3 py-2', item.titleColor === 'blue' ? 'bg-blue-500' : 'bg-red-600')}>
       {item.typeTitle}
