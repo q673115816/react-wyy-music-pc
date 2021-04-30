@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  IconArrowsDiagonal,
-  IconArrowsDoubleNeSw,
-  IconHeart,
+  IconChevronUp,
+  IconChevronDown,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiSongUrl, apiLyric } from '@/api';
@@ -31,6 +30,7 @@ export default () => {
     errorCount,
   } = useSelector(({ audio }) => audio);
   const { volume } = useSelector(({ volume }) => volume);
+  const { lyricVisibility } = useSelector(({ lrc }) => lrc);
   const RefDropping = useRef();
   const refAudio = useRef();
 
@@ -155,8 +155,11 @@ export default () => {
               <img src={currentSong.al.picUrl} className="w-full h-full object-cover" alt="" />
               <div className="absolute opacity-0 inset-0 flex-center bg-black group-hover:opacity-60" />
               <div className="absolute opacity-0 inset-0 flex-center group-hover:opacity-100 text-white">
-                <IconArrowsDiagonal size={24} />
-                <IconArrowsDoubleNeSw size={24} />
+                {
+                  lyricVisibility
+                    ? <IconChevronDown size={24} />
+                    : <IconChevronUp size={24} />
+                }
               </div>
             </button>
             <div className="domfooter_left_info pl-3 w-44">

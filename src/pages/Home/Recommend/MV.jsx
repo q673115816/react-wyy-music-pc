@@ -18,7 +18,7 @@ export default memo(({ mv = [] }) => (
             ]}
           >
             <div className="cover border relative overflow-hidden group rounded">
-              <Link to={`/player/mv/${item.id}`}>
+              <Link to={`/player/mv/${item.id}`} className="ui_aspect-ratio-16/9">
                 <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
                 <div className="copywriter absolute top-0 left-0 right-0 bg-black bg-opacity-40 px-2 py-3 text-white transiton delay-200 duration-100 ease-in">
                   {item.copywriter}

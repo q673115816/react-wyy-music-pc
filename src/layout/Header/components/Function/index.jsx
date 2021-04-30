@@ -40,7 +40,7 @@ const DomLetterBtn = memo(() => {
       title="私信"
     >
       <IconMail size={24} />
-      <span className="absolute -right-3 -top-0.5 bg-white ui_themeColor rounded-full px-1">
+      <span className="absolute -right-3 -top-0.5 bg-white ui_themeColor leading-none rounded-xl px-1">
         {newMsgCount}
       </span>
     </button>
@@ -49,6 +49,7 @@ const DomLetterBtn = memo(() => {
 
 export default memo(() => (
   <div className="domHeader_function flex space-x-3 relative h-full items-center">
+    <DomSkinBtn />
     <Link
       to="/settings"
       className="relative text-white text-opacity-90 hover:text-opacity-100 "
@@ -56,7 +57,6 @@ export default memo(() => (
     >
       <IconSettings size={24} />
     </Link>
-    <DomSkinBtn />
     <DomLetterBtn />
   </div>
 ));

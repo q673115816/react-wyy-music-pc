@@ -4,9 +4,6 @@
 }
 
 #record {
-  width: 324px;
-  height: 324px;
-  padding: 50px;
   background-color: #15161f;
   background-image: repeating-radial-gradient(rgba(100, 100, 100, 0.1) 0,
       rgba(100, 100, 100, 0.2) 1%, transparent 1%, transparent 2.5%);
@@ -17,28 +14,11 @@
   }
 }
 
-#stylus {
-}
-
 @keyframes rollup {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
-  }
-}
-
-.lrc {
-  &_inner {
-    width: 860px;
-  }
-
-  &_header {
-    .left {}
-
-    .right {
-      width: 390px;
-    }
   }
 }
