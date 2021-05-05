@@ -18,6 +18,6 @@ ReactDOM.render(
 
 ReactDOM.render(<Issues />, document.getElementById('comment-root'));
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }

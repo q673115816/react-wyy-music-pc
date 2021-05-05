@@ -9,6 +9,7 @@ module.exports = {
         "corejs": "3", // 声明corejs版本
       }
     ],
+    '@babel/preset-typescript',
     '@babel/preset-react',
   ],
   plugins: [

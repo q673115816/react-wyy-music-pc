@@ -92,7 +92,7 @@ const plugins = [
 
 module.exports = {
   target: 'web',
-  entry: path.join(src, 'index.jsx'),
+  entry: path.join(src, 'index.tsx'),
   // entry: {
   // index: path.join(src, 'index.jsx'),
   // vendor: [
@@ -175,6 +175,8 @@ module.exports = {
       '@img': img,
     },
     extensions: [
+      '.tsx',
+      '.ts',
       '.jsx',
       '.js',
     ],
