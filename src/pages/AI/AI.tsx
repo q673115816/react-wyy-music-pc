@@ -6,14 +6,16 @@ import './style.scss';
 import { useDispatch } from 'react-redux';
 import { setToast } from '@/reducers/mask/actions';
 
-const DomWait = ({ handleReject }) => {
+type IProps = { handleCallback: () => void }
+
+const DomWait = ({ handleCallback }: IProps) => {
   const [time, setTime] = useState(15);
   useEffect(() => {
     const id = setTimeout(() => {
       if (time > 1) {
         setTime(time - 1);
       } else {
-        handleReject();
+        handleCallback();
       }
     }, 1000);
     return () => {
@@ -38,7 +40,7 @@ const DomWait = ({ handleReject }) => {
       <button
         type="button"
         className="mt-4 text-base hover:bg-gray-100 rounded border h-10 w-28"
-        onClick={handleReject}
+        onClick={handleCallback}
       >
         停止识别
       </button>
@@ -46,7 +48,7 @@ const DomWait = ({ handleReject }) => {
   );
 };
 
-const DomRejected = ({ handleWait }) => {
+const DomRejected = ({ handleCallback }: IProps) => {
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col items-center">
@@ -70,7 +72,7 @@ const DomRejected = ({ handleWait }) => {
       <button
         type="button"
         className="text-sm ui_theme_bg_color text-white py-2 px-6 rounded mt-4"
-        onClick={handleWait}
+        onClick={handleCallback}
       >
         重新识别
       </button>
@@ -107,8 +109,8 @@ export default memo(() => {
       <div className="flex-auto domAi_main flex items-center justify-center">
         {
           listen
-            ? <DomWait handleReject={() => setListen(false)} />
-            : <DomRejected handleWait={() => setListen(true)} />
+            ? <DomWait handleCallback={() => setListen(false)} />
+            : <DomRejected handleCallback={() => setListen(true)} />
         }
       </div>
     </div>

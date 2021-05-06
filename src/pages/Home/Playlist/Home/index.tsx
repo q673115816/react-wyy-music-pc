@@ -22,6 +22,7 @@ import DomHeaderBar from './components/HeaderBar';
 
 export default memo(({ cat = '全部歌单', page = 1 }) => {
   // console.log('playlist');
+  page = Number(page)
   const { push } = useHistory();
   const [order, setOrder] = useState('hot');// new , default = hot
   // const [offer, setOffer] = useState(0);

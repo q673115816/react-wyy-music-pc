@@ -1,5 +1,6 @@
-import React, { lazy, memo } from 'react';
+import { lazy, memo, FunctionComponent } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import useMemoParams from '@/custom/useMemoParams'
 
 const Setting = lazy(() => import(/* webpackChunkName: "Setting" */'@/pages/Setting'));
 const Home = lazy(() => import(/* webpackChunkName: "Home" */'@/pages/Home'));
@@ -24,9 +25,11 @@ const User = lazy(() => import(/* webpackChunkName: "User" */'@/pages/User'));
 const Sublist = lazy(() => import(/* webpackChunkName: "Sublist" */'@/pages/Sublist'));
 const Artist = lazy(() => import(/* webpackChunkName: "Artist" */'@/pages/Artist'));
 const Search = lazy(() => import(/* webpackChunkName: "Search" */'@/pages/Search'));
-const Ai = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/Ai'));
+const AI = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/AI'));
 
-const router = [
+type routerProps = [string, FunctionComponent][]
+
+const router: routerProps = [
   ['/home', Home],
   ['/exclusive', Exclusive],
   ['/dailysong', DailySong],
@@ -51,7 +54,7 @@ const router = [
   ['/search/:keywords/:type', Search],
   ['/search/:keywords', Search],
   ['/settings', Setting],
-  ['/ai', Ai],
+  ['/ai', AI],
 ];
 
 export default memo(() => (
@@ -59,10 +62,7 @@ export default memo(() => (
     {
       router.map(([path, Component]) => (
         <Route path={path} key={path}>
-          {
-            ({ match: { params } }) => <Component {...params} />
-          }
-
+          {useMemoParams(Component)}
         </Route>
       ))
     }

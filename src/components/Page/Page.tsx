@@ -1,6 +1,12 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 import classNames from 'classnames';
+
+type pageProps = {
+  total: number
+  page: number
+  func: (nextPage: number) => void
+}
 
 const DomCenter = ({ page, total, func }) => (
   <>
@@ -75,14 +81,15 @@ const DomRight = ({ page, total, func }) => (
   </>
 );
 
-const DomPosition = ({ page, total, func }) => {
+const DomPosition = (props: pageProps) => {
+  const { page, total, func } = props
   switch (true) {
     case (page > 5 && page < total - 4):
-      return <DomCenter {...{ page, total, func }} />;
+      return <DomCenter {...props} />;
     case (page < total - 4 && total > 9):
-      return <DomLeft {...{ page, total, func }} />;
+      return <DomLeft {...props} />;
     case (page > 5 && total > 9):
-      return <DomRight {...{ page, total, func }} />;
+      return <DomRight {...props} />;
     default:
       return (
         <DomList {...{
@@ -95,10 +102,7 @@ const DomPosition = ({ page, total, func }) => {
 
 export default memo(({
   total, page, func,
-}) => {
-  if (!total || !page || !func) return null;
-  page = Number(page);
-  total = Number(total);
+}: pageProps) => {
   if (total === 1) return null;
   return (
     <div className="flex items-center justify-center pt-10 pb-10 space-x-1 flex-wrap">
