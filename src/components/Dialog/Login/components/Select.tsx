@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, {memo, useContext, useState} from 'react';
 import classNames from 'classnames';
 import { IconCaretDown, IconDeviceMobile } from '@tabler/icons';
 import { useSelector } from 'react-redux';
 import { LoginContext } from '../index';
 
-export default () => {
+export default memo(() => {
   const { countriesCodeList } = useSelector(({ common }) => common);
   const {
     loginReducer: {
@@ -14,10 +14,10 @@ export default () => {
   } = useContext(LoginContext);
 
   const [visibility, setVisibility] = useState(false);
-  const handleChoose = (code) => {
+  const handleChoose = (countrycode) => {
     loginDispatch({
       type: 'SET_SIGNIN_COUNTRYCODE',
-      payload: { countrycode: code },
+      payload: { countrycode },
     });
   };
   return (
@@ -41,21 +41,20 @@ export default () => {
               <button
                 key={item.zh}
                 type="button"
-                className={classNames('customOption', { on: item.code === countrycode })}
+                className={classNames('customOption flex w-full px-3 h-6', { on: item.code === countrycode })}
                 onClick={() => handleChoose(item.code)}
               >
-                <span className="flag">
+                <div className="flag w-8">
                   { }
-                </span>
-                <span className="zh">{item.zh}</span>
-                <span className="code">
-                  +
-                  {item.code}
-                </span>
+                </div>
+                <div className="zh">{item.zh}</div>
+                <div className="code ml-auto">
+                  {`+${item.code}`}
+                </div>
               </button>
             )))
         }
       </div>
     </div>
   );
-};
+});

@@ -129,7 +129,7 @@ export default memo(() => {
       </button>
       <Link
         to="/"
-        className="domHeader_logo tracking-widest text-white text-base z-10"
+        className="domHeader_logo tracking-widest text-white text-lg z-10"
         style={{ width: 210 }}
       >
         网易云音乐

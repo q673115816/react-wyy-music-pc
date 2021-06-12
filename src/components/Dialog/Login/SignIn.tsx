@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, {memo, useContext, useRef, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -11,17 +11,14 @@ import {
   IconEye,
   IconEyeOff,
 } from '@tabler/icons';
-import {
-  SymbolWX,
-  SymbolQQ,
-  SymbolWB,
-  SymbolWY,
-} from '@/components/Symbol';
+
 import DomCheck from '@/components/Checkbox';
 import { LoginContext } from './index';
 import DomSelect from './components/Select';
+import DomThrees from './components/Threes';
+import DomSubmitBtn from './components/SubmitBtn'
 
-export default () => {
+export default memo(() => {
   const {
     loginReducer: {
       argeeArgument,
@@ -119,7 +116,7 @@ export default () => {
   };
 
   return (
-    <div className="form">
+    <div className="form px-10">
       <div className="angle absolute top-0 left-0">
         <button
           type="button"
@@ -127,9 +124,9 @@ export default () => {
         >
           <IconQrcode size={36} />
         </button>
-        <span className="tips">扫码登录更安全</span>
+        <span className="absolute top-3 left-12 pr-3 pl-4 py-1.5 tips text-white whitespace-nowrap bg-gray-400">扫码登录更安全</span>
       </div>
-      <div style={{ height: 200, color: 'var(--themeColor)' }} className="flex-center">
+      <div style={{ height: 200 }} className="flex-center ui_themeColor">
         <IconFaceId size={100} stroke={1} />
       </div>
       <form onSubmit={handleSubmit} autoComplete="off">
@@ -209,25 +206,12 @@ export default () => {
           <button type="submit" className="submit">登&nbsp;录</button>
           <button
             type="button"
-            className="signup"
+            className="signup underline my-2 mx-auto text-sm block w-min whitespace-nowrap"
             onClick={handleToSignUp}
           >
             注册
           </button>
-          <div className="threes flex justify-between">
-            <button type="button" className="three">
-              <SymbolWX hover />
-            </button>
-            <button type="button" className="three">
-              <SymbolQQ hover />
-            </button>
-            <button type="button" className="three">
-              <SymbolWB hover />
-            </button>
-            <button type="button" className="three">
-              <SymbolWY hover />
-            </button>
-          </div>
+          <DomThrees/>
         </div>
         <label htmlFor="argument" className="argument flex items-center whitespace-nowrap mt-9">
           <DomCheck
@@ -269,4 +253,4 @@ export default () => {
       </form>
     </div>
   );
-};
+});

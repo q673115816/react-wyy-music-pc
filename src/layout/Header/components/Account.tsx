@@ -18,7 +18,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import DomLoading from '@/components/Loading';
 
-const DomProfile = ({ setVisibliity }) => {
+const DomProfile = ({ setVisibility }) => {
   const [loading, setLoading] = useState(true);
   const { profile } = useSelector(({ account }) => account);
   const { isLogin } = useSelector(({ common }) => common);
@@ -64,7 +64,7 @@ const DomProfile = ({ setVisibliity }) => {
               <li className="detail item flex-auto">
                 <div className="infos flex">
                   <Link
-                    onClick={() => setVisibliity(false)}
+                    onClick={() => setVisibility(false)}
                     to={`/user/${profile.userId}/dynamic`}
                     className="info flex-1 text-center"
                   >
@@ -72,7 +72,7 @@ const DomProfile = ({ setVisibliity }) => {
                     <div className="string">动态</div>
                   </Link>
                   <Link
-                    onClick={() => setVisibliity(false)}
+                    onClick={() => setVisibility(false)}
                     to={`/user/${profile.userId}/follow`}
                     className="info flex-1 text-center"
                   >
@@ -80,7 +80,7 @@ const DomProfile = ({ setVisibliity }) => {
                     <div className="string">关注</div>
                   </Link>
                   <Link
-                    onClick={() => setVisibliity(false)}
+                    onClick={() => setVisibility(false)}
                     to={`/user/${profile.userId}/fans`}
                     className="info flex-1 text-center"
                   >
@@ -102,7 +102,7 @@ const DomProfile = ({ setVisibliity }) => {
               </li>
               <li className="item">
                 <button
-                  onClick={() => setVisibliity(false)}
+                  onClick={() => setVisibility(false)}
                   type="button"
                   className="link flex items-center"
                 >
@@ -112,7 +112,7 @@ const DomProfile = ({ setVisibliity }) => {
                   会员中心
                 </button>
                 <a
-                  onClick={() => setVisibliity(false)}
+                  onClick={() => setVisibility(false)}
                   href="https://music.163.com/#/user/level"
                   className="link flex items-center"
                 >
@@ -122,7 +122,7 @@ const DomProfile = ({ setVisibliity }) => {
                   等级
                 </a>
                 <a
-                  onClick={() => setVisibliity(false)}
+                  onClick={() => setVisibility(false)}
                   href="https://music.163.com/store/product"
                   className="link flex items-center"
                 >
@@ -134,7 +134,7 @@ const DomProfile = ({ setVisibliity }) => {
               </li>
               <li className="item">
                 <Link
-                  onClick={() => setVisibliity(false)}
+                  onClick={() => setVisibility(false)}
                   to={`/user/${profile.userId}/edit`}
                   className="link flex items-center"
                 >
@@ -144,7 +144,7 @@ const DomProfile = ({ setVisibliity }) => {
                   个人信息设置
                 </Link>
                 <Link
-                  onClick={() => setVisibliity(false)}
+                  onClick={() => setVisibility(false)}
                   to={`/user/${profile.userId}/binding`}
                   className="link flex items-center"
                 >
@@ -178,7 +178,7 @@ export default memo(() => {
   const dispatch = useDispatch();
   const { isLogin } = useSelector(({ common }) => common);
   const { profile } = useSelector(({ account }) => account);
-  const [visibility, setVisibliity] = useState(false);
+  const [visibility, setVisibility] = useState(false);
   const handleShowLogin = () => {
     dispatch(setLoginVisibilty());
   };
@@ -193,13 +193,13 @@ export default memo(() => {
             <button
               type="button"
               className="flex items-center z-10 text-white text-opacity-90 hover:text-opacity-100"
-              onClick={() => setVisibliity(!visibility)}
+              onClick={() => setVisibility(!visibility)}
             >
               <span>{profile.nickname}</span>
               <IconCaretDown size={12} className="fill-current" />
             </button>
             {
-              visibility && <DomProfile setVisibliity={setVisibliity} />
+              visibility && <DomProfile setVisibility={setVisibility} />
             }
           </div>
         )

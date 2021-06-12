@@ -70,7 +70,7 @@ export default () => {
   return (
     <div
       id="dialogLogin"
-      className="ui_dialog bg-white shadow rounded"
+      className="-translate-x-1/2 -translate-y-1/2 bg-white fixed left-1/2 rounded shadow top-1/2 transform ui_dialog"
     >
       <button
         type="button"

@@ -1,15 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, {memo, useContext, useState} from 'react';
 import { IconFaceId, IconDeviceMobile } from '@tabler/icons';
-import {
-  SymbolWX,
-  SymbolQQ,
-  SymbolWB,
-  SymbolWY,
-} from '@/components/Symbol';
 import DomSelect from './components/Select';
+import DomThrees from './components/Threes';
+
 import { LoginContext } from './index';
 
-export default () => {
+export default memo(() => {
   const [warn, setWarn] = useState('');
   const {
     loginReducer: {
@@ -37,7 +33,7 @@ export default () => {
   };
 
   return (
-    <div className="form">
+    <div className="form px-10">
       <div className="angle absolute top-0 left-0">
         <button
           className="mt-2.5"
@@ -103,26 +99,9 @@ export default () => {
         <div className="actions">
           <button type="submit" className="submit">注册</button>
           <div className="hint flex items-center justify-between mt-8 mb-4">其他注册方式</div>
-          <div className="threes flex justify-between">
-            <button type="button" className="three">
-              <SymbolWX hover />
-              <div className="name mt-2">微信</div>
-            </button>
-            <button type="button" className="three">
-              <SymbolQQ hover />
-              <div className="name mt-2">QQ</div>
-            </button>
-            <button type="button" className="three">
-              <SymbolWB hover />
-              <div className="name mt-2">新浪微博</div>
-            </button>
-            <button type="button" className="three">
-              <SymbolWY hover />
-              <div className="name mt-2">网易邮箱</div>
-            </button>
-          </div>
+          <DomThrees/>
         </div>
       </form>
     </div>
   );
-};
+});

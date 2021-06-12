@@ -1,64 +1,12 @@
 #dialogLogin {
-  position: fixed;
   width: 350px;
   height: 530px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
   .qr {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 100px;
-
-    .title {
-      font-size: 28px;
-    }
-
-    .scansuccess {
-      text-align: center;
-      font-size: 14px;
-
-      .ico {
-        height: 150px;
-        color: var(--themeColor);
-      }
-
-      .tips {
-        margin-top: 2em;
-        font-size: 16px;
-      }
-    }
-
     .scanwait {
-      text-align: center;
 
-      .qrbox:hover {
-        .left {
-          left: 0%;
-          transform: translate(0, -50%);
-          width: 50%;
-          opacity: 1;
-        }
-
-        .right {
-          width: 50%;
-          width: 124px;
-          right: 0%;
-          transform: translate(0, -50%);
-        }
-
-
-        .qrimg {
-          width: 124px;
-          height: 124px;
-        }
-      }
 
       .qrbox {
-        position: relative;
-        display: flex;
         height: 330px;
         width: 280px;
 
@@ -81,77 +29,41 @@
           transition: ease 0.4s;
         }
 
-        .ico {
-          color: var(--themeColor);
-        }
-
         .qrimg {
-          margin: 0 auto;
-          position: relative;
           width: 180px;
           height: 180px;
           transition: ease 0.4s;
+        }
 
-          .title {}
-
-          .mask {
-
-
-            flex-direction: column;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            font-size: 14px;
+        &:hover {
+          .left {
+            left: 0;
+            transform: translate(0, -50%);
+            width: 50%;
+            opacity: 1;
           }
 
-          .btn {
-            margin-top: 1em;
-            width: 80px;
-            height: 30px;
-            line-height: 30px;
-            text-align: center;
-            background-color: #0C73C2;
-            border-radius: 4px;
+          .right {
+            width: 50%;
+            right: 0;
+            transform: translate(0, -50%);
+          }
+
+
+          .qrimg {
+            width: 124px;
+            height: 124px;
           }
         }
-      }
-
-      .tips {
-        font-size: 14px;
-        margin-top: 1em;
-      }
-
-      .otherchoose {
-        // margin-top: 7em;
       }
     }
 
   }
 
   .form {
-    padding: 0 44px;
-    position: relative;
-
     .angle {
-
       .tips {
-        position: absolute;
-        left: 50px;
-        top: 10px;
-        padding: 6px 14px;
-        white-space: nowrap;
-        background-color: #989898;
-        color: #fff;
-
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          right: 100%;
-          border-top: 2px solid #989898;
-          border-left: 3px solid transparent;
-          border-right: 3px solid #989898;
-          border-bottom: 2px solid transparent;
-        }
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 5% 100%, 5% 20%);
       }
     }
   }
@@ -207,27 +119,9 @@
 
 
       &Option {
-        padding: 0 12px;
-        width: 100%;
-        cursor: pointer;
-        display: flex;
-        height: 24px;
-        line-height: 24px;
-
         &.on,
         &:hover {
           background-color: #E4E5E7;
-        }
-
-        .flag {
-          width: 30px;
-          background-color: #f00;
-        }
-
-        .zh {}
-
-        .code {
-          margin-left: auto;
         }
       }
 
@@ -267,14 +161,6 @@
     color: #fff;
     font-size: 16px;
     background-color: var(--themeColor);
-  }
-
-  .signup {
-    margin: 1em 0;
-    text-decoration: underline;
-    width: 100%;
-    text-align: center;
-    font-size: 14px;
   }
 
   .hint {
