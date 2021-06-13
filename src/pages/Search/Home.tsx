@@ -25,56 +25,56 @@ const switchs = {
     unit: '首',
     limit: 100,
     Dom: DomSongs,
-    count: 'songCount',
+    countName: 'songCount',
   },
   歌手: {
     code: 100,
     unit: '位',
     limit: 20,
     Dom: DomArtists,
-    count: 'artistCount',
+    countName: 'artistCount',
   },
   专辑: {
     code: 10,
     unit: '张',
     limit: 20,
     Dom: DomAlbums,
-    count: 'albumCount',
+    countName: 'albumCount',
   },
   视频: {
     code: 1014,
     unit: '个',
     limit: 24,
     Dom: DomVideos,
-    count: 'videoCount',
+    countName: 'videoCount',
   },
   歌单: {
     code: 1000,
     unit: '个',
     limit: 20,
     Dom: DomPlaylists,
-    count: 'playlistCount',
+    countName: 'playlistCount',
   },
   歌词: {
     code: 1006,
     unit: '首',
     limit: 20,
     Dom: DomLyrics,
-    count: 'songCount',
+    countName: 'songCount',
   },
   主播电台: {
     code: 1009,
     unit: '个',
     limit: 100,
     Dom: DomDjRadios,
-    count: 'djRadiosCount',
+    countName: 'djRadiosCount',
   },
   用户: {
     code: 1002,
     unit: '位',
     limit: 20,
     Dom: DomUserprofiles,
-    count: 'userprofileCount',
+    countName: 'userprofileCount',
   },
 };
 
@@ -82,6 +82,7 @@ export default memo(({ keywords, type }) => {
   console.log('entry search');
   const dispatch = useDispatch();
   const [result, setResult] = useState({});
+  const [count, setCount] = useState(0)
   const [multimatch, setMultimatch] = useState({});
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -90,17 +91,12 @@ export default memo(({ keywords, type }) => {
     unit,
     limit,
     Dom,
-    count,
+    countName,
   } = switchs[type];
 
+
   const { searchValue } = useSelector(({ common }) => common);
-  useEffect(() => {
-    if (!searchValue) {
-      dispatch(setSearchValue({
-        searchValue: keywords,
-      }));
-    }
-  }, []);
+
   const handleInit = async () => {
     setLoading(true);
     try {
@@ -110,20 +106,28 @@ export default memo(({ keywords, type }) => {
         type: code,
         offset: (page - 1) * limit,
       });
+      const count = result[countName]
       if (type === '单曲') {
         const { result: multimatch = {} } = await apiSearchMultimatch({
           keywords,
         });
         setMultimatch(multimatch);
-      } else {
-        setMultimatch({});
       }
+      setCount(count)
       setResult(result);
-      setLoading(false);
     } catch (error) {
       console.log(error);
     }
+    setLoading(false);
   };
+  useEffect(() => {
+    if (!searchValue) {
+      dispatch(setSearchValue({
+        searchValue: keywords,
+      }));
+    }
+  }, []);
+
   useEffect(() => {
     setPage(1);
   }, [keywords, type]);
@@ -137,7 +141,7 @@ export default memo(({ keywords, type }) => {
       <div className="domSearch_header p-8 pb-2.5 border-b">
         <div className="font-bold text-base">
           找到
-          {result[count] || 0}
+          {count || 0}
           {unit}
         </div>
         <div className="domSearch_nav mt-5 space-x-4">
@@ -161,7 +165,7 @@ export default memo(({ keywords, type }) => {
             : (
               <>
                 <Dom {...{ multimatch, ...result }} />
-                <DomPage total={Math.ceil(result[count] / limit)} page={page} func={setPage} />
+                <DomPage total={Math.ceil(count / limit)} page={page} func={setPage} />
               </>
             )
         }

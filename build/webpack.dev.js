@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { merge } = require('webpack-merge');
 const base = require('./webpack.base.js');
-const { src } = require('./util');
 
 console.log('entry webpack dev');
 
@@ -11,7 +10,7 @@ const dev = {
   mode: 'development',
   output: {
     publicPath: '/',
-    filename: '[name].[hash:8].js',
+    filename: '[name].[fullhash:8].js',
     path: path.join(__dirname, '../dist'),
   },
   devServer: {

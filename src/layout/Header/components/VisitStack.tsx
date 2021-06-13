@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {memo, PureComponent} from 'react';
 import {
   IconChevronLeft,
   IconChevronRight,
@@ -6,6 +6,16 @@ import {
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import produce from 'immer';
+
+const DomBtn = memo(({handleClick = () => null, stack = 0, children}) => (
+  <button
+    type="button"
+    onClick={handleClick}
+    className={classNames('bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white z-10', stack === 0 && 'text-opacity-25')}
+  >
+    {children}
+  </button>
+))
 
 @withRouter
 export default class extends PureComponent {
@@ -21,9 +31,8 @@ export default class extends PureComponent {
   }
 
   componentDidMount() {
-    this.unlisten = this.props.history.listen(({ pathname, key }) => {
+    this.unlisten = this.props.history.listen(() => {
       // console.log(route);
-      console.log(this.props.history.action);
       switch (this.props.history.action) {
         case "PUSH":
           this.setState(produce(draft => {
@@ -67,22 +76,15 @@ export default class extends PureComponent {
   }
 
   render() {
+    const {stackIn, stackOut} = this.state
     return (
       <div className="domHeader_page flex space-x-2">
-        <button
-          type="button"
-          onClick={this.handleGoPrev}
-          className={classNames('focus:outline-none bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white z-10', this.state.stackIn === 0 && 'text-opacity-25')}
-        >
+        <DomBtn handleClick={this.handleGoPrev} stack={stackIn}>
           <IconChevronLeft size={16} />
-        </button>
-        <button
-          type="button"
-          onClick={this.handleGoNext}
-          className={classNames('focus:outline-none bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white z-10', this.state.stackOut === 0 && 'text-opacity-25')}
-        >
+        </DomBtn>
+        <DomBtn handleClick={this.handleGoNext} stack={stackOut}>
           <IconChevronRight size={16} />
-        </button>
+        </DomBtn>
       </div>
     );
   }
