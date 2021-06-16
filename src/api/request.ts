@@ -11,7 +11,7 @@ function format(obj) {
   for (const key in obj) {
     data.append(key, obj[key]);
   }
-  data.append('cookie', cookie);
+  cookie && data.append('cookie', cookie);
   return data;
 }
 
