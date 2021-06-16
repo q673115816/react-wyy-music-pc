@@ -17,6 +17,7 @@ import {
 } from '@/api';
 import { useDispatch, useSelector } from 'react-redux';
 import DomLoading from '@/components/Loading';
+import {removeCookie} from '@/api/cookie'
 
 const DomProfile = ({ setVisibility }) => {
   const [loading, setLoading] = useState(true);
@@ -39,6 +40,7 @@ const DomProfile = ({ setVisibility }) => {
   const handleLogout = async () => {
     try {
       const { } = await apiLogout();
+      removeCookie()
       window.location.reload();
     } catch (error) {
       console.log(error);

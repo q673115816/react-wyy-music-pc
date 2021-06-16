@@ -4,18 +4,14 @@ export const prodUrl = 'https://netease-cloud-music-api-mlkkrb7ge-q673115816.ver
 export const devUrl = 'http://localhost:3000';
 
 const baseUrl = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
-let cookie = window.localStorage.getItem('cookie');
-
-export function setCookie(c) {
-  window.localStorage.setItem('cookie', c);
-  cookie = c;
-}
+const cookie = localStorage.getItem('cookie') || '';
 
 function format(obj) {
   const data = new FormData();
   for (const key in obj) {
     data.append(key, obj[key]);
   }
+  data.append('cookie', cookie);
   return data;
 }
 

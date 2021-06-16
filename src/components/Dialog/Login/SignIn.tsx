@@ -11,6 +11,7 @@ import {
   IconEye,
   IconEyeOff,
 } from '@tabler/icons';
+import { setCookie } from '@/api/cookie'
 
 import DomCheck from '@/components/Checkbox';
 import { LoginContext } from './index';
@@ -49,7 +50,7 @@ export default memo(() => {
         countrycode,
       });
       if (code === 200) {
-        // setCookie(cookie);
+        setCookie(cookie);
         // handleToggle();
         // dispatch(setLoginInfo(profile));
         // dispatch(setIsLogin());

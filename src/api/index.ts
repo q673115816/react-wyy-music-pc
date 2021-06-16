@@ -105,7 +105,7 @@ export const apiLoginQrCheck = (params) => post('/login/qr/check', params);
  * 签到
  * type: 签到类型 , 默认 0, 其中 0 为安卓端签到 ,1 为 web/PC 签到
  */
-export const apiDailysignin = (params) => post('/daily_signin', params);
+export const apiDailysignin = (params?) => post('/daily_signin', params);
 // 私人fm
 export const apiPersonalfm = () => get('/personal_fm');
 export const apiCountriesCodeList = () => get('/countries/code/list');

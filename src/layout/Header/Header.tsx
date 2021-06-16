@@ -1,6 +1,7 @@
 import React, {
   useEffect, memo,
   useCallback,
+  MouseEvent
 } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,7 +41,7 @@ import './style.scss';
 export default memo(() => {
   const dispatch = useDispatch();
 
-  const dragmove = (e) => {
+  const dragmove = (e: MouseEvent<HTMLDivElement>) => {
     dispatch(setGlobalInset({
       x: e.clientX,
       y: e.clientY,
@@ -51,7 +52,7 @@ export default memo(() => {
     dispatch(setGlobalDragger(false));
   };
 
-  const dragdown = (e) => {
+  const dragdown = (e: MouseEvent<HTMLButtonElement>) => {
     dispatch(setGlobalDragger(true));
     dispatch(setGlobalStartInset({
       x: e.clientX,
@@ -124,9 +125,7 @@ export default memo(() => {
         type="button"
         className="absolute inset-0 z-0 w-full focus:outline-none cursor-auto"
         onMouseDown={dragdown}
-      >
-        { }
-      </button>
+      />
       <Link
         to="/"
         className="domHeader_logo tracking-widest text-white text-lg z-10"
