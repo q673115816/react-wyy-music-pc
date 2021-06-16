@@ -22,25 +22,18 @@ function format(obj) {
 // const defaultOptions = {
 //   withCredentials: true,
 // };
-export const get = async (url) => await fetch(`${baseUrl}${url}`, {
-  // headers: {
-  //   Cookie: cookie,
-  // },
-  // xhrFields: { withCredentials: true },
+
+export const get = (url) => fetch(`${baseUrl}${url}`, {
   credentials: 'include',
 }).then((res) => res.json());
 
-export const post = async (url, params) => {
+export const post = (url, params) => {
   console.log(params);
-  return await fetch(`${baseUrl}${url}?timestamp=${Date.now()}`, {
+  return fetch(`${baseUrl}${url}?timestamp=${Date.now()}`, {
     method: 'POST',
     body: format(params),
     // body: new FormData(new URLSearchParams(params).toString()),
     // xhrFields: { withCredentials: true },
     credentials: 'include',
-    // headers: {
-    // 'content-type': 'application/x-www-form-urlencoded',
-    // Cookie: cookie,
-    // },
   }).then((res) => res.json());
 };
