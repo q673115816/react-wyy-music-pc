@@ -1,13 +1,13 @@
 {
 	"name": "wyy",
 	"version": "1.0.0",
-	"description": "React example starter project",
+	"description": "React music player",
 	"keywords": [
 		"react",
 		"starter"
 	],
-	"main": "src/index.js",
-	"homepage": "https://q673115816.github.io/wyy-pc",
+	"main": "src/index.tsx",
+	"homepage": "https://q673115816.github.io/react-wyy-music-pc",
 	"scripts": {
 		"test": "echo \" ci run success \"",
 		"start": "webpack-dev-server --config build/webpack.dev.js",
