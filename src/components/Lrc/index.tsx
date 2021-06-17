@@ -43,8 +43,7 @@ const DomLrcContent = memo(() => {
       // console.log((currentTime - time) / ((min2 * 60 + sec2 * 1) - time));
       return (currentTime - time1) / (time2 - time1) * 100;
     });
-    if (nextIndex === currentLineIndex) return false;
-    return setCurrentLineIndex(nextIndex);
+    if (nextIndex !== currentLineIndex) setCurrentLineIndex(nextIndex);
   }, [currentTime]);
   return (
     <div
