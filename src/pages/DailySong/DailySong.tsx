@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import {
   IconFolderPlus,
 } from '@tabler/icons';
@@ -9,7 +9,6 @@ import {
 } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
 import useLoginStatus from '@/custom/useLoginStatus';
-// import './style.scss';
 import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';
@@ -19,7 +18,7 @@ import DomArtist from '@/components/Table/Artists';
 import DomAlbum from '@/components/Table/Album';
 import DomMenuCreate from '@/components/MenuCreate';
 
-export default () => {
+export default memo(() => {
   useLoginStatus();
   const [data, setData] = useState([]);
   const handleInit = async () => {
@@ -35,8 +34,8 @@ export default () => {
     handleInit();
   }, []);
   return (
-    <div className="domDailySong overflow-auto max-h-full flex-auto">
-      <div className="domDailySong_header px-8 pb-2.5 pt-6 border-b">
+    <div className="w-full overflow-auto max-h-full flex-auto">
+      <div className="px-8 pb-2.5 pt-6 border-b">
         <div className="section flex items-center">
           <div className="date w-20 h-20 ui_themeColor">
             <SymbolToday />
@@ -59,7 +58,7 @@ export default () => {
           </button>
         </div>
       </div>
-      <div className="domDailySong_main pb-8" style={{ '--ui_grid_template': '36px / 54px 30px 30px 36% 4fr 6fr 2fr' }}>
+      <div className="pb-8" style={{ '--ui_grid_template': '36px / 54px 30px 30px 36% 4fr 6fr 2fr' }}>
         <div className="list">
           <div className="thead">
             <div className="item grid leading-8 ui_grid_template">
@@ -72,7 +71,7 @@ export default () => {
               <div className="duration text-gray-500 px-2">时长</div>
             </div>
           </div>
-          <div className="tbody grid">
+          <div className="tbody">
             {
               data.dailySongs?.map((item, index) => (
                 <DomMenuCreate
@@ -89,12 +88,11 @@ export default () => {
                   type="song"
                   item={item}
                   key={item.name + item.id}
+                  tabIndex="2"
+                  className={classNames('grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template', { 'bg-gray-50': index % 2 === 0 })}
                 >
-                  <div
-                    tabIndex="2"
-                    className={classNames('item grid items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template', { 'bg-gray-50': index % 2 === 0 })}
-                  >
-                    <div className="index pr-2">
+                  <>
+                    <div className="index pr-3 text-right">
                       <DomRank index={index} id={item.id} />
                     </div>
                     <div className="heart">
@@ -109,7 +107,7 @@ export default () => {
                     <div className="duration text-gray-400 truncate px-2">
                       {dayjs(item.dt).format('mm:ss')}
                     </div>
-                  </div>
+                  </>
                 </DomMenuCreate>
               ))
             }
@@ -118,4 +116,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});

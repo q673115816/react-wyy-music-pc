@@ -39,6 +39,7 @@ const switchs = {
 
 export default ({
   children, item = {}, type = 'song', schema = defaultSchema,
+  ...props
 }) => {
   const dispatch = useDispatch();
   const [state, setstate] = useState();
@@ -69,6 +70,7 @@ export default ({
     <div
       onDoubleClick={type === 'song' ? () => handleDoubleClick(item) : undefined}
       onContextMenu={(e) => handleRightClick(e, item, type)}
+      {...props}
     >
       {children}
     </div>

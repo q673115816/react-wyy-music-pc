@@ -1,4 +1,4 @@
-class Module {
+export default class Module {
   constructor() {
     // this.url = null;
     this.send = null;

@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { FC, memo, ReactNode, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {
@@ -11,9 +11,26 @@ import {
   IconCaretRight,
   IconFileMusic,
   IconLock,
+  IconHistory,
+  TablerIcon
 } from '@tabler/icons';
+import classNames from 'classnames'
 
-const options1 = [
+
+interface defaultNavProps {
+  name: string
+  link: string
+}
+
+interface defaultNavWithIcoProps extends defaultNavProps {
+  Ico?: TablerIcon
+  needLogin?: boolean
+}
+
+interface CustomLinkProps extends defaultNavWithIcoProps {
+  activeClassName?: string
+}
+const options1: defaultNavProps[] = [
   {
     name: '发现音乐',
     link: '/home',
@@ -36,17 +53,64 @@ const options1 = [
   },
 ];
 
-const loginNav = [
-  ['我的音乐云盘', '/cloud', IconCloud],
-  ['我的电台', '/dj', IconBrandTiktok],
-  ['我的收藏', '/sublist', IconStar],
-];
+const options2: defaultNavWithIcoProps[] = [
+  {
+    name: '本地音乐',
+    link: '/local',
+    Ico: IconFileMusic,
+  },
+  {
+    name: '下载管理',
+    link: '/download',
+    Ico: IconCloudDownload,
+  },
+  {
+    name: '最近播放',
+    link: '/history',
+    Ico: IconHistory,
+  },
+  {
+    name: '我的音乐云盘',
+    link: '/cloud',
+    Ico: IconCloud,
+    needLogin: true,
+  },
+  {
+    name: '我的电台',
+    link: '/dj',
+    Ico: IconBrandTiktok,
+    needLogin: true,
+  },
+  {
+    name: '我的收藏',
+    link: '/sublist',
+    Ico: IconStar,
+    needLogin: true,
+  },
+]
 
-const DomPlaylist = memo(({ name = '', playlist = [] }) => {
+
+const CustomLink: FC<CustomLinkProps> = ({ name, link, Ico, activeClassName }) => (
+  <NavLink
+    className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
+    activeClassName={classNames("bg-gray-100", activeClassName)}
+    to={link}
+  >
+    {Ico && <Ico size={20} stroke={1} className="mr-1" />}
+    {name}
+  </NavLink>
+)
+
+interface PlaylistProps {
+  name: string
+  playlist: []
+}
+
+const DomPlaylist: FC<PlaylistProps> = memo(({ name, playlist }) => {
   const [showplaylist, setPlaylist] = useState(true);
   return (
     <>
-      <div className="dommain_left_dt">
+      <div className="text-sm text-gray-400 mx-3 my-2">
         <div className="playlist_control flex items-center">
           <button
             type="button"
@@ -61,15 +125,13 @@ const DomPlaylist = memo(({ name = '', playlist = [] }) => {
                 : <IconCaretRight size={8} className="fill-current" />
             }
           </button>
-          <button type="button" title="新建歌单" className="addplaylist">
-            +
-          </button>
+          <button type="button" title="新建歌单">+</button>
         </div>
       </div>
       {
         showplaylist
-          && (
-          <nav className="songmenu space-y-0.5">
+        && (
+          <nav className="space-y-0.5">
             {
               playlist.map((item) => (
                 <NavLink
@@ -90,7 +152,7 @@ const DomPlaylist = memo(({ name = '', playlist = [] }) => {
               ))
             }
           </nav>
-          )
+        )
       }
     </>
   );
@@ -109,48 +171,15 @@ export default memo(() => {
       <nav className="options1 space-y-0.5">
         {
           options1.map((item) => (
-            <NavLink
-              key={item.name}
-              className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
-              activeClassName="bg-gray-100 font-bold text-base"
-              to={item.link}
-            >
-              {item.name}
-            </NavLink>
+            <CustomLink {...item} key={item.name} activeClassName="font-bold text-base" />
           ))
         }
       </nav>
-      <div className="dommain_left_dt">我的音乐</div>
+      <div className="text-sm text-gray-400 mx-3 my-2">我的音乐</div>
       <nav className="space-y-0.5">
-        <NavLink
-          className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
-          activeClassName="bg-gray-100"
-          to="/local"
-        >
-          <IconFileMusic size={20} stroke={1} className="mr-1" />
-          本地音乐
-        </NavLink>
-        <NavLink
-          className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
-          activeClassName="bg-gray-100"
-          to="/download"
-        >
-          <IconCloudDownload size={20} stroke={1} className="mr-1" />
-          下载管理
-        </NavLink>
-        {isLogin && (
-          loginNav.map(([name, link, Ico]) => (
-            <NavLink
-              className="dommain_left_link flex text-sm p-2 items-center hover:bg-gray-100"
-              activeClassName="bg-gray-100"
-              to={link}
-              key={name}
-            >
-              <Ico size={20} stroke={1} className="mr-1" />
-              {name}
-            </NavLink>
-          ))
-        )}
+        {
+          options2.map((item) => (!item.needLogin || item.needLogin && isLogin) && <CustomLink {...item} key={item.name} />)
+        }
       </nav>
       <DomPlaylist name="创建的歌单" playlist={ownPlaylist} />
       {

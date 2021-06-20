@@ -70,7 +70,7 @@ const FnAddHistory = (draft, currentSong) => {
     draft.history.splice(historyIndex, 1);
     // draft.history = draft.history.filter((history) => history.id !== currentSong.id)
   }
-  draft.history.unshift(currentSong);
+  draft.history.unshift({...currentSong, lastTime: Date.now()});
   window.localStorage.setItem('history', JSON.stringify(draft.history));
 };
 

@@ -1,8 +1,13 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { IconVolume, IconVolume3, Iconvol } from '@tabler/icons';
+import { IconVolume, IconVolume3 } from '@tabler/icons';
 
-export default memo(({ id, index }) => {
+interface Iprops {
+  id: number
+  index: string
+}
+
+export default memo(({ id, index }: Iprops) => {
   const { currentSong, running } = useSelector(({ audio }) => audio);
   if (currentSong.id === id) {
     return (

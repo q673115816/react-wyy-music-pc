@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import { combineReducers, ReducersMapObject } from 'redux';
 
 const requireContext = require.context('./', true, /^\.\/.*\/index\.ts$/);
 
-const modules = {}
+const modules: ReducersMapObject = {}
 
 requireContext.keys().forEach((key) => {
   const mod = requireContext(key);
