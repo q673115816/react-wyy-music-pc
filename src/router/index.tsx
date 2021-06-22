@@ -28,6 +28,10 @@ const Artist = lazy(() => import(/* webpackChunkName: "Artist" */'@/pages/Artist
 const Search = lazy(() => import(/* webpackChunkName: "Search" */'@/pages/Search'));
 const AI = lazy(() => import(/* webpackChunkName: "Ai" */'@/pages/AI'));
 
+
+const CustomShare = lazy(() => import(/* webpackChunkName: "CustomShare" */'@/pages/CustomShare'));
+
+
 type routerProps = [string, FunctionComponent][]
 
 const router: routerProps = [
@@ -57,6 +61,7 @@ const router: routerProps = [
   ['/search/:keywords', Search],
   ['/settings', Setting],
   ['/ai', AI],
+  ['/custom-share/:type/:id', CustomShare],
 ];
 
 export default memo(() => (

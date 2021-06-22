@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   IconChevronUp,
@@ -31,10 +31,12 @@ export default () => {
   } = useSelector(({ audio }) => audio);
   const { volume } = useSelector(({ volume }) => volume);
   const { lyricVisibility } = useSelector(({ lrc }) => lrc);
+  const [ audioReady, setAudioReady] = useState(false)
   const RefDropping = useRef();
   const refAudio = useRef();
 
   const handleGetUrl = async () => {
+    // refAudio.current.pause()
     try {
       const { data } = await apiSongUrl({
         id: currentSong.id,
@@ -106,6 +108,7 @@ export default () => {
   }, [dropping]);
 
   useEffect(() => {
+    if(!audioReady) return
     if (running) {
       if (currentTime) {
         refAudio.current.currentTime = currentTime;
@@ -116,7 +119,7 @@ export default () => {
       refAudio.current.pause();
       refAudio.current.removeEventListener('timeupdate', handleRunningFollow);
     }
-  }, [running]);
+  }, [running, audioReady]);
 
   useEffect(() => {
     if (jumpTime) {
@@ -142,6 +145,7 @@ export default () => {
           onProgress={handleProgress}
           onEnded={handleEnded}
           onError={handleReGet}
+          onCanPlay={() => setAudioReady(true)}
         />
       </div>
       {!!currentSong?.name
