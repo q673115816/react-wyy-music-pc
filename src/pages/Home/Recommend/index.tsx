@@ -65,7 +65,7 @@ export default memo(() => {
         PersonalizedDjprogram] = await Promise.all([
         apiBanner(),
         apiRecommendResource({
-          limit: 9,
+          limit: 10,
         }),
         apiPersonalizedPrivatecontent(),
         apiPersonalizedNewsong({

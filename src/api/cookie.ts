@@ -1,6 +1,6 @@
 
-export function setCookie(c: string) {
-  localStorage.setItem('cookie', c);
+export function setCookie(cookie: string) {
+  localStorage.setItem('cookie', cookie);
 }
 
 export function removeCookie() {

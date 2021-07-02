@@ -13,7 +13,7 @@ type Params = {
 
 const axiosInstance = axios.create({
   baseURL,
-  withCredentials: true
+  withCredentials: true,
 })
 
 function format(obj?: Params) {
@@ -29,7 +29,7 @@ function POSTPlugin<T extends AxiosRequestConfig>(res: T): T {
   if (res.method !== 'post') return res
   // const { data } = res
   // res.data = format(data)
-  cookie && (res.data.cookie = cookie)
+  cookie && res.data ? res.data.cookie = cookie : res.data = {cookie}
   // res.data.cookie ||= cookie
   return res
 }
@@ -42,6 +42,11 @@ axiosInstance.interceptors.request.use(
   err => err
 )
 
+axiosInstance.interceptors.response.use(
+  (res) => res.data,
+  err => err
+)
+
 
 // const defaultOptions = {
 //   withCredentials: true,
@@ -49,8 +54,6 @@ axiosInstance.interceptors.request.use(
 
 export const get = (url: string) => axiosInstance
   .get(url)
-  .then(({ data }) => data)
 
 export const post = (url: string, params?: Params) => axiosInstance
   .post(url, params)
-  .then(({ data }) => data)
