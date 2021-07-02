@@ -9,27 +9,28 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 const minCdn = devMode ? '' : '.min';
 
-const cdnBase = '//cdn.jsdelivr.net';
+const cdnBase = 'https://cdn.jsdelivr.net';
 
 const cdn = {
   js: [
-    `https:${cdnBase}/npm/react/umd/react.development${minCdn}.js`,
-    `https:${cdnBase}/npm/react-dom/umd/react-dom.development${minCdn}.js`,
-    `https:${cdnBase}/npm/react-router-dom/umd/react-router-dom${minCdn}.js`,
-    // `https:${cdnBase}/npm/react-router/umd/react-router${minCdn}.js`,
-    `https:${cdnBase}/npm/redux/dist/redux${minCdn}.js`,
-    `https:${cdnBase}/npm/react-redux/dist/react-redux${minCdn}.js`,
-    // `https:${cdnBase}/npm/swiper/swiper-bundle${minCdn}.js`,
-    `https:${cdnBase}/npm/react-slick/dist/react-slick${minCdn}.js`,
-    // `https:${cdnBase}/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
-    `https:${cdnBase}/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
-    `https:${cdnBase}/npm/immer/dist/immer.umd.development${minCdn}.js`,
+    `${cdnBase}/npm/axios/dist/axios${minCdn}.js`,
+    `${cdnBase}/npm/react/umd/react.development${minCdn}.js`,
+    `${cdnBase}/npm/react-dom/umd/react-dom.development${minCdn}.js`,
+    `${cdnBase}/npm/react-router-dom/umd/react-router-dom${minCdn}.js`,
+    // `${cdnBase}/npm/react-router/umd/react-router${minCdn}.js`,
+    `${cdnBase}/npm/redux/dist/redux${minCdn}.js`,
+    `${cdnBase}/npm/react-redux/dist/react-redux${minCdn}.js`,
+    // `${cdnBase}/npm/swiper/swiper-bundle${minCdn}.js`,
+    `${cdnBase}/npm/react-slick/dist/react-slick${minCdn}.js`,
+    // `${cdnBase}/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
+    `${cdnBase}/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
+    `${cdnBase}/npm/immer/dist/immer.umd.development${minCdn}.js`,
   ],
   css: [
-    `https:${cdnBase}/npm/tailwindcss/dist/tailwind.min.css`,
-    `https:${cdnBase}/npm/swiper/swiper-bundle.min.css`,
-    `https:${cdnBase}/npm/slick-carousel@1.8.1/slick/slick.min.css`,
-    `https:${cdnBase}/npm/slick-carousel/slick/slick-theme.min.css`,
+    `${cdnBase}/npm/tailwindcss/dist/tailwind.min.css`,
+    `${cdnBase}/npm/swiper/swiper-bundle.min.css`,
+    `${cdnBase}/npm/slick-carousel@1.8.1/slick/slick.min.css`,
+    `${cdnBase}/npm/slick-carousel/slick/slick-theme.min.css`,
   ],
 };
 
@@ -194,6 +195,7 @@ module.exports = {
       redux: 'Redux',
       immer: 'immer',
       'react-slick': 'Slider',
+      axios: 'axios',
       // swiper: /^swiper$/,
       // react: ['https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js', 'React'],
       // 'react-dom': ['https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js', 'ReactDOM'],

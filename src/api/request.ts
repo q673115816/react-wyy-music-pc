@@ -1,12 +1,22 @@
+import axios, { AxiosRequestConfig } from 'axios'
 // export const prodUrl = 'https://neteasecloudmusicapi.herokuapp.com';
 export const prodUrl = 'https://netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app';
 
 export const devUrl = 'http://localhost:3000';
 
-const baseUrl = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
+const baseURL = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
 const cookie = localStorage.getItem('cookie') || '';
 
-function format(obj) {
+type Params = {
+  [key: string]: any
+}
+
+const axiosInstance = axios.create({
+  baseURL,
+  withCredentials: true
+})
+
+function format(obj?: Params) {
   const data = new FormData();
   for (const key in obj) {
     data.append(key, obj[key]);
@@ -15,21 +25,32 @@ function format(obj) {
   return data;
 }
 
+function POSTPlugin<T extends AxiosRequestConfig>(res: T): T {
+  if (res.method !== 'post') return res
+  // const { data } = res
+  // res.data = format(data)
+  cookie && (res.data.cookie = cookie)
+  // res.data.cookie ||= cookie
+  return res
+}
+
+axiosInstance.interceptors.request.use(
+  (res: AxiosRequestConfig) => {
+    res = POSTPlugin(res)
+    return res
+  },
+  err => err
+)
+
+
 // const defaultOptions = {
 //   withCredentials: true,
 // };
 
-export const get = (url) => fetch(`${baseUrl}${url}`, {
-  credentials: 'include',
-}).then((res) => res.json());
+export const get = (url: string) => axiosInstance
+  .get(url)
+  .then(({ data }) => data)
 
-export const post = (url, params) => {
-  console.log(params);
-  return fetch(`${baseUrl}${url}?timestamp=${Date.now()}`, {
-    method: 'POST',
-    body: format(params),
-    // body: new FormData(new URLSearchParams(params).toString()),
-    // xhrFields: { withCredentials: true },
-    credentials: 'include',
-  }).then((res) => res.json());
-};
+export const post = (url: string, params?: Params) => axiosInstance
+  .post(url, params)
+  .then(({ data }) => data)
