@@ -196,15 +196,6 @@ module.exports = {
       immer: 'immer',
       'react-slick': 'Slider',
       axios: 'axios',
-      // swiper: /^swiper$/,
-      // react: ['https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js', 'React'],
-      // 'react-dom': ['https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js', 'ReactDOM'],
-      // 'react-router-dom': ['https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js', 'ReactDOM'],
-      // 'react-router': ['https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js', 'ReactRouter'],
-      // redux: ['https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js', 'Redux'],
-      // 'react-redux': ['https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js', 'ReactRedux'],
-      // 'https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js',
-      // '@tabler/icons': ['https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js', 'Redux'],
     }],
   module: {
     rules: [
