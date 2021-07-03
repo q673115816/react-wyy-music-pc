@@ -61,9 +61,9 @@ export default memo(({ data = {}, handleSub, songs }) =>
   // console.log('playlist_music_header');
   (
     <div className="domPlaylistDetail_header p-8 flex">
-      <div className="cover border rounded overflow-hidden flex-none">
+      <div className="cover border rounded overflow-hidden flex-none w-92 h-92">
         <img
-          className=""
+          className="w-full h-full"
           src={`${data.playlist.coverImgUrl}?param=200y200`}
           alt=""
         />

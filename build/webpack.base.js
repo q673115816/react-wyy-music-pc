@@ -92,7 +92,7 @@ const plugins = [
 
 module.exports = {
   target: 'web',
-  entry: path.join(src, 'index.tsx'),
+  entry: path.join(src, 'Header.tsx'),
   // entry: {
   // index: path.join(src, 'index.jsx'),
   // vendor: [

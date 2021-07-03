@@ -16,28 +16,19 @@ const axiosInstance = axios.create({
   withCredentials: true,
 })
 
-function format(obj?: Params) {
-  const data = new FormData();
-  for (const key in obj) {
-    data.append(key, obj[key]);
-  }
-  cookie && data.append('cookie', cookie);
-  return data;
-}
-
-function POSTPlugin<T extends AxiosRequestConfig>(res: T): T {
-  if (res.method !== 'post') return res
+function POSTPlugin<T extends AxiosRequestConfig>(req: T): T {
+  if (req.method !== 'post') return req
   // const { data } = res
   // res.data = format(data)
-  cookie && res.data ? res.data.cookie = cookie : res.data = {cookie}
+  cookie && req.data ? req.data.cookie = cookie : req.data = {cookie}
   // res.data.cookie ||= cookie
-  return res
+  return req
 }
 
 axiosInstance.interceptors.request.use(
-  (res: AxiosRequestConfig) => {
-    res = POSTPlugin(res)
-    return res
+  (req) => {
+    POSTPlugin(req)
+    return req
   },
   err => err
 )
@@ -56,4 +47,8 @@ export const get = (url: string) => axiosInstance
   .get(url)
 
 export const post = (url: string, params?: Params) => axiosInstance
-  .post(url, params)
+  .post(url, params, {
+    params: {
+      timestamp: Date.now()
+    }
+  })

@@ -27,21 +27,7 @@ const subpages = {
   subscribers: DomSubscribers,
 };
 
-// const DomMain = ({ status, id, songs }) => {
-//   switch (status) {
-//     case 'playlist':
-//       return <DomPlaylist {...{ songs }} />;
-//     case 'comments':
-//       return <DomComments {...{ id }} />;
-//     case 'subscribers':
-//       return <DomSubscribers {...{ id }} />;
-//     default:
-//       return null;
-//   }
-// };
-
 export default memo(({ id }) => {
-  console.log('playlist_music');
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
@@ -60,7 +46,7 @@ export default memo(({ id }) => {
       }));
       if (data.playlist.trackCount > 0) {
         const { songs } = await apiSongDetail({
-          ids: data.playlist.trackIds.map(({ id }) => id),
+          ids: data.playlist.trackIds.map(({ id }) => id).join(','),
         });
         setSongs(songs);
       }
@@ -70,9 +56,6 @@ export default memo(({ id }) => {
     }
   };
 
-  useEffect(() => {
-    handleInit();
-  }, []);
   // TODO
   const handleSub = useCallback(async (isSub) => {
     try {
@@ -94,6 +77,7 @@ export default memo(({ id }) => {
   useEffect(() => {
     handleInit();
   }, [id]);
+
   if (loading) return <div className="w-full h-full flex-center"><DomLoading /></div>;
   return (
     <div className="domPlaylistDetail overflow-auto h-full">

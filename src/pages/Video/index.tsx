@@ -4,7 +4,6 @@ import {
 } from 'react-router-dom';
 import VideoList from './VideoList';
 import MVList from './MVList';
-import './style.scss';
 
 const navs = [
   ['视频', '/video/videolist'],

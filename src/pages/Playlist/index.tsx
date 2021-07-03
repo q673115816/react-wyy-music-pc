@@ -6,7 +6,6 @@ import useMemoParams from '@/custom/useMemoParams';
 import PlaylistMusic from './Music';
 import PlaylistDj from './Dj';
 import PlaylistAlbum from './Album';
-import './style.scss';
 
 export default memo(() => (
   <Switch>
