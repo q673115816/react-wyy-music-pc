@@ -13,18 +13,7 @@ import DomMain from './layout/Main';
 import DomFooter from './layout/Footer';
 import useKeyActions from './custom/useKeyActions';
 import './styles/index.scss';
-// import DomPlayer from './pages/Player';
-// import DialogLogin from './components/Dialog/Login';
-// import DialogShare from './components/Dialog/Share';
-// import DialogShareWX from './components/Dialog/ShareWX';
-// import DialogCreatePlaylist from './components/Dialog/CreatePlaylist';
-// import DialogUnSubscription from './components/Dialog/UnSubscription';
-// import Playlist from './components/Playlist';
-// import Letter from './components/Letter';
-// import Tosat from './components/Toast';
-// import Contextmenu from './components/Contextmenu';
-// import HeaderSearch from './components/HeaderSearch';
-// import DomLrc from './pages/Lrc';
+
 import GlobalLrc from './components/Lrc';
 
 const Player = lazy(() => import(/* webpackChunkName: "Player" */'@/pages/Player'));

@@ -9,28 +9,28 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 const minCdn = devMode ? '' : '.min';
 
-const cdnBase = 'https://cdn.jsdelivr.net';
+const cdnBase = 'https://cdn.jsdelivr.net/npm';
 
 const cdn = {
   js: [
-    `${cdnBase}/npm/axios/dist/axios${minCdn}.js`,
-    `${cdnBase}/npm/react/umd/react.development${minCdn}.js`,
-    `${cdnBase}/npm/react-dom/umd/react-dom.development${minCdn}.js`,
-    `${cdnBase}/npm/react-router-dom/umd/react-router-dom${minCdn}.js`,
-    // `${cdnBase}/npm/react-router/umd/react-router${minCdn}.js`,
-    `${cdnBase}/npm/redux/dist/redux${minCdn}.js`,
-    `${cdnBase}/npm/react-redux/dist/react-redux${minCdn}.js`,
-    // `${cdnBase}/npm/swiper/swiper-bundle${minCdn}.js`,
-    `${cdnBase}/npm/react-slick/dist/react-slick${minCdn}.js`,
+    `${cdnBase}/axios/dist/axios${minCdn}.js`,
+    `${cdnBase}/react/umd/react.development${minCdn}.js`,
+    `${cdnBase}/react-dom/umd/react-dom.development${minCdn}.js`,
+    `${cdnBase}/react-router-dom/umd/react-router-dom${minCdn}.js`,
+    // `${cdnBase}/react-router/umd/react-router${minCdn}.js`,
+    `${cdnBase}/redux/dist/redux${minCdn}.js`,
+    `${cdnBase}/react-redux/dist/react-redux${minCdn}.js`,
+    // `${cdnBase}/swiper/swiper-bundle${minCdn}.js`,
+    `${cdnBase}/react-slick/dist/react-slick${minCdn}.js`,
     // `${cdnBase}/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
-    `${cdnBase}/npm/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
-    `${cdnBase}/npm/immer/dist/immer.umd.development${minCdn}.js`,
+    `${cdnBase}/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
+    `${cdnBase}/immer/dist/immer.umd.development${minCdn}.js`,
   ],
   css: [
-    `${cdnBase}/npm/tailwindcss/dist/tailwind.min.css`,
-    `${cdnBase}/npm/swiper/swiper-bundle.min.css`,
-    `${cdnBase}/npm/slick-carousel@1.8.1/slick/slick.min.css`,
-    `${cdnBase}/npm/slick-carousel/slick/slick-theme.min.css`,
+    `${cdnBase}/tailwindcss/dist/tailwind.min.css`,
+    `${cdnBase}/swiper/swiper-bundle.min.css`,
+    `${cdnBase}/slick-carousel@1.8.1/slick/slick.min.css`,
+    `${cdnBase}/slick-carousel/slick/slick-theme.min.css`,
   ],
 };
 
@@ -92,7 +92,7 @@ const plugins = [
 
 module.exports = {
   target: 'web',
-  entry: path.join(src, 'Header.tsx'),
+  entry: path.join(src, 'index.tsx'),
   // entry: {
   // index: path.join(src, 'index.jsx'),
   // vendor: [
