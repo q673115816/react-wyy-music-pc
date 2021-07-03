@@ -1,24 +1,27 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setToast, setDialogDownloadVideoShow } from '@/reducers/mask/actions';
-import Worker from './download.worker';
+import DownloadWorker from './download.worker';
 
 export default (url = '', title = '') => {
   const dispatch = useDispatch();
-  const RefWorker = useRef();
+  const RefWorker = useRef<Worker|null|void>();
   const downloadResponse = useRef();
   const [downloadProcess, setDownloadProcess] = useState(0);
   const [downloadState, setDownloadState] = useState('下载');
+
   const handleInitDownload = () => {
     setDownloadProcess(0);
     setDownloadState('下载');
   };
+
   const handleUnLoadDownload = () => {
     if (!RefWorker.current) return;
     RefWorker.current.postMessage({ method: 'abort' });
     RefWorker.current.terminate();
     RefWorker.current = null;
   };
+
   const handleCreateFile = () => {
     const { pathname } = new URL(url);
     const ext = pathname.substr(pathname.lastIndexOf('.'));
@@ -33,7 +36,7 @@ export default (url = '', title = '') => {
 
   const callback = () => {
     setDownloadState('缓存中');
-    const worker = new Worker();
+    const worker: Worker = new DownloadWorker();
     worker.postMessage({ method: 'init', url });
     worker.addEventListener('message', (res) => {
       const { data } = res;

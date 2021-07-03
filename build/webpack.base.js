@@ -93,6 +93,9 @@ const plugins = [
 module.exports = {
   target: 'web',
   entry: path.join(src, 'index.tsx'),
+  output: {
+    globalObject: 'this',
+  },
   // entry: {
   // index: path.join(src, 'index.jsx'),
   // vendor: [
@@ -224,6 +227,25 @@ module.exports = {
         ],
       },
       {
+        test: /\.worker\.[cm]?[jt]s$/i,
+        use: [
+          {
+            loader: 'worker-loader',
+            // options: {
+            // esModule: false,
+            // filename: '[name].[contenthash].worker.js',
+            // },
+            // options: {
+            //   name: '[name].work.[hash: 8].js',
+            //   inline: true,
+            // },
+          },
+          // {
+          //   loader: 'babel-loader',
+          // },
+        ],
+      },
+      {
         test: /\.[jt]sx?$/,
         exclude: /(node_modules|bower_components)/,
         // 缓存
@@ -234,21 +256,6 @@ module.exports = {
             cacheDirectory: true,
           },
         }],
-      },
-      {
-        test: /\.worker\.(c|m)?js$/i,
-        use: [
-          {
-            loader: 'worker-loader',
-            // options: {
-            // esModule: false,
-            // filename: '[name].[contenthash].worker.js',
-            // },
-          },
-          // {
-          //   loader: 'babel-loader',
-          // },
-        ],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

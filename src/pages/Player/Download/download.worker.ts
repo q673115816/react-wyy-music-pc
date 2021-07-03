@@ -1,10 +1,13 @@
-export default class Module {
+
+class Module {
+  send: any
+  targetOrigin: string = 'player'
   constructor() {
     // this.url = null;
-    this.send = null;
+    // this.send = null;
   }
 
-  init(url) {
+  init(url: string) {
     // this.url = url;
     this.send = new XMLHttpRequest();
     this.send.open('GET', url);
@@ -14,7 +17,7 @@ export default class Module {
     this.send.addEventListener('progress', ({ loaded, total }) => {
       const progress = loaded / total;
       console.log('progress', `${progress * 100}%`);
-      postMessage({ callback: 'progress', progress });
+      self.postMessage({ callback: 'progress', progress });
       // setDownloadProcess(progress);
     });
     this.send.addEventListener('readystatechange', () => {
