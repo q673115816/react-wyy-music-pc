@@ -2,11 +2,12 @@ import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
 import Lazyload from 'react-lazyload';
 import DomMenuCreate from '@/components/MenuCreate';
+import {IconPlayerPlay} from '@tabler/icons'
 
 export default memo(({ mv = [] }) => (
   <div className="domHome_recommend_mv grid gap-x-5 grid-cols-3 mt-4">
     {
-      mv.map((item) => (
+      mv.slice(0, 3).map((item) => (
         <div className="item" key={item.id}>
           <DomMenuCreate
             type="mv"
@@ -17,19 +18,21 @@ export default memo(({ mv = [] }) => (
               ['不感兴趣'],
             ]}
           >
-            <div className="cover border relative overflow-hidden group rounded">
-              <Link to={`/player/mv/${item.id}`} className="ui_aspect-ratio-16/9">
-                <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
-                <div className="copywriter absolute top-0 left-0 right-0 bg-black bg-opacity-40 px-2 py-3 text-white transiton delay-200 duration-100 ease-in">
+            <div className="cover border relative overflow-hidden rounded text-white">
+                <div className="absolute top-0 w-full px-2 py-3 ui_linear_mask_top pointer-events-none">
                   {item.copywriter}
                 </div>
-                <div className="playCount absolute top-0 right-0 px-2 py-1 text-white group-hover:opacity-0">
-                  {item.playCount}
+                <div className="absolute top-1 right-2 pointer-events-none">
+                  <div className="flex-center">
+                    <IconPlayerPlay size={12}/>
+                    {item.playCount}
+                  </div>
                 </div>
-                <Lazyload overflow resize>
-                  <img className="" src={item.picUrl} alt="" />
+                <Lazyload scroll resize>
+                  <Link to={`/player/mv/${item.id}`} className="block ui_aspect-ratio-16/9">
+                    <img className="h-full object-cover w-full" src={item.picUrl} alt="" />
+                  </Link>
                 </Lazyload>
-              </Link>
             </div>
           </DomMenuCreate>
           <div className="name truncate text-sm mt-2">

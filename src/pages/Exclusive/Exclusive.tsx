@@ -1,4 +1,5 @@
 import React, {
+  RefObject,
   useEffect, useLayoutEffect, useRef, useState,
 } from 'react';
 import { Link, useHistory } from 'react-router-dom';
@@ -11,7 +12,6 @@ import {
   setExclusiveScrollTop,
 } from '@/reducers/exclusive/actions';
 import useInfinite from '@/custom/useInfinite';
-// import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import DomReisze from '@/components/ResizeObserver';
@@ -36,8 +36,8 @@ export default () => {
       console.log(error);
     }
   };
-  const DomScroll = useRef();
-  const DomObserver = useRef();
+  const DomScroll: RefObject<HTMLDivElement> = useRef();
+  const DomObserver: RefObject<HTMLDivElement> = useRef();
   useInfinite(handleInit, DomScroll, DomObserver);
   useEffect(() => {
     if (action === 'PUSH') {

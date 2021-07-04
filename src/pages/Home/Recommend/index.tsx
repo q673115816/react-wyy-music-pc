@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import './style.scss';
 import {
   apiBanner,
   apiRecommendResource,
@@ -31,7 +30,7 @@ const GridObj = {
   推荐MV: ['/video/mvlist', RecommendMV],
   主播电台: ['/home/dj', RecommendDjprogram],
   看看: ['https://look.163.com/hot?livetype=2', () => (
-    <div className="domHome_recommend_kankan grid grid-cols-4 gap-5">
+    <div className="domHome_recommend_kankan mt-4 grid grid-cols-4 gap-5">
       {
         Object.keys(Array(4).fill(0))
           .map((item) => (
@@ -127,14 +126,14 @@ export default memo(() => {
             );
           })
         }
-        <div className="domHome_recommend_diy">
+        <div className="domHome_recommend_diy mt-4 text-center pb-10">
           <div className="text-gray-500">
             现在可以根据个人喜好，自由调整首页栏目顺序啦~
           </div>
           <br />
           <button
             type="button"
-            className="btn ui_themeColor border rounded-sm border-current"
+            className="btn ui_themeColor border rounded-sm border-current w-32 h-8"
             onClick={() => dispatch(setDialogHomeOrderShow())}
           >
             调整栏目顺序

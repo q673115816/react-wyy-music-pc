@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, MouseEvent } from 'react';
 import { setDialogReset } from '@/reducers/mask/actions';
 import { setHomeOrder } from '@/reducers/setting/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,22 +9,21 @@ import produce from 'immer';
 import { setDragInit } from '@/reducers/drag/actions';
 import HOCDialog from '../Dialog';
 
-const defaultOrder = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
+type Order = string[]
+
+const defaultOrder: Order = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
 
 export default () => {
   const dispatch = useDispatch();
   const { dialogHomeOrderVisibility } = useSelector(({ mask }) => mask);
   const { homeOrder } = useSelector(({ setting }) => setting);
-  const [tempHomeOrder, setTempHomeOrder] = useState(homeOrder);
-  const [dragger, setDragger] = useState(false);
+  const [tempHomeOrder, setTempHomeOrder] = useState<Order>(homeOrder);
   const [curr, setCurr] = useState('');
   const [top, setTop] = useState(0);
-  const [startY, setStartY] = useState();
-  const DomList = useRef();
+  const [startY, setStartY] = useState(0);
   const RefIndex = useRef();
 
-  const handleMove = (e) => {
-    if (!dragger) return;
+  const handleMove = (e: MouseEvent<HTMLDivElement>) => {
     const apart = e.clientY - startY;
     const { current: index } = RefIndex;
     if (index <= 0 && apart <= 0) return false;
@@ -51,12 +50,10 @@ export default () => {
   };
 
   const handleUp = () => {
-    setDragger(false);
     setCurr('');
   };
 
-  const handleDown = (e, curr, index) => {
-    setDragger(true);
+  const handleDown = (e: MouseEvent<HTMLButtonElement>, curr: string, index: number) => {
     setCurr(curr);
     setStartY(e.clientY);
     RefIndex.current = index;
@@ -84,14 +81,14 @@ export default () => {
             想调整首页栏目的顺序?按住右边的按钮拖动即可
           </span>
         </div>
-        <div className="flex flex-col relative" ref={DomList}>
+        <div className="flex flex-col relative">
           {
             tempHomeOrder.map((order, index) => (
               <div key={order} className="h-12 text-base text-gray-500">
                 <button
                   type="button"
                   className={classNames('w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center', curr === order && 'absolute shadow z-10')}
-                  style={curr === order ? { transform: `translate(0, ${top}px)` } : null}
+                  style={{ transform: `translate(0, ${curr === order ? top : 0}px)` }}
                   onMouseDown={(e) => handleDown(e, order, index)}
                 >
                   {order}

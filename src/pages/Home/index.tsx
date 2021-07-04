@@ -2,8 +2,8 @@ import React, { lazy, memo, Suspense } from 'react';
 import {
   NavLink, Switch, Route, Redirect,
 } from 'react-router-dom';
-import './index.scss';
 import DomLoading from '@/components/Loading';
+import useMemoParams from '@/custom/useMemoParams'
 
 const HomeRecommend = lazy(() => import(/* webpackChunkName: "Home_Recommend" */'./Recommend'));
 const HomeToplist = lazy(() => import(/* webpackChunkName: "Home_Toplist" */'./Toplist'));
@@ -74,7 +74,7 @@ export default memo(() => (
         {
           nav.map(({ path, name, Children }) => (
             <Route path={path} key={name}>
-              <Children />
+              {useMemoParams(Children)}
             </Route>
           ))
         }

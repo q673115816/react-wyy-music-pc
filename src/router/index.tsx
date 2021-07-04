@@ -17,7 +17,7 @@ const Friend = lazy(() => import(/* webpackChunkName: "Friend" */'@/pages/Friend
 const Love = lazy(() => import(/* webpackChunkName: "Love" */'@/pages/Love'));
 const Dj = lazy(() => import(/* webpackChunkName: "Dj" */'@/pages/Dj'));
 const DjCategory = lazy(() => import(/* webpackChunkName: "DjCategory" */'@/pages/DjCategory'));
-const Fm = lazy(() => import(/* webpackChunkName: "Fm" */'@/pages/Fm'));
+const FM = lazy(() => import(/* webpackChunkName: "FM" */'@/pages/FM'));
 const History = lazy(() => import(/* webpackChunkName: "History" */'@/pages/History'));
 const ToplistArtist = lazy(() => import(/* webpackChunkName: "ToplistArtist" */'@/pages/ToplistArtist'));
 const ToplistMV = lazy(() => import(/* webpackChunkName: "ToplistMV" */'@/pages/ToplistMV'));
@@ -48,7 +48,7 @@ const router: routerProps = [
   ['/friend', Friend],
   ['/dj', Dj],
   ['/dj-category/:type/:rid', DjCategory],
-  ['/fm', Fm],
+  ['/FM', FM],
   ['/history', History],
   ['/love', Love],
   ['/sublist', Sublist],
