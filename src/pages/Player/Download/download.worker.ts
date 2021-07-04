@@ -1,4 +1,4 @@
-
+const ctx: Worker = self as any
 class Module {
   send: any
   targetOrigin: string = 'player'
