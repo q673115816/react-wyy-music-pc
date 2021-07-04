@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, memo,
+  useEffect, useState, memo, useMemo,
 } from 'react';
 
 import {
@@ -88,6 +88,8 @@ export default memo(({ type, vid }) => {
     comments,
     commentsLoading,
     setPage,
+
+    next,
   } = FNInit({ type, vid });
 
   // const { type, vid } = params;
@@ -106,6 +108,7 @@ export default memo(({ type, vid }) => {
       console.log(error);
     }
   };
+
 
   const {
     DomVideoWrap,
@@ -128,7 +131,7 @@ export default memo(({ type, vid }) => {
             </button>
           </div>
           <div className="ui_aspect-ratio-16/9" ref={DomVideoWrap}>
-            <DomVideo url={urls?.url} detail={detail} fixed={fixed} />
+            <DomVideo url={urls?.url} detail={detail} fixed={fixed} next={next}/>
           </div>
           <div className="domVideoDetail_creator flex items-center mt-5">
             <Link to={`/user/${detail?.creator?.userId}`} className="avatar rounded-full overflow-hidden border">

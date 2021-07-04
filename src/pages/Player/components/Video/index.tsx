@@ -1,8 +1,9 @@
 import React, {
-  useState, useEffect, useRef, createContext, useReducer,
+  useState, useEffect, useRef, createContext, useReducer, memo,
 } from 'react';
 import {
   IconPlayerPlay,
+  IconRefresh
 } from '@tabler/icons';
 import classNames from 'classnames';
 import { setPositionFalse, setPositionTrue } from '@/reducers/inset/actions';
@@ -21,8 +22,8 @@ import {
 
 export const VideoContext = createContext();
 
-export default ({
-  url, detail, brs = [], fixed,
+export default memo(({
+  url, detail, brs = [], fixed, next = {}
 }) => {
   const [{
     play,
@@ -35,6 +36,7 @@ export default ({
   const ref = useRef();
   const dispatch = useDispatch();
   const [isEnd, setIsEnd] = useState(false);
+  const [isAuto, setIsAuto] = useState(true)
   const handleChangePlay = () => {
     if (play) {
       ref.current.pause();
@@ -124,6 +126,26 @@ export default ({
               </button>
             )
           }
+          {/*<div className="absolute text-gray-300 inset-0 flex-center flex-col bg-black bg-opacity-60">
+            <div className="text-sm">
+              即将自动为您播放：{next.title}
+            </div>
+            <div className="flex">
+              <div className="flex-center flex-col">
+                <div className="border rounded-full flex-center">
+                  <IconRefresh size={36}/>
+                </div>
+                <div>重新播放</div>
+              </div>
+              <div className="flex-center flex-col">
+                <div className="border rounded-full flex-center">
+                  <IconPlayerPlay size={36}/>
+                </div>
+                <button type="button" className="">取消自动播放</button>
+                <div>自动播放已暂停</div>
+              </div>
+            </div>
+          </div>*/}
         </div>
         <VideoContext.Provider value={{
           handleChangePlay,
@@ -142,4 +164,4 @@ export default ({
       </div>
     </div>
   );
-};
+});

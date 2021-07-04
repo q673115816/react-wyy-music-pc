@@ -104,6 +104,8 @@ export default ({ vid, type }) => {
 
   const params = useMemo(() => ({ type, vid }), [type, vid]);
 
+  const next = useMemo(() => ({title: related?.[0]?.title || '', link: ''}), [type, vid])
+
   const {
     downloadProcess,
     downloadState,
@@ -146,5 +148,7 @@ export default ({ vid, type }) => {
     comments,
     commentsLoading,
     setPage,
+
+    next
   };
 };
