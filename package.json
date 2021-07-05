@@ -82,6 +82,7 @@
 		"sass-loader": "^12.1.0",
 		"sass-resources-loader": "^2.2.3",
 		"style-loader": "^3.0.0",
+		"vite": "^2.4.0",
 		"webpack": "^5.42.0",
 		"webpack-bundle-analyzer": "^4.4.2",
 		"webpack-cli": "^4.7.2",

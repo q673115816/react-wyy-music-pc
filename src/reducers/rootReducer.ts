@@ -10,3 +10,11 @@ requireContext.keys().forEach((key) => {
 });
 
 export default combineReducers(modules);
+
+// const modules = import.meta.glob('./*/index.ts')
+
+// for(const path in modules) {
+//   modules[path]().then(mod => {
+
+//   })
+// }
