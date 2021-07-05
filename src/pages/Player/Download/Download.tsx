@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setToast, setDialogDownloadVideoShow } from '@/reducers/mask/actions';
-import DownloadWorker from './download.worker';
+import DownloadWorker from './download.worker.ts';
 
 export default (url = '', title = '') => {
   const dispatch = useDispatch();
