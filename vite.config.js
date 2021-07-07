@@ -16,7 +16,7 @@ export default ({ command, mode }) => {
     'assets': path.resolve(__dirname, './src/assets'),
     'common': path.resolve(__dirname, './src/common'),
     'components': path.resolve(__dirname, './src/components'),
-    'custom': path.resolve(__dirname, './src/custom'),
+    'hooks': path.resolve(__dirname, './src/hooks'),
     'Issues': path.resolve(__dirname, './src/Issues'),
     'layout': path.resolve(__dirname, './src/layout'),
     'pages': path.resolve(__dirname, './src/pages'),

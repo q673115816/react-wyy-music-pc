@@ -3,7 +3,7 @@ import {
   NavLink, Switch, Route, Redirect,
 } from 'react-router-dom';
 import DomLoading from '@/components/Loading';
-import useMemoParams from '@/custom/useMemoParams'
+import useMemoParams from '@/hooks/useMemoParams'
 
 const HomeRecommend = lazy(() => import(/* webpackChunkName: "Home_Recommend" */'./Recommend'));
 const HomeToplist = lazy(() => import(/* webpackChunkName: "Home_Toplist" */'./Toplist'));

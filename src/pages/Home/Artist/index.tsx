@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import { IconUser } from '@tabler/icons';
 import { apiArtistList } from '@/api';
 import { addHomeTopArtists, initHomeTopArtists } from '@/reducers/home/actions';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomResize from '@/components/ResizeObserver';
 import DomLoading from '@/components/Loading';
 

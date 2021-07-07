@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, memo } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import DomLoading from '@/components/Loading';
-import useMemoParams from '@/custom/useMemoParams';
+import useMemoParams from '@/hooks/useMemoParams';
 
 const FriendMy = lazy(() => import(/* webpackChunkName: "Friend_My" */'./My'));
 const FriendTopic = lazy(() => import(/* webpackChunkName: "Friend_Topic" */'./Topic'));

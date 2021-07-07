@@ -8,7 +8,7 @@ import {
   apiRecommendSongs,
 } from '@/api';
 import { SymbolToday } from '@/components/Symbol';
-import useLoginStatus from '@/custom/useLoginStatus';
+import useLoginStatus from '@/hooks/useLoginStatus';
 import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';
 import DomDownload from '@/components/Table/Download';

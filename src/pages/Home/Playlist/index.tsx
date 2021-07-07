@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import useMemoParmas from '@/custom/useMemoParams';
+import useMemoParmas from '@/hooks/useMemoParams';
 import DomHome from './Home';
 import DomHighquality from './Highquality';
 

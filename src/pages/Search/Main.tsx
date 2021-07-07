@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import useMemoParams from '@/custom/useMemoParams';
+import useMemoParams from '@/hooks/useMemoParams';
 import SearchHome from './Home';
 
 export default () => (

@@ -5,7 +5,7 @@ import { apiMVAll } from '@/api';
 import classNames from 'classnames';
 
 import DomGridVideo from '@/components/GridVideo';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 
 const filters = [
   ['area', '地区', ['全部', '内地', '港台', '欧美', '韩国', '日本']],

@@ -7,7 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 dayjs.locale('zh-cn')
 
-import useLoginStatus from '@/custom/useLoginStatus';
+import useLoginStatus from '@/hooks/useLoginStatus';
 import DomRank from '@/components/Table/Rank';
 import DomGroupPlay from '@/components/GroupPlay';
 import DomName from '@/components/Table/Name';

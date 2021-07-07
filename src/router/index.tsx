@@ -1,6 +1,6 @@
 import { lazy, memo, FunctionComponent } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import useMemoParams from '@/custom/useMemoParams'
+import useMemoParams from '@/hooks/useMemoParams'
 
 const Setting = lazy(() => import(/* webpackChunkName: "Setting" */'@/pages/Setting'));
 const Home = lazy(() => import(/* webpackChunkName: "Home" */'@/pages/Home'));
@@ -61,7 +61,7 @@ const router: routerProps = [
   ['/search/:keywords', Search],
   ['/settings', Setting],
   ['/ai', AI],
-  ['/custom-share/:type/:id', CustomShare],
+  ['/hooks-share/:type/:id', CustomShare],
 ];
 
 export default memo(() => (

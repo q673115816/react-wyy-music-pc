@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { apiUserEvent, apiUserDetail } from '@/api';
 import DomDynamic from '@/components/Dynamic';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomLoading from '@/components/Loading';
 
 export default memo(({ uid }) => {

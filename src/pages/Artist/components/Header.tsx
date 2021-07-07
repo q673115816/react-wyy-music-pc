@@ -11,7 +11,7 @@ import { setDialogUnSubscriptionShow, setToast } from '@/reducers/mask/actions';
 import {
   apiArtistDetail, apiArtistSub,
 } from '@/api';
-import { useRefreshArtistSublist } from '@/custom/useHelp';
+import { useRefreshArtistSublist } from '@/hooks/useHelp';
 
 export default memo(({ id }) => {
   const { artistSublist } = useSelector(({ account }) => account);

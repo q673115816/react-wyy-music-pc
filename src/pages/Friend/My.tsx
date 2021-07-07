@@ -11,7 +11,7 @@ import { setLoginVisibilty } from '@/reducers/common/actions';
 import './style.scss';
 
 import DomGender from '@/components/Gender';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomLoading from '@/components/Loading';
 import DomDynamic from '@/components/Dynamic';
 import DomTopicList from './components/TopicList';

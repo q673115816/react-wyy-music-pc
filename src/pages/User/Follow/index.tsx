@@ -10,7 +10,7 @@ import { setPopupLetterToggle } from '@/reducers/mask/actions';
 import { setMsgPrivateHistory } from '@/reducers/letter/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import DomLoading from '@/components/Loading';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomCardList from '../components/CardList';
 
 export default memo(({ uid }) => {

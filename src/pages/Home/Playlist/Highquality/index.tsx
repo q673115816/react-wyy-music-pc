@@ -8,7 +8,7 @@ import { IconFilter, IconPlayerPlay, IconCrown } from '@tabler/icons';
 import classNames from 'classnames';
 import { apiTopPlaylistHighquality, apiPlaylistHighqualityTags } from '@/api';
 import { transPlayCount } from '@/common/utils';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
 import DomTagsBox from '@/components/Tags/Box';
 

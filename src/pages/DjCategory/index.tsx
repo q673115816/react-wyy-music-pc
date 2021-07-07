@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { Link } from 'react-router-dom';
 import { apiDjRadioHot } from '@/api';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomLoading from '@/components/Loading';
 
 export default memo(({ type, rid }) => {

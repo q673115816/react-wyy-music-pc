@@ -4,14 +4,14 @@ import React, {
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DomResizer from '@/components/Resizer';
-import useMemoParmas from '@/custom/useMemoParams';
-import useIsLogin from '@/custom/useIsLogin';
+import useMemoParmas from '@/hooks/useMemoParams';
+import useIsLogin from '@/hooks/useIsLogin';
 import DomLoading from '@/components/Loading';
 import HelpMask from '@/components/HelpMask';
 import DomHeader from './layout/Header';
 import DomMain from './layout/Main';
 import DomFooter from './layout/Footer';
-import useKeyActions from './custom/useKeyActions';
+import useKeyActions from './hooks/useKeyActions';
 import './styles/index.scss';
 
 import GlobalLrc from './components/Lrc';

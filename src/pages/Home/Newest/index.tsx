@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 import './style.scss';
 
-import useMemoParams from '@/custom/useMemoParams';
+import useMemoParams from '@/hooks/useMemoParams';
 import DomSong from './Song';
 import DomAlbum from './Album';
 

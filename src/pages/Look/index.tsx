@@ -1,6 +1,6 @@
 import React, { useState, memo, useRef } from 'react';
 import DomLook from '@/components/AdLookRectangle';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 // import './style.scss';
 
 export default memo(() => {

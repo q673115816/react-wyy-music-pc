@@ -2,7 +2,7 @@ import React, {
   useState, useRef, memo,
 } from 'react';
 import { apiArtistMV } from '@/api';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomGridVideo from '@/components/GridVideo';
 
 export default memo(({ id }) => {

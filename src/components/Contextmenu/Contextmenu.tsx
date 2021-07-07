@@ -27,7 +27,7 @@ import {
 import { setLoginVisibilty } from '@/reducers/common/actions';
 import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/actions';
 import { apiMVSub } from '@/api';
-import useCopyLink from '@/custom/useCopyLink';
+import useCopyLink from '@/hooks/useCopyLink';
 import DomMask from '@/components/Mask';
 import './Contextmenu.scss';
 

@@ -11,7 +11,7 @@ import {
   apiVideoCategoryList,
   apiVideoGroup,
 } from '@/api';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomGridVideo from '@/components/GridVideo';
 import { setVideoListInit, setVideoListId } from '@/reducers/videolist/actions';
 import './style.scss';

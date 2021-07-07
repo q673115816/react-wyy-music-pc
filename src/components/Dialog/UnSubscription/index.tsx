@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { setDialogReset, setToast } from '@/reducers/mask/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiArtistSub } from '@/api';
-import { useRefreshArtistSublist } from '@/custom/useHelp';
+import { useRefreshArtistSublist } from '@/hooks/useHelp';
 import HOCDialog from '../Dialog';
 import './style.scss';
 

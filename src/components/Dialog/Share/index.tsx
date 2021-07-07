@@ -12,7 +12,7 @@ import {
 import { setDialogReset, setDialogShareWXShow, setToast } from '@/reducers/mask/actions';
 import HOCDialog from '../Dialog';
 import './style.scss';
-import useCopyLink from '@/custom/useCopyLink';
+import useCopyLink from '@/hooks/useCopyLink';
 
 const types = {
   songs: '单曲',

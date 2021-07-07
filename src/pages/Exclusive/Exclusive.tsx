@@ -11,7 +11,7 @@ import {
   setExclusiveResultEmpty,
   setExclusiveScrollTop,
 } from '@/reducers/exclusive/actions';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import DomReisze from '@/components/ResizeObserver';

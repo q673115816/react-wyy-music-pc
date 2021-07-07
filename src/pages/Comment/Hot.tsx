@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { apiCommentHot, apiCommentLike } from '@/api';
 import DomComment from '@/components/Comment';
-import useInfinite from '@/custom/useInfinite';
+import useInfinite from '@/hooks/useInfinite';
 import DomLoading from '@/components/Loading';
 import produce from 'immer';
 
