@@ -1,4 +1,4 @@
-import { lazy, memo, FunctionComponent } from 'react';
+import React, { lazy, memo, FunctionComponent } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import useMemoParams from '@/hooks/useMemoParams'
 

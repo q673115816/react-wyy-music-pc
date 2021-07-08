@@ -1,20 +1,19 @@
 import { combineReducers, ReducersMapObject } from 'redux';
 
-const requireContext = require.context('./', true, /^\.\/.*\/index\.ts$/);
 
-const modules: ReducersMapObject = {}
+const root: ReducersMapObject = {}
+
+const requireContext = require.context('./', true, /^\.\/.*\/index\.ts$/);
 
 requireContext.keys().forEach((key) => {
   const mod = requireContext(key);
-  modules[key.slice(2, -9)] = mod.__esModule && mod.default ? mod.default : mod;
+  root[key.slice(2, -9)] = mod.__esModule && mod.default ? mod.default : mod;
 });
 
-export default combineReducers(modules);
-
-// const modules = import.meta.glob('./*/index.ts')
+// const modules = import.meta.globEager('./*/index.ts')
 
 // for(const path in modules) {
-//   modules[path]().then(mod => {
-
-//   })
+//   root[path.slice(2, -9)] = modules[path].default
 // }
+
+export default combineReducers(root);

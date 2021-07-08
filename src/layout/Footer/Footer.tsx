@@ -1,4 +1,4 @@
-import {
+import React, {
   memo,
 } from 'react';
 

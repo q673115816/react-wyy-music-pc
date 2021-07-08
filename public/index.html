@@ -21,20 +21,20 @@
     -->
     <!-- 将http的不安全请求升级为https -->
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>
-    <%= htmlWebpackPlugin.options.title %>
-  </title>
-  <% for(var prefetch of htmlWebpackPlugin.options.prefetch) { %>
-    <link <%=prefetch%>>
-  <% } %>
   <!-- <script src="https://cdn.polyfill.io/v2/polyfill.js"></script> -->
-  <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-icons/font/bootstrap-icons.css"> -->
-  <!-- <link rel="stylesheet" href="https://unpkg.com/@tabler/icons@latest/iconfont/tabler-icons.min.css"> -->
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"> -->
-  <% for(var css of htmlWebpackPlugin.options.cdn.css) { %>
-    <link rel="stylesheet" href="<%=css%>">
-    <% } %>
+    <link rel="dns-prefetch" href="//q673115816.github.io">
+    <link rel="dns-prefetch" href="//q673115816.github.io/wyy-pc">
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="//netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app">
+    <link rel="dns-prefetch" href="//p1.music.126.net">
+    <link rel="dns-prefetch" href="//p2.music.126.net">
+    <link rel="dns-prefetch" href="//p3.music.126.net">
+    <link rel="dns-prefetch" href="//m7.music.126.net">
+    <link rel="dns-prefetch" href="//m8.music.126.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.min.css">
 </head>
 
 <body>
@@ -54,19 +54,11 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <% for(var js of htmlWebpackPlugin.options.cdn.js) { %>
-      <script src="<%=js%>"></script>
+    <% if (process.env.NODE_ENV === 'production') { %>
+      <% for(var js of htmlWebpackPlugin.options.cdn.js) { %>
+        <script src="<%=js%>"></script>
       <% } %>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/react/umd/react.development.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.development.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-router-dom/umd/react-router-dom.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-router/umd/react-router.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/redux/dist/redux.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-redux/dist/react-redux.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tabler/icons/icons-react/dist/index.umd.min.js"></script> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/swiper/esm/react/swiper.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper/esm/react/swiper-slide.js"></script> -->
+    <% } %>
 </body>
 
 </html>

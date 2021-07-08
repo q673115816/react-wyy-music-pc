@@ -206,7 +206,7 @@ export default memo(() => {
         </div>
         <div className="domHome_item mt-8">
           <div className="domHome_linktitle h1">电台个性推荐</div>
-          <div className="domHome_dj_list grid grid-cols-5 gap-5">
+          <div className="mt-4 grid grid-cols-5 gap-5">
             {
               DjPersonalizeRecommend.slice(0, 5)
                 .map((item) => (
@@ -222,7 +222,7 @@ export default memo(() => {
                 {name}
                 &gt;
               </Link>
-              <div className="domHome_dj_list grid grid-cols-5 gap-5">
+              <div className="mt-4 grid grid-cols-5 gap-5">
                 {
                   result[name].slice(0, 5)
                     .map((item) => (

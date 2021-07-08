@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAudioRunningToggle, setAudioNext, setAudioPrev } from '@/reducers/audio/actions';
 import { setVolumePlusTen, setVolumeSubTen } from '@/reducers/volume/actions';
@@ -6,7 +6,7 @@ import { setVolumePlusTen, setVolumeSubTen } from '@/reducers/volume/actions';
 export default () => {
   const dispatch = useDispatch();
   // console.log('keyActions');
-  const keyDown = (e) => {
+  const keyDown = (e: KeyboardEvent) => {
     const { ctrlKey, keyCode } = e;
     console.log(keyCode);
     if (ctrlKey) {

@@ -18,9 +18,12 @@ const axiosInstance = axios.create({
 
 function POSTPlugin<T extends AxiosRequestConfig>(req: T): T {
   if (req.method !== 'post') return req
-  // const { data } = res
-  // res.data = format(data)
-  cookie && req.data ? req.data.cookie = cookie : req.data = {cookie}
+  if(!cookie) return req
+  req.data = {
+    ...req.data,
+    cookie
+  }
+  // cookie && req.data ? req.data.cookie = cookie : req.data = {cookie}
   // res.data.cookie ||= cookie
   return req
 }
