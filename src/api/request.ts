@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 // export const prodUrl = 'https://neteasecloudmusicapi.herokuapp.com';
 export const prodUrl = 'https://netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app';
 
-export const devUrl = 'http://localhost:3000';
+export const devUrl = 'http://localhost:3333';
 
 const baseURL = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
 const cookie = localStorage.getItem('cookie') || '';

@@ -1,8 +1,11 @@
-import React, { memo } from 'react';
+import React, { memo, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronDownRight } from '@tabler/icons';
 import {
-  setGlobalRect, setGlobalStartRect, setGlobalResizer, setGlobalStartRectLock,
+  setGlobalRect,
+  setGlobalStartRect,
+  setGlobalResizer,
+  setGlobalStartRectLock,
 } from '@/reducers/inset/actions';
 import { setDragInit } from '@/reducers/drag/actions';
 
@@ -29,7 +32,7 @@ export default memo(() => {
     // dispatch(setGlobalResizer(false));
   };
 
-  const resizedown = (e) => {
+  const resizedown = (e: MouseEvent<HTMLDivElement>) => {
     // dispatch(setGlobalResizer(true));
     dispatch(setGlobalStartRect({
       x: e.clientX,

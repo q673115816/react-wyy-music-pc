@@ -16,7 +16,7 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-ReactDOM.render(<Issues />, document.getElementById('comment-root'));
+// ReactDOM.render(<Issues />, document.getElementById('comment-root'));
 
 // if (module.hot) {
 //   module.hot.accept();

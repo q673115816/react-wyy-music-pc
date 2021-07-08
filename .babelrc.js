@@ -17,6 +17,7 @@ module.exports = {
     // ["@babel/plugin-syntax-decorators", { "legacy": true }],
     "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
-    isDevelopment && 'react-refresh/babel',
-  ].filter(Boolean)
+    // isDevelopment && 'react-refresh/babel',
+  ]
+  // .filter(Boolean)
 }
