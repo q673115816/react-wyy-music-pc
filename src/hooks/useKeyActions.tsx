@@ -1,26 +1,31 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setAudioRunningToggle, setAudioNext, setAudioPrev } from '@/reducers/audio/actions';
-import { setVolumePlusTen, setVolumeSubTen } from '@/reducers/volume/actions';
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  setAudioRunningToggle,
+  setAudioNext,
+  setAudioPrev,
+} from "@/reducers/audio/actions";
+import { setVolumePlusTen, setVolumeSubTen } from "@/reducers/volume/actions";
 
 export default () => {
   const dispatch = useDispatch();
   // console.log('keyActions');
   const keyDown = (e: KeyboardEvent) => {
-    const { ctrlKey, keyCode } = e;
-    console.log(keyCode);
+    const { ctrlKey, keyCode, key } = e;
+    console.log(key);
+
     if (ctrlKey) {
-      switch (keyCode) {
-        case 38:// 音量
+      switch (key) {
+        case 'ArrowUp': // 音量
           return dispatch(setVolumePlusTen());
-        case 40:// 音量
+        case 'ArrowDown': // 音量
           return dispatch(setVolumeSubTen());
-        case 37:
+        case 'ArrowLeft':
           return dispatch(setAudioPrev());
-        case 39:
+        case 'ArrowRight':
           return dispatch(setAudioNext());
-        case 80:
-          e.preventDefault();// 原为打印
+        case 'p':
+          e.preventDefault(); // 原为打印
           return dispatch(setAudioRunningToggle());
         default:
           break;
@@ -29,9 +34,9 @@ export default () => {
     return true;
   };
   useEffect(() => {
-    document.addEventListener('keydown', keyDown);
+    document.addEventListener("keydown", keyDown);
     return () => {
-      document.removeEventListener('keydown', keyDown);
+      document.removeEventListener("keydown", keyDown);
     };
   }, []);
 };

@@ -42,12 +42,12 @@ export const setAudioPlaylistAdd = (payload) => ({
   payload,
 });
 
-export const setAudioPrev = (payload) => ({
+export const setAudioPrev = (payload?: {}) => ({
   type: SET_AUDIO_PREV,
   payload,
 });
 
-export const setAudioNext = (payload) => ({
+export const setAudioNext = (payload?: {}) => ({
   type: SET_AUDIO_NEXT,
   payload,
 });
