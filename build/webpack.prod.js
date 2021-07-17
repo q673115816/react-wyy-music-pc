@@ -41,6 +41,7 @@ const meta = {
   },
 };
 
+
 // const prefetch = [
 //   'rel="dns-prefetch" href="//q673115816.github.io"',
 //   'rel="dns-prefetch" href="//q673115816.github.io/wyy-pc"',
@@ -64,6 +65,9 @@ const plugins = [
     // prefetch,
     meta,
     filename,
+    base: {
+      href: '/react-wyy-music-pc',
+    },
     publicPath: '/react-wyy-music-pc/',
   })
 ]

@@ -97,6 +97,7 @@ export default () => {
             type="button"
             className="absolute opacity-0 group-hover:opacity-100 inset-y-0 -right-1 m-auto ui_theme_bg_color rounded-full w-2 h-2 overflow-hidden shadow"
             onMouseDown={handleProcessStart}
+            title="长按拖拽"
           >
             { }
           </button>

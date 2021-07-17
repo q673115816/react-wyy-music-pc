@@ -125,6 +125,7 @@ export default memo(() => {
         type="button"
         className="absolute inset-0 z-0 w-full focus:outline-none cursor-auto"
         onMouseDown={dragdown}
+        title="长按拖拽"
       />
       <Link
         to="/"
