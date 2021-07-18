@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
+const webpack, { DefinePlugin} = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { merge } = require('webpack-merge');
@@ -28,6 +28,9 @@ const dev = {
     ],
   },
   plugins: [
+    new DefinePlugin({
+      PUBLIC_URL: JSON.stringify('/'),
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({

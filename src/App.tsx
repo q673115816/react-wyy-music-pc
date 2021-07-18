@@ -84,7 +84,7 @@ export default memo(() => {
         '--themeColor': theme,
       }}
     >
-      <Router>
+      <Router basename={ PUBLIC_URL }>
         <div
           id="NeteaseCloudMusic"
           className="domWrapper flex flex-col shadow-lg select-none"

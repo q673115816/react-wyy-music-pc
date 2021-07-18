@@ -1,7 +1,9 @@
 const { merge } = require('webpack-merge');
 const path = require('path');
-const base = require('./webpack.base.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { webpack, DefinePlugin } = require('webpack');
+const base = require('./webpack.base');
+
 console.log('entry webpack prod');
 
 const devMode = process.env.NODE_ENV !== 'production';
@@ -41,7 +43,6 @@ const meta = {
   },
 };
 
-
 // const prefetch = [
 //   'rel="dns-prefetch" href="//q673115816.github.io"',
 //   'rel="dns-prefetch" href="//q673115816.github.io/wyy-pc"',
@@ -57,6 +58,9 @@ const meta = {
 const filename = '404.html';
 
 const plugins = [
+  new DefinePlugin({
+    PUBLIC_URL: JSON.stringify('/react-wyy-music-pc'),
+  }),
   new HtmlWebpackPlugin({
     favicon: path.join(__dirname, '../public/favicon.ico'),
     template: path.join(__dirname, '../public/index.html'),
@@ -68,15 +72,15 @@ const plugins = [
     base: {
       href: '/react-wyy-music-pc',
     },
-    publicPath: '/react-wyy-music-pc/',
-  })
-]
+    publicPath: '/react-wyy-music-pc',
+  }),
+];
 
 const prod = {
   mode: 'production',
   output: {
     clean: true,
-    publicPath: '/react-wyy-music-pc/',
+    publicPath: '/react-wyy-music-pc',
     path: path.join(__dirname, '../dist'),
     filename: '[name].[chunkhash:8].js',
     // library: '[name]_[fullhash]',
@@ -87,14 +91,14 @@ const prod = {
       // 'swiper': 'Swiper',
       'react-router': 'ReactRouter',
       'react-router-dom': 'ReactRouterDOM',
-      'react': 'React',
+      react: 'React',
       'react-dom': 'ReactDOM',
       'react-redux': 'ReactRedux',
       '@tabler/icons': 'tablerIcons',
-      'redux': 'Redux',
-      'immer': 'immer',
+      redux: 'Redux',
+      immer: 'immer',
       'react-slick': 'Slider',
-      'axios': 'axios',
+      axios: 'axios',
     }],
   module: {
     rules: [
