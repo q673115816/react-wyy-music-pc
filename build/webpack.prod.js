@@ -80,7 +80,7 @@ const prod = {
   mode: 'production',
   output: {
     clean: true,
-    publicPath: '/react-wyy-music-pc',
+    publicPath: '/react-wyy-music-pc/',
     path: path.join(__dirname, '../dist'),
     filename: '[name].[chunkhash:8].js',
     // library: '[name]_[fullhash]',
