@@ -1,60 +1,82 @@
-import {memo} from 'react';
-import {IconChevronRight, IconChevronLeft} from '@tabler/icons';
+import React, { FC, memo, useCallback, PropsWithChildren } from 'react';
+import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 import classNames from 'classnames';
-import DomArrow from './Arrow'
 
 type pageProps = {
   total: number
   page: number
-  func: (nextPage: number) => void
+  func: (nextPage: number) => null
 }
 
-const DomCenter = ({page, total, func}: pageProps) => (
-  <>
-    <DomArrow handleClick={() => func(1)}>1</DomArrow>
-    <span className="border px-2 h-6 flex-center rounded">…</span>
-    <DomList start={page - 3} len={7} page={page} func={func}/>
-    <span className="border px-2 h-6 flex-center rounded">…</span>
-    <DomArrow handleClick={() => func(total)}>{total}</DomArrow>
-  </>
-);
+interface btnProps {
+  handleClick: () => null
+  status: boolean
+  current: boolean
+}
 
-const DomList = ({
-                   start = 1, page, func, len,
-                 }) => (
+const PageBtn = memo<PropsWithChildren<Partial<btnProps>>>(({
+  handleClick = () => void 0,
+  status = false,
+  current = false,
+  children
+}) => {
+  const Click = (status || current) ? () => null : handleClick
+  return (
+    <button
+      type="button"
+      onClick={Click}
+      className={classNames(
+        'border px-2 h-6 flex-center rounded',
+        status ? 'cursor-auto text-gray-500' : 'hover:bg-gray-200',
+        current && 'cursor-auto ui_theme_bg_color text-white'
+      )}
+    >
+      {children}
+    </button>
+  )
+})
+
+const PageList = ({
+  start = 1, page, func, len,
+}) => (
   Array.from(Array(len).keys()).map((item) => {
     const currentPage = item + start
-    return (currentPage === page ? (
-        <DomArrow key={item} current={true}>
-          {currentPage}
-        </DomArrow>
-      )
-      : (
-        <DomArrow key={item} handleClick={() => func(currentPage)}>
-          {currentPage}
-        </DomArrow>
-      ))
+    return (<PageBtn key={item}
+      current={currentPage === page}
+      handleClick={() => func(currentPage)}>
+      {currentPage}
+    </PageBtn>)
   })
 );
 
-const DomLeft = ({page, total, func}: pageProps) => (
+const DomCenter: FC<pageProps> = ({ page, total, func }) => (
   <>
-    <DomList start={1} page={page} func={func} len={8}/>
+    <PageBtn handleClick={() => func(1)}>1</PageBtn>
     <span className="border px-2 h-6 flex-center rounded">…</span>
-    <DomArrow handleClick={() => func(total)}>{total}</DomArrow>
+    <PageList start={page - 3} len={7} page={page} func={func} />
+    <span className="border px-2 h-6 flex-center rounded">…</span>
+    <PageBtn handleClick={() => func(total)}>{total}</PageBtn>
   </>
 );
 
-const DomRight = ({page, total, func}: pageProps) => (
+const DomLeft: FC<pageProps> = ({ page, total, func }) => (
   <>
-    <DomArrow handleClick={() => func(1)}>1</DomArrow>
+    <PageList start={1} page={page} func={func} len={8} />
     <span className="border px-2 h-6 flex-center rounded">…</span>
-    <DomList start={total - 7} page={page} func={func} len={8}/>
+    <PageBtn handleClick={() => func(total)}>{total}</PageBtn>
   </>
 );
 
-const DomPosition = (props: pageProps) => {
-  const {page, total, func} = props
+const DomRight: FC<pageProps> = ({ page, total, func }) => (
+  <>
+    <PageBtn handleClick={() => func(1)}>1</PageBtn>
+    <span className="border px-2 h-6 flex-center rounded">…</span>
+    <PageList start={total - 7} page={page} func={func} len={8} />
+  </>
+);
+
+const DomPosition: FC<pageProps> = (props) => {
+  const { page, total, func } = props
   switch (true) {
     case (page > 5 && page < total - 4):
       return <DomCenter {...props} />;
@@ -64,7 +86,7 @@ const DomPosition = (props: pageProps) => {
       return <DomRight {...props} />;
     default:
       return (
-        <DomList {...{
+        <PageList {...{
           page, total, func, len: total,
         }}
         />
@@ -72,24 +94,23 @@ const DomPosition = (props: pageProps) => {
   }
 };
 
-export default memo(({
-                       total = 1, page, func,
-                     }: pageProps) => {
+export default memo<pageProps>(({
+  total = 1, page, func,
+}) => {
   if (total <= 1) return null;
-  console.log(total)
   return (
     <div className="flex items-center justify-center pt-10 pb-10 space-x-1 flex-wrap">
-      <DomArrow
-        handleClick={() => page !== 1 && func(page - 1)}
+      <PageBtn
+        handleClick={() => func(page - 1)}
         status={page === 1}>
-        <IconChevronLeft size={12}/>
-      </DomArrow>
-      <DomPosition {...{total, page, func}} />
-      <DomArrow
-        handleClick={() => page !== total && func(page + 1)}
+        <IconChevronLeft size={12} />
+      </PageBtn>
+      <DomPosition {...{ total, page, func }} />
+      <PageBtn
+        handleClick={() => func(page + 1)}
         status={page === total}>
-        <IconChevronRight size={12}/>
-      </DomArrow>
+        <IconChevronRight size={12} />
+      </PageBtn>
     </div>
   );
 });

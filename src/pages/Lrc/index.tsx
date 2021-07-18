@@ -22,7 +22,7 @@ const DomLrc = memo(() => {
     currentTime,
   } = useSelector(({ audio }) => audio);
   const { lrcList } = useSelector(({ lrc }) => lrc);
-  const RefScroll = useRef();
+  const RefScroll = useRef<HTMLDivElement>();
   const RefCurrentLine = useRef();
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
 
@@ -139,7 +139,7 @@ export default memo(() => {
     setLoading(false);
   };
   useEffect(() => {
-    if (!lyricVisibility) return false;
+    if (!lyricVisibility) return;
     if (loading) {
       handleInit();
     } else {
@@ -256,7 +256,10 @@ export default memo(() => {
                     : (
                       <>
                         <DomCommentsList comments={comments} more={memoId} type="song" />
-                        <DomPage total={Math.ceil(comments.total / limit)} page={1} func={setPage} />
+                        <DomPage
+                        total={Math.ceil(comments.total / limit)}
+                        page={page}
+                        func={setPage} />
                       </>
                     )
                 }
