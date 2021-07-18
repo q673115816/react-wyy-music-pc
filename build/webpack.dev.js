@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack, { DefinePlugin} = require('webpack');
+const { DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { merge } = require('webpack-merge');
@@ -31,7 +31,7 @@ const dev = {
     new DefinePlugin({
       PUBLIC_URL: JSON.stringify('/'),
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
       favicon: path.join(__dirname, '../public/favicon.ico'),
