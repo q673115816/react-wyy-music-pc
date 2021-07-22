@@ -49,7 +49,7 @@ axiosInstance.interceptors.response.use(
 export const get = (url: string) => axiosInstance
   .get(url)
 
-export const post = (url: string, params?: Params) => axiosInstance
+export const post = (url: string, params?: Params): any => axiosInstance
   .post(url, params, {
     params: {
       timestamp: Date.now()

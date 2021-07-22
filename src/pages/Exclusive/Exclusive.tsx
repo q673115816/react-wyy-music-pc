@@ -6,58 +6,55 @@ import { Link, useHistory } from 'react-router-dom';
 import LazyLoad from 'react-lazyload';
 import { IconPlayerPlay } from '@tabler/icons';
 import { apiPersonalizedPrivatecontentList } from '@/api';
+// import {
+//   setExclusiveResultAdd,
+//   setExclusiveResultEmpty,
+//   setExclusiveScrollTop,
+// } from '@/reducers/exclusive/actions';
+import useInfinite from '@/hooks/useInfinite';
+// import { useDispatch, useSelector } from 'react-redux';
+import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
 import {
+  ResultProps,
   setExclusiveResultAdd,
   setExclusiveResultEmpty,
   setExclusiveScrollTop,
-} from '@/reducers/exclusive/actions';
-import useInfinite from '@/hooks/useInfinite';
-import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
-import DomReisze from '@/components/ResizeObserver';
+  handleGetData,
+} from '@/reducers/exclusive/slice'
+import Resize from '@/components/ResizeObserver';
 
 export default () => {
   const { action } = useHistory();
-  const dispatch = useDispatch();
-  const { result, scrollTop } = useSelector(({ exclusive }) => exclusive);
+  const dispatch = useAppDispatch();
+  const { result, scrollTop } = useAppSelector(({ exclusive }) => exclusive);
   const limit = 60;
   const offset = useRef(0);
-  const handleInit = async () => {
-    try {
-      const { result } = await apiPersonalizedPrivatecontentList({
-        limit,
-        offset: offset.current,
-      });
-      offset.current += limit;
-      dispatch(setExclusiveResultAdd({
-        result,
-      }));
-    } catch (error) {
-      console.log(error);
-    }
+  const handleInit = () => {
+    handleGetData({limit, offset})
+    offset.current += limit
   };
-  const DomScroll: RefObject<HTMLDivElement> = useRef();
-  const DomObserver: RefObject<HTMLDivElement> = useRef();
+  const DomScroll= useRef<HTMLDivElement>(null);
+  const DomObserver = useRef<HTMLDivElement>(null);
   useInfinite(handleInit, DomScroll, DomObserver);
   useEffect(() => {
     if (action === 'PUSH') {
       dispatch(setExclusiveResultEmpty());
-    } else {
+    } else if(DomScroll.current) {
       DomScroll.current.scrollTop = scrollTop;
     }
   }, []);
   useLayoutEffect(() => () => {
     dispatch(setExclusiveScrollTop({
-      scrollTop: DomScroll.current.scrollTop,
+      scrollTop: DomScroll.current?.scrollTop || 0,
     }));
   }, []);
   return (
     <div className="overflow-auto p-8 h-full" ref={DomScroll}>
       <div className="ui_w1100">
         <div className="h1 pb-4">独家放送</div>
-        <DomReisze className="grid gap-5" small="grid-cols-2" big="grid-cols-3">
+        <Resize className="grid gap-5" small="grid-cols-2" big="grid-cols-3">
           {
-              result.map((item) => (
+              result.map((item: ResultProps) => (
                 <div key={item.picUrl}>
                   <Link
                     to={item.videoId ? `/player/video/${item.videoId}` : `/player/mv/${item.id}`}
@@ -78,7 +75,7 @@ export default () => {
                 </div>
               ))
             }
-        </DomReisze>
+        </Resize>
         <div ref={DomObserver} />
       </div>
     </div>

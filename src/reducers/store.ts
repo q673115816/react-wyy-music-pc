@@ -1,18 +1,19 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import ReduxThunk from 'redux-thunk'; // no changes here 😀
-import rootReducer from './rootReducer';
+import {configureStore, ThunkAction, Action} from "@reduxjs/toolkit";
+import rootReducer from './rootReducer'
 
-const composeEnhancers = typeof window === 'object'
-    && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-    // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-  }) : compose;
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware => [...getDefaultMiddleware()],
+  devTools: true,
+})
 
-const enhancer = composeEnhancers(
-  applyMiddleware(ReduxThunk),
-  // other store enhancers if any
-);
-export default createStore(
-  rootReducer,
-  enhancer,
-);
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+  >;
+
+export default store
