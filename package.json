@@ -3,11 +3,19 @@
 	"version": "1.0.0",
 	"description": "React music player",
 	"keywords": [
-		"react",
-		"starter"
+		"react"
 	],
 	"main": "src/index.tsx",
 	"homepage": "https://q673115816.github.io/react-wyy-music-pc",
+  "bugs": {
+    "url": "https://github.com/q673115816/react-wyy-music-pc/issues",
+    "email": "673115816@qq.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "linjinjun",
+    "email": "673115816@qq.com"
+  },
 	"scripts": {
 		"test": "echo \" ci run success \"",
 		"start": "webpack serve --config build/webpack.dev.js --mode development",
