@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import DomLoading from '@/components/Loading';
 
 export default memo(() => {
-  console.log('videolist');
   const dispatch = useDispatch();
   const {
     id,
@@ -31,8 +30,8 @@ export default memo(() => {
   const [groupListVisibility, setGroupListVisibility] = useState(false);
   const currentNav = useMemo(() => groupList.find((group) => group.id === Number(id))?.name, [id]);
 
-  const domScroll = useRef();
-  const domObserver = useRef();
+  const domScroll = useRef<HTMLDivElement>(null);
+  const domObserver = useRef<HTMLDivElement>(null);
 
   const handlePrevInit = async () => {
     if (initStatus) return false;
