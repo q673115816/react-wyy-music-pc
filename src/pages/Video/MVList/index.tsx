@@ -1,26 +1,22 @@
 import React, {
-  useEffect, memo, useMemo,
+  useEffect,
+  memo,
+  useMemo,
 } from 'react';
-// import { unstable_batchedUpdates } from 'react-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '@/reducers/hooks';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import {
   IconChevronRight,
 } from '@tabler/icons';
-import {
-  apiMVFirst,
-  apiMVAll,
-  apiMVExclusiveRcmd,
-  apiTopMV,
-} from '@/api';
 import DomGridVideo from '@/components/GridVideo';
 import DomGridMVToplist from '@/components/GridMVToplist';
 import DomLoading from '@/components/Loading';
 import {
-  setMVlistInit, setMVlistTopareaInit,
-  setMVlistFirstareaInit,
-} from '@/reducers/mvlist/actions';
+  handleInit,
+  handleChangeFirstArea,
+  handleChangeTopArea,
+} from '@/reducers/mvlist/slice';
 import './style.scss';
 
 const category = [
@@ -32,8 +28,7 @@ const category = [
 ];
 
 export default memo(() => {
-  // console.log('mv');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch()
   const {
     firstArea,
     topArea,
@@ -42,88 +37,15 @@ export default memo(() => {
     wy,
     top,
     timestamp,
-  } = useSelector(({ mvlist }) => mvlist);
+  } = useAppSelector(({ MVList }) => MVList);
   const memoLoading = useMemo(() => Date.now() - timestamp > 3600000, [timestamp]);
-  const listFilter = (arr) => arr.map((({
-    id, playCount, cover, name, artists, briefDesc,
-  }) => ({
-    type: 0,
-    id,
-    cover,
-    briefDesc,
-    playCount,
-    title: name,
-    creator: artists.map(({ id: userId, name: userName }) => ({ userId, userName })),
-  })));
-  const handleInit = async () => {
-    try {
-      const [
-        { data: hot },
-        { data: wy },
-        { data: first },
-        { data: top },
-      ] = await Promise.all([
-        apiMVAll({
-          order: '最热',
-          limit: 6,
-        }),
-        apiMVExclusiveRcmd({
-          limit: 6,
-        }),
-        apiMVFirst({
-          area: firstArea,
-          limit: 6,
-        }),
-        apiTopMV({
-          area: topArea,
-          limit: 10,
-        }),
-      ]);
-      dispatch(setMVlistInit({
-        first: listFilter(first),
-        hot: listFilter(hot),
-        wy: listFilter(wy),
-        top,
-        timestamp: Date.now(),
-      }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChangeFirstArea = async (firstArea) => {
-    try {
-      const { data: first } = await apiMVFirst({
-        area: firstArea,
-        limit: 6,
-      });
-      dispatch(setMVlistFirstareaInit({
-        firstArea,
-        first: listFilter(first),
-      }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChangeTopArea = async (topArea) => {
-    try {
-      const { data: top } = await apiTopMV({
-        area: topArea,
-        limit: 10,
-      });
-      dispatch(setMVlistTopareaInit({
-        topArea,
-        top,
-      }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     if (memoLoading) {
-      handleInit();
+      dispatch(handleInit({
+        firstArea,
+        topArea,
+      }));
     }
   }, [memoLoading]);
 
@@ -144,7 +66,7 @@ export default memo(() => {
               category.map((item) => (
                 <div className="item" key={item}>
                   <button
-                    onClick={() => handleChangeFirstArea(item)}
+                    onClick={() => dispatch(handleChangeFirstArea(item))}
                     type="button"
                     className={classNames('link rounded-full px-2.5', firstArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
                   >
@@ -191,7 +113,7 @@ export default memo(() => {
             category.map((item) => (
               <div className="item" key={item}>
                 <button
-                  onClick={() => handleChangeTopArea(item)}
+                  onClick={() => dispatch(handleChangeTopArea(item))}
                   type="button"
                   className={classNames('link rounded-full px-2.5', topArea === item ? 'text-red-500 bg-red-50' : 'ui_text_black_hover')}
                 >

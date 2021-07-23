@@ -1,13 +1,13 @@
 // import 'react-app-polyfill/ie11';// .....
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './reducers/store';
 
 import App from './App';
 import Issues from './Issues';
 
-ReactDOM.render(
+render(
   <React.StrictMode>
     <Provider store={store}>
       <App />

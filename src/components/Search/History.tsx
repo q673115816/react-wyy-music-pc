@@ -1,5 +1,7 @@
 import React, {
-  useEffect, useLayoutEffect, useRef, useState,
+  memo,
+  useEffect, useLayoutEffect,
+  useRef, useState,
 } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -7,17 +9,18 @@ import {
   IconX,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
 import {
   setSearchHistory,
 } from '@/reducers/search/actions';
 
-export default ({ handleSearch }) => {
-  const dispatch = useDispatch();
+export default memo(({ handleSearch }) => {
+  const dispatch = useAppDispatch();
   const [isHidden, setIsHidden] = useState(false);
-  const refHistory = useRef();
+  const refHistory = useRef<HTMLDivElement>(null);
   const {
     searchHistory,
-  } = useSelector(({ search }) => search);
+  } = useAppSelector(({ search }) => search);
   const handleDeleteSearchHistory = (keywords) => {
     dispatch(setSearchHistory(
       searchHistory.filter((search) => search !== keywords),
@@ -29,10 +32,9 @@ export default ({ handleSearch }) => {
   };
 
   useEffect(() => {
-    if (refHistory.current.clientHeight > 66) {
+    if (refHistory.current && refHistory.current.clientHeight > 66) {
       setIsHidden(true);
     }
-    // console.log(refHistory.current.clientHeight);
   }, []);
 
   return (
@@ -85,4 +87,4 @@ export default ({ handleSearch }) => {
       </div>
     </>
   );
-};
+});

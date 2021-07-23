@@ -5,83 +5,32 @@ import React, {
   useMemo,
 } from 'react';
 import classNames from 'classnames';
-import {
-  apiVideoTimelineRecommend,
-  apiVideoGroupList,
-  apiVideoCategoryList,
-  apiVideoGroup,
-} from '@/api';
 import useInfinite from '@/hooks/useInfinite';
 import DomGridVideo from '@/components/GridVideo';
-import { setVideoListInit, setVideoListId } from '@/reducers/videolist/actions';
+import {
+  handleAddList,
+  handlePrevInit,
+  setVideoListId,
+  Category
+} from '@/reducers/videolist/slice';
 import './style.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '@/reducers/hooks';
 import DomLoading from '@/components/Loading';
 
 export default memo(() => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch()
   const {
     id,
     initStatus,
     groupList,
     categoryList,
-  } = useSelector(({ videolist }) => videolist);
+  } = useAppSelector(({ videolist }) => videolist);
   const [videoList, setVideoList] = useState([]);
   const [groupListVisibility, setGroupListVisibility] = useState(false);
   const currentNav = useMemo(() => groupList.find((group) => group.id === Number(id))?.name, [id]);
 
   const domScroll = useRef<HTMLDivElement>(null);
   const domObserver = useRef<HTMLDivElement>(null);
-
-  const handlePrevInit = async () => {
-    if (initStatus) return false;
-    try {
-      const [
-        { data: groupList },
-        { data: categoryList = [] },
-      ] = await Promise.all([
-        apiVideoGroupList(),
-        apiVideoCategoryList(),
-      ]);
-      dispatch(setVideoListInit({
-        groupList,
-        categoryList,
-      }));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const handleAddList = async () => {
-    try {
-      const { datas = [] } = await (id
-        ? apiVideoGroup({
-          id,
-        })
-        : apiVideoTimelineRecommend());
-      setVideoList((prevList) => [...prevList, ...datas.map(({
-        data: {
-          vid,
-          coverUrl,
-          durationms,
-          title,
-          playTime,
-          creator: {
-            nickname: userName, userId,
-          },
-        },
-      }) => ({
-        id: vid,
-        cover: coverUrl,
-        duration: durationms,
-        playCount: playTime,
-        title,
-        creator: [{ userName, userId }],
-      }))]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useInfinite(handleAddList, domScroll, domObserver);
 
@@ -98,8 +47,8 @@ export default memo(() => {
       <div className="border-b pb-2">
         <button
           type="button"
-          className={classNames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', id === null ? 'text-red-500 bg-red-50' : '')}
-          onClick={() => dispatch(setVideoListId({ id: null }))}
+          className={classNames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', id === 0 ? 'text-red-500 bg-red-50' : '')}
+          onClick={() => dispatch(setVideoListId({ id: 0 }))}
         >
           全部视频
         </button>
@@ -135,7 +84,7 @@ export default memo(() => {
             && <DomSelect />}
         </div>
         <div className="recommend_nav divide-x flex">
-          {categoryList.map((item) => (
+          {categoryList.map((item: Category) => (
             <div key={item.id}>
               <button
                 type="button"

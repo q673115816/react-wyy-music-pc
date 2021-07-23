@@ -51,7 +51,7 @@ const Contextmenu = lazy(() => import(
   '@/components/Contextmenu'));
 const HeaderSearch = lazy(() => import(
   /* webpackChunkName: "Components_HeaderSearch" */
-  '@/components/HeaderSearch'));
+  '@/components/Search/Search'));
 
 export default memo(() => {
   useKeyActions();
