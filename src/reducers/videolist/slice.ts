@@ -1,6 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {apiVideoCategoryList, apiVideoGroup, apiVideoGroupList, apiVideoTimelineRecommend} from "@/api";
-import {Draft} from "immer";
 
 interface ItemProps {
   id: number,
@@ -19,7 +18,6 @@ export interface VideoListState {
   initStatus: boolean,
   categoryList: Category[],
   groupList: Group[],
-  videoList: []
 }
 
 const initialState: VideoListState = {
@@ -27,7 +25,6 @@ const initialState: VideoListState = {
   initStatus: false,
   categoryList: [],
   groupList: [],
-  videoList: []
 }
 
 
@@ -60,28 +57,27 @@ export const handleAddList = createAsyncThunk(
         id,
       })
       : apiVideoTimelineRecommend());
-    const videoList = datas.map(({
-                                   data: {
-                                     vid,
-                                     coverUrl,
-                                     durationms,
-                                     title,
-                                     playTime,
-                                     creator: {
-                                       nickname: userName,
-                                       userId,
-                                     },
-                                   },
-                                 }) => ({
-      id: vid,
-      cover: coverUrl,
-      duration: durationms,
-      playCount: playTime,
-      title,
-      creator: [{ userName, userId }],
-    }))
     return {
-      videoList
+      groupList: datas.map(({
+                              data: {
+                                vid,
+                                coverUrl,
+                                durationms,
+                                title,
+                                playTime,
+                                creator: {
+                                  nickname: userName,
+                                  userId,
+                                },
+                              },
+                            }) => ({
+        id: vid,
+        cover: coverUrl,
+        duration: durationms,
+        playCount: playTime,
+        title,
+        creator: [{ userName, userId }],
+      }))
     }
   } catch (error) {
     console.log(error);
@@ -92,26 +88,24 @@ const slice = createSlice({
   name: 'videolist',
   initialState,
   reducers: {
-    setVideoListInit(state) {
-      state.videoList.length = 0
+    setVideoListInit(state, action) {
+
     },
     setVideoListId(state, action) {
       state.id = action.payload.id
-    }
+    },
   },
   extraReducers: {
-    [handlePrevInit.fulfilled.type]: (state, {payload}) => {
-      state.groupList = payload.groupList
-      state.categoryList = payload.categoryList
+    [handlePrevInit.fulfilled.type]: (state, action) => {
+      state.groupList = action.payload.groupList
+      state.categoryList = action.payload.categoryList
     },
-    [handleAddList.fulfilled.type]: (state, {payload}) => {
-      state.videoList.push(...payload.videoList)
+    [handleAddList.fulfilled.type]: (state, action) => {
+      state.groupList.push(...action.payload.groupList)
     }
   }
 })
 
-export const VideoListSelector = <T = Draft<VideoListState>>({videolist}: {videolist: T}): T => videolist
-
 export default slice.reducer
 
-export const {setVideoListId, setVideoListInit} = slice.actions
+export const {setVideoListId} = slice.actions
