@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, {useCallback, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {useAppSelector, useAppDispatch} from '@/reducers/hooks'
 import classNames from 'classnames';
 // import './style.scss';
 import { setLocalCurrent } from '@/reducers/local/actions';
@@ -12,12 +13,12 @@ const nav = [
 ];
 
 export default () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [visibility, setVisibility] = useState(false);
-  const { current } = useSelector(({ local }) => local);
-  const handleToggleVisibility = () => {
+  const { current } = useAppSelector(({ local }) => local);
+  const handleToggleVisibility = useCallback(() => {
     setVisibility(!visibility);
-  };
+  }, [visibility]);
   return (
     <div className="domManage">
       <div className="domManage_header ui_header">

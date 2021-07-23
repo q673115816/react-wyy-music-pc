@@ -1,8 +1,12 @@
 import React, {
-  useState, useRef, useEffect, memo,
+  useState,
+  useRef,
+  useEffect,
+  memo,
 } from 'react';
 import './style.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { setLoginVisibilty } from '@/reducers/common/actions';
@@ -34,7 +38,7 @@ const BuildBinding = (item) => {
 };
 
 const DomAccountLogined = () => {
-  const { profile, bindings } = useSelector(({ account }) => account);
+  const { profile, bindings } = useAppSelector(({ account }) => account);
   return (
     <>
       <div className="">
@@ -55,7 +59,7 @@ const DomAccountLogined = () => {
 };
 
 const DomAccountUnLogined = ({ }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <>
       <div className="text-gray-400 mb-3">
@@ -73,10 +77,8 @@ const DomAccountUnLogined = ({ }) => {
 };
 
 export default memo(() => {
-  console.log('ssetting');
-
   // const [isLogin] = useIsLogin();
-  const { isLogin } = useSelector(({ common }) => common);
+  const { isLogin } = useAppSelector(({ common }) => common);
   const [active, setActive] = useState();
   const DomScroll = useRef();
 

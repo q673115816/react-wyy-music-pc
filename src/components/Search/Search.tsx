@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {memo} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '@/reducers/hooks'
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import {
@@ -7,20 +8,20 @@ import {
   setSearchHistory,
   setSearchHot,
   setSearchSuggest,
-} from '@/reducers/search/actions';
+} from '@/reducers/search/slice';
 import { setDialogReset, setSearchShow } from '@/reducers/mask/actions';
-import DomMask from '../Mask';
-import DomHistory from './History';
+import Mask from '../Mask';
+import History from './History';
 
-export default () => {
-  const dispatch = useDispatch();
+export default memo(() => {
+  const dispatch = useAppDispatch();
   const {
     searchValue,
     searchHot,
     searchSuggest,
     searchHistory,
   } = useSelector(({ search }) => search);
-  const { searchVisibility } = useSelector(({ mask }) => mask);
+  const { searchVisibility } = useAppSelector(({ mask }) => mask);
   const handleSearch = (keywords) => {
     // setSearchVisibility(false);
     dispatch(setDialogReset());
@@ -34,7 +35,7 @@ export default () => {
   if (!searchVisibility) return null;
 
   return (
-    <DomMask>
+    <Mask>
       <div className="absolute domHeader_search_box shadow rounded bg-white py-2 z-10">
         {searchValue ? (
           <div className="domHeader_search_box_value overflow-auto h-full flex-auto">
@@ -61,7 +62,7 @@ export default () => {
             <div className="domHeader_search_box_noValue overflow-auto h-full flex-auto">
               {
                 searchHistory.length > 0
-                && <DomHistory handleSearch={handleSearch} />
+                && <History handleSearch={handleSearch} />
               }
               <div className="subtitle px-5 py-3 text-sm text-gray-400">热搜榜</div>
               <div className="list">
@@ -105,6 +106,6 @@ export default () => {
           )}
 
       </div>
-    </DomMask>
+    </Mask>
   );
-};
+});

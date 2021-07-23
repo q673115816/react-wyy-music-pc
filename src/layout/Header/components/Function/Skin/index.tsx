@@ -2,12 +2,13 @@ import React, {
   useState, memo, useEffect, FC,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
 import {
   IconCheck,
 } from '@tabler/icons';
 import classNames from 'classnames';
 
-import { setTheme, setCustom } from '@/reducers/setting/actions';
+import { setTheme, setCustom } from '@/reducers/setting/slice';
 import './style.scss';
 // https://css-tricks.com/converting-color-spaces-in-javascript/
 function HSLToHex(h, s, l) {
@@ -116,8 +117,8 @@ const DomCheck: FC = ({children}) => (
 );
 
 export default memo(() => {
-  const dispatch = useDispatch();
-  const { theme, custom } = useSelector(({ setting }) => setting);
+  const dispatch = useAppDispatch();
+  const { theme, custom } = useAppSelector(({ setting }) => setting);
   const [current, setCurrent] = useState(0);
   const [[h, s, l], setHSL] = useState(() => hexToHSL(theme));
 

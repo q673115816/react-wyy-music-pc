@@ -25,7 +25,7 @@ function formatLrc(lrc, callback) {
     .forEach((line) => {
       const { groups: { time, word } } = line.match(/(?<time>\[.*\])(?<word>.*)/);
       time
-        .match(/\[(\d{0,}:\d{0,}\.?\d{0,})\]/g)
+        .match(/\[(\d*:\d*\.?\d*)\]/g)
         .forEach((onetime) => {
           callback(onetime, word);
           // const { groups: { min, sec } } = onetime.match(/(?<min>\d{2,}):(?<sec>\d{2,}\.\d{2,})/);
