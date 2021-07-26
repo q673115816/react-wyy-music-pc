@@ -16,10 +16,11 @@ export default memo(() => {
     dispatch(setDragUnload());
   }, [onMouseUp]);
   if (!dragger) return null;
+  const help = document.querySelector('#help-root') as HTMLDivElement
   return createPortal(<div
     className="absolute inset-0 z-50"
     // {...props}
     onMouseMove={onMouseMove}
     onMouseUp={handleMouseUp}
-  />, document.querySelector('#help-root'));
+  />, help);
 });
