@@ -1,5 +1,5 @@
 import React, {
-  useState, memo, useEffect,
+  useState, memo, useEffect, FC,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
@@ -96,9 +96,9 @@ const themes = [
 ];
 
 const colors = [
+  '#F5F5F5',
   '#FF5C8A',
   '#FF7A9E',
-  '#FE76C8',
   '#717FF9',
   '#4791EB',
   '#39AFEA',
@@ -110,10 +110,10 @@ const colors = [
   '#FD544E',
 ];
 
-const DomCheck = () => (
-  <i className="ico absolute flex-center text-white bg-red-500 -bottom-1 -right-1 border border-white rounded-full">
-    <IconCheck size={16} stroke={2} />
-  </i>
+const DomCheck: FC = ({children}) => (
+  <i className="absolute flex-center text-white bg-red-500 -bottom-1.5 -right-1.5 border-2 p-0.5 border-white rounded-full">
+    {children}
+    </i>
 );
 
 export default memo(() => {
@@ -142,7 +142,7 @@ export default memo(() => {
   };
 
   return (
-    <div className="domHeader_popup_skin absolute top-full left-1/2 transform -translate-x-1/2 bg-white shadow text-black z-30 py-3 px-4" id="skin">
+    <div className="domHeader_popup_skin absolute top-full left-1/2 transform -translate-x-1/2 bg-white shadow text-black z-30 py-3 px-4 rounded-b-lg" id="skin">
       <div className="nav border-b space-x-3">
         <button
           onClick={() => setCurrent(0)}
@@ -167,16 +167,18 @@ export default memo(() => {
                 onClick={() => handleSelectTheme(hex)}
                 key={name}
                 type="button"
-                className="focus:outline-none skinbtn relative theme"
+                className="skinbtn relative theme rounded"
                 style={{ '--currentColor': hex }}
               >
-                <span className="name absolute flex-center inset-x-0 bottom-0 bg-black bg-opacity-60 h-5 text-white">
+                <span className="name absolute rounded-b-xl inset-x-0 bottom-0 bg-black bg-opacity-40 h-5 text-white">
                   {name}
                 </span>
                 {
                   (!custom && theme === hex)
                   && (
-                    <DomCheck />
+                    <DomCheck >
+                      <IconCheck size={16} stroke={2} />
+                    </DomCheck>
                   )
                 }
               </button>
@@ -186,18 +188,20 @@ export default memo(() => {
         <div className="colors" style={{ display: current === 1 ? null : 'none' }}>
           <div className="default mt-2.5 grid gap-2.5">
             {
-              colors.map((hex) => (
+              colors.map((hex, index) => (
                 <button
                   key={hex}
                   onClick={() => handleSelectTheme(hex)}
                   type="button"
-                  className="focus:outline-none skinbtn relative color"
+                  className={classNames("skinbtn relative color rounded", index === 0 && 'border')}
                   style={{ '--currentColor': hex }}
                 >
                   {
                     (!custom && theme === hex)
                     && (
-                      <DomCheck />
+                      <DomCheck >
+                        <IconCheck size={14} stroke={2} />
+                      </DomCheck>
                     )
                   }
                 </button>
@@ -208,13 +212,15 @@ export default memo(() => {
           <div className="custom">
             <button
               type="button"
-              className="focus:outline-none relative colour flex-none w-10 h-10 mr-2.5"
+              className="relative colour flex-none w-10 h-10 mr-2.5"
               onClick={() => dispatch(setCustom(true))}
             >
               {
                 custom
                 && (
-                  <DomCheck />
+                  <DomCheck >
+                    <IconCheck size={14} stroke={2} />
+                  </DomCheck>
                 )
               }
             </button>

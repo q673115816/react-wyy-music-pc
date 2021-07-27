@@ -19,10 +19,10 @@ export default () => {
   return (
     <div className="overflow-auto max-h-full flex-auto">
       <div className="domSublist_nav px-8 py-5 space-x-4">
-        <span className="h1">我的电台</span>
+        <span className="h1">我的播客</span>
       </div>
       <div className="domSublist_headerBar ui_headerBar">
-        <b className="title">我订阅的电台</b>
+        <b className="title">我订阅的播客</b>
         &nbsp;
         <span className="text-gray-400">
           (

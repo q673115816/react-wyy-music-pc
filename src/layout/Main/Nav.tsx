@@ -55,13 +55,8 @@ const options1: defaultNavProps[] = [
 
 const options2: defaultNavWithIcoProps[] = [
   {
-    name: '本地音乐',
-    link: '/local',
-    Ico: IconFileMusic,
-  },
-  {
-    name: '下载管理',
-    link: '/download',
+    name: '本地与下载',
+    link: '/message',
     Ico: IconCloudDownload,
   },
   {
@@ -76,7 +71,7 @@ const options2: defaultNavWithIcoProps[] = [
     needLogin: true,
   },
   {
-    name: '我的电台',
+    name: '我的播客',
     link: '/dj',
     Ico: IconBrandTiktok,
     needLogin: true,

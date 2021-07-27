@@ -17,9 +17,6 @@ export default memo(() => {
   }, []);
   return (
     <div className="domManage">
-      <div className="domManage_header ui_header">
-        <span className="domManage_header_title h1">下载管理</span>
-      </div>
       <div className="domManage_main">
         <div className="domManage_nav">
           {nav.map((item) => (
