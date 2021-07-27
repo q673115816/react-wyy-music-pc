@@ -1,24 +1,12 @@
 #skin {
   width: 324px;
   height: 250px;
-  border-radius: 0 0 10px 10px;
 
   .themes {
     grid-template: repeat(2, 90px) / repeat(3, 90px);
 
     .theme {
-      position: relative;
       background-color: var(--currentColor);
-
-      .ico {
-        width: 24px;
-        height: 24px;
-      }
-
-      &:hover {
-        outline: 1px solid var(--currentColor);
-        outline-offset: 1px;
-      }
     }
   }
 
@@ -29,11 +17,6 @@
 
       .color {
         background-color: var(--currentColor);
-
-        &:hover {
-          outline: 1px solid var(--currentColor);
-          outline-offset: 1px;
-        }
       }
     }
 
@@ -42,20 +25,6 @@
 
       &>button {
         background-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
-      }
-
-      .colour {
-        .ico {
-          position: absolute;
-          right: -5px;
-          bottom: -5px;
-          background-color: var(--themeRed);
-          border-radius: 1000px;
-          color: #fff;
-
-          border: 2px solid;
-          // z-index: 2;
-        }
       }
 
       .ranges {
@@ -106,13 +75,13 @@
         &::-webkit-slider-thumb {
           appearance: none;
           cursor: pointer;
-          margin-top: -8px;
-          width: 18px;
-          height: 18px;
+          margin-top: -5px;
+          width: 14px;
+          height: 14px;
           background-color: #fff;
           border-radius: 50%;
           border: 1px solid #E2E2E2;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
 
           &:hover {
             background-color: #F5F5F7;

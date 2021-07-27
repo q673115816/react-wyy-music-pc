@@ -61,7 +61,6 @@ export default () => {
           <button type="button" className="close" onClick={handleToggleVisibility}>×</button>
           <div className="title">
             选择本地音乐文件夹
-
           </div>
           <div className="tips">
             将自动扫描您勾选的目录，文件增删实时同步。
