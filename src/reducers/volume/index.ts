@@ -25,16 +25,16 @@ export default produce((draft, action) => {
       break;
     case SET_VOLUME_PLUS_TEN:
       {
-        const plusvolume = draft.volume >= 90 ? 100 : draft.valume + 10;
+        const plusvolume = draft.volume >= 90 ? 100 : draft.volume + 10;
         window.localStorage.setItem('volume', JSON.stringify(plusvolume));
-        draft.valume = plusvolume;
+        draft.volume = plusvolume;
       }
       break;
     case SET_VOLUME_SUB_TEN:
       {
         const subvolume = draft.volume <= 10 ? 0 : draft.volume - 10;
         window.localStorage.setItem('volume', JSON.stringify(subvolume));
-        draft.valume = subvolume;
+        draft.volume = subvolume;
       }
       break;
     case SET_BEFORE_MUTED:
