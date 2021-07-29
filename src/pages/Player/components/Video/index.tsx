@@ -18,7 +18,7 @@ import {
   actionSetBuffered,
   actionSetCurrentTime,
   actionSetDuration,
-} from './reducer/actions';
+} from './reducer/slice';
 
 export const VideoContext = createContext(null);
 
