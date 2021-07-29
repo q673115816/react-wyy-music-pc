@@ -4,7 +4,7 @@ import React, {
 import dayjs from 'dayjs';
 import { transTextEmoji } from '@/common/faces';
 import { apiSendText, apiMsgPrivateHistory } from '@/api';
-import { setMsgPrivateHistory } from '@/reducers/letter/actions';
+import { setMsgPrivateHistory } from '@/reducers/letter/slice';
 import { wordLength } from '@/common/utils';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

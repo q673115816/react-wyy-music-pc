@@ -4,7 +4,7 @@ import React, {
 import { IconFileImport, IconMicrophone } from '@tabler/icons';
 import './style.scss';
 import { useDispatch } from 'react-redux';
-import { setToast } from '@/reducers/mask/actions';
+import { setToast } from '@/reducers/mask/slice';
 
 type IProps = { handleCallback: () => void }
 

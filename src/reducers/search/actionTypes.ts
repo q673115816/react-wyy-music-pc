@@ -1,8 +1,0 @@
-
-export const SET_SEARCH_HISTORY = 'SET_SEARCH_HISTORY';
-
-export const SET_SEARCH_VALUE = 'SET_SEARCH_VALUE';
-
-export const SET_SEARCH_HOT = 'SET_SEARCH_HOT';
-
-export const SET_SEARCH_SUGGEST = 'SET_SEARCH_SUGGEST';

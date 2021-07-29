@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiCloudSearch, apiSearchMultimatch } from '@/api';
-import { setSearchValue } from '@/reducers/search/actions';
+import { setSearchValue } from '@/reducers/search/slice';
 import './style.scss';
 import DomLoading from '@/components/Loading';
 import DomPage from '@/components/Page';

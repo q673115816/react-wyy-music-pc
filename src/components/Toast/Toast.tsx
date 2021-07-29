@@ -4,7 +4,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { IconCircleCheck } from '@tabler/icons';
-import { setToast } from '@/reducers/mask/actions';
+import { setToast } from '@/reducers/mask/slice';
 import './style.scss';
 
 export default memo(() => {

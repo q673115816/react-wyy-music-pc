@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import dayjs from 'dayjs';
-import { setDragInit } from '@/reducers/drag/actions';
+import { setDragInit } from '@/reducers/drag/slice';
 import { useDispatch } from 'react-redux';
 import { VideoContext } from './index';
-import { actionSetJumpTime } from './reducer/actions';
+import { actionSetJumpTime } from './reducer/slice';
 
 export default () => {
   const dispatch = useDispatch();

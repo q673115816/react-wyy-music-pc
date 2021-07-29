@@ -15,10 +15,10 @@ import {
   setAudioPattern,
   setAudioPrev,
   setAudioNext,
-} from '@/reducers/audio/actions';
+} from '@/reducers/audio/slice';
 import {
   setGlobalLrcToggle,
-} from '@/reducers/lrc/actions';
+} from '@/reducers/lrc/slice';
 import { audioPattern } from '@/common/config';
 import classNames from 'classnames';
 import DomTiming from './Timing';

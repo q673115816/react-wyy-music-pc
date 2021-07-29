@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiTopSong, apiSongUrl } from '@/api';
-import { setTopSong } from '@/reducers/home/actions';
+import { setTopSong } from '@/reducers/home/slice';
 import { IconPlayerPlay, IconFolderPlus } from '@tabler/icons';
 import classNames from 'classnames';
 import DomTags from '@/components/Tags';

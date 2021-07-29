@@ -1,7 +1,7 @@
 import React from 'react';
 import { IconCheck } from '@tabler/icons';
 import DomCheckbox from '@/components/Checkbox';
-import { setToast } from '@/reducers/mask/actions';
+import { setToast } from '@/reducers/mask/slice';
 import { useDispatch } from 'react-redux';
 
 export default ({ list = [], name = '', handle = () => { } }) => {

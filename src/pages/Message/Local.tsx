@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {useAppSelector, useAppDispatch} from '@/reducers/hooks'
 import classNames from 'classnames';
 // import './style.scss';
-import { setLocalCurrent } from '@/reducers/local/actions';
+import { setLocalCurrent } from '@/reducers/local/slice';
 
 const nav = [
   '歌曲',

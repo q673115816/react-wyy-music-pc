@@ -11,8 +11,8 @@ import {
   apiResourceLike,
 } from '@/api';
 import { commentLimit as limit } from '@/common/config';
-import { setToast, setDialogDownloadVideoShow } from '@/reducers/mask/actions';
-import { setMVSublist } from '@/reducers/account/actions';
+import { setToast, setDialogDownloadVideoShow } from '@/reducers/mask/slice';
+import { setMVSublist } from '@/reducers/account/slice';
 import UseVideoInit from './UseVideoInit';
 import UseMVInit from './UseMVInit';
 import FNDownload from './Download';

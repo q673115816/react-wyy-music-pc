@@ -23,14 +23,14 @@ import {
 import './style.scss';
 
 import { transPlayCount } from '@/common/utils';
-import { setAudioRunningPause } from '@/reducers/audio/actions';
+import { setAudioRunningPause } from '@/reducers/audio/slice';
 
 import {
   apiFollow,
   apiCommentVideo,
   apiCommentMV,
 } from '@/api';
-import { setVideoListId } from '@/reducers/videolist/actions';
+import { setVideoListId } from '@/reducers/videolist/slice';
 import Write from '@/components/Write';
 
 import { useDispatch } from 'react-redux';

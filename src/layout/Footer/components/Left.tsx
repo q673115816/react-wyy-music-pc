@@ -14,8 +14,8 @@ import {
   setAudioNext,
   setRunErrorAdd,
   setRunErrorDesc,
-} from '@/reducers/audio/actions';
-import { setLyricText, setLyricToggle } from '@/reducers/lrc/actions';
+} from '@/reducers/audio/slice';
+import { setLyricText, setLyricToggle } from '@/reducers/lrc/slice';
 import DomHeart from '@/components/Table/Heart';
 
 export default () => {

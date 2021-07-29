@@ -9,7 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setScreenFull, setScreenNormal, setPositionFalse, setPositionTrue,
-} from '@/reducers/inset/actions';
+} from '@/reducers/inset/slice';
 
 export default memo(() => {
   const dispatch = useDispatch();

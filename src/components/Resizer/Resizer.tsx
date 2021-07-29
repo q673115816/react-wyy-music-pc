@@ -6,8 +6,8 @@ import {
   setGlobalStartRect,
   setGlobalResizer,
   setGlobalStartRectLock,
-} from '@/reducers/inset/actions';
-import { setDragInit } from '@/reducers/drag/actions';
+} from '@/reducers/inset/slice';
+import { setDragInit } from '@/reducers/drag/slice';
 
 export default memo(() => {
   const dispatch = useDispatch();

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CompoenntCheckbox from '@/components/Checkbox';
-import { setFont } from '@/reducers/setting/actions';
+import { setFont } from '@/reducers/setting/slice';
 import DomRadio from './Radio';
 import DomCheckbox from './Checkbox';
-import { setToast} from '@/reducers/mask/actions'
+import { setToast} from '@/reducers/mask/slice'
 
 const fonts = [
   ['inherit', '默认'],

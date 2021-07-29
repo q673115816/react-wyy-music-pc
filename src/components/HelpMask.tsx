@@ -1,7 +1,7 @@
 import React, { memo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDragUnload } from '@/reducers/drag/actions';
+import { setDragUnload } from '@/reducers/drag/slice';
 
 export default memo(() => {
   const {

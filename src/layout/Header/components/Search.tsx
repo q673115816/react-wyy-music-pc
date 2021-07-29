@@ -11,8 +11,8 @@ import {
   setSearchHistory,
   setSearchHot,
   setSearchSuggest,
-} from '@/reducers/search/actions';
-import { setSearchShow, setDialogReset } from '@/reducers/mask/actions';
+} from '@/reducers/search/slice';
+import { setSearchShow, setDialogReset } from '@/reducers/mask/slice';
 import { useHistory } from 'react-router-dom';
 
 export default memo(() => {

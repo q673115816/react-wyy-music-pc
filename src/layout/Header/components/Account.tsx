@@ -10,8 +10,8 @@ import {
   IconBrandVimeo,
   IconCoin,
 } from '@tabler/icons';
-import { setLoginInfoUpdate } from '@/reducers/account/actions';
-import { setLoginVisibilty } from '@/reducers/common/actions';
+import { setLoginInfoUpdate } from '@/reducers/account/slice';
+import { setLoginVisibilty } from '@/reducers/common/slice';
 import {
   apiUserAccount, apiLogout, apiDailysignin, apiUserDetail,
 } from '@/api';

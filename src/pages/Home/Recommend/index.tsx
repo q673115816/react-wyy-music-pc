@@ -9,8 +9,8 @@ import {
   apiPersonalizedMV,
   apiPersonalizedDjprogram,
 } from '@/api';
-import { setHomeRecommend } from '@/reducers/home/actions';
-import { setDialogHomeOrderShow } from '@/reducers/mask/actions';
+import { setHomeRecommend } from '@/reducers/home/slice';
+import { setDialogHomeOrderShow } from '@/reducers/mask/slice';
 import DomSwiper from '@/components/Swiper';
 import { IconChevronRight } from '@tabler/icons';
 import DOMkankan from '@/components/AdLookRectangle';

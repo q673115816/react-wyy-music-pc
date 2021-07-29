@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState, MouseEvent } from 'react';
-import { setDialogReset } from '@/reducers/mask/actions';
-import { setHomeOrder } from '@/reducers/setting/actions';
+import { setDialogReset } from '@/reducers/mask/slice';
+import { setHomeOrder } from '@/reducers/setting/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconBulb, IconMenu } from '@tabler/icons';
 import './style.scss';
 import classNames from 'classnames';
 import produce from 'immer';
-import { setDragInit } from '@/reducers/drag/actions';
+import { setDragInit } from '@/reducers/drag/slice';
 import HOCDialog from '../Dialog';
 
 type Order = string[]

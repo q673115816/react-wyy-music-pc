@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { apiLoginStatus } from '@/api';
-import { setIsLogin } from '@/reducers/common/actions';
+import { setIsLogin } from '@/reducers/common/slice';
 import { useDispatch } from 'react-redux';
 
 export default () => {

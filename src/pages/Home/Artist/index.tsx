@@ -10,7 +10,7 @@ import './style.scss';
 import classNames from 'classnames';
 import { IconUser } from '@tabler/icons';
 import { apiArtistList } from '@/api';
-import { addHomeTopArtists, initHomeTopArtists } from '@/reducers/home/actions';
+import { addHomeTopArtists, initHomeTopArtists } from '@/reducers/home/slice';
 import useInfinite from '@/hooks/useInfinite';
 import DomResize from '@/components/ResizeObserver';
 import DomLoading from '@/components/Loading';

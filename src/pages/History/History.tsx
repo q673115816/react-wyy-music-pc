@@ -14,7 +14,7 @@ import DomName from '@/components/Table/Name';
 import DomArtist from '@/components/Table/Artists';
 import DomMenuCreate from '@/components/MenuCreate';
 import { useDispatch, useSelector } from 'react-redux';
-import { setAudioHistoryClear } from '@/reducers/audio/actions'
+import { setAudioHistoryClear } from '@/reducers/audio/slice'
 
 const DomTable = ({ history = []}) => (
   <div className="pb-8" style={{ '--ui_grid_template': '36px / 54px 45% 5fr 3fr' }}>

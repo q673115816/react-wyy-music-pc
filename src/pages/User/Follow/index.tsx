@@ -6,8 +6,8 @@ import { apiUserDetail, apiUserFollows, apiFollow } from '@/api';
 import { Link } from 'react-router-dom';
 import produce from 'immer';
 
-import { setPopupLetterToggle } from '@/reducers/mask/actions';
-import { setMsgPrivateHistory } from '@/reducers/letter/actions';
+import { setPopupLetterToggle } from '@/reducers/mask/slice';
+import { setMsgPrivateHistory } from '@/reducers/letter/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import DomLoading from '@/components/Loading';
 import useInfinite from '@/hooks/useInfinite';
