@@ -3,11 +3,11 @@ import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconHeart } from '@tabler/icons';
 import { apiLike } from '@/api';
-import { setToast } from '@/reducers/mask/actions';
+import { setToast } from '@/reducers/mask/slice';
 import {
   setLikelistAdd,
   setLikelistDel,
-} from '@/reducers/account/actions';
+} from '@/reducers/account/slice';
 
 export default memo(({
   id = '', size = 20, className = '', stroke = 1,
@@ -19,7 +19,7 @@ export default memo(({
     try {
       const { code, message } = await apiLike({
         id,
-        like: !likelist.has(id),
+        like: !likelist.includes(id),
       });
       if (code !== 200) {
         dispatch(setToast(message));
@@ -40,12 +40,17 @@ export default memo(({
   return (
     <button
       type="button"
-      className={classNames(className, likelist.has(id) ? 'text-red-500 hover:text-red-700' : 'ui_text_gray_hover')}
+      className={classNames(
+        className,
+        likelist.includes(id)
+          ? "text-red-500 hover:text-red-700"
+          : "ui_text_gray_hover"
+      )}
       onClick={handleLike}
     >
       <IconHeart
         size={size}
-        className={classNames({ 'fill-current': likelist.has(id) })}
+        className={classNames({ "fill-current": likelist.includes(id) })}
         stroke={stroke}
       />
     </button>

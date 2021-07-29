@@ -6,9 +6,9 @@ import {
   IconVolume,
   IconVolume3,
 } from '@tabler/icons';
-import { setVolume, setBeforeMuted } from '@/reducers/volume/actions';
+import { setVolume, setBeforeMuted } from '@/reducers/volume/slice';
 import { computedPositionPercentage } from '@/common/utils';
-import { setDragInit, setDragUnload } from '@/reducers/drag/actions';
+import { setDragInit, setDragUnload } from '@/reducers/drag/slice';
 
 export default memo(() => {
   const dispatch = useDispatch();

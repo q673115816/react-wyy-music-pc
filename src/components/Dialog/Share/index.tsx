@@ -9,7 +9,7 @@ import {
   SymbolWB,
   SymbolLJ,
 } from '@/components/Symbol';
-import { setDialogReset, setDialogShareWXShow, setToast } from '@/reducers/mask/actions';
+import { setDialogReset, setDialogShareWXShow, setToast } from '@/reducers/mask/slice';
 import HOCDialog from '../Dialog';
 import './style.scss';
 import useCopyLink from '@/hooks/useCopyLink';

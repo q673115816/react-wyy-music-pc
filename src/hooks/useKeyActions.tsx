@@ -4,8 +4,8 @@ import {
   setAudioRunningToggle,
   setAudioNext,
   setAudioPrev,
-} from "@/reducers/audio/actions";
-import { setVolumePlusTen, setVolumeSubTen } from "@/reducers/volume/actions";
+} from "@/reducers/audio/slice";
+import { setVolumePlusTen, setVolumeSubTen } from "@/reducers/volume/slice";
 
 export default () => {
   const dispatch = useDispatch();

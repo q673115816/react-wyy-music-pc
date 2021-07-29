@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setMsgPrivateHistory } from '@/reducers/letter/actions';
+import { setMsgPrivateHistory } from '@/reducers/letter/slice';
 import DomList from './List';
 import DomMessage from './Message';
 import './style.scss';

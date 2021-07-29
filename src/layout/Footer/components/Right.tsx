@@ -6,7 +6,7 @@ import {
   IconVolume3,
   IconList,
 } from '@tabler/icons';
-import { setPopupPlaylistToggle } from '@/reducers/mask/actions';
+import { setPopupPlaylistToggle } from '@/reducers/mask/slice';
 import classNames from 'classnames';
 import DomVolume from './Volume';
 

@@ -12,7 +12,7 @@ import {
   apiPlaylistHighqualityTags,
   apiPlaylistHot,
 } from '@/api';
-import { setTopPlaylist, setPlaylistCatlist } from '@/reducers/home/actions';
+import { setTopPlaylist, setPlaylistCatlist } from '@/reducers/home/slice';
 import DomLoading from '@/components/Loading';
 import DomResize from '@/components/ResizeObserver';
 import DomPage from '@/components/Page';

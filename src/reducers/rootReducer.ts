@@ -3,17 +3,17 @@ import { combineReducers, ReducersMapObject } from '@reduxjs/toolkit';
 
 const root: ReducersMapObject = {}
 
-const requireContext = require.context('./', true, /^\.\/.*\/slice\.ts$/);
+// const requireContext = require.context('./', true, /^\.\/.*\/slice\.ts$/);
+//
+// requireContext.keys().forEach((key) => {
+//   const mod = requireContext(key);
+//   root[key.slice(2, -9)] = mod.__esModule && mod.default ? mod.default.reducer : mod.reducer;
+// });
 
-requireContext.keys().forEach((key) => {
-  const mod = requireContext(key);
-  root[key.slice(2, -9)] = mod.__esModule && mod.default ? mod.default.reducer : mod.reducer;
-});
+const modules = import.meta.globEager('./*/slice.ts')
 
-// const modules = import.meta.globEager('./*/index.ts')
-
-// for(const path in modules) {
-//   root[path.slice(2, -9)] = modules[path].default.reducer
-// }
+for(const path in modules) {
+  root[path.slice(2, -9)] = modules[path].default
+}
 
 export default combineReducers(root);

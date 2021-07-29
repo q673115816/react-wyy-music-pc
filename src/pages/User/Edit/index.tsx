@@ -5,7 +5,7 @@ import { apiUserDetail, apiUserUpdate } from '@/api';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import produce from 'immer';
-import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/actions';
+import { setToast, setDialogUploadAvatarShow } from '@/reducers/mask/slice';
 import { useDispatch } from 'react-redux';
 import './style.scss';
 import DomLoading from '@/components/Loading';

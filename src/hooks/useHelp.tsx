@@ -1,5 +1,5 @@
 import React from 'react';
-import { setArtistSublist } from '@/reducers/account/actions';
+import { setArtistSublist } from '@/reducers/account/slice';
 import { useDispatch } from 'react-redux';
 import { apiArtistSublist } from '@/api';
 

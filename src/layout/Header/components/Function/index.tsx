@@ -6,7 +6,7 @@ import {
   IconMail,
 } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPopupLetterToggle } from '@/reducers/mask/actions';
+import { setPopupLetterToggle } from '@/reducers/mask/slice';
 import DomSkinPop from './Skin';
 
 const DomSkinBtn = memo(() => {

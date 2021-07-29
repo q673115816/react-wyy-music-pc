@@ -7,7 +7,7 @@ import {
 } from '@tabler/icons';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { setDialogUnSubscriptionShow, setToast } from '@/reducers/mask/actions';
+import { setDialogUnSubscriptionShow, setToast } from '@/reducers/mask/slice';
 import {
   apiArtistDetail, apiArtistSub,
 } from '@/api';

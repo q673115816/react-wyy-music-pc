@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { setLoginVisibilty } from '@/reducers/common/actions';
+import { setLoginVisibilty } from '@/reducers/common/slice';
 // import useIsLogin from '@/hooks/useIsLogin';
 
 import DomNormal from './components/Normal';

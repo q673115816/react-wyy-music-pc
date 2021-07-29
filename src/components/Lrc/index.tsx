@@ -13,15 +13,15 @@ import {
   IconPlayerSkipForward,
   IconMusic,
 } from '@tabler/icons';
-import { setGlobalLrcInset, setGlobalLrcStartInset } from '@/reducers/inset/actions';
-import { setGlobalLrcHide, setLyricToggle } from '@/reducers/lrc/actions';
+import { setGlobalLrcInset, setGlobalLrcStartInset } from '@/reducers/inset/slice';
+import { setGlobalLrcHide, setLyricToggle } from '@/reducers/lrc/slice';
 import {
   setAudioRunningToggle,
   setAudioPrev,
   setAudioNext,
-} from '@/reducers/audio/actions';
+} from '@/reducers/audio/slice';
 import './style.scss';
-import { setDragInit } from '@/reducers/drag/actions';
+import { setDragInit } from '@/reducers/drag/slice';
 
 const DomLrcContent = memo(() => {
   const { currentTime } = useSelector(({ audio }) => audio);

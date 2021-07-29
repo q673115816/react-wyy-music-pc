@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { apiPlaylistDetail, apiPlaylistSubscribe, apiSongDetail } from '@/api';
 
-import { setToast } from '@/reducers/mask/actions';
+import { setToast } from '@/reducers/mask/slice';
 import classNames from 'classnames';
 import DomLoading from '@/components/Loading';
 

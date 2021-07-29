@@ -1,1 +1,0 @@
-export const SET_ARTIST_LAYOUT = 'SET_ARTIST_LAYOUT';

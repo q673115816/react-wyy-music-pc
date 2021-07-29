@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
 import {
   setSearchHistory,
-} from '@/reducers/search/actions';
+} from '@/reducers/search/slice';
 
 export default memo(({ handleSearch }) => {
   const dispatch = useAppDispatch();

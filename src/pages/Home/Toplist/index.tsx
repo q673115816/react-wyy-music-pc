@@ -5,7 +5,7 @@ import { IconPlayerPlay } from '@tabler/icons';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { apiToplistDetail, apiPlaylistDetail, apiToplistArtist } from '@/api';
-import { setTopListsDetail } from '@/reducers/home/actions';
+import { setTopListsDetail } from '@/reducers/home/slice';
 import { transPlayCount } from '@/common/utils';
 import DomLoading from '@/components/Loading';
 import './style.scss';

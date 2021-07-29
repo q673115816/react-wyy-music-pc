@@ -9,8 +9,8 @@ import {
   apiMsgForwards,
   apiMsgNotices,
 } from '@/api';
-import { setMsgPrivateHistory } from '@/reducers/letter/actions';
-import { setMsgPrivate } from '@/reducers/common/actions';
+import { setMsgPrivateHistory } from '@/reducers/letter/slice';
+import { setMsgPrivate } from '@/reducers/common/slice';
 
 const BuildList = {
   song: (msg) => (

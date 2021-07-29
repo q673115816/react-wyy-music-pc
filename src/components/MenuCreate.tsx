@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { setAudioImmediate } from '@/reducers/audio/actions';
+import { setAudioImmediate } from '@/reducers/audio/slice';
 import {
   setContextMenuShow,
-} from '@/reducers/mask/actions';
+} from '@/reducers/mask/slice';
 import {
   apiCommentMusic,
   apiCommentMV,

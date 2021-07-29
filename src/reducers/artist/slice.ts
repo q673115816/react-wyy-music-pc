@@ -10,7 +10,7 @@ const initialState: ArtistState = {
   layout: 'column',
 }
 
-export default createSlice({
+const slice = createSlice({
   name: 'artist',
   initialState,
   reducers: {
@@ -19,3 +19,6 @@ export default createSlice({
     }
   }
 })
+export default slice.reducer
+
+export const {setArtistLayout} = slice.actions

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setAudioPlaylist } from '@/reducers/audio/actions';
+import { setAudioPlaylist } from '@/reducers/audio/slice';
 
 export default ({ children, playlist, ...props }) => {
   const dispatch = useDispatch();

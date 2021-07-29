@@ -9,8 +9,8 @@ import {
   setContriesCodeList,
   setMsgPrivate,
 
-} from '@/reducers/common/actions';
-import { setLoginInfo } from '@/reducers/account/actions';
+} from '@/reducers/common/slice';
+import { setLoginInfo } from '@/reducers/account/slice';
 import {
   apiCountriesCodeList,
   apiUserAccount,
@@ -24,8 +24,8 @@ import {
   apiAlbumSublist,
   apiPlaylistMylike,
 } from '@/api';
-import { setGlobalInset, setGlobalDragger, setGlobalStartInset } from '@/reducers/inset/actions';
-import { setDragInit } from '@/reducers/drag/actions';
+import { setGlobalInset, setGlobalDragger, setGlobalStartInset } from '@/reducers/inset/slice';
+import { setDragInit } from '@/reducers/drag/slice';
 
 import {
   IconMicrophone,

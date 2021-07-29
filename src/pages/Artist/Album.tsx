@@ -7,7 +7,7 @@ import {
 import classNames from 'classnames';
 import { apiArtistAlbum } from '@/api';
 import { useSelector, useDispatch } from 'react-redux';
-import { setArtistLayout } from '@/reducers/artist/actions';
+import { setArtistLayout } from '@/reducers/artist/slice';
 import DomGrid from './layouts/Grid';
 import DomList from './layouts/List';
 import DomColumn from './layouts/Column';

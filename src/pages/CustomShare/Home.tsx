@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Redirect } from 'react-router-dom'
-import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/actions';
+import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/slice';
 
 import { apiSongDetail } from '@/api'
 import { useDispatch } from "react-redux";

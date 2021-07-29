@@ -9,7 +9,7 @@ import {
   setSearchHot,
   setSearchSuggest,
 } from '@/reducers/search/slice';
-import { setDialogReset, setSearchShow } from '@/reducers/mask/actions';
+import { setDialogReset, setSearchShow } from '@/reducers/mask/slice';
 import Mask from '../Mask';
 import History from './History';
 

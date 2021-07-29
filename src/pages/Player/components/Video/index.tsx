@@ -6,7 +6,7 @@ import {
   IconRefresh
 } from '@tabler/icons';
 import classNames from 'classnames';
-import { setPositionFalse, setPositionTrue } from '@/reducers/inset/actions';
+import { setPositionFalse, setPositionTrue } from '@/reducers/inset/slice';
 import { useDispatch } from 'react-redux';
 import DomControl from './Control';
 import DomTiming from './Timing';
@@ -18,7 +18,7 @@ import {
   actionSetBuffered,
   actionSetCurrentTime,
   actionSetDuration,
-} from './reducer/actions';
+} from './reducer/slice';
 
 export const VideoContext = createContext();
 

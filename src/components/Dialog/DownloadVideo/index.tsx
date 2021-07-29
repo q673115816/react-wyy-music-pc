@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDialogReset } from '@/reducers/mask/actions';
+import { setDialogReset } from '@/reducers/mask/slice';
 import DomCheckbox from '@/components/Checkbox';
 import HOCDialog from '../Dialog';
 import './style.scss';

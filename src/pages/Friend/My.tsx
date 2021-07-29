@@ -7,7 +7,7 @@ import { apiHotTopic, apiEvent, apiCommentEvent } from '@/api';
 
 import { IconPlus } from '@tabler/icons';
 
-import { setLoginVisibilty } from '@/reducers/common/actions';
+import { setLoginVisibilty } from '@/reducers/common/slice';
 import './style.scss';
 
 import DomGender from '@/components/Gender';

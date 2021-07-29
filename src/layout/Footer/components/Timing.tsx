@@ -7,9 +7,9 @@ import {
   setAudioDropping,
   setAudioRunning,
   setAudioPattern,
-} from '@/reducers/audio/actions';
+} from '@/reducers/audio/slice';
 import { computedPositionPercentage } from '@/common/utils';
-import { setDragInit, setDragUnload } from '@/reducers/drag/actions';
+import { setDragInit, setDragUnload } from '@/reducers/drag/slice';
 
 export default () => {
   const dispatch = useDispatch();

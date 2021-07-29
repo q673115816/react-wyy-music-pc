@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconX } from '@tabler/icons';
-import { setLoginVisibilty } from '@/reducers/common/actions';
+import { setLoginVisibilty } from '@/reducers/common/slice';
 import './style.scss';
 import DomScan from './Scan';
 import DomSignIn from './SignIn';

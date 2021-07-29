@@ -15,7 +15,7 @@ import {
 import DomCommentsList from '@/components/CommentsList';
 import './style.scss';
 import classNames from 'classnames';
-import { setLyricHide } from '@/reducers/lrc/actions';
+import { setLyricHide } from '@/reducers/lrc/slice';
 
 const DomLrc = memo(() => {
   const {

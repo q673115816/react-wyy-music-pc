@@ -10,7 +10,7 @@ import { apiPersonalizedPrivatecontentList } from '@/api';
 //   setExclusiveResultAdd,
 //   setExclusiveResultEmpty,
 //   setExclusiveScrollTop,
-// } from '@/reducers/exclusive/actions';
+// } from '@/reducers/exclusive/slice';
 import useInfinite from '@/hooks/useInfinite';
 // import { useDispatch, useSelector } from 'react-redux';
 import {useAppDispatch, useAppSelector} from '@/reducers/hooks'

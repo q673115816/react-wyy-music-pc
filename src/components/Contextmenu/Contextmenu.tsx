@@ -23,9 +23,9 @@ import {
   setDialogCreatePlaylistShow,
   setContextMenuShareLink,
   setToast,
-} from '@/reducers/mask/actions';
-import { setLoginVisibilty } from '@/reducers/common/actions';
-import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/actions';
+} from '@/reducers/mask/slice';
+import { setLoginVisibilty } from '@/reducers/common/slice';
+import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/slice';
 import { apiMVSub } from '@/api';
 import useCopyLink from '@/hooks/useCopyLink';
 import DomMask from '@/components/Mask';
