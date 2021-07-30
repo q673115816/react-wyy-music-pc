@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {LOCALSTORAGE} from "@/common/utils";
 import formatLrc from "./format";
+import {Draft} from "immer";
 
 interface LrcState {
   globalLrcVisibility:boolean,
@@ -80,6 +81,8 @@ const slice = createSlice({
     },
   }
 })
+
+export const LrcSelector = <T = Draft<LrcState>>({lrc}: {lrc: T}): T => lrc
 
 export default slice.reducer
 

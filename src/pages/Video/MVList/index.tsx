@@ -16,8 +16,8 @@ import {
   handleInit,
   handleChangeFirstArea,
   handleChangeTopArea,
+  MVListSelector
 } from '@/reducers/mvlist/slice';
-import './style.scss';
 
 const category = [
   '内地',
@@ -37,7 +37,7 @@ export default memo(() => {
     wy,
     top,
     timestamp,
-  } = useAppSelector(({ MVList }) => MVList);
+  } = useAppSelector(MVListSelector);
   const memoLoading = useMemo(() => Date.now() - timestamp > 3600000, [timestamp]);
 
   useEffect(() => {

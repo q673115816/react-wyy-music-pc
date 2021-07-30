@@ -2,8 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 
 interface DragState {
   dragger: boolean,
-  onMouseMove: (() => void) | null,
-  onMouseUp: (() => void) | null,
+  onMouseMove: null,
+  onMouseUp: null,
 }
 
 const initialState: DragState = {
@@ -16,10 +16,10 @@ const slice = createSlice({
   name: 'drag',
   initialState,
   reducers: {
-    setDragInit(state, action) {
-      state.dragger = action.payload.dragger
-      state.onMouseMove = action.payload.onMouseMove
-      state.onMouseUp = action.payload.onMouseUp
+    setDragInit(state) {
+      state.dragger = true
+      // state.onMouseMove = action.payload.onMouseMove
+      // state.onMouseUp = action.payload.onMouseUp
     },
     setDragUnload(state) {
       Object.assign(state, initialState)

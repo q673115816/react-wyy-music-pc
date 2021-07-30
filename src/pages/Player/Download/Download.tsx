@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
 import { setToast, setDialogDownloadVideoShow } from '@/reducers/mask/slice';
-import DownloadWorker from './download.worker.ts';
+import DownloadWorker from './download.worker?worker';
+import {useAppDispatch} from "@/reducers/hooks";
 
 export default (url = '', title = '') => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const RefWorker = useRef<Worker|null|void>();
   const downloadResponse = useRef();
   const [downloadProcess, setDownloadProcess] = useState(0);

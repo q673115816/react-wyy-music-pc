@@ -129,7 +129,7 @@ export const apiLike = (params) => post('/like', params);
  */
 export const apiResourceLike = (params) => post('/resource/like', params);
 // 获取点赞过的视频
-export const apiPlaylistMylike = (params) => post('/playlist/mylike', params);
+export const apiPlaylistMylike = () => post('/playlist/mylike');
 // 喜欢音乐列表 uid
 export const apiLikelist = (params) => post('/likelist', params);
 /**

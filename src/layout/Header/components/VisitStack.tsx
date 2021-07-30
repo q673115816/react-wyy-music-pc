@@ -34,7 +34,7 @@ const ArrowBtn = memo<PropsWithChildren<ArrowProp>>(
 
 // @ts-ignore
 @withRouter
-export default class extends PureComponent<RouteComponentProps> {
+export default class extends PureComponent<Partial<RouteComponentProps>> {
   readonly state = {
     stackIn: 0,
     stackOut: 0,

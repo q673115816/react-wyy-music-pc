@@ -33,7 +33,7 @@ import {
 import { setVideoListId } from '@/reducers/videolist/slice';
 import Write from '@/components/Write';
 
-import { useDispatch } from 'react-redux';
+import {useAppDispatch} from '@/reducers/hooks'
 import DomCommentsList from '@/components/CommentsList';
 import DomPage from '@/components/Page';
 
@@ -61,8 +61,7 @@ const DomGroup = ({ list = [], func }) => (
 
 export default memo(({ type, vid }) => {
   console.log('player');
-  // console.log('props', props);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(setAudioRunningPause());
