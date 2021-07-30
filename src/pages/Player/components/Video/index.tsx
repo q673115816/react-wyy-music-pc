@@ -18,9 +18,9 @@ import {
   actionSetBuffered,
   actionSetCurrentTime,
   actionSetDuration,
-} from './reducer/slice';
+} from './reducer/actions';
 
-export const VideoContext = createContext();
+export const VideoContext = createContext(null);
 
 export default memo(({
   url, detail, brs = [], fixed, next = {}
@@ -33,15 +33,15 @@ export default memo(({
     buffered,
     full,
   }, videoDispatch] = useReducer(videoReducer, initialState);
-  const ref = useRef();
+  const refVideo = useRef<HTMLVideoElement>(null);
   const dispatch = useDispatch();
   const [isEnd, setIsEnd] = useState(false);
   const [isAuto, setIsAuto] = useState(true)
   const handleChangePlay = () => {
     if (play) {
-      ref.current.pause();
+      refVideo.current.pause();
     } else {
-      ref.current.play();
+      refVideo.current.play();
     }
     videoDispatch(actionSetPlay(!play));
     // setPlay(!play);
@@ -54,12 +54,12 @@ export default memo(({
   const handlechangeFull = async () => {
     if (full) {
       // 退出全屏
-      // ref.current.webkitExitFullscreen();
+      // refVideo.current.webkitExitFullscreen();
       await document.webkitExitFullscreen();
       dispatch(setPositionTrue());
     } else {
       // 进入全屏
-      // ref.current.webkitEnterFullScreen();
+      // refVideo.current.webkitEnterFullScreen();
       await document.documentElement.webkitRequestFullScreen();
       dispatch(setPositionFalse());
     }
@@ -76,7 +76,7 @@ export default memo(({
     }
     videoDispatch(actionSetBuffered(buffered));
     // setBuffered(target.buffered.end(0));
-    // console.log(ref.current.buffered.end(0));
+    // console.log(refVideo.current.buffered.end(0));
   };
 
   const handleSetTime = ({ target }) => {
@@ -93,7 +93,7 @@ export default memo(({
 
   useEffect(() => {
     // videoDispatch(actionSetCurrentTime(jumptime));
-    ref.current.currentTime = jumpTime;
+    refVideo.current.currentTime = jumpTime;
   }, [jumpTime]);
 
   return (
@@ -102,7 +102,7 @@ export default memo(({
         <div className="bg-black flex-auto h-0 relative">
           <video
             src={url}
-            ref={ref}
+            ref={refVideo}
             onClick={handleChangePlay}
             onProgress={handleProgress}
 

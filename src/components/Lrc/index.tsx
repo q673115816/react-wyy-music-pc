@@ -4,7 +4,7 @@ import React, {
   useEffect,
   memo,
 } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
 import {
   IconX,
   IconPlayerPlay,
@@ -14,7 +14,7 @@ import {
   IconMusic,
 } from '@tabler/icons';
 import { setGlobalLrcInset, setGlobalLrcStartInset } from '@/reducers/inset/slice';
-import { setGlobalLrcHide, setLyricToggle } from '@/reducers/lrc/slice';
+import {setGlobalLrcHide, setLyricToggle, LrcSelector} from '@/reducers/lrc/slice';
 import {
   setAudioRunningToggle,
   setAudioPrev,
@@ -24,8 +24,8 @@ import './style.scss';
 import { setDragInit } from '@/reducers/drag/slice';
 
 const DomLrcContent = memo(() => {
-  const { currentTime } = useSelector(({ audio }) => audio);
-  const { lrcList } = useSelector(({ lrc }) => lrc);
+  const { currentTime } = useAppSelector(({ audio }) => audio);
+  const { lrcList } = useAppSelector(LrcSelector);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [percentage, setPercentage] = useState(0);
 
@@ -58,23 +58,23 @@ const DomLrcContent = memo(() => {
 });
 
 const DomLrc = memo(() => {
-  const { currentSong } = useSelector(({ audio }) => audio);
-  const { lrcList } = useSelector(({ lrc }) => lrc);
+  const { currentSong } = useAppSelector(({ audio }) => audio);
+  const { lrcList } = useAppSelector(LrcSelector);
   if (currentSong && !currentSong.name) return '网易云音乐';
   if (!lrcList.length) return '纯音乐，请您欣赏';
   return <DomLrcContent />;
 });
 
 export default memo(() => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     globalLrcX: x,
     globalLrcY: y,
     globalLrcWidth: width,
     globalLrcHeight: height,
-  } = useSelector(({ inset }) => inset);
-  const { globalLrcVisibility } = useSelector(({ lrc }) => lrc);
-  const { running } = useSelector(({ audio }) => audio);
+  } = useAppSelector(({ inset }) => inset);
+  const { globalLrcVisibility } = useAppSelector(({ lrc }) => lrc);
+  const { running } = useAppSelector(({ audio }) => audio);
   const [dragger, setDragger] = useState(false);
   const [active, setActive] = useState(false);
 

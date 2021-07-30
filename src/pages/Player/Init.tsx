@@ -1,6 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
+import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
 import {
   apiFollow,
   apiVideoSub,
@@ -33,8 +32,8 @@ const switchs = {
 };
 
 export default ({ vid, type }) => {
-  const dispatch = useDispatch();
-  const { mvSublist } = useSelector(({ account }) => account);
+  const dispatch = useAppDispatch();
+  const { mvSublist } = useAppSelector(({ account }) => account);
 
   const [page, setPage] = useState(1);
   const [comments, setComments] = useState({});

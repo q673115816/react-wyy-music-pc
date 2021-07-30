@@ -11,11 +11,13 @@ import {
   handleAddList,
   handlePrevInit,
   setVideoListId,
-  Category
+  setVideoListInit,
+  Category,
+  VideoListSelector
 } from '@/reducers/videolist/slice';
-import './style.scss';
 import { useAppSelector, useAppDispatch } from '@/reducers/hooks';
 import DomLoading from '@/components/Loading';
+import Select from './components/Select'
 
 export default memo(() => {
   const dispatch = useAppDispatch()
@@ -24,49 +26,26 @@ export default memo(() => {
     initStatus,
     groupList,
     categoryList,
-  } = useAppSelector(({ videolist }) => videolist);
-  const [videoList, setVideoList] = useState([]);
+    videoList,
+  } = useAppSelector(VideoListSelector);
   const [groupListVisibility, setGroupListVisibility] = useState(false);
-  const currentNav = useMemo(() => groupList.find((group) => group.id === Number(id))?.name, [id]);
+  const currentNav = useMemo(() => groupList.find((group) => group.id === Number(id))?.name || '全部视频', [id]);
 
   const domScroll = useRef<HTMLDivElement>(null);
   const domObserver = useRef<HTMLDivElement>(null);
 
-  useInfinite(handleAddList, domScroll, domObserver);
+  useInfinite(() => dispatch(handleAddList(id)), domScroll, domObserver);
 
   useEffect(() => {
-    handlePrevInit();
+    dispatch(handlePrevInit());
+    return () => {
+      dispatch(setVideoListInit())
+    }
   }, []);
 
   useEffect(() => {
-    setVideoList([]);
+    dispatch(setVideoListInit())
   }, [id]);
-
-  const DomSelect = () => (
-    <div className="group_select_box absolute top-100 p-5 bg-white overflow-auto shadow">
-      <div className="border-b pb-2">
-        <button
-          type="button"
-          className={classNames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', id === 0 ? 'text-red-500 bg-red-50' : '')}
-          onClick={() => dispatch(setVideoListId({ id: 0 }))}
-        >
-          全部视频
-        </button>
-      </div>
-      <div className="group_select_list grid grid-cols-6 gap-y-5 p-4">
-        {groupList.map((item) => (
-          <button
-            type="button"
-            className={classNames('group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor', item.id === id ? 'text-red-500 bg-red-50' : '')}
-            key={item.id}
-            onClick={() => dispatch(setVideoListId({ id: item.id }))}
-          >
-            {item.name}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
 
   return (
     <div className="domVideoList_content px-8 overflow-auto flex-auto" ref={domScroll}>
@@ -77,11 +56,11 @@ export default memo(() => {
             className="group_select_button border rounded-full hover:bg-gray-100 text-sm"
             onClick={() => setGroupListVisibility(!groupListVisibility)}
           >
-            {currentNav || '全部视频'}
+            {currentNav}
             &gt;
           </button>
           {groupListVisibility
-            && <DomSelect />}
+            && <Select id={id} />}
         </div>
         <div className="recommend_nav divide-x flex">
           {categoryList.map((item: Category) => (

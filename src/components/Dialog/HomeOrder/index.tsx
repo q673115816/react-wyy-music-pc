@@ -1,22 +1,23 @@
 import React, { useEffect, useRef, useState, MouseEvent } from 'react';
 import { setDialogReset } from '@/reducers/mask/slice';
 import { setHomeOrder } from '@/reducers/setting/slice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/reducers/hooks';
 import { IconBulb, IconMenu } from '@tabler/icons';
 import './style.scss';
 import classNames from 'classnames';
 import produce from 'immer';
 import { setDragInit } from '@/reducers/drag/slice';
 import HOCDialog from '../Dialog';
+import HelpMask from '@/components/HelpMask'
 
 type Order = string[]
 
 const defaultOrder: Order = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
 
 export default () => {
-  const dispatch = useDispatch();
-  const { dialogHomeOrderVisibility } = useSelector(({ mask }) => mask);
-  const { homeOrder } = useSelector(({ setting }) => setting);
+  const dispatch = useAppDispatch();
+  const { dialogHomeOrderVisibility } = useAppSelector(({ mask }) => mask);
+  const { homeOrder } = useAppSelector(({ setting }) => setting);
   const [tempHomeOrder, setTempHomeOrder] = useState<Order>(homeOrder);
   const [curr, setCurr] = useState('');
   const [top, setTop] = useState(0);
@@ -57,10 +58,7 @@ export default () => {
     setCurr(curr);
     setStartY(e.clientY);
     RefIndex.current = index;
-    dispatch(setDragInit({
-      onMouseMove: handleMove,
-      onMouseUp: handleUp,
-    }));
+    dispatch(setDragInit());
   };
 
   const handleReset = () => {
@@ -82,21 +80,26 @@ export default () => {
           </span>
         </div>
         <div className="flex flex-col relative">
-          {
-            tempHomeOrder.map((order, index) => (
-              <div key={order} className="h-12 text-base text-gray-500">
+          {tempHomeOrder.map((order, index) => (
+            <div key={order} className="h-12 text-base text-gray-500">
+              <HelpMask onMouseMove={handleMove} onMouseUp={handleUp}>
                 <button
                   type="button"
-                  className={classNames('w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center', curr === order && 'absolute shadow z-10')}
-                  style={{ transform: `translate(0, ${curr === order ? top : 0}px)` }}
+                  className={classNames(
+                    "w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center",
+                    curr === order && "absolute shadow z-10"
+                  )}
+                  style={{
+                    transform: `translate(0, ${curr === order ? top : 0}px)`,
+                  }}
                   onMouseDown={(e) => handleDown(e, order, index)}
                 >
                   {order}
                   <IconMenu className="ml-auto cursor-move" />
                 </button>
-              </div>
-            ))
-          }
+              </HelpMask>
+            </div>
+          ))}
         </div>
         <div className="flex-center py-4">
           <button

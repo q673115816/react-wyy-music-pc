@@ -4,11 +4,11 @@ import React, {
   MouseEvent
 } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import {useAppDispatch} from "@/reducers/hooks";
+
 import {
   setContriesCodeList,
   setMsgPrivate,
-
 } from '@/reducers/common/slice';
 import { setLoginInfo } from '@/reducers/account/slice';
 import {
@@ -25,8 +25,8 @@ import {
   apiPlaylistMylike,
 } from '@/api';
 import { setGlobalInset, setGlobalDragger, setGlobalStartInset } from '@/reducers/inset/slice';
-import { setDragInit } from '@/reducers/drag/slice';
-
+import { setDragInit, setDragUnload } from '@/reducers/drag/slice';
+import HelpMask from "@/components/HelpMask";
 import {
   IconMicrophone,
 } from '@tabler/icons';
@@ -39,29 +39,27 @@ import DomFunction from './components/Function';
 import './style.scss';
 
 export default memo(() => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const dragmove = (e: MouseEvent<HTMLDivElement>) => {
+  const dragMove = (e: MouseEvent<HTMLDivElement>) => {
     dispatch(setGlobalInset({
       x: e.clientX,
       y: e.clientY,
     }));
   };
 
-  const dragup = () => {
+  const dragUp = () => {
     dispatch(setGlobalDragger(false));
+    dispatch(setDragUnload())
   };
 
-  const dragdown = (e: MouseEvent<HTMLButtonElement>) => {
+  const dragDown = (e: MouseEvent<HTMLDivElement>) => {
     dispatch(setGlobalDragger(true));
     dispatch(setGlobalStartInset({
       x: e.clientX,
       y: e.clientY,
     }));
-    dispatch(setDragInit({
-      onMouseMove: dragmove,
-      onMouseUp: dragup,
-    }));
+    dispatch(setDragInit());
   };
 
   const handleGetCountriesCodeList = async () => {
@@ -121,12 +119,13 @@ export default memo(() => {
 
   return (
     <div className="domHeader relative flex items-center">
-      <button
-        type="button"
-        className="absolute inset-0 z-0 w-full focus:outline-none cursor-auto"
-        onMouseDown={dragdown}
-        title="长按拖拽"
-      />
+      <HelpMask onMouseMove={dragMove} onMouseUp={dragUp}>
+        <div
+          className="absolute inset-0 z-0 w-full"
+          onMouseDown={dragDown}
+          title="长按拖拽"
+        />
+      </HelpMask>
       <Link
         to="/"
         className="domHeader_logo tracking-widest text-white text-lg z-10"

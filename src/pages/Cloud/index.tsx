@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import Search from '@/components/HeaderBarSearch';
 import { apiUserCloud } from '@/api';
 
-// import './style.scss';
 import DomMenuCreate from '@/components/MenuCreate';
 import DomRank from '@/components/Table/Rank';
 import DomHeart from '@/components/Table/Heart';
@@ -214,7 +213,7 @@ export default () => {
                     </div>
                     <div
                       className="cell px-1 name truncate"
-                      title={item.songName + item.simpleSong?.tns?.length > 0 && `（${item.simpleSong?.tns}）`}
+                      title={item.songName + item.simpleSong?.tns?.length > 0 ? `（${item.simpleSong?.tns}）`: ''}
                     >
                       {item.songName}
                       {

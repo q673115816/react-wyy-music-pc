@@ -1,7 +1,6 @@
 import React from 'react';
-
-const svgMale = require('@/assets/images/male.svg');
-const svgFamale = require('@/assets/images/famale.svg');
+import Male from '@img/male.svg'
+import Famale from '@img/famale.svg'
 
 export const DomMale = ({ size = 0 }) => (
   <span
@@ -12,7 +11,7 @@ export const DomMale = ({ size = 0 }) => (
       height: size,
     }}
   >
-    <img className="w-full h-full" src={svgMale} alt="" />
+    <img className="w-full h-full" src={Male} alt="" />
   </span>
 );
 
@@ -25,7 +24,7 @@ export const DomFamale = ({ size = 0 }) => (
       height: size,
     }}
   >
-    <img className="w-full h-full" src={svgFamale} alt="" />
+    <img className="w-full h-full" src={Famale} alt="" />
   </span>
 );
 
