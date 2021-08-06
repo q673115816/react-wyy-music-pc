@@ -25,8 +25,7 @@ import {
   apiPlaylistMylike,
 } from '@/api';
 import { setGlobalInset, setGlobalDragger, setGlobalStartInset } from '@/reducers/inset/slice';
-import { setDragInit, setDragUnload } from '@/reducers/drag/slice';
-import HelpMask from "@/components/HelpMask";
+import Drag from "@/components/Drag";
 import {
   IconMicrophone,
 } from '@tabler/icons';
@@ -38,29 +37,8 @@ import DomControl from './components/Control';
 import DomFunction from './components/Function';
 import './style.scss';
 
-export default memo(() => {
+const useInit = () => {
   const dispatch = useAppDispatch();
-
-  const dragMove = (e: MouseEvent<HTMLDivElement>) => {
-    dispatch(setGlobalInset({
-      x: e.clientX,
-      y: e.clientY,
-    }));
-  };
-
-  const dragUp = () => {
-    dispatch(setGlobalDragger(false));
-    dispatch(setDragUnload())
-  };
-
-  const dragDown = (e: MouseEvent<HTMLDivElement>) => {
-    dispatch(setGlobalDragger(true));
-    dispatch(setGlobalStartInset({
-      x: e.clientX,
-      y: e.clientY,
-    }));
-    dispatch(setDragInit());
-  };
 
   const handleGetCountriesCodeList = async () => {
     try {
@@ -112,20 +90,51 @@ export default memo(() => {
   };
 
   useEffect(() => {
-    handleGetCountriesCodeList();
-    handleCookieInit();
-    handlePrivateLetterInit();
+    void (async () => {
+      await handleGetCountriesCodeList();
+      await handleCookieInit();
+      await handlePrivateLetterInit();
+    })()
+  }, []);
+}
+
+const CustomDrag = memo(() => {
+  const dispatch = useAppDispatch();
+
+  const onMouseMove = useCallback(({clientX: x, clientY: y}: MouseEvent) => {
+    dispatch(setGlobalInset({
+      x,
+      y,
+    }));
   }, []);
 
+  const onMouseUp = useCallback(() => {
+    dispatch(setGlobalDragger(false));
+  }, []);
+
+  const onMouseDown = useCallback((e: MouseEvent) => {
+    dispatch(setGlobalDragger(true));
+    dispatch(setGlobalStartInset({
+      x: e.clientX,
+      y: e.clientY,
+    }));
+  }, []);
+  return (
+    <Drag
+      className="absolute inset-0 z-0 w-full"
+      title="长按拖拽"
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
+    />
+  );
+})
+
+export default memo(() => {
+  useInit()
   return (
     <div className="domHeader relative flex items-center">
-      <HelpMask onMouseMove={dragMove} onMouseUp={dragUp}>
-        <div
-          className="absolute inset-0 z-0 w-full"
-          onMouseDown={dragDown}
-          title="长按拖拽"
-        />
-      </HelpMask>
+      <CustomDrag />
       <Link
         to="/"
         className="domHeader_logo tracking-widest text-white text-lg z-10"
@@ -136,7 +145,10 @@ export default memo(() => {
       <div className="flex items-center space-x-2">
         <DomVisitStack />
         <DomSearch />
-        <Link to="/ai" className="bg-black bg-opacity-5 w-8 h-8 rounded-full text-white flex-center z-10">
+        <Link
+          to="/ai"
+          className="bg-black bg-opacity-5 w-8 h-8 rounded-full text-white flex-center z-10"
+        >
           <IconMicrophone size={18} />
         </Link>
       </div>
