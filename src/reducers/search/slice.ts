@@ -19,17 +19,18 @@ const slice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    setSearchHistory(state, action) {
-
+    setSearchHistory(state, {payload}) {
+      window.localStorage.setItem('searchHistory', JSON.stringify(payload));
+      state.searchHistory = payload
     },
-    setSearchValue(state, action) {
-
+    setSearchValue(state, {payload}) {
+      Object.assign(state, payload)
     },
-    setSearchHot(state, action) {
-
+    setSearchHot(state, {payload}) {
+      Object.assign(state, payload)
     },
-    setSearchSuggest(state, action) {
-
+    setSearchSuggest(state,  {payload}) {
+      Object.assign(state, payload)
     },
   }
 })

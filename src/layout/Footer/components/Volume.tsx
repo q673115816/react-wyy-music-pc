@@ -1,9 +1,3 @@
-import React, { useState, useEffect, useRef, memo, useMemo, MouseEvent } from "react";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
-import { IconVolume, IconVolume3 } from "@tabler/icons";
-import { setVolume, setBeforeMuted } from "@/reducers/volume/slice";
-import { computedPositionPercentage } from "@/common/utils";
-import Drag from "@/components/Drag";
 import React, {
   useState,
   useEffect,
@@ -12,14 +6,14 @@ import React, {
   useMemo,
   PropsWithChildren
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import {
   IconVolume,
   IconVolume3,
 } from '@tabler/icons';
-import { setVolume, setBeforeMuted } from '@/reducers/volume/actions';
+import { setVolume, setBeforeMuted } from '@/reducers/volume/slice';
 import {computedPositionPercentage, isInTheRect} from '@/common/utils';
-import { setDragInit, setDragUnload } from '@/reducers/drag/actions';
+import Drag from "@/components/Drag";
 
 const Ico = memo<PropsWithChildren<{isMuted: boolean}>>(({ isMuted }) => (
   isMuted ?
@@ -29,8 +23,8 @@ const Ico = memo<PropsWithChildren<{isMuted: boolean}>>(({ isMuted }) => (
 
 
 const Panel = memo<PropsWithChildren<{ visible: boolean }>>(({visible, setPanelVisible}) => {
-  const dispatch = useDispatch();
-  const { volume } = useSelector(({ volume }) => volume);
+  const dispatch = useAppDispatch();
+  const { volume } = useAppSelector(({ volume }) => volume);
   const [dragger, SetDragger] = useState(false);
   const RefRect = useRef<HTMLDivElement>(null)
   const RefProgress = useRef<HTMLDivElement>(null);
@@ -43,11 +37,11 @@ const Panel = memo<PropsWithChildren<{ visible: boolean }>>(({visible, setPanelV
     return percentage * 100;
   };
 
-  const handleDropMove = (e: MouseEvent) => {
+  const onMouseMove = (e: MouseEvent) => {
     dispatch(setVolume(computedPosition(e)));
   };
 
-  const onMouseUp = () => {
+  const onMouseUp = (e: MouseEvent) => {
     SetDragger(false);
     const {current: dom} = RefRect
     if(dom && isInTheRect(e, dom))
@@ -63,14 +57,16 @@ const Panel = memo<PropsWithChildren<{ visible: boolean }>>(({visible, setPanelV
     <div
       className="bg-gray-200 flex flex-col h-20 justify-end w-1"
       title="音量调节（Ctrl + Up / Ctrl + Down）"
-      onMouseDown={handleDropMove}
+      onMouseDown={onMouseMove}
       ref={RefProgress}
     >
       <div
         className="curr width-full h-full ui_theme_bg_color relative"
         style={{ height: `${volume}%` }}>
-        <div
-          onMouseDown={handleDropDown}
+        <Drag
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
           className="absolute right-1/2 top-0 transform translate-x-1/2 -translate-y-1/2 w-2 h-2 ui_theme_bg_color rounded-full"
         />
       </div>
@@ -79,8 +75,8 @@ const Panel = memo<PropsWithChildren<{ visible: boolean }>>(({visible, setPanelV
 })
 
 export default memo(() => {
-  const dispatch = useDispatch();
-  const { volume, beforeMuted } = useSelector(({ volume }) => volume);
+  const dispatch = useAppDispatch();
+  const { volume, beforeMuted } = useAppSelector(({ volume }) => volume);
   const [muted, setMuted] = useState(() => volume === 0);
 
   const [panelVisible, setPanelVisible] = useState(false)
