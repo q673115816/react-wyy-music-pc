@@ -7,7 +7,6 @@ import DomResizer from '@/components/Resizer';
 import useMemoParmas from '@/hooks/useMemoParams';
 import useIsLogin from '@/hooks/useIsLogin';
 import DomLoading from '@/components/Loading';
-import HelpMask from '@/components/HelpMask';
 import DomHeader from './layout/Header';
 import DomMain from './layout/Main';
 import DomFooter from './layout/Footer';
@@ -137,7 +136,6 @@ export default memo(() => {
         </div>
       </Router>
       <GlobalLrc />
-      <HelpMask />
     </div>
   );
 });

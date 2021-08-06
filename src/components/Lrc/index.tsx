@@ -21,7 +21,7 @@ import {
   setAudioNext,
 } from '@/reducers/audio/slice';
 import './style.scss';
-import { setDragInit } from '@/reducers/drag/slice';
+import Drag from '@/components/Drag';
 
 const DomLrcContent = memo(() => {
   const { currentTime } = useAppSelector(({ audio }) => audio);
@@ -60,8 +60,8 @@ const DomLrcContent = memo(() => {
 const DomLrc = memo(() => {
   const { currentSong } = useAppSelector(({ audio }) => audio);
   const { lrcList } = useAppSelector(LrcSelector);
-  if (currentSong && !currentSong.name) return '网易云音乐';
-  if (!lrcList.length) return '纯音乐，请您欣赏';
+  if (currentSong && !currentSong.name) return <>网易云音乐</>;
+  if (!lrcList.length) return <>纯音乐，请您欣赏</>;
   return <DomLrcContent />;
 });
 
@@ -78,7 +78,7 @@ export default memo(() => {
   const [dragger, setDragger] = useState(false);
   const [active, setActive] = useState(false);
 
-  const handleDropMove = (e) => {
+  const onMouseMove = (e) => {
     e.preventDefault();
     return dispatch(setGlobalLrcInset({
       x: e.clientX,
@@ -86,20 +86,16 @@ export default memo(() => {
     }));
   };
 
-  const handleDropUp = () => {
+  const onMouseUp = () => {
     setDragger(false);
     setActive(true);
   };
 
-  const handleDropDown = (e) => {
+  const onMouseDown = (e) => {
     setDragger(true);
     dispatch(setGlobalLrcStartInset({
       x: e.clientX,
       y: e.clientY,
-    }));
-    dispatch(setDragInit({
-      onMouseMove: handleDropMove,
-      onMouseUp: handleDropUp,
     }));
   };
 
@@ -119,7 +115,12 @@ export default memo(() => {
             onMouseLeave={() => setActive(false)}
             className={`absolute w-full h-full bg-black bg-opacity-20 border border-gray-400 shadow pointer-events-${(active || dragger) ? 'auto' : 'none'}`}
           >
-            <div className="w-full h-full" onMouseDown={handleDropDown} />
+            <Drag
+            className="w-full h-full"
+            onMouseDown={onMouseDown}
+            onMouseMove={onMouseMove}
+            onMouseUp={onMouseUp}
+            />
             <div className="absolute left-0 right-0 mx-auto flex items-center space-x-4 top-0 w-min z-10 text-white my-2">
               <button type="button" className="relative z-10" onClick={() => dispatch(setLyricToggle())}>
                 <IconMusic size={16} stroke={2} />

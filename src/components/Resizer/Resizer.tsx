@@ -1,5 +1,5 @@
 import React, { memo, MouseEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '@/reducers/hooks';
 import { IconChevronDownRight } from '@tabler/icons';
 import {
   setGlobalRect,
@@ -7,15 +7,13 @@ import {
   setGlobalResizer,
   setGlobalStartRectLock,
 } from '@/reducers/inset/slice';
-import { setDragInit } from '@/reducers/drag/slice';
+import Drag from '@/components/Drag';
 
 export default memo(() => {
-  const dispatch = useDispatch();
-  const {
-    SCREEN, GlobalRectLock,
-  } = useSelector(({ inset }) => inset);
+  const dispatch = useAppDispatch();
+  const { SCREEN, GlobalRectLock } = useAppSelector(({ inset }) => inset);
 
-  const resizemove = (e) => {
+  const onMouseMove = (e) => {
     e.preventDefault();
     if (GlobalRectLock) return;
     dispatch(setGlobalStartRectLock());
@@ -28,30 +26,28 @@ export default memo(() => {
     });
   };
 
-  const resizeup = () => {
+  const onMouseUp = () => {
     // dispatch(setGlobalResizer(false));
   };
 
-  const resizedown = (e: MouseEvent<HTMLDivElement>) => {
+  const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     // dispatch(setGlobalResizer(true));
     dispatch(setGlobalStartRect({
       x: e.clientX,
       y: e.clientY,
     }));
-    dispatch(setDragInit({
-      onMouseMove: resizemove,
-      onMouseUp: resizeup,
-    }));
   };
 
   if (SCREEN !== 'normal') return null;
   return (
-    <div
+    <Drag
       className="absolute right-0 bottom-0 text-gray-500"
       style={{ cursor: 'se-resize' }}
-      onMouseDown={resizedown}
+      onMouseDown={onMouseDown}
+      onMouseMove={onMouseMove}
+      onMouseUp={onMouseUp}
     >
       <IconChevronDownRight />
-    </div>
+    </Drag>
   );
 });

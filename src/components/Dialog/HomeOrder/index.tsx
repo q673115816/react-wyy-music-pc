@@ -6,9 +6,8 @@ import { IconBulb, IconMenu } from '@tabler/icons';
 import './style.scss';
 import classNames from 'classnames';
 import produce from 'immer';
-import { setDragInit } from '@/reducers/drag/slice';
 import HOCDialog from '../Dialog';
-import HelpMask from '@/components/HelpMask'
+import Drag from '@/components/Drag'
 
 type Order = string[]
 
@@ -22,7 +21,7 @@ export default () => {
   const [curr, setCurr] = useState('');
   const [top, setTop] = useState(0);
   const [startY, setStartY] = useState(0);
-  const RefIndex = useRef();
+  const RefIndex = useRef(-Infinity);
 
   const handleMove = (e: MouseEvent<HTMLDivElement>) => {
     const apart = e.clientY - startY;
@@ -54,11 +53,10 @@ export default () => {
     setCurr('');
   };
 
-  const handleDown = (e: MouseEvent<HTMLButtonElement>, curr: string, index: number) => {
+  const handleDown = (e: MouseEvent<HTMLDivElement>, curr: string, index: number) => {
     setCurr(curr);
     setStartY(e.clientY);
     RefIndex.current = index;
-    dispatch(setDragInit());
   };
 
   const handleReset = () => {
@@ -82,22 +80,21 @@ export default () => {
         <div className="flex flex-col relative">
           {tempHomeOrder.map((order, index) => (
             <div key={order} className="h-12 text-base text-gray-500">
-              <HelpMask onMouseMove={handleMove} onMouseUp={handleUp}>
-                <button
-                  type="button"
-                  className={classNames(
-                    "w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center",
-                    curr === order && "absolute shadow z-10"
-                  )}
-                  style={{
-                    transform: `translate(0, ${curr === order ? top : 0}px)`,
-                  }}
-                  onMouseDown={(e) => handleDown(e, order, index)}
-                >
-                  {order}
-                  <IconMenu className="ml-auto cursor-move" />
-                </button>
-              </HelpMask>
+              <Drag
+                onMouseMove={handleMove}
+                onMouseUp={handleUp}
+                onMouseDown={(e: MouseEvent<HTMLDivElement>) => handleDown(e, order, index)}
+                className={classNames(
+                  "w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center",
+                  curr === order && "absolute shadow z-10"
+                )}
+                style={{
+                  transform: `translate(0, ${curr === order ? top : 0}px)`,
+                }}
+              >
+                {order}
+                <IconMenu className="ml-auto cursor-move" />
+              </Drag>
             </div>
           ))}
         </div>
