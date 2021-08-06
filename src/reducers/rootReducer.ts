@@ -7,7 +7,7 @@ const requireContext = require.context('./', true, /^\.\/.*\/slice\.ts$/);
 
 requireContext.keys().forEach((key) => {
   const mod = requireContext(key);
-  root[key.slice(2, -9)] = mod.__esModule && mod.default ? mod.default.reducer : mod.reducer;
+  root[key.slice(2, -9)] = mod.__esModule && mod.default ? mod.default : mod;
 });
 
 // const modules = import.meta.globEager('./*/slice.ts')
