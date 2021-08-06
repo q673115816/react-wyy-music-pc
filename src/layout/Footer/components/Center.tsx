@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, {memo, useMemo} from 'react';
 import {
   IconArrowsSplit2,
   IconPlayerSkipBack,
@@ -22,6 +22,7 @@ import {
 import { audioPattern } from '@/common/config';
 import classNames from 'classnames';
 import DomTiming from './Timing';
+import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
 
 const audioPatternIcon = [
   IconPlaylist,
@@ -30,12 +31,12 @@ const audioPatternIcon = [
   IconArrowsSplit2,
 ];
 
-export default () => {
-  const dispatch = useDispatch();
+export default memo(() => {
+  const dispatch = useAppDispatch();
   const {
     running, pattern,
-  } = useSelector(({ audio }) => audio);
-  const { globalLrcVisibility } = useSelector(({ lrc }) => lrc);
+  } = useAppSelector(({ audio }) => audio);
+  const { globalLrcVisibility } = useAppSelector(({ lrc }) => lrc);
   const handleToggle = () => {
     dispatch(setAudioRunning({ running: !running }));
   };
@@ -109,4 +110,4 @@ export default () => {
       <DomTiming />
     </div>
   );
-};
+});

@@ -28,10 +28,10 @@ const slice = createSlice({
   name: 'lrc',
   initialState,
   reducers: {
-    setLyricText(state, action) {
+    setGlobalLrcToggle(state, action) {
       setGlobalvisibility(state, !state.globalLrcVisibility);
     },
-    setGlobalLrcToggle(state, action) {
+    setLyricText(state, action) {
       const { lyric } = action.payload;
       state.lyric = lyric;
       const {
@@ -89,8 +89,9 @@ export default slice.reducer
 export const {
   setGlobalLrcHide,
   setGlobalLrcShow,
-  setGlobalLrcToggle, setLyricHide,
+  setGlobalLrcToggle,
+  setLyricHide,
   setLyricShow,
-  setLyricText, setLyricToggle
-
+  setLyricText,
+  setLyricToggle
 } = slice.actions
