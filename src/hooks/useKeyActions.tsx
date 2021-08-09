@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, {MouseEventHandler, useEffect} from "react";
 import {
   setAudioRunningToggle,
   setAudioNext,
   setAudioPrev,
 } from "@/reducers/audio/slice";
 import { setVolumePlusTen, setVolumeSubTen } from "@/reducers/volume/slice";
+import {useAppDispatch} from "@/reducers/hooks";
 
 export default () => {
-  const dispatch = useDispatch();
+  console.log('action')
+  const dispatch = useAppDispatch();
   // console.log('keyActions');
   const keyDown = (e: KeyboardEvent) => {
     const { ctrlKey, keyCode, key } = e;
@@ -33,10 +34,18 @@ export default () => {
     }
     return true;
   };
+  const contextMenu = (e: MouseEvent) => e.preventDefault();
+
   useEffect(() => {
     document.addEventListener("keydown", keyDown);
     return () => {
       document.removeEventListener("keydown", keyDown);
+    };
+  }, []);
+  useEffect(() => {
+    document.addEventListener('contextmenu', contextMenu);
+    return () => {
+      document.removeEventListener('contextmenu', contextMenu);
     };
   }, []);
 };

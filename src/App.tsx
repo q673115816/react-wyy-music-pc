@@ -2,7 +2,6 @@ import React, {
   memo, useEffect, lazy, Suspense,
 } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import DomResizer from '@/components/Resizer';
 import useMemoParmas from '@/hooks/useMemoParams';
 import useIsLogin from '@/hooks/useIsLogin';
@@ -10,10 +9,12 @@ import DomLoading from '@/components/Loading';
 import DomHeader from './layout/Header';
 import DomMain from './layout/Main';
 import DomFooter from './layout/Footer';
+import Inset from './layout/Inset'
 import useKeyActions from './hooks/useKeyActions';
 import './styles/index.scss';
 
 import GlobalLrc from './components/Lrc';
+import {useAppSelector} from "@/reducers/hooks";
 
 const Player = lazy(() => import(
   /* webpackChunkName: "Player" */
@@ -53,28 +54,13 @@ const HeaderSearch = lazy(() => import(
   '@/components/Search/Search'));
 
 export default memo(() => {
+  console.log('app')
   useKeyActions();
   useIsLogin();
   const {
     theme, font,
-  } = useSelector(({ setting }) => setting);
-  const {
-    POSITION,
-    SCREEN,
-    globalX,
-    globalY,
-    globalDragger,
-    globalWidth,
-    globalHeight,
-  } = useSelector(({ inset }) => inset);
+  } = useAppSelector(({ setting }) => setting);
 
-  useEffect(() => {
-    const fn = (e) => e.preventDefault();
-    document.addEventListener('contextmenu', fn);
-    return () => {
-      document.removeEventListener('contextmenu', fn);
-    };
-  }, []);
   return (
     <div
       className="App"
@@ -84,26 +70,7 @@ export default memo(() => {
       }}
     >
       <Router basename={PUBLIC_URL}>
-        <div
-          id="NeteaseCloudMusic"
-          className="domWrapper flex flex-col shadow-lg select-none"
-          style={({
-            ...(SCREEN === 'normal' ? {
-              '--WIDTH': `${globalWidth}px`,
-              '--HEIGHT': `${globalHeight}px`,
-            } : {
-              '--WIDTH': '100vw',
-              '--HEIGHT': '100vh',
-            }),
-            ...(POSITION ? globalDragger ? {
-              transform: `translate(${globalX}px, ${globalY}px)`,
-            } : {
-              position: 'absolute',
-              left: `${globalX}px`,
-              top: `${globalY}px`,
-            } : {}),
-          })}
-        >
+        <Inset>
           <DomHeader />
           <Suspense fallback={<div className="flex-center w-full h-full"><DomLoading /></div>}>
             <Switch>
@@ -133,7 +100,7 @@ export default memo(() => {
           </Suspense>
 
           <DomResizer />
-        </div>
+        </Inset>
       </Router>
       <GlobalLrc />
     </div>

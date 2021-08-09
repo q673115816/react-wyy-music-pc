@@ -1,13 +1,13 @@
-import React, {FC, memo, PropsWithChildren, useCallback, useState} from 'react';
+import React, {FC, memo, MouseEventHandler, PropsWithChildren, useCallback, useState} from 'react';
 import {createPortal} from 'react-dom';
 
 interface MaskProps {
-  onMouseMove: (e: MouseEvent) => void,
-  onMouseUp: (e: MouseEvent) => void,
+  onMouseMove: MouseEventHandler,
+  onMouseUp: MouseEventHandler,
 }
 
 interface iProps extends MaskProps {
-  onMouseDown: (e: MouseEvent) => void,
+  onMouseDown: MouseEventHandler,
   className?: string,
   title?: string,
   children?: any
@@ -26,15 +26,15 @@ export default memo<PropsWithChildren<iProps>>((props) => {
   console.log('helpMask');
   const { children, onMouseDown, onMouseMove, onMouseUp, ..._props} = props
   const [dragger, setDragger] = useState(false)
-  const defaultMouseDown = useCallback((e) => {
+  const defaultMouseDown: MouseEventHandler = useCallback((e) => {
     setDragger(true)
     onMouseDown(e)
   }, [])
-  const defaultMouseMove = useCallback((e) => {
+  const defaultMouseMove: MouseEventHandler = useCallback((e) => {
     onMouseMove(e)
   }, [])
 
-  const defaultMouseUp = useCallback((e) => {
+  const defaultMouseUp: MouseEventHandler = useCallback((e) => {
     onMouseUp(e)
     setDragger(false)
   }, [])
@@ -44,7 +44,7 @@ export default memo<PropsWithChildren<iProps>>((props) => {
       <div onMouseDown={defaultMouseDown} {..._props}>
         {children}
       </div>
-      {dragger && <Mask
+       {dragger && <Mask
       onMouseMove={defaultMouseMove}
       onMouseUp={defaultMouseUp}/>
       }

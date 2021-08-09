@@ -1,7 +1,7 @@
 import React, {
   useEffect, memo,
   useCallback,
-  MouseEvent
+  MouseEvent, MouseEventHandler
 } from 'react';
 import { Link } from 'react-router-dom';
 import {useAppDispatch} from "@/reducers/hooks";
@@ -101,18 +101,18 @@ const useInit = () => {
 const CustomDrag = memo(() => {
   const dispatch = useAppDispatch();
 
-  const onMouseMove = useCallback(({clientX: x, clientY: y}: MouseEvent) => {
+  const onMouseMove: MouseEventHandler = useCallback(({clientX: x, clientY: y}: MouseEvent) => {
     dispatch(setGlobalInset({
       x,
       y,
     }));
   }, []);
 
-  const onMouseUp = useCallback(() => {
+  const onMouseUp: MouseEventHandler = useCallback(() => {
     dispatch(setGlobalDragger(false));
   }, []);
 
-  const onMouseDown = useCallback((e: MouseEvent) => {
+  const onMouseDown: MouseEventHandler = useCallback((e: MouseEvent) => {
     dispatch(setGlobalDragger(true));
     dispatch(setGlobalStartInset({
       x: e.clientX,
