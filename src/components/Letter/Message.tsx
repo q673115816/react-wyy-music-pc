@@ -7,12 +7,12 @@ import { apiSendText, apiMsgPrivateHistory } from '@/api';
 import { setMsgPrivateHistory } from '@/reducers/letter/slice';
 import { wordLength } from '@/common/utils';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   IconChevronLeft, IconPhoto, IconMoodSmile, IconPlayerPlay,
 } from '@tabler/icons';
 import EmojiFaces from '@/components/EmojiFaces';
 import Write from '@/components/Write';
+import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
 
 const DomSong = ({ msg = {} }) => (
   <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">
@@ -133,14 +133,14 @@ const DomMsgRight = ({ msg = {} }) => (
 );
 
 export default () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const history = useRef();
 
   const {
     uid, hint, nickname, privatMsgs,
-  } = useSelector(({ letter }) => letter);
+  } = useAppSelector(({ letter }) => letter);
 
-  const { profile } = useSelector(({ account }) => account);
+  const { profile } = useAppSelector(({ account }) => account);
 
   const [visibility, setVisibility] = useState(false);
   const [value, setValue] = useState('');

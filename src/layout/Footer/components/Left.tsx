@@ -1,11 +1,10 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useRef, useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 import {
   IconChevronUp,
   IconChevronDown,
 } from '@tabler/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { apiSongUrl, apiLyric } from '@/api';
+import {apiSongUrl, apiLyric} from '@/api';
 import {
   setAudioCurrentTime,
   setAudioBuffered,
@@ -15,11 +14,12 @@ import {
   setRunErrorAdd,
   setRunErrorDesc,
 } from '@/reducers/audio/slice';
-import { setLyricText, setLyricToggle } from '@/reducers/lrc/slice';
+import {setLyricText, setLyricToggle} from '@/reducers/lrc/slice';
 import DomHeart from '@/components/Table/Heart';
+import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
 
 export default () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     currentSong,
     running,
@@ -28,17 +28,17 @@ export default () => {
     jumpTime,
     pattern,
     errorCount,
-  } = useSelector(({ audio }) => audio);
-  const { volume } = useSelector(({ volume }) => volume);
-  const { lyricVisibility } = useSelector(({ lrc }) => lrc);
-  const [ audioReady, setAudioReady] = useState(false)
+  } = useAppSelector(({audio}) => audio);
+  const {volume} = useAppSelector(({volume}) => volume);
+  const {lyricVisibility} = useAppSelector(({lrc}) => lrc);
+  const [audioReady, setAudioReady] = useState(false)
   const RefDropping = useRef();
-  const refAudio = useRef();
+  const refAudio = useRef<HTMLAudioElement>(null);
 
   const handleGetUrl = async () => {
     // refAudio.current.pause()
     try {
-      const { data } = await apiSongUrl({
+      const {data} = await apiSongUrl({
         id: currentSong.id,
       });
       if (!data[0].url) console.log('无音乐地址');
@@ -46,7 +46,7 @@ export default () => {
       const lyric = await apiLyric({
         id: currentSong.id,
       });
-      dispatch(setLyricText({ lyric }));
+      dispatch(setLyricText({lyric}));
       // refAudio.current.play();
       // dispatch(setAudioRunning({ running: true }));
     } catch (error) {
@@ -58,7 +58,7 @@ export default () => {
     if (running) e.target.play();
   };
 
-  const handleProgress = ({ target }) => {
+  const handleProgress = ({target}) => {
     const buffered = [];
     for (let i = 0; i < target.buffered.length; i += 1) {
       const onebuffered = [target.buffered.start(i), target.buffered.end(i)];
@@ -108,7 +108,8 @@ export default () => {
   }, [dropping]);
 
   useEffect(() => {
-    if(!audioReady) return
+    if(!refAudio.current) return
+    if (!audioReady) return
     if (running) {
       if (currentTime) {
         refAudio.current.currentTime = currentTime;
@@ -122,12 +123,13 @@ export default () => {
   }, [running, audioReady]);
 
   useEffect(() => {
-    if (jumpTime) {
-      refAudio.current.currentTime = jumpTime;
-    }
+    if (!jumpTime) return
+    if (!refAudio.current) return
+    refAudio.current.currentTime = jumpTime;
   }, [jumpTime]);
 
   useEffect(() => {
+    if (!refAudio.current) return
     refAudio.current.volume = volume * 0.01;
   }, [volume]);
 
@@ -149,26 +151,26 @@ export default () => {
         />
       </div>
       {!!currentSong?.name
-        && (
-          <>
-            <button
-              type="button"
-              onClick={handleLyric}
-              className="domfooter_left_img w-12 h-12 relative group rounded overflow-hidden"
-            >
-              <img src={currentSong.al.picUrl} className="w-full h-full object-cover" alt="" />
-              <div className="absolute opacity-0 inset-0 flex-center bg-black group-hover:opacity-60" />
-              <div className="absolute opacity-0 inset-0 flex-center group-hover:opacity-100 text-white">
-                {
-                  lyricVisibility
-                    ? <IconChevronDown size={24} />
-                    : <IconChevronUp size={24} />
-                }
-              </div>
-            </button>
-            <div className="domfooter_left_info pl-3 w-44">
-              <div className="domfooter_left_info_name text-base flex items-center">
-                <button type="button" className="group truncate" onClick={handleLyric}>
+      && (
+        <>
+          <button
+            type="button"
+            onClick={handleLyric}
+            className="domfooter_left_img w-12 h-12 relative group rounded overflow-hidden"
+          >
+            <img src={currentSong.al.picUrl} className="w-full h-full object-cover" alt=""/>
+            <div className="absolute opacity-0 inset-0 flex-center bg-black group-hover:opacity-60"/>
+            <div className="absolute opacity-0 inset-0 flex-center group-hover:opacity-100 text-white">
+              {
+                lyricVisibility
+                  ? <IconChevronDown size={24}/>
+                  : <IconChevronUp size={24}/>
+              }
+            </div>
+          </button>
+          <div className="domfooter_left_info pl-3 w-44">
+            <div className="domfooter_left_info_name text-base flex items-center">
+              <button type="button" className="group truncate" onClick={handleLyric}>
                   <span className="ui_text_black_hover">
                     {currentSong.name}
                     {
@@ -180,25 +182,25 @@ export default () => {
                       )
                     }
                   </span>
-                </button>
-                <DomHeart id={currentSong.id} />
-              </div>
-              <div className="truncate mt-1">
-                {currentSong.ar.map((artist, index) => (
-                  <span className="" key={artist.id}>
+              </button>
+              <DomHeart id={currentSong.id}/>
+            </div>
+            <div className="truncate mt-1">
+              {currentSong.ar.map((artist, index) => (
+                <span className="" key={artist.id}>
                     {index > 0 && ' / '}
-                    <Link
-                      to={`/artist/${artist.id}`}
-                      className="domfooter_left_info_singer text-sm text-gray-600"
-                    >
+                  <Link
+                    to={`/artist/${artist.id}`}
+                    className="domfooter_left_info_singer text-sm text-gray-600"
+                  >
                       {artist.name}
                     </Link>
                   </span>
-                ))}
-              </div>
+              ))}
             </div>
-          </>
-        )}
+          </div>
+        </>
+      )}
     </div>
   );
 };

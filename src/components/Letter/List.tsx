@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import {
   apiMsgPrivate,
@@ -11,6 +10,7 @@ import {
 } from '@/api';
 import { setMsgPrivateHistory } from '@/reducers/letter/slice';
 import { setMsgPrivate } from '@/reducers/common/slice';
+import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
 
 const BuildList = {
   song: (msg) => (
@@ -69,10 +69,10 @@ const navs = [
 ];
 
 export default () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {
     isLogin, newMsgCount, msgs = [], comments = [], forwards = [], notices = [],
-  } = useSelector(({ common }) => common);
+  } = useAppSelector(({ common }) => common);
   const [data, setData] = useState([]);
   const [active, setActive] = useState('私信');
 
