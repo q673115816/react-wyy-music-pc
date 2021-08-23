@@ -7,11 +7,22 @@ import logger from 'redux-logger'
 // And use redux-batch as an example of adding enhancers
 import { reduxBatch } from '@manaflair/redux-batch'
 
+const preloadedState = {}
+
+if (window && window.__STATE__) {
+  // Read the state sent with markup
+  // const preloadedState = window.__STATE__;
+  Object.assign(preloadedState, window.__STATE__)
+
+  // delete the state from global window object
+  delete window.__STATE__;
+}
+
 const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware => [...getDefaultMiddleware(), logger],
   devTools: process.env.NODE_ENV !== 'production',
-  // preloadedState,
+  preloadedState,
   // enhancers: [reduxBatch],
 })
 
