@@ -1,17 +1,17 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { setAudioPlaylist } from '@/reducers/audio/slice';
 import { apiPlaylistDetail, apiSongDetail } from '@/api';
+import {useAppDispatch} from "@/reducers/hooks";
 
 export default ({ children, id, ...props }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleAllPlay = async () => {
     const data = await apiPlaylistDetail({
       id,
     });
     if (data.playlist.trackCount === 0) return false;
     const { songs: playlist } = await apiSongDetail({
-      ids: data.playlist.trackIds.map(({ id }) => id),
+      ids: data.playlist.trackIds.map(({ id }) => id).join(','),
     });
     return dispatch(setAudioPlaylist({ playlist }));
   };
