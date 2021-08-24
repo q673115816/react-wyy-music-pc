@@ -1,9 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { setAudioPlaylist } from '@/reducers/audio/slice';
+import {useAppDispatch} from "@/reducers/hooks";
 
 export default ({ children, playlist, ...props }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleAllPlay = () => {
     dispatch(setAudioPlaylist({ playlist }));
   };

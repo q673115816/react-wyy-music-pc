@@ -4,10 +4,10 @@ import { IconPlayerPlay } from '@tabler/icons';
 import { transPlayCount } from '@/common/utils';
 import { SymbolToday } from '@/components/Symbol';
 import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
-import { useSelector } from 'react-redux';
+import {useAppSelector} from "@/reducers/hooks";
 
 export default memo(({ playlist = [] }) => {
-  const { isLogin } = useSelector(({ common }) => common);
+  const { isLogin } = useAppSelector(({ common }) => common);
   if (!isLogin) return <div>需要登录</div>;
   return (
     <div className="domHome_recommend_playlist grid gap-5 grid-cols-5 mt-4">
