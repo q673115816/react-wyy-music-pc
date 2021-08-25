@@ -5,10 +5,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Resizer from '@/components/Resizer';
 import useMemoParmas from '@/hooks/useMemoParams';
 import useIsLogin from '@/hooks/useIsLogin';
-import DomLoading from '@/components/Loading';
-import DomHeader from './layout/Header';
-import DomMain from './layout/Main';
-import DomFooter from './layout/Footer';
+import Loading from '@/components/Loading';
+import Header from './layout/Header';
+import Main from './layout/Main';
+import Footer from './layout/Footer';
 import Inset from './layout/Inset'
 import useKeyActions from './hooks/useKeyActions';
 import './styles/index.scss';
@@ -40,10 +40,10 @@ export default memo(() => {
       }}
     >
       <Inset>
-        <DomHeader />
+        <Header />
         <Suspense fallback={
           <div className="flex-center w-full h-full">
-            <DomLoading />
+            <Loading />
           </div>}>
           <Switch>
             <Route
@@ -52,8 +52,8 @@ export default memo(() => {
               {useMemoParmas(Player)}
             </Route>
             <Route>
-              <DomMain />
-              <DomFooter />
+              <Main />
+              <Footer />
             </Route>
           </Switch>
           <Help />

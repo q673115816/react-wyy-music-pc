@@ -1,5 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   IconEar,
   IconList,
@@ -8,27 +7,23 @@ import {
 import { setPopupPlaylistToggle } from '@/reducers/mask/slice';
 import classNames from 'classnames';
 import DomVolume from './Volume';
-
-const rotes = {
-  128000: '标准音质',
-  192000: '较高音质',
-  320000: '极高音质',
-  999000: '无损音质',
-};
+import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
+import ToneQuality from "./ToneQuality";
 
 export default () => {
-  const dispatch = useDispatch();
-  const [toneQuality, settoneQuality] = useState('normal');
+  const dispatch = useAppDispatch();
   const [visibility, setVisibility] = useState(false);
 
-  const { currentSong } = useSelector(({ audio }) => audio);
+  const handleVisibilityChange = useCallback(() => {
+    setVisibility(!visibility);
+  }, [visibility]);
 
-  const handleVisibilityChange = () => {
-    // setVisibility(!visibility);
-  };
+  const handleTogglePlaylist = useCallback(() => {
+    dispatch(setPopupPlaylistToggle())
+  }, [])
 
   return (
-    <div className="domfooter_right flex items-center justify-end flex-1 space-x-3">
+    <div className="domfooter_right flex items-center justify-end flex-1 space-x-3 pr-5">
       <div className="relative">
         <button
           type="button"
@@ -38,25 +33,7 @@ export default () => {
           标准
         </button>
         {
-          visibility
-          && (
-            <div className="toneQuality absolute w-32 left-1/2 bottom-full transform -translate-x-1/2 -translate-y-4 bg-white flex flex-col whitespace-nowrap rounded-lg z-50">
-              {
-                currentSong
-                  ?.privilege
-                  ?.chargeInfoList
-                  .map(({ rate }) => (
-                    <button
-                      type="button"
-                      className={classNames('py-1 ui_text_gray_hover')}
-                      key={rate}
-                    >
-                      {rotes[rate]}
-                    </button>
-                  ))
-              }
-            </div>
-          )
+          visibility && <ToneQuality/>
         }
       </div>
       <button type="button" title="打开音效">
@@ -66,7 +43,7 @@ export default () => {
       <button type="button" title="开始一起听">
         <IconUsers size={26} stroke={1} />
       </button>
-      <button type="button" onClick={() => dispatch(setPopupPlaylistToggle())}>
+      <button type="button" onClick={handleTogglePlaylist}>
         <IconList size={26} stroke={1} />
       </button>
     </div>

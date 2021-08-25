@@ -1,4 +1,4 @@
-import React, { useRef, useState, memo } from "react";
+import React, {useRef, useState, memo, MouseEventHandler} from "react";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import {
@@ -19,16 +19,16 @@ export default memo(() => {
 
   const RefProgress = useRef<HTMLDivElement>(null);
   const computedPosition = (e) => {
+    if(!RefProgress.current) return
     const percentage = computedPositionPercentage(e, RefProgress.current);
-    const jump = percentage * (currentSong.dt / 1000);
-    return jump;
+    return percentage * (currentSong.dt / 1000);
   };
 
-  const onMouseMove = (e) => {
+  const onMouseMove: MouseEventHandler = (e) => {
     dispatch(setAudioCurrentTime(computedPosition(e)));
   };
 
-  const onMouseUp = (e) => {
+  const onMouseUp: MouseEventHandler = (e) => {
     dispatch(setAudioDropping({ dropping: false }));
     dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
   };
@@ -37,7 +37,7 @@ export default memo(() => {
     dispatch(setAudioDropping({ dropping: true }));
   };
 
-  const handleClick = (e) => {
+  const handleClick: MouseEventHandler = (e) => {
     dispatch(setAudioCurrentTime(computedPosition(e)));
     dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
   };

@@ -1,4 +1,4 @@
-import React, {FC, memo, MouseEventHandler, PropsWithChildren, useCallback, useState} from 'react';
+import React, {memo, MouseEventHandler, useCallback, useState} from 'react';
 import {createPortal} from 'react-dom';
 
 interface MaskProps {
@@ -10,10 +10,9 @@ interface iProps extends MaskProps {
   onMouseDown: MouseEventHandler,
   className?: string,
   title?: string,
-  children?: any
 }
 
-const Mask = memo<PropsWithChildren<MaskProps>>(({onMouseMove, onMouseUp}) => (
+const Mask = memo<MaskProps>(({onMouseMove, onMouseUp}) => (
   createPortal(<div
     className="absolute inset-0 z-50"
     onMouseMove={onMouseMove}
@@ -22,7 +21,7 @@ const Mask = memo<PropsWithChildren<MaskProps>>(({onMouseMove, onMouseUp}) => (
 ))
 
 
-export default memo<PropsWithChildren<iProps>>((props) => {
+export default memo<iProps>((props) => {
   console.log('helpMask');
   const { children, onMouseDown, onMouseMove, onMouseUp, ..._props} = props
   const [dragger, setDragger] = useState(false)
