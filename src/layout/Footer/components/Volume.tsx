@@ -4,7 +4,7 @@ import React, {
   useRef,
   memo,
   useMemo,
-  PropsWithChildren
+  MouseEventHandler
 } from 'react';
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import {
@@ -15,14 +15,18 @@ import { setVolume, setBeforeMuted } from '@/reducers/volume/slice';
 import {computedPositionPercentage, isInTheRect} from '@/common/utils';
 import Drag from "@/components/Drag";
 
-const Ico = memo<PropsWithChildren<{isMuted: boolean}>>(({ isMuted }) => (
+const Ico = memo<{isMuted: boolean}>(({ isMuted }) => (
   isMuted ?
     <IconVolume3 size={28} stroke={1} /> :
     <IconVolume size={28} stroke={1} />
 ))
 
+interface iPanelProps {
+  visible: boolean,
+  setVisible: (bool: boolean) => void
+}
 
-const Panel = memo<PropsWithChildren<{ visible: boolean }>>(({visible, setPanelVisible}) => {
+const Panel = memo<iPanelProps>(({visible, setVisible}) => {
   const dispatch = useAppDispatch();
   const { volume } = useAppSelector(({ volume }) => volume);
   const [dragger, SetDragger] = useState(false);
@@ -37,23 +41,23 @@ const Panel = memo<PropsWithChildren<{ visible: boolean }>>(({visible, setPanelV
     return percentage * 100;
   };
 
-  const onMouseMove = (e: MouseEvent) => {
+  const onMouseMove: MouseEventHandler = (e) => {
     dispatch(setVolume(computedPosition(e)));
   };
 
-  const onMouseUp = (e: MouseEvent) => {
+  const onMouseUp: MouseEventHandler = (e) => {
     SetDragger(false);
     const {current: dom} = RefRect
     if(dom && isInTheRect(e, dom))
-      setPanelVisible(true)
+      setVisible(true)
   };
 
-  const onMouseDown = () => {
+  const onMouseDown: MouseEventHandler = () => {
     SetDragger(true);
   };
 
   return (
-  <div className="w-8 h-24 flex-center absolute bottom-full bg-white rounded shadow" ref={RefRect}>
+  <div className="w-8 h-24 flex-center absolute bottom-full bg-white rounded shadow z-50" ref={RefRect}>
     <div
       className="bg-gray-200 flex flex-col h-20 justify-end w-1"
       title="音量调节（Ctrl + Up / Ctrl + Down）"
@@ -79,7 +83,7 @@ export default memo(() => {
   const { volume, beforeMuted } = useAppSelector(({ volume }) => volume);
   const [muted, setMuted] = useState(() => volume === 0);
 
-  const [panelVisible, setPanelVisible] = useState(false)
+  const [visible, setVisible] = useState(false)
 
 
   const handleMutedChange = () => {
@@ -103,8 +107,8 @@ export default memo(() => {
 
   return (
     <div className="relative flex-center group"
-         onMouseEnter={() => setPanelVisible(true)}
-         onMouseLeave={() => setPanelVisible(false)}
+         onMouseEnter={() => setVisible(true)}
+         onMouseLeave={() => setVisible(false)}
     >
       <button
         type="button"
@@ -115,7 +119,7 @@ export default memo(() => {
         <Ico isMuted={isMuted} />
       </button>
       {
-        <Panel visible={panelVisible} setPanelVisible={setPanelVisible}/>
+        <Panel visible={visible} setVisible={setVisible}/>
       }
     </div>
   );

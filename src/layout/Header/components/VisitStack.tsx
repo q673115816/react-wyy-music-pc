@@ -1,7 +1,6 @@
 import React, {
   memo,
   PureComponent,
-  PropsWithChildren,
 } from "react";
 import {
   IconChevronLeft,
@@ -16,7 +15,7 @@ interface ArrowProp {
   stack: number,
 }
 
-const ArrowBtn = memo<PropsWithChildren<ArrowProp>>(
+const ArrowBtn = memo<ArrowProp>(
   ({ handleClick = () => null, stack = 0, children }) => (
     <button
       type="button"

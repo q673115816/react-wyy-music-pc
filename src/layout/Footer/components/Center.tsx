@@ -9,7 +9,6 @@ import {
   IconRotate,
   IconRefreshAlert,
 } from '@tabler/icons';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   setAudioRunning,
   setAudioPattern,
@@ -34,7 +33,8 @@ const audioPatternIcon = [
 export default memo(() => {
   const dispatch = useAppDispatch();
   const {
-    running, pattern,
+    running,
+    pattern,
   } = useAppSelector(({ audio }) => audio);
   const { globalLrcVisibility } = useAppSelector(({ lrc }) => lrc);
   const handleToggle = () => {
@@ -54,7 +54,6 @@ export default memo(() => {
   };
 
   const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
-
   return (
     <div className="domfooter_center flex-center flex-col flex-1">
       <div className="domfooter_center_Top flex-center">

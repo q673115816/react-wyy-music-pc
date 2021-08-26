@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, PropsWithChildren } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 import classNames from 'classnames';
 
@@ -14,7 +14,7 @@ interface btnProps {
   current: boolean
 }
 
-const PageBtn = memo<PropsWithChildren<Partial<btnProps>>>(({
+const PageBtn = memo<Partial<btnProps>>(({
   handleClick = () => void 0,
   status = false,
   current = false,

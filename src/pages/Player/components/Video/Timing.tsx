@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, memo, PropsWithChildren } from 'react';
+import React, { useState, useContext, useEffect, memo } from 'react';
 import dayjs from 'dayjs';
 import { VideoContext } from './index';
 import { actionSetJumpTime } from './reducer/actions';

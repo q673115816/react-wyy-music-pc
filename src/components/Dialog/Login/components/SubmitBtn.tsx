@@ -1,6 +1,6 @@
 import React, {FC, PropsWithChildren} from "react";
 
-export default ({Children}) => (
-  <button type="submit" className="submit">{Children}</button>
+export default ({children}) => (
+  <button type="submit" className="submit">{children}</button>
 
 )
