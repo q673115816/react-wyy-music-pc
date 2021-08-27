@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { apiMVAll } from '@/api';
-// import './style.scss';
 import classNames from 'classnames';
-
+import {useQuery} from 'react-query'
 import DomGridVideo from '@/components/GridVideo';
 import useInfinite from '@/hooks/useInfinite';
+import { apiMVAll } from '@/api';
 
 const filters = [
   ['area', '地区', ['全部', '内地', '港台', '欧美', '韩国', '日本']],
@@ -13,21 +12,21 @@ const filters = [
   ['order', '排序', ['上升最快', '最热', '最新']],
 ];
 
-export default () => {
-  const { search } = useLocation();
+const defaultSearch: {[key: string]: string} = {
+  area: '全部',
+  type: '全部',
+  order: '上升最快',
+};
 
-  const defaultSearch = {
-    area: '全部',
-    type: '全部',
-    order: '上升最快',
-  };
+export default memo(() => {
+  const { search } = useLocation();
 
   const limit = 30;
   const offset = useRef(0);
 
   const queryString = new URLSearchParams(search);
-  const domScroll = useRef();
-  const domObserver = useRef();
+  const domScroll = useRef(null);
+  const domObserver = useRef(null);
   for (const [k, v] of queryString) {
     defaultSearch[k] = v;
   }
@@ -36,6 +35,13 @@ export default () => {
 
   const handleInit = async () => {
     try {
+      // const {data} = useQuery('allmv', async () => {
+      //   return await apiMVAll({
+      //     ...defaultSearch,
+      //     limit,
+      //     offset: offset.current,
+      //   });
+      // })
       const { data } = await apiMVAll({
         ...defaultSearch,
         limit,
@@ -113,4 +119,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});
