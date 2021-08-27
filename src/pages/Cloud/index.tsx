@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import classNames from 'classnames';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
@@ -56,7 +56,7 @@ const BuildSort = (item, sort) => {
   }
 };
 
-export default () => {
+export default memo(() => {
   const [visibility, setVisibility] = useState(false);
   const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
@@ -265,4 +265,4 @@ export default () => {
       </div>
     </div>
   );
-};
+});
