@@ -5,7 +5,10 @@ import { IconFileImport, IconMicrophone } from '@tabler/icons';
 import './style.scss';
 import { setToast } from '@/reducers/mask/slice';
 import IconRejected from './Icon'
+import Speech from './Speech'
 import { useAppDispatch } from '@/reducers/hooks';
+import { useCallback } from 'react';
+import { useRef } from 'react';
 
 type IProps = { handleCallback: () => void }
 
@@ -84,12 +87,13 @@ export default memo(() => {
    * speech
    */
   return (
-    <div className="domAi py-5 px-8 flex flex-col h-full">
-      <div className="domAi_header flex justify-between items-baseline">
+    <div className="domAi py-5 px-8 flex flex-col h-full relative">
+      <Speech/>
+      <div className="domAi_header flex items-baseline">
         <div className="h1">听歌识曲</div>
         <button
           type="button"
-          className="flex items-center"
+          className="ml-auto flex items-center"
           onClick={() => dispatch(setToast('创建【听歌识曲】图标至桌面成功'))}
         >
           <IconFileImport size={16} stroke={1} />
