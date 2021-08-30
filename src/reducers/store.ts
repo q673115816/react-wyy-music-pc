@@ -20,7 +20,10 @@ if (window && window.__STATE__) {
 
 const store = configureStore({
   reducer: rootReducer,
-  middleware: getDefaultMiddleware => [...getDefaultMiddleware(), logger],
+  middleware: getDefaultMiddleware => [
+    ...getDefaultMiddleware(),
+    // logger
+  ],
   devTools: process.env.NODE_ENV !== 'production',
   preloadedState,
   // enhancers: [reduxBatch],

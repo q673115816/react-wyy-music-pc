@@ -27,18 +27,9 @@ export default memo(() => {
   console.log('app')
   useKeyActions();
   useIsLogin();
-  const {
-    theme, font,
-  } = useAppSelector(({ setting }) => setting);
 
   return (
-    <div
-      className="App"
-      style={{
-        fontFamily: font,
-        '--themeColor': theme,
-      }}
-    >
+    <>
       <Inset>
         <Header />
         <Suspense fallback={
@@ -61,6 +52,6 @@ export default memo(() => {
         <Resizer />
       </Inset>
       <GlobalLrc />
-    </div>
+    </>
   );
 });

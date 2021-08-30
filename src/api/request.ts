@@ -7,14 +7,23 @@ export const devUrl = 'http://localhost:3000';
 const baseURL = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
 const cookie = localStorage.getItem('cookie') || '';
 
+const cache = new Set
+
 type Params = {
   [key: string]: any
 }
 
+const CancelToken = axios.CancelToken
+const source = CancelToken.source()
 const axiosInstance = axios.create({
   baseURL,
   withCredentials: true,
+  cancelToken: source.token
 })
+
+axiosInstance.prototype.cacel = () => {
+  source.cancel('Query was cancelled by React Query')
+}
 
 function POSTPlugin<T extends AxiosRequestConfig>(req: T): T {
   if (req.method !== 'post') return req
