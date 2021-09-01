@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import Lazyload from 'react-lazyload';
 import { IconPlayerPlay, IconLock } from '@tabler/icons';
 import { transPlayCount } from '@/common/utils';
 import DomPlaylistAsyncReplace from '@/components/GroupPlay/PlaylistAsyncReplace';
@@ -18,9 +17,7 @@ export default memo(({ item }) => (
   <div className="item">
     <div className="cover relative rounded overflow-hidden group">
       <Link to={`/playlist/music/${item.id}`} className="ui_aspect-ratio-1/1">
-        <Lazyload overflow resize>
-          <img className="w-full h-full" src={`${item.coverImgUrl}?param=200y200`} alt="" />
-        </Lazyload>
+        <img loading={'lazy'} className="w-full h-full" src={`${item.coverImgUrl}?param=200y200`} alt="" />
         <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
         <div className="absolute bottom-0 left-0 right-0 h-1/4 ui_linear_mask_bottom" />
         <div className="absolute top-0 right-0 text-white mx-2 my-1">

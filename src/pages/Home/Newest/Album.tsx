@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import LazyLoad from 'react-lazyload';
 import { apiTopAlbum, apiAlbumNew } from '@/api';
 import { setTopAlbum } from '@/reducers/home/slice';
 import classNames from 'classnames';
@@ -35,9 +34,7 @@ const AlbumItem = ({ item }) => (
   <div className="item">
     <div className="cover shadow rounded overflow-hidden">
       <Link to={`/playlist/album/${item.id}`}>
-        <LazyLoad overflow>
-          <img className="ui_containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />
-        </LazyLoad>
+        <img loading={'lazy'} className="ui_containimg" src={`${item.blurPicUrl}?param=200y200`} alt="" />
       </Link>
     </div>
     <div className="name text-sm ui_ellipse mt-2">

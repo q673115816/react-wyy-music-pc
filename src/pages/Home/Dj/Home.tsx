@@ -1,8 +1,6 @@
 import React, { useEffect, useState, memo } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-
-import Lazyload from 'react-lazyload';
 import { setHomeDj } from '@/reducers/home/slice';
 import Slider from 'react-slick';
 import {
@@ -27,9 +25,7 @@ const DomDjNormal = memo(({ item = {} }) => (
   <div className="item">
     <div className="cover relative rounded border overflow-hidden">
       <Link to={`/playlist/dj/${item.id}`} className="ui_aspect-ratio-1/1">
-        <Lazyload overflow resize>
-          <img className="" src={item.picUrl} alt="" />
-        </Lazyload>
+        <img loading={'lazy'} className="" src={item.picUrl} alt="" />
         <div className="absolute bottom-0 left-0 right-0 h-1/4 ui_linear_mask_bottom" />
         <div className="absolute left-0 bottom-0 max-w-full px-2 py-1 text-white truncate">
           {item.name}

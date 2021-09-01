@@ -5,7 +5,6 @@ import React, {
   memo,
 } from 'react';
 import { Link } from 'react-router-dom';
-import LazyLoad from 'react-lazyload';
 import './style.scss';
 import classNames from 'classnames';
 import { IconUser } from '@tabler/icons';
@@ -19,13 +18,12 @@ const Domitem = memo(({ item = {} }) => (
   <div className="item">
     <div className="cover boarder relative rounded overflow-hidden border">
       <Link to={`/artist/${item.id}`} className="ui_aspect-ratio-1/1">
-        <LazyLoad overflow>
-          <img
-            className=""
-            src={`${item.img1v1Url}?param=200y200`}
-            alt={item.name}
-          />
-        </LazyLoad>
+        <img
+          loading={'lazy'}
+          className=""
+          src={`${item.img1v1Url}?param=200y200`}
+          alt={item.name}
+        />
       </Link>
     </div>
     <div className="info flex items-center justify-between mt-2 text-sm text-gray-600 hover:text-black">

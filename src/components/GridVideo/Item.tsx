@@ -14,6 +14,7 @@ export default ({ item = {}, item: { type = 1 } }) => (
         className="absolute inset-0"
       >
         <img
+          loading={'lazy'}
           className="h-full object-cover w-full"
           src={item.cover}
           alt=""

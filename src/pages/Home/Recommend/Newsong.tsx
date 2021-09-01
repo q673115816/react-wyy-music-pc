@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import Lazyload from 'react-lazyload';
 import { IconPlayerPlay } from '@tabler/icons';
 import DomTags from '@/components/Tags';
 import DomMenuCreate from '@/components/MenuCreate';
@@ -28,13 +27,12 @@ export default memo(({ newsong = [] }) => (
             <span className="ico absolute text-red-500 bg-white rounded-full bg-opacity-90 inset-0 m-auto flex-center w-6 h-6">
               <IconPlayerPlay size={16} className="fill-current" />
             </span>
-            <Lazyload overflow resize>
-              <img
-                className="w-full h-full"
-                src={`${item.picUrl}?param=50y50`}
-                alt=""
-              />
-            </Lazyload>
+            <img
+              loading={'lazy'}
+              className="w-full h-full"
+              src={`${item.picUrl}?param=50y50`}
+              alt=""
+            />
           </button>
           <div className="content flex-auto flex flex-col w-0 px-2 py-1">
             <div className="name text-sm truncate">

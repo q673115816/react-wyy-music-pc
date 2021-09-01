@@ -4,7 +4,6 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './style.scss';
-// import Lazyload from 'react-lazyload';
 import {
   apiTopPlaylist,
   apiPlaylistCatlist,

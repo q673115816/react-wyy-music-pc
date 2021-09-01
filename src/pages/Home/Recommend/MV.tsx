@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import { Link } from 'react-router-dom';
-import Lazyload from 'react-lazyload';
 import DomMenuCreate from '@/components/MenuCreate';
 import {IconPlayerPlay} from '@tabler/icons'
 
@@ -28,11 +27,9 @@ export default memo(({ mv = [] }) => (
                     {item.playCount}
                   </div>
                 </div>
-                <Lazyload scroll resize>
-                  <Link to={`/player/mv/${item.id}`} className="block ui_aspect-ratio-16/9">
-                    <img className="h-full object-cover w-full" src={item.picUrl} alt="" />
-                  </Link>
-                </Lazyload>
+              <Link to={`/player/mv/${item.id}`} className="block ui_aspect-ratio-16/9">
+                <img loading={'lazy'} className="h-full object-cover w-full" src={item.picUrl} alt="" />
+              </Link>
             </div>
           </DomMenuCreate>
           <div className="name truncate text-sm mt-2">

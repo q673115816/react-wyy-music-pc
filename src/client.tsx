@@ -1,6 +1,6 @@
 // import 'react-app-polyfill/ie11';// .....
 import React from 'react';
-import {render} from 'react-dom';
+import {render, hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router} from 'react-router-dom'
 import {QueryClientProvider, QueryClient} from "react-query";
@@ -12,7 +12,7 @@ import Issues from './Issues';
 
 const queryClient = new QueryClient()
 
-render(
+hydrate(
   <React.StrictMode>
     <Router basename={PUBLIC_URL}>
       <QueryClientProvider client={queryClient}>

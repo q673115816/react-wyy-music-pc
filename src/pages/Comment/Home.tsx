@@ -2,7 +2,6 @@ import React, {
   memo, useEffect, useState, useMemo,
 } from 'react';
 import { Link } from 'react-router-dom';
-import LazyLoad from 'react-lazyload';
 import {
   IconPlayerPlay, IconMoodSmile, IconAt, IconHash,
 } from '@tabler/icons';
@@ -19,9 +18,7 @@ const DomSongHeader = ({ detail }) => (
   <div className="domComment_header">
     <div className="domComment_infos flex ">
       <div className="cover h-20 rounded overflow-hidden relative">
-        <LazyLoad className="h-full">
-          <img className="h-full" src={detail.al.picUrl} alt="" />
-        </LazyLoad>
+        <img loading={'lazy'} className="h-full" src={detail.al.picUrl} alt="" />
         <div className="ico absolute inset-0 m-auto flex-center w-8 h-8 ui_themeColor rounded-full bg-white bg-opacity-90">
           <IconPlayerPlay size={16} className="fill-current" />
         </div>
