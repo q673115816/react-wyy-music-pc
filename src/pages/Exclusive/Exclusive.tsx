@@ -5,13 +5,7 @@ import React, {
 import { Link, useHistory } from 'react-router-dom';
 import { IconPlayerPlay } from '@tabler/icons';
 import { apiPersonalizedPrivatecontentList } from '@/api';
-// import {
-//   setExclusiveResultAdd,
-//   setExclusiveResultEmpty,
-//   setExclusiveScrollTop,
-// } from '@/reducers/exclusive/slice';
 import useInfinite from '@/hooks/useInfinite';
-// import { useDispatch, useSelector } from 'react-redux';
 import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
 import {
   ResultProps,

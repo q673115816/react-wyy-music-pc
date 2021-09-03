@@ -13,8 +13,8 @@ import DomGroupPlay from '@/components/GroupPlay';
 import DomName from '@/components/Table/Name';
 import DomArtist from '@/components/Table/Artists';
 import DomMenuCreate from '@/components/MenuCreate';
-import { useDispatch, useSelector } from 'react-redux';
 import { setAudioHistoryClear } from '@/reducers/audio/slice'
+import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
 
 const DomTable = ({ history = []}) => (
   <div className="pb-8" style={{ '--ui_grid_template': '36px / 54px 45% 5fr 3fr' }}>
@@ -43,7 +43,7 @@ const DomTable = ({ history = []}) => (
               ]}
               type="song"
               item={item}
-              key={item.name + item.id}
+              key={item.id}
               tabIndex="2"
               className={classNames('grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template', { 'bg-gray-50': index % 2 === 0 })}
             >
@@ -67,8 +67,8 @@ const DomTable = ({ history = []}) => (
 
 export default memo(() => {
   useLoginStatus();
-  const dispatch = useDispatch()
-  const { history } = useSelector(({ audio }) => audio)
+  const dispatch = useAppDispatch()
+  const { history } = useAppSelector(({ audio }) => audio)
   const memoHandleClear = useCallback(() => {
     if (history.length === 0) return false
     dispatch(setAudioHistoryClear())
