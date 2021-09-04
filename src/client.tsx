@@ -12,7 +12,7 @@ import Issues from './Issues';
 
 const queryClient = new QueryClient()
 
-hydrate(
+render(
   <React.StrictMode>
     <Router basename={PUBLIC_URL}>
       <QueryClientProvider client={queryClient}>

@@ -98,7 +98,10 @@ export default memo(() => {
   }, [])
   return (
     <div className="absolute bottom-0 left-0">
-      <div>{text}</div>
+      {
+      _active &&
+      <textarea value={text} readOnly></textarea>
+      }
       <div>
         {_active && `(真人讲话的效果较好，但是放歌给电脑听电脑听清，所以可以选择自己唱歌给电脑听，中途关闭会小卡)`}
       </div>
