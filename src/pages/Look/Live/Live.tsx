@@ -1,7 +1,28 @@
-import React, {memo, useRef} from 'react'
+import React, {memo, MouseEventHandler, ReactNode, useRef} from 'react'
 import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
-import {deskTopClose, deskTopOpen, liveSelector, userClose, userOpen} from "@/reducers/live/slice";
+import {
+  liveSelector,
+  deskTopClose, deskTopOpen,
+  userClose, userOpen,
+  pushOpen, pushClose,
+} from "@/reducers/live/slice";
 import classnames from 'classnames'
+import socket from './socket'
+import useLoginStatus, {handleLoginStatus} from "@/hooks/useLoginStatus";
+
+interface iButtonProps {
+  onClick: MouseEventHandler<HTMLButtonElement>,
+  status: boolean,
+  children: ReactNode
+}
+
+const Button = memo<iButtonProps>
+(({onClick, status, children}) => (
+  <button type={'button'}
+          className={classnames(`text-white rounded p-2`, status ? 'bg-red-500' : 'bg-blue-500')}
+          onClick={onClick}>{children}</button>
+))
+
 /*
 * TODO
 *  1.信令系统
@@ -14,7 +35,7 @@ export default memo(() => {
   const RefDeskTop = useRef(null)
   const RefDeskTopStream = useRef(null)
   const RefUser = useRef(null)
-  const handleDeskTop = () => {
+  const handleDeskTop: MouseEventHandler = () => {
     if(!status.deskTop) handleDeskTopOpen()
     else handleDeskTopClose()
   }
@@ -40,13 +61,15 @@ export default memo(() => {
   }
 
   const handleDeskTopClose = () => {
-    dispatch(deskTopClose())
-    const tracks = RefDeskTop.current.srcObject.getTracks()
-    tracks.forEach((track: MediaStreamTrack) => track.stop())
-    RefDeskTop.current.srcObject = null
+    if(RefDeskTop.current) {
+      const tracks = RefDeskTop.current.srcObject.getTracks()
+      tracks.forEach((track: MediaStreamTrack) => track.stop())
+      RefDeskTop.current.srcObject = null
+      dispatch(deskTopClose())
+    }
   }
 
-  const handleUser = () => {
+  const handleUser: MouseEventHandler = () => {
     if(!status.user) handleUserOpen()
     else handleUserClose()
   }
@@ -60,7 +83,8 @@ export default memo(() => {
     };
 
     function gotLocalMediaStream(mediaStream: MediaStream) {
-      RefUser.current.srcObject = mediaStream;
+      if(RefUser.current) (RefUser.current as HTMLVideoElement).srcObject = mediaStream;
+
       // userStream = mediaStream;
     }
 
@@ -74,11 +98,29 @@ export default memo(() => {
     dispatch(userClose())
   }
 
+  const handleSend: MouseEventHandler = () => {
+    if(!status.push) handlePushOpen()
+    else handlePushClose()
+  }
+
+  const handlePushOpen = async () => {
+    dispatch(pushOpen())
+    socket.connect()
+    socket.emit('create', {
+      uid: 110
+    })
+  }
+  const handlePushClose = () => {
+    dispatch(pushClose())
+    socket.disconnect()
+  }
+
   return (
     <div className={`w-full h-full p-8 overflow-auto`}>
       <div className={`flex`}>
-        <button type={'button'} className={classnames(`text-white rounded p-2`, status.deskTop ? 'bg-red-500' : 'bg-blue-500')} onClick={handleDeskTop}>桌面共享开关</button>
-        <button type={'button'} className={classnames(`text-white rounded p-2`, status.user ? 'bg-red-500' : 'bg-blue-500')} onClick={handleUser}>摄像头开关</button>
+        <Button onClick={handleDeskTop} status={status.deskTop}>桌面共享开关</Button>
+        <Button onClick={handleUser} status={status.user}>摄像头开关</Button>
+        <Button onClick={handleSend} status={status.push}>推送开关</Button>
       </div>
       <div className={`flex flex-col`}>
         <div className={``}>
