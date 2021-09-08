@@ -17,10 +17,10 @@ import DomLoading from '@/components/Loading';
 const Domitem = memo(({ item = {} }) => (
   <div className="item">
     <div className="cover boarder relative rounded overflow-hidden border">
-      <Link to={`/artist/${item.id}`} className="ui_aspect-ratio-1/1">
+      <Link to={`/artist/${item.id}`} className="">
         <img
           loading={'lazy'}
-          className=""
+          className="ui_aspect-ratio-1/1"
           src={`${item.img1v1Url}?param=200y200`}
           alt={item.name}
         />

@@ -7,10 +7,10 @@ export default memo(({ djprogram = [] }) => (
       djprogram.slice(0, 5).map((item) => (
         <div className="item" key={item.id}>
           <div className="cover border relative rounded overflow-hidden ">
-            <Link to={`/playlist/dj/${item.program?.radio?.id}`} className="ui_aspect-ratio-1/1">
+            <Link to={`/playlist/dj/${item.program?.radio?.id}`} className="">
                 <img
                   loading={'lazy'}
-                  className=""
+                  className="ui_aspect-ratio-1/1"
                   src={`${item.program.radio.picUrl}?param=200y200`}
                   alt=""
                 />

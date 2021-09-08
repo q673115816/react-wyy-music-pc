@@ -25,14 +25,15 @@ const DomItem = memo(({ item, index }) => (
     className={classNames('item h-20 py-2.5 flex items-center px-8 text-sm', { 'bg-gray-50': index % 2 === 0 })}
   >
     <span className="ranking text-gray-300 w-8">
-      {String(index + 1).padStart(2, 0)}
+      {String(index + 1).padStart(2, '0')}
     </span>
     <button
       type="button"
-      className="cover w-16 relative rounded overflow-hidden ui_aspect-ratio-1/1"
+      className="cover w-16 relative rounded overflow-hidden"
     >
       <img
-        className=""
+        loading={`lazy`}
+        className="ui_aspect-ratio-1/1"
         src={`${item.album.blurPicUrl}?param=100y100`}
         alt=""
       />

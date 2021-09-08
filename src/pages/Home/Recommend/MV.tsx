@@ -27,8 +27,8 @@ export default memo(({ mv = [] }) => (
                     {item.playCount}
                   </div>
                 </div>
-              <Link to={`/player/mv/${item.id}`} className="block ui_aspect-ratio-16/9">
-                <img loading={'lazy'} className="h-full object-cover w-full" src={item.picUrl} alt="" />
+              <Link to={`/player/mv/${item.id}`} className="block ">
+                <img loading={'lazy'} className="h-full object-cover w-full ui_aspect-ratio-16/9" src={item.picUrl} alt="" />
               </Link>
             </div>
           </DomMenuCreate>

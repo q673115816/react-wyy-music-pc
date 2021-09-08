@@ -75,9 +75,9 @@ const DomPics = ({ item }) => {
   return (
     <div className={classNames('pics grid gap-1 mt-2.5', `pic_${len}`)}>
       {item.map((pic) => (
-        <div key={pic.originUrl} className="img relative rounded-lg overflow-hidden ui_aspect-ratio-1/1">
+        <div key={pic.originUrl} className="img relative rounded-lg overflow-hidden">
           <div className="absolute inset-0">
-            <img src={pic.originUrl} className="w-full object-cover h-full" alt="" />
+            <img loading={`lazy`} src={pic.originUrl} className="w-full object-cover h-full ui_aspect-ratio-1/1" alt="" />
           </div>
           {pic.width / pic.height < 0.75
             && <div className="absolute bottom-0 right-0 mx-1 my-2 border leading-tight bg-black bg-opacity-20 text-white border-current px-1 rounded-full">长图</div>}

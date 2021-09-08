@@ -122,12 +122,12 @@ export default memo(({ cat = '全部歌单' }) => {
               <div className="cover w-32 h-32 rounded-lg group overflow-hidden flex-none relative">
                 <Link
                   to={`/playlist/music/${item.id}`}
-                  className="ui_aspect-ratio-1/1"
+                  className=""
                 >
                   <span className="absolute top-0 left-0 p-0.5 w-8 h-8 bg-yellow-500 text-white ui_angle_top_left">
                     <IconCrown size={14} className="transform -rotate-45" />
                   </span>
-                  <img src={`${item.coverImgUrl}?param=200y200`} alt="" />
+                  <img loading={`lazy`} src={`${item.coverImgUrl}?param=200y200`} className={`ui_aspect-ratio-1/1`} alt="" />
                   <div className="absolute text-white top-0 right-0 py-1 px-2 flex-center">
                     <IconPlayerPlay size={12} />
                     {transPlayCount(item.playCount)}

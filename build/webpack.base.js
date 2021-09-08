@@ -2,12 +2,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 const { src, img } = require('./util');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
 const plugins = [
+
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
     // both options are optional

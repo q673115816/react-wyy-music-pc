@@ -24,8 +24,8 @@ import classNames from 'classnames';
 const DomDjNormal = memo(({ item = {} }) => (
   <div className="item">
     <div className="cover relative rounded border overflow-hidden">
-      <Link to={`/playlist/dj/${item.id}`} className="ui_aspect-ratio-1/1">
-        <img loading={'lazy'} className="" src={item.picUrl} alt="" />
+      <Link to={`/playlist/dj/${item.id}`} className="">
+        <img loading={'lazy'} className="ui_aspect-ratio-1/1" src={item.picUrl} alt="" />
         <div className="absolute bottom-0 left-0 right-0 h-1/4 ui_linear_mask_bottom" />
         <div className="absolute left-0 bottom-0 max-w-full px-2 py-1 text-white truncate">
           {item.name}

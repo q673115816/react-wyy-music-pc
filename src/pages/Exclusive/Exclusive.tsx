@@ -51,9 +51,9 @@ export default () => {
                 <div key={item.picUrl}>
                   <Link
                     to={item.videoId ? `/player/video/${item.videoId}` : `/player/mv/${item.id}`}
-                    className="flex relative rounded border overflow-hidden ui_aspect-ratio-24/9"
+                    className="flex relative rounded border overflow-hidden"
                   >
-                    <img loading={'lazy'} src={item.picUrl} className="w-full h-full object-cover" alt="" />
+                    <img loading={'lazy'} src={item.picUrl} className="w-full h-full object-cover ui_aspect-ratio-24/9" alt="" />
                     <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black bg-opacity-40 flex-center border border-gray-200">
                       <IconPlayerPlay size={14} className="fill-current" />
                     </span>

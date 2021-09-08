@@ -8,14 +8,14 @@ import DomTagMV from '@/components/Tags/Box';
 
 export default ({ item = {}, item: { type = 1 } }) => (
   <div className="item">
-    <div className="cover relative ui_aspect-ratio-16/9 border rounded overflow-hidden">
+    <div className="cover relative border rounded overflow-hidden">
       <Link
         to={`/player/${playerTypes[type]}/${item.id}`}
         className="absolute inset-0"
       >
         <img
           loading={'lazy'}
-          className="h-full object-cover w-full"
+          className="h-full object-cover w-full ui_aspect-ratio-16/9"
           src={item.cover}
           alt=""
         />

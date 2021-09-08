@@ -39,8 +39,8 @@ export default memo(({ id }) => {
         {simiArtists.map((item) => (
           <div className="item" key={item.id}>
             <div className="cover rounded overflow-hidden border">
-              <Link to={`/artist/${item.id}`} className="ui_aspect-ratio-1/1">
-                <img className="" src={`${item.picUrl}?param=200y200`} alt="" />
+              <Link to={`/artist/${item.id}`} className="">
+                <img loading={`lazy`} className="ui_aspect-ratio-1/1" src={`${item.picUrl}?param=200y200`} alt="" />
               </Link>
             </div>
             <div className="footer text-sm mt-2">

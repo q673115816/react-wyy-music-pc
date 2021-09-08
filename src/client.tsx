@@ -14,7 +14,7 @@ const queryClient = new QueryClient()
 
 render(
   <React.StrictMode>
-    <Router basename={PUBLIC_URL}>
+    <Router basename={process.env.PUBLIC_URL}>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <App />

@@ -2,7 +2,10 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { webpack, DefinePlugin } = require('webpack');
+const Dotenv = require('dotenv-webpack');
 const base = require('./webpack.base');
+
+const { PUBLIC_URL } = process.env;
 
 console.log('entry webpack prod');
 
@@ -59,8 +62,8 @@ const meta = {
 const filename = '404.html';
 
 const plugins = [
-  new DefinePlugin({
-    PUBLIC_URL: JSON.stringify('/react-wyy-music-pc'),
+  new Dotenv({
+    path: '.env.remote',
   }),
   new HtmlWebpackPlugin({
     favicon: path.join(__dirname, '../public/favicon.ico'),
@@ -71,9 +74,9 @@ const plugins = [
     meta,
     filename,
     base: {
-      href: '/react-wyy-music-pc',
+      href: PUBLIC_URL,
     },
-    publicPath: '/react-wyy-music-pc',
+    publicPath: PUBLIC_URL,
   }),
 ];
 

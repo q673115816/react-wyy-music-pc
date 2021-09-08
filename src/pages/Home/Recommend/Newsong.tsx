@@ -22,14 +22,14 @@ export default memo(({ newsong = [] }) => (
           <button
             type="button"
             onClick={() => console.log(item.id)}
-            className="cover flex-none relative rounded overflow-hidden ui_aspect-ratio-1/1"
+            className="cover flex-none relative rounded overflow-hidden"
           >
             <span className="ico absolute text-red-500 bg-white rounded-full bg-opacity-90 inset-0 m-auto flex-center w-6 h-6">
               <IconPlayerPlay size={16} className="fill-current" />
             </span>
             <img
               loading={'lazy'}
-              className="w-full h-full"
+              className="w-full h-full ui_aspect-ratio-1/1"
               src={`${item.picUrl}?param=50y50`}
               alt=""
             />

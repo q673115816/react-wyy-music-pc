@@ -3,6 +3,7 @@ const { DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { merge } = require('webpack-merge');
+const Dotenv = require('dotenv-webpack');
 const base = require('./webpack.base');
 
 console.log('entry webpack dev');
@@ -28,8 +29,8 @@ const dev = {
     ],
   },
   plugins: [
-    new DefinePlugin({
-      PUBLIC_URL: JSON.stringify('/'),
+    new Dotenv({
+      path: '.env.local',
     }),
     new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
