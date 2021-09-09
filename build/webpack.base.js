@@ -2,14 +2,35 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
 
 const { src, img } = require('./util');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
 const plugins = [
-
+  // new GenerateSW({
+  //   // Do not precache images
+  //   exclude: [/\.(?:png|jpg|jpeg|svg)$/],
+  //
+  //   // Define runtime caching rules.
+  //   runtimeCaching: [{
+  //     // Match any request that ends with .png, .jpg, .jpeg or .svg.
+  //     urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+  //
+  //     // Apply a cache-first strategy.
+  //     handler: 'CacheFirst',
+  //
+  //     options: {
+  //       // Use a custom cache name.
+  //       cacheName: 'images',
+  //
+  //       // Only cache 10 images.
+  //       expiration: {
+  //         maxEntries: 10,
+  //       },
+  //     },
+  //   }],
+  // }),
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
     // both options are optional
