@@ -9,6 +9,7 @@ require('dotenv').config({
 });
 const base = require('./webpack.base');
 
+const { PUBLIC_URL } = process.env;
 console.log('entry webpack dev');
 
 const dev = {
@@ -28,7 +29,9 @@ const dev = {
   },
   module: {
     rules: [
-
+      new DefinePlugin({
+        PUBLIC_URL: JSON.stringify(PUBLIC_URL),
+      }),
     ],
   },
   plugins: [

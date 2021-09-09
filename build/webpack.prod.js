@@ -6,6 +6,7 @@ const Dotenv = require('dotenv-webpack');
 require('dotenv').config({
   path: '.env.remote',
 });
+
 const base = require('./webpack.base');
 
 const { PUBLIC_URL } = process.env;
@@ -68,6 +69,9 @@ const plugins = [
   // new Dotenv({
   //   path: '.env.remote',
   // }),
+  new DefinePlugin({
+    PUBLIC_URL: JSON.stringify(PUBLIC_URL),
+  }),
   new HtmlWebpackPlugin({
     favicon: path.join(__dirname, '../public/favicon.ico'),
     template: path.join(__dirname, '../public/index.html'),
