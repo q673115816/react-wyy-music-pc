@@ -29,15 +29,15 @@ const dev = {
   },
   module: {
     rules: [
-      new DefinePlugin({
-        PUBLIC_URL: JSON.stringify(PUBLIC_URL),
-      }),
     ],
   },
   plugins: [
     // new Dotenv({
     //   path: '.env.local',
     // }),
+    new DefinePlugin({
+      PUBLIC_URL: JSON.stringify(PUBLIC_URL),
+    }),
     new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
