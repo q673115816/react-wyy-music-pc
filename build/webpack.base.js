@@ -143,7 +143,7 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         exclude: /(node_modules|bower_components)/,
-        include: src,
+        include: [src],
         use: [
           devMode
             ? 'style-loader' : {
@@ -166,6 +166,7 @@ module.exports = {
       },
       {
         test: /\.worker\.[cm]?[jt]s$/i,
+        include: [src],
         use: [
           {
             loader: 'worker-loader',
@@ -186,6 +187,7 @@ module.exports = {
       {
         test: /\.[jt]sx?$/,
         exclude: /(node_modules|bower_components)/,
+        include: [src],
         // 缓存
         // use: ['babel-loader?cacheDirectory=true'],
         use: [{
@@ -198,6 +200,7 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|svg)$/,
         exclude: /(node_modules|bower_components)/,
+        include: [src],
         type: 'asset',
         generator: {
           // [ext]前面自带"."
@@ -216,6 +219,7 @@ module.exports = {
       },
       {
         test: /\.(eot|woff|ttf|woff2|appcache)\??.*$/,
+        include: [src],
         type: 'asset',
         generator: {
           // [ext]前面自带"."

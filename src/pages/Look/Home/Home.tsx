@@ -1,18 +1,13 @@
-import React, {useState, memo, useRef, useEffect} from 'react';
+import React, {useState, memo, useRef, useEffect, useCallback, MouseEventHandler} from 'react';
 import useInfinite from '@/hooks/useInfinite';
-import {Link} from 'react-router-dom'
+import {Link, useHistory, useLocation} from 'react-router-dom'
 import axios from 'axios'
 import {useQuery} from "react-query";
 import Loading from "@/components/Loading";
 import Rea from 'react-error-boundary'
-type iList = [string, iOptions][]
-
-interface iOptions {
-  password: string,
-  title: string,
-  user: string,
-  banner: string
-}
+import socket from "../socket";
+import {iList, } from './types'
+import LiveList from './List'
 
 export default memo(() => {
   const [size, setSize] = useState(20);
@@ -45,20 +40,3 @@ export default memo(() => {
   );
 });
 
-const LiveList = memo<{ list: iList }>(({list}) => (
-  <div className={`grid grid-cols-3 gap-5`}>
-    {
-      list.map(([key, options]) => (
-        <div key={key}>
-          <Link to={({pathname}) => `${pathname}/${key}`}>
-            <img className={`ui_aspect-ratio-16/9`} loading={`lazy`} src={options.banner} alt=""/>
-          </Link>
-          <div>
-            <Link to={({pathname}) => `${pathname}/${key}`}>{options.title}</Link>
-          </div>
-          <div><Link to={`/`}>{options.user}</Link></div>
-        </div>
-      ))
-    }
-  </div>
-))

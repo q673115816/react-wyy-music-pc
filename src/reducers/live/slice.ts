@@ -1,9 +1,10 @@
-import {createSlice} from "@reduxjs/toolkit";
-
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {Socket} from 'socket.io-client'
 interface LiveState {
   status: {
     [key: string]: boolean
-  }
+  },
+  socket: Socket | null
 }
 
 const initialState: LiveState = {
@@ -12,6 +13,7 @@ const initialState: LiveState = {
     deskTop: false,
     push: false,
   },
+  socket: null
 }
 
 const slice = createSlice({
@@ -36,6 +38,9 @@ const slice = createSlice({
     pushClose(state) {
       state.status.push = false
     },
+    createLiveSocket(state, {payload}) {
+      state.socket = payload.socket
+    }
   }
 })
 
@@ -50,4 +55,5 @@ export const {
   userClose,
   pushOpen,
   pushClose,
+  createLiveSocket
 } = slice.actions

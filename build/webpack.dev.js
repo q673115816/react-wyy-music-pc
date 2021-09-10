@@ -21,7 +21,9 @@ const dev = {
   },
   devServer: {
     // contentBase: content,
-    hot: true,
+    /** "hot: true" automatically applies HMR plugin,
+     * you don't have to add it manually to your webpack configuration. */
+    // hot: true,
     // host: '0.0.0.0',
     // https: true,
     // hotOnly: true,
@@ -38,7 +40,7 @@ const dev = {
     new DefinePlugin({
       PUBLIC_URL: JSON.stringify(PUBLIC_URL),
     }),
-    new HotModuleReplacementPlugin(),
+    // new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
       favicon: path.join(__dirname, '../public/favicon.ico'),

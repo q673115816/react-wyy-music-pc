@@ -7,9 +7,9 @@ import Room from './Room'
 export default memo(() => {
   return (
     <Switch>
-      <Route path={'/look'} exact component={Home}/>
+      <Route path={`/look`} exact component={Home}/>
       <Route path={`/look/my`} component={Live}/>
-      <Route path={`/look/(\d*)`} component={Room}/>
+      <Route path={`/look/:id(\\d*)`} component={Room}/>
     </Switch>
   )
 })

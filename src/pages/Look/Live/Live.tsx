@@ -7,7 +7,7 @@ import {
   pushOpen, pushClose,
 } from "@/reducers/live/slice";
 import classnames from 'classnames'
-import socket from './socket'
+import socket from '../socket'
 import useLoginStatus, {handleLoginStatus} from "@/hooks/useLoginStatus";
 
 interface iButtonProps {
