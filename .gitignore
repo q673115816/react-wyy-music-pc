@@ -106,3 +106,5 @@ dist
 
 # ########
 yarn.lock
+.idea
+dll
