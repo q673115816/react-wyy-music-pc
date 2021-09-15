@@ -6,7 +6,7 @@ const kankan = 'https://look.163.com/hot?livetype=2';
 
 export default memo(({ tag = false }) => (
   <div className="item">
-    <div className="rounded overflow-hidden">
+    <div className="rounded overflow-hidden relative">
       <Link to={kankan}>
         <img loading={`lazy`} className="object-cover ui_aspect-ratio-1/1" src={kankanimg} alt="" />
         <div className="absolute top-0 right-0 m-1">

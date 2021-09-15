@@ -1,5 +1,7 @@
 import React, {
-  memo, MouseEventHandler, PureComponent, ReactNode, useMemo, useState,
+  memo,
+  MouseEventHandler,
+  ReactNode,
 } from 'react';
 import Slider from 'react-slick';
 
@@ -31,7 +33,7 @@ const PrevArrow = memo<iArrowProps>((props) => (
 
 const NextArrow = memo<iArrowProps>((props) => (
   <Arrow {...props} className="right-1">
-    <IconChevronLeft size={16} />
+    <IconChevronRight size={16} />
   </Arrow>
 ))
 
