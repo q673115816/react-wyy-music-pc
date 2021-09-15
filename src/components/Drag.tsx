@@ -1,4 +1,4 @@
-import React, {memo, MouseEventHandler, useCallback, useState} from 'react';
+import React, {CSSProperties, memo, MouseEventHandler, ReactNode, useCallback, useState} from 'react';
 import {createPortal} from 'react-dom';
 
 interface MaskProps {
@@ -10,6 +10,8 @@ interface iProps extends MaskProps {
   onMouseDown: MouseEventHandler,
   className?: string,
   title?: string,
+  children?: ReactNode,
+  style?: CSSProperties
 }
 
 const Mask = memo<MaskProps>(({onMouseMove, onMouseUp}) => (

@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   apiBanner,
   apiRecommendResource,
@@ -22,6 +21,7 @@ import RecommendPrivatecontent from './Privatecontent';
 import RecommendNewsong from './Newsong';
 import RecommendDjprogram from './Djprogram';
 import RecommendMV from './MV';
+import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
 
 const GridObj = {
   推荐歌单: ['/home/playlist', RecommendPlaylist],
@@ -49,10 +49,10 @@ export default memo(() => {
     newsong,
     mv,
     djprogram,
-  } = useSelector(({ home }) => home.recommend);
-  const { homeOrder } = useSelector(({ setting }) => setting);
+  } = useAppSelector(({ home }) => home.recommend);
+  const { homeOrder } = useAppSelector(({ setting }) => setting);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleInit = async () => {
     try {
       const [

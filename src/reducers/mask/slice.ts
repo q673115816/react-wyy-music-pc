@@ -87,13 +87,13 @@ const slice = createSlice({
       Object.assign(state, visibilityState, action.payload)
       state.dialogHomeOrderVisibility = true
     },
-    setDialogReset(state, action) {
+    setDialogReset(state) {
       Object.assign(state, visibilityState, maskState)
     },
-    setPopupLetterToggle(state, action) {
+    setPopupLetterToggle(state) {
       state.popupStatus = state.popupStatus === 'letter' ? 'false' : 'letter'
     },
-    setPopupPlaylistToggle(state, action) {
+    setPopupPlaylistToggle(state) {
       state.popupStatus = state.popupStatus === 'playlist' ? 'false' : 'playlist'
     },
   }

@@ -1,0 +1,10 @@
+.nav {
+  width: var(--navWidth, 200px);
+  &::-webkit-scrollbar-thumb {
+    background-color: #fff;
+  }
+
+  &:hover::-webkit-scrollbar-thumb {
+    background-color: #E1E1E1;
+  }
+}

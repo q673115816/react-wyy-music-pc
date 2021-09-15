@@ -1,6 +1,24 @@
 import {createSlice, } from "@reduxjs/toolkit";
 
-const initialState = {
+export interface AccountState {
+  profile: {},
+  playlist: playlistState[],
+  bindings: [],
+  likelist: number[],
+  artistSublist: [],
+  topicSublist: [],
+  albumSublist: [],
+  mvSublist: []
+}
+
+export interface playlistState {
+  id: number
+  privacy: number
+  name: string
+  subscribed: boolean
+}
+
+const initialState: AccountState = {
   profile: {},
   playlist: [],
   bindings: [],
@@ -16,14 +34,15 @@ const slice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    setLoginInfo(state, action) {
-      state.profile = action.payload.profile;
-      state.playlist = action.payload.playlist;
-      state.likelist = action.payload.likelist;
-      state.artistSublist = action.payload.artistSublist;
-      state.topicSublist = action.payload.topicSublist;
-      state.albumSublist = action.payload.albumSublist;
-      state.mvSublist = action.payload.mvSublist;
+    setLoginInfo(state, {payload}) {
+      // state.profile = action.payload.profile;
+      // state.playlist = action.payload.playlist;
+      // state.likelist = action.payload.likelist;
+      // state.artistSublist = action.payload.artistSublist;
+      // state.topicSublist = action.payload.topicSublist;
+      // state.albumSublist = action.payload.albumSublist;
+      // state.mvSublist = action.payload.mvSublist;
+      Object.assign(state, payload)
     },
     setLoginInfoUpdate(state, action) {
       state.profile = action.payload.profile;
@@ -66,7 +85,8 @@ export default slice.reducer
 
 export const {
   setAlbumSublist,
-  setArtistSublist, setArtistSublistAdd,
+  setArtistSublist,
+  setArtistSublistAdd,
   setLikelist,
   setLikelistAdd,
   setLikelistDel,

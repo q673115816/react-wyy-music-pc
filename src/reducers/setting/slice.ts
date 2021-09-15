@@ -7,7 +7,9 @@ export interface SettingState {
   font: string,
   homeOrder: string[],
 }
-const defaultOrder = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
+
+export type Order = string[]
+export const defaultOrder: Order = ['推荐歌单', '独家放送', '最新音乐', '推荐MV', '主播电台', '看看'];
 
 const theme = LOCALSTORAGE('theme', '#D03535');
 const custom = LOCALSTORAGE('custom', false);
