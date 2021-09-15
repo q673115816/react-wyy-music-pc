@@ -1,1 +1,0 @@
-{"version":3,"file":"Love.a65a3476.js","mappings":"8IAEA,mBACE,OAAO","sources":["webpack://wyy/./src/pages/Love/index.tsx"],"sourcesContent":["import React from 'react';\n\nexport default () => {\n  return <div>我喜欢的音乐</div>;\n};\n"],"names":[],"sourceRoot":""}
