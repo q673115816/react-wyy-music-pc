@@ -9,7 +9,11 @@ const { renderToString } = require('react-dom/server');
 
 const SSR = require('../dist/search-server');
 
-const template = fs.readFileSync(path.join(__dirname, '../dist/404.html'), 'utf-8');
+console.log('entry ssr');
+const template = fs.readFileSync(
+  path.join(__dirname, '../dist/404.html'),
+  'utf-8',
+);
 
 const renderMarkup = (str) => template.replace('<!--HTML_PLACEHOLDER-->', str);
 
@@ -31,4 +35,6 @@ const server = (port) => {
   });
 };
 
-server(process.env.PORT || 8081);
+const PORT = process.env.PORT || 8080;
+
+server(PORT);
