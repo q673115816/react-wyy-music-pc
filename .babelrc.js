@@ -18,7 +18,6 @@ module.exports = {
     "@babel/plugin-transform-runtime",
     "@babel/plugin-syntax-dynamic-import",
     // isDevelopment && 'react-refresh/babel',
-    "transform-es2015-modules-commonjs",
   ]
   // .filter(Boolean)
 }

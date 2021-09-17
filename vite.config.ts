@@ -28,6 +28,7 @@ const alias = {
 export default defineConfig({
   base: './',
   root: './',
+
   plugins: [
     reactRefresh(),
     legacyPlugin({

@@ -50,11 +50,6 @@ axiosInstance.interceptors.response.use(
   err => err
 )
 
-
-// const defaultOptions = {
-//   withCredentials: true,
-// };
-
 export const get = (url: string) => axiosInstance
   .get(url)
 
