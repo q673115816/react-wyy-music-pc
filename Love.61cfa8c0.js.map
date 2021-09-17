@@ -1,1 +1,0 @@
-{"version":3,"file":"Love.61cfa8c0.js","mappings":"kKAAA,e,6BAEe,WACb,OAAO,qD,uLCHDA","sources":["webpack://wyy/./src/pages/Love/Love.tsx","webpack://wyy/./src/pages/Love/index.ts"],"sourcesContent":["import React, {useState} from 'react';\n\nexport default () => {\n  return <div>hello world!</div>\n}\n","export {default} from './Love'\n"],"names":["default"],"sourceRoot":""}
