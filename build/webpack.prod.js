@@ -34,6 +34,7 @@ const cdn = {
     // `${cdnBase}/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
     `${cdnBase}/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
     `${cdnBase}/immer/dist/immer.umd.development${minCdn}.js`,
+    `${cdnBase}/socket.io-client/dist/socket.io${minCdn}.js`,
   ],
   // css: [
   //   `${cdnBase}/tailwindcss/dist/tailwind.min.css`,
@@ -111,6 +112,7 @@ const prod = {
       '@tabler/icons': 'tablerIcons',
       'react-slick': 'Slider',
       axios: 'axios',
+      'socket.io-client': 'io',
     }],
   module: {
     rules: [
