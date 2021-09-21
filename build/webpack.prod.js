@@ -1,23 +1,22 @@
-const { merge } = require('webpack-merge');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { webpack, DefinePlugin } = require('webpack');
-const Dotenv = require('dotenv-webpack');
-require('dotenv').config({
-  path: '.env.remote',
-});
+const { merge } = require("webpack-merge");
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { DefinePlugin } = require("webpack");
+// require('dotenv').config({
+//   path: '.env.remote',
+// });
 
-const base = require('./webpack.base');
+const base = require("./webpack.base");
 
 const { PUBLIC_URL } = process.env;
 
-console.log('entry webpack prod');
+console.log("entry webpack prod");
 
-const devMode = process.env.NODE_ENV !== 'production';
+const devMode = process.env.NODE_ENV !== "production";
 
-const minCdn = devMode ? '' : '.min';
+const minCdn = devMode ? "" : ".min";
 
-const cdnBase = 'https://cdn.jsdelivr.net/npm';
+const cdnBase = "https://cdn.jsdelivr.net/npm";
 
 const cdn = {
   js: [
@@ -45,10 +44,10 @@ const cdn = {
 };
 
 const meta = {
-  author: 'q673115816',
-  'x-dns-prefetch-control': {
-    'http-equiv': 'x-dns-prefetch-control',
-    content: 'on',
+  author: "q673115816",
+  "x-dns-prefetch-control": {
+    "http-equiv": "x-dns-prefetch-control",
+    content: "on",
   },
 };
 
@@ -64,7 +63,7 @@ const meta = {
 //   'rel="dns-prefetch" href="//m8.music.126.net"',
 // ];
 
-const filename = '404.html';
+const filename = "404.html";
 
 const plugins = [
   // new Dotenv({
@@ -74,9 +73,9 @@ const plugins = [
     PUBLIC_URL: JSON.stringify(PUBLIC_URL),
   }),
   new HtmlWebpackPlugin({
-    favicon: path.join(__dirname, '../public/favicon.ico'),
-    template: path.join(__dirname, '../public/index.html'),
-    title: '网易云音乐',
+    favicon: path.join(__dirname, "../public/favicon.ico"),
+    template: path.join(__dirname, "../public/index.html"),
+    title: "网易云音乐",
     cdn,
     // prefetch,
     meta,
@@ -89,36 +88,36 @@ const plugins = [
 ];
 
 const prod = {
-  mode: 'production',
+  mode: "production",
   output: {
     clean: true,
-    publicPath: '/react-wyy-music-pc/',
-    path: path.join(__dirname, '../dist'),
-    filename: '[name].[chunkhash:8].js',
+    publicPath: "/react-wyy-music-pc/",
+    path: path.join(__dirname, "../dist"),
+    filename: "[name].[chunkhash:8].js",
     // library: '[name]_[fullhash]',
   },
   externals: [
     {
       // 'swiper': ['Swiper', 'swiper-react'],
       // 'swiper': 'Swiper',
-      react: 'React',
-      'react-dom': 'ReactDOM',
-      'react-router': 'ReactRouter',
-      'react-router-dom': 'ReactRouterDOM',
-      immer: 'immer',
-      redux: 'Redux',
-      'react-redux': 'ReactRedux',
-      '@reduxjs/toolkit': 'RTK',
-      '@tabler/icons': 'tablerIcons',
-      'react-slick': 'Slider',
-      axios: 'axios',
-      'socket.io-client': 'io',
-    }],
+      react: "React",
+      "react-dom": "ReactDOM",
+      "react-router": "ReactRouter",
+      "react-router-dom": "ReactRouterDOM",
+      immer: "immer",
+      redux: "Redux",
+      "react-redux": "ReactRedux",
+      "@reduxjs/toolkit": "RTK",
+      "@tabler/icons": "tablerIcons",
+      "react-slick": "Slider",
+      axios: "axios",
+      "socket.io-client": "io",
+    },
+  ],
   module: {
-    rules: [
-    ],
+    rules: [],
   },
-  devtool: 'hidden-source-map',
+  devtool: "hidden-source-map",
   plugins,
 };
 module.exports = merge(base, prod);

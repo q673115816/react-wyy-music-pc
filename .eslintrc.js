@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
   env: {
@@ -9,41 +9,41 @@ module.exports = {
     amd: true,
   },
   extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'airbnb',
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended",
   ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
-    sourceType: 'module',
+    ecmaVersion: 6,
+    sourceType: "module",
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ["react", "prettier"],
   rules: {
     // 允许js 中写jsx
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    // "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     // 换行符问题
-    'linebreak-style': [0, 'error', 'windows'],
+    // "linebreak-style": [0, "error", "windows"],
     // postcss 配置文件引入问题
-    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    'global-require': 0,
+    "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
+    // "global-require": 0,
+    // "prettier/prettier": "error",
   },
   // settings: {
   //   'import/resolver': 'webpack',
   // },
   settings: {
-    'import/resolver': {
+    "import/resolver": {
       webpack: {
         config: {
           resolve: {
             alias: {
-              '@': path.resolve('src'),
+              "@": path.resolve("src"),
             },
-            extensions: ['.js', '.jsx'],
+            extensions: [".js", ".jsx"],
           },
         },
       },

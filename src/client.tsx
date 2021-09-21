@@ -10,6 +10,8 @@ import store from './reducers/store';
 import App from './App';
 import Issues from './Issues';
 
+import reportWebVitals from "./reportWebVitals";
+
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 
@@ -47,6 +49,7 @@ render(
   document.getElementById('root'),
 );
 
+reportWebVitals()
 // ReactDOM.render(<Issues />, document.getElementById('comment-root'));
 
 // if (module.hot) {

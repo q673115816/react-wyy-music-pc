@@ -1,12 +1,17 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { GenerateSW } = require('workbox-webpack-plugin');
-const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// const { GenerateSW } = require("workbox-webpack-plugin");
+const path = require("path");
+const { DefinePlugin } = require("webpack");
+const dotenv = require("./env")();
+const { src, img } = require("./util");
 
-const { src, img } = require('./util');
-
-const devMode = process.env.NODE_ENV !== 'production';
+// console.log(process.env);
+const devMode = process.env.NODE_ENV !== "production";
 
 const plugins = [
+  new DefinePlugin({
+    "process.env": JSON.stringify(dotenv.parsed),
+  }),
   // new GenerateSW({
   //   // Do not precache images
   //   exclude: [/\.(?:png|jpg|jpeg|svg)$/],
@@ -33,8 +38,8 @@ const plugins = [
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
     // both options are optional
-    filename: '[name].[contenthash:8].css',
-    chunkFilename: '[name].[contenthash:8].css',
+    filename: "[name].[contenthash:8].css",
+    chunkFilename: "[name].[contenthash:8].css",
   }),
   // new webpack.DllPlugin({
   //   PUBLIC_PATH: '/react-wyy-music-pc/',
@@ -52,10 +57,10 @@ const plugins = [
 ];
 
 module.exports = {
-  target: 'web',
-  entry: path.join(src, './client.tsx'),
+  target: "web",
+  entry: path.join(src, "./client.tsx"),
   output: {
-    globalObject: 'this',
+    globalObject: "this",
   },
   // entry: {
   // index: path.join(src, 'index.jsx'),
@@ -69,7 +74,7 @@ module.exports = {
   // },
 
   optimization: {
-    runtimeChunk: 'single',
+    runtimeChunk: "single",
     // splitChunks: {
     //   cacheGroups: {
     //     vendor: {
@@ -81,8 +86,8 @@ module.exports = {
     //   },
     // },
     splitChunks: {
-      chunks: 'all',
-      name: 'vendors',
+      chunks: "all",
+      name: "vendors",
       minSize: 0,
       cacheGroups: {
         // defaultVendors: {
@@ -96,16 +101,16 @@ module.exports = {
         //   priority: -20,
         //   reuseExistingChunk: true,
         // },
-        'core-js': {
-          name: 'core-js',
+        "core-js": {
+          name: "core-js",
           test: /[\\/]node_modules[\\/]_?core-js(.*)/,
         },
         dayjs: {
-          name: 'dayjs',
+          name: "dayjs",
           test: /[\\/]node_modules[\\/]_?dayjs(.*)/,
         },
-        'qrcode.react': {
-          name: 'qrcode',
+        "qrcode.react": {
+          name: "qrcode",
           test: /[\\/]node_modules[\\/]_?qrcode.react(.*)/,
           // priority: -10,
         },
@@ -126,15 +131,10 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': src,
-      '@img': img,
+      "@": src,
+      "@img": img,
     },
-    extensions: [
-      '.tsx',
-      '.ts',
-      '.jsx',
-      '.js',
-    ],
+    extensions: [".tsx", ".ts", ".jsx", ".js"],
   },
   // externalsType: 'script',
 
@@ -143,33 +143,34 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         exclude: /(node_modules|bower_components)/,
-        include: [src],
+        include: src,
         use: [
           devMode
-            ? 'style-loader' : {
-              loader: MiniCssExtractPlugin.loader,
-              // options: {
-              //   // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
-              //   publicPath: process.env.PUBLIC_PATH,
-              // },
-            },
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
+            ? "style-loader"
+            : {
+                loader: MiniCssExtractPlugin.loader,
+                // options: {
+                //   // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
+                //   publicPath: process.env.PUBLIC_PATH,
+                // },
+              },
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
           {
-            loader: 'sass-resources-loader',
+            loader: "sass-resources-loader",
             options: {
-              resources: path.join(src, 'styles/_global.scss'),
+              resources: path.join(src, "styles/_global.scss"),
             },
           },
         ],
       },
       {
         test: /\.worker\.[cm]?[jt]s$/i,
-        include: [src],
+        include: src,
         use: [
           {
-            loader: 'worker-loader',
+            loader: "worker-loader",
             // options: {
             // esModule: false,
             // filename: '[name].[contenthash].worker.js',
@@ -187,24 +188,26 @@ module.exports = {
       {
         test: /\.[jt]sx?$/,
         exclude: /(node_modules|bower_components)/,
-        include: [src],
+        include: src,
         // 缓存
         // use: ['babel-loader?cacheDirectory=true'],
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true,
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         exclude: /(node_modules|bower_components)/,
-        include: [src],
-        type: 'asset',
+        include: src,
+        type: "asset",
         generator: {
           // [ext]前面自带"."
-          filename: 'assets/images/[name].[hash:8][ext]',
+          filename: "assets/images/[name].[hash:8][ext]",
         },
         // use: [
         //   {
@@ -219,11 +222,11 @@ module.exports = {
       },
       {
         test: /\.(eot|woff|ttf|woff2|appcache)\??.*$/,
-        include: [src],
-        type: 'asset',
+        include: src,
+        type: "asset",
         generator: {
           // [ext]前面自带"."
-          filename: 'assets/fonts/[name].[hash:8][ext]',
+          filename: "assets/fonts/[name].[hash:8][ext]",
         },
         // exclude: [/^node_modules$/, path.resolve(__dirname, '../src/svg')],
         // use: [{
