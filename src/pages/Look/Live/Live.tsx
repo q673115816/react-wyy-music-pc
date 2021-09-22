@@ -1,4 +1,5 @@
 import React, {
+  FC,
   memo,
   MouseEventHandler,
   ReactNode,
@@ -16,6 +17,7 @@ import {
   SOCKET_USER_END,
   SOCKET_USER_START,
 } from "../Content";
+import PropTypes from "prop-types";
 
 // 以下代码是从网上找的
 //=========================================================================================
@@ -61,23 +63,25 @@ function is_android() {
 }
 
 interface iButtonProps {
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler;
   status: boolean;
-  children: ReactNode;
 }
 
-const Button = memo<iButtonProps>(({ onClick, status, children }) => (
-  <button
-    type={"button"}
-    className={classnames(
-      `text-white rounded p-2`,
-      status ? "bg-red-500" : "bg-blue-500"
-    )}
-    onClick={onClick}
-  >
-    {children}
-  </button>
-));
+const Button: FC<iButtonProps> = memo((props) => {
+  const { onClick, children, status } = props;
+  return (
+    <button
+      type={"button"}
+      className={classnames(
+        `text-white rounded p-2`,
+        status ? "bg-red-500" : "bg-blue-500"
+      )}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+});
 
 /*
  * TODO

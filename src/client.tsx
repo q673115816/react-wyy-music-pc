@@ -1,14 +1,13 @@
-// import 'react-app-polyfill/ie11';// .....
-import React from 'react';
-import {render, hydrate } from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router} from 'react-router-dom'
-import {QueryClientProvider, QueryClient} from "react-query";
-import {ReactQueryDevtools} from "react-query/devtools";
-import store from './reducers/store';
+import React from "react";
+import { render, hydrate } from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import store from "./reducers/store";
 
-import App from './App';
-import Issues from './Issues';
+import App from "./App";
+import Issues from "./Issues";
 
 import reportWebVitals from "./reportWebVitals";
 
@@ -25,7 +24,7 @@ Sentry.init({
   tracesSampleRate: 1.0,
 });
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 // if('serviceWorker' in navigator) {
 //     navigator.serviceWorker.register('./sw.js')
@@ -41,15 +40,15 @@ render(
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <App />
-          <ReactQueryDevtools/>
+          <ReactQueryDevtools />
         </Provider>
       </QueryClientProvider>
     </Router>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById("root")
 );
 
-reportWebVitals()
+reportWebVitals();
 // ReactDOM.render(<Issues />, document.getElementById('comment-root'));
 
 // if (module.hot) {
