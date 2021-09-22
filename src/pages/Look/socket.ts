@@ -1,8 +1,8 @@
 import io from "socket.io-client";
 
-const url = process.env.LIVE_URL;
+export const LIVE_URL = process.env.LIVE_URL;
 
-const socket = io(url, {
+const socket = io(LIVE_URL, {
   autoConnect: false,
 });
 
