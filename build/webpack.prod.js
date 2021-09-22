@@ -34,6 +34,7 @@ const cdn = {
     `${cdnBase}/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
     `${cdnBase}/immer/dist/immer.umd.development${minCdn}.js`,
     `${cdnBase}/socket.io-client/dist/socket.io${minCdn}.js`,
+    `https://webrtc.github.io/adapter/adapter-latest.js`,
   ],
   // css: [
   //   `${cdnBase}/tailwindcss/dist/tailwind.min.css`,
@@ -112,6 +113,7 @@ const prod = {
       "react-slick": "Slider",
       axios: "axios",
       "socket.io-client": "io",
+      "webrtc-adapter": "adapter",
     },
   ],
   module: {

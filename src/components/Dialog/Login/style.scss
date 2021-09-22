@@ -69,9 +69,10 @@
   }
 
   .table {
+    width: 100%;
     border-radius: 10px;
     border-collapse: collapse;
-
+    table-layout: fixed;
     td {
       position: relative;
       border: 1px solid #D8D8D8;
