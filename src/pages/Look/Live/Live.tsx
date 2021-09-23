@@ -17,7 +17,6 @@ import {
   SOCKET_USER_END,
   SOCKET_USER_START,
 } from "../Content";
-import PropTypes from "prop-types";
 
 // 以下代码是从网上找的
 //=========================================================================================
@@ -67,8 +66,7 @@ interface iButtonProps {
   status: boolean;
 }
 
-const Button: FC<iButtonProps> = memo((props) => {
-  const { onClick, children, status } = props;
+const Button: FC<iButtonProps> = memo(({ onClick, children, status }) => {
   return (
     <button
       type={"button"}

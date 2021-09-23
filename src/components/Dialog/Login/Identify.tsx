@@ -1,37 +1,27 @@
-import React, {
-  useState,
-  useContext,
-  useEffect,
-} from 'react';
-import { IconFaceId, IconKey } from '@tabler/icons';
-import { apiCaptchaSent } from '@/api';
-import { LoginContext } from './index';
+import React, { useState, useContext } from "react";
+import { IconFaceId, IconKey } from "@tabler/icons";
+import { apiCaptchaSent } from "@/api";
+import { LoginContext } from "./Content";
+import { SET_TYPE } from "./Content";
 
 export default () => {
-  const [warn, setWarn] = useState('');
+  const [warn, setWarn] = useState("");
   const {
-    loginReducer: {
-    },
+    loginReducer: {},
     loginDispatch,
   } = useContext(LoginContext);
-  const handleSubmit = () => {
-
-  };
+  const handleSubmit = () => {};
 
   const handleSend = async () => {
     try {
-      const { } = apiCaptchaSent({
-        phone: '',
-        captcha: '',
+      const {} = apiCaptchaSent({
+        phone: "",
+        captcha: "",
       });
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-
-  }, []);
 
   return (
     <div className="form">
@@ -39,12 +29,17 @@ export default () => {
         <button
           className="mt-2.5"
           type="button"
-          onClick={() => loginDispatch({ type: 'SET_TYPE', payload: { type: 'signin' } })}
+          onClick={() =>
+            loginDispatch({ type: SET_TYPE, payload: { type: "signin" } })
+          }
         >
           &lt; 返回登录
         </button>
       </div>
-      <div style={{ height: 200, color: 'var(--themeColor)' }} className="flex-center">
+      <div
+        style={{ height: 200, color: "var(--themeColor)" }}
+        className="flex-center"
+      >
         <IconFaceId size={100} stroke={1} />
       </div>
       <div>为了安全，我们会向您的手机发送短信检验码</div>
@@ -54,17 +49,25 @@ export default () => {
             <i className="absolute inset-y-0 flex">
               <IconKey size={16} className="m-auto w-6" />
             </i>
-            <input type="text" className="border h-full pl-6 rounded" placeholder="填写验证码" />
+            <input
+              type="text"
+              className="border h-full pl-6 rounded"
+              placeholder="填写验证码"
+            />
           </div>
           <div className="flex-1">
-            <button type="button" className="submit">重新获取</button>
+            <button type="button" className="submit">
+              重新获取
+            </button>
           </div>
         </div>
         <div className="info">
           <div className="warn text-red-500 ml-auto">{warn}</div>
         </div>
         <div className="actions">
-          <button type="submit" className="submit">完成</button>
+          <button type="submit" className="submit">
+            完成
+          </button>
         </div>
       </form>
     </div>

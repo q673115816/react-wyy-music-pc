@@ -1,6 +1,10 @@
-import React, { memo, useContext, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React, {
+  FormEventHandler,
+  memo,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { apiLoginCellphone } from "@/api";
 import {
   IconFaceId,
@@ -12,10 +16,15 @@ import {
 import { setCookie } from "@/api/cookie";
 
 import DomCheck from "@/components/Checkbox";
-import { LoginContext } from "./index";
+import { LoginContext, SET_SIGNIN_PHONE } from "./Content";
 import DomSelect from "./components/Select";
 import DomThrees from "./components/Threes";
 import DomSubmitBtn from "./components/SubmitBtn";
+import {
+  SET_SIGNIN_ARGEEARGUMENT,
+  SET_SIGNIN_PASSWORD,
+  SET_TYPE,
+} from "./Content";
 
 export default memo(() => {
   const {
@@ -50,7 +59,7 @@ export default memo(() => {
       console.log(error);
     }
   };
-  const handleSubmit = (e) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (!argeeArgument) {
       alert("请先勾选同意《服务条款》《服务条款》《服务条款》");
@@ -67,7 +76,7 @@ export default memo(() => {
 
   const handlePhone = (loginphone) => {
     loginDispatch({
-      type: "SET_SIGNIN_PHONE",
+      type: SET_SIGNIN_PHONE,
       payload: {
         loginphone,
       },
@@ -76,7 +85,7 @@ export default memo(() => {
 
   const handlePassword = (loginpassword) => {
     loginDispatch({
-      type: "SET_SIGNIN_PASSWORD",
+      type: SET_SIGNIN_PASSWORD,
       payload: {
         loginpassword,
       },
@@ -85,7 +94,7 @@ export default memo(() => {
 
   const handleArgument = (argeeArgument) => {
     loginDispatch({
-      type: "SET_SIGNIN_ARGEEARGUMENT",
+      type: SET_SIGNIN_ARGEEARGUMENT,
       payload: {
         argeeArgument,
       },
@@ -95,7 +104,7 @@ export default memo(() => {
   const handleToSignUp = () => {
     if (argeeArgument) {
       loginDispatch({
-        type: "SET_TYPE",
+        type: SET_TYPE,
         payload: { type: "signup" },
       });
     } else {
@@ -109,7 +118,7 @@ export default memo(() => {
         <button
           type="button"
           onClick={() =>
-            loginDispatch({ type: "SET_TYPE", payload: { type: "scan" } })
+            loginDispatch({ type: SET_TYPE, payload: { type: "scan" } })
           }
         >
           <IconQrcode size={36} />
@@ -177,7 +186,7 @@ export default memo(() => {
                     className="text-gray-400"
                     onClick={() =>
                       loginDispatch({
-                        type: "SET_TYPE",
+                        type: SET_TYPE,
                         payload: { type: "reset" },
                       })
                     }

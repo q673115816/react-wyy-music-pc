@@ -1,6 +1,7 @@
-import React, {FC, PropsWithChildren} from "react";
+import React, { memo } from "react";
 
-export default ({children}) => (
-  <button type="submit" className="submit">{children}</button>
-
-)
+export default memo(({ children }) => (
+  <button type="submit" className="submit">
+    {children}
+  </button>
+));

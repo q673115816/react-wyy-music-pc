@@ -1,7 +1,7 @@
-import {SymbolQQ, SymbolWB, SymbolWX, SymbolWY} from "@/components/Symbol";
-import React, {FunctionComponent, memo} from "react";
+import { SymbolQQ, SymbolWB, SymbolWX, SymbolWY } from "@/components/Symbol";
+import React, { memo } from "react";
 
-export default memo(()  => (
+export default memo(() => (
   <div className="threes flex justify-between">
     <button type="button" className="three">
       <SymbolWX hover />
@@ -16,4 +16,4 @@ export default memo(()  => (
       <SymbolWY hover />
     </button>
   </div>
-))
+));
