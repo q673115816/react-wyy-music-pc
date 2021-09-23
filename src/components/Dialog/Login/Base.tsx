@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useReducer } from "react";
+import React, { createContext, memo, useMemo, useReducer } from "react";
 import { IconX } from "@tabler/icons";
 import { setLoginVisibilty } from "@/reducers/common/slice";
 import { useImmerReducer } from "use-immer";
@@ -12,22 +12,20 @@ import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import { LoginInitialState, LoginReducer, LoginContext } from "./Content";
 
 const Build = {
-  scan: Scan,
-  signin: SignIn,
-  signup: SignUp,
-  reset: Reset,
-  identify: Identify,
+  scan: <Scan />,
+  signin: <SignIn />,
+  signup: <SignUp />,
+  reset: <Reset />,
+  identify: <Identify />,
 };
 
-export default () => {
+export default memo(() => {
   const dispatch = useAppDispatch();
   const { loginVisibility } = useAppSelector(({ common }) => common);
   const [loginReducer, loginDispatch] = useImmerReducer(
     LoginReducer,
     LoginInitialState
   );
-  const { type } = loginReducer;
-  const Inner = useMemo(() => Build[type], [type]);
   if (!loginVisibility) return null;
   return (
     <div
@@ -42,8 +40,8 @@ export default () => {
         <IconX stroke={1.5} />
       </button>
       <LoginContext.Provider value={{ loginReducer, loginDispatch }}>
-        <Inner />
+        {Build[loginReducer.type]}
       </LoginContext.Provider>
     </div>
   );
-};
+});

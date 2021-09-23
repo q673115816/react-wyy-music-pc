@@ -13,6 +13,7 @@ import { IconFaceId, IconScan } from "@tabler/icons";
 import { apiLoginQrCheck, apiLoginQrCreate, apiLoginQrKey } from "@/api";
 import { setCookie } from "@/api/cookie";
 import { LoginContext, SET_TYPE } from "./Content";
+import { useQuery } from "react-query";
 
 interface iRefreshProps {
   handleInit: MouseEventHandler;
@@ -141,12 +142,11 @@ export default memo(() => {
   return (
     <div className="qr pt-24 flex items-center flex-col">
       <div className="title text-2xl">扫码登录</div>
-      {status === 0 ||
-        (status === 800 && (
-          <Waiting {...{ qrimg, handleChooseOtherSign }}>
-            {status === 800 && <DomRefresh handleInit={handleInit} />}
-          </Waiting>
-        ))}
+      {(status === 0 || status === 800) && (
+        <Waiting {...{ qrimg, handleChooseOtherSign }}>
+          {status === 800 && <DomRefresh handleInit={handleInit} />}
+        </Waiting>
+      )}
       {status === 802 && <DomSuccess />}
     </div>
   );
