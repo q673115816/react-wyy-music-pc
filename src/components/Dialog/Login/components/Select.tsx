@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { IconCaretDown, IconDeviceMobile } from "@tabler/icons";
 import { SET_SIGNIN_COUNTRYCODE, LoginContext } from "../Content";
 import { useAppSelector } from "@/reducers/hooks";
+import { CountriesCodeItem, CountryItem } from "@/reducers/common/slice";
 
 export default memo(() => {
   const { countriesCodeList } = useAppSelector(({ common }) => common);
@@ -12,7 +13,7 @@ export default memo(() => {
   } = useContext(LoginContext);
 
   const [visibility, setVisibility] = useState(false);
-  const handleChoose = (countrycode) => {
+  const handleChoose = (countrycode: string) => {
     loginDispatch({
       type: SET_SIGNIN_COUNTRYCODE,
       payload: { countrycode },
@@ -33,21 +34,21 @@ export default memo(() => {
       </button>
       <div
         className="customOptionGroup"
-        style={{ display: visibility ? null : "none" }}
+        style={{ display: visibility ? "" : "none" }}
       >
-        {countriesCodeList.map(({ countryList }) =>
-          countryList.map((item) => (
+        {countriesCodeList.map(({ countryList }: CountriesCodeItem) =>
+          countryList.map(({ zh, code }: CountryItem) => (
             <button
-              key={item.zh}
+              key={zh}
               type="button"
               className={classNames("customOption flex w-full px-3 h-6", {
-                on: item.code === countrycode,
+                on: code === countrycode,
               })}
-              onClick={() => handleChoose(item.code)}
+              onClick={() => handleChoose(code)}
             >
               <div className="flag w-8">{}</div>
-              <div className="zh">{item.zh}</div>
-              <div className="code ml-auto">{`+${item.code}`}</div>
+              <div className="zh">{zh}</div>
+              <div className="code ml-auto">{`+${code}`}</div>
             </button>
           ))
         )}
