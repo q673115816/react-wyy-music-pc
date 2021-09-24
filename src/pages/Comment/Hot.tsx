@@ -1,18 +1,16 @@
-import React, {
-  useState, useEffect, useRef, memo,
-} from 'react';
-import { apiCommentHot, apiCommentLike } from '@/api';
-import DomComment from '@/components/Comment';
-import useInfinite from '@/hooks/useInfinite';
-import DomLoading from '@/components/Loading';
-import produce from 'immer';
+import React, { useState, useEffect, useRef, memo } from "react";
+import { apiCommentHot, apiCommentLike } from "@/api";
+import DomComment from "@/components/Comment";
+import useInfinite from "@/hooks/useInfinite";
+import DomLoading from "@/components/Loading";
+import produce from "immer";
 
 export default memo(({ id }) => {
   const [data, setData] = useState([]);
   const refHasMore = useRef(true);
   const offset = useRef(0);
-  const domObserver = useRef();
-  const domScroll = useRef();
+  const domObserver = useRef(null);
+  const domScroll = useRef(null);
   const limit = 20;
 
   const handleLike = async (cid, t) => {
@@ -24,14 +22,16 @@ export default memo(({ id }) => {
         type: 0,
       });
       if (code === 200) {
-        setData(produce((draft) => {
-          draft.forEach((item) => {
-            if (item.commentId === cid) {
-              item.liked = !t;
-              item.likedCount += t ? -1 : 1;
-            }
-          });
-        }));
+        setData(
+          produce((draft) => {
+            draft.forEach((item) => {
+              if (item.commentId === cid) {
+                item.liked = !t;
+                item.likedCount += t ? -1 : 1;
+              }
+            });
+          })
+        );
       }
     } catch (error) {
       console.log(error);
@@ -63,7 +63,10 @@ export default memo(({ id }) => {
 
   // if (loading) return <div>loading</div>;
   return (
-    <div className="domComment px-8 py-5 overflow-auto max-h-full flex-auto" ref={domScroll}>
+    <div
+      className="domComment px-8 py-5 overflow-auto max-h-full flex-auto"
+      ref={domScroll}
+    >
       <div className="h1">精彩评论</div>
       <div className="domComment_list">
         {data.map((item) => (
@@ -73,10 +76,11 @@ export default memo(({ id }) => {
             key={item.commentId}
           />
         ))}
-        {
-          refHasMore.current
-          && <div className="flex justify-center py-4"><DomLoading /></div>
-        }
+        {refHasMore.current && (
+          <div className="flex justify-center py-4">
+            <DomLoading />
+          </div>
+        )}
         <div ref={domObserver} />
       </div>
     </div>

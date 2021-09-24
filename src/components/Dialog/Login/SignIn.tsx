@@ -1,21 +1,17 @@
 import React, {
+  ChangeEventHandler,
   FormEventHandler,
   memo,
+  useCallback,
   useContext,
   useRef,
   useState,
 } from "react";
 import { apiLoginCellphone } from "@/api";
-import {
-  IconFaceId,
-  IconQrcode,
-  IconDeviceMobile,
-  IconEye,
-  IconEyeOff,
-} from "@tabler/icons";
+import { IconFaceId, IconQrcode } from "@tabler/icons";
 import { setCookie } from "@/api/cookie";
 
-import DomCheck from "@/components/Checkbox";
+import Checkbox from "@/components/Checkbox";
 import { LoginContext, SET_SIGNIN_PHONE } from "./Content";
 import DomSelect from "./components/Select";
 import DomThrees from "./components/Threes";
@@ -25,6 +21,7 @@ import {
   SET_SIGNIN_PASSWORD,
   SET_TYPE,
 } from "./Content";
+import Input from "./components/Input";
 
 export default memo(() => {
   const {
@@ -33,10 +30,14 @@ export default memo(() => {
   } = useContext(LoginContext);
 
   const [warn, setWarn] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const refArgument = useRef();
-  const refAutoLogin = useRef();
+  const [autoLogin, setAutoLogin] = useState(false);
 
+  const handleAutoLogin: ChangeEventHandler<HTMLInputElement> = useCallback(
+    ({ target }) => {
+      setAutoLogin(target.checked);
+    },
+    []
+  );
   const handleLogin = async () => {
     try {
       const { data, code, msg, cookie, token, profile } =
@@ -59,6 +60,7 @@ export default memo(() => {
       console.log(error);
     }
   };
+
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (!argeeArgument) {
@@ -74,32 +76,43 @@ export default memo(() => {
     }
   };
 
-  const handlePhone = (loginphone) => {
-    loginDispatch({
-      type: SET_SIGNIN_PHONE,
-      payload: {
-        loginphone,
-      },
-    });
-  };
+  const handlePhone: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      const loginphone = event.target.value;
+      loginDispatch({
+        type: SET_SIGNIN_PHONE,
+        payload: {
+          loginphone,
+        },
+      });
+    },
+    []
+  );
+  const handlePassword: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      const loginpassword = event.target.value;
+      loginDispatch({
+        type: SET_SIGNIN_PASSWORD,
+        payload: {
+          loginpassword,
+        },
+      });
+    },
+    []
+  );
 
-  const handlePassword = (loginpassword) => {
-    loginDispatch({
-      type: SET_SIGNIN_PASSWORD,
-      payload: {
-        loginpassword,
-      },
-    });
-  };
-
-  const handleArgument = (argeeArgument) => {
-    loginDispatch({
-      type: SET_SIGNIN_ARGEEARGUMENT,
-      payload: {
-        argeeArgument,
-      },
-    });
-  };
+  const handleArgument: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (event) => {
+      const argeeArgument = event.target.checked;
+      loginDispatch({
+        type: SET_SIGNIN_ARGEEARGUMENT,
+        payload: {
+          argeeArgument,
+        },
+      });
+    },
+    []
+  );
 
   const handleToSignUp = () => {
     if (argeeArgument) {
@@ -143,41 +156,24 @@ export default memo(() => {
                 <DomSelect />
               </td>
               <td colSpan={2}>
-                <input
+                <Input
                   type="text"
                   name="phone"
                   placeholder="请输入手机号"
-                  className="input"
-                  readOnly
-                  onFocus={({ target }) => target.removeAttribute("readonly")}
                   value={loginphone}
-                  onChange={({ target }) => handlePhone(target.value)}
+                  onChange={handlePhone}
                 />
               </td>
             </tr>
             <tr>
               <td colSpan={2}>
-                <input
-                  type={showPassword ? "text" : "password"}
+                <Input
+                  type="password"
                   name="password"
                   placeholder="请输入密码"
-                  className="input"
-                  readOnly
-                  onFocus={({ target }) => target.removeAttribute("readonly")}
                   value={loginpassword}
-                  onChange={({ target }) => handlePassword(target.value)}
+                  onChange={handlePassword}
                 />
-                <button
-                  type="button"
-                  className="togglePassword"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? (
-                    <IconEye size={16} />
-                  ) : (
-                    <IconEyeOff size={16} />
-                  )}
-                </button>
               </td>
               <td>
                 <div className="flex-center">
@@ -202,7 +198,11 @@ export default memo(() => {
           <label htmlFor="autoLogin" className="auto">
             {/* <input type="checkbox" name="auto" hidden />
             <i className="ico flex-center">✔</i> */}
-            <DomCheck ref={refAutoLogin} name="autoLogin" />
+            <Checkbox
+              onChange={handleAutoLogin}
+              checked={autoLogin}
+              name="autoLogin"
+            />
             &nbsp; 自动登录
           </label>
           <div className="warn ml-auto text-red-500">{warn}</div>
@@ -220,44 +220,49 @@ export default memo(() => {
           </button>
           <DomThrees />
         </div>
-        <label
-          htmlFor="argument"
-          className="argument flex items-center whitespace-nowrap mt-9"
-        >
-          <DomCheck
-            ref={refArgument}
+        <Argument>
+          <Checkbox
             name="argument"
-            onChange={(e) => handleArgument(e.target.checked)}
+            onChange={handleArgument}
             checked={argeeArgument}
           />
-          &nbsp;
-          <span className="text-gray-400">同意</span>
-          <a
-            className="ui_link hover"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://st.music.163.com/official-terms/service"
-          >
-            《服务条款》
-          </a>
-          <a
-            className="ui_link hover"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://st.music.163.com/official-terms/privacy"
-          >
-            《隐私条款》
-          </a>
-          <a
-            className="ui_link hover"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://st.music.163.com/official-terms/children"
-          >
-            《儿童隐私条款》
-          </a>
-        </label>
+        </Argument>
       </form>
     </div>
   );
 });
+
+const Argument = memo(({ children }) => (
+  <label
+    htmlFor="argument"
+    className="argument flex items-center whitespace-nowrap mt-9"
+  >
+    {children}
+    &nbsp;
+    <span className="text-gray-400">同意</span>
+    <a
+      className="ui_link hover"
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://st.music.163.com/official-terms/service"
+    >
+      《服务条款》
+    </a>
+    <a
+      className="ui_link hover"
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://st.music.163.com/official-terms/privacy"
+    >
+      《隐私条款》
+    </a>
+    <a
+      className="ui_link hover"
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://st.music.163.com/official-terms/children"
+    >
+      《儿童隐私条款》
+    </a>
+  </label>
+));

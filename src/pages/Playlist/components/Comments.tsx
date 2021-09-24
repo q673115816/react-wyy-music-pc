@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import DomCommentsList from '@/components/CommentsList';
-import DomWrite from '@/components/Write';
-import { apiCommentPlaylist } from '@/api';
+import React, { useEffect, useState } from "react";
+import DomCommentsList from "@/components/CommentsList";
+import DomWrite from "@/components/Write";
+import { apiCommentPlaylist } from "@/api";
 
 export default ({ id }) => {
   const [comments, setComments] = useState({});

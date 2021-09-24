@@ -34,7 +34,19 @@ export const LoginReducer: Reducer = (draft, action) => {
   }
 };
 
-export const LoginInitialState = {
+export type LoginType = "scan" | "signin" | "signup" | "reset" | "identify";
+
+export interface LoginState {
+  argeeArgument: boolean;
+  loginphone: string;
+  loginpassword: string;
+  registerphone: string;
+  registerpassword: string;
+  type: LoginType;
+  countrycode: string;
+}
+
+export const LoginInitialState: LoginState = {
   argeeArgument: false,
   loginphone: "",
   loginpassword: "",
