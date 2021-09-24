@@ -1,17 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { apiPlaylistSubscribers } from '@/api';
-import {
-  Link, useLocation,
-} from 'react-router-dom';
-import './style.scss';
-import DomGender from '@/components/Gender';
-import DomPage from '@/components/Page';
+import React, { memo, useEffect, useState } from "react";
+import { apiPlaylistSubscribers } from "@/api";
+import { Link } from "react-router-dom";
+import "./style.scss";
+import Gender from "@/components/Gender";
+import Page from "@/components/Page";
+// import { useQuery } from "react-query";
 
-export default ({ id }) => {
+export default memo(({ id }) => {
   const [data, setData] = useState([]);
   const [total, setTotal] = useState(0);
   const limit = 60;
   const [page, setPage] = useState(1);
+  // const {
+  //   data: { subscribers, total },
+  // } = useQuery("subscribers", async () => {
+  //   const { subscribers, total } = await apiPlaylistSubscribers({
+  //     id,
+  //     limit,
+  //     offset: (page - 1) * limit,
+  //   });
+  //   return {
+  //     subscribers,
+  //     total,
+  //   };
+  // });
   const handleInit = async () => {
     try {
       const { subscribers, total } = await apiPlaylistSubscribers({
@@ -41,22 +53,16 @@ export default ({ id }) => {
             </Link>
             <div className="ml-2 flex-auto w-0 flex flex-col justify-center">
               <div className="text-sm flex items-center">
-                <Link to={`/user/${item.userId}`}>
-                  {item.nickname}
-                </Link>
-              &nbsp;
-                <DomGender gender={item.gender} size={16} />
+                <Link to={`/user/${item.userId}`}>{item.nickname}</Link>
+                &nbsp;
+                <Gender gender={item.gender} size={16} />
               </div>
               <div className="mt-2 truncate">{item.signature}</div>
             </div>
           </div>
         ))}
       </div>
-      <DomPage
-        total={Math.ceil(total / limit)}
-        page={page}
-        func={setPage}
-      />
+      <Page total={Math.ceil(total / limit)} page={page} func={setPage} />
     </div>
   );
-};
+});

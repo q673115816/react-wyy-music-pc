@@ -1,10 +1,10 @@
-import React, { memo, useEffect } from 'react';
-import { apiDjDetail } from '@/api';
+import React, { memo, useEffect } from "react";
+import { apiDjDetail } from "@/api";
 
 export default memo(({ id }) => {
   const handleInit = async () => {
     try {
-      const { } = await apiDjDetail({
+      const {} = await apiDjDetail({
         rid: id,
       });
     } catch (error) {

@@ -1,10 +1,9 @@
-import React from 'react';
-import { } from '@/api';
+import React from "react";
+import {} from "@/api";
 
 export default () => {
   const handleInit = async () => {
     try {
-
     } catch (error) {
       console.log(error);
     }

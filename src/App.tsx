@@ -1,30 +1,30 @@
-import React, {
-  memo, useEffect, lazy, Suspense,
-} from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Resizer from '@/components/Resizer';
-import useMemoParmas from '@/hooks/useMemoParams';
-import useIsLogin from '@/hooks/useIsLogin';
-import Loading from '@/components/Loading';
-import Header from './layout/Header';
-import Main from './layout/Main';
-import Footer from './layout/Footer';
-import Inset from './layout/Inset'
-import useKeyActions from './hooks/useKeyActions';
-import './styles/index.scss';
+import React, { memo, useEffect, lazy, Suspense } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Resizer from "@/components/Resizer";
+import useMemoParmas from "@/hooks/useMemoParams";
+import useIsLogin from "@/hooks/useIsLogin";
+import Loading from "@/components/Loading";
+import Header from "./layout/Header";
+import Main from "./layout/Main";
+import Footer from "./layout/Footer";
+import Inset from "./layout/Inset";
+import useKeyActions from "./hooks/useKeyActions";
+import "./styles/index.scss";
 
-import GlobalLrc from './components/Lrc';
-import Help from './Help'
+import GlobalLrc from "./components/Lrc";
+import Help from "./Help";
 import { useAppSelector } from "@/reducers/hooks";
 
-const Player = lazy(() => import(
-  /* webpackChunkName: "Player" */
-  '@/pages/Player'));
-
-
+const Player = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "Player" */
+      "@/pages/Player"
+    )
+);
 
 export default memo(() => {
-  console.log('app')
+  console.log("app");
   useKeyActions();
   useIsLogin();
 
@@ -32,14 +32,15 @@ export default memo(() => {
     <>
       <Inset>
         <Header />
-        <Suspense fallback={
-          <div className="flex-center w-full h-full">
-            <Loading />
-          </div>}>
+        <Suspense
+          fallback={
+            <div className="flex-center w-full h-full">
+              <Loading />
+            </div>
+          }
+        >
           <Switch>
-            <Route
-              path="/player/:type(video|mv)/:vid"
-            >
+            <Route path="/player/:type(video|mv)/:vid">
               {useMemoParmas(Player)}
             </Route>
             <Route>
