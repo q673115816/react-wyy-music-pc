@@ -16,12 +16,12 @@ export default memo<iProps>(({ item, className = "" }) => (
     <div className="truncate">
       {/* {item.name} */}
       <span title={item.name}>{item.name}</span>
-      {item.alia.length > 0 && (
+      {item.alia?.length > 0 && (
         <span className="alia text-gray-400" title={`（${item.alia}）`}>
           {`（${item.alia}）`}
         </span>
       )}
-      {item.tns.length > 0 && (
+      {item.tns?.length > 0 && (
         <>
           <span className="alia text-gray-400" title={item.tns.toString()}>
             {`（${item.tns}）`}
