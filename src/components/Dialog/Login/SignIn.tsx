@@ -30,7 +30,7 @@ export default memo(() => {
   } = useContext(LoginContext);
 
   const [warn, setWarn] = useState("");
-  const [autoLogin, setAutoLogin] = useState(false);
+  const [autoLogin, setAutoLogin] = useState(true);
 
   const handleAutoLogin: ChangeEventHandler<HTMLInputElement> = useCallback(
     ({ target }) => {

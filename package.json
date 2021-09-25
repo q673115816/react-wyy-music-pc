@@ -19,7 +19,7 @@
 	"scripts": {
 		"test": "echo \" ci run success \"",
 		"start": "webpack serve --config build/webpack.dev.js --mode development",
-    "start:ssr": "cross-env NODE_ENV=production webpack --config build/webpack.ssr.js",
+		"start:ssr": "cross-env NODE_ENV=production webpack --config build/webpack.ssr.js",
 		"build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.js",
 		"build:ssr": "cross-env NODE_ENV=production webpack --config build/webpack.prod.js",
 		"build:dll": "cross-env NODE_ENV=production webpack --config build/webpack.dll.js",
@@ -27,7 +27,8 @@
 		"analyz": "cross-env NODE_ENV=production webpack --config build/webpack.analyze.js",
 		"lint": "./node_modules/.bin/eslint --fix ./src/**/*",
 		"vite": "vite --config vite.config.ts",
-		"vite-build": "vite build"
+		"vite-build": "vite build",
+    "jest": "jest"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "*",
@@ -88,6 +89,7 @@
 		"babel-jest": "^27.2.1",
 		"babel-loader": "^8.2.2",
 		"core-js": "^3.18.0",
+		"coveralls": "^3.1.1",
 		"cross-env": "^7.0.3",
 		"css-loader": "^6.3.0",
 		"cssnano": "^5.0.8",

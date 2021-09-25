@@ -47,7 +47,7 @@ export interface LoginState {
 }
 
 export const LoginInitialState: LoginState = {
-  argeeArgument: false,
+  argeeArgument: true,
   loginphone: "",
   loginpassword: "",
   registerphone: "",
