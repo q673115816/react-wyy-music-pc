@@ -1,35 +1,33 @@
-import React, {memo} from 'react';
-import { useAppSelector, useAppDispatch } from '@/reducers/hooks'
-import { Link } from 'react-router-dom';
-import classNames from 'classnames';
+import React, { memo } from "react";
+import { useAppSelector, useAppDispatch } from "@/reducers/hooks";
+import { Link } from "react-router-dom";
+import classNames from "classnames";
 import {
   setSearchValue,
   setSearchHistory,
   setSearchHot,
   setSearchSuggest,
-} from '@/reducers/search/slice';
-import { setDialogReset, setSearchShow } from '@/reducers/mask/slice';
-import Mask from '../Mask';
-import History from './History';
-import HotList from './HotList'
+} from "@/reducers/search/slice";
+import { setDialogReset, setSearchShow } from "@/reducers/mask/slice";
+import Mask from "../Mask";
+import History from "./History";
+import HotList from "./HotList";
 
 export default memo(() => {
   const dispatch = useAppDispatch();
-  const {
-    searchValue,
-    searchHot,
-    searchSuggest,
-    searchHistory,
-  } = useAppSelector(({ search }) => search);
+  const { searchValue, searchHot, searchSuggest, searchHistory } =
+    useAppSelector(({ search }) => search);
   const { searchVisibility } = useAppSelector(({ mask }) => mask);
   const handleSearch = (keywords) => {
     // setSearchVisibility(false);
     dispatch(setDialogReset());
     dispatch(setSearchValue({ searchValue: keywords }));
-    dispatch(setSearchHistory([
-      keywords,
-      ...searchHistory.filter((search) => search !== keywords),
-    ]));
+    dispatch(
+      setSearchHistory([
+        keywords,
+        ...searchHistory.filter((search) => search !== keywords),
+      ])
+    );
     // push(`/search?keywords=${keywords}`);
   };
   if (!searchVisibility) return null;
@@ -44,9 +42,7 @@ export default memo(() => {
               onClick={() => handleSearch(searchValue)}
             >
               搜索&quot;
-              <span className="ui_link">
-                {searchValue}
-              </span>
+              <span className="ui_link">{searchValue}</span>
               &quot;相关的结果&gt;
             </Link>
             {searchSuggest?.order?.map((order, index) => (
@@ -57,18 +53,17 @@ export default memo(() => {
               </div>
             ))}
           </div>
-        )
-          : (
-            <div className="domHeader_search_box_noValue overflow-auto h-full flex-auto">
-              {
-                searchHistory.length > 0
-                && <History handleSearch={handleSearch} />
-              }
-              <div className="subtitle px-5 py-3 text-sm text-gray-400">热搜榜</div>
-              <HotList list={searchHot} handleSearch={handleSearch}/>
+        ) : (
+          <div className="domHeader_search_box_noValue overflow-auto h-full flex-auto">
+            {searchHistory.length > 0 && (
+              <History handleSearch={handleSearch} />
+            )}
+            <div className="subtitle px-5 py-3 text-sm text-gray-400">
+              热搜榜
             </div>
-          )}
-
+            <HotList list={searchHot} handleSearch={handleSearch} />
+          </div>
+        )}
       </div>
     </Mask>
   );

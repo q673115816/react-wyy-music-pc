@@ -1,30 +1,25 @@
 import React, {
   memo,
-  useEffect, useLayoutEffect,
-  useRef, useState,
-} from 'react';
-import { Link } from 'react-router-dom';
-import {
-  IconTrash,
-  IconX,
-} from '@tabler/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
-import {
-  setSearchHistory,
-} from '@/reducers/search/slice';
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import { Link } from "react-router-dom";
+import { IconTrash, IconX } from "@tabler/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { setSearchHistory } from "@/reducers/search/slice";
 
 export default memo(({ handleSearch }) => {
   const dispatch = useAppDispatch();
   const [isHidden, setIsHidden] = useState(false);
   const refHistory = useRef<HTMLDivElement>(null);
-  const {
-    searchHistory,
-  } = useAppSelector(({ search }) => search);
+  const { searchHistory } = useAppSelector(({ search }) => search);
   const handleDeleteSearchHistory = (keywords) => {
-    dispatch(setSearchHistory(
-      searchHistory.filter((search) => search !== keywords),
-    ));
+    dispatch(
+      setSearchHistory(searchHistory.filter((search) => search !== keywords))
+    );
   };
 
   const handleDeleteAllSearchHistory = () => {
@@ -40,28 +35,28 @@ export default memo(({ handleSearch }) => {
   return (
     <>
       <div className="subtitle flex items-center px-5 py-2 text-gray-500">
-        <span className="text-sm">
-          搜索历史
-        </span>
+        <span className="text-sm">搜索历史</span>
         &nbsp;
         <button type="button" onClick={handleDeleteAllSearchHistory}>
           <IconTrash size={16} />
         </button>
-        {isHidden
-        && (
-        <button
-          type="button"
-          onClick={() => setIsHidden(false)}
-          className="ml-auto ui_text_black_hover"
-        >
-          查看全部
-        </button>
+        {isHidden && (
+          <button
+            type="button"
+            onClick={() => setIsHidden(false)}
+            className="ml-auto ui_text_black_hover"
+          >
+            查看全部
+          </button>
         )}
       </div>
-      <div className="px-5" style={isHidden ? { height: 66, overflow: 'hidden' } : null} ref={refHistory}>
+      <div
+        className="px-5"
+        style={isHidden ? { height: 66, overflow: "hidden" } : null}
+        ref={refHistory}
+      >
         <div className="searchHistory flex flex-wrap -m-1">
-          {
-          searchHistory.map((item) => (
+          {searchHistory.map((item) => (
             <Link
               key={item}
               to={`/search/${item}`}
@@ -81,8 +76,7 @@ export default memo(({ handleSearch }) => {
                 <IconX size={14} stroke={2} />
               </button>
             </Link>
-          ))
-        }
+          ))}
         </div>
       </div>
     </>
