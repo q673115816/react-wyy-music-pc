@@ -1,48 +1,51 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {LOCALSTORAGE} from "@/common/utils";
+import { createSlice } from "@reduxjs/toolkit";
+import { LOCALSTORAGE } from "@/common/utils";
 
 interface InsetState {
-  POSITION: boolean,
-  SCREEN: string,
-  globalVisibility: boolean,
-  globalDragger: boolean,
-  globalResizer: boolean,
-  globalStartX: number,
-  globalStartY: number,
-  globalBeforeX: number,
-  globalBeforeY: number,
-  globalX: number,
-  globalY: number,
+  POSITION: boolean;
+  SCREEN: string;
+  globalVisibility: boolean;
+  globalDragger: boolean;
+  globalResizer: boolean;
+  globalStartX: number;
+  globalStartY: number;
+  globalBeforeX: number;
+  globalBeforeY: number;
+  globalX: number;
+  globalY: number;
 
-  GlobalRectLock: boolean,
-  globalStartRectX: number,
-  globalStartRectY: number,
-  globalBeforeWidth: number,
-  globalBeforeHeight: number,
-  globalWidth: number,
-  globalHeight: number,
+  GlobalRectLock: boolean;
+  globalStartRectX: number;
+  globalStartRectY: number;
+  globalBeforeWidth: number;
+  globalBeforeHeight: number;
+  globalWidth: number;
+  globalHeight: number;
 
-  globalStartLrcX: number,
-  globalStartLrcY: number,
-  globalBeforeLrcX: number,
-  globalBeforeLrcY: number,
-  globalLrcX: number,
-  globalLrcY: number,
-  globalLrcWidth: number,
-  globalLrcHeight: number,
+  globalStartLrcX: number;
+  globalStartLrcY: number;
+  globalBeforeLrcX: number;
+  globalBeforeLrcY: number;
+  globalLrcX: number;
+  globalLrcY: number;
+  globalLrcWidth: number;
+  globalLrcHeight: number;
 }
 
-const globalX = LOCALSTORAGE('x', 0);
-const globalY = LOCALSTORAGE('y', 0);
-const globalWidth = LOCALSTORAGE('width', 1022);
-const globalHeight = LOCALSTORAGE('height', 670);
-const globalLrcWidth = LOCALSTORAGE('lrcWidth', 550);
-const globalLrcHeight = LOCALSTORAGE('lrcHeight', 100);
-const globalLrcX = LOCALSTORAGE('lrcX', globalX + (globalWidth - globalLrcWidth) / 2);
-const globalLrcY = LOCALSTORAGE('lrcY', globalY + globalHeight);
+const globalX = LOCALSTORAGE("x", 0);
+const globalY = LOCALSTORAGE("y", 0);
+const globalWidth = LOCALSTORAGE("width", 1022);
+const globalHeight = LOCALSTORAGE("height", 670);
+const globalLrcWidth = LOCALSTORAGE("lrcWidth", 550);
+const globalLrcHeight = LOCALSTORAGE("lrcHeight", 100);
+const globalLrcX = LOCALSTORAGE(
+  "lrcX",
+  globalX + (globalWidth - globalLrcWidth) / 2
+);
+const globalLrcY = LOCALSTORAGE("lrcY", globalY + globalHeight);
 const initialState: InsetState = {
   POSITION: true,
-  SCREEN: 'normal',
+  SCREEN: "normal",
   globalVisibility: false,
   globalDragger: false,
   globalResizer: false,
@@ -75,14 +78,14 @@ const MINWIDTH = 1022;
 const MINHEIGHT = 670;
 
 const slice = createSlice({
-  name: 'inset',
+  name: "inset",
   initialState,
   reducers: {
     setGlobalInset(state, action) {
       const x = action.payload.x - state.globalStartX + state.globalBeforeX;
       const y = action.payload.y - state.globalStartY + state.globalBeforeY;
-      window.localStorage.setItem('x', x);
-      window.localStorage.setItem('y', y);
+      window.localStorage.setItem("x", x);
+      window.localStorage.setItem("y", y);
       state.globalX = x;
       state.globalY = y;
     },
@@ -108,22 +111,24 @@ const slice = createSlice({
       state.globalBeforeHeight = state.globalHeight;
     },
     setGlobalRect(state, action) {
-      const width = action.payload.x - state.globalStartRectX + state.globalBeforeWidth;
-      const height = action.payload.y - state.globalStartRectY + state.globalBeforeHeight;
+      const width =
+        action.payload.x - state.globalStartRectX + state.globalBeforeWidth;
+      const height =
+        action.payload.y - state.globalStartRectY + state.globalBeforeHeight;
 
       const nextwidth = width > MINWIDTH ? width : MINWIDTH;
       const nextheight = height > MINHEIGHT ? height : MINHEIGHT;
-      window.localStorage.setItem('width', nextwidth);
-      window.localStorage.setItem('height', nextheight);
+      window.localStorage.setItem("width", nextwidth);
+      window.localStorage.setItem("height", nextheight);
       state.globalWidth = nextwidth;
       state.globalHeight = nextheight;
       state.GlobalRectLock = false;
     },
     setScreenFull(state, action) {
-      state.SCREEN = 'full';
+      state.SCREEN = "full";
     },
     setScreenNormal(state, action) {
-      state.SCREEN = 'normal';
+      state.SCREEN = "normal";
     },
     setPositionTrue(state, action) {
       state.POSITION = true;
@@ -132,10 +137,12 @@ const slice = createSlice({
       state.POSITION = false;
     },
     setGlobalLrcInset(state, action) {
-      const lrcX = action.payload.x - state.globalStartLrcX + state.globalBeforeLrcX;
-      const lrcY = action.payload.y - state.globalStartLrcY + state.globalBeforeLrcY;
-      window.localStorage.setItem('lrcX', lrcX);
-      window.localStorage.setItem('lrcY', lrcY);
+      const lrcX =
+        action.payload.x - state.globalStartLrcX + state.globalBeforeLrcX;
+      const lrcY =
+        action.payload.y - state.globalStartLrcY + state.globalBeforeLrcY;
+      window.localStorage.setItem("lrcX", lrcX);
+      window.localStorage.setItem("lrcY", lrcY);
       state.globalLrcX = lrcX;
       state.globalLrcY = lrcY;
     },
@@ -145,15 +152,23 @@ const slice = createSlice({
       state.globalBeforeLrcX = state.globalLrcX;
       state.globalBeforeLrcY = state.globalLrcY;
     },
-  }
-})
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
 export const {
   setGlobalDragger,
-  setGlobalInset, setGlobalLrcInset, setGlobalLrcStartInset, setGlobalRect,
+  setGlobalInset,
+  setGlobalLrcInset,
+  setGlobalLrcStartInset,
+  setGlobalRect,
   setGlobalResizer,
-  setGlobalStartInset, setGlobalStartRect,
-  setGlobalStartRectLock, setPositionFalse, setPositionTrue, setScreenFull, setScreenNormal
-} = slice.actions
+  setGlobalStartInset,
+  setGlobalStartRect,
+  setGlobalStartRectLock,
+  setPositionFalse,
+  setPositionTrue,
+  setScreenFull,
+  setScreenNormal,
+} = slice.actions;

@@ -1,16 +1,15 @@
 import React, {
-  useEffect, memo,
+  useEffect,
+  memo,
   useCallback,
-  MouseEvent, MouseEventHandler
-} from 'react';
-import { Link } from 'react-router-dom';
-import {useAppDispatch} from "@/reducers/hooks";
+  MouseEvent,
+  MouseEventHandler,
+} from "react";
+import { Link } from "react-router-dom";
+import { useAppDispatch } from "@/reducers/hooks";
 
-import {
-  setContriesCodeList,
-  setMsgPrivate,
-} from '@/reducers/common/slice';
-import { setLoginInfo } from '@/reducers/account/slice';
+import { setContriesCodeList, setMsgPrivate } from "@/reducers/common/slice";
+import { setLoginInfo } from "@/reducers/account/slice";
 import {
   apiCountriesCodeList,
   apiUserAccount,
@@ -23,19 +22,21 @@ import {
   apiTopicSublist,
   apiAlbumSublist,
   apiPlaylistMylike,
-} from '@/api';
-import { setGlobalInset, setGlobalDragger, setGlobalStartInset } from '@/reducers/inset/slice';
-import Drag from "@/components/Drag";
+} from "@/api";
 import {
-  IconMicrophone,
-} from '@tabler/icons';
+  setGlobalInset,
+  setGlobalDragger,
+  setGlobalStartInset,
+} from "@/reducers/inset/slice";
+import Drag from "@/components/Drag";
+import { IconMicrophone } from "@tabler/icons";
 
-import DomVisitStack from './components/VisitStack';
-import DomSearch from './components/Search';
-import DomAccount from './components/Account';
-import DomControl from './components/Control';
-import DomFunction from './components/Function';
-import './style.scss';
+import DomVisitStack from "./components/VisitStack";
+import DomSearch from "./components/Search";
+import DomAccount from "./components/Account";
+import DomControl from "./components/Control";
+import DomFunction from "./components/Function";
+import "./style.scss";
 
 const useInit = () => {
   const dispatch = useAppDispatch();
@@ -57,22 +58,24 @@ const useInit = () => {
           uid: profile.userId,
         });
         const { playlist } = await apiUserPlaylist({ uid: profile.userId });
-        const { } = await apiPlaylistMylike();
+        const {} = await apiPlaylistMylike();
         const { ids: likelist } = await apiLikelist({ uid: profile.userId });
         const { data: artistSublist } = await apiArtistSublist();
         const { data: mvSublist } = await apiMVSublist();
         const { data: topicSublist } = await apiTopicSublist();
         const { data: albumSublist } = await apiAlbumSublist();
-        dispatch(setLoginInfo({
-          profile: { ...profile, ...accountDetail },
-          playlist,
-          bindings,
-          likelist,
-          artistSublist,
-          mvSublist,
-          topicSublist,
-          albumSublist,
-        }));
+        dispatch(
+          setLoginInfo({
+            profile: { ...profile, ...accountDetail },
+            playlist,
+            bindings,
+            likelist,
+            artistSublist,
+            mvSublist,
+            topicSublist,
+            albumSublist,
+          })
+        );
         // dispatch(setIsLogin());
       }
     } catch (error) {
@@ -94,19 +97,24 @@ const useInit = () => {
       await handleGetCountriesCodeList();
       await handleCookieInit();
       await handlePrivateLetterInit();
-    })()
+    })();
   }, []);
-}
+};
 
 const CustomDrag = memo(() => {
   const dispatch = useAppDispatch();
 
-  const onMouseMove: MouseEventHandler = useCallback(({clientX: x, clientY: y}: MouseEvent) => {
-    dispatch(setGlobalInset({
-      x,
-      y,
-    }));
-  }, []);
+  const onMouseMove: MouseEventHandler = useCallback(
+    ({ clientX: x, clientY: y }: MouseEvent) => {
+      dispatch(
+        setGlobalInset({
+          x,
+          y,
+        })
+      );
+    },
+    []
+  );
 
   const onMouseUp: MouseEventHandler = useCallback(() => {
     dispatch(setGlobalDragger(false));
@@ -114,10 +122,12 @@ const CustomDrag = memo(() => {
 
   const onMouseDown: MouseEventHandler = useCallback((e: MouseEvent) => {
     dispatch(setGlobalDragger(true));
-    dispatch(setGlobalStartInset({
-      x: e.clientX,
-      y: e.clientY,
-    }));
+    dispatch(
+      setGlobalStartInset({
+        x: e.clientX,
+        y: e.clientY,
+      })
+    );
   }, []);
   return (
     <Drag
@@ -128,10 +138,10 @@ const CustomDrag = memo(() => {
       onMouseUp={onMouseUp}
     />
   );
-})
+});
 
 export default memo(() => {
-  useInit()
+  useInit();
   return (
     <div className="domHeader relative flex items-center">
       <CustomDrag />

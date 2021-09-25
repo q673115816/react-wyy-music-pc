@@ -1,18 +1,19 @@
-import React, {
-  useEffect, useRef, useState,
-} from 'react';
-import dayjs from 'dayjs';
-import { transTextEmoji } from '@/common/faces';
-import { apiSendText, apiMsgPrivateHistory } from '@/api';
-import { setMsgPrivateHistory } from '@/reducers/letter/slice';
-import { wordLength } from '@/common/utils';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import dayjs from "dayjs";
+import { transTextEmoji } from "@/common/faces";
+import { apiSendText, apiMsgPrivateHistory } from "@/api";
+import { setMsgPrivateHistory } from "@/reducers/letter/slice";
+import { wordLength } from "@/common/utils";
+import { Link } from "react-router-dom";
 import {
-  IconChevronLeft, IconPhoto, IconMoodSmile, IconPlayerPlay,
-} from '@tabler/icons';
-import EmojiFaces from '@/components/EmojiFaces';
-import Write from '@/components/Write';
-import {useAppDispatch, useAppSelector} from "@/reducers/hooks";
+  IconChevronLeft,
+  IconPhoto,
+  IconMoodSmile,
+  IconPlayerPlay,
+} from "@tabler/icons";
+import EmojiFaces from "@/components/EmojiFaces";
+import Write from "@/components/Write";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
 const DomSong = ({ msg = {} }) => (
   <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">
@@ -25,17 +26,16 @@ const DomSong = ({ msg = {} }) => (
     <div className="content flex-auto w-0 pl-2.5 text-left">
       <div className="name truncate">
         {msg.song.name}
-        {msg.song.alias.length > 0
-          && (
-            <span className="text-gray-400">
-              {`（${msg.song.alias.join(',')}）`}
-            </span>
-          )}
+        {msg.song.alias.length > 0 && (
+          <span className="text-gray-400">
+            {`（${msg.song.alias.join(",")}）`}
+          </span>
+        )}
       </div>
       <div className="text-gray-400 artist truncate">
         {msg.song.artists.map((artist, index) => (
           <span key={artist.name}>
-            {index > 0 && ' / '}
+            {index > 0 && " / "}
             {artist.name}
           </span>
         ))}
@@ -54,21 +54,17 @@ const DomAlbum = ({ msg = {} }) => (
     >
       <img src={`${msg.album.picUrl}?param=100y100`} alt="" />
       <i className="absolute opacity-0 group-hover:opacity-100 inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
-        <IconPlayerPlay
-          size={14}
-          className="fill-current"
-        />
+        <IconPlayerPlay size={14} className="fill-current" />
       </i>
     </button>
     <div className="content flex-auto w-0 pl-2.5 text-left">
       <div className="name truncate">
         {msg.album.name}
-        {msg.album.alias.length > 0
-          && (
-            <span className="text-gray-400">
-              {`（${msg.album.alias.join(',')}）`}
-            </span>
-          )}
+        {msg.album.alias.length > 0 && (
+          <span className="text-gray-400">
+            {`（${msg.album.alias.join(",")}）`}
+          </span>
+        )}
       </div>
       <div className="text-gray-400 artist truncate">
         {msg.album.artist.name}
@@ -77,18 +73,14 @@ const DomAlbum = ({ msg = {} }) => (
   </Link>
 );
 
-const DomCircle = ({ msg = {} }) => (
-  <div>云圈</div>
-);
+const DomCircle = ({ msg = {} }) => <div>云圈</div>;
 
 const DomPromotion = ({ msg = {} }) => (
   <a href={msg.promotion.url} className="embed">
     <div className="cover">
       <img className="" src={msg.promotion.coverUrl} alt="" />
     </div>
-    <div className="promotion text-gray-400">
-      {msg.promotion.title}
-    </div>
+    <div className="promotion text-gray-400">{msg.promotion.title}</div>
   </a>
 );
 
@@ -136,14 +128,14 @@ export default () => {
   const dispatch = useAppDispatch();
   const history = useRef();
 
-  const {
-    uid, hint, nickname, privatMsgs,
-  } = useAppSelector(({ letter }) => letter);
+  const { uid, hint, nickname, privatMsgs } = useAppSelector(
+    ({ letter }) => letter
+  );
 
   const { profile } = useAppSelector(({ account }) => account);
 
   const [visibility, setVisibility] = useState(false);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   // const [privatMsgs, setPrivateMsgs] = useState([]);
 
   const clickface = (face) => {
@@ -154,10 +146,12 @@ export default () => {
     try {
       const { hint, msgs = [] } = await apiMsgPrivateHistory({ uid });
       // setPrivateMsgs(msgs.reverse());
-      dispatch(setMsgPrivateHistory({
-        hint,
-        privatMsgs: msgs.reverse(),
-      }));
+      dispatch(
+        setMsgPrivateHistory({
+          hint,
+          privatMsgs: msgs.reverse(),
+        })
+      );
       history.current.scrollTo(0, history.current.scrollHeight);
     } catch (error) {
       console.log(error);
@@ -170,9 +164,11 @@ export default () => {
         user_ids: uid,
         msg: value,
       });
-      dispatch(setMsgPrivateHistory({
-        privatMsgs: newMsgs.reverse(),
-      }));
+      dispatch(
+        setMsgPrivateHistory({
+          privatMsgs: newMsgs.reverse(),
+        })
+      );
     } catch (error) {
       console.log(error);
     }
@@ -182,9 +178,9 @@ export default () => {
     const length = wordLength(value);
     if (length <= 200) {
       handleSend();
-      setValue('');
+      setValue("");
     } else {
-      console.log('to long');
+      console.log("to long");
     }
   };
 
@@ -194,66 +190,78 @@ export default () => {
 
   return (
     <>
-      <div className="topbar relative text-center text-sm flex-center" style={{ height: 50 }}>
+      <div
+        className="topbar relative text-center text-sm flex-center"
+        style={{ height: 50 }}
+      >
         <button
           type="button"
           className="back absolute inset-y-0 left-0 p-2.5 flex-center ui_text_gray_hover"
-          onClick={() => dispatch(setMsgPrivateHistory({ showMsgPrivateHistory: false }))}
+          onClick={() =>
+            dispatch(setMsgPrivateHistory({ showMsgPrivateHistory: false }))
+          }
         >
           <IconChevronLeft size={22} />
         </button>
         <span>{nickname}</span>
       </div>
-      <div className="history overflow-auto max-h-full flex-auto px-5" ref={history}>
-        {
-          privatMsgs
-            .map((item) => (
-              <div className="item mt-5" key={item.id}>
-                <div className="time text-gray-400">
-                  {dayjs(item.time).format('YYYY年MM月DD日 HH:mm')}
+      <div
+        className="history overflow-auto max-h-full flex-auto px-5"
+        ref={history}
+      >
+        {privatMsgs.map((item) => (
+          <div className="item mt-5" key={item.id}>
+            <div className="time text-gray-400">
+              {dayjs(item.time).format("YYYY年MM月DD日 HH:mm")}
+            </div>
+            {item.toUser.userId === profile.userId ? (
+              <div className="msg flex justify-start">
+                <div className="avatar flex-none mr-4 rounded-full overflow-hidden w-8 h-8">
+                  <img className="" src={item.fromUser.avatarUrl} alt="" />
                 </div>
-                {item.toUser.userId === profile.userId
-                  ? (
-                    <div className="msg flex justify-start">
-                      <div className="avatar flex-none mr-4 rounded-full overflow-hidden w-8 h-8">
-                        <img
-                          className=""
-                          src={item.fromUser.avatarUrl}
-                          alt=""
-                        />
-                      </div>
-                      <DomMsgLeft msg={JSON.parse(item.msg)} />
-                    </div>
-                  )
-                  : <DomMsgRight msg={JSON.parse(item.msg)} />}
+                <DomMsgLeft msg={JSON.parse(item.msg)} />
               </div>
-            ))
-        }
+            ) : (
+              <DomMsgRight msg={JSON.parse(item.msg)} />
+            )}
+          </div>
+        ))}
         {hint && <div className="hint">{hint}</div>}
       </div>
       <div className="feedback p-3">
-        <Write {...{
-          value, setValue, length: 200, placeholder: `回复 ${nickname}`,
-        }}
+        <Write
+          {...{
+            value,
+            setValue,
+            length: 200,
+            placeholder: `回复 ${nickname}`,
+          }}
         />
         <div className="actions flex mt-2.5">
           <div className="left relative">
-            {
-              visibility
-              && (
-                <div className="-translate-x-3 -translate-y-1/2 absolute faces right-full top-1/2 transform">
-                  <EmojiFaces {...{ handleHide: () => setVisibility(false), clickface }} />
-                </div>
-              )
-            }
-            <button type="button" className="action" onClick={() => setVisibility(!visibility)}>
+            {visibility && (
+              <div className="-translate-x-3 -translate-y-1/2 absolute faces right-full top-1/2 transform">
+                <EmojiFaces
+                  {...{ handleHide: () => setVisibility(false), clickface }}
+                />
+              </div>
+            )}
+            <button
+              type="button"
+              className="action"
+              onClick={() => setVisibility(!visibility)}
+            >
               <IconMoodSmile size={24} stroke={1.4} />
             </button>
             <button type="button" className="action">
               <IconPhoto size={24} stroke={1.4} />
             </button>
           </div>
-          <button type="button" className="ml-auto border px-4 h-8 rounded-full" onClick={handleSubmit}>
+          <button
+            type="button"
+            className="ml-auto border px-4 h-8 rounded-full"
+            onClick={handleSubmit}
+          >
             发送
           </button>
         </div>
