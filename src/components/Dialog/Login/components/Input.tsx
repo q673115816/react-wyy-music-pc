@@ -18,9 +18,9 @@ export default memo<InputProps>(
     placeholder = "",
   }) => {
     const [Type, setType] = useState(type);
-    const [isFocus, setIsFocus] = useState(false);
+    // const [isFocus, setIsFocus] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const handleFocus = useCallback(() => setIsFocus(true), []);
+    // const handleFocus = useCallback(() => setIsFocus(true), []);
     const handleTogglePassword = useCallback(() => {
       setType(showPassword ? "password" : "text");
       setShowPassword(!showPassword);
@@ -32,8 +32,8 @@ export default memo<InputProps>(
           name={name}
           placeholder={placeholder}
           className="input"
-          readOnly={isFocus}
-          onFocus={handleFocus}
+          // readOnly={isFocus}
+          // onFocus={handleFocus}
           value={value}
           onChange={onChange}
         />
