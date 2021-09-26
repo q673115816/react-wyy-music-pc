@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { transTextEmoji } from "@/common/faces";
 import { apiSendText, apiMsgPrivateHistory } from "@/api";
@@ -124,9 +124,9 @@ const DomMsgRight = ({ msg = {} }) => (
   </div>
 );
 
-export default () => {
+export default memo(() => {
   const dispatch = useAppDispatch();
-  const history = useRef();
+  const history = useRef(null);
 
   const { uid, hint, nickname, privatMsgs } = useAppSelector(
     ({ letter }) => letter
@@ -137,7 +137,9 @@ export default () => {
   const [visibility, setVisibility] = useState(false);
   const [value, setValue] = useState("");
   // const [privatMsgs, setPrivateMsgs] = useState([]);
-
+  const handleChange = useCallback((e) => {
+    setValue(e.target.value);
+  }, []);
   const clickface = (face) => {
     setValue(value + face);
   };
@@ -230,12 +232,9 @@ export default () => {
       </div>
       <div className="feedback p-3">
         <Write
-          {...{
-            value,
-            setValue,
-            length: 200,
-            placeholder: `回复 ${nickname}`,
-          }}
+          placeholder={`回复 ${nickname}`}
+          max={200}
+          onChange={handleChange}
         />
         <div className="actions flex mt-2.5">
           <div className="left relative">
@@ -268,4 +267,4 @@ export default () => {
       </div>
     </>
   );
-};
+});

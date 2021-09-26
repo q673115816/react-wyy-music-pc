@@ -34,6 +34,7 @@ const cdn = {
     `${cdnBase}/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
     `${cdnBase}/immer/dist/immer.umd.development${minCdn}.js`,
     `${cdnBase}/socket.io-client/dist/socket.io${minCdn}.js`,
+    `${cdnBase}/react-query/dist/react-query.production${minCdn}.js`,
     `https://webrtc.github.io/adapter/adapter-latest.js`,
   ],
   // css: [
@@ -114,6 +115,7 @@ const prod = {
       axios: "axios",
       "socket.io-client": "io",
       "webrtc-adapter": "adapter",
+      "react-query": "ReactQuery",
     },
   ],
   module: {

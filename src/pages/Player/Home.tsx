@@ -1,15 +1,11 @@
-import React, {
-  useEffect, useState, memo, useMemo,
-} from 'react';
+import React, { useEffect, useState, memo, useMemo, useCallback } from "react";
 
-import {
-  useHistory, Link,
-} from 'react-router-dom';
+import { useHistory, Link } from "react-router-dom";
 
-import { commentLimit as limit } from '@/common/config';
+import { commentLimit as limit } from "@/common/config";
 
-import classNames from 'classnames';
-import dayjs from 'dayjs';
+import classNames from "classnames";
+import dayjs from "dayjs";
 import {
   IconChevronLeft,
   IconCaretUp,
@@ -19,30 +15,26 @@ import {
   IconCheckbox,
   IconScreenShare,
   IconDownload,
-} from '@tabler/icons';
-import './style.scss';
+} from "@tabler/icons";
+import "./style.scss";
 
-import { transPlayCount } from '@/common/utils';
-import { setAudioRunningPause } from '@/reducers/audio/slice';
+import { transPlayCount } from "@/common/utils";
+import { setAudioRunningPause } from "@/reducers/audio/slice";
 
-import {
-  apiFollow,
-  apiCommentVideo,
-  apiCommentMV,
-} from '@/api';
-import { setVideoListId } from '@/reducers/videolist/slice';
-import Write from '@/components/Write';
+import { apiFollow, apiCommentVideo, apiCommentMV } from "@/api";
+import { setVideoListId } from "@/reducers/videolist/slice";
+import Write from "@/components/Write";
 
-import {useAppDispatch} from '@/reducers/hooks'
-import DomCommentsList from '@/components/CommentsList';
-import DomPage from '@/components/Page';
+import { useAppDispatch } from "@/reducers/hooks";
+import DomCommentsList from "@/components/CommentsList";
+import DomPage from "@/components/Page";
 
-import DomLoading from '@/components/Loading';
-import DialogDownloadVideo from '@/components/Dialog/DownloadVideo';
-import DomRelated from './Related';
-import DomVideo from './components/Video';
-import FNInit from './Init';
-import FNIO from './IO';
+import DomLoading from "@/components/Loading";
+import DialogDownloadVideo from "@/components/Dialog/DownloadVideo";
+import DomRelated from "./Related";
+import DomVideo from "./components/Video";
+import FNInit from "./Init";
+import FNIO from "./IO";
 
 const DomGroup = ({ list = [], func }) => (
   <div className="domVideoDetail_group mt-3 space-x-1">
@@ -60,7 +52,7 @@ const DomGroup = ({ list = [], func }) => (
 );
 
 export default memo(({ type, vid }) => {
-  console.log('player');
+  console.log("player");
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -95,11 +87,13 @@ export default memo(({ type, vid }) => {
 
   const { goBack } = useHistory();
   const [descriptionVisibility, setDescriptionVisibility] = useState(false);
-  const [value, setValue] = useState('');
-
+  const [value, setValue] = useState("");
+  const handleChange = useCallback((e) => {
+    setValue(e.target.value);
+  }, []);
   const handleFollow = async () => {
     try {
-      const { } = await apiFollow({
+      const {} = await apiFollow({
         id: detail.creator.userId,
         t: followed ? 0 : 1,
       });
@@ -108,12 +102,7 @@ export default memo(({ type, vid }) => {
     }
   };
 
-
-  const {
-    DomVideoWrap,
-    DomScroll,
-    fixed,
-  } = FNIO();
+  const { DomVideoWrap, DomScroll, fixed } = FNIO();
 
   return (
     <div className=" overflow-auto h-full" ref={DomScroll}>
@@ -130,31 +119,38 @@ export default memo(({ type, vid }) => {
             </button>
           </div>
           <div className="ui_aspect-ratio-16/9" ref={DomVideoWrap}>
-            <DomVideo url={urls?.url} detail={detail} fixed={fixed} next={next}/>
+            <DomVideo
+              url={urls?.url}
+              detail={detail}
+              fixed={fixed}
+              next={next}
+            />
           </div>
           <div className="domVideoDetail_creator flex items-center mt-5">
-            <Link to={`/user/${detail?.creator?.userId}`} className="avatar rounded-full overflow-hidden border">
+            <Link
+              to={`/user/${detail?.creator?.userId}`}
+              className="avatar rounded-full overflow-hidden border"
+            >
               <img className="" src={detail?.creator?.avatarUrl} alt="" />
             </Link>
-            <Link className="nickname ml-2.5" to={`/user/${detail?.creator?.userId}`}>
+            <Link
+              className="nickname ml-2.5"
+              to={`/user/${detail?.creator?.userId}`}
+            >
               {detail?.creator?.nickname}
             </Link>
-            {
-              type === 'video'
-              && (
-                <button
-                  onClick={handleFollow}
-                  type="button"
-                  className={classNames('follow text-red-500 bg-red-50 ml-auto h-8 rounded-full', { on: detail?.creator?.followed })}
-                >
-                  {
-                    detail?.creator?.followed
-                      ? '+ 已关注'
-                      : '+ 关注'
-                  }
-                </button>
-              )
-            }
+            {type === "video" && (
+              <button
+                onClick={handleFollow}
+                type="button"
+                className={classNames(
+                  "follow text-red-500 bg-red-50 ml-auto h-8 rounded-full",
+                  { on: detail?.creator?.followed }
+                )}
+              >
+                {detail?.creator?.followed ? "+ 已关注" : "+ 关注"}
+              </button>
+            )}
           </div>
           <button
             type="button"
@@ -162,57 +158,46 @@ export default memo(({ type, vid }) => {
             onClick={() => setDescriptionVisibility(!descriptionVisibility)}
           >
             {detail?.title}
-            {
-              descriptionVisibility
-                ? <IconCaretUp size={24} className="fill-current" />
-                : <IconCaretDown size={24} className="fill-current" />
-            }
+            {descriptionVisibility ? (
+              <IconCaretUp size={24} className="fill-current" />
+            ) : (
+              <IconCaretDown size={24} className="fill-current" />
+            )}
           </button>
           <div className="domVideoDetail_info text-gray-300 mt-3">
             发布：
-            {dayjs(detail?.publishTime).format('YYYY-MM-DD')}
-            &nbsp;
-            播放
+            {dayjs(detail?.publishTime).format("YYYY-MM-DD")}
+            &nbsp; 播放
             {transPlayCount(detail?.playCount)}
           </div>
-          <DomGroup list={detail?.videoGroup} func={(id) => dispatch((setVideoListId({ id })))} />
-          {
-            descriptionVisibility
-            && (
-              <div className="domVideoDetail_description mt-4">
-                {detail.description}
-              </div>
-            )
-          }
+          <DomGroup
+            list={detail?.videoGroup}
+            func={(id) => dispatch(setVideoListId({ id }))}
+          />
+          {descriptionVisibility && (
+            <div className="domVideoDetail_description mt-4">
+              {detail.description}
+            </div>
+          )}
           <div className="domVideoDetail_actions flex space-x-3 mt-8">
             <button
               type="button"
               className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100"
             >
               <IconThumbUp size={20} stroke={1} />
-              {
-                detailInfo.liked
-                  ? '已赞'
-                  : '赞'
-              }
-              (
-              {detailInfo.likedCount}
-              )
+              {detailInfo.liked ? "已赞" : "赞"}({detailInfo.likedCount})
             </button>
             <button
               type="button"
               className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100"
               onClick={handleSub}
             >
-              {isSub
-                ? <IconCheckbox size={20} stroke={1} />
-                : <IconFolderPlus size={20} stroke={1} />}
-              {
-                isSub ? '已收藏' : '收藏'
-              }
-              (
-              {detail[sub]}
-              )
+              {isSub ? (
+                <IconCheckbox size={20} stroke={1} />
+              ) : (
+                <IconFolderPlus size={20} stroke={1} />
+              )}
+              {isSub ? "已收藏" : "收藏"}({detail[sub]})
             </button>
             <button
               type="button"
@@ -225,7 +210,10 @@ export default memo(({ type, vid }) => {
             <button
               type="button"
               onClick={handleDownload}
-              className={classNames('relative w-24 h-8 rounded-full overflow-hidden', downloadProcess === 0 ? ' border' : '')}
+              className={classNames(
+                "relative w-24 h-8 rounded-full overflow-hidden",
+                downloadProcess === 0 ? " border" : ""
+              )}
             >
               <div className="absolute inset-0 flex justify-end overflow-hidden">
                 <span className="w-24 h-8 flex-center bg-white">
@@ -233,7 +221,10 @@ export default memo(({ type, vid }) => {
                   {downloadState}
                 </span>
               </div>
-              <div className="absolute inset-y-0 left-0 overflow-hidden" style={{ right: `${(1 - downloadProcess) * 100}%` }}>
+              <div
+                className="absolute inset-y-0 left-0 overflow-hidden"
+                style={{ right: `${(1 - downloadProcess) * 100}%` }}
+              >
                 <span className="w-24 h-8 flex-center ui_theme_bg_color text-white">
                   <IconDownload size={20} stroke={1} />
                   {downloadState}
@@ -244,19 +235,14 @@ export default memo(({ type, vid }) => {
           </div>
           <div className="domVideoDetail_main mt-8">
             <div className="title mb-5">
-              <Link to={`/comment/${type}/${vid}`} className="h1 font-bold">评论</Link>
-                  &nbsp;
-              <span>
-                {`(${detail.commentCount})`}
-              </span>
+              <Link to={`/comment/${type}/${vid}`} className="h1 font-bold">
+                评论
+              </Link>
+              &nbsp;
+              <span>{`(${detail.commentCount})`}</span>
             </div>
             <div className="domVideoDetail_feedback mb-10">
-              <Write {...{
-                value,
-                setValue,
-                length: 140,
-              }}
-              />
+              <Write max={140} onChange={handleChange} />
             </div>
             {commentsLoading ? (
               <div className="">
@@ -265,7 +251,11 @@ export default memo(({ type, vid }) => {
             ) : (
               <>
                 <DomCommentsList comments={comments} />
-                <DomPage total={Math.ceil(comments.total / limit)} page={page} func={setPage} />
+                <DomPage
+                  total={Math.ceil(comments.total / limit)}
+                  page={page}
+                  func={setPage}
+                />
               </>
             )}
           </div>

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState, useMemo } from "react";
+import React, { memo, useEffect, useState, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay, IconMoodSmile, IconAt, IconHash } from "@tabler/icons";
 import {
@@ -10,7 +10,7 @@ import {
   apiVideoDetail,
 } from "@/api";
 import { commentLimit as limit } from "@/common/config";
-import DomWrite from "@/components/Write";
+import Write from "@/components/Write";
 import DomCommentsList from "@/components/CommentsList";
 import DomLoading from "@/components/Loading";
 import DomPage from "@/components/Page";
@@ -94,6 +94,10 @@ export default memo(({ id, type }) => {
     }
   };
 
+  const handleChange = useCallback((e) => {
+    setValue(e.target.value);
+  }, []);
+
   const handleCommentsInit = async () => {
     try {
       const comments = await switchs[type].apiComment({
@@ -132,7 +136,7 @@ export default memo(({ id, type }) => {
     <div className="domComment overflow-auto px-8 py-5 h-full">
       <MemoHeader detail={detail} />
       <div className="domComment_write mt-4">
-        <DomWrite {...{ value, setValue, length: 140 }} />
+        <Write onChange={handleChange} max={140} />
         <div className="domComment_write_actions flex mt-2.5">
           <div className="flex space-x-2">
             <button type="button" className="text-gray-500 hover:text-black">

@@ -109,6 +109,10 @@ module.exports = {
           name: "dayjs",
           test: /[\\/]node_modules[\\/]_?dayjs(.*)/,
         },
+        sentry: {
+          name: "sentry",
+          test: /[\\/]node_modules[\\/]_?@sentry(.*)/,
+        },
         "qrcode.react": {
           name: "qrcode",
           test: /[\\/]node_modules[\\/]_?qrcode.react(.*)/,
