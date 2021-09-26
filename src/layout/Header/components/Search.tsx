@@ -1,72 +1,88 @@
-import React, { useEffect, memo } from 'react';
-import { IconSearch } from '@tabler/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  apiSearchHotDetail,
-  apiSearchSuggest,
-} from '@/api';
+import React, {
+  useEffect,
+  memo,
+  FormEventHandler,
+  ChangeEventHandler,
+} from "react";
+import { IconSearch } from "@tabler/icons";
+import { apiSearchHotDetail, apiSearchSuggest } from "@/api";
 
 import {
   setSearchValue,
   setSearchHistory,
   setSearchHot,
   setSearchSuggest,
-} from '@/reducers/search/slice';
-import { setSearchShow, setDialogReset } from '@/reducers/mask/slice';
-import { useHistory } from 'react-router-dom';
+} from "@/reducers/search/slice";
+import { setSearchShow, setDialogReset } from "@/reducers/mask/slice";
+import { useHistory } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useQuery } from "react-query";
 
 export default memo(() => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { push } = useHistory();
-  const {
-    searchHistory,
-    searchValue,
-  } = useSelector(({ search }) => search);
+  const { searchHistory, searchValue } = useAppSelector(({ search }) => search);
   const handleSearchInit = async () => {
     try {
       const { data } = await apiSearchHotDetail();
       // setSearchHot(data);
-      dispatch(setSearchHot({
-        searchHot: data,
-      }));
+      dispatch(
+        setSearchHot({
+          searchHot: data,
+        })
+      );
       dispatch(setSearchShow());
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleSearchSuggestInit = async () => {
-    try {
+  // const handleSearchSuggestInit = async () => {
+  //   try {
+  //     const { result } = await apiSearchSuggest({
+  //       keywords: searchValue,
+  //     });
+  //     setSearchSuggest(result);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  useQuery(
+    ["search", searchValue],
+    async () => {
+      if (!searchValue) return;
       const { result } = await apiSearchSuggest({
         keywords: searchValue,
       });
-      setSearchSuggest(result);
-    } catch (error) {
-      console.log(error);
+      dispatch(setSearchSuggest(result));
     }
+    // {
+    //   retryDelay: 2000,
+    // }
+  );
+
+  const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const searchValue = e.target.value;
+    // if (searchValue) handleSearchSuggestInit();
+    dispatch(setSearchValue({ searchValue }));
   };
 
-  const handleSearchChange = (e) => {
-    dispatch(setSearchValue({ searchValue: e.target.value }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (searchValue) {
       push(`/search/${searchValue}`);
-      dispatch(setDialogReset());// temp
+      dispatch(setDialogReset()); // temp
     }
     return false;
   };
 
-  useEffect(() => {
-    if (searchValue) {
-      handleSearchSuggestInit();
-    }
-  }, [searchValue]);
   return (
     <form className="relative" onSubmit={handleSubmit}>
-      <IconSearch size={16} className="absolute inset-y-0 m-auto left-3 text-white" />
+      <IconSearch
+        size={16}
+        className="absolute inset-y-0 m-auto left-3 text-white"
+      />
       <input
         type="text"
         placeholder="搜索"

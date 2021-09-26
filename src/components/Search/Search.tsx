@@ -8,7 +8,7 @@ import {
   setSearchHot,
   setSearchSuggest,
 } from "@/reducers/search/slice";
-import { setDialogReset, setSearchShow } from "@/reducers/mask/slice";
+import { setDialogReset } from "@/reducers/mask/slice";
 import Mask from "../Mask";
 import History from "./History";
 import HotList from "./HotList";
@@ -18,14 +18,14 @@ export default memo(() => {
   const { searchValue, searchHot, searchSuggest, searchHistory } =
     useAppSelector(({ search }) => search);
   const { searchVisibility } = useAppSelector(({ mask }) => mask);
-  const handleSearch = (keywords) => {
+  const handleSearch = (keywords: string) => {
     // setSearchVisibility(false);
     dispatch(setDialogReset());
     dispatch(setSearchValue({ searchValue: keywords }));
     dispatch(
       setSearchHistory([
         keywords,
-        ...searchHistory.filter((search) => search !== keywords),
+        ...searchHistory.filter((search: string) => search !== keywords),
       ])
     );
     // push(`/search?keywords=${keywords}`);

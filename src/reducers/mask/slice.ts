@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const visibilityState = {
   lyricVisibility: false,
@@ -13,25 +13,25 @@ const visibilityState = {
   dialogCreatePlaylistVisibility: false,
   dialogUnSubscriptionVisibility: false,
   artistId: 0,
-  popupStatus: 'false',
-  avatar: '',
+  popupStatus: "false",
+  avatar: "",
 };
 
 const maskState = {
   contextMenuX: 0,
   contextMenuY: 0,
   contextMenuTotal: 0,
-  contextMenuType: '',
+  contextMenuType: "",
   contextMenuItemId: 0,
   contextMenuItem: {},
   contextMenuSechma: [],
-  contextMenuShareLink: '',
+  contextMenuShareLink: "",
 };
 
 const shareState = {};
 
 const toastState = {
-  toastTitle: [''],
+  toastTitle: [""],
 };
 
 const initialState = {
@@ -42,64 +42,65 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'mask',
+  name: "mask",
   initialState,
   reducers: {
     setToast(state, action) {
-      state.toastTitle = [action.payload]
+      state.toastTitle = [action.payload];
     },
     setContextMenuShow(state, action) {
-      Object.assign(state, action.payload)
-      state.contextMenuVisibility = true
+      Object.assign(state, action.payload);
+      state.contextMenuVisibility = true;
     },
     setContextMenuShareLink(state, action) {
-      Object.assign(state, action.payload)
+      Object.assign(state, action.payload);
     },
-    setSearchShow(state, action) {
-      Object.assign(state, visibilityState, maskState, action.payload)
-      state.searchVisibility = true
+    setSearchShow(state) {
+      // Object.assign(state, visibilityState, maskState, action.payload);
+      state.searchVisibility = true;
     },
     setDialogShareShow(state, action) {
-      Object.assign(state, visibilityState, action.payload)
-      state.dialogShareVisibility = true
+      Object.assign(state, visibilityState, action.payload);
+      state.dialogShareVisibility = true;
     },
     setDialogShareWXShow(state, action) {
-      Object.assign(state, visibilityState, action.payload)
-      state.dialogShareWXVisibility = true
+      Object.assign(state, visibilityState, action.payload);
+      state.dialogShareWXVisibility = true;
     },
     setDialogUploadAvatarShow(state, action) {
-      Object.assign(state, visibilityState, action.payload)
-      state.dialogUploadAvatarVisibility = true
+      Object.assign(state, visibilityState, action.payload);
+      state.dialogUploadAvatarVisibility = true;
     },
     setDialogDownloadVideoShow(state, action) {
-      Object.assign(state, visibilityState, action.payload)
-      state.dialogDownloadVideoVisibility = true
+      Object.assign(state, visibilityState, action.payload);
+      state.dialogDownloadVideoVisibility = true;
     },
     setDialogCreatePlaylistShow(state, action) {
-      Object.assign(state, visibilityState, action.payload)
-      state.dialogHomeOrderVisibility = true
+      Object.assign(state, visibilityState, action.payload);
+      state.dialogHomeOrderVisibility = true;
     },
     setDialogUnSubscriptionShow(state, action) {
-      Object.assign(state, visibilityState, action.payload)
-      state.dialogUnSubscriptionVisibility = true
+      Object.assign(state, visibilityState, action.payload);
+      state.dialogUnSubscriptionVisibility = true;
     },
     setDialogHomeOrderShow(state, action) {
-      Object.assign(state, visibilityState, action.payload)
-      state.dialogHomeOrderVisibility = true
+      Object.assign(state, visibilityState, action.payload);
+      state.dialogHomeOrderVisibility = true;
     },
     setDialogReset(state) {
-      Object.assign(state, visibilityState, maskState)
+      Object.assign(state, visibilityState, maskState);
     },
     setPopupLetterToggle(state) {
-      state.popupStatus = state.popupStatus === 'letter' ? 'false' : 'letter'
+      state.popupStatus = state.popupStatus === "letter" ? "false" : "letter";
     },
     setPopupPlaylistToggle(state) {
-      state.popupStatus = state.popupStatus === 'playlist' ? 'false' : 'playlist'
+      state.popupStatus =
+        state.popupStatus === "playlist" ? "false" : "playlist";
     },
-  }
-})
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
 export const {
   setContextMenuShareLink,
@@ -112,8 +113,8 @@ export const {
   setDialogShareWXShow,
   setDialogUnSubscriptionShow,
   setDialogUploadAvatarShow,
-  setPopupLetterToggle, setPopupPlaylistToggle,
+  setPopupLetterToggle,
+  setPopupPlaylistToggle,
   setSearchShow,
-  setToast
-
-} = slice.actions
+  setToast,
+} = slice.actions;

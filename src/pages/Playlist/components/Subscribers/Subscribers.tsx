@@ -20,7 +20,7 @@ const limit = 60;
 export default memo(({ id }) => {
   const [page, setPage] = useState(1);
 
-  const { data, isLoading } = useQuery(["subscribers", page], async () => {
+  const query = useQuery(["subscribers", page], async () => {
     const { subscribers, total } = await apiPlaylistSubscribers({
       id,
       limit,
@@ -31,6 +31,7 @@ export default memo(({ id }) => {
       total,
     };
   });
+  const { data, isLoading } = query;
 
   if (isLoading)
     return (
