@@ -1,62 +1,62 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig } from "axios";
 // export const prodUrl = 'https://neteasecloudmusicapi.herokuapp.com';
-export const prodUrl = 'https://netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app';
+export const prodUrl =
+  "https://netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app";
 
-export const devUrl = 'http://localhost:3000';
+export const devUrl = "http://localhost:3000";
 
 // const baseURL = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
-const baseURL = process.env.API_URL
-const cookie = localStorage.getItem('cookie') || '';
+const baseURL = process.env.API_URL;
+const cookie = localStorage.getItem("cookie") || "";
 
-const cache = new Set
+const cache = new Set();
 
 type Params = {
-  [key: string]: any
-}
+  [key: string]: any;
+};
 
-const CancelToken = axios.CancelToken
-const source = CancelToken.source()
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
 const axiosInstance = axios.create({
   baseURL,
   withCredentials: true,
-  cancelToken: source.token
-})
+  cancelToken: source.token,
+});
 
 axiosInstance.prototype.cacel = () => {
-  source.cancel('Query was cancelled by React Query')
-}
+  source.cancel("Query was cancelled by React Query");
+};
 
 function POSTPlugin<T extends AxiosRequestConfig>(req: T): T {
-  if (req.method !== 'post') return req
-  if(!cookie) return req
+  if (req.method !== "post") return req;
+  if (!cookie) return req;
   req.data = {
     ...req.data,
-    cookie
-  }
+    cookie,
+  };
   // cookie && req.data ? req.data.cookie = cookie : req.data = {cookie}
   // res.data.cookie ||= cookie
-  return req
+  return req;
 }
 
 axiosInstance.interceptors.request.use(
   (req) => {
-    POSTPlugin(req)
-    return req
+    POSTPlugin(req);
+    return req;
   },
-  err => err
-)
+  (err) => err
+);
 
 axiosInstance.interceptors.response.use(
   (res) => res.data,
-  err => err
-)
+  (err) => err
+);
 
-export const get = (url: string) => axiosInstance
-  .get(url)
+export const get = (url: string) => axiosInstance.get(url);
 
-export const post = (url: string, params?: Params): any => axiosInstance
-  .post(url, params, {
+export const post = (url: string, params?: Params): any =>
+  axiosInstance.post(url, params, {
     params: {
-      timestamp: Date.now()
-    }
-  })
+      timestamp: Date.now(),
+    },
+  });

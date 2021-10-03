@@ -167,7 +167,7 @@ export default memo(() => {
 
       if (iceCandidate) {
         const newIceCandidate = new RTCIceCandidate(iceCandidate);
-        const otherPeer;
+        // const otherPeer;
       }
     });
   };
