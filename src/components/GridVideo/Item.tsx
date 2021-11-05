@@ -4,10 +4,10 @@ import { transPlayCount } from "@/common/utils";
 import { IconPlayerPlay } from "@tabler/icons";
 import dayjs from "dayjs";
 import { playerTypes } from "@/common/config";
-import DomTagMV from "@/components/Tags/Box";
+import TagMV from "@/components/Tags/Box";
 
 export default ({ item = {}, item: { type = 1 } }) => (
-  <div className="item">
+  <div className="item content-visibility-auto">
     <div className="cover relative border rounded overflow-hidden">
       <Link to={`/player/${playerTypes[type]}/${item.id}`} className="">
         <img
@@ -46,7 +46,7 @@ export default ({ item = {}, item: { type = 1 } }) => (
       className="ui_text_black_hover mt-2 flex items-center"
       title={item.title}
     >
-      {item.type === 0 && <DomTagMV />}
+      {item.type === 0 && <TagMV />}
       &nbsp;
       <span className="text-sm flex-auto w-px truncate">{item.title}</span>
     </Link>

@@ -5,7 +5,7 @@ module.exports = {
       {
         // modules: false,
         useBuiltIns: "usage",
-        corejs: "3", // 声明corejs版本
+        corejs: "3", // 声明版本
       },
     ],
     "@babel/preset-typescript",
