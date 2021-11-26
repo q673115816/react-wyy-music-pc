@@ -1,19 +1,22 @@
-import React, { memo } from 'react';
+import React, { memo } from "react";
 import {
   IconArrowsMinimize,
   IconMinus,
   IconSquare,
   IconSquareOff,
   IconX,
-} from '@tabler/icons';
-import { useDispatch, useSelector } from 'react-redux';
+} from "@tabler/icons";
 import {
-  setScreenFull, setScreenNormal, setPositionFalse, setPositionTrue,
-} from '@/reducers/inset/slice';
+  setScreenFull,
+  setScreenNormal,
+  setPositionFalse,
+  setPositionTrue,
+} from "@/reducers/inset/slice";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
-export default memo(() => {
-  const dispatch = useDispatch();
-  const { SCREEN } = useSelector(({ inset }) => inset);
+const Control = () => {
+  const dispatch = useAppDispatch();
+  const { SCREEN } = useAppSelector(({ inset }) => inset);
   const handleFullScreen = async () => {
     await document.documentElement.webkitRequestFullScreen();
     dispatch(setScreenFull());
@@ -41,29 +44,25 @@ export default memo(() => {
       >
         <IconMinus size={24} />
       </button>
-      {
-        SCREEN === 'normal'
-          ? (
-            <button
-              type="button"
-              className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
-              title="最大化"
-              onClick={handleFullScreen}
-            >
-              <IconSquare size={24} />
-            </button>
-          )
-          : (
-            <button
-              type="button"
-              className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
-              title="向下还原"
-              onClick={handleExitFullScreen}
-            >
-              <IconSquareOff size={24} />
-            </button>
-          )
-      }
+      {SCREEN === "normal" ? (
+        <button
+          type="button"
+          className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
+          title="最大化"
+          onClick={handleFullScreen}
+        >
+          <IconSquare size={24} />
+        </button>
+      ) : (
+        <button
+          type="button"
+          className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
+          title="向下还原"
+          onClick={handleExitFullScreen}
+        >
+          <IconSquareOff size={24} />
+        </button>
+      )}
       <button
         type="button"
         className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"
@@ -73,4 +72,6 @@ export default memo(() => {
       </button>
     </div>
   );
-});
+};
+
+export default memo(Control);

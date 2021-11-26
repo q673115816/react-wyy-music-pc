@@ -1,10 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 export default () => {
-  useEffect(() => {
-
-  }, []);
-  return (
-    <div>{}</div>
-  );
+  useEffect(() => {}, []);
+  return <div>{}</div>;
 };

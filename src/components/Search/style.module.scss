@@ -1,0 +1,12 @@
+.box {
+  left: 220px;
+  top: calc(var(--HEADER) - 14px);
+  width: 354px;
+  &_value {
+    height: 450px;
+  }
+
+  &_noValue {
+    height: 400px;
+  }
+}

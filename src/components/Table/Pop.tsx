@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo } from "react";
 
 export default memo(({ pop = 0 }) => (
   <div className="range w-20 h-1.5 rounded bg-gray-200">

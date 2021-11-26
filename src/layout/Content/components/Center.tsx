@@ -1,0 +1,109 @@
+import React, { memo, useMemo } from "react";
+import {
+  IconArrowsSplit2,
+  IconPlayerSkipBack,
+  IconPlayerPause,
+  IconPlayerPlay,
+  IconPlayerSkipForward,
+  IconPlaylist,
+  IconRotate,
+  IconRefreshAlert,
+} from "@tabler/icons";
+import {
+  setAudioRunning,
+  setAudioPattern,
+  setAudioPrev,
+  setAudioNext,
+} from "@/reducers/audio/slice";
+import { setGlobalLrcToggle } from "@/reducers/lrc/slice";
+import { audioPattern } from "@/common/config";
+import classNames from "classnames";
+import DomTiming from "./Timing";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+
+const audioPatternIcon = [
+  IconPlaylist,
+  IconRotate,
+  IconRefreshAlert,
+  IconArrowsSplit2,
+];
+
+export default memo(() => {
+  const dispatch = useAppDispatch();
+  const { running, pattern } = useAppSelector(({ audio }) => audio);
+  const { globalLrcVisibility } = useAppSelector(({ lrc }) => lrc);
+  const handleToggle = () => {
+    dispatch(setAudioRunning({ running: !running }));
+  };
+
+  const handleChangePattern = () => {
+    dispatch(setAudioPattern());
+  };
+
+  const handlePrev = () => {
+    dispatch(setAudioPrev());
+  };
+
+  const handleNext = () => {
+    dispatch(setAudioNext());
+  };
+
+  const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
+  return (
+    <div className="domfooter_center flex-center flex-col flex-1">
+      <div className="domfooter_center_Top flex-center">
+        <button
+          type="button"
+          className="mx-2 hover:ui_themeColor"
+          title={audioPattern[pattern]}
+          onClick={handleChangePattern}
+        >
+          <AudioPatternIcon size={22} />
+        </button>
+        <button
+          type="button"
+          onClick={handlePrev}
+          className="domfooter_center_prev flex-center mx-2 hover:ui_themeColor"
+          title="上一首（Ctrl + Left）"
+        >
+          <IconPlayerSkipBack size={20} className="fill-current" />
+        </button>
+        <button
+          type="button"
+          onClick={handleToggle}
+          className="domfooter_center_play flex-center mx-2 bg-gray-200 hover:bg-gray-300 rounded-full w-9 h-9"
+          title={running ? "暂停（Ctrl + P）" : "播放（Ctrl + P）"}
+        >
+          {running ? (
+            <IconPlayerPause size={24} className="fill-current" />
+          ) : (
+            <IconPlayerPlay size={24} className="fill-current" stroke="0" />
+          )}
+        </button>
+        <button
+          type="button"
+          title="下一首（Ctrl + Right）"
+          onClick={handleNext}
+          className="domfooter_center_next flex-center mx-2 hover:ui_themeColor"
+        >
+          <IconPlayerSkipForward size={20} className="fill-current" />
+        </button>
+        <button
+          type="button"
+          className={classNames(
+            "mx-2 px-1 hover:ui_themeColor relative",
+            globalLrcVisibility && "ui_themeColor"
+          )}
+          title="打开歌词"
+          onClick={() => dispatch(setGlobalLrcToggle())}
+        >
+          词
+          {globalLrcVisibility && (
+            <span className="absolute right-0 rounded-full bottom-0 w-1.5 h-1.5 ui_theme_bg_color" />
+          )}
+        </button>
+      </div>
+      <DomTiming />
+    </div>
+  );
+});

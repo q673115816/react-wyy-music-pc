@@ -1,7 +1,7 @@
-import React from 'react';
-import { setAudioPlaylist } from '@/reducers/audio/slice';
-import { apiPlaylistDetail, apiSongDetail } from '@/api';
-import {useAppDispatch} from "@/reducers/hooks";
+import React from "react";
+import { setAudioPlaylist } from "@/reducers/audio/slice";
+import { apiPlaylistDetail, apiSongDetail } from "@/api";
+import { useAppDispatch } from "@/reducers/hooks";
 
 export default ({ children, id, ...props }) => {
   const dispatch = useAppDispatch();
@@ -11,7 +11,7 @@ export default ({ children, id, ...props }) => {
     });
     if (data.playlist.trackCount === 0) return false;
     const { songs: playlist } = await apiSongDetail({
-      ids: data.playlist.trackIds.map(({ id }) => id).join(','),
+      ids: data.playlist.trackIds.map(({ id }) => id).join(","),
     });
     return dispatch(setAudioPlaylist({ playlist }));
   };

@@ -1,15 +1,15 @@
-import React, { useState, useCallback } from 'react';
-import DomEvent from '@/components/Event';
+import React, { useState, useCallback, memo } from "react";
+import Event from "@/components/Event";
 
-export default ({ list = [] }) => {
-  const [actThreadId, setActThreadId] = useState('');
+export default memo(function Dynamic({ list = [] }) {
+  const [actThreadId, setActThreadId] = useState("");
   const handleToggleComment = useCallback((threadId) => {
     setActThreadId((prev) => (prev === threadId ? null : threadId));
   }, []);
   return (
     <div className="divide-y">
       {list.map((item) => (
-        <DomEvent
+        <Event
           key={item.id}
           item={item}
           commentIsShow={actThreadId === item.info.threadId}
@@ -18,4 +18,4 @@ export default ({ list = [] }) => {
       ))}
     </div>
   );
-};
+});

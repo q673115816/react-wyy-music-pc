@@ -1,7 +1,7 @@
-import React from 'react';
-import { setArtistSublist } from '@/reducers/account/slice';
-import { useDispatch } from 'react-redux';
-import { apiArtistSublist } from '@/api';
+import React from "react";
+import { setArtistSublist } from "@/reducers/account/slice";
+import { useDispatch } from "react-redux";
+import { apiArtistSublist } from "@/api";
 
 export const useRefreshArtistSublist = async (dispatch) => {
   try {

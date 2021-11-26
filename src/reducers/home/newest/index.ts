@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   data: [],
@@ -7,18 +7,18 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'newest',
+  name: "newest",
   initialState,
   reducers: {
     setTopSong(state, action) {
-      Object.assign(state, action.payload)
+      Object.assign(state, action.payload);
     },
     setTopAlbum(state, action) {
-      Object.assign(state, action.payload)
+      Object.assign(state, action.payload);
     },
-  }
-})
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
-export const {setTopAlbum, setTopSong} = slice.actions
+export const { setTopAlbum, setTopSong } = slice.actions;

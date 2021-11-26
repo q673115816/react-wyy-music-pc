@@ -1,11 +1,9 @@
-import React, {
-  memo, useEffect, useRef, useState,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
-import { IconCircleCheck } from '@tabler/icons';
-import { setToast } from '@/reducers/mask/slice';
-import './style.scss';
+import React, { memo, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import classNames from "classnames";
+import { IconCircleCheck } from "@tabler/icons";
+import { setToast } from "@/reducers/mask/slice";
+import "./style.scss";
 
 export default memo(() => {
   const { toastTitle } = useSelector(({ mask }) => mask);
@@ -16,7 +14,7 @@ export default memo(() => {
   const dispatch = useDispatch();
   const handleFadeout = () => {
     if (time.current <= 0) return;
-    time.current -= (Date.now() - prevTime.current);
+    time.current -= Date.now() - prevTime.current;
 
     prevTime.current = Date.now();
     requestAnimationFrame(handleFadeout);
@@ -28,14 +26,16 @@ export default memo(() => {
     handleFadeout();
     clearTimeout(timer.current);
     timer.current = setTimeout(() => {
-      dispatch(setToast(''));
+      dispatch(setToast(""));
     }, 1500);
   }, [toastTitle]);
   if (!toastTitle?.toString()) return null;
   return (
     <div
       id="toast"
-      className={classNames('absolute z-50 whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg')}
+      className={classNames(
+        "absolute z-50 whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg"
+      )}
     >
       <IconCircleCheck size={24} />
       &nbsp;

@@ -31,11 +31,11 @@ import {
 import Drag from "@/components/Drag";
 import { IconMicrophone } from "@tabler/icons";
 
-import DomVisitStack from "./components/VisitStack";
-import DomSearch from "./components/Search";
-import DomAccount from "./components/Account";
-import DomControl from "./components/Control";
-import DomFunction from "./components/Function";
+import VisitStack from "./components/VisitStack";
+import Search from "./components/Search";
+import Account from "./components/Account";
+import Control from "./components/Control";
+import Function from "./components/Function";
 import "./style.scss";
 
 const useInit = () => {
@@ -143,18 +143,18 @@ const CustomDrag = memo(() => {
 export default memo(() => {
   useInit();
   return (
-    <div className="domHeader relative flex items-center">
+    <div className="domHeader ui_theme_bg_color relative px-5 flex flex-none items-center text-white">
       <CustomDrag />
       <Link
         to="/"
-        className="domHeader_logo tracking-widest text-white text-lg z-10"
+        className="domHeader_logo tracking-widest text-lg z-10"
         style={{ width: 210 }}
       >
         网易云音乐
       </Link>
       <div className="flex items-center space-x-2">
-        <DomVisitStack />
-        <DomSearch />
+        <VisitStack />
+        <Search />
         <Link
           to="/ai"
           className="bg-black bg-opacity-5 w-8 h-8 rounded-full text-white flex-center z-10"
@@ -162,10 +162,10 @@ export default memo(() => {
           <IconMicrophone size={18} />
         </Link>
       </div>
-      <DomAccount />
-      <DomFunction />
-      <span className="domHeader_spilt mx-3 w-px h-4" />
-      <DomControl />
+      <Account />
+      <Function />
+      <span className="mx-3 w-px h-4">|</span>
+      <Control />
     </div>
   );
 });

@@ -1,21 +1,21 @@
-import {createSlice, } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface AccountState {
-  profile: {},
-  playlist: playlistState[],
-  bindings: [],
-  likelist: number[],
-  artistSublist: [],
-  topicSublist: [],
-  albumSublist: [],
-  mvSublist: []
+  profile: {};
+  playlist: playlistState[];
+  bindings: [];
+  likelist: number[];
+  artistSublist: [];
+  topicSublist: [];
+  albumSublist: [];
+  mvSublist: [];
 }
 
 export interface playlistState {
-  id: number
-  privacy: number
-  name: string
-  subscribed: boolean
+  id: number;
+  privacy: number;
+  name: string;
+  subscribed: boolean;
 }
 
 const initialState: AccountState = {
@@ -29,12 +29,11 @@ const initialState: AccountState = {
   mvSublist: [],
 };
 
-
 const slice = createSlice({
-  name: 'account',
+  name: "account",
   initialState,
   reducers: {
-    setLoginInfo(state, {payload}) {
+    setLoginInfo(state, { payload }) {
       // state.profile = action.payload.profile;
       // state.playlist = action.payload.playlist;
       // state.likelist = action.payload.likelist;
@@ -42,7 +41,7 @@ const slice = createSlice({
       // state.topicSublist = action.payload.topicSublist;
       // state.albumSublist = action.payload.albumSublist;
       // state.mvSublist = action.payload.mvSublist;
-      Object.assign(state, payload)
+      Object.assign(state, payload);
     },
     setLoginInfoUpdate(state, action) {
       state.profile = action.payload.profile;
@@ -57,18 +56,19 @@ const slice = createSlice({
       state.likelist.push(action.payload.id);
     },
     setLikelistDel(state, action) {
-      const n = state.likelist.length
-      if(!n) return
+      const n = state.likelist.length;
+      if (!n) return;
       // state.likelist.delete(action.payload.id);
-      const index = state.likelist.findIndex((item) => item === action.payload.id)
-      state.likelist[index] = state.likelist[n - 1]
-      state.likelist.length -= 1
+      const index = state.likelist.findIndex(
+        (item) => item === action.payload.id
+      );
+      state.likelist[index] = state.likelist[n - 1];
+      state.likelist.length -= 1;
     },
     setArtistSublist(state, action) {
       state.artistSublist = action.payload.artistSublist;
     },
-    setArtistSublistAdd(state, action) {
-    },
+    setArtistSublistAdd(state, action) {},
     setTopicSublist(state, action) {
       state.topicSublist = action.payload.topicSublist;
     },
@@ -78,10 +78,10 @@ const slice = createSlice({
     setMVSublist(state, action) {
       state.mvSublist = action.payload.mvSublist;
     },
-  }
-})
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
 export const {
   setAlbumSublist,
@@ -91,6 +91,8 @@ export const {
   setLikelistAdd,
   setLikelistDel,
   setLoginInfo,
-  setLoginInfoUpdate, setMVSublist,
-  setPlaylist, setTopicSublist
-} = slice.actions
+  setLoginInfoUpdate,
+  setMVSublist,
+  setPlaylist,
+  setTopicSublist,
+} = slice.actions;

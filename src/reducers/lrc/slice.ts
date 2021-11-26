@@ -1,16 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {LOCALSTORAGE} from "@/common/utils";
+import { createSlice } from "@reduxjs/toolkit";
+import { LOCALSTORAGE } from "@/common/utils";
 import formatLrc from "./format";
-import {Draft} from "immer";
+import { Draft } from "immer";
 
 interface LrcState {
-  globalLrcVisibility:boolean,
-  lyricVisibility: boolean,
-  lyric: {},
-  lrcList: [],
+  globalLrcVisibility: boolean;
+  lyricVisibility: boolean;
+  lyric: {};
+  lrcList: [];
 }
 
-const globalLrcVisibility = LOCALSTORAGE('globalLrcVisibility', false);
+const globalLrcVisibility = LOCALSTORAGE("globalLrcVisibility", false);
 
 const initialState: LrcState = {
   globalLrcVisibility,
@@ -20,12 +20,12 @@ const initialState: LrcState = {
 };
 
 function setGlobalvisibility(state, visibility) {
-  window.localStorage.setItem('globalLrcVisibility', visibility);
+  window.localStorage.setItem("globalLrcVisibility", visibility);
   state.globalLrcVisibility = visibility;
 }
 
 const slice = createSlice({
-  name: 'lrc',
+  name: "lrc",
   initialState,
   reducers: {
     setGlobalLrcToggle(state, action) {
@@ -35,8 +35,8 @@ const slice = createSlice({
       const { lyric } = action.payload;
       state.lyric = lyric;
       const {
-        tlyric: { lyric: tlyric } = { lyric: '' },
-        lrc: { lyric: lrc } = { lyric: '' },
+        tlyric: { lyric: tlyric } = { lyric: "" },
+        lrc: { lyric: lrc } = { lyric: "" },
       } = lyric;
       if (!lrc) {
         state.lrcList = [];
@@ -57,7 +57,9 @@ const slice = createSlice({
         });
       }
       Object.entries(temp).forEach(([key, word]) => {
-        const { groups: { min, sec } } = key.match(/\[(?<min>\d*):(?<sec>\d*\.?\d*)\]/);
+        const {
+          groups: { min, sec },
+        } = key.match(/\[(?<min>\d*):(?<sec>\d*\.?\d*)\]/);
         const time = min * 60 + sec * 1;
         arr.push({ time, word });
       });
@@ -79,12 +81,12 @@ const slice = createSlice({
     setLyricToggle(state, action) {
       state.lyricVisibility = !state.lyricVisibility;
     },
-  }
-})
+  },
+});
 
-export const LrcSelector = <T = Draft<LrcState>>({lrc}: {lrc: T}): T => lrc
+export const LrcSelector = <T = Draft<LrcState>>({ lrc }: { lrc: T }): T => lrc;
 
-export default slice.reducer
+export default slice.reducer;
 
 export const {
   setGlobalLrcHide,
@@ -93,5 +95,5 @@ export const {
   setLyricHide,
   setLyricShow,
   setLyricText,
-  setLyricToggle
-} = slice.actions
+  setLyricToggle,
+} = slice.actions;

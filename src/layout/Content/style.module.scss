@@ -1,0 +1,14 @@
+.split {
+  background-color: #E0E0E0;
+  cursor: w-resize;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -2px;
+    right: -2px;
+    z-index: 3;
+  }
+}

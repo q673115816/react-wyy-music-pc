@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   DjBanner: [],
@@ -15,15 +15,15 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'dj',
+  name: "dj",
   initialState,
   reducers: {
     setHomeDj(state, action) {
-      Object.assign(state, action.payload)
-    }
-  }
-})
+      Object.assign(state, action.payload);
+    },
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
-export const {setHomeDj} = slice.actions
+export const { setHomeDj } = slice.actions;

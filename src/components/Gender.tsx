@@ -1,40 +1,42 @@
-import React from 'react';
-import Male from '@img/male.svg'
-import Famale from '@img/famale.svg'
+import React from "react";
+import SvgMale from "@img/male.svg";
+import SvgFemale from "@img/famale.svg";
 
-export const DomMale = ({ size = 0 }) => (
+export const Male = ({ size = 0 }) => (
   <span
     className="inline-flex items-center justify-center rounded-full p-0.5"
     style={{
-      backgroundColor: '#BCEFFB',
+      backgroundColor: "#BCEFFB",
       width: size,
       height: size,
     }}
   >
-    <img className="w-full h-full" src={Male} alt="" />
+    <img className="w-full h-full" src={SvgMale} alt="" />
   </span>
 );
 
-export const DomFamale = ({ size = 0 }) => (
+export const Female = ({ size = 0 }) => (
   <span
     className="inline-flex items-center justify-center rounded-full p-0.5"
     style={{
-      backgroundColor: '#FBC9E4',
+      backgroundColor: "#FBC9E4",
       width: size,
       height: size,
     }}
   >
-    <img className="w-full h-full" src={Famale} alt="" />
+    <img className="w-full h-full" src={SvgFemale} alt="" />
   </span>
 );
 
-export default ({ gender, ...props }) => {
+const Gender = ({ gender, ...props }) => {
   switch (gender) {
     case 1:
-      return <DomMale {...props} />;
+      return <Male {...props} />;
     case 2:
-      return <DomFamale {...props} />;
+      return <Female {...props} />;
     default:
       return null;
   }
 };
+
+export default Gender;

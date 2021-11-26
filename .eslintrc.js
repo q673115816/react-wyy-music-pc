@@ -1,19 +1,21 @@
-const path = require("path");
-
 module.exports = {
   parser: "@typescript-eslint/parser",
   env: {
     browser: true,
     node: true,
-    // 'shared-node-browser': true,
+    es2021: true,
+    worker: true,
+    jest: true,
+    commonjs: true,
+    "shared-node-browser": true,
     // es6: true,
     // amd: true,
   },
   extends: [
-    // "plugin:@typescript-eslint/recommended",
-    // "eslint:recommended",
-    // "plugin:react/recommended",
-    // "airbnb",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "standard",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
   ],
   parserOptions: {
@@ -23,16 +25,10 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: [
-    "@typescript-eslint",
-    // "react",
-    "react-hooks",
-    "eslint-plugin-react",
-    // "prettier",
-  ],
+  plugins: ["@typescript-eslint", "react", "react-hooks", "prettier"],
   rules: {
     // "@typescript-eslint/rule-name": "error",
-    "@typescript-eslint/no-var-requires": 0,
+    // "@typescript-eslint/no-var-requires": 0,
     // 允许js 中写jsx
     // "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     // 换行符问题

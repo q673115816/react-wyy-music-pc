@@ -1,15 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
-// export const prodUrl = 'https://neteasecloudmusicapi.herokuapp.com';
-export const prodUrl =
-  "https://netease-cloud-music-api-mlkkrb7ge-q673115816.vercel.app";
 
-export const devUrl = "http://localhost:3000";
-
-// const baseURL = process.env.NODE_ENV === 'production' ? prodUrl : devUrl;
-const baseURL = process.env.API_URL;
 const cookie = localStorage.getItem("cookie") || "";
-
-const cache = new Set();
 
 type Params = {
   [key: string]: any;
@@ -18,7 +9,7 @@ type Params = {
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
 const axiosInstance = axios.create({
-  baseURL,
+  baseURL: process.env.VITE_API_URL,
   withCredentials: true,
   cancelToken: source.token,
 });
@@ -48,7 +39,12 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (res) => res.data,
+  (res) => {
+    if (res.data.code === 400) {
+      console.log(400);
+    }
+    return res.data;
+  },
   (err) => err
 );
 

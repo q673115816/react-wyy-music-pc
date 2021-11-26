@@ -1,14 +1,14 @@
-import React, { useRef, useState } from 'react';
-import { apiPlaylistCreate } from '@/api';
-import classNames from 'classnames';
-import { useSelector } from 'react-redux';
-import DomCheckbox from '@/components/Checkbox';
-import HOCDialog from '../Dialog';
-import './style.scss';
+import React, { useRef, useState } from "react";
+import { apiPlaylistCreate } from "@/api";
+import classNames from "classnames";
+import { useSelector } from "react-redux";
+import DomCheckbox from "@/components/Checkbox";
+import HOCDialog from "../Dialog";
+import "./style.scss";
 
 export default () => {
   const { dialogCreatePlaylistVisibility } = useSelector(({ mask }) => mask);
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const privacy = useRef();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,15 +40,16 @@ export default () => {
           <label htmlFor="privacy" className="flex items-center">
             <DomCheckbox name="privacy" ref={privacy} />
             &nbsp;
-            <span>
-              设置为隐私歌单
-            </span>
+            <span>设置为隐私歌单</span>
           </label>
         </div>
         <div className="flex-center">
           <button
             type="submit"
-            className={classNames('inline-flex items-center justify-center border px-3 h-8 rounded-full red', { disabled: name.length === 0 })}
+            className={classNames(
+              "inline-flex items-center justify-center border px-3 h-8 rounded-full red",
+              { disabled: name.length === 0 }
+            )}
           >
             创建
           </button>

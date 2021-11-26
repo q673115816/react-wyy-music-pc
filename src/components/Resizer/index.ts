@@ -1,1 +1,1 @@
-export {default} from './Resizer'
+export { default } from "./Resizer";

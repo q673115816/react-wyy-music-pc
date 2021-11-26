@@ -1,13 +1,13 @@
-import React, { memo, MouseEvent } from 'react';
-import { useAppDispatch, useAppSelector } from '@/reducers/hooks';
-import { IconChevronDownRight } from '@tabler/icons';
+import React, { memo, MouseEvent } from "react";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { IconChevronDownRight } from "@tabler/icons";
 import {
   setGlobalRect,
   setGlobalStartRect,
   setGlobalResizer,
   setGlobalStartRectLock,
-} from '@/reducers/inset/slice';
-import Drag from '@/components/Drag';
+} from "@/reducers/inset/slice";
+import Drag from "@/components/Drag";
 
 export default memo(() => {
   const dispatch = useAppDispatch();
@@ -19,10 +19,12 @@ export default memo(() => {
     dispatch(setGlobalStartRectLock());
     requestAnimationFrame(() => {
       // console.log('raf');
-      dispatch(setGlobalRect({
-        x: e.clientX,
-        y: e.clientY,
-      }));
+      dispatch(
+        setGlobalRect({
+          x: e.clientX,
+          y: e.clientY,
+        })
+      );
     });
   };
 
@@ -32,17 +34,19 @@ export default memo(() => {
 
   const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
     // dispatch(setGlobalResizer(true));
-    dispatch(setGlobalStartRect({
-      x: e.clientX,
-      y: e.clientY,
-    }));
+    dispatch(
+      setGlobalStartRect({
+        x: e.clientX,
+        y: e.clientY,
+      })
+    );
   };
 
-  if (SCREEN !== 'normal') return null;
+  if (SCREEN !== "normal") return null;
   return (
     <Drag
       className="absolute right-0 bottom-0 text-gray-500"
-      style={{ cursor: 'se-resize' }}
+      style={{ cursor: "se-resize" }}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}

@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { setDialogReset } from '@/reducers/mask/slice';
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setDialogReset } from "@/reducers/mask/slice";
 
 export default ({ children, ...props }) => {
   const dispatch = useDispatch();

@@ -1,11 +1,11 @@
-import React, {useState, memo} from 'react';
-import { setDialogReset } from '@/reducers/mask/slice';
-import { setHomeOrder ,defaultOrder } from '@/reducers/setting/slice';
-import { useAppDispatch, useAppSelector } from '@/reducers/hooks';
-import { IconBulb } from '@tabler/icons';
-import './style.scss';
-import HOCDialog from '../Dialog';
-import Actions from './Actions';
+import React, { useState, memo } from "react";
+import { setDialogReset } from "@/reducers/mask/slice";
+import { setHomeOrder, defaultOrder } from "@/reducers/setting/slice";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { IconBulb } from "@tabler/icons";
+import "./style.scss";
+import HOCDialog from "../Dialog";
+import Actions from "./Actions";
 
 export default memo(() => {
   const dispatch = useAppDispatch();
@@ -32,7 +32,7 @@ export default memo(() => {
             想调整首页栏目的顺序?按住右边的按钮拖动即可
           </span>
         </div>
-        <Actions order={tempHomeOrder}/>
+        <Actions order={tempHomeOrder} />
         <div className="flex-center py-4">
           <button
             onClick={handleReset}

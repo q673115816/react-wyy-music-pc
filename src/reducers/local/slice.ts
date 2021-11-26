@@ -1,23 +1,23 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface LocalState {
-  current: string
+  current: string;
 }
 
 const initialState: LocalState = {
-  current: '歌曲',
-}
+  current: "歌曲",
+};
 
 const slice = createSlice({
-  name: 'local',
+  name: "local",
   initialState,
   reducers: {
     setLocalCurrent(state, action) {
-      state.current = action.payload.current
-    }
-  }
-})
+      state.current = action.payload.current;
+    },
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
-export const { setLocalCurrent } = slice.actions
+export const { setLocalCurrent } = slice.actions;

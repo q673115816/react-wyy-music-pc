@@ -1,31 +1,31 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface LetterState {
-  nickname: string,
-  hint: string,
-  uid: string,
-  showMsgPrivateHistory: boolean,
-  privatMsgs: [],
-};
+  nickname: string;
+  hint: string;
+  uid: string;
+  showMsgPrivateHistory: boolean;
+  privatMsgs: [];
+}
 
 const initialState: LetterState = {
-  nickname: '',
-  hint: '',
-  uid: '',
+  nickname: "",
+  hint: "",
+  uid: "",
   showMsgPrivateHistory: false,
   privatMsgs: [],
 };
 
 const slice = createSlice({
-  name: 'letter',
+  name: "letter",
   initialState,
   reducers: {
     setMsgPrivateHistory(state, action) {
-      Object.assign(state, action.payload)
-    }
-  }
-})
+      Object.assign(state, action.payload);
+    },
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
-export const {setMsgPrivateHistory} = slice.actions
+export const { setMsgPrivateHistory } = slice.actions;

@@ -1,13 +1,9 @@
-import React, { useState, memo } from 'react';
-import { Link } from 'react-router-dom';
-import {
-  IconSettings,
-  IconPalette,
-  IconMail,
-} from '@tabler/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPopupLetterToggle } from '@/reducers/mask/slice';
-import DomSkinPop from './Skin';
+import React, { useState, memo } from "react";
+import { Link } from "react-router-dom";
+import { IconSettings, IconPalette, IconMail } from "@tabler/icons";
+import { setPopupLetterToggle } from "@/reducers/mask/slice";
+import DomSkinPop from "./Skin";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
 const DomSkinBtn = memo(() => {
   const [visibility, setVisibility] = useState(false);
@@ -21,18 +17,15 @@ const DomSkinBtn = memo(() => {
       >
         <IconPalette size={24} />
       </button>
-      {
-        visibility && <DomSkinPop />
-      }
+      {visibility && <DomSkinPop />}
     </div>
   );
 });
 
-const DomLetterBtn = memo(() => {
-  const dispatch = useDispatch();
-  const { newMsgCount } = useSelector(({ common }) => common);
+const LetterBtn = memo(() => {
+  const dispatch = useAppDispatch();
+  const { newMsgCount } = useAppSelector(({ common }) => common);
   return (
-
     <button
       type="button"
       className="focus:outline-none text-white text-opacity-90 hover:text-opacity-100 relative"
@@ -57,6 +50,6 @@ export default memo(() => (
     >
       <IconSettings size={24} />
     </Link>
-    <DomLetterBtn />
+    <LetterBtn />
   </div>
 ));

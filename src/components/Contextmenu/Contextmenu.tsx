@@ -1,8 +1,6 @@
-import React, {
-  useMemo, useState, useCallback, useEffect,
-} from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo, useState, useCallback, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   IconMessage,
@@ -16,20 +14,23 @@ import {
   IconCirclePlus,
   IconMusic,
   IconLock,
-} from '@tabler/icons';
+} from "@tabler/icons";
 import {
   setDialogReset,
   setDialogShareShow,
   setDialogCreatePlaylistShow,
   setContextMenuShareLink,
   setToast,
-} from '@/reducers/mask/slice';
-import { setLoginVisibilty } from '@/reducers/common/slice';
-import { setAudioImmediate, setAudioImmediateNext } from '@/reducers/audio/slice';
-import { apiMVSub } from '@/api';
-import useCopyLink from '@/hooks/useCopyLink';
-import DomMask from '@/components/Mask';
-import './Contextmenu.scss';
+} from "@/reducers/mask/slice";
+import { setLoginVisibilty } from "@/reducers/common/slice";
+import {
+  setAudioImmediate,
+  setAudioImmediateNext,
+} from "@/reducers/audio/slice";
+import { apiMVSub } from "@/api";
+import useCopyLink from "@/hooks/useCopyLink";
+import DomMask from "@/components/Mask";
+import "./Contextmenu.scss";
 
 const initBuild = (functionClose) => ({
   评论: ({ contextMenuItem, contextMenuTotal, contextMenuType }) => (
@@ -42,10 +43,7 @@ const initBuild = (functionClose) => ({
         <i className="ico">
           <IconMessage size={22} stroke={1} />
         </i>
-        查看评论
-        (
-        {contextMenuTotal}
-        )
+        查看评论 ({contextMenuTotal})
       </Link>
     </li>
   ),
@@ -65,7 +63,11 @@ const initBuild = (functionClose) => ({
   ),
   下一首播放: ({ handlePlayNext }) => (
     <li className="ui_contextmenu_item">
-      <button onClick={handlePlayNext} type="button" className="ui_contextmenu_btn ">
+      <button
+        onClick={handlePlayNext}
+        type="button"
+        className="ui_contextmenu_btn "
+      >
         <i className="ico">
           <IconArrowForward size={22} stroke={1} />
         </i>
@@ -89,7 +91,11 @@ const initBuild = (functionClose) => ({
   ),
   下一首播放歌单: ({ handlePlayNextPlaylist }) => (
     <li className="ui_contextmenu_item">
-      <button onClick={handlePlayNextPlaylist} type="button" className="ui_contextmenu_btn ">
+      <button
+        onClick={handlePlayNextPlaylist}
+        type="button"
+        className="ui_contextmenu_btn "
+      >
         <i className="ico">
           <IconArrowForward size={22} stroke={1} />
         </i>
@@ -127,7 +133,11 @@ const initBuild = (functionClose) => ({
   ),
   收藏MV: ({ handleSubscribeMV }) => (
     <li className="ui_contextmenu_item">
-      <button onClick={handleSubscribeMV} type="button" className="ui_contextmenu_btn ">
+      <button
+        onClick={handleSubscribeMV}
+        type="button"
+        className="ui_contextmenu_btn "
+      >
         <i className="ico">
           <IconFolderPlus size={22} stroke={1} />
         </i>
@@ -158,22 +168,20 @@ const initBuild = (functionClose) => ({
           </button>
         </li>
         <li className="hr" />
-        {
-          ownPlaylist.map((item) => (
-            <li className="ui_contextmenu_item" key={item.id}>
-              <button type="button" className="ui_contextmenu_btn ">
-                <i className="ico">
-                  {
-                    item.privacy === 10
-                      ? <IconLock size={22} stroke={1} />
-                      : <IconMusic size={22} stroke={1} />
-                  }
-                </i>
-                {item.name}
-              </button>
-            </li>
-          ))
-        }
+        {ownPlaylist.map((item) => (
+          <li className="ui_contextmenu_item" key={item.id}>
+            <button type="button" className="ui_contextmenu_btn ">
+              <i className="ico">
+                {item.privacy === 10 ? (
+                  <IconLock size={22} stroke={1} />
+                ) : (
+                  <IconMusic size={22} stroke={1} />
+                )}
+              </i>
+              {item.name}
+            </button>
+          </li>
+        ))}
       </ul>
     </li>
   ),
@@ -205,7 +213,7 @@ const initBuild = (functionClose) => ({
       </button>
     </li>
   ),
-  不感兴趣: ({ }) => (
+  不感兴趣: ({}) => (
     <li className="ui_contextmenu_item">
       <span className="ui_contextmenu_btn ">
         <i className="ico">
@@ -216,10 +224,7 @@ const initBuild = (functionClose) => ({
       </span>
       <ul className="ui_contextmenu sub">
         <li className="ui_contextmenu_item">
-          <button
-            type="button"
-            className="ui_contextmenu_btn "
-          >
+          <button type="button" className="ui_contextmenu_btn ">
             <i className="ico" />
             创建新歌单
           </button>
@@ -252,27 +257,32 @@ const initBuild = (functionClose) => ({
       <ul className="ui_contextmenu sub">
         <li className="ui_contextmenu_item">
           <button type="button" className="ui_contextmenu_btn ">
-            <i className="ico"><IconCirclePlus size={22} stroke={1} /></i>
+            <i className="ico">
+              <IconCirclePlus size={22} stroke={1} />
+            </i>
             创建新歌单
           </button>
         </li>
         <li className="hr" />
         <li className="ui_contextmenu_item">
           <button type="button" className="ui_contextmenu_btn ">
-            <i className="ico"><IconMusic size={22} stroke={1} /></i>
+            <i className="ico">
+              <IconMusic size={22} stroke={1} />
+            </i>
             创建新歌单
           </button>
         </li>
         <li className="ui_contextmenu_item">
           <button type="button" className="ui_contextmenu_btn ">
-            <i className="ico"><IconMusic size={22} stroke={1} /></i>
+            <i className="ico">
+              <IconMusic size={22} stroke={1} />
+            </i>
             创建新歌单
           </button>
         </li>
       </ul>
     </li>
   ),
-
 });
 
 export default () => {
@@ -294,30 +304,36 @@ export default () => {
   const ownPlaylist = playlist.filter((item) => item.subscribed === false);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
   useEffect(() => {
-    dispatch(setContextMenuShareLink({
-      contextMenuShareLink: ShareUrl,
-    }));
+    dispatch(
+      setContextMenuShareLink({
+        contextMenuShareLink: ShareUrl,
+      })
+    );
   }, []);
 
   const handlePlay = () => {
-    dispatch(setAudioImmediate({
-      currentSong: contextMenuItem,
-    }));
+    dispatch(
+      setAudioImmediate({
+        currentSong: contextMenuItem,
+      })
+    );
     dispatch(setDialogReset());
   };
 
   const handlePlayNext = () => {
-    dispatch(setAudioImmediateNext({
-      currentSong: contextMenuItem,
-    }));
+    dispatch(
+      setAudioImmediateNext({
+        currentSong: contextMenuItem,
+      })
+    );
     dispatch(setDialogReset());
   };
 
   const handlePlayPlaylist = () => {
-    console.log('播放歌单');
+    console.log("播放歌单");
   };
   const handlePlayNextPlaylist = () => {
-    console.log('下一首播放歌单');
+    console.log("下一首播放歌单");
   };
 
   const handleSubscribeMV = async () => {
@@ -339,7 +355,7 @@ export default () => {
     // await navigator.clipboard.writeText(ShareUrl);
     // alert('链接复制成功');
     useCopyLink(ShareUrl, () => {
-      dispatch(setToast('复制链接成功'));
+      dispatch(setToast("复制链接成功"));
     });
     dispatch(setDialogReset());
   };
@@ -348,17 +364,22 @@ export default () => {
     dispatch(setDialogCreatePlaylistShow());
   };
 
-  const handleDialogShare = useCallback(() =>
-    // if (!isLogin) {
-    //   dispatch(setLoginVisibilty());
-    //   return dispatch(setDialogReset());
-    // }
-    dispatch(setDialogShareShow()),
-  []);
+  const handleDialogShare = useCallback(
+    () =>
+      // if (!isLogin) {
+      //   dispatch(setLoginVisibilty());
+      //   return dispatch(setDialogReset());
+      // }
+      dispatch(setDialogShareShow()),
+    []
+  );
 
   const Build = useMemo(() => {
     const Dom = initBuild(() => dispatch(setDialogReset()));
-    return contextMenuSechma.map((block) => [block.join(','), block.map((item) => [item, Dom[item]])]);
+    return contextMenuSechma.map((block) => [
+      block.join(","),
+      block.map((item) => [item, Dom[item]]),
+    ]);
   }, [contextMenuSechma]);
   if (!contextMenuVisibility) return null;
   return (
@@ -368,31 +389,29 @@ export default () => {
         className="ui_contextmenu divide-y"
         style={{ left: contextMenuX - globalX, top: contextMenuY - globalY }}
       >
-        {
-          Build.map(([wrapname, block]) => (
-            <div key={wrapname}>
-              {block.map(([item, Dom]) => (
-                <Dom
-                  {...{
-                    contextMenuTotal,
-                    contextMenuItem,
-                    handlePlay,
-                    handlePlayNext,
-                    handlePlayPlaylist,
-                    handlePlayNextPlaylist,
-                    handleDialogShare,
-                    handleCopyLink,
-                    handleCreatePlaylist,
-                    handleSubscribeMV,
-                    ownPlaylist,
-                    contextMenuType,
-                  }}
-                  key={item}
-                />
-              ))}
-            </div>
-          ))
-        }
+        {Build.map(([wrapname, block]) => (
+          <div key={wrapname}>
+            {block.map(([item, Dom]) => (
+              <Dom
+                {...{
+                  contextMenuTotal,
+                  contextMenuItem,
+                  handlePlay,
+                  handlePlayNext,
+                  handlePlayPlaylist,
+                  handlePlayNextPlaylist,
+                  handleDialogShare,
+                  handleCopyLink,
+                  handleCreatePlaylist,
+                  handleSubscribeMV,
+                  ownPlaylist,
+                  contextMenuType,
+                }}
+                key={item}
+              />
+            ))}
+          </div>
+        ))}
       </ul>
     </DomMask>
   );

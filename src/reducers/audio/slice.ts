@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {LOCALSTORAGE} from "@/common/utils";
-import {audioPattern} from "@/common/config";
+import { createSlice } from "@reduxjs/toolkit";
+import { LOCALSTORAGE } from "@/common/utils";
+import { audioPattern } from "@/common/config";
 
 const resetState = {
   errorCount: 0,
@@ -53,10 +53,9 @@ const FnAddHistory = (state, currentSong: {}) => {
     state.history.splice(historyIndex, 1);
     // state.history = state.history.filter((history) => history.id !== currentSong.id)
   }
-  state.history.unshift({...currentSong, lastTime: Date.now()});
+  state.history.unshift({ ...currentSong, lastTime: Date.now() });
   window.localStorage.setItem("history", JSON.stringify(state.history));
 };
-
 
 function FnImmediate(state, currentSong: {}) {
   FnChange(state);
@@ -69,20 +68,20 @@ function FnImmediate(state, currentSong: {}) {
 }
 
 const slice = createSlice({
-  name: 'audio',
+  name: "audio",
   initialState,
   reducers: {
     setAudioImmediate(state, action) {
-      const {currentSong} = action.payload;
+      const { currentSong } = action.payload;
       FnImmediate(state, currentSong);
     },
     setAudioImmediateNext(state, action) {
-      const {currentSong} = action.payload;
+      const { currentSong } = action.payload;
       FnAddNext(state, currentSong);
     },
     setAudioPlaylist(state, action) {
       FnChange(state);
-      const {playlist} = action.payload;
+      const { playlist } = action.payload;
       const currentSong = playlist[0];
       window.localStorage.setItem("playlist", JSON.stringify(playlist));
       state.playlist = playlist;
@@ -92,8 +91,7 @@ const slice = createSlice({
       window.localStorage.setItem("currentSong", JSON.stringify(currentSong));
       window.localStorage.setItem("history", JSON.stringify(state.history));
     },
-    setAudioPlaylistAdd(state, action) {
-    },
+    setAudioPlaylistAdd(state, action) {},
     setAudioPrev(state, action) {
       if (state.playlist.length === 0) return;
       FnChange(state);
@@ -105,7 +103,6 @@ const slice = createSlice({
       state.currentSong = currentSong;
       FnAddHistory(state, currentSong);
       window.localStorage.setItem("currentSong", JSON.stringify(currentSong));
-
     },
     setAudioNext(state, action) {
       if (state.playlist.length === 0) return;
@@ -138,8 +135,7 @@ const slice = createSlice({
       //     break;
       // }
     },
-    setAudioCurrent(state, action) {
-    },
+    setAudioCurrent(state, action) {},
     setAudioRunning(state, action) {
       if (state?.currentSong?.id) {
         state.running = action.payload.running;
@@ -201,25 +197,30 @@ const slice = createSlice({
     setRunErrorDesc(state, action) {
       state.errorCount -= 1;
     },
-  }
-})
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
 export const {
   setAudioBuffered,
   setAudioCurrent,
   setAudioCurrentTime,
-  setAudioDropping, setAudioHistoryClear,
+  setAudioDropping,
+  setAudioHistoryClear,
   setAudioImmediate,
   setAudioImmediateNext,
-  setAudioNext, setAudioPattern,
+  setAudioNext,
+  setAudioPattern,
   setAudioPlaylist,
-  setAudioPlaylistAdd, setAudioPlaylistClear,
+  setAudioPlaylistAdd,
+  setAudioPlaylistClear,
   setAudioPrev,
   setAudioRunning,
   setAudioRunningPause,
   setAudioRunningPlay,
   setAudioRunningToggle,
-  setJumpToAudioCurrentTime, setRunErrorAdd, setRunErrorDesc
-} = slice.actions
+  setJumpToAudioCurrentTime,
+  setRunErrorAdd,
+  setRunErrorDesc,
+} = slice.actions;

@@ -12,8 +12,9 @@ import { setDialogReset } from "@/reducers/mask/slice";
 import Mask from "../Mask";
 import History from "./History";
 import HotList from "./HotList";
+import style from "./style.module.scss";
 
-export default memo(() => {
+const Search = () => {
   const dispatch = useAppDispatch();
   const { searchValue, searchHot, searchSuggest, searchHistory } =
     useAppSelector(({ search }) => search);
@@ -34,9 +35,19 @@ export default memo(() => {
 
   return (
     <Mask>
-      <div className="absolute domHeader_search_box shadow rounded bg-white py-2 z-10">
+      <div
+        className={classNames(
+          style.box,
+          "absolute shadow rounded bg-white py-2 z-10"
+        )}
+      >
         {searchValue ? (
-          <div className="domHeader_search_box_value overflow-auto h-full flex-auto">
+          <div
+            className={classNames(
+              style.box_Value,
+              "overflow-auto h-full flex-auto"
+            )}
+          >
             <Link
               to={`/search/${searchValue}`}
               onClick={() => handleSearch(searchValue)}
@@ -45,7 +56,7 @@ export default memo(() => {
               <span className="ui_link">{searchValue}</span>
               &quot;相关的结果&gt;
             </Link>
-            {searchSuggest?.order?.map((order, index) => (
+            {searchSuggest?.order?.map((order) => (
               <div key={order}>
                 {searchSuggest[order].map((item) => (
                   <div key={item.id}>{item.name}</div>
@@ -54,7 +65,12 @@ export default memo(() => {
             ))}
           </div>
         ) : (
-          <div className="domHeader_search_box_noValue overflow-auto h-full flex-auto">
+          <div
+            className={classNames(
+              style.box_noValue,
+              "overflow-auto h-full flex-auto"
+            )}
+          >
             {searchHistory.length > 0 && (
               <History handleSearch={handleSearch} />
             )}
@@ -67,4 +83,6 @@ export default memo(() => {
       </div>
     </Mask>
   );
-});
+};
+
+export default memo(Search);

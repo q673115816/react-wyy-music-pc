@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   highquality: {},
@@ -8,18 +8,18 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'playlist',
+  name: "playlist",
   initialState,
   reducers: {
     setPlaylistCatlist(state, action) {
-      Object.assign(state, action.payload)
+      Object.assign(state, action.payload);
     },
     setTopPlaylist(state, action) {
-      Object.assign(state, action.payload)
+      Object.assign(state, action.payload);
     },
-  }
-})
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
-export const {setPlaylistCatlist, setTopPlaylist} = slice.actions
+export const { setPlaylistCatlist, setTopPlaylist } = slice.actions;

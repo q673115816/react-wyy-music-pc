@@ -1,19 +1,19 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   list: [],
 };
 
 const slice = createSlice({
-  name: 'toplist',
+  name: "topList",
   initialState,
   reducers: {
-    setTopListsDetail(state, action) {
-      Object.assign(state, action.payload)
+    setTopListsDetail(state, { payload }) {
+      Object.assign(state, payload);
     },
-  }
-})
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
-export const {setTopListsDetail,} = slice.actions
+export const { setTopListsDetail } = slice.actions;

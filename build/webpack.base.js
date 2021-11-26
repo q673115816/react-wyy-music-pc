@@ -62,6 +62,9 @@ module.exports = {
   output: {
     globalObject: "this",
   },
+  experiments: {
+    topLevelAwait: true,
+  },
   // entry: {
   // index: path.join(src, 'index.jsx'),
   // vendor: [
@@ -144,31 +147,6 @@ module.exports = {
 
   module: {
     rules: [
-      {
-        test: /\.(sa|sc|c)ss$/,
-        exclude: /(node_modules|bower_components)/,
-        include: src,
-        use: [
-          devMode
-            ? "style-loader"
-            : {
-                loader: MiniCssExtractPlugin.loader,
-                // options: {
-                //   // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
-                //   publicPath: process.env.PUBLIC_PATH,
-                // },
-              },
-          "css-loader",
-          "postcss-loader",
-          "sass-loader",
-          {
-            loader: "sass-resources-loader",
-            options: {
-              resources: path.join(src, "styles/_global.scss"),
-            },
-          },
-        ],
-      },
       {
         test: /\.worker\.[cm]?[jt]s$/i,
         include: src,

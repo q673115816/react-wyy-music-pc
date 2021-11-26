@@ -1,14 +1,16 @@
-import React, { memo } from 'react';
-import { setDialogReset, setToast } from '@/reducers/mask/slice';
-import { useDispatch, useSelector } from 'react-redux';
-import { apiArtistSub } from '@/api';
-import { useRefreshArtistSublist } from '@/hooks/useHelp';
-import HOCDialog from '../Dialog';
-import './style.scss';
+import React, { memo } from "react";
+import { setDialogReset, setToast } from "@/reducers/mask/slice";
+import { useDispatch, useSelector } from "react-redux";
+import { apiArtistSub } from "@/api";
+import { useRefreshArtistSublist } from "@/hooks/useHelp";
+import HOCDialog from "../Dialog";
+import "./style.scss";
 
 export default memo(() => {
   const dispatch = useDispatch();
-  const { artistId, dialogUnSubscriptionVisibility } = useSelector(({ mask }) => mask);
+  const { artistId, dialogUnSubscriptionVisibility } = useSelector(
+    ({ mask }) => mask
+  );
   // console.log(artistId);
   const handleUnSubscription = async () => {
     try {
@@ -16,7 +18,7 @@ export default memo(() => {
         id: artistId,
       });
       dispatch(setDialogReset());
-      dispatch(setToast('取消收藏！'));
+      dispatch(setToast("取消收藏！"));
       useRefreshArtistSublist(dispatch);
     } catch (error) {
       console.log(error);
@@ -36,7 +38,6 @@ export default memo(() => {
             onClick={handleUnSubscription}
           >
             确定
-
           </button>
         </div>
       </div>

@@ -1,14 +1,14 @@
-import React, {MouseEventHandler, useEffect} from "react";
+import React, { MouseEventHandler, useEffect } from "react";
 import {
   setAudioRunningToggle,
   setAudioNext,
   setAudioPrev,
 } from "@/reducers/audio/slice";
 import { setVolumePlusTen, setVolumeSubTen } from "@/reducers/volume/slice";
-import {useAppDispatch} from "@/reducers/hooks";
+import { useAppDispatch } from "@/reducers/hooks";
 
 export default () => {
-  console.log('action')
+  console.log("action");
   const dispatch = useAppDispatch();
   // console.log('keyActions');
   const keyDown = (e: KeyboardEvent) => {
@@ -17,15 +17,15 @@ export default () => {
 
     if (ctrlKey) {
       switch (key) {
-        case 'ArrowUp': // 音量
+        case "ArrowUp": // 音量
           return dispatch(setVolumePlusTen());
-        case 'ArrowDown': // 音量
+        case "ArrowDown": // 音量
           return dispatch(setVolumeSubTen());
-        case 'ArrowLeft':
+        case "ArrowLeft":
           return dispatch(setAudioPrev());
-        case 'ArrowRight':
+        case "ArrowRight":
           return dispatch(setAudioNext());
-        case 'p':
+        case "p":
           e.preventDefault(); // 原为打印
           return dispatch(setAudioRunningToggle());
         default:
@@ -43,9 +43,9 @@ export default () => {
     };
   }, []);
   useEffect(() => {
-    document.addEventListener('contextmenu', contextMenu);
+    document.addEventListener("contextmenu", contextMenu);
     return () => {
-      document.removeEventListener('contextmenu', contextMenu);
+      document.removeEventListener("contextmenu", contextMenu);
     };
   }, []);
 };

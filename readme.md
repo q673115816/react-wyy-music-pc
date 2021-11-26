@@ -1,3 +1,7 @@
+![Alt](https://repobeats.axiom.co/api/embed/ef432b25cb606221e5e22955122553aae3b6a339.svg "Repobeats analytics image")
+
+---
+
 # 网易云音乐window版
 依照网易云windows端开发的页面
 技术栈：webpack5 + react + redux + sass + immer + tailwindcss

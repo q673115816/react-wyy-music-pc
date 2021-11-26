@@ -1,11 +1,7 @@
-import classNames from 'classnames';
-import React, {
-  useEffect, useRef, useState, useLayoutEffect,
-} from 'react';
+import classNames from "classnames";
+import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
 
-export default ({
-  children, className = '', small = '', big = '',
-}) => {
+export default ({ children, className = "", small = "", big = "" }) => {
   const DomResize = useRef();
   const RO = useRef();
   const [width, setWidth] = useState(0);
@@ -21,10 +17,11 @@ export default ({
     };
   }, []);
   return (
-    <div className={classNames(className, width >= 810 ? big : small)} ref={DomResize}>
-      {
-        children
-      }
+    <div
+      className={classNames(className, width >= 810 ? big : small)}
+      ref={DomResize}
+    >
+      {children}
     </div>
   );
 };

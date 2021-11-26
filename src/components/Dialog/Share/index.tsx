@@ -1,5 +1,5 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   SymbolWYY,
   SymbolSX,
@@ -8,14 +8,18 @@ import {
   SymbolQZ,
   SymbolWB,
   SymbolLJ,
-} from '@/components/Symbol';
-import { setDialogReset, setDialogShareWXShow, setToast } from '@/reducers/mask/slice';
-import HOCDialog from '../Dialog';
-import './style.scss';
-import useCopyLink from '@/hooks/useCopyLink';
+} from "@/components/Symbol";
+import {
+  setDialogReset,
+  setDialogShareWXShow,
+  setToast,
+} from "@/reducers/mask/slice";
+import HOCDialog from "../Dialog";
+import "./style.scss";
+import useCopyLink from "@/hooks/useCopyLink";
 
 const types = {
-  songs: '单曲',
+  songs: "单曲",
 };
 
 export default () => {
@@ -37,7 +41,7 @@ export default () => {
     // await navigator.clipboard.writeText(ShareUrl);
     // alert('链接复制成功');
     useCopyLink(ShareUrl, () => {
-      dispatch(setToast('复制链接成功'));
+      dispatch(setToast("复制链接成功"));
     });
     dispatch(setDialogReset());
   };
@@ -67,7 +71,11 @@ export default () => {
           </button>
         </div>
         <div>
-          <button type="button" className="item flex items-center" onClick={handleShareWX}>
+          <button
+            type="button"
+            className="item flex items-center"
+            onClick={handleShareWX}
+          >
             <i className="ico">
               <SymbolWX active />
             </i>
@@ -75,7 +83,17 @@ export default () => {
           </button>
         </div>
         <div>
-          <a target="_block" href={`https://connect.qq.com/widget/shareqq/index.html?site=网易云音乐&url=${ShareUrl}&from=qq&title=分享${types[contextMenuType]}：${contextMenuItem.name}&summary=${contextMenuItem.ar.reduce((prev, curr) => `${prev}/${curr.name}`, '').slice(1)}&pics=${contextMenuItem.al.picUrl}?imageView&thumbnail=120y120`} className="item flex items-center">
+          <a
+            target="_block"
+            href={`https://connect.qq.com/widget/shareqq/index.html?site=网易云音乐&url=${ShareUrl}&from=qq&title=分享${
+              types[contextMenuType]
+            }：${contextMenuItem.name}&summary=${contextMenuItem.ar
+              .reduce((prev, curr) => `${prev}/${curr.name}`, "")
+              .slice(1)}&pics=${
+              contextMenuItem.al.picUrl
+            }?imageView&thumbnail=120y120`}
+            className="item flex items-center"
+          >
             <i className="ico">
               <SymbolQQ active />
             </i>

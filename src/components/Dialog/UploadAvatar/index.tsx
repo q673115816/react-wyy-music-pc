@@ -1,10 +1,12 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import HOCDialog from '../Dialog';
-import './style.scss';
+import React from "react";
+import { useSelector } from "react-redux";
+import HOCDialog from "../Dialog";
+import "./style.scss";
 
 export default () => {
-  const { dialogUploadAvatarVisibility, avatar } = useSelector(({ mask }) => mask);
+  const { dialogUploadAvatarVisibility, avatar } = useSelector(
+    ({ mask }) => mask
+  );
   if (!dialogUploadAvatarVisibility) return null;
   console.log(avatar);
   return (
@@ -27,8 +29,18 @@ export default () => {
           </div>
         </div>
         <div className="actions pb-4 pt-6 space-x-4 flex justify-center">
-          <button type="button" className="flex-center border px-3 h-8 rounded-full">重新选择</button>
-          <button type="button" className="flex-center text-white ui_theme_bg_color px-3 h-8 rounded-full">保持并关闭</button>
+          <button
+            type="button"
+            className="flex-center border px-3 h-8 rounded-full"
+          >
+            重新选择
+          </button>
+          <button
+            type="button"
+            className="flex-center text-white ui_theme_bg_color px-3 h-8 rounded-full"
+          >
+            保持并关闭
+          </button>
         </div>
       </div>
     </HOCDialog>

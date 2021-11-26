@@ -1,13 +1,15 @@
-import React from 'react';
-import { setDialogReset } from '@/reducers/mask/slice';
-import { useDispatch, useSelector } from 'react-redux';
-import QRcode from 'qrcode.react';
-import HOCDialog from '../Dialog';
-import './style.scss';
+import React from "react";
+import { setDialogReset } from "@/reducers/mask/slice";
+import { useDispatch, useSelector } from "react-redux";
+import QRcode from "qrcode.react";
+import HOCDialog from "../Dialog";
+import "./style.scss";
 
 export default () => {
   const dispatch = useDispatch();
-  const { contextMenuShareLink, dialogShareWXVisibility } = useSelector(({ mask }) => mask);
+  const { contextMenuShareLink, dialogShareWXVisibility } = useSelector(
+    ({ mask }) => mask
+  );
   if (!dialogShareWXVisibility) return null;
   return (
     <HOCDialog id="dialogShareWX" title="分享">
@@ -21,7 +23,13 @@ export default () => {
           />
           <div className="tips">打开微信，扫一扫~</div>
         </div>
-        <button type="button" className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red" onClick={() => dispatch(setDialogReset())}>完成</button>
+        <button
+          type="button"
+          className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red"
+          onClick={() => dispatch(setDialogReset())}
+        >
+          完成
+        </button>
       </div>
     </HOCDialog>
   );

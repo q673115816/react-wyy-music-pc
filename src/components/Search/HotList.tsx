@@ -9,12 +9,12 @@ export default memo(({ list = [], handleSearch }) => {
         <Link
           to={`/search/${item.searchWord}`}
           onClick={() => handleSearch(item.searchWord)}
-          className="item flex items-center w-full hover:bg-gray-100"
+          className="h-14 flex items-center w-full hover:bg-gray-100"
           key={item.content}
         >
           <span
             className={classNames(
-              "index flex-center text-base flex-none",
+              "w-14 flex-center text-base flex-none",
               index < 3 ? "text-red-500" : "text-gray-300"
             )}
           >

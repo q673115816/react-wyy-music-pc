@@ -1,8 +1,8 @@
-import React, { useReducer } from 'react';
-import { useDispatch } from 'react-redux';
-import { setDialogReset } from '@/reducers/mask/slice';
-import { IconX } from '@tabler/icons';
-import DomMask from '@/components/Mask';
+import React, { useReducer } from "react";
+import { useDispatch } from "react-redux";
+import { setDialogReset } from "@/reducers/mask/slice";
+import { IconX } from "@tabler/icons";
+import DomMask from "@/components/Mask";
 
 const initialState = {
   drag: false,
@@ -17,17 +17,17 @@ export default ({ children, id, title }) => {
   const dispatch = useDispatch();
   const [dialogState, dialogDispatch] = useReducer((state, action) => {
     switch (action.type) {
-      case 'MOUSE_DOWN':
+      case "MOUSE_DOWN":
         return {
           ...state,
           ...action.payload,
         };
-      case 'MOUSE_MOVE':
+      case "MOUSE_MOVE":
         return {
           ...state,
           ...action.payload,
         };
-      case 'MOUSE_UP':
+      case "MOUSE_UP":
         return {
           ...state,
           drag: false,
@@ -40,7 +40,7 @@ export default ({ children, id, title }) => {
   }, initialState);
   const handleMouseDown = (e) => {
     dialogDispatch({
-      type: 'MOUSE_DOWN',
+      type: "MOUSE_DOWN",
       payload: {
         drag: true,
         startX: e.clientX,
@@ -54,7 +54,7 @@ export default ({ children, id, title }) => {
       const moveX = e.clientX - dialogState.startX + dialogState.lastX;
       const moveY = e.clientY - dialogState.startY + dialogState.lastY;
       dialogDispatch({
-        type: 'MOUSE_MOVE',
+        type: "MOUSE_MOVE",
         payload: {
           moveX,
           moveY,
@@ -64,14 +64,11 @@ export default ({ children, id, title }) => {
   };
   const handleMouseUp = () => {
     dialogDispatch({
-      type: 'MOUSE_UP',
+      type: "MOUSE_UP",
     });
   };
   return (
-    <DomMask
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-    >
+    <DomMask onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
       <div
         className="ui_dialog bg-white shadow rounded"
         id={id}
@@ -92,9 +89,7 @@ export default ({ children, id, title }) => {
         >
           <div className="ui_dialog_title">{title}</div>
         </div>
-        <div className="ui_dialog_main">
-          {children}
-        </div>
+        <div className="ui_dialog_main">{children}</div>
       </div>
     </DomMask>
   );

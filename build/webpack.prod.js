@@ -7,6 +7,8 @@ const { DefinePlugin } = require("webpack");
 // });
 
 const base = require("./webpack.base");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { src } = require("./util");
 
 const { PUBLIC_URL } = process.env;
 
@@ -87,6 +89,12 @@ const plugins = [
     },
     publicPath: PUBLIC_URL,
   }),
+  new MiniCssExtractPlugin({
+    // Options similar to the same options in webpackOptions.output
+    // both options are optional
+    filename: "[name].[contenthash:8].css",
+    chunkFilename: "[name].[contenthash:8].css",
+  }),
 ];
 
 const prod = {
@@ -119,7 +127,25 @@ const prod = {
     },
   ],
   module: {
-    rules: [],
+    rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        exclude: /(node_modules|bower_components)/,
+        include: src,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            // options: {
+            //   // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
+            //   publicPath: process.env.PUBLIC_PATH,
+            // },
+          },
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
+        ],
+      },
+    ],
   },
   devtool: "hidden-source-map",
   plugins,

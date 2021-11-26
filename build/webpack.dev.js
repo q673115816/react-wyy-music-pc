@@ -7,6 +7,8 @@ const { merge } = require("webpack-merge");
 //   path: '.env.local',
 // });
 const base = require("./webpack.base");
+const { src } = require("./util");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const { PUBLIC_URL } = process.env;
 console.log("entry webpack dev");
@@ -29,7 +31,14 @@ const dev = {
     historyApiFallback: true,
   },
   module: {
-    rules: [],
+    rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        exclude: /(node_modules|bower_components)/,
+        include: src,
+        use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+      },
+    ],
   },
   plugins: [
     // new Dotenv({

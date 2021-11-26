@@ -1,10 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  IconMoodSmile,
-  IconAt,
-  IconHash,
-} from '@tabler/icons';
-import DomEmojiFaces from '@/components/EmojiFaces';
+import React, { useEffect, useRef, useState } from "react";
+import { IconMoodSmile, IconAt, IconHash } from "@tabler/icons";
+import DomEmojiFaces from "@/components/EmojiFaces";
 
 const DomFace = ({ handleInset }) => {
   const [visibility, setVisibility] = useState(false);
@@ -17,20 +13,22 @@ const DomFace = ({ handleInset }) => {
       >
         <IconMoodSmile size={20} stroke={1} />
       </button>
-      {
-        visibility
-        && (
-          <div className="absolute mt-2 left-0">
-            <DomEmojiFaces {...{ handleHide: () => setVisibility(false), clickface: handleInset }} />
-          </div>
-        )
-      }
+      {visibility && (
+        <div className="absolute mt-2 left-0">
+          <DomEmojiFaces
+            {...{
+              handleHide: () => setVisibility(false),
+              clickface: handleInset,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };
 
 export default () => {
-  const [data, setData] = useState('');
+  const [data, setData] = useState("");
   const refSelection = useRef(window.getSelection());
   const refRange = useRef();
   const refText = useRef();
@@ -50,10 +48,9 @@ export default () => {
 
   const handleInsetEmoji = (val) => {
     // refRange.current.insertNode(document.createTextNode(val));
-    document.execCommand('insertText', false, val);
+    document.execCommand("insertText", false, val);
   };
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="write">
       <div
@@ -62,7 +59,7 @@ export default () => {
         className="h-20 border bg-white rounded focus:outline-none px-3 py-1"
         onSelect={handleSelect}
       >
-        { }
+        {}
       </div>
       <div className="help flex mt-2">
         <div className="flex space-x-2 items-center">

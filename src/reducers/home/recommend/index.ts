@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   banners: [],
@@ -10,15 +10,15 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'recommend',
+  name: "recommend",
   initialState,
   reducers: {
     setHomeRecommend(state, action) {
-      Object.assign(state, action.payload)
+      Object.assign(state, action.payload);
     },
-  }
-})
+  },
+});
 
-export default slice.reducer
+export default slice.reducer;
 
-export const {setHomeRecommend,} = slice.actions
+export const { setHomeRecommend } = slice.actions;

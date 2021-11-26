@@ -1,39 +1,47 @@
-import React, {
-  useState, memo, useEffect, FC,
-} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {useAppDispatch, useAppSelector} from '@/reducers/hooks'
-import {
-  IconCheck,
-} from '@tabler/icons';
-import classNames from 'classnames';
+import React, { useState, memo, useEffect, FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { IconCheck } from "@tabler/icons";
+import classNames from "classnames";
 
-import { setTheme, setCustom } from '@/reducers/setting/slice';
-import './style.scss';
+import { setTheme, setCustom } from "@/reducers/setting/slice";
+import "./style.scss";
 // https://css-tricks.com/converting-color-spaces-in-javascript/
 function HSLToHex(h, s, l) {
   s /= 100;
   l /= 100;
 
   const c = (1 - Math.abs(2 * l - 1)) * s;
-  const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
   const m = l - c / 2;
   let r = 0;
   let g = 0;
   let b = 0;
 
   if (h >= 0 && h < 60) {
-    r = c; g = x; b = 0;
+    r = c;
+    g = x;
+    b = 0;
   } else if (h >= 60 && h < 120) {
-    r = x; g = c; b = 0;
+    r = x;
+    g = c;
+    b = 0;
   } else if (h >= 120 && h < 180) {
-    r = 0; g = c; b = x;
+    r = 0;
+    g = c;
+    b = x;
   } else if (h >= 180 && h < 240) {
-    r = 0; g = x; b = c;
+    r = 0;
+    g = x;
+    b = c;
   } else if (h >= 240 && h < 300) {
-    r = x; g = 0; b = c;
+    r = x;
+    g = 0;
+    b = c;
   } else if (h >= 300 && h < 360) {
-    r = c; g = 0; b = x;
+    r = c;
+    g = 0;
+    b = x;
   }
   // Having obtained RGB, convert channels to hex
   r = Math.round((r + m) * 255).toString(16);
@@ -41,17 +49,24 @@ function HSLToHex(h, s, l) {
   b = Math.round((b + m) * 255).toString(16);
 
   // Prepend 0s, if necessary
-  if (r.length == 1) { r = `0${r}`; }
-  if (g.length == 1) { g = `0${g}`; }
-  if (b.length == 1) { b = `0${b}`; }
+  if (r.length == 1) {
+    r = `0${r}`;
+  }
+  if (g.length == 1) {
+    g = `0${g}`;
+  }
+  if (b.length == 1) {
+    b = `0${b}`;
+  }
 
   return `#${r}${g}${b}`;
 }
 
 function hexToHSL(H) {
   // Convert hex to RGB first
-  let r = 0; let g = 0; let
-    b = 0;
+  let r = 0;
+  let g = 0;
+  let b = 0;
   if (H.length == 4) {
     r = `0x${H[1]}${H[1]}`;
     g = `0x${H[2]}${H[2]}`;
@@ -72,11 +87,21 @@ function hexToHSL(H) {
   let s = 0;
   let l = 0;
 
-  if (delta == 0) { h = 0; } else if (cmax == r) { h = ((g - b) / delta) % 6; } else if (cmax == g) { h = (b - r) / delta + 2; } else { h = (r - g) / delta + 4; }
+  if (delta == 0) {
+    h = 0;
+  } else if (cmax == r) {
+    h = ((g - b) / delta) % 6;
+  } else if (cmax == g) {
+    h = (b - r) / delta + 2;
+  } else {
+    h = (r - g) / delta + 4;
+  }
 
   h = Math.round(h * 60);
 
-  if (h < 0) { h += 360; }
+  if (h < 0) {
+    h += 360;
+  }
 
   l = (cmax + cmin) / 2;
   s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
@@ -87,33 +112,33 @@ function hexToHSL(H) {
 }
 
 const themes = [
-  ['酷炫黑', '#393D44'],
-  ['官方红', '#D03535'],
-  ['可爱粉', '#F95A92'],
-  ['天际蓝', '#5AB4F9'],
-  ['清新绿', '#38B277'],
-  ['土豪金', '#D18E35'],
+  ["酷炫黑", "#393D44"],
+  ["官方红", "#D03535"],
+  ["可爱粉", "#F95A92"],
+  ["天际蓝", "#5AB4F9"],
+  ["清新绿", "#38B277"],
+  ["土豪金", "#D18E35"],
 ];
 
 const colors = [
-  '#F5F5F5',
-  '#FF5C8A',
-  '#FF7A9E',
-  '#717FF9',
-  '#4791EB',
-  '#39AFEA',
-  '#2BB669',
-  '#6ACC19',
-  '#E2AB12',
-  '#FF8F57',
-  '#FD726D',
-  '#FD544E',
+  "#F5F5F5",
+  "#FF5C8A",
+  "#FF7A9E",
+  "#717FF9",
+  "#4791EB",
+  "#39AFEA",
+  "#2BB669",
+  "#6ACC19",
+  "#E2AB12",
+  "#FF8F57",
+  "#FD726D",
+  "#FD544E",
 ];
 
-const DomCheck: FC = ({children}) => (
+const DomCheck: FC = ({ children }) => (
   <i className="absolute flex-center text-white bg-red-500 -bottom-1.5 -right-1.5 border-2 p-0.5 border-white rounded-full">
     {children}
-    </i>
+  </i>
 );
 
 export default memo(() => {
@@ -142,71 +167,79 @@ export default memo(() => {
   };
 
   return (
-    <div className="domHeader_popup_skin absolute top-full left-1/2 transform -translate-x-1/2 bg-white shadow text-black z-30 py-3 px-4 rounded-b-lg" id="skin">
+    <div
+      className="domHeader_popup_skin absolute top-full left-1/2 transform -translate-x-1/2 bg-white shadow text-black z-30 py-3 px-4 rounded-b-lg"
+      id="skin"
+    >
       <div className="nav border-b space-x-3">
         <button
           onClick={() => setCurrent(0)}
           type="button"
-          className={classNames('link relative border-b border-transparent pb-0.5', { 'border-black': current === 0 })}
+          className={classNames(
+            "link relative border-b border-transparent pb-0.5",
+            { "border-black": current === 0 }
+          )}
         >
           主题
         </button>
         <button
           onClick={() => setCurrent(1)}
           type="button"
-          className={classNames('link relative border-b border-transparent pb-0.5', { 'border-black': current === 1 })}
+          className={classNames(
+            "link relative border-b border-transparent pb-0.5",
+            { "border-black": current === 1 }
+          )}
         >
           纯色
         </button>
       </div>
       <div className="skins">
-        <div className="themes mt-2.5 grid gap-2.5" style={{ display: current === 0 ? null : 'none' }}>
-          {
-            themes.map(([name, hex]) => (
-              <button
-                onClick={() => handleSelectTheme(hex)}
-                key={name}
-                type="button"
-                className="skinbtn relative theme rounded"
-                style={{ '--currentColor': hex }}
-              >
-                <span className="name absolute rounded-b-xl inset-x-0 bottom-0 bg-black bg-opacity-40 h-5 text-white">
-                  {name}
-                </span>
-                {
-                  (!custom && theme === hex)
-                  && (
-                    <DomCheck >
-                      <IconCheck size={16} stroke={2} />
-                    </DomCheck>
-                  )
-                }
-              </button>
-            ))
-          }
+        <div
+          className="themes mt-2.5 grid gap-2.5"
+          style={{ display: current === 0 ? null : "none" }}
+        >
+          {themes.map(([name, hex]) => (
+            <button
+              onClick={() => handleSelectTheme(hex)}
+              key={name}
+              type="button"
+              className="skinbtn relative theme rounded"
+              style={{ "--currentColor": hex }}
+            >
+              <span className="name absolute rounded-b-xl inset-x-0 bottom-0 bg-black bg-opacity-40 h-5 text-white">
+                {name}
+              </span>
+              {!custom && theme === hex && (
+                <DomCheck>
+                  <IconCheck size={16} stroke={2} />
+                </DomCheck>
+              )}
+            </button>
+          ))}
         </div>
-        <div className="colors" style={{ display: current === 1 ? null : 'none' }}>
+        <div
+          className="colors"
+          style={{ display: current === 1 ? null : "none" }}
+        >
           <div className="default mt-2.5 grid gap-2.5">
-            {
-              colors.map((hex, index) => (
-                <button
-                  key={hex}
-                  onClick={() => handleSelectTheme(hex)}
-                  type="button"
-                  className={classNames("skinbtn relative color rounded", index === 0 && 'border')}
-                  style={{ '--currentColor': hex }}
-                >
-                  {
-                    (!custom && theme === hex)
-                    && (
-                      <DomCheck >
-                        <IconCheck size={14} stroke={2} />
-                      </DomCheck>
-                    )
-                  }
-                </button>
-              ))
-            }
+            {colors.map((hex, index) => (
+              <button
+                key={hex}
+                onClick={() => handleSelectTheme(hex)}
+                type="button"
+                className={classNames(
+                  "skinbtn relative color rounded",
+                  index === 0 && "border"
+                )}
+                style={{ "--currentColor": hex }}
+              >
+                {!custom && theme === hex && (
+                  <DomCheck>
+                    <IconCheck size={14} stroke={2} />
+                  </DomCheck>
+                )}
+              </button>
+            ))}
           </div>
           <div className="mt-8 mb-2">自定义颜色</div>
           <div className="custom">
@@ -215,14 +248,11 @@ export default memo(() => {
               className="relative colour flex-none w-10 h-10 mr-2.5"
               onClick={() => dispatch(setCustom(true))}
             >
-              {
-                custom
-                && (
-                  <DomCheck >
-                    <IconCheck size={14} stroke={2} />
-                  </DomCheck>
-                )
-              }
+              {custom && (
+                <DomCheck>
+                  <IconCheck size={14} stroke={2} />
+                </DomCheck>
+              )}
             </button>
             <div className="ranges">
               <input
@@ -242,7 +272,7 @@ export default memo(() => {
                 step="1"
                 value={l}
                 onChange={(e) => handleHSL(e.target.value)}
-                style={{ '--h': h }}
+                style={{ "--h": h }}
               />
             </div>
           </div>

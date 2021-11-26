@@ -124,16 +124,16 @@ const slice = createSlice({
       state.globalHeight = nextheight;
       state.GlobalRectLock = false;
     },
-    setScreenFull(state, action) {
+    setScreenFull(state) {
       state.SCREEN = "full";
     },
-    setScreenNormal(state, action) {
+    setScreenNormal(state) {
       state.SCREEN = "normal";
     },
-    setPositionTrue(state, action) {
+    setPositionTrue(state) {
       state.POSITION = true;
     },
-    setPositionFalse(state, action) {
+    setPositionFalse(state) {
       state.POSITION = false;
     },
     setGlobalLrcInset(state, action) {
