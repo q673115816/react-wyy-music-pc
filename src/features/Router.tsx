@@ -1,11 +1,5 @@
-import React, { memo, ReactNode } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-
-interface iRoot {
-  [key: string]: ReactNode;
-}
-
-const root: iRoot = {};
+import React, { memo } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 const requireContext = require.context(
   "./",
@@ -13,19 +7,24 @@ const requireContext = require.context(
   /^\.\/.*\/Router\.tsx$/,
   "lazy"
 );
+// TODO ..... 需要更优雅的法
+const importAll = async (context: __WebpackModuleApi.RequireContext) => {
+  const keys = context.keys();
+  const asyncModules = await Promise.all(keys.map(context));
+  return asyncModules.map((module, index) => [
+    keys[index].slice(2, -11),
+    module.default,
+  ]);
+};
 
-requireContext.keys().forEach((key) => {
-  const mod = requireContext(key);
-  root[key.slice(2, -11)] = mod.__esModule && mod.default ? mod.default : mod;
+const root = await importAll(requireContext);
+export default memo(function Features() {
+  return (
+    <Routes>
+      {root.map(([path, Element]) => (
+        <Route path={`${path}/*`} key={path} element={<Element />} />
+      ))}
+      <Route path={`*`} element={<Navigate to={"discover"} replace={true} />} />
+    </Routes>
+  );
 });
-
-const RootRouter = () => (
-  <Routes>
-    {Object.entries(root).map(([path, Element]) => (
-      <Route path={`${path}/*`} key={path} element={<Element />} />
-    ))}
-    <Route path={`*`} element={<Navigate to={"discover"} replace={true} />} />
-  </Routes>
-);
-
-export default memo(RootRouter);

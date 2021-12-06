@@ -1,10 +1,9 @@
 import React, { memo, lazy, Suspense } from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Resizer from "@/components/Resizer";
 import Loading from "@/components/Loading";
 import Header from "./Header";
 import Inset from "./Inset";
-import Content from "@/layout/Content/Content";
 
 const Help = lazy(
   () =>
