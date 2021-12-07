@@ -1,8 +1,7 @@
-import React, { lazy } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-const DJCategory = lazy(
-  () => import(/* webpackChunkName: "DJCategory" */ "./DJCategory")
-);
+
+import DJCategory from "./DJCategory";
 
 const router = () => (
   <Routes>

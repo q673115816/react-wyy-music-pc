@@ -4,7 +4,7 @@ import FM from "./FM";
 const Router = () => {
   return (
     <Routes>
-      <Route path={""} element={<FM />} />
+      <Route index element={<FM />} />
     </Routes>
   );
 };

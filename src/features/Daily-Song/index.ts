@@ -1,1 +1,1 @@
-export { default } from "./DailySong";
+export { default } from "./Router";
