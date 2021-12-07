@@ -1,8 +1,8 @@
 /* eslint-disable */
-import { resolve } from 'path';
-import { defineConfig } from 'vite'
-import reactRefresh from '@vitejs/plugin-react-refresh';
-import legacyPlugin from '@vitejs/plugin-legacy';
+import { resolve } from "path";
+import { defineConfig } from "vite";
+import reactRefresh from "@vitejs/plugin-react-refresh";
+import legacyPlugin from "@vitejs/plugin-legacy";
 
 // const alias = {
 // 'api': path.resolve(__dirname, './src/api'),
@@ -21,30 +21,50 @@ import legacyPlugin from '@vitejs/plugin-legacy';
 // }
 
 const alias = {
-  '@': resolve(__dirname, 'src'),
-  '@img': resolve(__dirname, 'src/assets/images'),
-}
+  "@": resolve(__dirname, "src"),
+  "@img": resolve(__dirname, "src/assets/images"),
+};
 
 export default defineConfig({
-  base: './',
-  root: './',
+  base: "./",
+  root: "./",
 
   plugins: [
     reactRefresh(),
     legacyPlugin({
-        targets: ['ie >= 11'],
-        additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-        polyfills: true
-      })
+      targets: ["ie >= 11"],
+      additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
+      polyfills: true,
+    }),
   ],
   server: {
     port: 8080,
     strictPort: true,
   },
   resolve: {
-    alias
+    alias,
   },
   optimizeDeps: {
-    exclude: []
-  }
-})
+    exclude: [],
+  },
+  build: {
+    rollupOptions: {
+      external: [
+        "react",
+        "react-dom",
+        "react-router",
+        "react-router-dom",
+        "immer",
+        "redux",
+        "react-redux",
+        "@reduxjs/toolkit",
+        "@tabler/icons",
+        "react-slick",
+        "axios",
+        "socket.io-client",
+        "webrtc-adapter",
+        "react-query",
+      ],
+    },
+  },
+});

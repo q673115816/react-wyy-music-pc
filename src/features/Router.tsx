@@ -8,16 +8,21 @@ const requireContext = require.context(
   /^\.\/.*\/Router\.tsx$/,
   "lazy"
 );
-const importALl = (context: __WebpackModuleApi.RequireContext) => {
-  const keys = context.keys();
-  const module = keys.map(context);
-  return keys.map((path, index) => [
-    path.slice(2, -11),
-    lazy(() => module[index]),
-  ]);
-};
-const root = await importALl(requireContext);
-console.log(root);
+// const importALl = (context: __WebpackModuleApi.RequireContext) => {
+//   const keys = context.keys();
+//   const module = keys.map(context);
+//   return keys.map((path, index) => [
+//     path.slice(2, -11),
+//     lazy(() => module[index]),
+//   ]);
+// };
+// const root = await importALl(requireContext);
+// console.log(root);
+
+const root = [
+  ["AI", lazy(() => import(/* webpackChunkName: "AI" */ "./AI/Router"))],
+];
+
 export default memo(function Features() {
   return (
     <Routes>
