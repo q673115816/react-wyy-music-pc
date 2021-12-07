@@ -1,1 +1,0 @@
-"use strict";(this.webpackChunkwyy=this.webpackChunkwyy||[]).push([[177],{1177:(e,t,n)=>{n.r(t),n.d(t,{default:()=>a});var l=n(7363),u=n.n(l),r=n(6711);const a=function(){return u().createElement(r.Routes,null,u().createElement(r.Route,{path:"*",element:u().createElement("div",null,"hello world")}))}}}]);

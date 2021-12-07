@@ -1,1 +1,0 @@
-{"version":3,"file":"201.09f0b300.css","mappings":"AAEM,oCAEE,YADA,UACA,C","sources":["webpack://wyy/./src/features/Artist-TopList/style.scss"],"sourcesContent":[".domtoplistartist {\n    &_other_list {\n      .cover {\n        width: 60px;\n        height: 60px;\n      }\n    }\n}\n"],"names":[],"sourceRoot":""}
