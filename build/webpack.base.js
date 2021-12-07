@@ -7,10 +7,11 @@ const { src, img } = require("./util");
 
 // console.log(process.env);
 const devMode = process.env.NODE_ENV !== "production";
-
+const { VITE_PUBLIC_URL } = process.env;
 const plugins = [
   new DefinePlugin({
     "process.env": JSON.stringify(dotenv.parsed),
+    VITE_PUBLIC_URL: JSON.stringify(VITE_PUBLIC_URL),
   }),
   // new GenerateSW({
   //   // Do not precache images

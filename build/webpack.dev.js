@@ -1,16 +1,11 @@
 const path = require("path");
-const { DefinePlugin } = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { merge } = require("webpack-merge");
-// require('dotenv').config({
-//   path: '.env.local',
-// });
+
 const base = require("./webpack.base");
 const { src } = require("./util");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-const { PUBLIC_URL } = process.env;
 console.log("entry webpack dev");
 
 const dev = {
@@ -41,12 +36,6 @@ const dev = {
     ],
   },
   plugins: [
-    // new Dotenv({
-    //   path: '.env.local',
-    // }),
-    new DefinePlugin({
-      PUBLIC_URL: JSON.stringify(PUBLIC_URL),
-    }),
     // new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({

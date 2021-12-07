@@ -10,7 +10,7 @@ const base = require("./webpack.base");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { src } = require("./util");
 
-const { PUBLIC_URL } = process.env;
+const { VITE_PUBLIC_URL } = process.env;
 
 console.log("entry webpack prod");
 
@@ -70,12 +70,6 @@ const meta = {
 const filename = "404.html";
 
 const plugins = [
-  // new Dotenv({
-  //   path: '.env.remote',
-  // }),
-  new DefinePlugin({
-    PUBLIC_URL: JSON.stringify(PUBLIC_URL),
-  }),
   new HtmlWebpackPlugin({
     favicon: path.join(__dirname, "../public/favicon.ico"),
     template: path.join(__dirname, "../public/index.html"),
@@ -85,9 +79,9 @@ const plugins = [
     meta,
     filename,
     base: {
-      href: PUBLIC_URL,
+      href: VITE_PUBLIC_URL,
     },
-    publicPath: PUBLIC_URL,
+    publicPath: VITE_PUBLIC_URL,
   }),
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output

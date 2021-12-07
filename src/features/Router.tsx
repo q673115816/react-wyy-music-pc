@@ -1,5 +1,6 @@
-import React, { memo } from "react";
+import React, { lazy, memo, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
+import Loading from "@/components/Loading";
 
 const requireContext = require.context(
   "./",
@@ -7,22 +8,35 @@ const requireContext = require.context(
   /^\.\/.*\/Router\.tsx$/,
   "lazy"
 );
-// TODO ..... 需要更优雅的法
-const importAll = async (context: __WebpackModuleApi.RequireContext) => {
+const importALl = (context: __WebpackModuleApi.RequireContext) => {
   const keys = context.keys();
-  const asyncModules = await Promise.all(keys.map(context));
-  return asyncModules.map((module, index) => [
-    keys[index].slice(2, -11),
-    module.default,
+  const module = keys.map(context);
+  return keys.map((path, index) => [
+    path.slice(2, -11),
+    lazy(() => module[index]),
   ]);
 };
-
-const root = await importAll(requireContext);
+const root = await importALl(requireContext);
+console.log(root);
 export default memo(function Features() {
   return (
     <Routes>
       {root.map(([path, Element]) => (
-        <Route path={`${path}/*`} key={path} element={<Element />} />
+        <Route
+          path={`${path}/*`}
+          key={path}
+          element={
+            <Suspense
+              fallback={
+                <div className="flex-center w-full h-full">
+                  <Loading />
+                </div>
+              }
+            >
+              <Element />
+            </Suspense>
+          }
+        />
       ))}
       <Route path={`*`} element={<Navigate to={"discover"} replace={true} />} />
     </Routes>
