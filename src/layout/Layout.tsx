@@ -8,7 +8,7 @@ import Inset from "./Inset";
 const Help = lazy(
   () =>
     import(
-      /* webpackChunkName: "Lrc" */
+      /* webpackChunkName: "Help" */
       "./Help"
     )
 );

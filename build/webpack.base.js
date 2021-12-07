@@ -1,11 +1,9 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const { GenerateSW } = require("workbox-webpack-plugin");
 const path = require("path");
 const { DefinePlugin } = require("webpack");
 const dotenv = require("./env")();
 const { src, img } = require("./util");
 
-// console.log(process.env);
 const devMode = process.env.NODE_ENV !== "production";
 const { VITE_PUBLIC_URL } = process.env;
 const plugins = [
@@ -16,35 +14,21 @@ const plugins = [
   // new GenerateSW({
   //   // Do not precache images
   //   exclude: [/\.(?:png|jpg|jpeg|svg)$/],
-  //
   //   // Define runtime caching rules.
   //   runtimeCaching: [{
   //     // Match any request that ends with .png, .jpg, .jpeg or .svg.
   //     urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
-  //
   //     // Apply a cache-first strategy.
   //     handler: 'CacheFirst',
-  //
   //     options: {
   //       // Use a custom cache name.
   //       cacheName: 'images',
-  //
   //       // Only cache 10 images.
   //       expiration: {
   //         maxEntries: 10,
   //       },
   //     },
   //   }],
-  // }),
-  new MiniCssExtractPlugin({
-    // Options similar to the same options in webpackOptions.output
-    // both options are optional
-    filename: "[name].[contenthash:8].css",
-    chunkFilename: "[name].[contenthash:8].css",
-  }),
-  // new webpack.DllPlugin({
-  //   PUBLIC_PATH: '/react-wyy-music-pc/',
-  //   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   // }),
   // new webpack.DllPlugin({
   //   name: '[name]_[fullhash]',

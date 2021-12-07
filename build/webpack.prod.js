@@ -1,17 +1,13 @@
 const { merge } = require("webpack-merge");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { DefinePlugin } = require("webpack");
-// require('dotenv').config({
-//   path: '.env.remote',
-// });
 
 const base = require("./webpack.base");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { src } = require("./util");
 
 const { VITE_PUBLIC_URL } = process.env;
-
+console.log("VITE_PUBLIC_URL", VITE_PUBLIC_URL);
 console.log("entry webpack prod");
 
 const devMode = process.env.NODE_ENV !== "production";
@@ -26,13 +22,10 @@ const cdn = {
     `${cdnBase}/react/umd/react.development${minCdn}.js`,
     `${cdnBase}/react-dom/umd/react-dom.development${minCdn}.js`,
     `${cdnBase}/react-router-dom/umd/react-router-dom${minCdn}.js`,
-    // `${cdnBase}/react-router/umd/react-router${minCdn}.js`,
     `${cdnBase}/redux/dist/redux${minCdn}.js`,
     `${cdnBase}/react-redux/dist/react-redux${minCdn}.js`,
     `${cdnBase}/@reduxjs/toolkit/dist/redux-toolkit.umd${minCdn}.js`,
-    // `${cdnBase}/swiper/swiper-bundle${minCdn}.js`,
     `${cdnBase}/react-slick/dist/react-slick${minCdn}.js`,
-    // `${cdnBase}/npm/react-id-swiper/lib/react-id-swiper${minCdn}.js`,
     `${cdnBase}/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
     `${cdnBase}/immer/dist/immer.umd.development${minCdn}.js`,
     `${cdnBase}/socket.io-client/dist/socket.io${minCdn}.js`,
@@ -77,7 +70,7 @@ const plugins = [
     cdn,
     // prefetch,
     meta,
-    filename,
+    // filename,
     base: {
       href: VITE_PUBLIC_URL,
     },
@@ -91,35 +84,37 @@ const plugins = [
   }),
 ];
 
+const externals = [
+  {
+    // 'swiper': ['Swiper', 'swiper-react'],
+    // 'swiper': 'Swiper',
+    react: "React",
+    "react-dom": "ReactDOM",
+    "react-router": "ReactRouter",
+    "react-router-dom": "ReactRouterDOM",
+    immer: "immer",
+    redux: "Redux",
+    "react-redux": "ReactRedux",
+    "@reduxjs/toolkit": "RTK",
+    "@tabler/icons": "tablerIcons",
+    "react-slick": "Slider",
+    axios: "axios",
+    "socket.io-client": "io",
+    "webrtc-adapter": "adapter",
+    "react-query": "ReactQuery",
+  },
+];
+
 const prod = {
   mode: "production",
   output: {
     clean: true,
-    publicPath: "/react-wyy-music-pc/",
+    publicPath: `${VITE_PUBLIC_URL}/`,
     path: path.join(__dirname, "../dist"),
     filename: "[name].[chunkhash:8].js",
     // library: '[name]_[fullhash]',
   },
-  externals: [
-    {
-      // 'swiper': ['Swiper', 'swiper-react'],
-      // 'swiper': 'Swiper',
-      react: "React",
-      "react-dom": "ReactDOM",
-      "react-router": "ReactRouter",
-      "react-router-dom": "ReactRouterDOM",
-      immer: "immer",
-      redux: "Redux",
-      "react-redux": "ReactRedux",
-      "@reduxjs/toolkit": "RTK",
-      "@tabler/icons": "tablerIcons",
-      "react-slick": "Slider",
-      axios: "axios",
-      "socket.io-client": "io",
-      "webrtc-adapter": "adapter",
-      "react-query": "ReactQuery",
-    },
-  ],
+  externals,
   module: {
     rules: [
       {
@@ -141,7 +136,8 @@ const prod = {
       },
     ],
   },
-  devtool: "hidden-source-map",
+  // devtool: "hidden-source-map",
+  devtool: "source-map",
   plugins,
 };
 module.exports = merge(base, prod);

@@ -1,27 +1,11 @@
 import React, { lazy, memo, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Loading from "@/components/Loading";
-
-const requireContext = require.context(
-  "./",
-  true,
-  /^\.\/.*\/Router\.tsx$/,
-  "lazy"
-);
-// const importALl = (context: __WebpackModuleApi.RequireContext) => {
-//   const keys = context.keys();
-//   const module = keys.map(context);
-//   return keys.map((path, index) => [
-//     path.slice(2, -11),
-//     lazy(() => module[index]),
-//   ]);
-// };
-// const root = await importALl(requireContext);
-// console.log(root);
-
-const root = [
-  ["AI", lazy(() => import(/* webpackChunkName: "AI" */ "./AI/Router"))],
-];
+const root = [];
+const requireContext = require.context("./", true, /^\.\/.*\/Router\.tsx$/);
+requireContext.keys().forEach((path) => {
+  root.push([path.slice(2, -11), requireContext(path).default]);
+});
 
 export default memo(function Features() {
   return (
