@@ -1,5 +1,6 @@
 import React, {
   CSSProperties,
+  FC,
   memo,
   MouseEventHandler,
   ReactNode,
@@ -32,28 +33,34 @@ const Mask = memo<MaskProps>(({ onMouseMove, onMouseUp }) =>
   )
 );
 
-export default memo<iProps>(
-  ({ children, onMouseDown, onMouseMove, onMouseUp, ...props }) => {
-    // console.log("helpMask");
-    const [dragger, setDragger] = useState(false);
-    const defaultMouseDown: MouseEventHandler = useCallback((e) => {
-      setDragger(true);
-      onMouseDown(e);
-    }, []);
-    const _onMouseMove: MouseEventHandler = useCallback(onMouseMove, []);
+const Drag: FC<iProps> = ({
+  children,
+  onMouseDown,
+  onMouseMove,
+  onMouseUp,
+  ...props
+}) => {
+  // console.log("helpMask");
+  const [dragger, setDragger] = useState(false);
+  const defaultMouseDown: MouseEventHandler = useCallback((e) => {
+    setDragger(true);
+    onMouseDown(e);
+  }, []);
+  const _onMouseMove: MouseEventHandler = useCallback(onMouseMove, []);
 
-    const _onMouseUp: MouseEventHandler = useCallback((e) => {
-      onMouseUp(e);
-      setDragger(false);
-    }, []);
+  const _onMouseUp: MouseEventHandler = useCallback((e) => {
+    onMouseUp(e);
+    setDragger(false);
+  }, []);
 
-    return (
-      <>
-        <div onMouseDown={defaultMouseDown} {...props}>
-          {children}
-        </div>
-        {dragger && <Mask onMouseMove={_onMouseMove} onMouseUp={_onMouseUp} />}
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <div onMouseDown={defaultMouseDown} {...props}>
+        {children}
+      </div>
+      {dragger && <Mask onMouseMove={_onMouseMove} onMouseUp={_onMouseUp} />}
+    </>
+  );
+};
+
+export default memo(Drag);

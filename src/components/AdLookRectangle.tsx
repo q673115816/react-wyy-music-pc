@@ -1,17 +1,16 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
-import kankanimg from "@img/kankan.jpg";
 
-const kankan = "https://look.163.com/hot?livetype=2";
+const link = "https://look.163.com/hot?livetype=2";
 
-export default memo(({ tag = false }) => (
+const ADLookRectangle: FC<{ tag: boolean }> = ({ tag = false }) => (
   <div className="item">
     <div className="rounded overflow-hidden relative">
-      <Link to={kankan}>
+      <Link to={link}>
         <img
           loading={`lazy`}
           className="object-cover ui_aspect-ratio-1/1"
-          src={kankanimg}
+          src="@img/kankan.jpg"
           alt=""
         />
         <div className="absolute top-0 right-0 m-1">
@@ -28,7 +27,9 @@ export default memo(({ tag = false }) => (
       </Link>
     </div>
     <div className="footer text-sm mt-1">
-      <Link to={kankan}>name</Link>
+      <Link to={link}>name</Link>
     </div>
   </div>
-));
+);
+
+export default memo(ADLookRectangle);

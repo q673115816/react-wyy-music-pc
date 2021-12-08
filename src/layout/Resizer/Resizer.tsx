@@ -1,4 +1,4 @@
-import React, { memo, MouseEvent } from "react";
+import React, { memo, MouseEvent, MouseEventHandler, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import { IconChevronDownRight } from "@tabler/icons";
 import {
@@ -9,11 +9,11 @@ import {
 } from "@/reducers/inset/slice";
 import Drag from "@/components/Drag";
 
-export default memo(() => {
+export default memo(function Resizer() {
   const dispatch = useAppDispatch();
   const { SCREEN, GlobalRectLock } = useAppSelector(({ inset }) => inset);
 
-  const onMouseMove = (e) => {
+  const onMouseMove: MouseEventHandler = useCallback((e) => {
     e.preventDefault();
     if (GlobalRectLock) return;
     dispatch(setGlobalStartRectLock());
@@ -26,13 +26,13 @@ export default memo(() => {
         })
       );
     });
-  };
+  }, []);
 
-  const onMouseUp = () => {
+  const onMouseUp: MouseEventHandler = () => {
     // dispatch(setGlobalResizer(false));
   };
 
-  const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+  const onMouseDown: MouseEventHandler = useCallback((e) => {
     // dispatch(setGlobalResizer(true));
     dispatch(
       setGlobalStartRect({
@@ -40,7 +40,7 @@ export default memo(() => {
         y: e.clientY,
       })
     );
-  };
+  }, []);
 
   if (SCREEN !== "normal") return null;
   return (

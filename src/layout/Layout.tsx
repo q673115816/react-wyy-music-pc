@@ -1,40 +1,21 @@
-import React, { memo, lazy, Suspense } from "react";
+import React, { memo } from "react";
 import { Outlet } from "react-router-dom";
-import Resizer from "@/components/Resizer";
-import Loading from "@/components/Loading";
+import Resizer from "./Resizer";
 import Header from "./Header";
 import Inset from "./Inset";
+import Help from "./Help";
+import Lrc from "./Lrc";
 
-const Help = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "Help" */
-      "./Help"
-    )
-);
-const Lrc = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "Lrc" */
-      "./Lrc"
-    )
-);
 const Layout = () => {
   return (
     <Inset>
-      <Header />
-      <Outlet />
-      <Suspense
-        fallback={
-          <div className="flex-center w-full h-full">
-            <Loading />
-          </div>
-        }
-      >
+      <>
+        <Header />
+        <Outlet />
         <Lrc />
         <Help />
-      </Suspense>
-      <Resizer />
+        <Resizer />
+      </>
     </Inset>
   );
 };

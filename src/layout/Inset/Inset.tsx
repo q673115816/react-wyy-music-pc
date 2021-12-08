@@ -1,5 +1,6 @@
-import React, { CSSProperties, FC, memo } from "react";
+import React, { FC, memo, useMemo } from "react";
 import { useAppSelector } from "@/reducers/hooks";
+import "./style.scss";
 
 const Inset: FC = ({ children }) => {
   const {
@@ -13,39 +14,43 @@ const Inset: FC = ({ children }) => {
   } = useAppSelector(({ inset }) => inset);
   const { theme, font } = useAppSelector(({ setting }) => setting);
 
-  const style1 = {
+  const themeStyle = {
     fontFamily: font,
     "--themeColor": theme,
   };
 
-  const style2: CSSProperties = {
-    ...(SCREEN === "normal"
-      ? {
-          "--WIDTH": `${globalWidth}px`,
-          "--HEIGHT": `${globalHeight}px`,
-        }
-      : {
-          "--WIDTH": "100vw",
-          "--HEIGHT": "100vh",
-        }),
-    ...(POSITION
-      ? globalDragger
-        ? {
-            transform: `translate(${globalX}px, ${globalY}px)`,
-          }
-        : {
-            position: "absolute",
-            left: `${globalX}px`,
-            top: `${globalY}px`,
-          }
-      : {}),
-  };
+  const sizeStyle = useMemo(() => {
+    if (SCREEN === "normal")
+      return {
+        "--WIDTH": `${globalWidth}px`,
+        "--HEIGHT": `${globalHeight}px`,
+      };
+    return {
+      "--WIDTH": "100vw",
+      "--HEIGHT": "100vh",
+    };
+  }, [SCREEN, globalWidth, globalHeight]);
+  const positionStyle = useMemo(() => {
+    if (!POSITION) return null;
+    if (globalDragger) {
+      return {
+        transform: `translate(${globalX}px, ${globalY}px)`,
+      };
+    }
+    return {
+      position: "absolute",
+      left: `${globalX}px`,
+      top: `${globalY}px`,
+    };
+  }, [POSITION, globalDragger, globalX, globalY]);
   return (
-    <div className="App" style={style1}>
+    <div className="App" style={themeStyle}>
       <div
-        id="NeteaseCloudMusic"
-        className="domWrapper flex flex-col shadow-lg select-none"
-        style={style2}
+        className="Wrap flex flex-col shadow-lg select-none"
+        style={{
+          ...sizeStyle,
+          ...positionStyle,
+        }}
       >
         {children}
       </div>

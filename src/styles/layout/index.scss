@@ -1,13 +1,2 @@
-.domWrapper {
-  --WIDTH: 1022px;
-  --HEIGHT: 670px;
-  --HEADER: 60px;
-  --FOOTER:70px;
-  width: var(--WIDTH);
-  height: var(--HEIGHT);
-  background-color: #fff;
-  // transform: translate(0, 0);
-}
-
 @import 'sublist';
 @import 'manage';

@@ -24,7 +24,7 @@ const store = configureStore({
     ...getDefaultMiddleware(),
     // logger
   ],
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: import.meta.env.NODE_ENV !== "production",
   preloadedState,
   // enhancers: [reduxBatch],
 });

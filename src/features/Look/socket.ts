@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-export const LIVE_URL = process.env.LIVE_URL;
+export const LIVE_URL = import.meta.env.VITE_LIVE_URL;
 
 const socket = io(LIVE_URL, {
   autoConnect: false,

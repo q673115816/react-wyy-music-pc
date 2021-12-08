@@ -36,7 +36,7 @@ const queryClient = new QueryClient();
 
 render(
   <React.StrictMode>
-    <BrowserRouter basename={VITE_PUBLIC_URL}>
+    <BrowserRouter basename={import.meta.env.VITE_PUBLIC_URL}>
       <QueryClientProvider client={queryClient}>
         <Provider store={store}>
           <App />

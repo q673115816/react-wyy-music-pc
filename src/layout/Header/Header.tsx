@@ -101,7 +101,7 @@ const useInit = () => {
   }, []);
 };
 
-const CustomDrag = memo(() => {
+const CustomDrag = memo(function CustomDrag() {
   const dispatch = useAppDispatch();
 
   const onMouseMove: MouseEventHandler = useCallback(
@@ -140,7 +140,7 @@ const CustomDrag = memo(() => {
   );
 });
 
-export default memo(() => {
+export default memo(function Header() {
   useInit();
   return (
     <div className="domHeader ui_theme_bg_color relative px-5 flex flex-none items-center text-white">
