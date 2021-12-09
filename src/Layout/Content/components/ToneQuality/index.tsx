@@ -12,7 +12,7 @@ const rates = {
   999000: "无损音质",
 };
 
-export default memo(() => {
+export default memo(function ToneQuality() {
   const { currentSong } = useAppSelector(({ audio }) => audio);
   return (
     <div

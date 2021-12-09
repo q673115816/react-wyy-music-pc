@@ -28,7 +28,7 @@ const audioPatternIcon = [
   IconArrowsSplit2,
 ];
 
-export default memo(() => {
+export default memo(function Center() {
   const dispatch = useAppDispatch();
   const { running, pattern } = useAppSelector(({ audio }) => audio);
   const { globalLrcVisibility } = useAppSelector(({ lrc }) => lrc);

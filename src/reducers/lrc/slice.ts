@@ -28,7 +28,7 @@ const slice = createSlice({
   name: "lrc",
   initialState,
   reducers: {
-    setGlobalLrcToggle(state, action) {
+    setGlobalLrcToggle(state) {
       setGlobalvisibility(state, !state.globalLrcVisibility);
     },
     setLyricText(state, action) {

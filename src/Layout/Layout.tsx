@@ -9,13 +9,11 @@ import Lrc from "./Lrc";
 const Layout = () => {
   return (
     <Inset>
-      <>
-        <Header />
-        <Outlet />
-        <Lrc />
-        <Help />
-        <Resizer />
-      </>
+      <Header />
+      <Outlet />
+      <Lrc />
+      <Help />
+      <Resizer />
     </Inset>
   );
 };

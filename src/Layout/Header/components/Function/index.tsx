@@ -5,7 +5,7 @@ import { setPopupLetterToggle } from "@/reducers/mask/slice";
 import DomSkinPop from "./Skin";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
-const DomSkinBtn = memo(() => {
+const SkinBtn = memo(() => {
   const [visibility, setVisibility] = useState(false);
   return (
     <div className="domHeader_function_skin">
@@ -42,7 +42,7 @@ const LetterBtn = memo(() => {
 
 export default memo(() => (
   <div className="domHeader_function flex space-x-3 relative h-full items-center">
-    <DomSkinBtn />
+    <SkinBtn />
     <Link
       to="/settings"
       className="relative text-white text-opacity-90 hover:text-opacity-100 "

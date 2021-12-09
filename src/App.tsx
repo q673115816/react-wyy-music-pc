@@ -2,7 +2,7 @@ import React, { lazy, memo } from "react";
 import useIsLogin from "@/hooks/useIsLogin";
 import useKeyActions from "./hooks/useKeyActions";
 import "./styles/index.scss";
-import Layout from "./layout";
+import Layout from "./Layout/Layout";
 import GlobalLrc from "./components/Lrc";
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
   useIsLogin();
   return (
     <>
-      <Layout />
+      {/*<Layout />*/}
       <GlobalLrc />
     </>
   );

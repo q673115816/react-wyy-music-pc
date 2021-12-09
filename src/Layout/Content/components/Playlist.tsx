@@ -4,7 +4,7 @@ import {
   IconLock,
   IconMusic,
 } from "@tabler/icons";
-import React, { memo, useState } from "react";
+import React, { FC, memo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { playlistState } from "@/reducers/account/slice";
 import classNames from "classnames";
@@ -14,7 +14,7 @@ interface PlaylistProps {
   playlist: playlistState[];
 }
 
-export default memo<PlaylistProps>(({ name, playlist }) => {
+const Playlist: FC<PlaylistProps> = ({ name, playlist }) => {
   const [visible, setVisible] = useState(true);
   return (
     <>
@@ -63,4 +63,6 @@ export default memo<PlaylistProps>(({ name, playlist }) => {
       )}
     </>
   );
-});
+};
+
+export default memo(Playlist);

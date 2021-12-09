@@ -22,17 +22,6 @@ interface iProps extends MaskProps {
   style?: CSSProperties;
 }
 
-const Mask = memo<MaskProps>(({ onMouseMove, onMouseUp }) =>
-  createPortal(
-    <div
-      className="absolute inset-0 z-50"
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
-    />,
-    document.querySelector("#help-root") as HTMLDivElement
-  )
-);
-
 const Drag: FC<iProps> = ({
   children,
   onMouseDown,
@@ -41,16 +30,16 @@ const Drag: FC<iProps> = ({
   ...props
 }) => {
   // console.log("helpMask");
-  const [dragger, setDragger] = useState(false);
+  const [isDrag, setIsDrag] = useState(false);
   const defaultMouseDown: MouseEventHandler = useCallback((e) => {
-    setDragger(true);
+    setIsDrag(true);
     onMouseDown(e);
   }, []);
   const _onMouseMove: MouseEventHandler = useCallback(onMouseMove, []);
 
   const _onMouseUp: MouseEventHandler = useCallback((e) => {
     onMouseUp(e);
-    setDragger(false);
+    setIsDrag(false);
   }, []);
 
   return (
@@ -58,7 +47,15 @@ const Drag: FC<iProps> = ({
       <div onMouseDown={defaultMouseDown} {...props}>
         {children}
       </div>
-      {dragger && <Mask onMouseMove={_onMouseMove} onMouseUp={_onMouseUp} />}
+      {isDrag &&
+        createPortal(
+          <div
+            className="absolute inset-0 z-50"
+            onMouseMove={_onMouseMove}
+            onMouseUp={_onMouseUp}
+          />,
+          document.querySelector("#help-root") as HTMLDivElement
+        )}
     </>
   );
 };

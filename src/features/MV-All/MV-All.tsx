@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
-import { useQuery } from "react-query";
 import GridVideo from "@/components/GridVideo";
 import useInfinite from "@/hooks/useInfinite";
 import { apiMVAll } from "@/api";

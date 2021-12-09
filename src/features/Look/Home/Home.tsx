@@ -12,7 +12,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import Loading from "@/components/Loading";
 import Rea from "react-error-boundary";
-import socket, { LIVE_URL } from "../socket";
+import socket from "../socket";
 import { iList } from "./types";
 import LiveList from "./List";
 

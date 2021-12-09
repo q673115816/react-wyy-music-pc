@@ -18,13 +18,13 @@ const Control = () => {
   const dispatch = useAppDispatch();
   const { SCREEN } = useAppSelector(({ inset }) => inset);
   const handleFullScreen = async () => {
-    await document.documentElement.webkitRequestFullScreen();
+    await document.documentElement.requestFullscreen();
     dispatch(setScreenFull());
     dispatch(setPositionFalse());
   };
 
   const handleExitFullScreen = async () => {
-    await document.webkitExitFullscreen();
+    await document.exitFullscreen();
     dispatch(setScreenNormal());
     dispatch(setPositionTrue());
   };

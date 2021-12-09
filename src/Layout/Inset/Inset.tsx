@@ -2,7 +2,9 @@ import React, { FC, memo, useMemo } from "react";
 import { useAppSelector } from "@/reducers/hooks";
 import "./style.scss";
 
-const Inset: FC = ({ children }) => {
+interface iInset {}
+
+const Inset: FC<iInset> = ({ children }) => {
   const {
     POSITION,
     SCREEN,
@@ -30,6 +32,7 @@ const Inset: FC = ({ children }) => {
       "--HEIGHT": "100vh",
     };
   }, [SCREEN, globalWidth, globalHeight]);
+
   const positionStyle = useMemo(() => {
     if (!POSITION) return null;
     if (globalDragger) {
@@ -43,6 +46,7 @@ const Inset: FC = ({ children }) => {
       top: `${globalY}px`,
     };
   }, [POSITION, globalDragger, globalX, globalY]);
+
   return (
     <div className="App" style={themeStyle}>
       <div

@@ -92,7 +92,7 @@ const slice = createSlice({
       window.localStorage.setItem("history", JSON.stringify(state.history));
     },
     setAudioPlaylistAdd(state, action) {},
-    setAudioPrev(state, action) {
+    setAudioPrev(state) {
       if (state.playlist.length === 0) return;
       FnChange(state);
       const len = state.playlist.length;
@@ -104,7 +104,7 @@ const slice = createSlice({
       FnAddHistory(state, currentSong);
       window.localStorage.setItem("currentSong", JSON.stringify(currentSong));
     },
-    setAudioNext(state, action) {
+    setAudioNext(state) {
       if (state.playlist.length === 0) return;
       FnChange(state);
       const len = state.playlist.length;
@@ -146,13 +146,13 @@ const slice = createSlice({
         state.running = false;
       }
     },
-    setAudioRunningPlay(state, action) {
+    setAudioRunningPlay(state) {
       state.running = true;
     },
-    setAudioRunningPause(state, action) {
+    setAudioRunningPause(state) {
       state.running = false;
     },
-    setAudioRunningToggle(state, action) {
+    setAudioRunningToggle(state) {
       state.running = !state.running;
     },
     setAudioDropping(state, action) {
@@ -175,7 +175,7 @@ const slice = createSlice({
     setAudioBuffered(state, action) {
       state.buffered = action.payload;
     },
-    setAudioPlaylistClear(state, action) {
+    setAudioPlaylistClear(state) {
       window.localStorage.removeItem("currentSong");
       window.localStorage.removeItem("currentTime");
       window.localStorage.removeItem("playlist");
@@ -183,18 +183,18 @@ const slice = createSlice({
       state.currentSong = {};
       state.playlist = [];
     },
-    setAudioHistoryClear(state, action) {
+    setAudioHistoryClear(state) {
       window.localStorage.removeItem("history");
       state.history = [];
     },
-    setAudioPattern(state, action) {
+    setAudioPattern(state) {
       const pattern = (state.pattern + 1) % audioPattern.length;
       state.pattern = pattern;
     },
-    setRunErrorAdd(state, action) {
+    setRunErrorAdd(state) {
       state.errorCount += 1;
     },
-    setRunErrorDesc(state, action) {
+    setRunErrorDesc(state) {
       state.errorCount -= 1;
     },
   },

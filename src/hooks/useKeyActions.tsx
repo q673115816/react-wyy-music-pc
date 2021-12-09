@@ -7,7 +7,7 @@ import {
 import { setVolumePlusTen, setVolumeSubTen } from "@/reducers/volume/slice";
 import { useAppDispatch } from "@/reducers/hooks";
 
-export default () => {
+const useKeyActions = () => {
   console.log("action");
   const dispatch = useAppDispatch();
   // console.log('keyActions');
@@ -49,3 +49,5 @@ export default () => {
     };
   }, []);
 };
+
+export default useKeyActions;

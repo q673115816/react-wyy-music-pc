@@ -5,11 +5,14 @@ const dotenv = require("./env")();
 const { src, img } = require("./util");
 
 const devMode = process.env.NODE_ENV !== "production";
-const { VITE_PUBLIC_URL } = process.env;
+const { VITE_PUBLIC_URL, VITE_LIVE_URL, VITE_API_URL, NODE_ENV } = process.env;
 const plugins = [
   new DefinePlugin({
-    "process.env": JSON.stringify(dotenv.parsed),
-    VITE_PUBLIC_URL: JSON.stringify(VITE_PUBLIC_URL),
+    // "process.env": JSON.stringify(dotenv.parsed),
+    PUBLIC_URL: JSON.stringify(VITE_PUBLIC_URL),
+    LIVE_URL: JSON.stringify(VITE_LIVE_URL),
+    API_URL: JSON.stringify(VITE_API_URL),
+    NODE_ENV: JSON.stringify(NODE_ENV),
   }),
   // new GenerateSW({
   //   // Do not precache images
@@ -174,7 +177,7 @@ module.exports = {
         type: "asset",
         generator: {
           // [ext]前面自带"."
-          filename: "assets/images/[name].[hash:8][ext]",
+          filename: "assets/images/[name][ext]?version=[hash:8]",
         },
         // use: [
         //   {
@@ -193,7 +196,7 @@ module.exports = {
         type: "asset",
         generator: {
           // [ext]前面自带"."
-          filename: "assets/fonts/[name].[hash:8][ext]",
+          filename: "assets/fonts/[name][ext]?version=[hash:8]",
         },
         // exclude: [/^node_modules$/, path.resolve(__dirname, '../src/svg')],
         // use: [{

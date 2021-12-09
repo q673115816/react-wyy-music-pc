@@ -7,7 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { src } = require("./util");
 
 const { VITE_PUBLIC_URL } = process.env;
-console.log("VITE_PUBLIC_URL", VITE_PUBLIC_URL);
+
 console.log("entry webpack prod");
 
 const devMode = process.env.NODE_ENV !== "production";
@@ -79,8 +79,8 @@ const plugins = [
   new MiniCssExtractPlugin({
     // Options similar to the same options in webpackOptions.output
     // both options are optional
-    filename: "[name].[contenthash:8].css",
-    chunkFilename: "[name].[contenthash:8].css",
+    filename: "css/[name].css?version=[contenthash:8]",
+    chunkFilename: "css/[name].css?version=[contenthash:8]",
   }),
 ];
 
@@ -111,7 +111,7 @@ const prod = {
     clean: true,
     publicPath: `${VITE_PUBLIC_URL}/`,
     path: path.join(__dirname, "../dist"),
-    filename: "[name].[chunkhash:8].js",
+    filename: "js/[name].js?version=[chunkhash:8]",
     // library: '[name]_[fullhash]',
   },
   externals,

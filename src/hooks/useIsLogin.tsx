@@ -3,7 +3,7 @@ import { apiLoginStatus } from "@/api";
 import { setIsLogin } from "@/reducers/common/slice";
 import { useDispatch } from "react-redux";
 
-export default () => {
+const useIsLogin = () => {
   // const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
   const handleCheck = async () => {
@@ -24,3 +24,5 @@ export default () => {
     handleCheck();
   }, []);
 };
+
+export default useIsLogin;

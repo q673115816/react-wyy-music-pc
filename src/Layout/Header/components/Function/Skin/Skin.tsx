@@ -1,5 +1,10 @@
-import React, { useState, memo, useEffect, FC } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, {
+  useState,
+  memo,
+  useEffect,
+  FC,
+  ChangeEventHandler,
+} from "react";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import { IconCheck } from "@tabler/icons";
 import classNames from "classnames";
@@ -135,13 +140,13 @@ const colors = [
   "#FD544E",
 ];
 
-const DomCheck: FC = ({ children }) => (
+const Check = () => (
   <i className="absolute flex-center text-white bg-red-500 -bottom-1.5 -right-1.5 border-2 p-0.5 border-white rounded-full">
-    {children}
+    <IconCheck size={16} stroke={2} />
   </i>
 );
 
-export default memo(() => {
+export default memo(function Skin() {
   const dispatch = useAppDispatch();
   const { theme, custom } = useAppSelector(({ setting }) => setting);
   const [current, setCurrent] = useState(0);
@@ -151,18 +156,20 @@ export default memo(() => {
   useEffect(() => {
     setHSL(hexToHSL(theme));
   }, [theme]);
-  const handleSelectTheme = (theme) => {
+  const handleSelectTheme = (theme: string) => {
     if (custom) dispatch(setCustom(false));
     dispatch(setTheme(theme));
   };
 
-  const handleRGB = (val) => {
+  const handleRGB: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!custom) dispatch(setCustom(true));
+    const val = e.target.value;
     dispatch(setTheme(HSLToHex(val, s, l)));
   };
 
-  const handleHSL = (val) => {
+  const handleHSL: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (!custom) dispatch(setCustom(true));
+    const val = e.target.value;
     dispatch(setTheme(HSLToHex(h, s, val)));
   };
 
@@ -209,11 +216,7 @@ export default memo(() => {
               <span className="name absolute rounded-b-xl inset-x-0 bottom-0 bg-black bg-opacity-40 h-5 text-white">
                 {name}
               </span>
-              {!custom && theme === hex && (
-                <DomCheck>
-                  <IconCheck size={16} stroke={2} />
-                </DomCheck>
-              )}
+              {!custom && theme === hex && <Check />}
             </button>
           ))}
         </div>
@@ -233,11 +236,7 @@ export default memo(() => {
                 )}
                 style={{ "--currentColor": hex }}
               >
-                {!custom && theme === hex && (
-                  <DomCheck>
-                    <IconCheck size={14} stroke={2} />
-                  </DomCheck>
-                )}
+                {!custom && theme === hex && <Check />}
               </button>
             ))}
           </div>
@@ -248,11 +247,7 @@ export default memo(() => {
               className="relative colour flex-none w-10 h-10 mr-2.5"
               onClick={() => dispatch(setCustom(true))}
             >
-              {custom && (
-                <DomCheck>
-                  <IconCheck size={14} stroke={2} />
-                </DomCheck>
-              )}
+              {custom && <Check />}
             </button>
             <div className="ranges">
               <input
@@ -262,7 +257,7 @@ export default memo(() => {
                 max="359"
                 step="1"
                 value={h}
-                onChange={(e) => handleRGB(e.target.value)}
+                onChange={handleRGB}
               />
               <input
                 className="hsl"
@@ -271,7 +266,7 @@ export default memo(() => {
                 max="50"
                 step="1"
                 value={l}
-                onChange={(e) => handleHSL(e.target.value)}
+                onChange={handleHSL}
                 style={{ "--h": h }}
               />
             </div>

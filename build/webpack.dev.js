@@ -12,7 +12,7 @@ const dev = {
   mode: "development",
   output: {
     publicPath: "/",
-    filename: "[name].[fullhash:8].js",
+    filename: "[name].js?version=[fullhash:8]",
     path: path.join(__dirname, "../dist"),
   },
   devServer: {

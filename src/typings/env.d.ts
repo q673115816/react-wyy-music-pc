@@ -9,3 +9,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+declare const PUBLIC_URL: string;
+declare const LIVE_URL: string;
+declare const API_URL: string;
+declare const NODE_ENV: string;

@@ -11,7 +11,7 @@ import {
 import classNames from "classnames";
 import { useAppSelector } from "@/reducers/hooks";
 import style from "./style.module.scss";
-import Playlist from "../List";
+import Playlist from "../Playlist";
 import { AccountState } from "@/reducers/account/slice";
 
 interface CustomLinkProps {
@@ -103,7 +103,7 @@ const CustomLink: FC<CustomLinkProps> = ({
   </NavLink>
 );
 
-export default memo(() => {
+export default memo(function Nav() {
   const { playlist } = useAppSelector<AccountState>(({ account }) => account);
   const { isLogin } = useAppSelector(({ common }) => common);
 

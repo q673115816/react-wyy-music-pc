@@ -3,7 +3,6 @@ import { resolve } from "path";
 import { ConfigEnv, defineConfig } from "vite";
 import reactRefresh from "@vitejs/plugin-react-refresh";
 import legacyPlugin from "@vitejs/plugin-legacy";
-import createExternal from "vite-plugin-external";
 
 export default ({ mode, command }: ConfigEnv) => {
   const isDev = mode === "development";
@@ -14,16 +13,6 @@ export default ({ mode, command }: ConfigEnv) => {
       legacyPlugin({
         additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
         polyfills: true,
-      }),
-      createExternal({
-        externals: {
-          react: "React",
-        },
-        // development: {
-        //   externals: {
-        //     react: "$linkdesign.React",
-        //   },
-        // },
       }),
     ],
     server: {
@@ -40,7 +29,13 @@ export default ({ mode, command }: ConfigEnv) => {
       exclude: [],
     },
     build: {
+      assetsDir: "static/assets",
       rollupOptions: {
+        output: {
+          chunkFileNames: "static/js/[name].js?version=[hash]",
+          entryFileNames: "static/js/[name].js?version=[hash]",
+          assetFileNames: "static/[ext]/[name].[ext]?version=[hash]",
+        },
         external: [
           // "react",
           // "react-dom",
