@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React, { memo, useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { apiTopAlbum, apiAlbumNew } from "@/api";
 import { setTopAlbum } from "@/reducers/home/slice";
 import classNames from "classnames";
 
 import { limit } from "@/common/config";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
 const arealist = [
   {
@@ -32,12 +32,12 @@ const arealist = [
 
 const AlbumItem = ({ item }) => (
   <div className="item">
-    <div className="cover shadow rounded overflow-hidden">
+    <div className="shadow rounded overflow-hidden">
       <Link to={`/playlist/album/${item.id}`}>
         <img
           loading={"lazy"}
           className="ui_containimg"
-          src={`${item.blurPicUrl}?param=200y200`}
+          src={`${item.blurPicUrl}?param=170y170`}
           alt=""
         />
       </Link>
@@ -64,12 +64,12 @@ const AlbumItem = ({ item }) => (
   </div>
 );
 
-export default () => {
-  const dispatch = useDispatch();
-  const { monthData = [], weekData = [] } = useSelector(
+const Album = () => {
+  const {} = useParams();
+  const dispatch = useAppDispatch();
+  const { monthData = [], weekData = [] } = useAppSelector(
     ({ home }) => home.newest
   );
-  // console.log(monthData, weekData);
   const [area, setArea] = useState("ALL");
   const [type, setType] = useState("new");
   const [year, setYear] = useState(new Date().getFullYear());
@@ -106,20 +106,20 @@ export default () => {
   }, [area, type, showtype]);
   return (
     <>
-      <div className="domHome_newest_sub_nav">
-        {arealist.map((item) => (
-          <button
-            type="button"
-            key={item.name}
-            className={classNames("domHome_newest_sub_nav_link", {
-              on: area === item.code,
-            })}
-            onClick={() => setArea(item.code)}
-          >
-            {item.name}
-          </button>
-        ))}
-        <div className="domHome_newest_sub_control_center">
+      <div className="flex px-8 py-2">
+        <div className={`flex space-x-4 text-sm`}>
+          {arealist.map((item) => (
+            <button
+              type="button"
+              key={item.name}
+              className={classNames(area === item.code && "font-bold")}
+              onClick={() => setArea(item.code)}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+        <div className="flex ml-auto space-x-4">
           <button
             type="button"
             className={classNames("showtype", { on: showtype === "RECOMMEND" })}
@@ -136,10 +136,10 @@ export default () => {
           </button>
         </div>
       </div>
-      <div className="domHome_newest_album_list">
+      <div className="domHome_newest_album_list px-8">
         {area === "ALL" && showtype !== "ALL" && weekData.length > 0 && (
-          <div className="domHome_newest_album_sublist">
-            <div className="sign">
+          <div className="domHome_newest_album_sublist relative pl-12 mb-12">
+            <div className="sign w-10 h-10 absolute top-0 left-0 text-lg">
               本周
               <br />
               新碟
@@ -152,8 +152,8 @@ export default () => {
           </div>
         )}
         {monthData.length > 0 && (
-          <div className="domHome_newest_album_sublist">
-            <div className="sign">
+          <div className="domHome_newest_album_sublist relative pl-12 mb-12">
+            <div className="sign w-10 h-10 absolute top-0 left-0 text-lg">
               本月
               <br />
               新碟
@@ -169,3 +169,5 @@ export default () => {
     </>
   );
 };
+
+export default memo(Album);

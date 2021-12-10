@@ -50,8 +50,8 @@ export default memo(function Center() {
 
   const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
   return (
-    <div className="domfooter_center flex-center flex-col flex-1">
-      <div className="domfooter_center_Top flex-center">
+    <div className="footer_center flex-center flex-col flex-1">
+      <div className="footer_center_Top flex-center">
         <button
           type="button"
           className="mx-2 hover:ui_themeColor"
@@ -63,7 +63,7 @@ export default memo(function Center() {
         <button
           type="button"
           onClick={handlePrev}
-          className="domfooter_center_prev flex-center mx-2 hover:ui_themeColor"
+          className="footer_center_prev flex-center mx-2 hover:ui_themeColor"
           title="上一首（Ctrl + Left）"
         >
           <IconPlayerSkipBack size={20} className="fill-current" />
@@ -71,7 +71,7 @@ export default memo(function Center() {
         <button
           type="button"
           onClick={handleToggle}
-          className="domfooter_center_play flex-center mx-2 bg-gray-200 hover:bg-gray-300 rounded-full w-9 h-9"
+          className="footer_center_play flex-center mx-2 bg-gray-200 hover:bg-gray-300 rounded-full w-9 h-9"
           title={running ? "暂停（Ctrl + P）" : "播放（Ctrl + P）"}
         >
           {running ? (
@@ -84,7 +84,7 @@ export default memo(function Center() {
           type="button"
           title="下一首（Ctrl + Right）"
           onClick={handleNext}
-          className="domfooter_center_next flex-center mx-2 hover:ui_themeColor"
+          className="footer_center_next flex-center mx-2 hover:ui_themeColor"
         >
           <IconPlayerSkipForward size={20} className="fill-current" />
         </button>

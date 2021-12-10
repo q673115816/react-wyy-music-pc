@@ -1,8 +1,13 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconCrown } from "@tabler/icons";
 
-export default memo(({ item = {}, cat = "全部歌单" }) => (
+interface iBanner {
+  item: {};
+  cat: string;
+}
+
+const Banner: FC<iBanner> = ({ item = {}, cat = "全部歌单" }) => (
   <Link
     to={`/home/playlist/highquality/${cat}`}
     className="domHome_playlist_banner flex items-center relative  rounded-lg overflow-hidden z-10"
@@ -27,4 +32,6 @@ export default memo(({ item = {}, cat = "全部歌单" }) => (
       <div className="text-gray-300 mt-2">{item.copywriter}</div>
     </div>
   </Link>
-));
+);
+
+export default memo(Banner);

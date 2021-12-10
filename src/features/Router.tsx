@@ -1,6 +1,7 @@
 import React, { lazy, LazyExoticComponent, memo, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Loading from "@/components/Loading";
+import Discover from "./Discover";
 const root: [string, LazyExoticComponent<any>][] = [
   ["AI", lazy(() => import(/* webpackChunkName: "AI" */ "./AI"))],
   ["Artist", lazy(() => import(/* webpackChunkName: "Artist" */ "./Artist"))],

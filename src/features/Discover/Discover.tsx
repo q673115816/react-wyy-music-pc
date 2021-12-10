@@ -1,12 +1,5 @@
-import React, { memo, Suspense } from "react";
-import {
-  NavLink,
-  Outlet,
-  useRoutes,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import React, { memo } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 import classNames from "classnames";
 
 export const navs = [
@@ -36,23 +29,25 @@ export const navs = [
   },
 ];
 
-const Discover = () => (
-  <div className="domHome flex flex-col h-full">
-    <div className="domHome_nav ui_header text-base space-x-5">
-      {navs.map(({ path, name }) => (
-        <NavLink
-          className={({ isActive }) =>
-            classNames(isActive && "text-xl font-bold ui_underline")
-          }
-          to={path}
-          key={path}
-        >
-          {name}
-        </NavLink>
-      ))}
+const Discover = () => {
+  return (
+    <div className="flex flex-col h-full">
+      <div className="ui_header text-base space-x-5">
+        {navs.map(({ path, name }) => (
+          <NavLink
+            className={({ isActive }) =>
+              classNames(isActive && "text-xl font-bold ui_underline")
+            }
+            to={path}
+            key={path}
+          >
+            {name}
+          </NavLink>
+        ))}
+      </div>
+      <Outlet />
     </div>
-    <Outlet />
-  </div>
-);
+  );
+};
 
 export default memo(Discover);

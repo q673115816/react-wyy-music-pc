@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { IconChevronRight } from "@tabler/icons";
 import { useSelector } from "react-redux";
 
-const DomSmallHot = () => (
+const SmallHot = () => (
   <svg
     className="absolute left-full top-1/4 fill-current"
     viewBox="0 0 12 12"
@@ -23,7 +23,7 @@ const DomSmallHot = () => (
   </svg>
 );
 
-const DomSubList = memo(({ sub = [], category = null, cat = "" }) => (
+const SubList = memo(({ sub = [], category = null, cat = "" }) => (
   <div className="flex-auto grid grid-cols-6 gap-y-4">
     {sub
       .filter((item) => item.category === Number(category))
@@ -46,7 +46,7 @@ const DomSubList = memo(({ sub = [], category = null, cat = "" }) => (
           >
             <span className="relative">
               {item.name}
-              {item.hot && <DomSmallHot />}
+              {item.hot && <SmallHot />}
             </span>
           </span>
         </NavLink>
@@ -74,7 +74,6 @@ export default memo(({ cat }) => {
           <div className="pl-8 py-4">
             <NavLink
               onClick={() => setPopup(false)}
-              exact
               className={({ isActive }) =>
                 classNames(
                   "text-gray-600 hover:ui_themeColor",
@@ -97,7 +96,7 @@ export default memo(({ cat }) => {
             {Object.entries(catlist.categories).map(([category, value]) => (
               <div key={category} className="flex">
                 <div className="category text-gray-300">{value}</div>
-                <DomSubList sub={catlist.sub} category={category} cat={cat} />
+                <SubList sub={catlist.sub} category={category} cat={cat} />
               </div>
             ))}
           </div>

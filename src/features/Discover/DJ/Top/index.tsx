@@ -109,7 +109,6 @@ const DomHeader = memo(({ updateTime }) => (
         <NavLink
           key={name}
           to={path}
-          exact
           className={({ isActive }) =>
             classNames(
               "flex-center w-28 h-8 rounded-full text-center hover:bg-gray-100",

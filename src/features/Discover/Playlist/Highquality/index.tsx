@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, memo } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useParams } from "react-router-dom";
 import { IconFilter, IconPlayerPlay, IconCrown } from "@tabler/icons";
 import classNames from "classnames";
 import { apiTopPlaylistHighquality, apiPlaylistHighqualityTags } from "@/api";
@@ -8,14 +8,15 @@ import useInfinite from "@/hooks/useInfinite";
 import DomPlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
 import DomTagsBox from "@/components/Tags/Box";
 
-export default memo(({ cat = "全部歌单" }) => {
+export default memo(function Highquality() {
   console.log("home_playlist_high");
+  const { cat } = useParams();
   const [data, setData] = useState([]);
   const [tags, setTags] = useState([]);
   const before = useRef(0);
   const [showPopup, setShowPopup] = useState(false);
-  const domObserver = useRef();
-  const domScroll = useRef();
+  const domObserver = useRef(null);
+  const domScroll = useRef(null);
   const handleBeforeInit = async () => {
     try {
       const { tags = [] } = await apiPlaylistHighqualityTags();

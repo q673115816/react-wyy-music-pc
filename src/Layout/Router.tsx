@@ -6,9 +6,9 @@ import Content from "./Content";
 
 const Router = () => (
   <Routes>
-    <Route path="/" element={<Layout />}>
+    <Route element={<Layout />}>
       <Route path={"player/*"} element={<Player />} />
-      <Route path="*" element={<Content />} />
+      <Route path={`*`} element={<Content />} />
     </Route>
   </Routes>
 );

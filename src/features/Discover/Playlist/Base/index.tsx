@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./style.scss";
 import {
   apiTopPlaylist,
@@ -10,26 +9,25 @@ import {
   apiPlaylistHot,
 } from "@/api";
 import { setTopPlaylist, setPlaylistCatlist } from "@/reducers/home/slice";
-import DomLoading from "@/components/Loading";
-import DomResize from "@/components/ResizeObserver";
+import Loading from "@/components/Loading";
+import Resize from "@/components/ResizeObserver";
 import DomPage from "@/components/Page";
-import DomItem from "@/components/GridPlaylist/Item";
-import DomBanner from "./components/Banner";
-import DomHeaderBar from "./components/HeaderBar";
+import Item from "@/components/GridPlaylist/Item";
+import Banner from "./components/Banner";
+import HeaderBar from "./components/HeaderBar";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
-export default memo(({ cat = "全部歌单", page = 1 }) => {
-  // console.log('playlist');
-  page = Number(page);
+export default memo(function Playlist() {
+  const { cat, page } = useParams();
   const navigate = useNavigate();
   const [order, setOrder] = useState("hot"); // new , default = hot
   // const [offer, setOffer] = useState(0);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
-  const DomScroll = useRef();
-
-  const { highquality, playlists } = useSelector(
+  const { highquality, playlists } = useAppSelector(
     ({ home: { playlist } }) => playlist
   );
+  const dispatch = useAppDispatch();
+  const DomScroll = useRef(null);
 
   const handleProInit = async () => {
     try {
@@ -86,7 +84,7 @@ export default memo(({ cat = "全部歌单", page = 1 }) => {
   if (loading) {
     return (
       <div className="flex-center w-full h-full">
-        <DomLoading />
+        <Loading />
       </div>
     );
   }
@@ -97,18 +95,18 @@ export default memo(({ cat = "全部歌单", page = 1 }) => {
     >
       <div className="ui_w1100">
         {highquality.playlists.length > 0 && (
-          <DomBanner item={highquality.playlists[0]} cat={cat} />
+          <Banner item={highquality.playlists[0]} cat={cat} />
         )}
-        <DomHeaderBar cat={cat} />
-        <DomResize
+        <HeaderBar cat={cat} />
+        <Resize
           className="domHome_playlist_list grid gap-5"
           small="grid-cols-4"
           big="grid-cols-5"
         >
           {playlists.playlists.map((item) => (
-            <DomItem item={item} key={item.id} />
+            <Item item={item} key={item.id} />
           ))}
-        </DomResize>
+        </Resize>
         <DomPage
           total={Math.ceil(playlists.total / 100)}
           page={page}

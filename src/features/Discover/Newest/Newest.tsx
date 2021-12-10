@@ -1,34 +1,35 @@
 import React, { memo } from "react";
-import { NavLink, Routes, Navigate, Route } from "react-router-dom";
-import "./style.scss";
-import Song from "./Song";
-import Album from "./Album";
+import { NavLink, Outlet } from "react-router-dom";
 import classNames from "classnames";
 
-export default memo(() => (
-  <div className="domHome_content overflow-auto max-h-full flex-auto">
-    <div className="domHome_newest">
-      <div className="domHome_newest_nav">
-        <NavLink
-          className={({ isActive }) => classNames(isActive && "on")}
-          to="/home/newest/song"
-        >
-          新歌速递
-        </NavLink>
-        <NavLink
-          className={({ isActive }) => classNames(isActive && "on")}
-          to="/home/newest/album"
-        >
-          新碟上架
-        </NavLink>
+const navs = [
+  { name: "新歌速递", path: "song" },
+  { name: "新碟上架", path: "album" },
+];
+
+export default memo(function Newest() {
+  return (
+    <div className="overflow-auto max-h-full flex-auto">
+      <div className="">
+        <div className="flex border rounded-full mx-auto w-min">
+          {navs.map(({ name, path }) => (
+            <NavLink
+              key={name}
+              className={({ isActive }) =>
+                classNames(
+                  "w-28 rounded-full flex-center h-7",
+                  !isActive && "hover:bg-gray-100",
+                  isActive && "text-white bg-gray-400"
+                )
+              }
+              to={path}
+            >
+              {name}
+            </NavLink>
+          ))}
+        </div>
+        <Outlet />
       </div>
-      <Routes>
-        <Route path="/home/newest/song/:type" element={<Song />} />
-        <Route path="/home/newest/album">
-          <Album />
-        </Route>
-        <Route path="*" element={<Navigate to="/home/newest/song/全部" />} />
-      </Routes>
     </div>
-  </div>
-));
+  );
+});

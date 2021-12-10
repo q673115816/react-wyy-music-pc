@@ -18,7 +18,7 @@ const Content = () => (
         <Features />
       </div>
     </div>
-    <div className="domfooter flex flex-none">
+    <div className="footer flex flex-none">
       <Left />
       <Center />
       <Right />
