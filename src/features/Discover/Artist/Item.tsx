@@ -8,8 +8,8 @@ export default memo(function Item({ item = {} }) {
       <div className="cover boarder relative rounded overflow-hidden border">
         <Link to={item.id} className="">
           <img
-            loading={"lazy"}
-            className="ui_aspect-ratio-1/1"
+            loading={`lazy`}
+            className="ui_aspect-ratio-1/1 w-full h-full"
             src={`${item.img1v1Url}?param=200y200`}
             alt={item.name}
           />

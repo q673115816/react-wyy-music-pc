@@ -4,7 +4,6 @@ import Left from "./components/Left";
 import Center from "./components/Center";
 import Right from "./components/Right";
 import Nav from "./components/Nav";
-import "./style.scss";
 import style from "./style.module.scss";
 import Features from "@/features/Router";
 import classnames from "classnames";
@@ -18,7 +17,7 @@ const Content = () => (
         <Features />
       </div>
     </div>
-    <div className="footer flex flex-none">
+    <div className={classnames(style.footer, "footer flex flex-none")}>
       <Left />
       <Center />
       <Right />

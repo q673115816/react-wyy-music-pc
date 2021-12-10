@@ -10,8 +10,10 @@ import {
 } from "@/reducers/audio/slice";
 import { computedPositionPercentage } from "@/common/utils";
 import Drag from "@/components/Drag";
+import style from "./style.module.scss";
+import classNames from "classnames";
 
-export default memo(() => {
+export default memo(function Timing() {
   const dispatch = useAppDispatch();
   const { currentTime, currentSong, buffered, song } = useAppSelector(
     ({ audio }) => audio
@@ -43,12 +45,12 @@ export default memo(() => {
   };
 
   return (
-    <div className="domfooter_center_bottom flex-center">
+    <div className="flex-center">
       <span className="text-gray-400">
         {currentTime ? dayjs(currentTime * 1000).format("mm:ss") : "00:00"}
       </span>
       <div
-        className="playTimerShaft group relative"
+        className={classNames(style.playTimerShaft, "mx-1.5 relative h-1")}
         onClick={handleClick}
         ref={RefProgress}
       >

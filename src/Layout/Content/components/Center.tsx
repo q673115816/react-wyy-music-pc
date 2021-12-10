@@ -18,8 +18,9 @@ import {
 import { setGlobalLrcToggle } from "@/reducers/lrc/slice";
 import { audioPattern } from "@/common/config";
 import classNames from "classnames";
-import DomTiming from "./Timing";
+import Timing from "./Timing";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import style from "./style.module.scss";
 
 const audioPatternIcon = [
   IconPlaylist,
@@ -50,7 +51,7 @@ export default memo(function Center() {
 
   const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
   return (
-    <div className="footer_center flex-center flex-col flex-1">
+    <div className={"flex-center flex-col flex-1"}>
       <div className="footer_center_Top flex-center">
         <button
           type="button"
@@ -103,7 +104,7 @@ export default memo(function Center() {
           )}
         </button>
       </div>
-      <DomTiming />
+      <Timing />
     </div>
   );
 });

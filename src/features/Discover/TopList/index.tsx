@@ -23,7 +23,7 @@ const Content = ({ tracks = [] }) => (
         <span
           className={classNames(
             "index text-sm w-4",
-            index < 3 ? "text-red-500" : "text-gray-300"
+            index < 3 ? "ui_themeColor" : "text-gray-300"
           )}
         >
           {index + 1}

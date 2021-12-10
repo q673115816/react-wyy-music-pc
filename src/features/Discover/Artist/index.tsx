@@ -146,7 +146,7 @@ export default memo(function Artist() {
           ))}
         </div>
         <DomResize
-          className="domHome_artist_list mt-2.5 grid gap-4"
+          className="mt-2.5 grid gap-4"
           small="grid-cols-5"
           big="grid-cols-6"
         >
