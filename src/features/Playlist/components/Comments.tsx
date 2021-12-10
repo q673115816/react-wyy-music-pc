@@ -1,10 +1,13 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import CommentsList from "@/components/CommentsList";
 import Write from "@/components/Write";
 import { apiCommentPlaylist } from "@/api";
 import { useQuery } from "react-query";
 import Loading from "@/components/Loading";
-export default ({ id }) => {
+import { useParams } from "react-router-dom";
+
+export default memo(function Comments() {
+  const { id } = useParams();
   const { data, status } = useQuery("comments", async () => {
     return await apiCommentPlaylist({
       id,
@@ -25,4 +28,4 @@ export default ({ id }) => {
       )}
     </div>
   );
-};
+});

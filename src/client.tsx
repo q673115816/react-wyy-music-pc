@@ -7,12 +7,12 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import store from "./reducers/store";
 
 import App from "./App";
-import Issues from "./Issues";
+// import Issues from "./Issues";
 
 import reportWebVitals from "./reportWebVitals";
 
-import * as Sentry from "@sentry/react";
-import { Integrations } from "@sentry/tracing";
+// import * as Sentry from "@sentry/react";
+// import { Integrations } from "@sentry/tracing";
 
 // Sentry.init({
 //   dsn: "https://26f05e2b07094c529972d1ada66a5c2a@o1001386.ingest.sentry.io/5960907",

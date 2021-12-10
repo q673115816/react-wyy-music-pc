@@ -1,13 +1,13 @@
 import React, { memo, useEffect, useState } from "react";
 import { apiPlaylistSubscribers } from "@/api";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./style.scss";
 import Gender from "@/components/Gender";
 import Page from "@/components/Page";
 import { useQuery } from "react-query";
 import Loading from "@/components/Loading";
 
-interface Subscribers {
+interface iSubscribers {
   avatarUrl: string;
   userId: number;
   nickname: string;
@@ -17,7 +17,8 @@ interface Subscribers {
 
 const limit = 60;
 
-export default memo(({ id }) => {
+export default memo(function Subscribers() {
+  const { id } = useParams();
   const [page, setPage] = useState(1);
 
   const query = useQuery(["subscribers", page], async () => {
@@ -42,7 +43,7 @@ export default memo(({ id }) => {
   return (
     <div className="px-8">
       <div className="domPlaylistDetail_subscribers flex justify-between flex-wrap">
-        {data?.subscribers.map((item: Subscribers) => (
+        {data?.subscribers.map((item: iSubscribers) => (
           <div key={item.userId} className="item flex mt-6">
             <Link
               to={`/user/${item.userId}`}

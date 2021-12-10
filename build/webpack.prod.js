@@ -12,24 +12,24 @@ console.log("entry webpack prod");
 
 const devMode = process.env.NODE_ENV !== "production";
 
-const minCdn = devMode ? "" : ".min";
-
 const cdnBase = "https://cdn.jsdelivr.net/npm";
 
 const cdn = {
   js: [
-    `${cdnBase}/axios/dist/axios${minCdn}.js`,
-    `${cdnBase}/react/umd/react.development${minCdn}.js`,
-    `${cdnBase}/react-dom/umd/react-dom.development${minCdn}.js`,
-    `${cdnBase}/react-router-dom/umd/react-router-dom${minCdn}.js`,
-    `${cdnBase}/redux/dist/redux${minCdn}.js`,
-    `${cdnBase}/react-redux/dist/react-redux${minCdn}.js`,
-    `${cdnBase}/@reduxjs/toolkit/dist/redux-toolkit.umd${minCdn}.js`,
-    `${cdnBase}/react-slick/dist/react-slick${minCdn}.js`,
-    `${cdnBase}/@tabler/icons/icons-react/dist/index.umd${minCdn}.js`,
-    `${cdnBase}/immer/dist/immer.umd.development${minCdn}.js`,
-    `${cdnBase}/socket.io-client/dist/socket.io${minCdn}.js`,
-    `${cdnBase}/react-query/dist/react-query.production${minCdn}.js`,
+    `${cdnBase}/axios/dist/axios.min.js`,
+    `${cdnBase}/react/umd/react.production.min.js`,
+    `${cdnBase}/react-dom/umd/react-dom.production.min.js`,
+    `${cdnBase}/history/umd/history.production.min.js`,
+    `${cdnBase}/react-router/umd/react-router.production.min.js`,
+    `${cdnBase}/react-router-dom/umd/react-router-dom.production.min.js`,
+    `${cdnBase}/redux/dist/redux.min.js`,
+    `${cdnBase}/react-redux/dist/react-redux.min.js`,
+    `${cdnBase}/@reduxjs/toolkit/dist/redux-toolkit.umd.min.js`,
+    `${cdnBase}/react-slick/dist/react-slick.min.js`,
+    `${cdnBase}/@tabler/icons/icons-react/dist/index.umd.min.js`,
+    `${cdnBase}/immer/dist/immer.umd.development.min.js`,
+    `${cdnBase}/socket.io-client/dist/socket.io.min.js`,
+    `${cdnBase}/react-query/dist/react-query.production.min.js`,
     `https://webrtc.github.io/adapter/adapter-latest.js`,
   ],
   // css: [

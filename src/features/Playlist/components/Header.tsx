@@ -1,4 +1,4 @@
-import React, { useState, memo } from "react";
+import React, { useState, memo, FC } from "react";
 import classNames from "classnames";
 import DomGroupPlay from "@/components/GroupPlay";
 import { transPlayCount, transSubscribeCount } from "@/common/utils";
@@ -13,56 +13,16 @@ import {
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 
-const DomT = memo(({ tags = [] }) => {
-  if (tags.length === 0) return null;
-  return (
-    <div className="tags">
-      <span>标签：</span>
-      {tags.map((tag, index) => (
-        <span key={tag}>
-          {index > 0 && " / "}
-          <Link to={`/home/playlist/${tag}`} className="tag ui_link">
-            {tag}
-          </Link>
-        </span>
-      ))}
-    </div>
-  );
-});
+import Tags from "./Tags";
+import Description from "./Description";
 
-const DomDescription = memo(({ description = "" }) => {
-  if (!description) return null;
-  const [open, setOpen] = useState(false);
-  const descriptionList = description.match(/^.*$/gm);
-  return (
-    <div className="relative pr-5">
-      <div className="whitespace-pre-line leading-6">
-        简介：
-        <span
-          className={classNames(
-            "text-gray-500 select-text",
-            !open && "truncate inline-block max-w-xs align-bottom"
-          )}
-        >
-          {open ? description : descriptionList[0]}
-        </span>
-        <button
-          type="button"
-          onClick={() => setOpen(!open)}
-          className="absolute top-0 right-0 text-gray-500"
-        >
-          {open ? (
-            <IconCaretUp size={16} className="fill-current" />
-          ) : (
-            <IconCaretDown size={16} className="fill-current" />
-          )}
-        </button>
-      </div>
-    </div>
-  );
-});
+interface iHeader {
+  data: {};
+  handleSub: () => void;
+  songs: [];
+}
 
-export default memo(({ data = {}, handleSub, songs }) => (
+const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
   // console.log('playlist_music_header');
   <div className="domPlaylistDetail_header p-8 flex">
     <div className="cover border rounded overflow-hidden flex-none w-92 h-92">
@@ -138,8 +98,7 @@ export default memo(({ data = {}, handleSub, songs }) => (
         </button>
       </div>
       <div className="space-y-1 mt-2">
-        <DomT tags={data.playlist.tags} />
-
+        <Tags tags={data.playlist.tags} />
         <div>
           <span className="mr-3">
             歌曲：
@@ -152,8 +111,10 @@ export default memo(({ data = {}, handleSub, songs }) => (
             </span>
           </span>
         </div>
-        <DomDescription description={data.playlist.description} />
+        <Description description={data.playlist.description} />
       </div>
     </div>
   </div>
-));
+);
+
+export default memo(Header);
