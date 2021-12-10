@@ -1,0 +1,1 @@
+{"version":3,"file":"css/Playlist.css?version=51e10fc2","mappings":"AACE,qCACE,YACA,6CAEE,YADA,UACA,C","sources":["webpack://wyy/./src/features/Playlist/components/Subscribers/style.scss"],"sourcesContent":[".domPlaylistDetail_subscribers {\n  .item {\n    width: 360px;\n    .avatar {\n      width: 90px;\n      height: 90px;\n    }\n  }\n}\n"],"names":[],"sourceRoot":""}
