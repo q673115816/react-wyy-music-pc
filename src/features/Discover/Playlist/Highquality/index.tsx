@@ -6,7 +6,7 @@ import { apiTopPlaylistHighquality, apiPlaylistHighqualityTags } from "@/api";
 import { transPlayCount } from "@/common/utils";
 import useInfinite from "@/hooks/useInfinite";
 import DomPlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
-import DomTagsBox from "@/components/Tags/Box";
+import TagsBox from "@/components/Tags/Box";
 
 export default memo(function Highquality() {
   console.log("home_playlist_high");
@@ -103,7 +103,7 @@ export default memo(function Highquality() {
               {tags.map((item) => (
                 <NavLink
                   onClick={() => setShowPopup(false)}
-                  to={item.name}
+                  to={`./${item.name}`}
                   className={({ isActive }) =>
                     classNames(
                       "item hover:ui_themeColor text-sm whitespace-nowrap",
@@ -173,7 +173,7 @@ export default memo(function Highquality() {
                 )}
               </div>
               <div className="mt-4 text-gray-300 flex items-center">
-                <DomTagsBox text={item.tag} className="flex-none mr-1" />
+                <TagsBox text={item.tag} className="flex-none mr-1" />
                 <span className="flex-auto truncate">{item.copywriter}</span>
               </div>
             </div>

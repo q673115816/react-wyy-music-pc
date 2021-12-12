@@ -15,6 +15,7 @@ export interface LookState {
     deskTop: boolean;
     user: boolean;
     push: boolean;
+    faceDetector: boolean;
   };
 }
 
@@ -61,5 +62,6 @@ export const LookInitialState: LookState = {
     deskTop: false,
     user: false,
     push: false,
+    faceDetector: false,
   },
 };

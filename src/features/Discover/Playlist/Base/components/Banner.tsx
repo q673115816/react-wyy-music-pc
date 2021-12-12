@@ -9,7 +9,7 @@ interface iBanner {
 
 const Banner: FC<iBanner> = ({ item = {}, cat = "全部歌单" }) => (
   <Link
-    to={`/home/playlist/highquality/${cat}`}
+    to={`/discover/playlist/highquality/${cat}`}
     className="domHome_playlist_banner flex items-center relative  rounded-lg overflow-hidden z-10"
   >
     <div

@@ -4,7 +4,9 @@ import React, {
   MouseEventHandler,
   ReactNode,
   useContext,
+  useEffect,
   useRef,
+  useState,
 } from "react";
 import classnames from "classnames";
 import useLoginStatus, { handleLoginStatus } from "@/hooks/useLoginStatus";
@@ -66,7 +68,7 @@ interface iButtonProps {
   status: boolean;
 }
 
-const Button: FC<iButtonProps> = memo(({ onClick, children, status }) => {
+const Button: FC<iButtonProps> = ({ onClick, children, status }) => {
   return (
     <button
       type={"button"}
@@ -79,21 +81,33 @@ const Button: FC<iButtonProps> = memo(({ onClick, children, status }) => {
       {children}
     </button>
   );
-});
+};
 
 /*
  * TODO
  *  1.信令系统
  *  2.摄像头叠加桌面，如基本直播
  * */
-export default memo(() => {
+export default memo(function Live() {
   const {
     lookReducer: { status, socket },
     lookDispatch,
   } = useContext(LookContent);
+  const [isSupport] = useState<boolean>(() => {
+    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  });
+  const RefVideo = useRef<HTMLVideoElement>(
+    (() => {
+      const video = document.createElement("video");
+      video.autoplay = true;
+      return video;
+    })()
+  );
   const RefDeskTop = useRef<HTMLVideoElement>(null);
   const RefDeskTopStream = useRef<MediaStream>(null);
-  const RefUser = useRef<HTMLVideoElement>(null);
+  const RefUser = useRef<HTMLCanvasElement>(null);
+  const RefCtx = useRef(null);
+  const RefFace = useRef(new FaceDetector());
   const handleDeskTop: MouseEventHandler = () => {
     if (status.deskTop)
       handleMediaClose(RefDeskTop.current as HTMLVideoElement, () => {
@@ -116,7 +130,10 @@ export default memo(() => {
   ) => {
     const stream = null;
     const mediaStreamConstraints = {
-      video: true,
+      video: {
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+      },
       audio: true,
     };
 
@@ -139,18 +156,19 @@ export default memo(() => {
   };
 
   const handleUser: MouseEventHandler = () => {
-    if (status.user)
-      handleMediaClose(RefUser.current as HTMLVideoElement, () => {
+    if (status.user) {
+      handleMediaClose(RefVideo.current as HTMLVideoElement, () => {
         lookDispatch({ type: SOCKET_USER_END });
       });
-    else
+    } else {
       handleMediaOpen(
-        RefUser.current as HTMLVideoElement,
+        RefVideo.current as HTMLVideoElement,
         "getUserMedia",
         () => {
           lookDispatch({ type: SOCKET_USER_START });
         }
       );
+    }
   };
 
   const handleSend: MouseEventHandler = () => {
@@ -175,6 +193,10 @@ export default memo(() => {
     lookDispatch({ type: SOCKET_PUSH_END });
   };
 
+  const handleFaceDetector = () => {};
+  useEffect(() => {
+    RefCtx.current = RefUser.current.getContext("2d");
+  }, [RefUser]);
   return (
     <div className={`w-full h-full p-8 overflow-auto`}>
       <div className={`flex`}>
@@ -183,6 +205,9 @@ export default memo(() => {
         </Button>
         <Button onClick={handleUser} status={status.user}>
           摄像头开关
+        </Button>
+        <Button onClick={handleFaceDetector} status={status.faceDetector}>
+          人脸识别
         </Button>
         <Button onClick={handleSend} status={status.push}>
           推送开关
@@ -193,7 +218,18 @@ export default memo(() => {
           <video className={`w-full`} ref={RefDeskTop} autoPlay playsInline />
         </div>
         <div className={""}>
-          <video className={`w-full`} ref={RefUser} autoPlay playsInline />
+          {/*<video
+            className={`w-full`}
+            ref={RefUser}
+            autoPlay
+            playsInline
+            style={{ transform: `scale(-1, 1)` }}
+          />*/}
+          <canvas
+            className={`w-full`}
+            ref={RefUser}
+            style={{ transform: `scale(-1, 1)` }}
+          />
         </div>
       </div>
     </div>

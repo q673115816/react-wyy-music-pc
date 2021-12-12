@@ -1,7 +1,7 @@
 interface iIPs {
   [key: string]: boolean;
 }
-export default async (callback: () => void) => {
+export default async (callback?: () => void) => {
   const localIP: iIPs = {};
   const reg = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/;
   // free stun server
@@ -10,7 +10,10 @@ export default async (callback: () => void) => {
   const pc = new RTCPeerConnection(servers);
 
   const handleCandidate = (candidate: string) => {
-    candidate.match(reg).forEach((ip) => {
+    console.log(candidate);
+    const result = candidate.match(reg);
+    if (!result) return;
+    result.forEach((ip) => {
       console.log(ip);
       localIP[ip] = true;
     });
