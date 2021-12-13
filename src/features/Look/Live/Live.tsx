@@ -156,8 +156,11 @@ export default memo(function Live() {
     } else {
       navigator.mediaDevices
         .getUserMedia({
-          audio: true,
-          video: true,
+          // audio: true,
+          video: {
+            width: { ideal: 1280 },
+            height: { ideal: 720 },
+          },
         })
         .then((mediaStream) => {
           console.log(mediaStream);
@@ -192,7 +195,6 @@ export default memo(function Live() {
   const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({
     target,
   }) => {
-    console.dir(target);
     const width = target.videoWidth;
     const height = target.videoHeight;
     RefUser.current.width = width;
@@ -201,14 +203,14 @@ export default memo(function Live() {
 
   const handleFaceDetector = () => {
     requestAnimationFrame(handleFaceDetector);
+    const { width, height } = RefUser.current;
     RefFace.current
       .detect(RefVideo.current)
       .then((faces) => {
-        RefCtx.current.drawImage(RefVideo.current, 0, 0);
-        console.log(faces);
+        RefCtx.current.clearRect(0, 0, width, height);
         RefCtx.current.beginPath();
         RefCtx.current.lineWidth = 3;
-        RefCtx.current.strokeStyle = "blue";
+        RefCtx.current.strokeStyle = "lime";
         RefCtx.current.setLineDash([5]);
         for (const { boundingBox: face } of faces) {
           RefCtx.current.strokeRect(face.x, face.y, face.width, face.height);
@@ -262,7 +264,7 @@ export default memo(function Live() {
           <video className={`w-full`} ref={RefDeskTop} autoPlay playsInline />
         </div>
         <hr />
-        <div className={""}>
+        <div className={"relative"}>
           <video
             className={`w-full`}
             ref={RefVideo}
@@ -271,13 +273,10 @@ export default memo(function Live() {
             style={{ transform: `scale(-1, 1)` }}
             onLoadedMetadata={handleLoadedMetadata}
           />
-        </div>
-        <hr />
-        <div>
           <canvas
-            className={`w-full`}
-            ref={RefUser}
+            className={`absolute inset-0 w-full h-full`}
             style={{ transform: `scale(-1, 1)` }}
+            ref={RefUser}
           />
         </div>
       </div>
