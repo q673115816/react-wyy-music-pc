@@ -1,7 +1,9 @@
 import React, {
+  EventHandler,
   FC,
   memo,
   MouseEventHandler,
+  ReactEventHandler,
   ReactNode,
   useContext,
   useEffect,
@@ -93,81 +95,75 @@ export default memo(function Live() {
     lookReducer: { status, socket },
     lookDispatch,
   } = useContext(LookContent);
-  const [isSupport] = useState<boolean>(() => {
-    return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-  });
-  const RefVideo = useRef<HTMLVideoElement>(
-    (() => {
-      const video = document.createElement("video");
-      video.autoplay = true;
-      return video;
-    })()
-  );
+  // const [isSupport] = useState<boolean>(() => {
+  //   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  // });
+
+  const [audioinput, setAudioinput] = useState<MediaDeviceInfo[]>([]);
+  const [videoinput, setVideoinput] = useState<MediaDeviceInfo[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const deviceInfos = await navigator.mediaDevices.enumerateDevices();
+      const audioinput = [];
+      const videoinput = [];
+      for (const deviceInfo of deviceInfos) {
+        if (deviceInfo.kind === "audioinput") {
+          audioinput.push(deviceInfo);
+        } else if (deviceInfo.kind === "videoinput") {
+          videoinput.push(deviceInfo);
+        } else {
+          console.log("other kind: ", deviceInfo);
+        }
+      }
+      setAudioinput(audioinput);
+      setVideoinput(videoinput);
+    })();
+  }, []);
+
+  const RefVideo = useRef<HTMLVideoElement>(null);
   const RefDeskTop = useRef<HTMLVideoElement>(null);
   const RefDeskTopStream = useRef<MediaStream>(null);
   const RefUser = useRef<HTMLCanvasElement>(null);
   const RefCtx = useRef(null);
   const RefFace = useRef(new FaceDetector());
   const handleDeskTop: MouseEventHandler = () => {
-    if (status.deskTop)
-      handleMediaClose(RefDeskTop.current as HTMLVideoElement, () => {
-        lookDispatch({ type: SOCKET_DESKTOP_END });
-      });
-    else
-      handleMediaOpen(
-        RefDeskTop.current as HTMLVideoElement,
-        "getDisplayMedia",
-        () => {
+    if (!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia))
+      return false;
+    const diskTop = RefDeskTop.current as HTMLVideoElement;
+    if (status.deskTop) {
+      const tracks = (diskTop.srcObject as MediaStream).getTracks();
+      tracks.forEach((track) => track.stop());
+      diskTop.srcObject = null;
+      lookDispatch({ type: SOCKET_DESKTOP_END });
+    } else {
+      navigator.mediaDevices
+        .getDisplayMedia({ audio: true, video: true })
+        .then((mediaStream) => {
+          diskTop.srcObject = mediaStream;
           lookDispatch({ type: SOCKET_DESKTOP_START });
-        }
-      );
-  };
-
-  const handleMediaOpen = (
-    ref: HTMLVideoElement,
-    targetFunction: "getDisplayMedia" | "getUserMedia",
-    success: () => void
-  ) => {
-    const stream = null;
-    const mediaStreamConstraints = {
-      video: {
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
-      },
-      audio: true,
-    };
-
-    function gotDeskTopMediaStream(mediaStream: MediaStream) {
-      ref.srcObject = mediaStream;
-      // deskTopStream = mediaStream;
-      success && success();
+        });
     }
-
-    navigator.mediaDevices[targetFunction](mediaStreamConstraints)
-      .then(gotDeskTopMediaStream)
-      .catch((err) => console.log(err));
-  };
-
-  const handleMediaClose = (ref: HTMLVideoElement, success: () => void) => {
-    const tracks = (ref.srcObject as MediaStream)?.getTracks();
-    tracks.forEach((track) => track.stop());
-    ref.srcObject = null;
-    success && success();
   };
 
   const handleUser: MouseEventHandler = () => {
+    const video = RefVideo.current as HTMLVideoElement;
     if (status.user) {
-      handleMediaClose(RefVideo.current as HTMLVideoElement, () => {
-        lookDispatch({ type: SOCKET_USER_END });
-      });
+      const tracks = (video.srcObject as MediaStream).getTracks();
+      tracks.forEach((track) => track.stop());
+      video.srcObject = null;
+      lookDispatch({ type: SOCKET_USER_END });
     } else {
-      handleMediaOpen(
-        RefVideo.current as HTMLVideoElement,
-        "getUserMedia",
-        () => {
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: true,
+          video: true,
+        })
+        .then((mediaStream) => {
+          console.log(mediaStream);
+          video.srcObject = mediaStream;
           lookDispatch({ type: SOCKET_USER_START });
-        }
-      );
+        });
     }
   };
 
@@ -193,7 +189,33 @@ export default memo(function Live() {
     lookDispatch({ type: SOCKET_PUSH_END });
   };
 
-  const handleFaceDetector = () => {};
+  const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({
+    target,
+  }) => {
+    console.dir(target);
+    const width = target.videoWidth;
+    const height = target.videoHeight;
+    RefUser.current.width = width;
+    RefUser.current.height = height;
+  };
+
+  const handleFaceDetector = () => {
+    requestAnimationFrame(handleFaceDetector);
+    RefFace.current
+      .detect(RefVideo.current)
+      .then((faces) => {
+        RefCtx.current.drawImage(RefVideo.current, 0, 0);
+        console.log(faces);
+        RefCtx.current.beginPath();
+        RefCtx.current.lineWidth = 3;
+        RefCtx.current.strokeStyle = "blue";
+        RefCtx.current.setLineDash([5]);
+        for (const { boundingBox: face } of faces) {
+          RefCtx.current.strokeRect(face.x, face.y, face.width, face.height);
+        }
+      })
+      .catch((e) => console.log(e));
+  };
   useEffect(() => {
     RefCtx.current = RefUser.current.getContext("2d");
   }, [RefUser]);
@@ -213,18 +235,45 @@ export default memo(function Live() {
           推送开关
         </Button>
       </div>
+      <div className="flex">
+        <span>音频输入</span>
+        <select className={`border`}>
+          {audioinput.map((item, index) => {
+            return (
+              <option value="" key={index}>
+                {item.label}
+              </option>
+            );
+          })}
+        </select>
+        <span>视频输入</span>
+        <select className={`border`}>
+          {videoinput.map((item, index) => {
+            return (
+              <option value="" key={index}>
+                {item.label}
+              </option>
+            );
+          })}
+        </select>
+      </div>
       <div className={`flex flex-col`}>
         <div className={``}>
           <video className={`w-full`} ref={RefDeskTop} autoPlay playsInline />
         </div>
+        <hr />
         <div className={""}>
-          {/*<video
+          <video
             className={`w-full`}
-            ref={RefUser}
+            ref={RefVideo}
             autoPlay
             playsInline
             style={{ transform: `scale(-1, 1)` }}
-          />*/}
+            onLoadedMetadata={handleLoadedMetadata}
+          />
+        </div>
+        <hr />
+        <div>
           <canvas
             className={`w-full`}
             ref={RefUser}
