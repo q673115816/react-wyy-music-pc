@@ -20,9 +20,9 @@ export default memo(function Base() {
     LookInitialState
   );
   useEffect(() => {
-    (async () => {
-      await getIP();
-    })();
+    // (async () => {
+    //   await getIP();
+    // })();
   }, []);
   // useEffect(() => {
   //   lookDispatch({ type: SOCKET_CONNECT });
