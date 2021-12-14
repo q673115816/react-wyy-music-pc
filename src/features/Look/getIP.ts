@@ -5,7 +5,18 @@ export default async (callback?: () => void) => {
   const localIP: iIPs = {};
   const reg = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/;
   // free stun server
-  const servers = { iceServers: [{ urls: "stun:stun.xten.com" }] };
+  const servers = {
+    iceServers: [
+      {
+        urls: [
+          "stun:stun.xten.com",
+          "stun:stun.services.mozilla.com",
+          "stun:stun1.l.google.com:19302",
+          "stun:stun2.l.google.com:19302",
+        ],
+      },
+    ],
+  };
 
   const pc = new RTCPeerConnection(servers);
 

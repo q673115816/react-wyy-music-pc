@@ -234,7 +234,7 @@ export default memo(function Live() {
           人脸识别
         </Button>
         <Button onClick={handleSend} status={status.push}>
-          推送开关
+          推送
         </Button>
       </div>
       <div className="flex">
