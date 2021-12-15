@@ -21,7 +21,7 @@ import {
   SOCKET_USER_END,
   SOCKET_USER_START,
 } from "../Content";
-import {configuration} from '../config'
+import { configuration } from "../config";
 import useGetInput from "@/features/Look/Live/useGetInput";
 // 以下代码是从网上找的
 //=========================================================================================
@@ -100,13 +100,13 @@ export default memo(function Live() {
   //   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   // });
 
-  const {audioinput, videoinput} = useGetInput()
+  const { audioinput, videoinput } = useGetInput();
 
   const RefVideo = useRef<HTMLVideoElement>(null);
   const RefDeskTop = useRef<HTMLVideoElement>(null);
   const RefDeskTopStream = useRef<MediaStream>(null);
   const RefUser = useRef<HTMLCanvasElement>(null);
-  const RefCtx = useRef(null);
+  const RefCtx = useRef<CanvasRenderingContext2D>(null);
   const RefFace = useRef(new FaceDetector());
   const handleDeskTop: MouseEventHandler = () => {
     if (!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia))
@@ -157,11 +157,16 @@ export default memo(function Live() {
   };
 
   const handlePushOpen = () => {
-    lookDispatch({ type: SOCKET_PUSH_START, payload: {
-      title: '6666',
-      user: '337845818',
-      uid: '337845818',
-      banner: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387'} });
+    lookDispatch({
+      type: SOCKET_PUSH_START,
+      payload: {
+        title: "6666",
+        user: "337845818",
+        uid: "337845818",
+        banner:
+          "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
+      },
+    });
     const pc = new RTCPeerConnection(configuration);
     pc.addEventListener("icecandidate", (e) => {
       const peerConnection = e.target;
@@ -174,10 +179,10 @@ export default memo(function Live() {
     });
   };
   const handlePushClose = () => {
-    lookDispatch({ type: SOCKET_PUSH_END, payload: {uid: '337845818'} });
+    lookDispatch({ type: SOCKET_PUSH_END, payload: { uid: "337845818" } });
   };
 
-  useEffect(() => handlePushClose)
+  useEffect(() => handlePushClose);
 
   const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({
     target,
@@ -188,25 +193,25 @@ export default memo(function Live() {
     RefUser.current.height = height;
   };
 
-  const handleFaceDetector = () => {
+  const handleFaceDetector = async () => {
     requestAnimationFrame(handleFaceDetector);
-    const { width, height } = RefUser.current;
-    RefFace.current
+    const user = RefUser.current as HTMLCanvasElement;
+    const ctx = RefCtx.current as CanvasRenderingContext2D;
+    const { width, height } = user;
+    const faces = await RefFace.current
       .detect(RefVideo.current)
-      .then((faces) => {
-        RefCtx.current.clearRect(0, 0, width, height);
-        RefCtx.current.beginPath();
-        RefCtx.current.lineWidth = 3;
-        RefCtx.current.strokeStyle = "lime";
-        RefCtx.current.setLineDash([5]);
-        for (const { boundingBox: face } of faces) {
-          RefCtx.current.strokeRect(face.x, face.y, face.width, face.height);
-        }
-      })
-      .catch((e) => console.log(e));
+      .catch((e: any) => console.log(e));
+    ctx.clearRect(0, 0, width, height);
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "lime";
+    ctx.setLineDash([5]);
+    for (const { boundingBox: face } of faces) {
+      ctx.strokeRect(face.x, face.y, face.width, face.height);
+    }
   };
   useEffect(() => {
-    RefCtx.current = RefUser.current.getContext("2d");
+    RefCtx.current = (RefUser.current as HTMLCanvasElement).getContext("2d");
   }, [RefUser]);
   return (
     <div className={`w-full h-full p-8 overflow-auto`}>
