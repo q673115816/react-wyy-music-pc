@@ -20,16 +20,11 @@ export default memo(function Base() {
     LookInitialState
   );
   useEffect(() => {
-    // (async () => {
-    //   await getIP();
-    // })();
+    lookDispatch({ type: SOCKET_CONNECT });
+    return () => {
+      lookDispatch({ type: SOCKET_DISCONNECT });
+    };
   }, []);
-  // useEffect(() => {
-  //   lookDispatch({ type: SOCKET_CONNECT });
-  //   return () => {
-  //     lookDispatch({ type: SOCKET_DISCONNECT });
-  //   };
-  // }, []);
   return (
     <LookContent.Provider value={{ lookReducer, lookDispatch }}>
       <Outlet />

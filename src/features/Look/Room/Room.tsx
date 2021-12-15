@@ -1,22 +1,17 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { memo, useContext, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { LookContent } from "../Look";
 
 export default memo(function Room() {
   const { id } = useParams();
+  const {
+    lookReducer: { status, socket },
+    lookDispatch,
+  } = useContext(LookContent);
   const RefDeskTop = useRef(null);
   const handleInit = async () => {
     if (!RefDeskTop.current) return;
-    const deskTop = RefDeskTop.current as HTMLVideoElement;
-    const mediaStream = await navigator.mediaDevices.getDisplayMedia({
-      video: true,
-    });
-    console.log(mediaStream.getTracks());
-    mediaStream
-      .getTracks()
-      .forEach((track) =>
-        track.addEventListener("ended", () => console.log("停止共享回调"))
-      );
-    deskTop.srcObject = mediaStream;
+
   };
   useEffect(() => {
     handleInit();

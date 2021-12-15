@@ -21,7 +21,8 @@ import {
   SOCKET_USER_END,
   SOCKET_USER_START,
 } from "../Content";
-
+import {configuration} from '../config'
+import useGetInput from "@/features/Look/Live/useGetInput";
 // 以下代码是从网上找的
 //=========================================================================================
 //如果返回的是false说明当前操作系统是手机端，如果返回的是true则说明当前的操作系统是电脑端
@@ -99,27 +100,7 @@ export default memo(function Live() {
   //   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   // });
 
-  const [audioinput, setAudioinput] = useState<MediaDeviceInfo[]>([]);
-  const [videoinput, setVideoinput] = useState<MediaDeviceInfo[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      const deviceInfos = await navigator.mediaDevices.enumerateDevices();
-      const audioinput = [];
-      const videoinput = [];
-      for (const deviceInfo of deviceInfos) {
-        if (deviceInfo.kind === "audioinput") {
-          audioinput.push(deviceInfo);
-        } else if (deviceInfo.kind === "videoinput") {
-          videoinput.push(deviceInfo);
-        } else {
-          console.log("other kind: ", deviceInfo);
-        }
-      }
-      setAudioinput(audioinput);
-      setVideoinput(videoinput);
-    })();
-  }, []);
+  const {audioinput, videoinput} = useGetInput()
 
   const RefVideo = useRef<HTMLVideoElement>(null);
   const RefDeskTop = useRef<HTMLVideoElement>(null);
@@ -176,8 +157,12 @@ export default memo(function Live() {
   };
 
   const handlePushOpen = () => {
-    lookDispatch({ type: SOCKET_PUSH_START });
-    const pc = new RTCPeerConnection({});
+    lookDispatch({ type: SOCKET_PUSH_START, payload: {
+      title: '6666',
+      user: '337845818',
+      uid: '337845818',
+      banner: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387'} });
+    const pc = new RTCPeerConnection(configuration);
     pc.addEventListener("icecandidate", (e) => {
       const peerConnection = e.target;
       const iceCandidate = e.candidate;
@@ -189,8 +174,10 @@ export default memo(function Live() {
     });
   };
   const handlePushClose = () => {
-    lookDispatch({ type: SOCKET_PUSH_END });
+    lookDispatch({ type: SOCKET_PUSH_END, payload: {uid: '337845818'} });
   };
+
+  useEffect(() => handlePushClose)
 
   const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({
     target,

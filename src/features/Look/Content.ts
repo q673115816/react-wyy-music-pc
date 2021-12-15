@@ -42,13 +42,11 @@ export const LookReducer = (draft: LookState, action: any) => {
       draft.status.user = false;
       return;
     case SOCKET_PUSH_START:
-      socket.emit("create", {
-        user: "user",
-        title: "title",
-      });
+      socket.emit("create", action.payload);
       draft.status.push = true;
       return;
     case SOCKET_PUSH_END:
+      socket.emit("close", action.payload);
       draft.status.push = false;
       return;
     default:
