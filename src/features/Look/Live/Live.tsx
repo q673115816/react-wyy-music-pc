@@ -184,11 +184,9 @@ export default memo(function Live() {
 
   useEffect(() => handlePushClose);
 
-  const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({
-    target,
-  }) => {
-    const width = target.videoWidth;
-    const height = target.videoHeight;
+  const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({target}) => {
+    const width = target.clientWidth;
+    const height = target.clientHeight;
     RefUser.current.width = width;
     RefUser.current.height = height;
   };
@@ -227,6 +225,9 @@ export default memo(function Live() {
         </Button>
         <Button onClick={handleSend} status={status.push}>
           推送
+        </Button>
+        <Button onClick={handlePushClose} status={status.push}>
+          关闭推送
         </Button>
       </div>
       <div className="flex">

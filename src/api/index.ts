@@ -54,9 +54,9 @@ export const apiDjCategoryRecommend = () => get("/dj/category/recommend");
 // dj - 电台个性推荐
 export const apiDjPersonalizeRecommend = () => get("/dj/personalize/recommend");
 // 电台 -节目榜 limit offset
-export const apiDjProgramToplist = () => get("/dj/program/toplist");
+export const apiDJProgramTopList = () => get("/dj/program/toplist");
 // 电台 - 新晋电台榜/热门电台榜 limit offset type=new/hot
-export const apiDjToplist = () => get("/dj/toplist");
+export const apiDJTopList = (params) => post("/dj/toplist", params);
 // 电台 -24小时节目榜 limit
 export const apiDjProgramToplistHours = () => get("/dj/program/toplist/hours");
 

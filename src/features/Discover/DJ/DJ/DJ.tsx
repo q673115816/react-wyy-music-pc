@@ -1,6 +1,5 @@
 import React, { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { setHomeDj } from "@/reducers/home/slice";
 import Slider from "react-slick";
 import { IconChevronLeft, IconChevronRight, IconChartBar } from "@tabler/icons";
@@ -11,38 +10,12 @@ import {
   apiDjPersonalizeRecommend,
   apiDjRadioHot,
 } from "@/api";
-import DomSwiper from "@/components/Swiper";
-import DomLoading from "@/components/Loading";
+import Swiper from "@/components/Swiper";
+import Loading from "@/components/Loading";
 
-import "./style.scss";
-import classNames from "classnames";
-
-const DomDjNormal = memo(({ item = {} }) => (
-  <div className="item">
-    <div className="cover relative rounded border overflow-hidden">
-      <Link to={`/playlist/dj/${item.id}`} className="">
-        <img
-          loading={"lazy"}
-          className="ui_aspect-ratio-1/1"
-          src={item.picUrl}
-          alt=""
-        />
-        <div className="absolute bottom-0 left-0 right-0 h-1/4 ui_linear_mask_bottom" />
-        <div className="absolute left-0 bottom-0 max-w-full px-2 py-1 text-white truncate">
-          {item.name}
-        </div>
-      </Link>
-    </div>
-    <div className="footer mt-2 text-sm">
-      <Link
-        to={`/playlist/dj/${item.id}`}
-        className="text-gray-600 hover:text-black"
-      >
-        {item.rcmdtext}
-      </Link>
-    </div>
-  </div>
-));
+import style from "./style.module.scss";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import Item from './Item'
 
 const PrevArrow = ({ onClick }) => (
   <button
@@ -64,7 +37,7 @@ const NextArrow = ({ onClick }) => (
   </button>
 );
 
-const DomCategary = ({ catelist = [] }) => {
+const Category = ({ catelist = [] }) => {
   const settings = {
     speed: 500,
     infinite: false,
@@ -75,29 +48,25 @@ const DomCategary = ({ catelist = [] }) => {
     nextArrow: <NextArrow />,
   };
   return (
-    <div className="domHome_dj_nav px-10 mt-9">
+    <div className="px-10 mt-9">
       <Slider {...settings}>
-        <div className="item">
-          <Link to="/home/dj/toplist">
-            <div className="inner">
-              <div className="btn flex-center ui_themeColor">
-                <IconChartBar stroke={1} />
+        <Link to="TopList">
+          <div className="flex flex-col items-center">
+            <div className="rounded-full w-12 h-12 flex-center bg-red-50 hover:bg-red-100 ui_themeColor">
+              <IconChartBar stroke={1} />
+            </div>
+            <div className="text-gray-500 mt-2">排行榜</div>
+          </div>
+        </Link>
+        {catelist.map((item) => (
+          <Link to={`/dj-category/${item.name}/${item.id}`} key={item.id}>
+            <div className="flex flex-col items-center">
+              <div className="rounded-full w-12 h-12 flex-center bg-red-50 hover:bg-red-100 ui_themeColor">
+                <img className="w-8 h-8" src={item.pic56x56Url} alt="" />
               </div>
-              <div className="name text-gray-500 mt-2">排行榜</div>
+              <div className="text-gray-500 mt-2">{item.name}</div>
             </div>
           </Link>
-        </div>
-        {catelist.map((item) => (
-          <div className="item" key={item.id}>
-            <Link to={`/dj-category/${item.name}/${item.id}`}>
-              <div className="inner">
-                <div className="btn flex-center ui_themeColor">
-                  <img className="w-8 h-8" src={item.pic56x56Url} alt="" />
-                </div>
-                <div className="name text-gray-500 mt-2">{item.name}</div>
-              </div>
-            </Link>
-          </div>
         ))}
       </Slider>
     </div>
@@ -106,11 +75,11 @@ const DomCategary = ({ catelist = [] }) => {
 
 const navs = ["创作翻唱", "声之剧场", "音乐故事", "情感调频", "声音恋人"];
 
-export default memo(() => {
-  const dispatch = useDispatch();
+export default memo(function DJ() {
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(true);
   const { DjBanner, category, catelist, DjPersonalizeRecommend, result } =
-    useSelector(({ home }) => home.dj);
+    useAppSelector(({ home }) => home.dj);
 
   const handleInit = async () => {
     try {
@@ -177,39 +146,39 @@ export default memo(() => {
   if (loading)
     return (
       <div className="flex-center w-full h-full">
-        <DomLoading />
+        <Loading />
       </div>
     );
   return (
-    <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
-      <div className="domHome_dj pb-16 ui_w1100">
-        <div className="domHome_dj_banner">
-          {DjBanner.length > 0 && <DomSwiper list={DjBanner} coverSrc="pic" />}
+    <div className="px-8 overflow-auto max-h-full flex-auto">
+      <div className="pb-16 ui_w1100">
+        <div className={style.banner}>
+          {DjBanner.length > 0 && <Swiper list={DjBanner} coverSrc="pic" />}
         </div>
-        <div className="domHome_item">
-          <DomCategary catelist={catelist} />
-        </div>
-        <div className="domHome_item mt-8">
-          <div className="domHome_linktitle h1">电台个性推荐</div>
-          <div className="mt-4 grid grid-cols-5 gap-5">
-            {DjPersonalizeRecommend.slice(0, 5).map((item) => (
-              <DomDjNormal item={item} key={item.id} />
-            ))}
-          </div>
-        </div>
-        {navs.map((name) => (
-          <div key={name} className="domHome_item mt-8">
-            <Link className="domHome_linktitle h1" to={`/dj-category/${name}`}>
-              {name}
-              &gt;
-            </Link>
+        <Category catelist={catelist} />
+        <div className="space-y-8 mt-8">
+          <div>
+            <div className="h1">电台个性推荐</div>
             <div className="mt-4 grid grid-cols-5 gap-5">
-              {result[name].slice(0, 5).map((item) => (
-                <DomDjNormal item={item} key={item.id} />
+              {DjPersonalizeRecommend.slice(0, 5).map((item) => (
+                <Item item={item} key={item.id} />
               ))}
             </div>
           </div>
-        ))}
+          {navs.map((name) => (
+            <div key={name}>
+              <Link className="h1" to={`/dj-category/${name}`}>
+                {name}
+                &gt;
+              </Link>
+              <div className="mt-4 grid grid-cols-5 gap-5">
+                {result[name].slice(0, 5).map((item) => (
+                  <Item item={item} key={item.id} />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

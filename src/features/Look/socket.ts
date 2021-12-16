@@ -16,4 +16,8 @@ socket.on("disconnect-success", (data) => {
   console.log(data);
 });
 
+socket.on('list-success', (data) => {
+  console.log(data)
+})
+
 export default socket;

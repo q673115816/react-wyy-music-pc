@@ -9,22 +9,21 @@ import Loading from "@/components/Loading";
 
 import Layout from "./components/layout";
 import { useAppSelector } from "@/reducers/hooks";
-
+const defaultUser = {
+  profile: {},
+  bindings: []
+}
 const Detail = () => {
   const { uid } = useParams();
   const { isLogin } = useAppSelector(({ common }) => common);
-  const [user, setUser] = useState({});
-  const [playlist, setPlaylist] = useState([]);
-
   const account = useAppSelector(({ account }) => account);
+  const [user, setUser] = useState(defaultUser);
+  const [playlist, setPlaylist] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isSelf, setIsSelf] = useState(false);
-
-  useEffect(() => {
-    if (isLogin) {
-      setIsSelf(String(account.profile.userId) === uid);
-    }
-  }, [isLogin]);
+  const isSelf = useMemo(() => {
+    if(!isLogin) return false
+    return String(account.profile.userId) === uid
+  }, [isLogin])
 
   const ownPlaylist = playlist.filter((item) => String(item.userId) === uid);
 
@@ -35,7 +34,7 @@ const Detail = () => {
         apiUserDetail({ uid }),
         apiUserPlaylist({ uid }),
       ]);
-      setUser(user);
+      setUser({...defaultUser, ...user });
       setPlaylist(playlist);
       setLoading(true);
     } catch (error) {
@@ -71,21 +70,26 @@ const Detail = () => {
       </div>
     );
   }
+  if(user.code === 404) {
+    return (
+      <div className={`flex`}>用户不存在</div>
+    )
+  }
   return (
     <div className="domUserDetail">
       <div className="domUserDetail_header p-8">
         <div className="avatar w-44 h-44 rounded-full overflow-hidden flex-none">
           <img
-            src={`${user.profile.avatarUrl}?param=180y180`}
+            src={`${user.profile?.avatarUrl}?param=180y180`}
             alt=""
             className="w-full h-ull object-cover block"
           />
         </div>
         <div className="content">
-          <div className="font-bold text-xl">{user.profile.nickname}</div>
+          <div className="font-bold text-xl">{user.profile?.nickname}</div>
           <div className="contain">
             <div className="left flex-center">
-              {user.profile.vipType === 11 && (
+              {user.profile?.vipType === 11 && (
                 <>
                   <a href="https://music.163.com/#/member">黑胶会员</a>
                   &nbsp;
@@ -110,7 +114,7 @@ const Detail = () => {
                 Lv
                 {user.level}
               </a>
-              <Gender gender={user.profile.gender} size={16} />
+              <Gender gender={user.profile?.gender} size={16} />
             </div>
             <div className="right ml-auto flex-center">
               {isSelf ? (
@@ -130,11 +134,11 @@ const Detail = () => {
                     <IconMail size={20} stroke={1} />
                     &nbsp;发私信
                   </button>
-                  {user.profile.followed ? (
+                  {user.profile?.followed ? (
                     <button
                       type="button"
                       className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center"
-                      onClick={() => handleFollow(user.profile.userId)}
+                      onClick={() => handleFollow(user.profile?.userId)}
                     >
                       <IconCheck size={16} />
                       &nbsp; 已关注
@@ -143,7 +147,7 @@ const Detail = () => {
                     <button
                       type="button"
                       className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center"
-                      onClick={() => handleFollow(user.profile.userId)}
+                      onClick={() => handleFollow(user.profile?.userId)}
                     >
                       <IconPlus size={16} style={{ color: "#EC4141" }} />
                       &nbsp; 关注
@@ -159,15 +163,15 @@ const Detail = () => {
             style={{ gridTemplateColumns: "repeat(3, 88px)" }}
           >
             <Link to={`dynamic`} className="info">
-              <div className="num text-base">{user.profile.eventCount}</div>
+              <div className="num text-base">{user.profile?.eventCount}</div>
               <div className="string">动态</div>
             </Link>
             <Link to={`follow`} className="info">
-              <div className="num text-base">{user.profile.follows}</div>
+              <div className="num text-base">{user.profile?.follows}</div>
               <div className="string">关注</div>
             </Link>
             <Link to={`fans`} className="info">
-              <div className="num text-base">{user.profile.followeds}</div>
+              <div className="num text-base">{user.profile?.followeds}</div>
               <div className="string">粉丝</div>
             </Link>
           </div>

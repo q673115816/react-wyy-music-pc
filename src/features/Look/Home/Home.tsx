@@ -5,30 +5,33 @@ import React, {
   useEffect,
   useCallback,
   MouseEventHandler,
+  useContext,
 } from "react";
 import useInfinite from "@/hooks/useInfinite";
 import { Link, useLocation } from "react-router-dom";
-import axios from "axios";
 import { useQuery } from "react-query";
 import Loading from "@/components/Loading";
 import Rea from "react-error-boundary";
 import socket from "../socket";
 import { iList } from "./types";
 import LiveList from "./List";
+import { LookContent } from "../Look";
 
 export default memo(function Home() {
   const [size, setSize] = useState(20);
+  const {
+    lookReducer: { socket },
+    lookDispatch,
+  } = useContext(LookContent);
+
   const DomScroll = useRef(null);
   const DomObserver = useRef(null);
   const [list, setList] = useState<iList>([]);
   // useInfinite(() => { setSize((prev) => prev + 20); }, DomScroll, DomObserver);
-
-  const { data, error, isLoading, isSuccess, status } = useQuery(
+  const { data = [], error, isLoading, isSuccess, status } = useQuery(
     "look",
     async () => {
-      const { data } = await axios
-        .get(`${LIVE_URL}/list`)
-        .then((res) => res.data);
+      const { data } = await fetch(`${LIVE_URL}/list`).then((res) => res.json())
       return data;
     }
   );
@@ -49,13 +52,7 @@ export default memo(function Home() {
         </a>
       </div>
       <div className="px-8">
-        {isLoading && (
-          <div className={`pt-48 flex-center`}>
-            <Loading />
-          </div>
-        )}
-        {isSuccess && <LiveList list={data} />}
-
+        <LiveList list={data} />
         <div ref={DomObserver} />
       </div>
     </div>
