@@ -24,7 +24,6 @@ const getArticleFromJson = (json) => {
 };
 
 export default memo(function Friend() {
-  console.log("friend");
   const [event, setEvent] = useState([]);
 
   const DomScroll = useRef(null);
@@ -32,7 +31,7 @@ export default memo(function Friend() {
   const refLasttime = useRef(-1);
   const handleInitEvent = async () => {
     try {
-      const { event, lasttime } = await apiEvent({
+      const { event = [], lasttime = -1 } = await apiEvent({
         lasttime: refLasttime.current,
       });
       refLasttime.current = lasttime;

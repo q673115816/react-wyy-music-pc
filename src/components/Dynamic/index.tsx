@@ -1,7 +1,11 @@
-import React, { useState, useCallback, memo } from "react";
+import React, { useState, useCallback, memo, FC } from "react";
 import Event from "@/components/Event";
 
-export default memo(function Dynamic({ list = [] }) {
+interface iDynamic {
+  list: [];
+}
+
+const Dynamic: FC<iDynamic> = ({ list = [] }) => {
   const [actThreadId, setActThreadId] = useState("");
   const handleToggleComment = useCallback((threadId) => {
     setActThreadId((prev) => (prev === threadId ? null : threadId));
@@ -18,4 +22,6 @@ export default memo(function Dynamic({ list = [] }) {
       ))}
     </div>
   );
-});
+};
+
+export default memo(Dynamic);

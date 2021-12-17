@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { FC, memo, useEffect, useRef, useState } from "react";
 import { IconMoodSmile, IconAt, IconHash } from "@tabler/icons";
-import DomEmojiFaces from "@/components/EmojiFaces";
+import PanelEmoji from "@/components/PanelEmoji";
 
-const DomFace = ({ handleInset }) => {
+const Face: FC<{ handleCheck: (emoji: string) => void }> = ({
+  handleCheck,
+}) => {
   const [visibility, setVisibility] = useState(false);
   return (
     <div className="relative">
@@ -15,10 +17,10 @@ const DomFace = ({ handleInset }) => {
       </button>
       {visibility && (
         <div className="absolute mt-2 left-0">
-          <DomEmojiFaces
+          <PanelEmoji
             {...{
               handleHide: () => setVisibility(false),
-              clickface: handleInset,
+              handleCheck,
             }}
           />
         </div>
@@ -27,11 +29,11 @@ const DomFace = ({ handleInset }) => {
   );
 };
 
-export default () => {
+const Textarea = () => {
   const [data, setData] = useState("");
   const refSelection = useRef(window.getSelection());
   const refRange = useRef();
-  const refText = useRef();
+  const refText = useRef(null);
   const handleSelect = () => {
     refRange.current = refSelection.current.getRangeAt(0);
     console.log(refRange);
@@ -46,7 +48,7 @@ export default () => {
     // console.log(refRange);
   };
 
-  const handleInsetEmoji = (val) => {
+  const handleCheck = (val: string) => {
     // refRange.current.insertNode(document.createTextNode(val));
     document.execCommand("insertText", false, val);
   };
@@ -63,7 +65,7 @@ export default () => {
       </div>
       <div className="help flex mt-2">
         <div className="flex space-x-2 items-center">
-          <DomFace handleInset={handleInsetEmoji} />
+          <Face handleCheck={handleCheck} />
           <button type="button" className="ui_text_black_hover">
             <IconAt size={20} stroke={1} />
           </button>
@@ -81,3 +83,5 @@ export default () => {
     </div>
   );
 };
+
+export default memo(Textarea);

@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import { apiHotTopic } from "@/api";
 import { Link } from "react-router-dom";
-import DomGender from "@/components/Gender";
+import Gender from "@/components/Gender";
 import { setLoginVisibilty } from "@/reducers/common/slice";
 import TopicList from "./TopicList";
 import React, { memo, useEffect, useState } from "react";
@@ -12,7 +12,7 @@ export default memo(function Aside() {
   const [hot, setHot] = useState([]);
   const handleInitHot = async () => {
     try {
-      const { hot } = await apiHotTopic({
+      const { hot = [] } = await apiHotTopic({
         limit: 5,
       });
       setHot(hot);
@@ -47,7 +47,7 @@ export default memo(function Aside() {
                   {profile.nickname}
                 </Link>
                 &nbsp;
-                <DomGender gender={profile.gender} size={14} />
+                <Gender gender={profile.gender} size={14} />
               </div>
             </div>
             <div className="infos flex divide-x text-center mt-4">
@@ -82,8 +82,8 @@ export default memo(function Aside() {
             </div>
             <button
               type="button"
-              className="login ui_theme_bg_color text-white w-full h-10 mt-4"
-              onClick={() => dispatch(setLoginVisibilty(true))}
+              className="ui_theme_bg_color text-white w-full h-10 mt-4 rounded-full"
+              onClick={() => dispatch(setLoginVisibilty())}
             >
               立即登录
             </button>

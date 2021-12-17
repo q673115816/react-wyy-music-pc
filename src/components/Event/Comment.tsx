@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { transTextEmoji } from "@/common/faces";
 
-export default memo(({ comment }) => (
+const Comment = ({ comment }) => (
   <div className="flex py-4 px-3" key={comment.commentId}>
     <Link
       to={`/user/${comment.user.userId}`}
@@ -40,4 +40,6 @@ export default memo(({ comment }) => (
       </div>
     </div>
   </div>
-));
+);
+
+export default memo(Comment);

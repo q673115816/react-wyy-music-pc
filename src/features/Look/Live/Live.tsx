@@ -184,7 +184,9 @@ export default memo(function Live() {
 
   useEffect(() => handlePushClose);
 
-  const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({target}) => {
+  const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({
+    target,
+  }) => {
     const width = target.clientWidth;
     const height = target.clientHeight;
     RefUser.current.width = width;

@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, {
+  FC,
+  memo,
+  MouseEventHandler,
+  useState,
+  WheelEventHandler,
+} from "react";
 import { IconX } from "@tabler/icons";
 import faces from "@/common/faces";
 import "./style.scss";
 import classNames from "classnames";
 
-export default ({ handleHide, clickface }) => {
-  const [currpage, setCurrpage] = useState(0);
-  const handleWheel = (e) => {
+interface iPanelEmoji {
+  handleHide: MouseEventHandler<HTMLButtonElement>;
+  handleCheck: (emoji: string) => void;
+}
+
+const PanelEmoji: FC<iPanelEmoji> = ({ handleHide, handleCheck }) => {
+  const [page, setPage] = useState(0);
+  const handleWheel: WheelEventHandler<HTMLDivElement> = (e) => {
     if (e.deltaY < 0) {
-      setCurrpage(currpage > 0 ? currpage - 1 : 0);
+      setPage(Math.max(page - 1, 0));
     } else {
-      setCurrpage(
-        currpage < faces.length - 1 ? currpage + 1 : faces.length - 1
-      );
+      setPage(Math.min(page + 1, faces.length - 1));
     }
   };
   return (
@@ -25,13 +34,13 @@ export default ({ handleHide, clickface }) => {
         <IconX size={24} stroke={1} />
       </button>
       <div className="page text-lg grid grid-cols-10 p-4 gap-2">
-        {faces[currpage].map(([name, face]) => (
+        {faces[page].map(([name, face]) => (
           <button
             key={face}
             type="button"
             className="ico"
             title={name}
-            onClick={() => clickface(`[${name}]`)}
+            onClick={() => handleCheck(`[${name}]`)}
           >
             {face}
           </button>
@@ -41,11 +50,11 @@ export default ({ handleHide, clickface }) => {
         {faces.map((item, index) => (
           <button
             key={index}
-            onClick={() => setCurrpage(index)}
+            onClick={() => setPage(index)}
             type="button"
             className={classNames(
               "m-1 w-1 h-1 rounded-full bg-gray-200",
-              currpage === index && "bg-gray-400"
+              page === index && "bg-gray-400"
             )}
           />
         ))}
@@ -53,3 +62,5 @@ export default ({ handleHide, clickface }) => {
     </div>
   );
 };
+
+export default memo(PanelEmoji);

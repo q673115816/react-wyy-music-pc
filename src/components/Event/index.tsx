@@ -110,7 +110,7 @@ const DomPics = ({ item }) => {
   );
 };
 
-export default memo(({ item = {}, commentIsShow, handleToggleComment }) => {
+const Event = ({ item = {}, commentIsShow, handleToggleComment }) => {
   // console.log('event');
   const json = JSON.parse(item.json);
   const [comments, setComments] = useState([]);
@@ -273,4 +273,6 @@ export default memo(({ item = {}, commentIsShow, handleToggleComment }) => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Event);

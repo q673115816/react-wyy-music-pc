@@ -11,11 +11,11 @@ import {
   IconMoodSmile,
   IconPlayerPlay,
 } from "@tabler/icons";
-import EmojiFaces from "@/components/EmojiFaces";
+import PanelEmoji from "@/components/PanelEmoji";
 import Write from "@/components/Write";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
-const DomSong = ({ msg = {} }) => (
+const Song = ({ msg = {} }) => (
   <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">
     <div className="avatar flex-none w-10 h-10 rounded relative overflow-hidden">
       <img src={`${msg.song.album.picUrl}?param=100y100`} alt="" />
@@ -43,7 +43,7 @@ const DomSong = ({ msg = {} }) => (
     </div>
   </button>
 );
-const DomAlbum = ({ msg = {} }) => (
+const Album = ({ msg = {} }) => (
   <Link
     to={`/playlist/album/${msg.album.id}`}
     className="share flex rounded p-2 bg-gray-50 mt-2 w-56"
@@ -73,9 +73,9 @@ const DomAlbum = ({ msg = {} }) => (
   </Link>
 );
 
-const DomCircle = ({ msg = {} }) => <div>云圈</div>;
+const Circle = ({ msg = {} }) => <div>云圈</div>;
 
-const DomPromotion = ({ msg = {} }) => (
+const Promotion = ({ msg = {} }) => (
   <a href={msg.promotion.url} className="embed">
     <div className="cover">
       <img className="" src={msg.promotion.coverUrl} alt="" />
@@ -84,47 +84,47 @@ const DomPromotion = ({ msg = {} }) => (
   </a>
 );
 
-const DomImage = ({ msg = {} }) => (
+const Image = ({ msg = {} }) => (
   <div className="img">
     <img src={msg.picInfo.picUrl} className="" alt="" />
   </div>
 );
 
-const DomMsg = ({ msg = {} }) => transTextEmoji(msg.msg);
+const Msg = ({ msg = {} }) => transTextEmoji(msg.msg);
 
-const DomContent = ({ msg = {} }) => {
+const Content = ({ msg = {} }) => {
   const { type } = msg;
-  if (type === 16) return <DomImage msg={msg} />;
+  if (type === 16) return <Image msg={msg} />;
   return (
     <>
       {transTextEmoji(msg.msg)}
       {type === 1 && <DomSong msg={msg} />}
-      {type === 2 && <DomAlbum msg={msg} />}
+      {type === 2 && <Album msg={msg} />}
     </>
   );
 };
 
-const DomMsgLeft = ({ msg = {} }) => (
+const MsgLeft = ({ msg = {} }) => (
   <div className="flex">
     <div className="w-60 flex">
       <div className="rounded-lg rounded-tl-none bg-blue-50 p-3 select-text">
-        <DomContent msg={msg} />
+        <Content msg={msg} />
       </div>
     </div>
   </div>
 );
 
-const DomMsgRight = ({ msg = {} }) => (
+const MsgRight = ({ msg = {} }) => (
   <div className="flex">
     <div className="ml-auto w-60 flex">
       <div className="ml-auto rounded-lg rounded-br-none bg-blue-50 p-3 select-text">
-        <DomContent msg={msg} />
+        <Content msg={msg} />
       </div>
     </div>
   </div>
 );
 
-export default memo(() => {
+const Message = () => {
   const dispatch = useAppDispatch();
   const history = useRef(null);
 
@@ -140,7 +140,7 @@ export default memo(() => {
   const handleChange = useCallback((e) => {
     setValue(e.target.value);
   }, []);
-  const clickface = (face) => {
+  const handleCheck = (face) => {
     setValue(value + face);
   };
 
@@ -221,10 +221,10 @@ export default memo(() => {
                 <div className="avatar flex-none mr-4 rounded-full overflow-hidden w-8 h-8">
                   <img className="" src={item.fromUser.avatarUrl} alt="" />
                 </div>
-                <DomMsgLeft msg={JSON.parse(item.msg)} />
+                <MsgLeft msg={JSON.parse(item.msg)} />
               </div>
             ) : (
-              <DomMsgRight msg={JSON.parse(item.msg)} />
+              <MsgRight msg={JSON.parse(item.msg)} />
             )}
           </div>
         ))}
@@ -240,8 +240,9 @@ export default memo(() => {
           <div className="left relative">
             {visibility && (
               <div className="-translate-x-3 -translate-y-1/2 absolute faces right-full top-1/2 transform">
-                <EmojiFaces
-                  {...{ handleHide: () => setVisibility(false), clickface }}
+                <PanelEmoji
+                  handleHide={() => setVisibility(false)}
+                  handleCheck={handleCheck}
                 />
               </div>
             )}
@@ -267,4 +268,6 @@ export default memo(() => {
       </div>
     </>
   );
-});
+};
+
+export default memo(Message);
