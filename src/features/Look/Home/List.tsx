@@ -5,7 +5,7 @@ import { iHome } from "./types";
 const Home: FC<iHome> = ({ list }) => {
   return (
     <div className={`grid grid-cols-3 gap-5`}>
-      {list.map(({ uid, title, banner, user }) => (
+      {list.map(({ uid = "", title = "", banner = "", user = "" }) => (
         <div key={uid}>
           <Link to={uid}>
             <img
@@ -25,6 +25,6 @@ const Home: FC<iHome> = ({ list }) => {
       ))}
     </div>
   );
-}
+};
 
 export default memo(Home);
