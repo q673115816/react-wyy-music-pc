@@ -106,49 +106,82 @@ export default memo(function Live() {
   const RefDeskTop = useRef<HTMLVideoElement>(null);
   const RefDeskTopStream = useRef<MediaStream>(null);
   const RefUser = useRef<HTMLCanvasElement>(null);
+  const RefUserStream = useRef<MediaStream>(null);
+  const RefMixin = useRef<HTMLCanvasElement>(null);
   const RefCtx = useRef<CanvasRenderingContext2D>(null);
+  const RefMixinCtx = useRef<CanvasRenderingContext2D>(null);
   const RefFace = useRef(new FaceDetector());
+  const RefRTC = useRef(
+    (() => {
+      const pc = new RTCPeerConnection(configuration);
+      pc.addEventListener("icecandidate", (e) => {
+        const peerConnection = e.target;
+        const iceCandidate = e.candidate;
+        if (iceCandidate) {
+          const newIceCandidate = new RTCIceCandidate(iceCandidate);
+          // const otherPeer;
+        }
+      });
+      return pc;
+    })()
+  );
+
+  const handleDeskTopClose = () => {
+    const diskTop = RefDeskTop.current as HTMLVideoElement;
+    const tracks = (diskTop.srcObject as MediaStream).getTracks();
+    tracks.forEach((track) => track.stop());
+    diskTop.srcObject = null;
+    lookDispatch({ type: SOCKET_DESKTOP_END });
+  };
+
+  const handleDeskTopOpen = async () => {
+    const diskTop = RefDeskTop.current as HTMLVideoElement;
+    const mediaStream = await navigator.mediaDevices.getDisplayMedia({
+      audio: true,
+      video: true,
+    });
+    RefDeskTopStream.current = mediaStream;
+    diskTop.srcObject = mediaStream;
+    const tracks = mediaStream.getTracks();
+    const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
+    tracks[0].onended = () => {
+      RefRTC.current.removeTrack(sender);
+      lookDispatch({ type: SOCKET_DESKTOP_END });
+    };
+    lookDispatch({ type: SOCKET_DESKTOP_START });
+  };
+
   const handleDeskTop: MouseEventHandler = () => {
     if (!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia))
       return false;
-    const diskTop = RefDeskTop.current as HTMLVideoElement;
+
     if (status.deskTop) {
-      const tracks = (diskTop.srcObject as MediaStream).getTracks();
-      tracks.forEach((track) => track.stop());
-      diskTop.srcObject = null;
-      lookDispatch({ type: SOCKET_DESKTOP_END });
+      handleDeskTopClose();
     } else {
-      navigator.mediaDevices
-        .getDisplayMedia({ audio: true, video: true })
-        .then((mediaStream) => {
-          diskTop.srcObject = mediaStream;
-          lookDispatch({ type: SOCKET_DESKTOP_START });
-        });
+      handleDeskTopOpen();
     }
   };
 
-  const handleUser: MouseEventHandler = () => {
+  const handleUserOpen: MouseEventHandler = async () => {
     const video = RefVideo.current as HTMLVideoElement;
-    if (status.user) {
-      const tracks = (video.srcObject as MediaStream).getTracks();
-      tracks.forEach((track) => track.stop());
-      video.srcObject = null;
-      lookDispatch({ type: SOCKET_USER_END });
-    } else {
-      navigator.mediaDevices
-        .getUserMedia({
-          // audio: true,
-          video: {
-            width: { ideal: 1280 },
-            height: { ideal: 720 },
-          },
-        })
-        .then((mediaStream) => {
-          console.log(mediaStream);
-          video.srcObject = mediaStream;
-          lookDispatch({ type: SOCKET_USER_START });
-        });
-    }
+    const mediaStream = await navigator.mediaDevices.getUserMedia({
+      // audio: true,
+      video: {
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+      },
+    });
+    RefUserStream.current = mediaStream;
+    video.srcObject = mediaStream;
+    lookDispatch({ type: SOCKET_USER_START });
+  };
+
+  const handleUserClose: MouseEventHandler = async () => {
+    const video = RefVideo.current as HTMLVideoElement;
+    const tracks = (video.srcObject as MediaStream).getTracks();
+    tracks.forEach((track) => track.stop());
+    video.srcObject = null;
+    lookDispatch({ type: SOCKET_USER_END });
   };
 
   const handleSend: MouseEventHandler = () => {
@@ -165,33 +198,28 @@ export default memo(function Live() {
         uid: "337845818",
         banner:
           "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
+        sdp: "",
       },
-    });
-    const pc = new RTCPeerConnection(configuration);
-    pc.addEventListener("icecandidate", (e) => {
-      const peerConnection = e.target;
-      const iceCandidate = e.candidate;
-
-      if (iceCandidate) {
-        const newIceCandidate = new RTCIceCandidate(iceCandidate);
-        // const otherPeer;
-      }
     });
   };
   const handlePushClose = () => {
     lookDispatch({ type: SOCKET_PUSH_END, payload: { uid: "337845818" } });
   };
 
-  useEffect(() => handlePushClose);
+  useEffect(() => handlePushClose, []);
 
-  const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({
-    target,
-  }) => {
-    const width = target.clientWidth;
-    const height = target.clientHeight;
-    RefUser.current.width = width;
-    RefUser.current.height = height;
-  };
+  const handleSetEleSize =
+    ({
+      current: ref,
+    }: {
+      current: HTMLCanvasElement;
+    }): ReactEventHandler<HTMLVideoElement> =>
+    ({ target }) => {
+      const width = target.clientWidth;
+      const height = target.clientHeight;
+      ref.width = width;
+      ref.height = height;
+    };
 
   const handleFaceDetector = async () => {
     requestAnimationFrame(handleFaceDetector);
@@ -213,22 +241,39 @@ export default memo(function Live() {
   useEffect(() => {
     RefCtx.current = (RefUser.current as HTMLCanvasElement).getContext("2d");
   }, [RefUser]);
+  useEffect(() => {
+    RefMixinCtx.current = (RefMixin.current as HTMLCanvasElement).getContext(
+      "2d"
+    );
+  }, [RefMixin]);
+
+  useEffect(() => {}, [RefDeskTopStream, RefUserStream]);
+
+  useEffect(() => {
+    if (status.deskTop) {
+      console.log("mixin in");
+      RefMixinCtx.current.drawImage(RefDeskTop.current, 0, 0);
+    }
+  }, [status.deskTop]);
   return (
     <div className={`w-full h-full p-8 overflow-auto`}>
       <div className={`flex`}>
         <Button onClick={handleDeskTop} status={status.deskTop}>
           桌面共享开关
         </Button>
-        <Button onClick={handleUser} status={status.user}>
-          摄像头开关
+        <Button onClick={handleUserOpen} status={status.user}>
+          摄像头开
+        </Button>
+        <Button onClick={handleUserClose} status={!status.user}>
+          摄像头关
         </Button>
         <Button onClick={handleFaceDetector} status={status.faceDetector}>
           人脸识别
         </Button>
-        <Button onClick={handleSend} status={status.push}>
+        <Button onClick={handlePushOpen} status={status.push}>
           推送
         </Button>
-        <Button onClick={handlePushClose} status={status.push}>
+        <Button onClick={handlePushClose} status={!status.push}>
           关闭推送
         </Button>
       </div>
@@ -256,7 +301,13 @@ export default memo(function Live() {
       </div>
       <div className={`flex flex-col`}>
         <div className={``}>
-          <video className={`w-full`} ref={RefDeskTop} autoPlay playsInline />
+          <video
+            className={`w-full`}
+            ref={RefDeskTop}
+            autoPlay
+            playsInline
+            onLoadedMetadata={handleSetEleSize(RefMixin)}
+          />
         </div>
         <hr />
         <div className={"relative"}>
@@ -266,7 +317,7 @@ export default memo(function Live() {
             autoPlay
             playsInline
             style={{ transform: `scale(-1, 1)` }}
-            onLoadedMetadata={handleLoadedMetadata}
+            onLoadedMetadata={handleSetEleSize(RefUser)}
           />
           <canvas
             className={`absolute inset-0 w-full h-full`}
@@ -274,6 +325,10 @@ export default memo(function Live() {
             ref={RefUser}
           />
         </div>
+      </div>
+      <hr />
+      <div>
+        <canvas className="w-full" ref={RefMixin} />
       </div>
     </div>
   );
