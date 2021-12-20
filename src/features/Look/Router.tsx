@@ -11,7 +11,7 @@ const Router = () => {
       <Route element={<Look />}>
         <Route index element={<Home />} />
         <Route path={`my`} element={<Live />} />
-        <Route path={`:id`} element={<Room />} />
+        <Route path={`:uid`} element={<Room />} />
       </Route>
     </Routes>
   );

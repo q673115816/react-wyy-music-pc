@@ -1,9 +1,10 @@
 import React, { memo, useContext, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { LookContent } from "../Look";
+import { SOCKET_JOIN_START } from "../Content";
 
 export default memo(function Room() {
-  const { id } = useParams();
+  const { uid } = useParams();
   const {
     lookReducer: { status, socket },
     lookDispatch,
@@ -11,7 +12,7 @@ export default memo(function Room() {
   const RefDeskTop = useRef(null);
   const handleInit = async () => {
     if (!RefDeskTop.current) return;
-
+    lookDispatch({ type: SOCKET_JOIN_START, payload: { uid } });
   };
   useEffect(() => {
     handleInit();

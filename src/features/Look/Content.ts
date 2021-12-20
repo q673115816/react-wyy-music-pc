@@ -1,5 +1,5 @@
 import socket from "./socket";
-
+import { Socket } from "socket.io-client";
 export const SOCKET_CONNECT = "SOCKET_CONNECT";
 export const SOCKET_DISCONNECT = "SOCKET_DISCONNECT";
 export const SOCKET_DESKTOP_START = "SOCKET_DESKTOP_START";
@@ -8,6 +8,8 @@ export const SOCKET_USER_START = "SOCKET_USER_START";
 export const SOCKET_USER_END = "SOCKET_USER_END";
 export const SOCKET_PUSH_START = "SOCKET_PUSH_START";
 export const SOCKET_PUSH_END = "SOCKET_PUSH_END";
+export const SOCKET_JOIN_START = "SOCKET_JOIN_START";
+export const SOCKET_JOIN_END = "SOCKET_JOIN_END";
 
 export interface LookState {
   status: {
@@ -17,10 +19,11 @@ export interface LookState {
     push: boolean;
     faceDetector: boolean;
   };
+  socket: Socket;
 }
 
-export const LookReducer = (draft: LookState, action: any) => {
-  switch (action.type) {
+export const LookReducer = (draft: LookState, { type, payload }: any) => {
+  switch (type) {
     case SOCKET_CONNECT:
       socket.connect();
       draft.status.connect = true;
@@ -42,12 +45,15 @@ export const LookReducer = (draft: LookState, action: any) => {
       draft.status.user = false;
       return;
     case SOCKET_PUSH_START:
-      socket.emit("create", action.payload);
+      draft.socket.emit("create", payload);
       draft.status.push = true;
       return;
     case SOCKET_PUSH_END:
-      socket.emit("close", action.payload);
+      draft.socket.emit("close", payload);
       draft.status.push = false;
+      return;
+    case SOCKET_JOIN_START:
+      draft.socket.emit("join", payload);
       return;
     default:
       return draft;
@@ -62,4 +68,5 @@ export const LookInitialState: LookState = {
     push: false,
     faceDetector: false,
   },
+  socket,
 };
