@@ -1,7 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
 
-const cookie = localStorage.getItem("cookie") || "";
-
 type Params = {
   [key: string]: any;
 };
@@ -20,6 +18,7 @@ axiosInstance.prototype.cacel = () => {
 
 function POSTPlugin<T extends AxiosRequestConfig>(req: T): T {
   if (req.method !== "post") return req;
+  const cookie = localStorage.getItem("cookie") || "";
   if (!cookie) return req;
   req.data = {
     ...req.data,

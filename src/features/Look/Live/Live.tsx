@@ -114,14 +114,87 @@ export default memo(function Live() {
   const RefRTC = useRef(
     (() => {
       const pc = new RTCPeerConnection(configuration);
-      pc.addEventListener("icecandidate", (e) => {
+      pc.onicecandidate = (e) => {
         const peerConnection = e.target;
         const iceCandidate = e.candidate;
         if (iceCandidate) {
           const newIceCandidate = new RTCIceCandidate(iceCandidate);
           // const otherPeer;
         }
-      });
+      };
+      pc.onconnectionstatechange = (e) => {
+        switch (pc.connectionState) {
+          case "connected":
+            // The connection has become fully connected
+            break;
+          case "disconnected":
+          case "failed":
+            // One or more transports has terminated unexpectedly or in an error
+            break;
+          case "closed":
+            // The connection has been closed
+            break;
+        }
+      };
+      pc.ondatachannel = function (ev) {
+        console.log("Data channel is created!");
+        ev.channel.onopen = function () {
+          console.log("Data channel is open and ready to be used.");
+        };
+      };
+      pc.onicecandidateerror = function (event) {
+        if (event.errorCode >= 300 && event.errorCode <= 699) {
+          // STUN errors are in the range 300-699. See RFC 5389, section 15.6
+          // for a list of codes. TURN adds a few more error codes; see
+          // RFC 5766, section 15 for details.
+        } else if (event.errorCode >= 700 && event.errorCode <= 799) {
+          // Server could not be reached; a specific error number is
+          // provided but these are not yet specified.
+        }
+      };
+
+      pc.oniceconnectionstatechange = function (event) {
+        if (
+          pc.iceConnectionState === "failed" ||
+          pc.iceConnectionState === "disconnected" ||
+          pc.iceConnectionState === "closed"
+        ) {
+          // Handle the failure
+        }
+      };
+
+      pc.onicegatheringstatechange = function () {
+        let label = "Unknown";
+
+        switch (pc.iceGatheringState) {
+          case "new":
+          case "complete":
+            label = "Idle";
+            break;
+          case "gathering":
+            label = "Determining route";
+            break;
+        }
+        console.log(label);
+      };
+
+      pc.onnegotiationneeded = function () {
+        pc.createOffer()
+          .then(function (offer) {
+            console.log("setLocalDescription");
+            return pc.setLocalDescription(offer);
+          })
+          .then(function () {
+            // Send the offer to the remote peer through the signaling server
+          })
+          .catch((error) => console.log(error));
+      };
+
+      pc.onsignalingstatechange = function (event) {
+        if (pc.signalingState === "have-local-pranswer") {
+          // setLocalDescription() has been called with an answer
+        }
+      };
       return pc;
     })()
   );
@@ -143,9 +216,9 @@ export default memo(function Live() {
     RefDeskTopStream.current = mediaStream;
     diskTop.srcObject = mediaStream;
     const tracks = mediaStream.getTracks();
-    const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
+    // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
     tracks[0].onended = () => {
-      RefRTC.current.removeTrack(sender);
+      // RefRTC.current.removeTrack(sender);
       lookDispatch({ type: SOCKET_DESKTOP_END });
     };
     lookDispatch({ type: SOCKET_DESKTOP_START });
@@ -198,7 +271,7 @@ export default memo(function Live() {
         uid: "337845818",
         banner:
           "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
-        sdp: "",
+        sdp: "this is sdp",
       },
     });
   };

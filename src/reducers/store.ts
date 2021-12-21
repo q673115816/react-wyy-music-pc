@@ -5,7 +5,7 @@ import rootReducer from "./rootReducer";
 import logger from "redux-logger";
 
 // And use redux-batch as an example of adding enhancers
-import { reduxBatch } from "@manaflair/redux-batch";
+// import { reduxBatch } from "@manaflair/redux-batch";
 
 const preloadedState = {};
 
