@@ -124,4 +124,13 @@ input:focus {
   content-visibility: auto;
 }
 
+.group {
+  .group-hover\:show {
+    display: none;
+  }
+  &:hover .group-hover\:show {
+    display: block;
+  }
+}
+
 @import 'ui';

@@ -1,33 +1,30 @@
-export const transPlayCount = (playCount) => {
-  if (!playCount) return 0;
+export const transPlayCount = (playCount: number = 0) => {
   return String(playCount).replace(/(?<=\d{2,})\d{4}$/, "万");
 };
 
-export const transSubscribeCount = (subscribeCount) => {
-  if (!subscribeCount) return 0;
-  return String(subscribeCount).replace(/(?<=\d{1,})\d{4}$/, "万");
+export const transSubscribeCount = (subscribeCount: number = 0) => {
+  return String(subscribeCount).replace(/(?<=\d+)\d{4}$/, "万");
 };
 
-export const wordLength = (word = "") => {
+export const wordLength = (words: string = ""): number => {
   // console.log(word);
   let length = 0;
-  for (const char of word) {
-    if (char.codePointAt() < 0x080) {
-      length += 0.5;
-    } else {
-      length += 1;
-    }
+  for (let i = 0; i < words.length; i++) {
+    const code = words.codePointAt(i);
+    if (!code) continue;
+    length += code < 0x080 ? 0.5 : 1;
   }
   return length;
 };
 
-function typeToString(target) {
+function typeToString(target: any) {
   return Object.prototype.toString.call(target);
 }
 
-export const LOCALSTORAGE = (key, base) => {
+export const LOCALSTORAGE = (key: string, base: any = {}) => {
   try {
     const item = localStorage.getItem(key);
+    if (!item) return base;
     const value = JSON.parse(item);
     // console.log(base, typeToString(value) === typeToString(base));
     return typeToString(value) === typeToString(base) ? value : base;
@@ -67,3 +64,11 @@ export const isInTheRect = (event: MouseEvent, dom: HTMLElement) => {
     x <= inset.right && x >= inset.left && y <= inset.bottom && y >= inset.top
   );
 };
+
+export const UUIDGeneratorBrowser = () =>
+  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+    (
+      c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+    ).toString(16)
+  );

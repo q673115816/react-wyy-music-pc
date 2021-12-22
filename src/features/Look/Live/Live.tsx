@@ -1,10 +1,13 @@
 import React, {
+  ChangeEventHandler,
   EventHandler,
   FC,
+  FormEventHandler,
   memo,
   MouseEventHandler,
   ReactEventHandler,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -12,6 +15,7 @@ import React, {
 } from "react";
 import classnames from "classnames";
 import useLoginStatus, { handleLoginStatus } from "@/hooks/useLoginStatus";
+import { set, get } from "lodash";
 import { LookContent } from "@/features/Look/Look";
 import {
   SOCKET_DESKTOP_END,
@@ -23,6 +27,9 @@ import {
 } from "../Content";
 import { configuration } from "../config";
 import useGetInput from "@/features/Look/Live/useGetInput";
+import { Label } from "react-query/types/devtools/Explorer";
+import { UUIDGeneratorBrowser } from "@/common/utils";
+import { useImmer } from "use-immer";
 // 以下代码是从网上找的
 //=========================================================================================
 //如果返回的是false说明当前操作系统是手机端，如果返回的是true则说明当前的操作系统是电脑端
@@ -68,15 +75,15 @@ function is_android() {
 
 interface iButtonProps {
   onClick: MouseEventHandler;
-  status: boolean;
+  status?: boolean;
 }
 
-const Button: FC<iButtonProps> = ({ onClick, children, status }) => {
+const Button: FC<iButtonProps> = ({ onClick, children, status = false }) => {
   return (
     <button
       type={"button"}
       className={classnames(
-        `text-white rounded p-2`,
+        `text-white rounded px-2 h-8 flex-center`,
         status ? "bg-red-500" : "bg-blue-500"
       )}
       onClick={onClick}
@@ -86,6 +93,60 @@ const Button: FC<iButtonProps> = ({ onClick, children, status }) => {
   );
 };
 
+interface iCheck<T> {
+  name: T;
+  checked: boolean;
+  onChange: (key: T) => void;
+}
+
+const Check: FC<iCheck<initialSourceKey>> = ({
+  name,
+  children,
+  checked,
+  onChange,
+}) => {
+  return (
+    <label htmlFor={name}>
+      <input
+        type="checkbox"
+        id={name}
+        name={name}
+        checked={checked}
+        onChange={() => onChange(name)}
+      />
+      {children}
+    </label>
+  );
+};
+
+interface initialSource {
+  deskTop: boolean;
+  audio: boolean;
+  video: boolean;
+  face: boolean;
+}
+
+type initialSourceKey = keyof initialSource;
+
+const sourceList: { key: initialSourceKey; name: string }[] = [
+  {
+    key: "deskTop",
+    name: "桌面",
+  },
+  {
+    key: "video",
+    name: "摄像头-画面",
+  },
+  {
+    key: "audio",
+    name: "摄像头-声音",
+  },
+  {
+    key: "face",
+    name: "摄像头-人脸识别",
+  },
+];
+
 /*
  * TODO
  *  1.信令系统
@@ -93,7 +154,7 @@ const Button: FC<iButtonProps> = ({ onClick, children, status }) => {
  * */
 export default memo(function Live() {
   const {
-    lookReducer: { status, socket },
+    lookReducer: { socket },
     lookDispatch,
   } = useContext(LookContent);
   // const [isSupport] = useState<boolean>(() => {
@@ -101,12 +162,27 @@ export default memo(function Live() {
   // });
 
   const { audioinput, videoinput } = useGetInput();
-
+  const [status, setStatus] = useImmer<initialSource>({
+    deskTop: false,
+    audio: false,
+    video: false,
+    face: false,
+  });
   const RefVideo = useRef<HTMLVideoElement>(null);
   const RefDeskTop = useRef<HTMLVideoElement>(null);
-  const RefDeskTopStream = useRef<MediaStream>(null);
+  const RefDeskTopMixinTimer = useRef(null);
   const RefUser = useRef<HTMLCanvasElement>(null);
-  const RefUserStream = useRef<MediaStream>(null);
+  const [streams, setStreams] = useState<{ [key: string]: MediaStream | null }>(
+    {
+      deskTop: null,
+      user: null,
+      mixin: null,
+    }
+  );
+  const [userSize, setUserSize] = useState({
+    width: 0,
+    height: 0,
+  });
   const RefMixin = useRef<HTMLCanvasElement>(null);
   const RefCtx = useRef<CanvasRenderingContext2D>(null);
   const RefMixinCtx = useRef<CanvasRenderingContext2D>(null);
@@ -207,61 +283,6 @@ export default memo(function Live() {
     lookDispatch({ type: SOCKET_DESKTOP_END });
   };
 
-  const handleDeskTopOpen = async () => {
-    const diskTop = RefDeskTop.current as HTMLVideoElement;
-    const mediaStream = await navigator.mediaDevices.getDisplayMedia({
-      audio: true,
-      video: true,
-    });
-    RefDeskTopStream.current = mediaStream;
-    diskTop.srcObject = mediaStream;
-    const tracks = mediaStream.getTracks();
-    // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
-    tracks[0].onended = () => {
-      // RefRTC.current.removeTrack(sender);
-      lookDispatch({ type: SOCKET_DESKTOP_END });
-    };
-    lookDispatch({ type: SOCKET_DESKTOP_START });
-  };
-
-  const handleDeskTop: MouseEventHandler = () => {
-    if (!(navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia))
-      return false;
-
-    if (status.deskTop) {
-      handleDeskTopClose();
-    } else {
-      handleDeskTopOpen();
-    }
-  };
-
-  const handleUserOpen: MouseEventHandler = async () => {
-    const video = RefVideo.current as HTMLVideoElement;
-    const mediaStream = await navigator.mediaDevices.getUserMedia({
-      // audio: true,
-      video: {
-        width: { ideal: 1280 },
-        height: { ideal: 720 },
-      },
-    });
-    RefUserStream.current = mediaStream;
-    video.srcObject = mediaStream;
-    lookDispatch({ type: SOCKET_USER_START });
-  };
-
-  const handleUserClose: MouseEventHandler = async () => {
-    const video = RefVideo.current as HTMLVideoElement;
-    const tracks = (video.srcObject as MediaStream).getTracks();
-    tracks.forEach((track) => track.stop());
-    video.srcObject = null;
-    lookDispatch({ type: SOCKET_USER_END });
-  };
-
-  const handleSend: MouseEventHandler = () => {
-    if (status.push) handlePushClose();
-    else handlePushOpen();
-  };
-
   const handlePushOpen = () => {
     lookDispatch({
       type: SOCKET_PUSH_START,
@@ -320,57 +341,150 @@ export default memo(function Live() {
     );
   }, [RefMixin]);
 
-  useEffect(() => {}, [RefDeskTopStream, RefUserStream]);
+  const handleMixinDeskTop = () => {
+    if (!streams.deskTop) return;
+    const { width, height } = RefMixin.current;
+    console.log("mixin deskTop ");
+    requestAnimationFrame(handleMixinDeskTop);
+    RefMixinCtx.current.drawImage(RefDeskTop.current, 0, 0, width, height);
+  };
+
+  const handleMixinUser = () => {
+    if (!streams.user) return;
+    console.log("mixin user ");
+    requestAnimationFrame(handleMixinUser);
+    RefMixinCtx.current.drawImage(RefVideo.current, 400, 300, 200, 160);
+  };
 
   useEffect(() => {
-    if (status.deskTop) {
-      console.log("mixin in");
-      RefMixinCtx.current.drawImage(RefDeskTop.current, 0, 0);
-    }
-  }, [status.deskTop]);
+    console.log("streams effect");
+
+    handleMixinDeskTop();
+    handleMixinUser();
+  }, [streams]);
+
+  // useEffect(() => {
+  //   console.log(size);
+  //   RefMixin.current.width = size.width;
+  //   RefMixin.current.height = size.height;
+  // }, [size]);
+
+  const handleDeskTopCapture = () => {
+    const diskTop = RefDeskTop.current as HTMLVideoElement;
+    navigator.mediaDevices
+      .getDisplayMedia({
+        audio: true,
+        video: true,
+      })
+      .then((mediaStream) => {
+        setStreams((prev) => ({ ...prev, deskTop: mediaStream }));
+        // RefDeskTopStream.current = mediaStream;
+        diskTop.srcObject = mediaStream;
+        // for (const track of mediaStream.getVideoTracks()) {
+        //   const { width = 0, height = 0 } = track.getSettings();
+        //   setSize({ width, height });
+        // }
+        const tracks = mediaStream.getTracks();
+        // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
+        tracks[0].onended = () => {
+          // RefRTC.current.removeTrack(sender);
+          lookDispatch({ type: SOCKET_DESKTOP_END });
+        };
+        lookDispatch({ type: SOCKET_DESKTOP_START });
+      })
+      .catch((e) => {
+        // DOMException: Permission denied
+        console.log("桌面捕获", e);
+      });
+  };
+
+  const handleUserCapture = () => {
+    const video = RefVideo.current as HTMLVideoElement;
+    navigator.mediaDevices
+      .getUserMedia({
+        // audio: true,
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+        },
+      })
+      .then((mediaStream) => {
+        setStreams((prev) => ({ ...prev, user: mediaStream }));
+        for (const track of mediaStream.getVideoTracks()) {
+          const { width = 0, height = 0 } = track.getSettings();
+          console.log(track.getSettings());
+          setUserSize({ width, height });
+        }
+        video.srcObject = mediaStream;
+        lookDispatch({ type: SOCKET_USER_START });
+      })
+      .catch((e) => {
+        console.log("摄像头捕获", e);
+      });
+  };
+
+  const handleCapture = () => {
+    handleDeskTopCapture();
+    handleUserCapture();
+    const mediaStream = (RefMixin.current as HTMLCanvasElement).captureStream(
+      30
+    );
+    setStreams((prev) => ({ ...prev, canvas: mediaStream }));
+    console.log(mediaStream);
+  };
+
+  const handleSend = () => {};
+
+  const handleChangeStatus = useCallback((key: initialSourceKey) => {
+    setStatus((draft) => {
+      const value = get(draft, key);
+      set(draft, key, !value);
+      // draft[key] = !draft[key];
+    });
+  }, []);
   return (
     <div className={`w-full h-full p-8 overflow-auto`}>
       <div className={`flex`}>
-        <Button onClick={handleDeskTop} status={status.deskTop}>
-          桌面共享开关
-        </Button>
-        <Button onClick={handleUserOpen} status={status.user}>
-          摄像头开
-        </Button>
-        <Button onClick={handleUserClose} status={!status.user}>
-          摄像头关
-        </Button>
-        <Button onClick={handleFaceDetector} status={status.faceDetector}>
-          人脸识别
-        </Button>
-        <Button onClick={handlePushOpen} status={status.push}>
-          推送
-        </Button>
-        <Button onClick={handlePushClose} status={!status.push}>
-          关闭推送
-        </Button>
-      </div>
-      <div className="flex">
-        <span>音频输入</span>
-        <select className={`border`}>
-          {audioinput.map((item, index) => {
-            return (
-              <option value="" key={index}>
-                {item.label}
-              </option>
-            );
-          })}
-        </select>
-        <span>视频输入</span>
-        <select className={`border`}>
-          {videoinput.map((item, index) => {
-            return (
-              <option value="" key={index}>
-                {item.label}
-              </option>
-            );
-          })}
-        </select>
+        <Button onClick={handleCapture}>开始捕获</Button>
+        <Button onClick={handleSend}>推送</Button>
+        <div className={`border ml-auto`}>
+          <div className={`flex flex-col flex-wrap`}>
+            {sourceList.map(({ key, name }) => (
+              <Check
+                key={key}
+                name={key}
+                onChange={handleChangeStatus}
+                checked={status[key]}
+              >
+                <span>{name}</span>
+              </Check>
+            ))}
+            <div className={``}>
+              <span>音频输入</span>
+              <select className={`border`} disabled>
+                {audioinput.map((item, index) => {
+                  return (
+                    <option value="" key={index}>
+                      {item.label}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div>
+              <span>视频输入</span>
+              <select className={`border`} disabled>
+                {videoinput.map((item, index) => {
+                  return (
+                    <option value="" key={index}>
+                      {item.label}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
       <div className={`flex flex-col`}>
         <div className={``}>
