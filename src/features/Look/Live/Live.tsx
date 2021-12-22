@@ -353,15 +353,17 @@ export default memo(function Live() {
     if (!streams.user) return;
     console.log("mixin user ");
     requestAnimationFrame(handleMixinUser);
-    RefMixinCtx.current.drawImage(RefVideo.current, 400, 300, 200, 160);
+    RefMixinCtx.current.drawImage(RefVideo.current, 0, 0, 200, 160);
   };
 
   useEffect(() => {
-    console.log("streams effect");
-
+    console.log("streams deskTop effect");
     handleMixinDeskTop();
+  }, [streams.deskTop]);
+  useEffect(() => {
+    console.log("streams user effect");
     handleMixinUser();
-  }, [streams]);
+  }, [streams.user]);
 
   // useEffect(() => {
   //   console.log(size);
@@ -385,6 +387,7 @@ export default memo(function Live() {
         //   setSize({ width, height });
         // }
         const tracks = mediaStream.getTracks();
+        console.log(tracks);
         // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
         tracks[0].onended = () => {
           // RefRTC.current.removeTrack(sender);
