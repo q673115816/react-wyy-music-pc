@@ -194,10 +194,8 @@ export default memo(function Live() {
     user: null,
     mixin: null,
   });
-  const [userSize, setUserSize] = useState({
-    width: 0,
-    height: 0,
-  });
+
+  const userSettings = useRef<MediaTrackSettings>();
   const RefMixin = useRef<HTMLCanvasElement>(null);
   const RefCtx = useRef<CanvasRenderingContext2D>(null);
   const RefMixinCtx = useRef<CanvasRenderingContext2D>(null);
@@ -271,17 +269,29 @@ export default memo(function Live() {
 
   const handleMixindesktop = () => {
     if (!streams.desktop) return;
-    const { width, height } = RefMixin.current;
-    console.log("mixin desktop ");
+    const { width, height } = RefMixin.current as HTMLCanvasElement;
+    // console.log("mixin desktop ");
     requestAnimationFrame(handleMixindesktop);
     RefMixinCtx.current.drawImage(Refdesktop.current, 0, 0, width, height);
   };
 
   const handleMixinUser = () => {
     if (!streams.user) return;
-    console.log("mixin user ");
+    // console.log("mixin user ");
     requestAnimationFrame(handleMixinUser);
-    RefMixinCtx.current.drawImage(RefVideo.current, 0, 0, 200, 160);
+    const ctx = RefMixinCtx.current as CanvasRenderingContext2D;
+    const eleVideo = RefVideo.current as HTMLVideoElement;
+    ctx.save();
+    ctx.scale(-1, 1);
+    const width = 200;
+    ctx.drawImage(
+      eleVideo,
+      0,
+      0,
+      -width,
+      width / userSettings.current.aspectRatio
+    );
+    ctx.restore();
   };
 
   useEffect(() => {
@@ -339,7 +349,6 @@ export default memo(function Live() {
           // RefRTC.current.removeTrack(sender);
           lookDispatch({ type: SOCKET_DESKTOP_END });
         };
-        lookDispatch({ type: SOCKET_desktop_START });
       })
       .catch((e) => {
         // DOMException: Permission denied
@@ -360,9 +369,9 @@ export default memo(function Live() {
       .then((mediaStream) => {
         setStreams((prev) => ({ ...prev, user: mediaStream }));
         for (const track of mediaStream.getVideoTracks()) {
-          const { width = 0, height = 0 } = track.getSettings();
-          console.log(track.getSettings());
-          setUserSize({ width, height });
+          const settings = track.getSettings();
+          console.log(settings);
+          userSettings.current = settings;
         }
         video.srcObject = mediaStream;
         lookDispatch({ type: SOCKET_USER_START });
@@ -374,7 +383,7 @@ export default memo(function Live() {
 
   const handleCapture = () => {
     handledesktopCapture();
-    // handleUserCapture();
+    handleUserCapture();
     // const mediaStream = (RefMixin.current as HTMLCanvasElement).captureStream(
     //   30
     // );
