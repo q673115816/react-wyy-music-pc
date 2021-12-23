@@ -2,28 +2,21 @@ import React, { memo, useContext, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { LookContent } from "../Look";
 import { SOCKET_JOIN_START } from "../Content";
-import { configuration } from "../config";
+import RTC from "../RTC";
 
 export default memo(function Room() {
   const { uid } = useParams();
   const {
-    lookReducer: { status, socket },
+    lookReducer: { socket },
     lookDispatch,
   } = useContext(LookContent);
-  const pc = useRef(
-    (() => {
-      const pc = new RTCPeerConnection(configuration);
-      pc.ontrack = (ev) => (RefVideo.current.srcObject = ev.streams[0]);
-      return pc;
-    })()
-  );
-
-  const handleGetRemoteSdp = () => {};
 
   const RefVideo = useRef(null);
+  const RefPC = useRef(new RTC());
   const handleInit = async () => {
     if (!RefVideo.current) return;
-    lookDispatch({ type: SOCKET_JOIN_START, payload: { uid } });
+    RefPC.current.start();
+    socket.emit("join", RefPC.current.description);
   };
   useEffect(() => {
     handleInit();

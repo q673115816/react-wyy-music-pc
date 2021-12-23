@@ -1,12 +1,8 @@
 import React, {
-  ChangeEventHandler,
-  EventHandler,
   FC,
-  FormEventHandler,
   memo,
   MouseEventHandler,
   ReactEventHandler,
-  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -19,17 +15,18 @@ import { set, get } from "lodash";
 import { LookContent } from "@/features/Look/Look";
 import {
   SOCKET_DESKTOP_END,
-  SOCKET_DESKTOP_START,
   SOCKET_PUSH_END,
   SOCKET_PUSH_START,
   SOCKET_USER_END,
   SOCKET_USER_START,
 } from "../Content";
 import { configuration } from "../config";
-import useGetInput from "@/features/Look/Live/useGetInput";
+import useGetInput, { iUseGetInput } from "@/features/Look/Live/useGetInput";
 import { Label } from "react-query/types/devtools/Explorer";
 import { UUIDGeneratorBrowser } from "@/common/utils";
 import { useImmer } from "use-immer";
+import RTC from "../RTC";
+
 // 以下代码是从网上找的
 //=========================================================================================
 //如果返回的是false说明当前操作系统是手机端，如果返回的是true则说明当前的操作系统是电脑端
@@ -120,7 +117,7 @@ const Check: FC<iCheck<initialSourceKey>> = ({
 };
 
 interface initialSource {
-  deskTop: boolean;
+  desktop: boolean;
   audio: boolean;
   video: boolean;
   face: boolean;
@@ -130,7 +127,7 @@ type initialSourceKey = keyof initialSource;
 
 const sourceList: { key: initialSourceKey; name: string }[] = [
   {
-    key: "deskTop",
+    key: "desktop",
     name: "桌面",
   },
   {
@@ -147,6 +144,11 @@ const sourceList: { key: initialSourceKey; name: string }[] = [
   },
 ];
 
+const inputList: { key: keyof iUseGetInput; name: string }[] = [
+  { key: "audioinput", name: "音频输入" },
+  { key: "videoinput", name: "视频输入" },
+];
+
 /*
  * TODO
  *  1.信令系统
@@ -154,31 +156,44 @@ const sourceList: { key: initialSourceKey; name: string }[] = [
  * */
 export default memo(function Live() {
   const {
-    lookReducer: { socket },
+    lookReducer: { socket, pc },
     lookDispatch,
   } = useContext(LookContent);
   // const [isSupport] = useState<boolean>(() => {
   //   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
   // });
 
-  const { audioinput, videoinput } = useGetInput();
+  const inputDevice = useGetInput();
   const [status, setStatus] = useImmer<initialSource>({
-    deskTop: false,
+    desktop: false,
     audio: false,
     video: false,
     face: false,
   });
   const RefVideo = useRef<HTMLVideoElement>(null);
-  const RefDeskTop = useRef<HTMLVideoElement>(null);
-  const RefDeskTopMixinTimer = useRef(null);
+  const Refdesktop = useRef<HTMLVideoElement>(null);
+  const RefPC = useRef(new RTC());
+  const RefdesktopMixinTimer = useRef(null);
   const RefUser = useRef<HTMLCanvasElement>(null);
-  const [streams, setStreams] = useState<{ [key: string]: MediaStream | null }>(
-    {
-      deskTop: null,
-      user: null,
-      mixin: null,
-    }
-  );
+  interface iTracks {
+    [key: string]: {
+      [key: string]: Set<MediaStreamTrack>;
+    };
+  }
+  const [tracks, setTracks] = useImmer<iTracks>({
+    desktop: {},
+    user: {},
+  });
+
+  interface iStreams {
+    [key: string]: MediaStream | null;
+  }
+
+  const [streams, setStreams] = useState<iStreams>({
+    desktop: null,
+    user: null,
+    mixin: null,
+  });
   const [userSize, setUserSize] = useState({
     width: 0,
     height: 0,
@@ -187,96 +202,9 @@ export default memo(function Live() {
   const RefCtx = useRef<CanvasRenderingContext2D>(null);
   const RefMixinCtx = useRef<CanvasRenderingContext2D>(null);
   const RefFace = useRef(new FaceDetector());
-  const RefRTC = useRef(
-    (() => {
-      const pc = new RTCPeerConnection(configuration);
-      pc.onicecandidate = (e) => {
-        const peerConnection = e.target;
-        const iceCandidate = e.candidate;
-        if (iceCandidate) {
-          const newIceCandidate = new RTCIceCandidate(iceCandidate);
-          // const otherPeer;
-        }
-      };
-      pc.onconnectionstatechange = (e) => {
-        switch (pc.connectionState) {
-          case "connected":
-            // The connection has become fully connected
-            break;
-          case "disconnected":
-          case "failed":
-            // One or more transports has terminated unexpectedly or in an error
-            break;
-          case "closed":
-            // The connection has been closed
-            break;
-        }
-      };
-      pc.ondatachannel = function (ev) {
-        console.log("Data channel is created!");
-        ev.channel.onopen = function () {
-          console.log("Data channel is open and ready to be used.");
-        };
-      };
-      pc.onicecandidateerror = function (event) {
-        if (event.errorCode >= 300 && event.errorCode <= 699) {
-          // STUN errors are in the range 300-699. See RFC 5389, section 15.6
-          // for a list of codes. TURN adds a few more error codes; see
-          // RFC 5766, section 15 for details.
-        } else if (event.errorCode >= 700 && event.errorCode <= 799) {
-          // Server could not be reached; a specific error number is
-          // provided but these are not yet specified.
-        }
-      };
 
-      pc.oniceconnectionstatechange = function (event) {
-        if (
-          pc.iceConnectionState === "failed" ||
-          pc.iceConnectionState === "disconnected" ||
-          pc.iceConnectionState === "closed"
-        ) {
-          // Handle the failure
-        }
-      };
-
-      pc.onicegatheringstatechange = function () {
-        let label = "Unknown";
-
-        switch (pc.iceGatheringState) {
-          case "new":
-          case "complete":
-            label = "Idle";
-            break;
-          case "gathering":
-            label = "Determining route";
-            break;
-        }
-        console.log(label);
-      };
-
-      pc.onnegotiationneeded = function () {
-        pc.createOffer()
-          .then(function (offer) {
-            console.log("setLocalDescription");
-            return pc.setLocalDescription(offer);
-          })
-          .then(function () {
-            // Send the offer to the remote peer through the signaling server
-          })
-          .catch((error) => console.log(error));
-      };
-
-      pc.onsignalingstatechange = function (event) {
-        if (pc.signalingState === "have-local-pranswer") {
-          // setLocalDescription() has been called with an answer
-        }
-      };
-      return pc;
-    })()
-  );
-
-  const handleDeskTopClose = () => {
-    const diskTop = RefDeskTop.current as HTMLVideoElement;
+  const handledesktopClose = () => {
+    const diskTop = Refdesktop.current as HTMLVideoElement;
     const tracks = (diskTop.srcObject as MediaStream).getTracks();
     tracks.forEach((track) => track.stop());
     diskTop.srcObject = null;
@@ -341,12 +269,12 @@ export default memo(function Live() {
     );
   }, [RefMixin]);
 
-  const handleMixinDeskTop = () => {
-    if (!streams.deskTop) return;
+  const handleMixindesktop = () => {
+    if (!streams.desktop) return;
     const { width, height } = RefMixin.current;
-    console.log("mixin deskTop ");
-    requestAnimationFrame(handleMixinDeskTop);
-    RefMixinCtx.current.drawImage(RefDeskTop.current, 0, 0, width, height);
+    console.log("mixin desktop ");
+    requestAnimationFrame(handleMixindesktop);
+    RefMixinCtx.current.drawImage(Refdesktop.current, 0, 0, width, height);
   };
 
   const handleMixinUser = () => {
@@ -357,9 +285,9 @@ export default memo(function Live() {
   };
 
   useEffect(() => {
-    console.log("streams deskTop effect");
-    handleMixinDeskTop();
-  }, [streams.deskTop]);
+    console.log("streams desktop effect");
+    handleMixindesktop();
+  }, [streams.desktop]);
   useEffect(() => {
     console.log("streams user effect");
     handleMixinUser();
@@ -371,29 +299,47 @@ export default memo(function Live() {
   //   RefMixin.current.height = size.height;
   // }, [size]);
 
-  const handleDeskTopCapture = () => {
-    const diskTop = RefDeskTop.current as HTMLVideoElement;
+  const handleSetTrack = (track: MediaStreamTrack, name: string) => {
+    const { kind } = track;
+    setTracks((draft) => {
+      draft[name][kind] ??= new Set();
+      draft[name][kind].add(track);
+    });
+  };
+
+  const handledesktopCapture = () => {
+    const diskTop = Refdesktop.current as HTMLVideoElement;
     navigator.mediaDevices
       .getDisplayMedia({
         audio: true,
         video: true,
       })
       .then((mediaStream) => {
-        setStreams((prev) => ({ ...prev, deskTop: mediaStream }));
-        // RefDeskTopStream.current = mediaStream;
+        setStreams((prev) => ({ ...prev, desktop: mediaStream }));
+        // RefdesktopStream.current = mediaStream;
         diskTop.srcObject = mediaStream;
         // for (const track of mediaStream.getVideoTracks()) {
         //   const { width = 0, height = 0 } = track.getSettings();
         //   setSize({ width, height });
         // }
         const tracks = mediaStream.getTracks();
-        console.log(tracks);
+        for (const track of tracks) {
+          lookDispatch({
+            type: "addtrack",
+            payload: {
+              track,
+              stream: mediaStream,
+            },
+          });
+          handleSetTrack(track, "desktop");
+        }
+        console.log("desktop tracks", tracks);
         // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
         tracks[0].onended = () => {
           // RefRTC.current.removeTrack(sender);
           lookDispatch({ type: SOCKET_DESKTOP_END });
         };
-        lookDispatch({ type: SOCKET_DESKTOP_START });
+        lookDispatch({ type: SOCKET_desktop_START });
       })
       .catch((e) => {
         // DOMException: Permission denied
@@ -427,16 +373,26 @@ export default memo(function Live() {
   };
 
   const handleCapture = () => {
-    handleDeskTopCapture();
-    handleUserCapture();
-    const mediaStream = (RefMixin.current as HTMLCanvasElement).captureStream(
-      30
-    );
-    setStreams((prev) => ({ ...prev, canvas: mediaStream }));
-    console.log(mediaStream);
+    handledesktopCapture();
+    // handleUserCapture();
+    // const mediaStream = (RefMixin.current as HTMLCanvasElement).captureStream(
+    //   30
+    // );
+    // setStreams((prev) => ({ ...prev, canvas: mediaStream }));
+    // console.log(mediaStream);
   };
 
-  const handleSend = () => {};
+  const handleSend = () => {
+    RefPC.current.start();
+    socket.emit("create", {
+      title: "6666",
+      user: "337845818",
+      uid: "337845818",
+      banner:
+        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
+      sdp: RefPC.current.description,
+    });
+  };
 
   const handleChangeStatus = useCallback((key: initialSourceKey) => {
     setStatus((draft) => {
@@ -462,30 +418,20 @@ export default memo(function Live() {
                 <span>{name}</span>
               </Check>
             ))}
-            <div className={``}>
-              <span>音频输入</span>
-              <select className={`border`} disabled>
-                {audioinput.map((item, index) => {
-                  return (
-                    <option value="" key={index}>
-                      {item.label}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div>
-              <span>视频输入</span>
-              <select className={`border`} disabled>
-                {videoinput.map((item, index) => {
-                  return (
-                    <option value="" key={index}>
-                      {item.label}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
+            {inputList.map(({ key, name }) => (
+              <div key={key}>
+                <span>{name}</span>
+                <select className={`border`} disabled>
+                  {inputDevice[key].map((item, index) => {
+                    return (
+                      <option value="" key={index}>
+                        {item.label}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -493,7 +439,7 @@ export default memo(function Live() {
         <div className={``}>
           <video
             className={`w-full`}
-            ref={RefDeskTop}
+            ref={Refdesktop}
             autoPlay
             playsInline
             onLoadedMetadata={handleSetEleSize(RefMixin)}

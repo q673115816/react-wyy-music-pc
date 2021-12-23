@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
 
+export interface iUseGetInput {
+  audioinput: MediaDeviceInfo[];
+  videoinput: MediaDeviceInfo[];
+}
+
 const useGetInput = () => {
   const [audioinput, setAudioinput] = useState<MediaDeviceInfo[]>([]);
   const [videoinput, setVideoinput] = useState<MediaDeviceInfo[]>([]);
@@ -23,8 +28,8 @@ const useGetInput = () => {
   }, []);
   return {
     audioinput,
-    videoinput
-  }
-}
+    videoinput,
+  };
+};
 
-export default useGetInput
+export default useGetInput;
