@@ -1,7 +1,6 @@
 import React, { memo, useContext, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { LookContent } from "../Look";
-import { SOCKET_JOIN_START } from "../Content";
 import RTC from "../RTC";
 
 export default memo(function Room() {
@@ -11,22 +10,22 @@ export default memo(function Room() {
     lookDispatch,
   } = useContext(LookContent);
 
+  const RefStream = useRef(new MediaStream());
   const RefVideo = useRef(null);
   const RefPC = useRef(new RTC());
+
   const handleInit = async () => {
     if (!RefVideo.current) return;
-    RefPC.current.start();
-    socket.emit("join", RefPC.current.description);
+    await RefPC.current.start();
+    socket.emit("join", { uid });
   };
-  useEffect(() => {
-    handleInit();
-  }, []);
 
   useEffect(() => {
     const handleJoinSuccess = (data: any) => {
-      console.log("asd", data);
+      RefPC.current.got(data.description);
     };
     socket.on("join-success", handleJoinSuccess);
+    socket.emit("join", { uid });
     return () => {
       socket.off("join-success", handleJoinSuccess);
     };
@@ -39,12 +38,6 @@ export default memo(function Room() {
           className={`w-full bg-black ui_aspect-ratio-16/9`}
           autoPlay
           playsInline
-        />
-        <video
-          className={`absolute bottom-0 right-0 w-36 border m-4 ui_aspect-ratio-16/9`}
-          autoPlay
-          playsInline
-          muted
         />
       </div>
       <div className="w-1/4 flex flex-col ml-2 border">

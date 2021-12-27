@@ -23,20 +23,6 @@ export const LookReducer = (draft: LookState, { type, payload }: any) => {
     case SOCKET_DISCONNECT:
       socket.disconnect();
       return;
-    case SOCKET_DESKTOP_START:
-      return;
-    case SOCKET_DESKTOP_END:
-      return;
-    case SOCKET_USER_START:
-      return;
-    case SOCKET_USER_END:
-      return;
-    case SOCKET_PUSH_START:
-      return;
-    case SOCKET_PUSH_END:
-      return;
-    case SOCKET_JOIN_START:
-      return;
     default:
       return draft;
   }

@@ -16,6 +16,10 @@ socket.on("join-success", (data) => {
   console.log(data);
 });
 
+socket.on("join-info", (data) => {
+  console.log(data);
+});
+
 socket.on("disconnect-success", (data) => {
   console.log(data);
 });

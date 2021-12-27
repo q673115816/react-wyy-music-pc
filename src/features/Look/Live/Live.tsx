@@ -13,62 +13,10 @@ import classnames from "classnames";
 import useLoginStatus, { handleLoginStatus } from "@/hooks/useLoginStatus";
 import { set, get } from "lodash";
 import { LookContent } from "@/features/Look/Look";
-import {
-  SOCKET_DESKTOP_END,
-  SOCKET_PUSH_END,
-  SOCKET_PUSH_START,
-  SOCKET_USER_END,
-  SOCKET_USER_START,
-} from "../Content";
-import { configuration } from "../config";
 import useGetInput, { iUseGetInput } from "@/features/Look/Live/useGetInput";
-import { Label } from "react-query/types/devtools/Explorer";
 import { UUIDGeneratorBrowser } from "@/common/utils";
 import { useImmer } from "use-immer";
 import RTC from "../RTC";
-
-// 以下代码是从网上找的
-//=========================================================================================
-//如果返回的是false说明当前操作系统是手机端，如果返回的是true则说明当前的操作系统是电脑端
-
-function IsPC() {
-  const userAgentInfo = navigator.userAgent;
-  const Agents = [
-    "Android",
-    "iPhone",
-    "SymbianOS",
-    "Windows Phone",
-    "iPad",
-    "iPod",
-  ];
-  let flag = true;
-
-  for (let v = 0; v < Agents.length; v++) {
-    if (userAgentInfo.indexOf(Agents[v]) > 0) {
-      flag = false;
-      break;
-    }
-  }
-
-  return flag;
-}
-
-//如果返回true 则说明是Android  false是ios
-function is_android() {
-  const u = navigator.userAgent,
-    app = navigator.appVersion;
-  const isAndroid = u.indexOf("Android") > -1 || u.indexOf("Linux") > -1; //g
-  const isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-  if (isAndroid) {
-    //这个是安卓操作系统
-    return true;
-  }
-
-  if (isIOS) {
-    //这个是ios操作系统
-    return false;
-  }
-}
 
 interface iButtonProps {
   onClick: MouseEventHandler;
@@ -156,12 +104,9 @@ const inputList: { key: keyof iUseGetInput; name: string }[] = [
  * */
 export default memo(function Live() {
   const {
-    lookReducer: { socket, pc },
+    lookReducer: { socket },
     lookDispatch,
   } = useContext(LookContent);
-  // const [isSupport] = useState<boolean>(() => {
-  //   return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-  // });
 
   const inputDevice = useGetInput();
   const [status, setStatus] = useImmer<initialSource>({
@@ -206,27 +151,13 @@ export default memo(function Live() {
     const tracks = (diskTop.srcObject as MediaStream).getTracks();
     tracks.forEach((track) => track.stop());
     diskTop.srcObject = null;
-    lookDispatch({ type: SOCKET_DESKTOP_END });
   };
 
-  const handlePushOpen = () => {
-    lookDispatch({
-      type: SOCKET_PUSH_START,
-      payload: {
-        title: "6666",
-        user: "337845818",
-        uid: "337845818",
-        banner:
-          "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
-        sdp: "this is sdp",
-      },
-    });
-  };
   const handlePushClose = () => {
-    lookDispatch({ type: SOCKET_PUSH_END, payload: { uid: "337845818" } });
+    socket.emit("close", { uid: "337845818" });
   };
 
-  useEffect(() => handlePushClose, []);
+  // useEffect(() => handlePushClose, []);
 
   const handleSetEleSize =
     ({
@@ -334,20 +265,13 @@ export default memo(function Live() {
         // }
         const tracks = mediaStream.getTracks();
         for (const track of tracks) {
-          lookDispatch({
-            type: "addtrack",
-            payload: {
-              track,
-              stream: mediaStream,
-            },
-          });
           handleSetTrack(track, "desktop");
+          RefPC.current.addTrack({ track, mediaStream });
         }
         console.log("desktop tracks", tracks);
         // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
         tracks[0].onended = () => {
           // RefRTC.current.removeTrack(sender);
-          lookDispatch({ type: SOCKET_DESKTOP_END });
         };
       })
       .catch((e) => {
@@ -374,7 +298,6 @@ export default memo(function Live() {
           userSettings.current = settings;
         }
         video.srcObject = mediaStream;
-        lookDispatch({ type: SOCKET_USER_START });
       })
       .catch((e) => {
         console.log("摄像头捕获", e);
@@ -383,7 +306,7 @@ export default memo(function Live() {
 
   const handleCapture = () => {
     handledesktopCapture();
-    handleUserCapture();
+    // handleUserCapture();
     // const mediaStream = (RefMixin.current as HTMLCanvasElement).captureStream(
     //   30
     // );
@@ -391,15 +314,20 @@ export default memo(function Live() {
     // console.log(mediaStream);
   };
 
-  const handleSend = () => {
-    RefPC.current.start();
+  const handleSend = async () => {
+    // for (const kind in tracks.desktop) {
+    //   for(const track of tracks.desktop[kind]) {
+    //     RefPC.current.addtrack({track, });
+    //   }
+    // }
+    await RefPC.current.start();
     socket.emit("create", {
       title: "6666",
       user: "337845818",
       uid: "337845818",
       banner:
         "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
-      sdp: RefPC.current.description,
+      description: RefPC.current.localDescription,
     });
   };
 
