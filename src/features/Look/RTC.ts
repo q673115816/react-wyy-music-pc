@@ -2,7 +2,8 @@ import { configuration } from "./config";
 
 export default class {
   pc: RTCPeerConnection;
-  remoteStreams: MediaStream[] = [];
+  // remoteStreams: MediaStream[] = [];
+  candidate: RTCIceCandidate | null = null;
   constructor() {
     this.pc = new RTCPeerConnection(configuration);
     this.init();
@@ -15,18 +16,22 @@ export default class {
     return this.pc.remoteDescription;
   }
 
+  get iceCandidate() {
+    return this.candidate;
+  }
+
   init() {
     this.pc.onicecandidate = (event) => {
       console.log("pc onicecandidate", event);
-      const iceCandidate = event.candidate;
-      if (iceCandidate) {
-        const IceCandidate = new RTCIceCandidate(iceCandidate);
-        console.log(IceCandidate);
+      const { candidate } = event;
+      if (candidate) {
+        this.candidate = candidate;
+        console.log("candidate", candidate);
         // const otherPeer;
       }
     };
     this.pc.onconnectionstatechange = (event) => {
-      console.log("pc onconnectionstatechange", event);
+      console.log("pc onconnectionstatechange", event, this.pc.connectionState);
       switch (this.pc.connectionState) {
         case "connected":
           // The connection has become fully connected
@@ -40,12 +45,14 @@ export default class {
           break;
       }
     };
+
     this.pc.ondatachannel = function (event) {
       console.log("Data channel is created!", event);
       event.channel.onopen = function () {
         console.log("Data channel is open and ready to be used.");
       };
     };
+
     this.pc.onicecandidateerror = function (event) {
       console.log("pc onicecandidateerror", event);
       if (event.errorCode >= 300 && event.errorCode <= 699) {
@@ -59,7 +66,11 @@ export default class {
     };
 
     this.pc.oniceconnectionstatechange = (event) => {
-      console.log("pc oniceconnectionstatechange", event);
+      console.log(
+        "pc oniceconnectionstatechange",
+        event,
+        this.pc.iceConnectionState
+      );
       if (
         this.pc.iceConnectionState === "failed" ||
         this.pc.iceConnectionState === "disconnected" ||
@@ -69,8 +80,12 @@ export default class {
       }
     };
 
-    this.pc.onicegatheringstatechange = () => {
-      console.log("pc onicegatheringstatechange");
+    this.pc.onicegatheringstatechange = (event) => {
+      console.log(
+        "pc onicegatheringstatechange",
+        event,
+        this.pc.iceGatheringState
+      );
       let label = "Unknown";
 
       switch (this.pc.iceGatheringState) {
@@ -82,11 +97,11 @@ export default class {
           label = "Determining route";
           break;
       }
-      console.log(label);
+      console.log("label", label);
     };
 
-    this.pc.onnegotiationneeded = () => {
-      console.log("pc onnegotiationneeded");
+    this.pc.onnegotiationneeded = (event) => {
+      console.log("pc onnegotiationneeded", event);
       this.pc
         .createOffer()
         .then((offer) => {
@@ -100,25 +115,20 @@ export default class {
     };
 
     this.pc.onsignalingstatechange = (event) => {
-      console.log("pc onsignalingstatechange", event);
+      console.log("pc onsignalingstatechange", event, this.pc.signalingState);
       if (this.pc.signalingState === "have-local-pranswer") {
         // setLocalDescription() has been called with an answer
       }
     };
 
-    this.pc.ontrack = (e) => {
-      this.remoteStreams = e.streams.slice();
-    };
+    // this.pc.ontrack = (e) => {
+    //   console.log("pc get track", e);
+    //   this.remoteStreams = e.streams.slice();
+    // };
   }
 
-  addTrack({
-    track,
-    mediaStream,
-  }: {
-    track: MediaStreamTrack;
-    mediaStream: MediaStream;
-  }) {
-    this.pc.addTrack(track, mediaStream);
+  addTrack(track: MediaStreamTrack) {
+    this.pc.addTrack(track);
   }
 
   async start() {
@@ -137,6 +147,15 @@ export default class {
       await this.pc.setLocalDescription(localDescription);
     } catch (e) {
       console.log("createAnswer error \n", e);
+    }
+  }
+
+  async asd(iceCandidate: RTCIceCandidate) {
+    try {
+      await this.pc.addIceCandidate(iceCandidate);
+      console.log("addIceCandidate success");
+    } catch (e) {
+      console.log("addIceCandidate error \n", e);
     }
   }
 }

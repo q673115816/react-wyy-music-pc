@@ -154,7 +154,11 @@ export default memo(function Live() {
   };
 
   const handlePushClose = () => {
-    socket.emit("close", { uid: "337845818" });
+    socket.emit("close", {
+      detail: {
+        uid: "337845818",
+      },
+    });
   };
 
   // useEffect(() => handlePushClose, []);
@@ -266,7 +270,7 @@ export default memo(function Live() {
         const tracks = mediaStream.getTracks();
         for (const track of tracks) {
           handleSetTrack(track, "desktop");
-          RefPC.current.addTrack({ track, mediaStream });
+          RefPC.current.addTrack(track);
         }
         console.log("desktop tracks", tracks);
         // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
@@ -322,14 +326,32 @@ export default memo(function Live() {
     // }
     await RefPC.current.start();
     socket.emit("create", {
-      title: "6666",
-      user: "337845818",
-      uid: "337845818",
-      banner:
-        "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
+      detail: {
+        title: "6666",
+        user: "337845818",
+        uid: "337845818",
+        banner:
+          "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
+      },
       description: RefPC.current.localDescription,
+      iceCandidate: RefPC.current.iceCandidate,
     });
   };
+
+  useEffect(() => {
+    const joinSuccessCallback = async (data: any) => {
+      await RefPC.current.asd(data.desc);
+      socket.emit("info", {
+        to: data.id,
+        description: RefPC.current.localDescription,
+        iceCandidate: RefPC.current.iceCandidate,
+      });
+    };
+    socket.on("join-success", joinSuccessCallback);
+    return () => {
+      socket.off("join-success", joinSuccessCallback);
+    };
+  }, []);
 
   const handleChangeStatus = useCallback((key: initialSourceKey) => {
     setStatus((draft) => {

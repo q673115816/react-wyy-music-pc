@@ -10,24 +10,31 @@ export default memo(function Room() {
     lookDispatch,
   } = useContext(LookContent);
 
-  const RefStream = useRef(new MediaStream());
+  const RefStream = useRef<MediaStream>(new MediaStream());
   const RefVideo = useRef(null);
   const RefPC = useRef(new RTC());
 
-  const handleInit = async () => {
-    if (!RefVideo.current) return;
-    await RefPC.current.start();
-    socket.emit("join", { uid });
-  };
-
   useEffect(() => {
-    const handleJoinSuccess = (data: any) => {
-      RefPC.current.got(data.description);
+    // RefVideo.current.srcObject = RefStream.current;
+    const infoSuccessCallback = (data: any) => {
+      if (data.description) RefPC.current.got(data.description);
+      if (data.iceCandidate) RefPC.current.asd(data.iceCandidate);
     };
-    socket.on("join-success", handleJoinSuccess);
-    socket.emit("join", { uid });
+    RefPC.current.pc.ontrack = (e) => {
+      console.log("pc get track", e);
+      // RefStream.current.addTrack(e.track);
+      RefVideo.current.srcObject = e.streams[0];
+    };
+    socket.on("info", infoSuccessCallback);
+    (async () => {
+      await RefPC.current.start();
+      socket.emit("join", {
+        detail: { uid },
+        description: RefPC.current.localDescription,
+      });
+    })();
     return () => {
-      socket.off("join-success", handleJoinSuccess);
+      socket.off("join-success", infoSuccessCallback);
     };
   }, []);
   return (

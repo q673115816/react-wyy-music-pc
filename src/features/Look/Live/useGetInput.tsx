@@ -14,12 +14,19 @@ const useGetInput = () => {
       const audioinput = [];
       const videoinput = [];
       for (const deviceInfo of deviceInfos) {
-        if (deviceInfo.kind === "audioinput") {
-          audioinput.push(deviceInfo);
-        } else if (deviceInfo.kind === "videoinput") {
-          videoinput.push(deviceInfo);
-        } else {
-          console.log("other kind: ", deviceInfo);
+        switch (deviceInfo.kind) {
+          case "audioinput":
+            audioinput.push(deviceInfo);
+            break;
+          case "videoinput":
+            videoinput.push(deviceInfo);
+            break;
+          case "audiooutput":
+            console.log("audiooutput: ", deviceInfo);
+            break;
+          default:
+            console.log("default device");
+            break;
         }
       }
       setAudioinput(audioinput);

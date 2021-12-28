@@ -2,14 +2,10 @@ import socket from "./socket";
 import { Socket } from "socket.io-client";
 export const SOCKET_CONNECT = "SOCKET_CONNECT";
 export const SOCKET_DISCONNECT = "SOCKET_DISCONNECT";
-export const SOCKET_DESKTOP_START = "SOCKET_DESKTOP_START";
-export const SOCKET_DESKTOP_END = "SOCKET_DESKTOP_END";
-export const SOCKET_USER_START = "SOCKET_USER_START";
-export const SOCKET_USER_END = "SOCKET_USER_END";
-export const SOCKET_PUSH_START = "SOCKET_PUSH_START";
-export const SOCKET_PUSH_END = "SOCKET_PUSH_END";
-export const SOCKET_JOIN_START = "SOCKET_JOIN_START";
-export const SOCKET_JOIN_END = "SOCKET_JOIN_END";
+
+import UAParser from "ua-parser-js";
+
+console.log(new UAParser().getResult());
 
 export interface LookState {
   socket: Socket;
