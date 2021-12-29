@@ -17,6 +17,10 @@ export default memo(function Room() {
       iceCandidateCallback(iceCandidate) {
         socket.emit("private", { detail: { uid: "337845818" }, iceCandidate });
       },
+      negotiationneededCallback(description) {
+        console.log("重发 description");
+        socket.emit("publish", { description });
+      },
     })
   );
 

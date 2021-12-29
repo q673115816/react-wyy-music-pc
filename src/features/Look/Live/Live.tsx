@@ -339,8 +339,6 @@ export default memo(function Live() {
         banner:
           "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.jj20.com%2Fup%2Fallimg%2Ftp03%2F1Z9211616415M2-0-lp.jpg&refer=http%3A%2F%2Fimg.jj20.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1642140129&t=1cd7e5653b612ffbe71c1f461c5cb387",
       },
-      description: RefPC.current.localDescription,
-      iceCandidate: RefPC.current.iceCandidate,
     });
   };
 

@@ -1,7 +1,8 @@
 import { configuration } from "./config";
 
 interface iRTC {
-  iceCandidateCallback?: (candidate: RTCIceCandidate) => void;
+  iceCandidateCallback: (candidate: RTCIceCandidate) => void;
+  negotiationneededCallback: (description: RTCSessionDescription) => void;
 }
 
 export default class {
@@ -9,10 +10,12 @@ export default class {
   // remoteStreams: MediaStream[] = [];
   candidate: RTCIceCandidate | null = null;
   readonly iceCandidateCallback;
+  negotiationneededCallback;
   constructor(config: iRTC) {
-    const { iceCandidateCallback } = config;
+    const { iceCandidateCallback, negotiationneededCallback } = config;
     this.pc = new RTCPeerConnection(configuration);
     this.iceCandidateCallback = iceCandidateCallback;
+    this.negotiationneededCallback = negotiationneededCallback;
     this.init();
   }
 
@@ -112,6 +115,9 @@ export default class {
       console.log("pc onnegotiationneeded", event);
       try {
         await this.pc.setLocalDescription(await this.pc.createOffer());
+        this.negotiationneededCallback(
+          this.pc.localDescription as RTCSessionDescription
+        );
       } catch (error) {
         console.log("onnegotiationneeded error \n", error);
       }
@@ -143,7 +149,7 @@ export default class {
     }
   }
 
-  async got(description: RTCSessionDescriptionInit) {
+  async got(description: RTCSessionDescription) {
     try {
       await this.pc.setRemoteDescription(description);
       const localDescription = await this.pc.createAnswer();
