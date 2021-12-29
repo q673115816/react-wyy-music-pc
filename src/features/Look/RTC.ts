@@ -1,11 +1,18 @@
 import { configuration } from "./config";
 
+interface iRTC {
+  iceCandidateCallback?: (candidate: RTCIceCandidate) => void;
+}
+
 export default class {
   pc: RTCPeerConnection;
   // remoteStreams: MediaStream[] = [];
   candidate: RTCIceCandidate | null = null;
-  constructor() {
+  readonly iceCandidateCallback;
+  constructor(config: iRTC) {
+    const { iceCandidateCallback } = config;
     this.pc = new RTCPeerConnection(configuration);
+    this.iceCandidateCallback = iceCandidateCallback;
     this.init();
   }
 
@@ -27,6 +34,7 @@ export default class {
       if (candidate) {
         this.candidate = candidate;
         console.log("candidate", candidate);
+        this.iceCandidateCallback(candidate);
         // const otherPeer;
       }
     };
@@ -100,18 +108,13 @@ export default class {
       console.log("label", label);
     };
 
-    this.pc.onnegotiationneeded = (event) => {
+    this.pc.onnegotiationneeded = async (event) => {
       console.log("pc onnegotiationneeded", event);
-      this.pc
-        .createOffer()
-        .then((offer) => {
-          console.log("setLocalDescription");
-          return this.pc.setLocalDescription(offer);
-        })
-        .then(function () {
-          // Send the offer to the remote peer through the signaling server
-        })
-        .catch((error) => console.log(error));
+      try {
+        await this.pc.setLocalDescription(await this.pc.createOffer());
+      } catch (error) {
+        console.log("onnegotiationneeded error \n", error);
+      }
     };
 
     this.pc.onsignalingstatechange = (event) => {

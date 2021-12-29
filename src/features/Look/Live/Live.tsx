@@ -117,7 +117,13 @@ export default memo(function Live() {
   });
   const RefVideo = useRef<HTMLVideoElement>(null);
   const Refdesktop = useRef<HTMLVideoElement>(null);
-  const RefPC = useRef(new RTC());
+  const RefPC = useRef(
+    new RTC({
+      iceCandidateCallback(candidate) {
+        socket.emit("public", { candidate });
+      },
+    })
+  );
   const RefdesktopMixinTimer = useRef(null);
   const RefUser = useRef<HTMLCanvasElement>(null);
   interface iTracks {
@@ -341,10 +347,9 @@ export default memo(function Live() {
   useEffect(() => {
     const joinSuccessCallback = async (data: any) => {
       await RefPC.current.asd(data.desc);
-      socket.emit("info", {
+      socket.emit("private", {
         to: data.id,
         description: RefPC.current.localDescription,
-        iceCandidate: RefPC.current.iceCandidate,
       });
     };
     socket.on("join-success", joinSuccessCallback);

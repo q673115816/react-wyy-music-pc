@@ -12,29 +12,34 @@ export default memo(function Room() {
 
   const RefStream = useRef<MediaStream>(new MediaStream());
   const RefVideo = useRef(null);
-  const RefPC = useRef(new RTC());
+  const RefPC = useRef(
+    new RTC({
+      iceCandidateCallback(iceCandidate) {
+        socket.emit("private", { detail: { uid: "337845818" }, iceCandidate });
+      },
+    })
+  );
+
+  const successCallback = (data: any) => {
+    if (data.description) RefPC.current.got(data.description);
+    if (data.iceCandidate) RefPC.current.asd(data.iceCandidate);
+  };
 
   useEffect(() => {
     // RefVideo.current.srcObject = RefStream.current;
-    const infoSuccessCallback = (data: any) => {
-      if (data.description) RefPC.current.got(data.description);
-      if (data.iceCandidate) RefPC.current.asd(data.iceCandidate);
-    };
     RefPC.current.pc.ontrack = (e) => {
       console.log("pc get track", e);
       // RefStream.current.addTrack(e.track);
       RefVideo.current.srcObject = e.streams[0];
     };
-    socket.on("info", infoSuccessCallback);
-    (async () => {
-      await RefPC.current.start();
-      socket.emit("join", {
-        detail: { uid },
-        description: RefPC.current.localDescription,
-      });
-    })();
+    socket.on("private", successCallback);
+    socket.on("publish", successCallback);
+    socket.emit("join", {
+      detail: { uid },
+      description: RefPC.current.localDescription,
+    });
     return () => {
-      socket.off("join-success", infoSuccessCallback);
+      socket.off("join-success", successCallback);
     };
   }, []);
   return (
