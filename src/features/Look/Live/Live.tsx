@@ -120,7 +120,12 @@ export default memo(function Live() {
   const RefPC = useRef(
     new RTC({
       iceCandidateCallback(candidate) {
-        socket.emit("public", { candidate });
+        console.log("emit publish candidate");
+        socket.emit("publish", { to: "337845818", candidate });
+      },
+      negotiationneededCallback(localDescription) {
+        console.log("emit publish localDescription");
+        socket.emit("publish", { to: "337845818", localDescription });
       },
     })
   );
@@ -258,36 +263,33 @@ export default memo(function Live() {
     });
   };
 
-  const handledesktopCapture = () => {
+  const handleDesktopCapture = async () => {
     const diskTop = Refdesktop.current as HTMLVideoElement;
-    navigator.mediaDevices
-      .getDisplayMedia({
+    try {
+      const mediaStream = await navigator.mediaDevices.getDisplayMedia({
         audio: true,
         video: true,
-      })
-      .then((mediaStream) => {
-        setStreams((prev) => ({ ...prev, desktop: mediaStream }));
-        // RefdesktopStream.current = mediaStream;
-        diskTop.srcObject = mediaStream;
-        // for (const track of mediaStream.getVideoTracks()) {
-        //   const { width = 0, height = 0 } = track.getSettings();
-        //   setSize({ width, height });
-        // }
-        const tracks = mediaStream.getTracks();
-        for (const track of tracks) {
-          handleSetTrack(track, "desktop");
-          RefPC.current.addTrack(track);
-        }
-        console.log("desktop tracks", tracks);
-        // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
-        tracks[0].onended = () => {
-          // RefRTC.current.removeTrack(sender);
-        };
-      })
-      .catch((e) => {
-        // DOMException: Permission denied
-        console.log("桌面捕获", e);
       });
+      setStreams((prev) => ({ ...prev, desktop: mediaStream }));
+      // RefdesktopStream.current = mediaStream;
+      diskTop.srcObject = mediaStream;
+      // for (const track of mediaStream.getVideoTracks()) {
+      //   const { width = 0, height = 0 } = track.getSettings();
+      //   setSize({ width, height });
+      // }
+      const tracks = mediaStream.getTracks();
+      for (const track of tracks) {
+        handleSetTrack(track, "desktop");
+        RefPC.current.addTrack(track, mediaStream);
+      }
+      console.log("desktop tracks", tracks);
+      // const sender = RefRTC.current.addTrack(tracks[0], mediaStream);
+      tracks[0].onended = () => {
+        // RefRTC.current.removeTrack(sender);
+      };
+    } catch (e) {
+      console.log("桌面捕捉", e);
+    }
   };
 
   const handleUserCapture = () => {
@@ -315,7 +317,7 @@ export default memo(function Live() {
   };
 
   const handleCapture = () => {
-    handledesktopCapture();
+    handleDesktopCapture();
     // handleUserCapture();
     // const mediaStream = (RefMixin.current as HTMLCanvasElement).captureStream(
     //   30
@@ -342,17 +344,25 @@ export default memo(function Live() {
     });
   };
 
+  const joinSuccessCallback = async (data: any) => {
+    await RefPC.current.asd(data.description);
+    socket.emit("private", {
+      to: data.from,
+      description: RefPC.current.localDescription,
+    });
+  };
+
+  const privateCallback = (data: any) => {
+    if (data.description) RefPC.current.got(data.description);
+    if (data.iceCandidate) RefPC.current.asd(data.iceCandidate);
+  };
+
   useEffect(() => {
-    const joinSuccessCallback = async (data: any) => {
-      await RefPC.current.asd(data.desc);
-      socket.emit("private", {
-        to: data.id,
-        description: RefPC.current.localDescription,
-      });
-    };
     socket.on("join-success", joinSuccessCallback);
+    socket.on("private", privateCallback);
     return () => {
       socket.off("join-success", joinSuccessCallback);
+      socket.off("private", joinSuccessCallback);
     };
   }, []);
 

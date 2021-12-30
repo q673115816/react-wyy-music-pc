@@ -11,31 +11,30 @@ export default memo(function Room() {
   } = useContext(LookContent);
 
   const RefStream = useRef<MediaStream>(new MediaStream());
-  const RefVideo = useRef(null);
+  const RefVideo = useRef<HTMLVideoElement>(null);
   const RefPC = useRef(
     new RTC({
       iceCandidateCallback(iceCandidate) {
-        socket.emit("private", { detail: { uid: "337845818" }, iceCandidate });
+        socket.emit("private", { to: RefPC.current.id, iceCandidate });
       },
       negotiationneededCallback(description) {
         console.log("重发 description");
-        socket.emit("publish", { description });
+        socket.emit("private", { to: RefPC.current.id, description });
+      },
+      trackCallback(event) {
+        console.log("get track", event);
+        RefVideo.current.srcObject = event.streams[0];
       },
     })
   );
 
   const successCallback = (data: any) => {
+    if (data.from) RefPC.current.id = data.from;
     if (data.description) RefPC.current.got(data.description);
     if (data.iceCandidate) RefPC.current.asd(data.iceCandidate);
   };
 
   useEffect(() => {
-    // RefVideo.current.srcObject = RefStream.current;
-    RefPC.current.pc.ontrack = (e) => {
-      console.log("pc get track", e);
-      // RefStream.current.addTrack(e.track);
-      RefVideo.current.srcObject = e.streams[0];
-    };
     socket.on("private", successCallback);
     socket.on("publish", successCallback);
     socket.emit("join", {
@@ -49,12 +48,7 @@ export default memo(function Room() {
   return (
     <div className={`p-8 flex`}>
       <div className="relative flex-1">
-        <video
-          ref={RefVideo}
-          className={`w-full bg-black ui_aspect-ratio-16/9`}
-          autoPlay
-          playsInline
-        />
+        <video ref={RefVideo} className={`w-full`} autoPlay playsInline />
       </div>
       <div className="w-1/4 flex flex-col ml-2 border">
         <div className={`flex-1 overflow-auto`} />

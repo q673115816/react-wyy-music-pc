@@ -3,6 +3,7 @@ import { configuration } from "./config";
 interface iRTC {
   iceCandidateCallback: (candidate: RTCIceCandidate) => void;
   negotiationneededCallback: (description: RTCSessionDescription) => void;
+  trackCallback: (event: RTCTrackEvent) => void;
 }
 
 export default class {
@@ -11,11 +12,15 @@ export default class {
   candidate: RTCIceCandidate | null = null;
   readonly iceCandidateCallback;
   negotiationneededCallback;
+  trackCallback;
+  id: string | null = null;
   constructor(config: iRTC) {
-    const { iceCandidateCallback, negotiationneededCallback } = config;
+    const { iceCandidateCallback, negotiationneededCallback, trackCallback } =
+      config;
     this.pc = new RTCPeerConnection(configuration);
     this.iceCandidateCallback = iceCandidateCallback;
     this.negotiationneededCallback = negotiationneededCallback;
+    this.trackCallback = trackCallback;
     this.init();
   }
 
@@ -32,17 +37,16 @@ export default class {
 
   init() {
     this.pc.onicecandidate = (event) => {
-      console.log("pc onicecandidate", event);
+      console.log("pc onicecandidate", "id: ", this.id);
       const { candidate } = event;
       if (candidate) {
         this.candidate = candidate;
-        console.log("candidate", candidate);
         this.iceCandidateCallback(candidate);
         // const otherPeer;
       }
     };
     this.pc.onconnectionstatechange = (event) => {
-      console.log("pc onconnectionstatechange", event, this.pc.connectionState);
+      console.log("pc onconnectionstatechange", this.pc.connectionState);
       switch (this.pc.connectionState) {
         case "connected":
           // The connection has become fully connected
@@ -58,14 +62,14 @@ export default class {
     };
 
     this.pc.ondatachannel = function (event) {
-      console.log("Data channel is created!", event);
+      console.log("Data channel is created!");
       event.channel.onopen = function () {
         console.log("Data channel is open and ready to be used.");
       };
     };
 
     this.pc.onicecandidateerror = function (event) {
-      console.log("pc onicecandidateerror", event);
+      console.log("pc onicecandidateerror");
       if (event.errorCode >= 300 && event.errorCode <= 699) {
         // STUN errors are in the range 300-699. See RFC 5389, section 15.6
         // for a list of codes. TURN adds a few more error codes; see
@@ -77,11 +81,7 @@ export default class {
     };
 
     this.pc.oniceconnectionstatechange = (event) => {
-      console.log(
-        "pc oniceconnectionstatechange",
-        event,
-        this.pc.iceConnectionState
-      );
+      console.log("pc oniceconnectionstatechange", this.pc.iceConnectionState);
       if (
         this.pc.iceConnectionState === "failed" ||
         this.pc.iceConnectionState === "disconnected" ||
@@ -92,11 +92,7 @@ export default class {
     };
 
     this.pc.onicegatheringstatechange = (event) => {
-      console.log(
-        "pc onicegatheringstatechange",
-        event,
-        this.pc.iceGatheringState
-      );
+      console.log("pc onicegatheringstatechange", this.pc.iceGatheringState);
       let label = "Unknown";
 
       switch (this.pc.iceGatheringState) {
@@ -112,7 +108,7 @@ export default class {
     };
 
     this.pc.onnegotiationneeded = async (event) => {
-      console.log("pc onnegotiationneeded", event);
+      console.log("pc onnegotiationneeded");
       try {
         await this.pc.setLocalDescription(await this.pc.createOffer());
         this.negotiationneededCallback(
@@ -124,20 +120,19 @@ export default class {
     };
 
     this.pc.onsignalingstatechange = (event) => {
-      console.log("pc onsignalingstatechange", event, this.pc.signalingState);
+      console.log("pc onsignalingstatechange", this.pc.signalingState);
       if (this.pc.signalingState === "have-local-pranswer") {
         // setLocalDescription() has been called with an answer
       }
     };
 
-    // this.pc.ontrack = (e) => {
-    //   console.log("pc get track", e);
-    //   this.remoteStreams = e.streams.slice();
-    // };
+    this.pc.ontrack = (event) => {
+      this.trackCallback(event);
+    };
   }
 
-  addTrack(track: MediaStreamTrack) {
-    this.pc.addTrack(track);
+  addTrack(track: MediaStreamTrack, mediaStream: MediaStream) {
+    this.pc.addTrack(track, mediaStream);
   }
 
   async start() {

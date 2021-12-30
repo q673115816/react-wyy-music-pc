@@ -29,7 +29,7 @@ socket.on("private", (data) => {
 });
 
 socket.on("publish", (data) => {
-  console.log("publish", data);
+  console.log("publish", data, socket);
 });
 
 export default socket;
