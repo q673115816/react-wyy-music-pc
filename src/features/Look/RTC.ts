@@ -144,20 +144,18 @@ export default class {
     }
   }
 
-  async got(description: RTCSessionDescription) {
+  async gotDescription(description: RTCSessionDescription) {
     try {
       await this.pc.setRemoteDescription(description);
-      const localDescription = await this.pc.createAnswer();
-      await this.pc.setLocalDescription(localDescription);
+      await this.pc.setLocalDescription(await this.pc.createAnswer());
     } catch (e) {
       console.log("createAnswer error \n", e);
     }
   }
 
-  async asd(iceCandidate: RTCIceCandidate) {
+  async gotIceCandidate(iceCandidate: RTCIceCandidate) {
     try {
       await this.pc.addIceCandidate(iceCandidate);
-      console.log("addIceCandidate success");
     } catch (e) {
       console.log("addIceCandidate error \n", e);
     }

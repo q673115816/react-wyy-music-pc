@@ -30,8 +30,8 @@ export default memo(function Room() {
 
   const successCallback = (data: any) => {
     if (data.from) RefPC.current.id = data.from;
-    if (data.description) RefPC.current.got(data.description);
-    if (data.iceCandidate) RefPC.current.asd(data.iceCandidate);
+    if (data.description) RefPC.current.gotDescription(data.description);
+    if (data.iceCandidate) RefPC.current.gotIceCandidate(data.iceCandidate);
   };
 
   useEffect(() => {
@@ -39,7 +39,6 @@ export default memo(function Room() {
     socket.on("publish", successCallback);
     socket.emit("join", {
       detail: { uid },
-      description: RefPC.current.localDescription,
     });
     return () => {
       socket.off("join-success", successCallback);
