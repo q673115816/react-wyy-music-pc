@@ -1,10 +1,8 @@
 #skin {
   width: 324px;
   height: 250px;
-
   .themes {
     grid-template: repeat(2, 90px) / repeat(3, 90px);
-
     .theme {
       background-color: var(--currentColor);
     }
@@ -14,7 +12,6 @@
     .default {
       grid-template-rows: repeat(2, 40px);
       grid-template-columns: repeat(6, 40px);
-
       .color {
         background-color: var(--currentColor);
       }
@@ -22,7 +19,6 @@
 
     .custom {
       display: flex;
-
       &>button {
         background-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
       }
@@ -30,10 +26,8 @@
       .ranges {
         flex: auto;
       }
-
       .rgb {
         margin-top: 6px !important;
-
         &::-webkit-slider-runnable-track {
           background-image: linear-gradient(to right,
               red,
@@ -49,7 +43,6 @@
 
       .hsl {
         margin-top: 20px !important;
-
         &::-webkit-slider-runnable-track {
           background-image: linear-gradient(to right,
               hsl(0, 100%, 0%) 0,
@@ -66,12 +59,10 @@
         width: 100%;
         margin: 0;
         outline: none;
-
         &::-webkit-slider-runnable-track {
           height: 4px;
           border-radius: 2px;
         }
-
         &::-webkit-slider-thumb {
           appearance: none;
           cursor: pointer;
@@ -82,7 +73,6 @@
           border-radius: 50%;
           border: 1px solid #E2E2E2;
           box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-
           &:hover {
             background-color: #F5F5F7;
           }
