@@ -6,14 +6,14 @@ import classNames from "classnames";
 import { setLoginVisibilty } from "@/reducers/common/slice";
 // import useIsLogin from '@/hooks/useIsLogin';
 
-import DomNormal from "./components/Normal";
-import DomPlay from "./components/Play";
-import DomMessage from "./components/Message";
-import DomKeyboard from "./components/Keyboard";
-import DomDownload from "./components/Download";
-import DomLyric from "./components/Lyric";
-import DomTool from "./components/Tool";
-import DomAbout from "./components/About";
+import DomNormal from "./Normal";
+import DomPlay from "./Play";
+import DomMessage from "./Message";
+import DomKeyboard from "./Keyboard";
+import DomDownload from "./Download";
+import Lyric from "./Lyric";
+import DomTool from "./Tool";
+import DomAbout from "./About";
 
 const nav = [
   "账号",
@@ -119,7 +119,7 @@ const Settings = () => {
           <DomDownload />
         </div>
         <div id="歌词" className="pb-8 mb-8 border-b">
-          <DomLyric />
+          <Lyric />
         </div>
         <div id="工具" className="pb-8 mb-8 border-b">
           <DomTool />

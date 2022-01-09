@@ -1,8 +1,8 @@
-import React from "react";
-import DomRadio from "./Radio";
-import DomCheckbox from "./Checkbox";
+import React, { memo } from "react";
+import SettingRadio from "./components/SettingRadio";
+import DomCheckbox from "./components/SettingCheck";
 
-export default () => (
+const Message = () => (
   <>
     <div className="domSetting_block_title">消息与隐私</div>
     <div className="domSetting_subBlock">
@@ -10,7 +10,7 @@ export default () => (
         私信：
         <span className="text-gray-400">接收私信提醒</span>
       </div>
-      <DomRadio
+      <SettingRadio
         list={["所有人", "我所关注的人"]}
         name="私信"
         checked="所有人"
@@ -29,7 +29,7 @@ export default () => (
     </div>
     <div className="domSetting_subBlock">
       <div className="domSetting_subBlock_title">我的听歌排行：</div>
-      <DomRadio
+      <SettingRadio
         list={["所有人可见", "被关注的人可见", "仅自己可见"]}
         name="我的听歌排行"
         checked="所有人可见"
@@ -46,3 +46,5 @@ export default () => (
     </div>
   </>
 );
+
+export default memo(Message);

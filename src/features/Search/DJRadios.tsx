@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
@@ -6,7 +6,7 @@ const layouts = {
   "--grid-template-columns": "60px 5fr 2fr",
 };
 
-export default ({ djRadios = [] }) => (
+const DJRadios = ({ djRadios = [] }) => (
   <div className="djRadios_list _list" style={layouts}>
     {djRadios.map((item, index) => (
       <div
@@ -33,3 +33,5 @@ export default ({ djRadios = [] }) => (
     ))}
   </div>
 );
+
+export default memo(DJRadios);

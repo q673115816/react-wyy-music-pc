@@ -1,7 +1,15 @@
-import React from "react";
+import React, { FC, memo } from "react";
 import classNames from "classnames";
 
-export default ({
+interface iSettingRadio {
+  list: string[];
+  checked: string;
+  name: string;
+  handle?: () => void;
+  row?: boolean;
+}
+
+const SettingRadio: FC<iSettingRadio> = ({
   list = [],
   checked = "",
   name = "",
@@ -29,3 +37,5 @@ export default ({
     ))}
   </div>
 );
+
+export default memo(SettingRadio);

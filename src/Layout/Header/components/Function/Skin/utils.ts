@@ -105,7 +105,7 @@ export function hexToHSL(H: string) {
 
 export const themes = [
   ["酷炫黑", "#393D44"],
-  ["官方红", "#D03535"],
+  ["官方红", "#EC4141"],
   ["可爱粉", "#F95A92"],
   ["天际蓝", "#5AB4F9"],
   ["清新绿", "#38B277"],

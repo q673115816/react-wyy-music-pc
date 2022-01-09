@@ -1,12 +1,15 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import SearchHome from "@/features/Search/Home";
+import Layout from "./Layout";
+import Home from "./Home";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path="/search/:keywords/:type" element={<SearchHome />} />
-      <Route path="*" element={<Navigate to="/search/:keywords/单曲" />} />
+      <Route path=":keywords" element={<Layout />}>
+        <Route path={`:type`} element={<Home />} />
+        <Route index element={<Navigate to="单曲" />} />
+      </Route>
     </Routes>
   );
 };

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { IconBrandApple } from "@tabler/icons";
-import DomRadio from "./Radio";
+import SettingRadio from "./components/SettingRadio";
 
-export default () => (
+const About = () => (
   <>
     <div className="domSetting_block_title">关于网易云音乐</div>
     <br />
@@ -16,7 +16,7 @@ export default () => (
       </button>
     </div>
     <div className="domSetting_subBlock">
-      <DomRadio
+      <SettingRadio
         name="更新"
         list={["自动更新", "有新版本时提醒我"]}
         checked="自动更新"
@@ -89,3 +89,5 @@ export default () => (
     </div>
   </>
 );
+
+export default memo(About);

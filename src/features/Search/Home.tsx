@@ -1,83 +1,84 @@
 import React, { memo, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useParams } from "react-router-dom";
 import { apiCloudSearch, apiSearchMultimatch } from "@/api";
 import { setSearchValue } from "@/reducers/search/slice";
 import "./style.scss";
-import DomLoading from "@/components/Loading";
-import DomPage from "@/components/Page";
-import DomSongs from "./Songs";
-import DomArtists from "./Artists";
-import DomAlbums from "./Albums";
-import DomVideos from "./Videos";
-import DomPlaylists from "./Playlists";
-import DomLyrics from "./Lyrics";
-import DomDjRadios from "./DjRadios";
-import DomUserprofiles from "./Userprofiles";
+import Loading from "@/components/Loading";
+import Page from "@/components/Page";
+import Songs from "./Songs";
+import Artists from "./Artists";
+import Albums from "./Albums";
+import Videos from "./Videos";
+import Playlists from "./Playlists";
+import Lyrics from "./Lyrics";
+import DJRadios from "./DJRadios";
+import Userprofiles from "./Userprofiles";
 import classNames from "classnames";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
 const switchs = {
   单曲: {
     code: 1,
     unit: "首",
     limit: 100,
-    Dom: DomSongs,
+    Dom: Songs,
     countName: "songCount",
   },
   歌手: {
     code: 100,
     unit: "位",
     limit: 20,
-    Dom: DomArtists,
+    Dom: Artists,
     countName: "artistCount",
   },
   专辑: {
     code: 10,
     unit: "张",
     limit: 20,
-    Dom: DomAlbums,
+    Dom: Albums,
     countName: "albumCount",
   },
   视频: {
     code: 1014,
     unit: "个",
     limit: 24,
-    Dom: DomVideos,
+    Dom: Videos,
     countName: "videoCount",
   },
   歌单: {
     code: 1000,
     unit: "个",
     limit: 20,
-    Dom: DomPlaylists,
+    Dom: Playlists,
     countName: "playlistCount",
   },
   歌词: {
     code: 1006,
     unit: "首",
     limit: 20,
-    Dom: DomLyrics,
+    Dom: Lyrics,
     countName: "songCount",
   },
   主播电台: {
     code: 1009,
     unit: "个",
     limit: 100,
-    Dom: DomDjRadios,
+    Dom: DJRadios,
     countName: "djRadiosCount",
   },
   用户: {
     code: 1002,
     unit: "位",
     limit: 20,
-    Dom: DomUserprofiles,
+    Dom: Userprofiles,
     countName: "userprofileCount",
   },
 };
 
-export default memo(({ keywords, type }) => {
+const Search = () => {
   console.log("entry search");
-  const dispatch = useDispatch();
+  const { keywords, type } = useParams();
+  const dispatch = useAppDispatch();
   const [result, setResult] = useState({});
   const [count, setCount] = useState(0);
   const [multimatch, setMultimatch] = useState({});
@@ -85,7 +86,7 @@ export default memo(({ keywords, type }) => {
   const [loading, setLoading] = useState(true);
   const { code, unit, limit, Dom, countName } = switchs[type];
 
-  const { searchValue } = useSelector(({ common }) => common);
+  const { searchValue } = useAppSelector(({ common }) => common);
 
   const handleInit = async () => {
     setLoading(true);
@@ -154,19 +155,17 @@ export default memo(({ keywords, type }) => {
       <div className="domSearch_main">
         {loading ? (
           <div className="pt-48 flex-center">
-            <DomLoading />
+            <Loading />
           </div>
         ) : (
           <>
             <Dom {...{ multimatch, ...result }} />
-            <DomPage
-              total={Math.ceil(count / limit)}
-              page={page}
-              func={setPage}
-            />
+            <Page total={Math.ceil(count / limit)} page={page} func={setPage} />
           </>
         )}
       </div>
     </div>
   );
-});
+};
+
+export default memo(Search);

@@ -68,7 +68,7 @@ const DomLrc = memo(() => {
   return <DomLrcContent />;
 });
 
-export default memo(() => {
+const Lrc = () => {
   const dispatch = useAppDispatch();
   const {
     globalLrcX: x,
@@ -194,4 +194,6 @@ export default memo(() => {
       )}
     </div>
   );
-});
+};
+
+export default memo(Lrc);

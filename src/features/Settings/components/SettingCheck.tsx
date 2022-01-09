@@ -1,17 +1,27 @@
-import React from "react";
+import React, { FC, memo } from "react";
 import { IconCheck } from "@tabler/icons";
-import DomCheckbox from "@/components/Checkbox";
+import Checkbox from "@/components/Checkbox";
 import { setToast } from "@/reducers/mask/slice";
 import { useDispatch } from "react-redux";
 
-export default ({ list = [], name = "", handle = () => {} }) => {
+interface iSettingCheck {
+  list: [string, boolean?, string?][];
+  name: string;
+  handle?: () => void;
+}
+
+const SettingCheck: FC<iSettingCheck> = ({
+  list = [],
+  name = "",
+  handle = () => {},
+}) => {
   const dispatch = useDispatch();
   return (
     <div className="domSetting_subBlock_content">
       {list.map(([item, checked, tips]) => (
         <div className="item leading-loose" key={item}>
           <label className="domSetting_check flex items-center" htmlFor={item}>
-            <DomCheckbox
+            <Checkbox
               name={item}
               onChange={() => dispatch(setToast("设置已更新"))}
             />
@@ -34,3 +44,5 @@ export default ({ list = [], name = "", handle = () => {} }) => {
     </div>
   );
 };
+
+export default memo(SettingCheck);

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { ChangeEventHandler, memo, useState } from "react";
 import CompoenntCheckbox from "@/components/Checkbox";
 import { setFont } from "@/reducers/setting/slice";
-import DomRadio from "./Radio";
-import DomCheckbox from "./Checkbox";
+import SettingRadio from "./components/SettingRadio";
+import SettingCheck from "./components/SettingCheck";
 import { setToast } from "@/reducers/mask/slice";
+import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
 const fonts = [
   ["inherit", "默认"],
@@ -21,10 +21,10 @@ const fonts = [
   ["黑体", "黑体"],
 ];
 
-export default () => {
-  const dispatch = useDispatch();
-  const { font } = useSelector(({ setting }) => setting);
-  const handleSelect = (e) => {
+const Normal = () => {
+  const dispatch = useAppDispatch();
+  const { font } = useAppSelector(({ setting }) => setting);
+  const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
     dispatch(setFont(e.target.value));
     dispatch(setToast("设置已更新"));
   };
@@ -62,25 +62,25 @@ export default () => {
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">启动：</div>
-        <DomCheckbox name="启动" list={[["开机自动启动", false]]} />
+        <SettingCheck name="启动" list={[["开机自动启动", false]]} />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">关联：</div>
-        <DomCheckbox
+        <SettingCheck
           name="关联"
           list={[["将网易云音乐设为默认播放器", false]]}
         />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">动画：</div>
-        <DomCheckbox
+        <SettingCheck
           name="动画"
           list={[["禁用动画效果", false, "减少部分资源占用"]]}
         />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">GPU加速：</div>
-        <DomCheckbox
+        <SettingCheck
           name="GPU加速"
           list={[
             [
@@ -93,7 +93,7 @@ export default () => {
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">关闭主面板：</div>
-        <DomRadio
+        <SettingRadio
           name="关闭主面板"
           list={["最小化到系统托盘", "退出云音乐"]}
           checked={关闭主面板}
@@ -137,7 +137,7 @@ export default () => {
           高清屏适配：
           <span className="text-gray-400">禁用后建议重启软件</span>
         </div>
-        <DomCheckbox
+        <SettingCheck
           name="高清屏适配"
           list={[["禁用系统缩放比例", false, "减少部分资源占用"]]}
         />
@@ -145,3 +145,5 @@ export default () => {
     </>
   );
 };
+
+export default memo(Normal);

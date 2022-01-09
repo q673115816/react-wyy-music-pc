@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import DomRadio from "./Radio";
-import DomCheckbox from "./Checkbox";
+import React, { memo, useState } from "react";
+import SettingRadio from "./components/SettingRadio";
+import SettingCheck from "./components/SettingCheck";
 
-export default () => {
+const Play = () => {
   const [输出设备, 设置输出设备] = useState("directSound主声音驱动程序");
   return (
     <>
@@ -13,7 +13,7 @@ export default () => {
           播放列表：
           <span className="ui_gary text-gray-400">单曲、节目</span>
         </div>
-        <DomRadio
+        <SettingRadio
           list={[
             "双击播放单曲时，用当前单曲所在的歌曲列表替换播放列表（节目同理）",
             "双击播放单曲时，仅把当前单曲添加到播放列表（节目同理）",
@@ -24,11 +24,11 @@ export default () => {
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">自动播放：</div>
-        <DomCheckbox name="自动播放" list={[["程序启动是自动播放", false]]} />
+        <SettingCheck name="自动播放" list={[["程序启动是自动播放", false]]} />
       </div>
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">播放进度：</div>
-        <DomCheckbox
+        <SettingCheck
           name="播放进度"
           list={[["将程序启动时记住上一次播放进度", false]]}
         />
@@ -36,7 +36,7 @@ export default () => {
 
       <div className="domSetting_subBlock">
         <div className="domSetting_subBlock_title">效果：</div>
-        <DomCheckbox
+        <SettingCheck
           name="效果"
           list={[["开启音乐淡入淡出", false, "仅支持输出设备DirectSound"]]}
         />
@@ -72,3 +72,5 @@ export default () => {
     </>
   );
 };
+
+export default memo(Play);
