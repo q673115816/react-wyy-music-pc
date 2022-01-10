@@ -1,32 +1,16 @@
 import classNames from "classnames";
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, MouseEventHandler } from "react";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
-import {
-  IconX,
-  IconPlayerPlay,
-  IconPlayerPause,
-  IconPlayerSkipBack,
-  IconPlayerSkipForward,
-  IconMusic,
-} from "@tabler/icons";
 import {
   setGlobalLrcInset,
   setGlobalLrcStartInset,
 } from "@/reducers/inset/slice";
-import {
-  setGlobalLrcHide,
-  setLyricToggle,
-  LrcSelector,
-} from "@/reducers/lrc/slice";
-import {
-  setAudioRunningToggle,
-  setAudioPrev,
-  setAudioNext,
-} from "@/reducers/audio/slice";
+import { LrcSelector } from "@/reducers/lrc/slice";
 import "./style.scss";
 import Drag from "@/components/Drag";
+import Control from "./Control";
 
-const DomLrcContent = memo(() => {
+const Content = memo(function Content() {
   const { currentTime } = useAppSelector(({ audio }) => audio);
   const { lrcList } = useAppSelector(LrcSelector);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
@@ -60,12 +44,12 @@ const DomLrcContent = memo(() => {
   );
 });
 
-const DomLrc = memo(() => {
+const Main = memo(function Main() {
   const { currentSong } = useAppSelector(({ audio }) => audio);
   const { lrcList } = useAppSelector(LrcSelector);
   if (currentSong && !currentSong.name) return <>网易云音乐</>;
   if (!lrcList.length) return <>纯音乐，请您欣赏</>;
-  return <DomLrcContent />;
+  return <Content />;
 });
 
 const Lrc = () => {
@@ -77,11 +61,10 @@ const Lrc = () => {
     globalLrcHeight: height,
   } = useAppSelector(({ inset }) => inset);
   const { globalLrcVisibility } = useAppSelector(({ lrc }) => lrc);
-  const { running } = useAppSelector(({ audio }) => audio);
   const [dragger, setDragger] = useState(false);
   const [active, setActive] = useState(false);
 
-  const onMouseMove = (e) => {
+  const onMouseMove: MouseEventHandler = (e) => {
     e.preventDefault();
     return dispatch(
       setGlobalLrcInset({
@@ -91,12 +74,12 @@ const Lrc = () => {
     );
   };
 
-  const onMouseUp = () => {
+  const onMouseUp: MouseEventHandler = () => {
     setDragger(false);
     setActive(true);
   };
 
-  const onMouseDown = (e) => {
+  const onMouseDown: MouseEventHandler = (e) => {
     setDragger(true);
     dispatch(
       setGlobalLrcStartInset({
@@ -111,7 +94,7 @@ const Lrc = () => {
     <div
       className={classNames(
         "flex-center z-40 text-xl",
-        !dragger ? "fixed" : "relative"
+        dragger ? "relative" : "fixed"
       )}
       style={{
         width,
@@ -122,7 +105,7 @@ const Lrc = () => {
       }}
     >
       <div onMouseEnter={() => setActive(true)}>
-        <DomLrc />
+        <Main />
       </div>
       {(active || dragger) && (
         <div
@@ -136,60 +119,9 @@ const Lrc = () => {
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
-          />
-          <div className="absolute left-0 right-0 mx-auto flex items-center space-x-4 top-0 w-min z-10 text-white my-2">
-            <button
-              type="button"
-              className="relative z-10"
-              onClick={() => dispatch(setLyricToggle())}
-            >
-              <IconMusic size={16} stroke={2} />
-            </button>
-            <button
-              type="button"
-              className="relative z-10"
-              onClick={() => dispatch(setAudioPrev())}
-            >
-              <IconPlayerSkipBack
-                size={16}
-                className="fill-current"
-                stroke={2}
-              />
-            </button>
-            <button
-              type="button"
-              className="relative z-10"
-              onClick={() => dispatch(setAudioRunningToggle())}
-            >
-              {running ? (
-                <IconPlayerPause
-                  size={16}
-                  className="fill-current"
-                  stroke={2}
-                />
-              ) : (
-                <IconPlayerPlay size={16} className="fill-current" stroke={2} />
-              )}
-            </button>
-            <button
-              type="button"
-              className="relative z-10"
-              onClick={() => dispatch(setAudioNext())}
-            >
-              <IconPlayerSkipForward
-                size={16}
-                className="fill-current"
-                stroke={2}
-              />
-            </button>
-            <button
-              type="button"
-              className="relative z-10"
-              onClick={() => dispatch(setGlobalLrcHide())}
-            >
-              <IconX size={16} stroke={2} />
-            </button>
-          </div>
+          >
+            <Control />
+          </Drag>
         </div>
       )}
     </div>

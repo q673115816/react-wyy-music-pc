@@ -1,16 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LOCALSTORAGE } from "@/common/utils";
 import formatLrc from "./format";
 import { Draft } from "immer";
-
+import { Get, Set } from "../utils";
 interface LrcState {
   globalLrcVisibility: boolean;
   lyricVisibility: boolean;
   lyric: {};
-  lrcList: [];
+  lrcList: { time: number; word: string }[];
 }
 
-const globalLrcVisibility = LOCALSTORAGE("globalLrcVisibility", false);
+const globalLrcVisibility = Get({
+  key: "globalLrcVisibility",
+  base: false,
+});
 
 const initialState: LrcState = {
   globalLrcVisibility,
@@ -19,9 +21,14 @@ const initialState: LrcState = {
   lrcList: [],
 };
 
-function setGlobalvisibility(state, visibility) {
-  window.localStorage.setItem("globalLrcVisibility", visibility);
-  state.globalLrcVisibility = visibility;
+function setGlobalVisibility(state: Draft<LrcState>, value: boolean) {
+  Set({
+    key: "globalLrcVisibility",
+    value,
+    callback() {
+      state.globalLrcVisibility = value;
+    },
+  });
 }
 
 const slice = createSlice({
@@ -29,7 +36,7 @@ const slice = createSlice({
   initialState,
   reducers: {
     setGlobalLrcToggle(state) {
-      setGlobalvisibility(state, !state.globalLrcVisibility);
+      setGlobalVisibility(state, !state.globalLrcVisibility);
     },
     setLyricText(state, action) {
       const { lyric } = action.payload;
@@ -43,8 +50,8 @@ const slice = createSlice({
         return;
       }
 
-      const arr = [];
-      const temp = {};
+      const arr: { time: number; word: string }[] = [];
+      const temp: { [key in string]: string } = {};
 
       formatLrc(lrc, (onetime, word) => {
         temp[onetime] = word;
@@ -66,19 +73,19 @@ const slice = createSlice({
       arr.sort(({ time: time1 }, { time: time2 }) => time1 - time2);
       state.lrcList = arr;
     },
-    setGlobalLrcShow(state, action) {
-      setGlobalvisibility(state, true);
+    setGlobalLrcShow(state) {
+      setGlobalVisibility(state, true);
     },
-    setGlobalLrcHide(state, action) {
-      setGlobalvisibility(state, false);
+    setGlobalLrcHide(state) {
+      setGlobalVisibility(state, false);
     },
-    setLyricShow(state, action) {
+    setLyricShow(state) {
       state.lyricVisibility = true;
     },
-    setLyricHide(state, action) {
+    setLyricHide(state) {
       state.lyricVisibility = false;
     },
-    setLyricToggle(state, action) {
+    setLyricToggle(state) {
       state.lyricVisibility = !state.lyricVisibility;
     },
   },
