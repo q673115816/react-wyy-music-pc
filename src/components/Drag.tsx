@@ -10,12 +10,12 @@ import React, {
 import { createPortal } from "react-dom";
 
 interface MaskProps {
-  onMouseMove: MouseEventHandler;
-  onMouseUp: MouseEventHandler;
+  onMouseMove?: MouseEventHandler;
+  onMouseUp?: MouseEventHandler;
 }
 
 interface iProps extends MaskProps {
-  onMouseDown: MouseEventHandler;
+  onMouseDown?: MouseEventHandler;
   className?: string;
   title?: string;
   children?: ReactNode;
@@ -24,9 +24,9 @@ interface iProps extends MaskProps {
 
 const Drag: FC<iProps> = ({
   children,
-  onMouseDown,
-  onMouseMove,
-  onMouseUp,
+  onMouseDown = () => null,
+  onMouseMove = () => null,
+  onMouseUp = () => null,
   ...props
 }) => {
   // console.log("helpMask");

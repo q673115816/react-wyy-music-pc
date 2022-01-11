@@ -1,33 +1,15 @@
 #skin {
   width: 324px;
   height: 250px;
-  .themes {
-    grid-template: repeat(2, 90px) / repeat(3, 90px);
-    .theme {
-      background-color: var(--currentColor);
-    }
-  }
 
   .colors {
-    .default {
-      grid-template-rows: repeat(2, 40px);
-      grid-template-columns: repeat(6, 40px);
-      .color {
-        background-color: var(--currentColor);
-      }
-    }
-
     .custom {
-      display: flex;
-      &>button {
+      .colour {
         background-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
       }
 
-      .ranges {
-        flex: auto;
-      }
+
       .rgb {
-        margin-top: 6px !important;
         &::-webkit-slider-runnable-track {
           background-image: linear-gradient(to right,
               red,
@@ -46,16 +28,14 @@
         &::-webkit-slider-runnable-track {
           background-image: linear-gradient(to right,
               hsl(0, 100%, 0%) 0,
-              hsl(var(--h), 100%, 50%) 100%,
+              hsl(var(--h), 100%, 50%) 100%
             );
         }
       }
 
       input[type=range] {
         display: block;
-        // display: none;
         appearance: none;
-        // border-radius: 5px;
         width: 100%;
         margin: 0;
         outline: none;

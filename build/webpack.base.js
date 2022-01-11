@@ -109,6 +109,10 @@ module.exports = {
           test: /[\\/]node_modules[\\/]_?qrcode.react(.*)/,
           // priority: -10,
         },
+        "react-use": {
+          name: "react-use",
+          test: /[\\/]node_modules[\\/]_?react-use(.*)/,
+        },
       },
       // cacheGroups: {
       //   commons: {

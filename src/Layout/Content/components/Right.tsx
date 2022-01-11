@@ -1,23 +1,22 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import React, { memo, useState } from "react";
 import { IconEar, IconList, IconUsers } from "@tabler/icons";
 import { setPopupPlaylistToggle } from "@/reducers/mask/slice";
-import classNames from "classnames";
-import DomVolume from "./Volume";
+import Volume from "./Volume";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import ToneQuality from "./ToneQuality";
 
-export default memo(() => {
+export default memo(function Right() {
   const dispatch = useAppDispatch();
   const { playlist } = useAppSelector(({ audio }) => audio);
   const [visibility, setVisibility] = useState(false);
 
-  const handleTogglePlaylist = useCallback(() => {
+  const handleTogglePlaylist = () => {
     dispatch(setPopupPlaylistToggle());
-  }, []);
+  };
 
   if (playlist.length === 0) return null;
   return (
-    <div className="domfooter_right flex items-center justify-end flex-1 space-x-3 pr-5">
+    <div className="flex items-center justify-end flex-1 space-x-3 pr-5">
       <div className="relative">
         <button
           type="button"
@@ -31,7 +30,7 @@ export default memo(() => {
       <button type="button" title="打开音效">
         <IconEar size={28} stroke={1} />
       </button>
-      <DomVolume />
+      <Volume />
       <button type="button" title="开始一起听">
         <IconUsers size={26} stroke={1} />
       </button>

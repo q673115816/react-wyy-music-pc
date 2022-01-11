@@ -49,6 +49,7 @@
 		"react-router": "*",
 		"react-router-dom": "*",
 		"react-slick": "*",
+		"react-use": "^17.3.2",
 		"redux": "*",
 		"redux-thunk": "*",
 		"socket.io-client": "*",

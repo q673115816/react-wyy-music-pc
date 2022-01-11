@@ -49,7 +49,7 @@ render(
 );
 
 reportWebVitals();
-// ReactDOM.render(<Issues />, document.getElementById('comment-root'));
+// render(<Issues />, document.getElementById("comment-root"));
 
 // if (module.hot) {
 //   module.hot.accept();

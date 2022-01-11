@@ -1,49 +1,24 @@
-import React, {
-  useState,
-  memo,
-  useEffect,
-  FC,
-  ChangeEventHandler,
-} from "react";
+import React, { useState, memo } from "react";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
-import { IconCheck } from "@tabler/icons";
 import classNames from "classnames";
 
 import { setTheme, setCustom } from "@/reducers/setting/slice";
 import "./style.scss";
-import { hexToHSL, HSLToHex, themes, colors } from "./utils";
+import { themes, colors } from "./utils";
 
-const Check = () => (
-  <i className="absolute flex-center text-white bg-red-500 -bottom-1.5 -right-1.5 border-2 p-0.5 border-white rounded-full">
-    <IconCheck size={16} stroke={2} />
-  </i>
-);
+import Custom from "./Custom";
+import Color from "./Color";
+
+const panels = ["主题", "纯色"];
 
 export default memo(function Skin() {
   const dispatch = useAppDispatch();
   const { theme, custom } = useAppSelector(({ setting }) => setting);
-  const [current, setCurrent] = useState(0);
-  const [[h, s, l], setHSL] = useState(() => hexToHSL(theme));
+  const [current, setCurrent] = useState(panels[0]);
 
-  // const memoHSL = useMemo(() => RGBToHSL(...hexToRGB(theme)), [theme]);
-  useEffect(() => {
-    setHSL(hexToHSL(theme));
-  }, [theme]);
   const handleSelectTheme = (theme: string) => {
     if (custom) dispatch(setCustom(false));
     dispatch(setTheme(theme));
-  };
-
-  const handleRGB: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (!custom) dispatch(setCustom(true));
-    const val = e.target.value;
-    dispatch(setTheme(HSLToHex(val, s, l)));
-  };
-
-  const handleHSL: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (!custom) dispatch(setCustom(true));
-    const val = e.target.value;
-    dispatch(setTheme(HSLToHex(h, s, val)));
   };
 
   return (
@@ -52,99 +27,55 @@ export default memo(function Skin() {
       id="skin"
     >
       <div className="nav border-b space-x-3">
-        <button
-          onClick={() => setCurrent(0)}
-          type="button"
-          className={classNames(
-            "link relative border-b border-transparent pb-0.5",
-            { "border-black": current === 0 }
-          )}
-        >
-          主题
-        </button>
-        <button
-          onClick={() => setCurrent(1)}
-          type="button"
-          className={classNames(
-            "link relative border-b border-transparent pb-0.5",
-            { "border-black": current === 1 }
-          )}
-        >
-          纯色
-        </button>
+        {panels.map((panel) => (
+          <button
+            key={panel}
+            onClick={() => setCurrent(panel)}
+            type="button"
+            className={classNames(
+              "link relative border-b border-transparent pb-0.5",
+              { "border-black": current === panel }
+            )}
+          >
+            {panel}
+          </button>
+        ))}
       </div>
       <div className="skins">
-        <div
-          className="themes mt-2.5 grid gap-2.5"
-          style={{ display: current === 0 ? null : "none" }}
-        >
-          {themes.map(([name, hex]) => (
-            <button
-              onClick={() => handleSelectTheme(hex)}
-              key={name}
-              type="button"
-              className="skinbtn relative theme rounded"
-              style={{ "--currentColor": hex }}
-            >
-              <span className="name absolute rounded-b-xl inset-x-0 bottom-0 bg-black bg-opacity-40 h-5 text-white">
-                {name}
-              </span>
-              {!custom && theme === hex && <Check />}
-            </button>
-          ))}
-        </div>
-        <div
-          className="colors"
-          style={{ display: current === 1 ? null : "none" }}
-        >
-          <div className="default mt-2.5 grid gap-2.5">
-            {colors.map((hex, index) => (
-              <button
+        {current === "主题" && (
+          <div
+            className="mt-2.5 grid gap-2.5"
+            style={{ gridTemplate: "repeat(2, 90px)/repeat(3, 90px)" }}
+          >
+            {themes.map(([name, hex]) => (
+              <Color
                 key={hex}
                 onClick={() => handleSelectTheme(hex)}
-                type="button"
-                className={classNames(
-                  "skinbtn relative color rounded",
-                  index === 0 && "border"
-                )}
-                style={{ "--currentColor": hex }}
-              >
-                {!custom && theme === hex && <Check />}
-              </button>
+                checked={!custom && theme === hex}
+                color={hex}
+              />
             ))}
           </div>
-          <div className="mt-8 mb-2">自定义颜色</div>
-          <div className="custom">
-            <button
-              type="button"
-              className="relative colour flex-none w-10 h-10 mr-2.5"
-              onClick={() => dispatch(setCustom(true))}
+        )}
+        {current === "纯色" && (
+          <div className="colors">
+            <div
+              className="mt-2.5 grid gap-2.5"
+              style={{ gridTemplate: "repeat(2, 40px)/repeat(6, 40px)" }}
             >
-              {custom && <Check />}
-            </button>
-            <div className="ranges">
-              <input
-                className="rgb"
-                type="range"
-                min="0"
-                max="359"
-                step="1"
-                value={h}
-                onChange={handleRGB}
-              />
-              <input
-                className="hsl"
-                type="range"
-                min="0"
-                max="50"
-                step="1"
-                value={l}
-                onChange={handleHSL}
-                style={{ "--h": h }}
-              />
+              {colors.map((hex, index) => (
+                <Color
+                  key={hex}
+                  onClick={() => handleSelectTheme(hex)}
+                  checked={!custom && theme === hex}
+                  color={hex}
+                />
+              ))}
             </div>
+            <div className="mt-8 mb-2">自定义颜色</div>
+            <Custom />
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

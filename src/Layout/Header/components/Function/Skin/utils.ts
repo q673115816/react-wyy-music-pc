@@ -1,5 +1,7 @@
 // https://css-tricks.com/converting-color-spaces-in-javascript/
-export function HSLToHex<T extends number | string>(h: T, s: T, l: T) {
+export function HSLToHex(h, s, l) {
+  s = Number(s);
+
   s /= 100;
   l /= 100;
 
