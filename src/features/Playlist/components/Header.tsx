@@ -18,7 +18,7 @@ import Description from "./Description";
 
 interface iHeader {
   data: {};
-  handleSub: () => void;
+  handleSub: (isSub: boolean) => void;
   songs: [];
 }
 

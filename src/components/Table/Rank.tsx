@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { IconVolume, IconVolume3 } from "@tabler/icons";
 import { useAppSelector } from "@/reducers/hooks";
 
@@ -7,7 +7,7 @@ interface IProps {
   index: string;
 }
 
-export default memo<IProps>(({ id, index }) => {
+const Rank: FC<IProps> = ({ id, index }) => {
   const { currentSong, running } = useAppSelector(({ audio }) => audio);
   if (currentSong.id === id) {
     return (
@@ -23,4 +23,6 @@ export default memo<IProps>(({ id, index }) => {
   return (
     <div className="text-gray-300">{String(index + 1).padStart(2, "0")}</div>
   );
-});
+};
+
+export default memo(Rank);

@@ -1,4 +1,12 @@
-import React, { useEffect, useState, memo, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  memo,
+  useCallback,
+  useMemo,
+  ReactNode,
+  createElement,
+} from "react";
 
 import { apiPlaylistDetail, apiPlaylistSubscribe, apiSongDetail } from "@/api";
 
@@ -6,24 +14,26 @@ import { setToast } from "@/reducers/mask/slice";
 import classNames from "classnames";
 import Loading from "@/components/Loading";
 
-import produce from "immer";
 import Header from "./components/Header";
 import Playlist from "./components/Playlist";
 import Comments from "./components/Comments";
 import Subscribers from "./components/Subscribers";
 import { useAppDispatch } from "@/reducers/hooks";
 import { useParams } from "react-router-dom";
+import { useImmer } from "use-immer";
 
-const navs = [
-  ["歌曲列表", "playlist"],
-  ["评论", "comments"],
-  ["收藏者", "subscribers"],
+type Paths = "Playlist" | "Comments" | "Subscribers";
+
+const navs: [string, Paths][] = [
+  ["歌曲列表", "Playlist"],
+  ["评论", "Comments"],
+  ["收藏者", "Subscribers"],
 ];
 
-const subpages = {
-  playlist: Playlist,
-  comments: Comments,
-  subscribers: Subscribers,
+const Contents: { [key in Paths]: ReactNode } = {
+  Playlist,
+  Comments,
+  Subscribers,
 };
 
 export default memo(function Playlist() {
@@ -31,21 +41,15 @@ export default memo(function Playlist() {
   const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
-  const [data, setData] = useState({});
+  const [data, setData] = useImmer({});
   // const [privileges, setPrivileges] = useState([]);
-  const [status, setStatus] = useState("playlist");
+  const [status, setStatus] = useState(navs[0][1]);
   const handleInit = async () => {
     try {
       const data = await apiPlaylistDetail({
         id,
       });
-      setData(
-        produce((draft) => {
-          for (const key in data) {
-            draft[key] = data[key];
-          }
-        })
-      );
+      setData(data);
       if (data.playlist.trackCount > 0) {
         const { songs } = await apiSongDetail({
           ids: data.playlist.trackIds.map(({ id }) => id).join(","),
@@ -68,11 +72,9 @@ export default memo(function Playlist() {
         });
         if (code === 200) {
           dispatch(setToast(isSub ? "取消收藏成功！" : "收藏成功！"));
-          setData(
-            produce((draft) => {
-              draft.playlist.subscribed = !isSub;
-            })
-          );
+          setData((draft) => {
+            draft.playlist.subscribed = !isSub;
+          });
         }
       } catch (error) {
         console.log(error);
@@ -93,7 +95,7 @@ export default memo(function Playlist() {
     );
   return (
     <div className="overflow-auto h-full">
-      <Header {...{ data, handleSub, songs }} />
+      <Header data={data} handleSub={handleSub} songs={songs} />
       <div className="mt-4">
         <div className="space-x-4 flex items-baseline px-8">
           {navs.map(([nav, code]) => (
@@ -111,12 +113,7 @@ export default memo(function Playlist() {
             </button>
           ))}
         </div>
-        <div>
-          {((SubPage, params) => (
-            <SubPage {...params} />
-          ))(subpages[status], { id, songs })}
-          {/* <DomMain id={id} status={status} songs={songs} /> */}
-        </div>
+        <div>{createElement(Contents[status], { songs })}</div>
       </div>
     </div>
   );

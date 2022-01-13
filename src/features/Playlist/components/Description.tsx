@@ -20,7 +20,7 @@ const Description: FC<iDescription> = ({ description = "" }) => {
             !open && "truncate inline-block max-w-xs align-bottom"
           )}
         >
-          {open ? description : descriptionList[0]}
+          {open ? description : descriptionList?.[0]}
         </span>
         <button
           type="button"

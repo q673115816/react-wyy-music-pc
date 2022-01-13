@@ -1,18 +1,17 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, memo } from "react";
 import classNames from "classnames";
 import dayjs from "dayjs";
 
-import DomMenuCreate from "@/components/MenuCreate";
-import DomRank from "@/components/Table/Rank";
-import DomHeart from "@/components/Table/Heart";
-import DomDownload from "@/components/Table/Download";
-import DomName from "@/components/Table/Name";
-import DomArtists from "@/components/Table/Artists";
-import DomAlbum from "@/components/Table/Album";
+import MenuCreate from "@/components/MenuCreate";
+import Rank from "@/components/Table/Rank";
+import Heart from "@/components/Table/Heart";
+import Download from "@/components/Table/Download";
+import Name from "@/components/Table/Name";
+import Artists from "@/components/Table/Artists";
+import Album from "@/components/Table/Album";
 
-export default ({ songs = [] }) => {
-  // console.log('playlist_music_playlist');
-  if (songs.length === 0) {
+const Playlist = ({ songs = [] }) => {
+  if (!songs.length) {
     return (
       <div className="pt-16 text-center text-sm text-gray-400">暂无音乐</div>
     );
@@ -44,7 +43,7 @@ export default ({ songs = [] }) => {
         </div>
       </div>
       {songs.map((item, index) => (
-        <DomMenuCreate
+        <MenuCreate
           schema={[
             ["评论", "播放", "下一首播放"],
             ["收藏到歌单", "分享", "复制链接", "不感兴趣", "下载"],
@@ -54,30 +53,32 @@ export default ({ songs = [] }) => {
           key={item.id}
         >
           <div
-            tabIndex="2"
+            tabIndex={2}
             className={classNames(
               "grid items-center focus:outline-none focus:bg-gray-200 hover:bg-gray-100 ui_grid_template pl-8",
               index % 2 === 0 && "bg-gray-50"
             )}
           >
             <div className="px-1">
-              <DomRank index={index} id={item.id} />
+              <Rank index={index} id={item.id} />
             </div>
             <div className="px-1">
-              <DomHeart id={item.id} />
+              <Heart id={item.id} />
             </div>
             <div className="px-1">
-              <DomDownload />
+              <Download />
             </div>
-            <DomName className="px-1" item={item} />
-            <DomArtists className="px-1" artists={item.ar} />
-            <DomAlbum className="px-1" name={item.al.name} id={item.al.id} />
+            <Name className="px-1" item={item} />
+            <Artists className="px-1" artists={item.ar} />
+            <Album className="px-1" name={item.al.name} id={item.al.id} />
             <div className="text-gray-500 px-1">
               {dayjs(item.dt).format("mm:ss")}
             </div>
           </div>
-        </DomMenuCreate>
+        </MenuCreate>
       ))}
     </div>
   );
 };
+
+export default memo(Playlist);
