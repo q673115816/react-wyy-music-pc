@@ -4,7 +4,7 @@ const merge = require("webpack-merge");
 const base = require("./webpack.base");
 
 const ssr = {
-  mode: "production",
+  mode: "node",
   target: "node",
   externals: [nodeExternals()],
   // entry: './src/server/index.js',

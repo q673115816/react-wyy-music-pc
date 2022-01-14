@@ -47,7 +47,7 @@ const plugins = [
 
 module.exports = {
   target: "web",
-  entry: path.join(src, "./client.tsx"),
+  entry: path.join(src, "./entry.client.tsx"),
   output: {
     globalObject: "this",
   },

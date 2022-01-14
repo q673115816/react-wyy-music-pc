@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import useInfinite from "@/hooks/useInfinite";
 import { Link, useLocation } from "react-router-dom";
-import { useQuery } from "react-query";
 import Loading from "@/components/Loading";
 import Rea from "react-error-boundary";
 import socket from "../socket";
@@ -27,14 +26,16 @@ export default memo(function Home() {
   const DomScroll = useRef(null);
   const DomObserver = useRef(null);
   const [list, setList] = useState<iList>([]);
+  const [data, setData] = useState([]);
   // useInfinite(() => { setSize((prev) => prev + 20); }, DomScroll, DomObserver);
-  const { data = [], error, isLoading, isSuccess, status } = useQuery(
-    "look",
-    async () => {
-      const { data } = await fetch(`${LIVE_URL}/list`).then((res) => res.json())
-      return data;
-    }
-  );
+  const handleInit = async () => {
+    const { data } = await fetch(`${LIVE_URL}/list`).then((res) => res.json());
+    setData(data);
+  };
+
+  useEffect(() => {
+    handleInit();
+  }, []);
 
   return (
     <div className="domLook overflow-auto max-h-full flex-auto" ref={DomScroll}>
