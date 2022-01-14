@@ -6,11 +6,9 @@ const base = require("./webpack.base");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { src } = require("./util");
 
-const { VITE_PUBLIC_URL } = process.env;
+const { VITE_PUBLIC_URL, NODE_ENV } = process.env;
 
 console.log("entry webpack prod");
-
-const devMode = process.env.NODE_ENV !== "production";
 
 const cdnBase = "https://cdn.jsdelivr.net/npm";
 

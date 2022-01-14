@@ -13,6 +13,7 @@ const plugins = [
     LIVE_URL: JSON.stringify(VITE_LIVE_URL),
     API_URL: JSON.stringify(VITE_API_URL),
     NODE_ENV: JSON.stringify(NODE_ENV),
+    "process.env.GA_TRACKING_ID": JSON.stringify("G-JCYJ5YJR7G"),
   }),
   // new GenerateSW({
   //   // Do not precache images
