@@ -7,7 +7,6 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import store from "./reducers/store";
 
 import App from "./App";
-// import Issues from "./Issues";
 
 import reportWebVitals from "./reportWebVitals";
 
@@ -49,7 +48,6 @@ render(
 );
 
 reportWebVitals();
-// render(<Issues />, document.getElementById("comment-root"));
 
 // if (module.hot) {
 //   module.hot.accept();

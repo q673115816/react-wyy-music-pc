@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
+import React, { FC, memo, MouseEventHandler, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setDialogReset } from "@/reducers/mask/slice";
 
-export default ({ children, ...props }) => {
+const Mask: FC<{}> = ({ children, ...props }) => {
   const dispatch = useDispatch();
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement>(null);
   // console.log(ref);
-  const handleMaskClick = (e) => {
+  const handleMaskClick: MouseEventHandler<HTMLDivElement> = (e) => {
     if (e.target === ref.current) {
       dispatch(setDialogReset());
     }
@@ -22,3 +22,5 @@ export default ({ children, ...props }) => {
     </div>
   );
 };
+
+export default memo(Mask);
