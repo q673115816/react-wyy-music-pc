@@ -1,9 +1,7 @@
 import React from "react";
-import { render, hydrate } from "react-dom";
+import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import { QueryClientProvider, QueryClient } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
 import store from "./reducers/store";
 
 import App from "./App";
@@ -23,8 +21,6 @@ import reportWebVitals from "./reportWebVitals";
 //   tracesSampleRate: 1.0,
 // });
 
-const queryClient = new QueryClient();
-
 // if('serviceWorker' in navigator) {
 //     navigator.serviceWorker.register('./sw.js')
 //         .then( registration => {
@@ -36,12 +32,9 @@ const queryClient = new QueryClient();
 render(
   <React.StrictMode>
     <BrowserRouter basename={PUBLIC_URL}>
-      <QueryClientProvider client={queryClient}>
-        <Provider store={store}>
-          <App />
-          <ReactQueryDevtools />
-        </Provider>
-      </QueryClientProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

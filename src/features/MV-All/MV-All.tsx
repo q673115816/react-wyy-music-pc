@@ -34,13 +34,6 @@ export default memo(function MVAll() {
 
   const handleInit = async () => {
     try {
-      // const {data} = useQuery('allmv', async () => {
-      //   return await apiMVAll({
-      //     ...defaultSearch,
-      //     limit,
-      //     offset: offset.current,
-      //   });
-      // })
       const { data } = await apiMVAll({
         ...defaultSearch,
         limit,

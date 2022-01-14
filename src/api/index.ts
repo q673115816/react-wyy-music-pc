@@ -364,4 +364,5 @@ export const apiSearchMultimatch = (params) =>
 
 // comment
 // 歌单评论 id, limit?, offset?, before?
-export const apiCommentPlaylist = (params) => post("/comment/playlist", params);
+export const apiCommentPlaylist = (params: { id: string }) =>
+  post("/comment/playlist", params);

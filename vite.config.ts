@@ -50,7 +50,6 @@ export default ({ mode, command }: ConfigEnv) => {
           // "axios",
           // "socket.io-client",
           // "webrtc-adapter",
-          // "react-query",
         ],
         plugins: [],
       },

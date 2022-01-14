@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import Comment from "./Comment";
 
@@ -46,7 +46,7 @@ const Hot = memo<HotProps>(({ hotComments, more, type }) => {
   );
 });
 
-export default memo<iProps>(({ comments, more, type }) => (
+const CommentsList: FC<iProps> = ({ comments, more, type }) => (
   <div className="">
     <Hot hotComments={comments.hotComments} more={more} type={type} />
     <div>
@@ -58,4 +58,6 @@ export default memo<iProps>(({ comments, more, type }) => (
       </div>
     </div>
   </div>
-));
+);
+
+export default memo(CommentsList);

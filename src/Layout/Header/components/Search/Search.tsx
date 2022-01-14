@@ -16,7 +16,6 @@ import {
 import { setSearchShow, setDialogReset } from "@/reducers/mask/slice";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
-import { useQuery } from "react-query";
 
 const Search = () => {
   const dispatch = useAppDispatch();
@@ -37,30 +36,16 @@ const Search = () => {
     }
   };
 
-  // const handleSearchSuggestInit = async () => {
-  //   try {
-  //     const { result } = await apiSearchSuggest({
-  //       keywords: searchValue,
-  //     });
-  //     setSearchSuggest(result);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  useQuery(
-    ["search", searchValue],
-    async () => {
-      if (!searchValue) return;
+  const handleSearchSuggestInit = async () => {
+    try {
       const { result } = await apiSearchSuggest({
         keywords: searchValue,
       });
       dispatch(setSearchSuggest(result));
+    } catch (error) {
+      console.log(error);
     }
-    // {
-    //   retryDelay: 2000,
-    // }
-  );
+  };
 
   const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const searchValue = e.target.value;
