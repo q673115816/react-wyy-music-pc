@@ -1,41 +1,14 @@
 .domArtist {
-
-  &_header {
-
-    .avatar {
-      width: 180px;
-      height: 180px;
-    }
-  }
-
   &_section {
     &_layout {
-      position: relative;
-
       .list {
         &_item {
-          height: 80px;
-          display: flex;
-          align-items: center;
-          padding-left: 20px;
-
-          .cover {
-            flex: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 2px;
-            border: 1px solid #eee;
-          }
-
           .name {
             flex: 24;
-            padding: 0 10px;
           }
-
           .size {
             flex: 12;
           }
-
           .publishTime {
             flex: 10;
           }
@@ -45,39 +18,30 @@
       .column {
         &_item {
           display: flex;
-
           .cover {
             width: 150px;
             height: 150px;
           }
-
           .list {
-
             .item {
               display: flex;
               height: 36px;
               align-items: center;
-
               .index {
                 width: 30px;
                 padding-right: 4px;
               }
-
               .heart {
                 width: 24px;
               }
-
               .download {
                 width: 24px;
               }
-
               .name {}
-
               .duration {
                 width: 50px;
               }
             }
-
             .seeMore {
               padding-right: 24px;
               text-align: right;
@@ -85,7 +49,6 @@
               height: 36px;
               color: #999;
               background-color: #F9F9F9;
-
               &:hover {
                 color: #333;
               }

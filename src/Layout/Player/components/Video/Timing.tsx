@@ -1,10 +1,16 @@
-import React, { useState, useContext, useEffect, memo } from "react";
+import React, {
+  useState,
+  useContext,
+  useEffect,
+  memo,
+  MouseEventHandler,
+} from "react";
 import dayjs from "dayjs";
-import { VideoContext } from "./index";
+import { VideoContext } from "./Video";
 import { actionSetJumpTime } from "./reducer/actions";
 import Drag from "@/components/Drag";
 
-export default memo(() => {
+const Timing = () => {
   const [timeTips, setTimeTips] = useState(false);
   const [dragger, setDragger] = useState(false);
   const [mousePosition, setMousePosition] = useState(0);
@@ -22,13 +28,16 @@ export default memo(() => {
     setDragger(true);
   };
 
-  const handleProgressEnter = (e) => {
+  const handleProgressEnter: MouseEventHandler<HTMLProgressElement> = () => {
     setTimeTips(true);
   };
 
-  const handleProgressMove = ({ clientX, target }) => {
+  const handleProgressMove: MouseEventHandler<HTMLProgressElement> = ({
+    clientX,
+    currentTarget,
+  }) => {
     // console.log(e);
-    const { left, width } = target.getBoundingClientRect();
+    const { left, width } = currentTarget.getBoundingClientRect();
     // console.log((clientX - left) / width);
     setMousePosition((clientX - left) / width);
     if (dragger) {
@@ -36,17 +45,20 @@ export default memo(() => {
     }
   };
 
-  const handleProgressLeave = (e) => {
+  const handleProgressLeave: MouseEventHandler<HTMLProgressElement> = () => {
     setTimeTips(false);
   };
 
-  const handleProgressDropUp = () => {
+  const handleProgressDropUp: MouseEventHandler<HTMLProgressElement> = () => {
     setDragger(false);
   };
 
-  const handleClick = ({ clientX, target }) => {
+  const handleClick: MouseEventHandler<HTMLProgressElement> = ({
+    clientX,
+    currentTarget,
+  }) => {
     // console.log('click');
-    const { left, width } = target.getBoundingClientRect();
+    const { left, width } = currentTarget.getBoundingClientRect();
     const ratio = (clientX - left) / width;
     setPlayerLengthRatio(ratio);
     videoDispatch(actionSetJumpTime(ratio * duration));
@@ -106,4 +118,6 @@ export default memo(() => {
       />
     </div>
   );
-});
+};
+
+export default memo(Timing);

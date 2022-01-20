@@ -1,9 +1,10 @@
 import React, { useState, useEffect, memo } from "react";
 import { apiSimiArtist } from "@/api";
-import { Link } from "react-router-dom";
-import DomLoading from "@/components/Loading";
+import { Link, useParams } from "react-router-dom";
+import Loading from "@/components/Loading";
 
-export default memo(({ id }) => {
+export default memo(function Similarity() {
+  const { id } = useParams();
   const [simiArtists, setSimiArtists] = useState([]);
   const [loading, setLoading] = useState(true);
   const handleInit = async () => {
@@ -24,7 +25,7 @@ export default memo(({ id }) => {
   if (loading) {
     return (
       <div className="flex justify-center pt-12">
-        <DomLoading />
+        <Loading />
       </div>
     );
   }
@@ -44,7 +45,7 @@ export default memo(({ id }) => {
               <Link to={`/artist/${item.id}`} className="">
                 <img
                   loading={`lazy`}
-                  className="ui_aspect-ratio-1/1"
+                  className="aspect-square"
                   src={`${item.picUrl}?param=200y200`}
                   alt=""
                 />

@@ -7,7 +7,7 @@ import {
   SET_JUMPTIME,
 } from "./actionTypes";
 
-export const createAction = (type, key, value) => ({
+export const createAction = (type: string, key: string, value: any) => ({
   type,
   payload: {
     [key]: value,

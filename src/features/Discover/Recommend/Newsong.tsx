@@ -31,7 +31,7 @@ export default memo(({ newsong = [] }) => (
           </span>
           <img
             loading={"lazy"}
-            className="w-full h-full ui_aspect-ratio-1/1"
+            className="w-full h-full aspect-square"
             src={`${item.picUrl}?param=50y50`}
             alt=""
           />

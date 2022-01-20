@@ -1,13 +1,17 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
-import DomMenuCreate from "@/components/MenuCreate";
+import MenuCreate from "@/components/MenuCreate";
 import { IconPlayerPlay } from "@tabler/icons";
 
-export default memo(({ mv = [] }) => (
+interface iProps {
+  mv: [];
+}
+
+const MV: FC<iProps> = ({ mv = [] }) => (
   <div className="domHome_recommend_mv grid gap-x-5 grid-cols-3 mt-4">
     {mv.slice(0, 3).map((item) => (
       <div className="item" key={item.id}>
-        <DomMenuCreate
+        <MenuCreate
           type="mv"
           item={item}
           schema={[
@@ -29,13 +33,13 @@ export default memo(({ mv = [] }) => (
             <Link to={`/player/mv/${item.id}`} className="block ">
               <img
                 loading={"lazy"}
-                className="h-full object-cover w-full ui_aspect-ratio-16/9"
+                className="h-full object-cover w-full aspect-video"
                 src={item.picUrl}
                 alt=""
               />
             </Link>
           </div>
-        </DomMenuCreate>
+        </MenuCreate>
         <div className="name truncate text-sm mt-2">
           <Link className="ui_text_black_hover" to={`/player/mv/${item.id}`}>
             {item.name}
@@ -54,4 +58,6 @@ export default memo(({ mv = [] }) => (
       </div>
     ))}
   </div>
-));
+);
+
+export default memo(MV);

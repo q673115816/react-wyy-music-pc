@@ -14,7 +14,7 @@ export default memo(function Right() {
     dispatch(setPopupPlaylistToggle());
   };
 
-  if (playlist.length === 0) return null;
+  // if (playlist.length === 0) return null;
   return (
     <div className="flex items-center justify-end flex-1 space-x-3 pr-5">
       <div className="relative">

@@ -7,19 +7,28 @@ export default memo(({ hotAlbums = [] }) => (
   <div className="list pt-4">
     {hotAlbums.map((item, index) => (
       <div
-        className={classNames("list_item hover:bg-gray-100", {
-          "bg-gray-50": index % 2 === 0,
-        })}
+        className={classNames(
+          "list_item pl-5 flex items-center h-20 hover:bg-gray-100",
+          {
+            "bg-gray-50": index % 2 === 0,
+          }
+        )}
         key={item.id}
       >
-        <Link className="cover" to={`/playlist/album/${item.id}`}>
+        <Link
+          className="cover border rounded flex-none w-14 h-14"
+          to={`/playlist/album/${item.id}`}
+        >
           <img
             className="ui_containimg"
             src={`${item.picUrl}?param=100y100`}
             alt=""
           />
         </Link>
-        <Link className="name truncate" to={`/playlist/album/${item.id}`}>
+        <Link
+          className="name truncate px-2.5"
+          to={`/playlist/album/${item.id}`}
+        >
           {item.name}
           &nbsp;
           {item.alias?.length > 0 && (

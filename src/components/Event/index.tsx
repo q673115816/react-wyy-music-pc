@@ -95,7 +95,7 @@ const DomPics = ({ item }) => {
             <img
               loading={`lazy`}
               src={pic.originUrl}
-              className="w-full object-cover h-full ui_aspect-ratio-1/1"
+              className="w-full object-cover h-full aspect-square"
               alt=""
             />
           </div>

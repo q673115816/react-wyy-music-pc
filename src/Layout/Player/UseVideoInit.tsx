@@ -14,7 +14,7 @@ export default () => {
   const [detail, setDetail] = useState({});
   const [detailInfo, setDetailInfo] = useState({});
 
-  const handleInit = async (vid) => {
+  const handleInit = async (vid: string) => {
     try {
       const [
         { urls },

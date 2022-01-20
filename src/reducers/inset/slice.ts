@@ -130,6 +130,9 @@ const slice = createSlice({
     setScreenNormal(state) {
       state.SCREEN = "normal";
     },
+    togglePosition(state) {
+      state.POSITION = !state.POSITION;
+    },
     setPositionTrue(state) {
       state.POSITION = true;
     },

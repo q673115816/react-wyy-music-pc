@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { transPlayCount } from "@/common/utils";
 import { IconPlayerPlay } from "@tabler/icons";
@@ -6,13 +6,13 @@ import dayjs from "dayjs";
 import { playerTypes } from "@/common/config";
 import TagMV from "@/components/Tags/Box";
 
-export default ({ item = {}, item: { type = 1 } }) => (
+const Item = ({ item = {}, item: { type = 1 } }) => (
   <div className="item content-visibility-auto">
     <div className="cover relative border rounded overflow-hidden">
       <Link to={`/player/${playerTypes[type]}/${item.id}`} className="">
         <img
           loading={"lazy"}
-          className="h-full object-cover w-full ui_aspect-ratio-16/9"
+          className="h-full object-cover w-full aspect-video"
           src={item.cover}
           alt=""
         />
@@ -68,3 +68,5 @@ export default ({ item = {}, item: { type = 1 } }) => (
     )}
   </div>
 );
+
+export default memo(Item);

@@ -40,7 +40,7 @@ const DJCategory = () => {
             <div className="w-32 rounded overflow-hidden border">
               <img
                 loading={`lazy`}
-                className={`ui_aspect-ratio-1/1`}
+                className={`aspect-square`}
                 src={`${item.picUrl}?param=200y200`}
                 alt=""
               />

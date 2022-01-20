@@ -7,7 +7,7 @@ import {
   IconDeviceDesktop,
 } from "@tabler/icons";
 import dayjs from "dayjs";
-import { VideoContext } from "./index";
+import { VideoContext } from "./Video";
 
 const sizes = ["标清", "高清", "超清", "1080P", "没这功能"];
 

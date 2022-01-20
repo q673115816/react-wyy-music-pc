@@ -1,7 +1,9 @@
 import React, { memo, useEffect, useState } from "react";
 import { apiArtistDesc } from "@/api";
+import { useParams } from "react-router-dom";
 
-export default memo(({ id }) => {
+export default memo(function Detail() {
+  const { id } = useParams();
   const [desc, setDesc] = useState({});
   const handleInit = async () => {
     try {

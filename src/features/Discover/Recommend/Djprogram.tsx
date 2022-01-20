@@ -9,7 +9,7 @@ export default memo(({ djprogram = [] }) => (
           <Link to={`/playlist/dj/${item.program?.radio?.id}`} className="">
             <img
               loading={"lazy"}
-              className="ui_aspect-ratio-1/1"
+              className="aspect-square"
               src={`${item.program.radio.picUrl}?param=200y200`}
               alt=""
             />

@@ -137,7 +137,7 @@ export default memo(function Highquality() {
                 <img
                   loading={`lazy`}
                   src={`${item.coverImgUrl}?param=200y200`}
-                  className={`ui_aspect-ratio-1/1`}
+                  className={`aspect-square`}
                   alt=""
                 />
                 <div className="absolute text-white top-0 right-0 py-1 px-2 flex-center">

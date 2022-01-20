@@ -33,8 +33,8 @@ const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
       />
     </div>
     <div className="info flex-auto w-0 ml-5">
-      <div className="name flex items-center">
-        <span className="type text-red-500 border border-current px-1 py-0.5 rounded mr-2 leading-none">
+      <div className="name">
+        <span className="whitespace-nowrap text-red-500 border border-current p-0.5 rounded mr-2 leading-none inline-block">
           歌单
         </span>
         <span className="h1 select-text">

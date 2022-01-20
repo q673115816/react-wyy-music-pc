@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React, { FC, memo } from "react";
 
 interface iItem {
-  item: {}
+  item: {};
 }
 
 const Item: FC<iItem> = ({ item = {} }) => (
@@ -11,7 +11,7 @@ const Item: FC<iItem> = ({ item = {} }) => (
       <Link to={`/playlist/dj/${item.id}`}>
         <img
           loading={"lazy"}
-          className="ui_aspect-ratio-1/1 block"
+          className="aspect-square block"
           src={item.picUrl}
           alt=""
         />
@@ -30,6 +30,6 @@ const Item: FC<iItem> = ({ item = {} }) => (
       </Link>
     </div>
   </div>
-)
+);
 
 export default memo(Item);

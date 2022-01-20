@@ -14,7 +14,7 @@ import { useAppSelector, useAppDispatch } from "@/reducers/hooks";
 import DomLoading from "@/components/Loading";
 import Select from "./components/Select";
 
-export default memo(() => {
+const VideoList = () => {
   const dispatch = useAppDispatch();
   const { id, initStatus, groupList, categoryList, videoList } =
     useAppSelector(VideoListSelector);
@@ -85,4 +85,6 @@ export default memo(() => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(VideoList);

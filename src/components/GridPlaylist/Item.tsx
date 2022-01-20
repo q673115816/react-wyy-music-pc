@@ -19,7 +19,7 @@ export default memo(({ item }) => (
       <Link to={`/playlist/music/${item.id}`} className="">
         <img
           loading={"lazy"}
-          className="w-full h-full ui_aspect-ratio-1/1"
+          className="w-full h-full aspect-square"
           src={`${item.coverImgUrl}?param=200y200`}
           alt=""
         />

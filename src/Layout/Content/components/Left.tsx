@@ -16,7 +16,7 @@ const Left = () => {
     dispatch(setLyricToggle());
   };
 
-  if (playlist.length === 0) return null;
+  // if (playlist.length === 0) return null;
   return (
     <div className="flex p-2.5 flex-1">
       <div hidden>

@@ -44,7 +44,7 @@ const Song = () => {
           >
             <img
               loading={`lazy`}
-              className="ui_aspect-ratio-1/1"
+              className="aspect-square"
               src={`${item.album.blurPicUrl}?param=100y100`}
               alt=""
             />

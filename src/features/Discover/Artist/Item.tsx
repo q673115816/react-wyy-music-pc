@@ -9,7 +9,7 @@ export default memo(function Item({ item = {} }) {
         <Link to={item.id} className="">
           <img
             loading={`lazy`}
-            className="ui_aspect-ratio-1/1 w-full h-full"
+            className="aspect-square w-full h-full"
             src={`${item.img1v1Url}?param=200y200`}
             alt={item.name}
           />

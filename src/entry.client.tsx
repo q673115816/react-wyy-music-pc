@@ -3,7 +3,6 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import store from "./reducers/store";
-
 import App from "./App";
 
 import reportWebVitals from "./reportWebVitals";
@@ -31,11 +30,11 @@ import reportWebVitals from "./reportWebVitals";
 
 render(
   <React.StrictMode>
-    <BrowserRouter basename={PUBLIC_URL}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <BrowserRouter basename={PUBLIC_URL}>
         <App />
-      </Provider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -9,7 +9,7 @@ const Home: FC<iHome> = ({ list }) => {
         <div key={uid}>
           <Link to={uid}>
             <img
-              className={`ui_aspect-ratio-16/9 cursor-pointer`}
+              className={`aspect-video cursor-pointer`}
               loading={`lazy`}
               src={banner}
               alt=""

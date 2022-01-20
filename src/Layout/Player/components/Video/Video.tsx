@@ -5,6 +5,8 @@ import React, {
   createContext,
   useReducer,
   memo,
+  FC,
+  ReactEventHandler,
 } from "react";
 import { IconPlayerPlay, IconRefresh } from "@tabler/icons";
 import classNames from "classnames";
@@ -24,7 +26,15 @@ import {
 
 export const VideoContext = createContext(null);
 
-export default memo(({ url, detail, brs = [], fixed, next = {} }) => {
+interface iProps {
+  url: string;
+  detail: any;
+  brs: [];
+  fixed: boolean;
+  next: Object;
+}
+
+const Video: FC<iProps> = ({ url, detail, brs = [], fixed, next = {} }) => {
   const [
     { play, duration, currentTime, jumpTime, buffered, full },
     videoDispatch,
@@ -34,11 +44,8 @@ export default memo(({ url, detail, brs = [], fixed, next = {} }) => {
   const [isEnd, setIsEnd] = useState(false);
   const [isAuto, setIsAuto] = useState(true);
   const handleChangePlay = () => {
-    if (play) {
-      refVideo.current.pause();
-    } else {
-      refVideo.current.play();
-    }
+    const call = play ? "pause" : "play";
+    (refVideo.current as HTMLVideoElement)[call]();
     videoDispatch(actionSetPlay(!play));
     // setPlay(!play);
   };
@@ -47,26 +54,29 @@ export default memo(({ url, detail, brs = [], fixed, next = {} }) => {
     setIsEnd(true);
   };
 
-  const handlechangeFull = async () => {
+  const handleChangeFull = async () => {
     if (full) {
       // 退出全屏
-      // refVideo.current.webkitExitFullscreen();
-      await document.webkitExitFullscreen();
+      await document.exitFullscreen();
       dispatch(setPositionTrue());
     } else {
       // 进入全屏
-      // refVideo.current.webkitEnterFullScreen();
-      await document.documentElement.webkitRequestFullScreen();
+      await document.documentElement.requestFullscreen();
       dispatch(setPositionFalse());
     }
     videoDispatch(actionSetFull(!full));
   };
 
-  const handleProgress = ({ target }) => {
+  const handleProgress: ReactEventHandler<HTMLVideoElement> = ({
+    currentTarget,
+  }) => {
     // console.log(target.buffered.length);
     const buffered = [];
-    for (let i = 0; i < target.buffered.length; i += 1) {
-      const onebuffered = [target.buffered.start(i), target.buffered.end(i)];
+    for (let i = 0; i < currentTarget.buffered.length; i += 1) {
+      const onebuffered = [
+        currentTarget.buffered.start(i),
+        currentTarget.buffered.end(i),
+      ];
       buffered.push(onebuffered);
       // console.log(onebuffered);
     }
@@ -75,27 +85,31 @@ export default memo(({ url, detail, brs = [], fixed, next = {} }) => {
     // console.log(refVideo.current.buffered.end(0));
   };
 
-  const handleSetTime = ({ target }) => {
+  const handleSetTime: ReactEventHandler<HTMLVideoElement> = ({
+    currentTarget,
+  }) => {
     // console.log(e);
-    videoDispatch(actionSetCurrentTime(target.currentTime));
+    videoDispatch(actionSetCurrentTime(currentTarget.currentTime));
     // setCurrentTime(target.currentTime);// e.timeStamp
   };
 
-  const handlePreSetTime = ({ target }) => {
+  const handlePreSetTime: ReactEventHandler<HTMLVideoElement> = ({
+    currentTarget,
+  }) => {
     // console.log(e);
-    videoDispatch(actionSetDuration(target.duration));
+    videoDispatch(actionSetDuration(currentTarget.duration));
     // setDuration(target.duration);// e.timeStamp
   };
 
   useEffect(() => {
     // videoDispatch(actionSetCurrentTime(jumptime));
-    refVideo.current.currentTime = jumpTime;
+    (refVideo.current as HTMLVideoElement).currentTime = jumpTime;
   }, [jumpTime]);
 
   return (
     <div
       className={classNames(
-        "ui_aspect-ratio-16/9",
+        "aspect-video",
         fixed ? " absolute bottom-16 right-8 z-10 w-80" : "relative"
       )}
     >
@@ -114,7 +128,7 @@ export default memo(({ url, detail, brs = [], fixed, next = {} }) => {
             onTimeUpdate={handleSetTime}
             onLoadedMetadata={handlePreSetTime}
             className="h-full m-auto cursor-pointer"
-            onDoubleClick={handlechangeFull}
+            onDoubleClick={handleChangeFull}
             onEnded={handleEnd}
             playsInline
             autoPlay={play}
@@ -156,7 +170,7 @@ export default memo(({ url, detail, brs = [], fixed, next = {} }) => {
             duration,
             currentTime,
             buffered,
-            handlechangeFull,
+            handleChangeFull,
             full,
             videoDispatch,
           }}
@@ -167,4 +181,6 @@ export default memo(({ url, detail, brs = [], fixed, next = {} }) => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Video);

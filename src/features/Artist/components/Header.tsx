@@ -56,7 +56,7 @@ export default memo(function Header() {
   }, [id]);
   return (
     <div className="domArtist_header flex p-8">
-      <div className="avatar border overflow-hidden rounded">
+      <div className="w-44 h-44 border overflow-hidden rounded">
         <img src={`${detail.artist?.cover}?param=200y200`} alt="" />
       </div>
       <div className="content flex-auto px-5">

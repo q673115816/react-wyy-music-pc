@@ -1,9 +1,13 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
 import DomMenuCreate from "@/components/MenuCreate";
 
-export default memo(({ privatecontent = [] }) => (
+interface iProps {
+  privatecontent: [];
+}
+
+const Privatecontent: FC<iProps> = ({ privatecontent = [] }) => (
   <div className="domHome_recommend_privatecontent grid grid-cols-3 gap-4 mt-4">
     {privatecontent.map((item) => (
       <div className="item" key={item.id}>
@@ -15,7 +19,7 @@ export default memo(({ privatecontent = [] }) => (
               </span>
               <img
                 loading={"lazy"}
-                className="ui_containimg ui_aspect-ratio-16/9"
+                className="ui_containimg aspect-video"
                 src={item.sPicUrl}
                 alt=""
               />
@@ -28,4 +32,6 @@ export default memo(({ privatecontent = [] }) => (
       </div>
     ))}
   </div>
-));
+);
+
+export default memo(Privatecontent);

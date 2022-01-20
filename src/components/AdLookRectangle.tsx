@@ -9,7 +9,7 @@ const ADLookRectangle: FC<{ tag: boolean }> = ({ tag = false }) => (
       <Link to={link}>
         <img
           loading={`lazy`}
-          className="object-cover ui_aspect-ratio-1/1"
+          className="object-cover aspect-square"
           src={require(`@img/kankan.jpg`)}
           alt=""
         />

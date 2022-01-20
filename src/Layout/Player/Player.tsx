@@ -23,13 +23,13 @@ import { setVideoListId } from "@/reducers/videolist/slice";
 import Write from "@/components/Write";
 
 import { useAppDispatch } from "@/reducers/hooks";
-import DomCommentsList from "@/components/CommentsList";
-import DomPage from "@/components/Page";
+import CommentsList from "@/components/CommentsList";
+import Page from "@/components/Page";
 
-import DomLoading from "@/components/Loading";
-import DialogDownloadVideo from "@/components/Dialog/DownloadVideo";
-import DomRelated from "./Related";
-import DomVideo from "./components/Video";
+import Loading from "@/components/Loading";
+import DownloadVideo from "@/components/Dialog/DownloadVideo";
+import Related from "./Related";
+import Video from "./components/Video";
 import FNInit from "./Init";
 import FNIO from "./IO";
 
@@ -116,13 +116,8 @@ const Player = () => {
               {name}
             </button>
           </div>
-          <div className="ui_aspect-ratio-16/9" ref={DomVideoWrap}>
-            <DomVideo
-              url={urls?.url}
-              detail={detail}
-              fixed={fixed}
-              next={next}
-            />
+          <div className="aspect-video" ref={DomVideoWrap}>
+            <Video url={urls?.url} detail={detail} fixed={fixed} next={next} />
           </div>
           <div className="domVideoDetail_creator flex items-center mt-5">
             <Link
@@ -229,7 +224,7 @@ const Player = () => {
                 </span>
               </div>
             </button>
-            <DialogDownloadVideo />
+            <DownloadVideo />
           </div>
           <div className="domVideoDetail_main mt-8">
             <div className="title mb-5">
@@ -244,12 +239,12 @@ const Player = () => {
             </div>
             {commentsLoading ? (
               <div className="">
-                <DomLoading />
+                <Loading />
               </div>
             ) : (
               <>
-                <DomCommentsList comments={comments} />
-                <DomPage
+                <CommentsList comments={comments} />
+                <Page
                   total={Math.ceil(comments.total / limit)}
                   page={page}
                   func={setPage}
@@ -258,7 +253,7 @@ const Player = () => {
             )}
           </div>
         </div>
-        <DomRelated related={related} />
+        <Related related={related} />
       </div>
     </div>
   );

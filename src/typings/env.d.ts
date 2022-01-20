@@ -6,6 +6,10 @@ interface ImportMetaEnv {
   // 更多环境变量...
 }
 
+interface Window {
+  __STATE__: Object | undefined;
+}
+
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }

@@ -1,26 +1,44 @@
-import React, { useState, useEffect, memo } from "react";
-import { IconLayoutGrid, IconList, IconLayout } from "@tabler/icons";
+import React, {
+  useState,
+  useEffect,
+  memo,
+  createElement,
+  ReactNode,
+} from "react";
+import {
+  IconLayoutGrid,
+  IconList,
+  IconLayout,
+  TablerIcon,
+} from "@tabler/icons";
 import classNames from "classnames";
 import { apiArtistAlbum } from "@/api";
-import { setArtistLayout } from "@/reducers/artist/slice";
-import DomGrid from "./layouts/Grid";
-import DomList from "./layouts/List";
-import DomColumn from "./layouts/Column";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import Grid from "./layouts/Grid";
+import List from "./layouts/List";
+import Column from "./layouts/Column";
 import { useParams } from "react-router-dom";
+import { useLocalStorage } from "react-use";
 
-const layouts = {
-  grid: { Ico: IconLayoutGrid, View: DomGrid },
-  list: { Ico: IconList, View: DomList },
-  column: { Ico: IconLayout, View: DomColumn },
+export type Layout = "Grid" | "List" | "Column";
+
+const navs: [Layout, TablerIcon][] = [
+  ["Grid", IconLayoutGrid],
+  ["List", IconList],
+  ["Column", IconLayout],
+];
+
+const Contents: { [key in Layout]: ReactNode } = {
+  Grid,
+  List,
+  Column,
 };
-
-const layoutsEntries = Object.entries(layouts);
 
 export default memo(function Album() {
   const { id } = useParams();
-  const dispatch = useAppDispatch();
-  const { layout } = useAppSelector(({ artist }) => artist);
+  const [layout = "Grid", setLayout, remove] = useLocalStorage<Layout>(
+    "layout",
+    navs[0][0]
+  );
   const [album, setAlbum] = useState({ hotAlbums: [], more: null });
 
   const handleInit = async () => {
@@ -40,26 +58,24 @@ export default memo(function Album() {
   }, []);
   return (
     <div className="domArtist_section relative">
-      <div className="absolute right-8 -translate-y-full bottom-full actions ml-auto space-x-0.5 flex rounded-sm overflow-hidden">
-        {layoutsEntries.map(([view, { Ico }]) => (
+      <div className="absolute right-8 bottom-full actions ml-auto space-x-0.5 flex rounded-sm overflow-hidden">
+        {navs.map(([view, Ico]) => (
           <button
             key={view}
             type="button"
             className={classNames(
               "px-1.5 py-0.5 bg-gray-200",
               "handle",
-              view === layout && "bg-gray-300 text-white"
+              view === layout && "bg-gray-400 text-white"
             )}
-            onClick={() => dispatch(setArtistLayout({ layout: view }))}
+            onClick={() => setLayout(view)}
           >
             <Ico size={14} stroke={1} />
           </button>
         ))}
       </div>
       <div className="domArtist_section_layout">
-        {((View, hotAlbums) => (
-          <View hotAlbums={hotAlbums} id={id} />
-        ))(layouts[layout].View, album.hotAlbums)}
+        {createElement(Contents[layout], { hotAlbums: album.hotAlbums, id })}
       </div>
     </div>
   );

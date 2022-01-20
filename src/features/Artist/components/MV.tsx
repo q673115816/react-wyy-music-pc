@@ -1,15 +1,17 @@
 import React, { useState, useRef, memo } from "react";
 import { apiArtistMV } from "@/api";
 import useInfinite from "@/hooks/useInfinite";
-import DomGridVideo from "@/components/GridVideo";
+import GridVideo from "@/components/GridVideo";
+import { useParams } from "react-router-dom";
 
-export default memo(({ id }) => {
+export default memo(function MV() {
+  const { id } = useParams();
   const [MVs, setMVs] = useState([]);
   // const [hasMore, setHasMore] = useState(true);
   const more = useRef(true);
   const offset = useRef(0);
-  const domScroll = useRef();
-  const domObserver = useRef();
+  const domScroll = useRef<HTMLDivElement>(null);
+  const domObserver = useRef<HTMLDivElement>(null);
   const limit = 24;
   const handleInit = async () => {
     if (!more.current) return;
@@ -29,6 +31,7 @@ export default memo(({ id }) => {
           playCount,
           cover: imgurl,
           title: name,
+          type: "0",
         })),
       ]);
     } catch (error) {
@@ -39,7 +42,7 @@ export default memo(({ id }) => {
 
   return (
     <div className="domArtist_section p-8">
-      <DomGridVideo list={MVs} />
+      <GridVideo list={MVs} />
       <div ref={domObserver} />
     </div>
   );

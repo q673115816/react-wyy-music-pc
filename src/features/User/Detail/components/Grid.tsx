@@ -12,7 +12,7 @@ const DomRank = ({ uid }) => {
   return (
     <div className="item">
       <Link to={(location) => `${location.pathname}/record`}>
-        <div className="cover relative border ui_aspect-ratio-1/1">
+        <div className="cover relative border aspect-square">
           <div className="absolute inset-0">
             <RainbowCat />
           </div>
