@@ -24,9 +24,10 @@ interface iHeader {
 
 const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
   // console.log('playlist_music_header');
-  <div className="domPlaylistDetail_header p-8 flex">
-    <div className="cover border rounded overflow-hidden flex-none w-92 h-92">
+  <div className="p-8 flex items-start">
+    <div className="border rounded overflow-hidden flex-none w-92 h-92">
       <img
+        loading={`lazy`}
         className="w-full h-full"
         src={`${data.playlist.coverImgUrl}?param=200y200`}
         alt=""

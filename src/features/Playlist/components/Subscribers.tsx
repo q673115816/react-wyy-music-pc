@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { apiPlaylistSubscribers } from "@/api";
 import { Link, useParams } from "react-router-dom";
-import "./style.scss";
 import Gender from "@/components/Gender";
 import Page from "@/components/Page";
 import Loading from "@/components/Loading";
@@ -48,12 +47,16 @@ export default memo(function Subscribers() {
     <div className="px-8">
       <div className="domPlaylistDetail_subscribers flex justify-between flex-wrap">
         {data?.subscribers.map((item: iSubscribers) => (
-          <div key={item.userId} className="item flex mt-6">
+          <div key={item.userId} className="item flex mt-6 w-80 ">
             <Link
               to={`/user/${item.userId}`}
-              className="avatar border rounded-full overflow-hidden"
+              className="avatar w-24 h-24 border rounded-full overflow-hidden"
             >
-              <img src={`${item.avatarUrl}?param=100y100`} alt="" />
+              <img
+                loading={`lazy`}
+                src={`${item.avatarUrl}?param=100y100`}
+                alt=""
+              />
             </Link>
             <div className="ml-2 flex-auto w-0 flex flex-col justify-center">
               <div className="text-sm flex items-center">
