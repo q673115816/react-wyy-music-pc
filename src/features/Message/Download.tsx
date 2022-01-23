@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 const nav = ["已下载单曲", "已下载电台节目", "已下载MV", "正在下载"];
 
-export default memo(() => {
+export default memo(function Download() {
   console.log("download");
   const [visibility, setVisibility] = useState(false);
   const [current, setCurrent] = useState("已下载单曲");

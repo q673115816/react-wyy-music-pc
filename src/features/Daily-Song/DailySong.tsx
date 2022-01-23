@@ -13,6 +13,7 @@ import Name from "@/components/Table/Name";
 import Artists from "@/components/Table/Artists";
 import Album from "@/components/Table/Album";
 import MenuCreate from "@/components/MenuCreate";
+import {useGetRecommendSongsQuery} from "@/services/services";
 
 export default memo(function DailySong() {
   useLoginStatus();
