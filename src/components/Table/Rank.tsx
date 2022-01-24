@@ -4,7 +4,7 @@ import { useAppSelector } from "@/reducers/hooks";
 
 interface IProps {
   id: number;
-  index: string;
+  index: number;
 }
 
 const Rank: FC<IProps> = ({ id, index }) => {

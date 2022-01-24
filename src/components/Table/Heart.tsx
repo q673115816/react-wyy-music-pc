@@ -7,7 +7,7 @@ import { setLikelistAdd, setLikelistDel } from "@/reducers/account/slice";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 
 interface IProps {
-  id: string;
+  id: number;
   size?: number;
   className?: string;
   stroke?: number;

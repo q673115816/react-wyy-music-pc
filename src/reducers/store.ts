@@ -1,8 +1,9 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
-
+import { api } from "./services";
 // We'll use redux-logger just as an example of adding another middleware
 import logger from "redux-logger";
+import { combineReducers } from "redux";
 
 // And use redux-batch as an example of adding enhancers
 // import { reduxBatch } from "@manaflair/redux-batch";
@@ -19,11 +20,12 @@ if (window && window.__STATE__) {
 }
 
 const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => [
-    ...getDefaultMiddleware(),
-    // logger
-  ],
+  reducer: combineReducers({
+    [api.reducerPath]: api.reducer,
+    ...rootReducer,
+  }),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
   devTools: NODE_ENV !== "production",
   preloadedState,
   // enhancers: [reduxBatch],

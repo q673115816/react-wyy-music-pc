@@ -2,7 +2,6 @@ import React, { FC, memo, MouseEventHandler, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
 import { apiDailysignin, apiLogout, apiUserDetail } from "@/api";
 import { setLoginInfoUpdate } from "@/reducers/account/slice";
-import { removeCookie } from "@/api/cookie";
 import { Link } from "react-router-dom";
 import {
   IconBrandVimeo,
@@ -14,6 +13,7 @@ import {
   IconUser,
 } from "@tabler/icons";
 import Loading from "@/components/Loading";
+import { Remove } from "@/reducers/utils";
 
 const Profile: FC<{ handleHide: MouseEventHandler }> = ({ handleHide }) => {
   const [loading, setLoading] = useState(true);
@@ -36,7 +36,7 @@ const Profile: FC<{ handleHide: MouseEventHandler }> = ({ handleHide }) => {
   const handleLogout = async () => {
     try {
       const {} = await apiLogout();
-      removeCookie();
+      Remove({ key: "cookie" });
       window.location.reload();
     } catch (error) {
       console.log(error);

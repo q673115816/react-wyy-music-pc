@@ -1,35 +1,26 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import { IconFolderPlus } from "@tabler/icons";
-import classNames from "classnames";
-import dayjs from "dayjs";
-import { apiRecommendSongs } from "@/api";
 import { SymbolToday } from "@/components/Symbol";
 import useLoginStatus from "@/hooks/useLoginStatus";
-import Rank from "@/components/Table/Rank";
-import Heart from "@/components/Table/Heart";
-import Download from "@/components/Table/Download";
 import GroupPlay from "@/components/GroupPlay";
-import Name from "@/components/Table/Name";
-import Artists from "@/components/Table/Artists";
-import Album from "@/components/Table/Album";
-import MenuCreate from "@/components/MenuCreate";
-import {useGetRecommendSongsQuery} from "@/services/services";
+import { useGetRecommendSongsQuery } from "@/reducers/services";
+import Loading from "@/components/Loading";
+import Content from "./Content";
 
 export default memo(function DailySong() {
   useLoginStatus();
-  const [data, setData] = useState([]);
-  const handleInit = async () => {
-    try {
-      const { data = [] } = await apiRecommendSongs();
-      setData(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  useEffect(() => {
-    handleInit();
-  }, []);
+  const { data, error, isLoading, isFetching, isSuccess, isError, refetch } =
+    useGetRecommendSongsQuery();
+  console.log(data, isLoading);
+
+  if (isLoading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div className="w-full overflow-auto max-h-full flex-auto">
       <div className="px-8 pb-2.5 pt-6 border-b">
@@ -56,62 +47,7 @@ export default memo(function DailySong() {
           </button>
         </div>
       </div>
-      <div
-        className="pb-8"
-        style={{
-          "--ui_grid_template": "36px / 54px 30px 30px 36% 4fr 6fr 2fr",
-        }}
-      >
-        <div className="list">
-          <div className="thead">
-            <div className="item grid leading-8 ui_grid_template">
-              <div className="index" />
-              <div className="heart" />
-              <div className="download" />
-              <div className="name text-gray-500 px-2">音乐标题</div>
-              <div className="artist text-gray-500 px-2">歌手</div>
-              <div className="album text-gray-500 px-2">专辑</div>
-              <div className="duration text-gray-500 px-2">时长</div>
-            </div>
-          </div>
-          <div className="tbody">
-            {data.dailySongs?.map((item, index) => (
-              <MenuCreate
-                schema={[
-                  ["评论", "播放", "下一首播放"],
-                  ["收藏到歌单", "分享", "复制链接", "不感兴趣", "下载"],
-                ]}
-                type="song"
-                item={item}
-                key={item.name + item.id}
-                tabIndex="2"
-                className={classNames(
-                  "grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template",
-                  { "bg-gray-50": index % 2 === 0 }
-                )}
-              >
-                <>
-                  <div className="index pr-3 text-right">
-                    <Rank index={index} id={item.id} />
-                  </div>
-                  <div className="heart">
-                    <Heart id={item.id} />
-                  </div>
-                  <div className="download">
-                    <Download />
-                  </div>
-                  <Name item={item} className="px-2" />
-                  <Artists artists={item.ar} className="px-2" />
-                  <Album className="px-2" name={item.al.name} id={item.al.id} />
-                  <div className="duration text-gray-400 truncate px-2">
-                    {dayjs(item.dt).format("mm:ss")}
-                  </div>
-                </>
-              </MenuCreate>
-            ))}
-          </div>
-        </div>
-      </div>
+      <Content dailySongs={data.data.dailySongs} />
     </div>
   );
 });

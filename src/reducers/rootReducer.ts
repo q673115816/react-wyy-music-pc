@@ -15,4 +15,4 @@ requireContext.keys().forEach((key) => {
 //   root[path.slice(2, -9)] = modules[path].default;
 // }
 
-export default combineReducers(root);
+export default root;

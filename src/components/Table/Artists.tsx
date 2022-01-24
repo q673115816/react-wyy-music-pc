@@ -1,16 +1,16 @@
 import classNames from "classnames";
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 
 interface iProps {
   artists: {
     name: string;
-    id: string;
+    id: number;
   }[];
-  className: "";
+  className: string;
 }
 
-export default memo<iProps>(({ artists = [], className = "" }) =>
+const Artists: FC<iProps> = ({ artists = [], className = "" }) =>
   artists?.length > 0 ? (
     <div
       className={classNames("truncate text-gray-500", className)}
@@ -27,5 +27,6 @@ export default memo<iProps>(({ artists = [], className = "" }) =>
     </div>
   ) : (
     <span className="text-gray-400">未知歌手</span>
-  )
-);
+  );
+
+export default memo(Artists);

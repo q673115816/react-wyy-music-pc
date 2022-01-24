@@ -10,11 +10,11 @@ import React, {
 } from "react";
 import { unstable_batchedUpdates as batchedUpdates } from "react-dom";
 import { apiLoginQrCheck, apiLoginQrCreate, apiLoginQrKey } from "@/api";
-import { setCookie } from "@/api/cookie";
 import { LoginContext, SET_TYPE } from "../Content";
 import Refresh from "./Refresh";
 import Success from "./Success";
 import Wait from "./Wait";
+import { Set } from "@/reducers/utils";
 
 export default memo(function Scan() {
   const [qrimg, setQrimg] = useState("");
@@ -56,7 +56,7 @@ export default memo(function Scan() {
         setStatus(802);
         break;
       case 803:
-        setCookie(cookie);
+        Set({ key: "cookie", value: cookie });
         window.location.reload();
         break;
     }

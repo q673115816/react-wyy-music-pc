@@ -9,7 +9,6 @@ import React, {
 } from "react";
 import { apiLoginCellphone } from "@/api";
 import { IconFaceId, IconQrcode } from "@tabler/icons";
-import { setCookie } from "@/api/cookie";
 
 import Checkbox from "@/components/Checkbox";
 import { LoginContext, SET_SIGNIN_PHONE } from "./Content";
@@ -22,6 +21,7 @@ import {
   SET_TYPE,
 } from "./Content";
 import Input from "./components/Input";
+import { Set } from "@/reducers/utils";
 
 export default memo(() => {
   const {
@@ -47,7 +47,7 @@ export default memo(() => {
           countrycode,
         });
       if (code === 200) {
-        setCookie(cookie);
+        Set({ key: "cookie", value: cookie });
         // handleToggle();
         // dispatch(setLoginInfo(profile));
         // dispatch(setIsLogin());
