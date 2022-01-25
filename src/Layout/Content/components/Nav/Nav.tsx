@@ -9,10 +9,10 @@ import {
   TablerIcon,
 } from "@tabler/icons";
 import classNames from "classnames";
-import { useAppSelector } from "@/reducers/hooks";
+import { useAppSelector } from "@/modules/hooks";
 import style from "./style.module.scss";
 import Playlist from "../Playlist";
-import { AccountState } from "@/reducers/account/slice";
+import { AccountState } from "@/modules/reducers/account/slice";
 
 interface CustomLinkProps {
   name: string;

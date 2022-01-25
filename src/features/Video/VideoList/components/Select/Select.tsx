@@ -1,7 +1,10 @@
 import classNames from "classnames";
-import { setVideoListId, VideoListSelector } from "@/reducers/videolist/slice";
+import {
+  setVideoListId,
+  VideoListSelector,
+} from "@/modules/reducers/videolist/slice";
 import React, { memo, FC } from "react";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import "./style.scss";
 
 interface iProps {

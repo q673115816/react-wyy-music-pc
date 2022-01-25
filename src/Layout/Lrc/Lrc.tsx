@@ -6,8 +6,8 @@ import { useLocation } from "react-router-dom";
 
 import DomCommentsList from "@/components/CommentsList";
 import "./style.scss";
-import { setLyricHide } from "@/reducers/lrc/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { setLyricHide } from "@/modules/reducers/lrc/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Left from "./components/Left";
 import Center from "./components/Center";
 import Right from "./components/Right";

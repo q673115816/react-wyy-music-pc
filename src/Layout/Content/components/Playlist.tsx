@@ -6,7 +6,7 @@ import {
 } from "@tabler/icons";
 import React, { FC, memo, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { playlistState } from "@/reducers/account/slice";
+import { playlistState } from "@/modules/reducers/account/slice";
 import classNames from "classnames";
 
 interface PlaylistProps {

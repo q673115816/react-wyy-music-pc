@@ -1,10 +1,10 @@
 import React, { ChangeEventHandler, memo, useState } from "react";
 import CompoenntCheckbox from "@/components/Checkbox";
-import { setFont } from "@/reducers/setting/slice";
+import { setFont } from "@/modules/reducers/setting/slice";
 import SettingRadio from "./components/SettingRadio";
 import SettingCheck from "./components/SettingCheck";
-import { setToast } from "@/reducers/mask/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { setToast } from "@/modules/reducers/mask/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const fonts = [
   ["inherit", "默认"],

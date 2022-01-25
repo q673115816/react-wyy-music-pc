@@ -1,10 +1,13 @@
 import React, { memo, useEffect, useMemo, useState } from "react";
 import { IconFolderPlus, IconCheckbox } from "@tabler/icons";
 import { Link, useParams } from "react-router-dom";
-import { setDialogUnSubscriptionShow, setToast } from "@/reducers/mask/slice";
+import {
+  setDialogUnSubscriptionShow,
+  setToast,
+} from "@/modules/reducers/mask/slice";
 import { apiArtistDetail, apiArtistSub } from "@/api";
 import { useRefreshArtistSublist } from "@/hooks/useHelp";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 export default memo(function Header() {
   const { id } = useParams();

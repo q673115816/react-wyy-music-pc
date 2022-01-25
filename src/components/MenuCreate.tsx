@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setAudioImmediate } from "@/reducers/audio/slice";
-import { setContextMenuShow } from "@/reducers/mask/slice";
+import { setAudioImmediate } from "@/modules/reducers/audio/slice";
+import { setContextMenuShow } from "@/modules/reducers/mask/slice";
 import { apiCommentMusic, apiCommentMV, apiCommentVideo } from "@/api";
 
 const defaultSchema = [

@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
-import { setMsgPrivateHistory } from "@/reducers/letter/slice";
+import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
 import DomList from "./List";
 import DomMessage from "./Message";
 import "./style.scss";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 export default () => {
   const { showMsgPrivateHistory } = useAppSelector(({ letter }) => letter);

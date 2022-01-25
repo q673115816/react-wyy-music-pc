@@ -12,10 +12,10 @@ import {
   setSearchHistory,
   setSearchHot,
   setSearchSuggest,
-} from "@/reducers/search/slice";
-import { setSearchShow, setDialogReset } from "@/reducers/mask/slice";
+} from "@/modules/reducers/search/slice";
+import { setSearchShow, setDialogReset } from "@/modules/reducers/mask/slice";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const Search = () => {
   const dispatch = useAppDispatch();

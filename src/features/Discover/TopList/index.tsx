@@ -4,10 +4,10 @@ import { IconPlayerPlay } from "@tabler/icons";
 import classNames from "classnames";
 import dayjs from "dayjs";
 import { apiToplistDetail, apiPlaylistDetail, apiToplistArtist } from "@/api";
-import { setTopListsDetail } from "@/reducers/home/slice";
+import { setTopListsDetail } from "@/modules/reducers/home/slice";
 import { transPlayCount } from "@/common/utils";
 import Loading from "@/components/Loading";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const Content = ({ tracks = [] }) => (
   <div className="official_rank_list flex-1 flex flex-col h-full">

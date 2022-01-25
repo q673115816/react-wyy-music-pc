@@ -13,8 +13,8 @@ import DomGroupPlay from "@/components/GroupPlay";
 import DomName from "@/components/Table/Name";
 import DomArtist from "@/components/Table/Artists";
 import DomMenuCreate from "@/components/MenuCreate";
-import { setAudioHistoryClear } from "@/reducers/audio/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { setAudioHistoryClear } from "@/modules/reducers/audio/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const DomTable = ({ history = [] }) => (
   <div

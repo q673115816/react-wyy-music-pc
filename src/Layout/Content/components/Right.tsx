@@ -1,8 +1,8 @@
 import React, { memo, useState } from "react";
 import { IconEar, IconList, IconUsers } from "@tabler/icons";
-import { setPopupPlaylistToggle } from "@/reducers/mask/slice";
+import { setPopupPlaylistToggle } from "@/modules/reducers/mask/slice";
 import Volume from "./Volume";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import ToneQuality from "./ToneQuality";
 
 export default memo(function Right() {

@@ -1,5 +1,5 @@
 import React, { FC, memo } from "react";
-import { setGlobalLrcHide, setLyricToggle } from "@/reducers/lrc/slice";
+import { setGlobalLrcHide, setLyricToggle } from "@/modules/reducers/lrc/slice";
 import {
   IconMusic,
   IconPlayerPause,
@@ -12,8 +12,8 @@ import {
   setAudioNext,
   setAudioPrev,
   setAudioRunningToggle,
-} from "@/reducers/audio/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+} from "@/modules/reducers/audio/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 interface iControlProps {}
 

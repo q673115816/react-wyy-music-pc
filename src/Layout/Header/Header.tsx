@@ -6,10 +6,13 @@ import React, {
   MouseEventHandler,
 } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "@/reducers/hooks";
+import { useAppDispatch } from "@/modules/hooks";
 
-import { setContriesCodeList, setMsgPrivate } from "@/reducers/common/slice";
-import { setLoginInfo } from "@/reducers/account/slice";
+import {
+  setContriesCodeList,
+  setMsgPrivate,
+} from "@/modules/reducers/common/slice";
+import { setLoginInfo } from "@/modules/reducers/account/slice";
 import {
   apiCountriesCodeList,
   apiUserAccount,
@@ -27,7 +30,7 @@ import {
   setGlobalInset,
   setGlobalDragger,
   setGlobalStartInset,
-} from "@/reducers/inset/slice";
+} from "@/modules/reducers/inset/slice";
 import Drag from "@/components/Drag";
 import { IconMicrophone } from "@tabler/icons";
 

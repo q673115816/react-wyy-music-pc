@@ -2,8 +2,11 @@ import React, { memo, useContext, useState } from "react";
 import classNames from "classnames";
 import { IconCaretDown, IconDeviceMobile } from "@tabler/icons";
 import { SET_SIGNIN_COUNTRYCODE, LoginContext } from "../Content";
-import { useAppSelector } from "@/reducers/hooks";
-import { CountriesCodeItem, CountryItem } from "@/reducers/common/slice";
+import { useAppSelector } from "@/modules/hooks";
+import {
+  CountriesCodeItem,
+  CountryItem,
+} from "@/modules/reducers/common/slice";
 
 export default memo(() => {
   const { countriesCodeList } = useAppSelector(({ common }) => common);

@@ -11,8 +11,8 @@ import {
   setScreenNormal,
   setPositionFalse,
   setPositionTrue,
-} from "@/reducers/inset/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+} from "@/modules/reducers/inset/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const Control = () => {
   const dispatch = useAppDispatch();

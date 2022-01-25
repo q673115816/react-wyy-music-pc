@@ -1,7 +1,7 @@
 import React, { useCallback, useState, memo } from "react";
-import { useAppSelector, useAppDispatch } from "@/reducers/hooks";
+import { useAppSelector, useAppDispatch } from "@/modules/hooks";
 import classNames from "classnames";
-import { setLocalCurrent } from "@/reducers/local/slice";
+import { setLocalCurrent } from "@/modules/reducers/local/slice";
 
 const nav = ["歌曲", "歌手", "专辑", "文件夹"];
 

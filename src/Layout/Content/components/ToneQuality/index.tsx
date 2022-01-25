@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import classNames from "classnames";
-import { useAppSelector } from "@/reducers/hooks";
+import { useAppSelector } from "@/modules/hooks";
 import style from "./style.module.scss";
 
 type Rate = 128000 | 192000 | 320000 | 999000;

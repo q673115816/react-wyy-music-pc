@@ -8,9 +8,9 @@ import {
   setAudioNext,
   setRunErrorAdd,
   setRunErrorDesc,
-} from "@/reducers/audio/slice";
-import { setLyricText } from "@/reducers/lrc/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+} from "@/modules/reducers/audio/slice";
+import { setLyricText } from "@/modules/reducers/lrc/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 export default memo(() => {
   console.log("init audio");

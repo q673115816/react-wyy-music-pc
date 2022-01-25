@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   apiFollow,
   apiVideoSub,
@@ -10,8 +10,11 @@ import {
   apiResourceLike,
 } from "@/api";
 import { commentLimit as limit } from "@/common/config";
-import { setToast, setDialogDownloadVideoShow } from "@/reducers/mask/slice";
-import { setMVSublist } from "@/reducers/account/slice";
+import {
+  setToast,
+  setDialogDownloadVideoShow,
+} from "@/modules/reducers/mask/slice";
+import { setMVSublist } from "@/modules/reducers/account/slice";
 import UseVideoInit from "./UseVideoInit";
 import UseMVInit from "./UseMVInit";
 import FNDownload from "./Download";

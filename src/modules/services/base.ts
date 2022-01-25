@@ -1,8 +1,4 @@
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
-import { EndpointBuilder } from "@reduxjs/toolkit/dist/query/endpointDefinitions";
-import { RootState } from "@/reducers/store";
-import { Get } from "@/reducers/utils";
-import { Daily } from "./types";
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
   baseUrl: API_URL,
@@ -18,20 +14,8 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithRetry = retry(baseQuery, { maxRetries: 2 });
 
-export const api = createApi({
+export const base = createApi({
   reducerPath: "daily",
   baseQuery: baseQueryWithRetry,
-  endpoints: (build) => ({
-    getRecommendSongs: build.query<Daily, void>({
-      query: (body) => ({
-        url: `recommend/songs`,
-        method: "POST",
-        body: {
-          cookie: Get({ key: "cookie" }),
-        },
-      }),
-    }),
-  }),
+  endpoints: (build) => ({}),
 });
-
-export const { useGetRecommendSongsQuery } = api;

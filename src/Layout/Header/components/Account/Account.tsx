@@ -1,8 +1,8 @@
 import React, { useState, memo, MouseEventHandler, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { IconUser, IconCaretDown } from "@tabler/icons";
-import { setLoginVisibilty } from "@/reducers/common/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { setLoginVisibilty } from "@/modules/reducers/common/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Profile from "./Profile";
 const Account = () => {
   const dispatch = useAppDispatch();

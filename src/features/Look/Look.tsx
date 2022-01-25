@@ -2,7 +2,7 @@ import React, { memo, useEffect, createContext } from "react";
 import { useImmerReducer } from "use-immer";
 import { Routes, Route, Outlet } from "react-router-dom";
 import adapter from "webrtc-adapter";
-import { useAppDispatch } from "@/reducers/hooks";
+import { useAppDispatch } from "@/modules/hooks";
 import {
   LookInitialState,
   LookReducer,

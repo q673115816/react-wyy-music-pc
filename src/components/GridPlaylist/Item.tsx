@@ -1,11 +1,15 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay, IconLock } from "@tabler/icons";
 import { transPlayCount } from "@/common/utils";
-import DomPlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
+import PlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
 import DomMenuCreate from "@/components/MenuCreate";
 
-export default memo(({ item }) => (
+interface iProps {
+  item: {};
+}
+
+const Item: FC<iProps> = ({ item = {} }) => (
   // <DomMenuCreate
   //   item={item}
   //   type="playlist"
@@ -48,12 +52,12 @@ export default memo(({ item }) => (
           </div>
         </div>
       )}
-      <DomPlaylistAsyncReplace
+      <PlaylistAsyncReplace
         id={item.id}
         className="playArrow ui_themeColor absolute right-0 bottom-0 m-2 p-2 bg-white bg-opacity-90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
       >
         <IconPlayerPlay size={22} className="fill-current" />
-      </DomPlaylistAsyncReplace>
+      </PlaylistAsyncReplace>
     </div>
     <div className="footer text-sm mt-2 ui_ellipse">
       <Link className="name" to={`/playlist/music/${item.id}`}>
@@ -61,4 +65,6 @@ export default memo(({ item }) => (
       </Link>
     </div>
   </div>
-));
+);
+
+export default memo(Item);

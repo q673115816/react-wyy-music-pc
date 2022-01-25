@@ -1,5 +1,5 @@
 import React, { useEffect, memo, useMemo } from "react";
-import { useAppSelector, useAppDispatch } from "@/reducers/hooks";
+import { useAppSelector, useAppDispatch } from "@/modules/hooks";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { IconChevronRight } from "@tabler/icons";
@@ -11,7 +11,7 @@ import {
   handleChangeFirstArea,
   handleChangeTopArea,
   MVListSelector,
-} from "@/reducers/mvlist/slice";
+} from "@/modules/reducers/mvlist/slice";
 
 const category = ["内地", "港台", "欧美", "日本", "韩国"];
 

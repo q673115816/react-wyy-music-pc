@@ -9,8 +9,8 @@ import {
   setVideoListInit,
   Category,
   VideoListSelector,
-} from "@/reducers/videolist/slice";
-import { useAppSelector, useAppDispatch } from "@/reducers/hooks";
+} from "@/modules/reducers/videolist/slice";
+import { useAppSelector, useAppDispatch } from "@/modules/hooks";
 import DomLoading from "@/components/Loading";
 import Select from "./components/Select";
 

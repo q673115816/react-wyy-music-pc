@@ -1,6 +1,6 @@
 import React, { FC, memo, MouseEventHandler, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { setDialogReset } from "@/reducers/mask/slice";
+import { setDialogReset } from "@/modules/reducers/mask/slice";
 
 const Mask: FC<{}> = ({ children, ...props }) => {
   const dispatch = useDispatch();

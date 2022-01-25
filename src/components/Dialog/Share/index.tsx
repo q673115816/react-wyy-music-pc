@@ -13,7 +13,7 @@ import {
   setDialogReset,
   setDialogShareWXShow,
   setToast,
-} from "@/reducers/mask/slice";
+} from "@/modules/reducers/mask/slice";
 import HOCDialog from "../Dialog";
 import "./style.scss";
 import useCopyLink from "@/hooks/useCopyLink";

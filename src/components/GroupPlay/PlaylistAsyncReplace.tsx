@@ -1,9 +1,14 @@
-import React from "react";
-import { setAudioPlaylist } from "@/reducers/audio/slice";
+import React, { FC, memo } from "react";
+import { setAudioPlaylist } from "@/modules/reducers/audio/slice";
 import { apiPlaylistDetail, apiSongDetail } from "@/api";
-import { useAppDispatch } from "@/reducers/hooks";
+import { useAppDispatch } from "@/modules/hooks";
 
-export default ({ children, id, ...props }) => {
+interface iProps {
+  id: number;
+  className: string;
+}
+
+const PlaylistAsyncReplace: FC<iProps> = ({ children, id, className = "" }) => {
   const dispatch = useAppDispatch();
   const handleAllPlay = async () => {
     const data = await apiPlaylistDetail({
@@ -16,8 +21,10 @@ export default ({ children, id, ...props }) => {
     return dispatch(setAudioPlaylist({ playlist }));
   };
   return (
-    <button type="button" onClick={handleAllPlay} {...props}>
+    <button type="button" onClick={handleAllPlay} className={className}>
       {children}
     </button>
   );
 };
+
+export default memo(PlaylistAsyncReplace);

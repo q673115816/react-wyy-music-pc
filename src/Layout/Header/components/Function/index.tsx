@@ -1,9 +1,9 @@
 import React, { useState, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconSettings, IconPalette, IconMail } from "@tabler/icons";
-import { setPopupLetterToggle } from "@/reducers/mask/slice";
+import { setPopupLetterToggle } from "@/modules/reducers/mask/slice";
 import DomSkinPop from "./Skin";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const SkinBtn = memo(() => {
   const [visibility, setVisibility] = useState(false);

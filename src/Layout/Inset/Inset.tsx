@@ -1,5 +1,5 @@
 import React, { FC, memo, useMemo } from "react";
-import { useAppSelector } from "@/reducers/hooks";
+import { useAppSelector } from "@/modules/hooks";
 import "./style.scss";
 
 interface iInset {}

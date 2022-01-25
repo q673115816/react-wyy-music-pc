@@ -9,14 +9,14 @@ import { Link, useLocation } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
 import { apiPersonalizedPrivatecontentList } from "@/api";
 import useInfinite from "@/hooks/useInfinite";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   ResultProps,
   setExclusiveResultAdd,
   setExclusiveResultEmpty,
   setExclusiveScrollTop,
   handleGetData,
-} from "@/reducers/exclusive/slice";
+} from "@/modules/reducers/exclusive/slice";
 import ResizeObserver from "@/components/ResizeObserver";
 
 export default memo(function Exclusive() {

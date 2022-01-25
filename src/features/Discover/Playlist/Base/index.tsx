@@ -8,14 +8,17 @@ import {
   apiPlaylistHighqualityTags,
   apiPlaylistHot,
 } from "@/api";
-import { setTopPlaylist, setPlaylistCatlist } from "@/reducers/home/slice";
+import {
+  setTopPlaylist,
+  setPlaylistCatlist,
+} from "@/modules/reducers/home/slice";
 import Loading from "@/components/Loading";
 import Resize from "@/components/ResizeObserver";
 import DomPage from "@/components/Page";
 import Item from "@/components/GridPlaylist/Item";
 import Banner from "./components/Banner";
 import HeaderBar from "./components/HeaderBar";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 export default memo(function Playlist() {
   const { cat, page } = useParams();

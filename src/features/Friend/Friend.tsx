@@ -7,7 +7,7 @@ import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";
 import Dynamic from "@/components/Dynamic";
 import Aside from "./components/Aside";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const getArticleFromJson = (json) => {
   const obj = JSON.parse(json);

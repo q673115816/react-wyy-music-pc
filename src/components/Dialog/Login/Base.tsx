@@ -6,7 +6,7 @@ import React, {
   useReducer,
 } from "react";
 import { IconX } from "@tabler/icons";
-import { setLoginVisibilty } from "@/reducers/common/slice";
+import { setLoginVisibilty } from "@/modules/reducers/common/slice";
 import { useImmerReducer } from "use-immer";
 import "./style.scss";
 import Scan from "./Scan";
@@ -14,7 +14,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Reset from "./Reset";
 import Identify from "./Identify";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   LoginInitialState,
   LoginReducer,

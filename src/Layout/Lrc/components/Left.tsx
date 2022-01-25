@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { IconFolderPlus, IconCloudDownload, IconShare } from "@tabler/icons";
 import DomHeart from "@/components/Table/Heart";
 import classNames from "classnames";
-import { useAppSelector } from "@/reducers/hooks";
+import { useAppSelector } from "@/modules/hooks";
 
 export default memo(() => {
   const { currentSong } = useAppSelector(({ audio }) => audio);

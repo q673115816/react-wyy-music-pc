@@ -1,13 +1,13 @@
 import React, { useRef, useState, memo, MouseEventHandler } from "react";
 import dayjs from "dayjs";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   setJumpToAudioCurrentTime,
   setAudioCurrentTime,
   setAudioDropping,
   setAudioRunning,
   setAudioPattern,
-} from "@/reducers/audio/slice";
+} from "@/modules/reducers/audio/slice";
 import { computedPositionPercentage } from "@/common/utils";
 import Drag from "@/components/Drag";
 import style from "./style.module.scss";

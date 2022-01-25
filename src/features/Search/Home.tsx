@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { apiCloudSearch, apiSearchMultimatch } from "@/api";
-import { setSearchValue } from "@/reducers/search/slice";
+import { setSearchValue } from "@/modules/reducers/search/slice";
 import "./style.scss";
 import Loading from "@/components/Loading";
 import Page from "@/components/Page";
@@ -14,7 +14,7 @@ import Lyrics from "./Lyrics";
 import DJRadios from "./DJRadios";
 import Userprofiles from "./Userprofiles";
 import classNames from "classnames";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const switchs = {
   单曲: {

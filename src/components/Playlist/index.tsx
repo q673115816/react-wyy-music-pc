@@ -9,8 +9,8 @@ import {
   IconPlayerPlay,
   IconPlayerPause,
 } from "@tabler/icons";
-import { setAudioPlaylistClear } from "@/reducers/audio/slice";
-import { setPopupPlaylistToggle } from "@/reducers/mask/slice";
+import { setAudioPlaylistClear } from "@/modules/reducers/audio/slice";
+import { setPopupPlaylistToggle } from "@/modules/reducers/mask/slice";
 import DomName from "@/components/Table/Name";
 import DomMenuCreate from "@/components/MenuCreate";
 import "./style.scss";

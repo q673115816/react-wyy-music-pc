@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import { IconVolume, IconVolume3 } from "@tabler/icons";
-import { useAppSelector } from "@/reducers/hooks";
+import { useAppSelector } from "@/modules/hooks";
 
 interface IProps {
   id: number;

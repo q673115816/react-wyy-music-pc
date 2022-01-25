@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import formatLrc from "./format";
 import { Draft } from "immer";
-import { Get, Set } from "../utils";
+import { Get, Set } from "../../utils";
 interface LrcState {
   globalLrcVisibility: boolean;
   lyricVisibility: boolean;

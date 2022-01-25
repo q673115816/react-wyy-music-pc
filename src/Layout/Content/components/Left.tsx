@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconChevronUp, IconChevronDown } from "@tabler/icons";
-import { setLyricText, setLyricToggle } from "@/reducers/lrc/slice";
+import { setLyricText, setLyricToggle } from "@/modules/reducers/lrc/slice";
 import Heart from "@/components/Table/Heart";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Audio from "./Audio";
 const Left = () => {
   const dispatch = useAppDispatch();

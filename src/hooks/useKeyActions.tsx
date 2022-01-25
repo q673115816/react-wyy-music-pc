@@ -3,9 +3,12 @@ import {
   setAudioRunningToggle,
   setAudioNext,
   setAudioPrev,
-} from "@/reducers/audio/slice";
-import { setVolumePlusTen, setVolumeSubTen } from "@/reducers/volume/slice";
-import { useAppDispatch } from "@/reducers/hooks";
+} from "@/modules/reducers/audio/slice";
+import {
+  setVolumePlusTen,
+  setVolumeSubTen,
+} from "@/modules/reducers/volume/slice";
+import { useAppDispatch } from "@/modules/hooks";
 
 const useKeyActions = () => {
   console.log("action");

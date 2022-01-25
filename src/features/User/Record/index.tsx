@@ -7,7 +7,7 @@ import Rank from "@/components/Table/Rank";
 import Heart from "@/components/Table/Heart";
 import Download from "@/components/Table/Download";
 import Name from "@/components/Table/Name";
-import { useAppSelector } from "@/reducers/hooks";
+import { useAppSelector } from "@/modules/hooks";
 
 const Record = () => {
   const { uid } = useParams();

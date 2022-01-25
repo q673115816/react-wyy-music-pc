@@ -21,7 +21,7 @@ import {
   SET_TYPE,
 } from "./Content";
 import Input from "./components/Input";
-import { Set } from "@/reducers/utils";
+import { Set } from "@/modules/utils";
 
 export default memo(() => {
   const {

@@ -1,12 +1,12 @@
 import React, { memo, MouseEvent, MouseEventHandler, useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { IconChevronDownRight } from "@tabler/icons";
 import {
   setGlobalRect,
   setGlobalStartRect,
   setGlobalResizer,
   setGlobalStartRectLock,
-} from "@/reducers/inset/slice";
+} from "@/modules/reducers/inset/slice";
 import Drag from "@/components/Drag";
 
 export default memo(function Resizer() {

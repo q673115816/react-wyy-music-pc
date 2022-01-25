@@ -8,7 +8,7 @@ import Name from "@/components/Table/Name";
 import Artists from "@/components/Table/Artists";
 import Album from "@/components/Table/Album";
 import dayjs from "dayjs";
-import { DailySong } from "@/reducers/types";
+import { DailySong } from "@/modules/services/daily/types";
 
 interface iProps {
   dailySongs: DailySong[];

@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { transTextEmoji } from "@/common/faces";
 import { apiSendText, apiMsgPrivateHistory } from "@/api";
-import { setMsgPrivateHistory } from "@/reducers/letter/slice";
+import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
 import { wordLength } from "@/common/utils";
 import { Link } from "react-router-dom";
 import {
@@ -13,7 +13,7 @@ import {
 } from "@tabler/icons";
 import PanelEmoji from "@/components/PanelEmoji";
 import Write from "@/components/Write";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const Song = ({ msg = {} }) => (
   <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">

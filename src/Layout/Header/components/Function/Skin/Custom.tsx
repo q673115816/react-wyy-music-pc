@@ -5,9 +5,9 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { setCustom, setTheme } from "@/reducers/setting/slice";
+import { setCustom, setTheme } from "@/modules/reducers/setting/slice";
 import Check from "./Check";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { hexToHSL, HSLToHex } from "./utils";
 
 const Custom: FC = () => {

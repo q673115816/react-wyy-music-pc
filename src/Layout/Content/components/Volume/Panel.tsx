@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { computedPositionPercentage, isInTheRect } from "@/common/utils";
-import { setVolume } from "@/reducers/volume/slice";
+import { setVolume } from "@/modules/reducers/volume/slice";
 import Drag from "@/components/Drag";
 import React, { FC, memo, MouseEventHandler, useRef, useState } from "react";
 

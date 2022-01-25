@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import React, { useState, useEffect, memo, MouseEventHandler } from "react";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   setGlobalLrcInset,
   setGlobalLrcStartInset,
-} from "@/reducers/inset/slice";
-import { LrcSelector } from "@/reducers/lrc/slice";
+} from "@/modules/reducers/inset/slice";
+import { LrcSelector } from "@/modules/reducers/lrc/slice";
 import "./style.scss";
 import Drag from "@/components/Drag";
 import Control from "./Control";

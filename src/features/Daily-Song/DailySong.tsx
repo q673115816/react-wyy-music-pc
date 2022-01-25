@@ -3,7 +3,7 @@ import { IconFolderPlus } from "@tabler/icons";
 import { SymbolToday } from "@/components/Symbol";
 import useLoginStatus from "@/hooks/useLoginStatus";
 import GroupPlay from "@/components/GroupPlay";
-import { useGetRecommendSongsQuery } from "@/reducers/services";
+import { useGetRecommendSongsQuery } from "@/modules/services/daily";
 import Loading from "@/components/Loading";
 import Content from "./Content";
 
@@ -16,7 +16,7 @@ export default memo(function DailySong() {
 
   if (isLoading) {
     return (
-      <div>
+      <div className={`flex-center pt-48`}>
         <Loading />
       </div>
     );
@@ -36,7 +36,7 @@ export default memo(function DailySong() {
           </div>
         </div>
         <div className="actions flex mt-5">
-          <GroupPlay playlist={data.dailySongs} />
+          <GroupPlay playlist={data.data.dailySongs} />
           &nbsp; &nbsp;
           <button
             type="button"

@@ -8,9 +8,9 @@ import {
   apiMsgForwards,
   apiMsgNotices,
 } from "@/api";
-import { setMsgPrivateHistory } from "@/reducers/letter/slice";
-import { setMsgPrivate } from "@/reducers/common/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
+import { setMsgPrivate } from "@/modules/reducers/common/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const BuildList = {
   song: (msg) => (

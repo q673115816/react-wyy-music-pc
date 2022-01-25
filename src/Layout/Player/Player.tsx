@@ -16,13 +16,13 @@ import {
 import "./style.scss";
 
 import { transPlayCount } from "@/common/utils";
-import { setAudioRunningPause } from "@/reducers/audio/slice";
+import { setAudioRunningPause } from "@/modules/reducers/audio/slice";
 
 import { apiFollow, apiCommentVideo, apiCommentMV } from "@/api";
-import { setVideoListId } from "@/reducers/videolist/slice";
+import { setVideoListId } from "@/modules/reducers/videolist/slice";
 import Write from "@/components/Write";
 
-import { useAppDispatch } from "@/reducers/hooks";
+import { useAppDispatch } from "@/modules/hooks";
 import CommentsList from "@/components/CommentsList";
 import Page from "@/components/Page";
 

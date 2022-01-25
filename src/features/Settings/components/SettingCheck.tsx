@@ -1,7 +1,7 @@
 import React, { FC, memo } from "react";
 import { IconCheck } from "@tabler/icons";
 import Checkbox from "@/components/Checkbox";
-import { setToast } from "@/reducers/mask/slice";
+import { setToast } from "@/modules/reducers/mask/slice";
 import { useDispatch } from "react-redux";
 
 interface iSettingCheck {

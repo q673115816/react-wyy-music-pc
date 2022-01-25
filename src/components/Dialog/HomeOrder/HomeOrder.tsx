@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
-import { setDialogReset } from "@/reducers/mask/slice";
-import { setHomeOrder, defaultOrder } from "@/reducers/setting/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { setDialogReset } from "@/modules/reducers/mask/slice";
+import { setHomeOrder, defaultOrder } from "@/modules/reducers/setting/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { IconBulb } from "@tabler/icons";
 import "./style.scss";
 import HOCDialog from "../Dialog";

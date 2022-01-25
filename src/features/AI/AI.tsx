@@ -1,10 +1,10 @@
 import React, { useState, memo, useEffect, MouseEventHandler, FC } from "react";
 import { IconFileImport, IconMicrophone } from "@tabler/icons";
 import "./style.scss";
-import { setToast } from "@/reducers/mask/slice";
+import { setToast } from "@/modules/reducers/mask/slice";
 import IconRejected from "./Icon";
 import Speech from "./Speech";
-import { useAppDispatch } from "@/reducers/hooks";
+import { useAppDispatch } from "@/modules/hooks";
 import { useCallback } from "react";
 import { useRef } from "react";
 

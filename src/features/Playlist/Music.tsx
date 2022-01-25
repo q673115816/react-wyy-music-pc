@@ -10,7 +10,7 @@ import React, {
 
 import { apiPlaylistDetail, apiPlaylistSubscribe, apiSongDetail } from "@/api";
 
-import { setToast } from "@/reducers/mask/slice";
+import { setToast } from "@/modules/reducers/mask/slice";
 import classNames from "classnames";
 import Loading from "@/components/Loading";
 
@@ -18,7 +18,7 @@ import Header from "./components/Header";
 import Playlist from "./components/Playlist";
 import Comments from "./components/Comments";
 import Subscribers from "./components/Subscribers";
-import { useAppDispatch } from "@/reducers/hooks";
+import { useAppDispatch } from "@/modules/hooks";
 import { useParams } from "react-router-dom";
 import { useImmer } from "use-immer";
 

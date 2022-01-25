@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { apiHotTopic } from "@/api";
 import { Link } from "react-router-dom";
 import Gender from "@/components/Gender";
-import { setLoginVisibilty } from "@/reducers/common/slice";
+import { setLoginVisibilty } from "@/modules/reducers/common/slice";
 import TopicList from "./TopicList";
 import React, { memo, useEffect, useState } from "react";
 

@@ -1,5 +1,5 @@
-import { useAppDispatch } from "@/reducers/hooks";
-import { setToast } from "@/reducers/mask/slice";
+import { useAppDispatch } from "@/modules/hooks";
+import { setToast } from "@/modules/reducers/mask/slice";
 import { IconBrandGithub } from "@tabler/icons";
 import React, { memo, useCallback, useState } from "react";
 import { useRef } from "react";

@@ -4,7 +4,7 @@ import { IconPlayerPlay } from "@tabler/icons";
 import { transPlayCount } from "@/common/utils";
 import { SymbolToday } from "@/components/Symbol";
 import DomPlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
-import { useAppSelector } from "@/reducers/hooks";
+import { useAppSelector } from "@/modules/hooks";
 
 export default memo(({ playlist = [] }) => {
   const { isLogin } = useAppSelector(({ common }) => common);

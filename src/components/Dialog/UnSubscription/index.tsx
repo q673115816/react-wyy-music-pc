@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { setDialogReset, setToast } from "@/reducers/mask/slice";
+import { setDialogReset, setToast } from "@/modules/reducers/mask/slice";
 import { useDispatch, useSelector } from "react-redux";
 import { apiArtistSub } from "@/api";
 import { useRefreshArtistSublist } from "@/hooks/useHelp";

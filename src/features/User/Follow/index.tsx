@@ -10,8 +10,8 @@ import { apiUserDetail, apiUserFollows, apiFollow } from "@/api";
 import { Link, useParams } from "react-router-dom";
 import produce from "immer";
 
-import { setPopupLetterToggle } from "@/reducers/mask/slice";
-import { setMsgPrivateHistory } from "@/reducers/letter/slice";
+import { setPopupLetterToggle } from "@/modules/reducers/mask/slice";
+import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
 import { useDispatch, useSelector } from "react-redux";
 import DomLoading from "@/components/Loading";
 import useInfinite from "@/hooks/useInfinite";

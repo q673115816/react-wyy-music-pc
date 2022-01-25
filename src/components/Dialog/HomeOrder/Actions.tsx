@@ -3,7 +3,7 @@ import Drag from "@/components/Drag";
 import classNames from "classnames";
 import { IconMenu } from "@tabler/icons";
 import produce from "immer";
-import { Order } from "@/reducers/setting/slice";
+import { Order } from "@/modules/reducers/setting/slice";
 
 const useActions = ({ order }: { order: Order }) => {
   const [tempHomeOrder, setTempHomeOrder] = useState(order);

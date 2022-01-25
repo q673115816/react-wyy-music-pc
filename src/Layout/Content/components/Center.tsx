@@ -14,12 +14,12 @@ import {
   setAudioPattern,
   setAudioPrev,
   setAudioNext,
-} from "@/reducers/audio/slice";
-import { setGlobalLrcToggle } from "@/reducers/lrc/slice";
+} from "@/modules/reducers/audio/slice";
+import { setGlobalLrcToggle } from "@/modules/reducers/lrc/slice";
 import { audioPattern } from "@/common/config";
 import classNames from "classnames";
 import Timing from "./Timing";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import style from "./style.module.scss";
 
 const audioPatternIcon = [

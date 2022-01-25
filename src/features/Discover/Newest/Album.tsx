@@ -1,11 +1,11 @@
 import React, { memo, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { apiTopAlbum, apiAlbumNew } from "@/api";
-import { setTopAlbum } from "@/reducers/home/slice";
+import { setTopAlbum } from "@/modules/reducers/home/slice";
 import classNames from "classnames";
 
 import { limit } from "@/common/config";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const arealist = [
   {

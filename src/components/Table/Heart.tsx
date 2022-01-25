@@ -2,9 +2,12 @@ import React, { FC, memo } from "react";
 import classNames from "classnames";
 import { IconHeart } from "@tabler/icons";
 import { apiLike } from "@/api";
-import { setToast } from "@/reducers/mask/slice";
-import { setLikelistAdd, setLikelistDel } from "@/reducers/account/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { setToast } from "@/modules/reducers/mask/slice";
+import {
+  setLikelistAdd,
+  setLikelistDel,
+} from "@/modules/reducers/account/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 interface IProps {
   id: number;

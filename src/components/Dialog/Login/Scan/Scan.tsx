@@ -14,7 +14,7 @@ import { LoginContext, SET_TYPE } from "../Content";
 import Refresh from "./Refresh";
 import Success from "./Success";
 import Wait from "./Wait";
-import { Set } from "@/reducers/utils";
+import { Set } from "@/modules/utils";
 
 export default memo(function Scan() {
   const [qrimg, setQrimg] = useState("");

@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import rootReducer from "./rootReducer";
-import { api } from "./services";
+import { base } from "./services/base";
 // We'll use redux-logger just as an example of adding another middleware
 import logger from "redux-logger";
 import { combineReducers } from "redux";
@@ -21,11 +21,11 @@ if (window && window.__STATE__) {
 
 const store = configureStore({
   reducer: combineReducers({
-    [api.reducerPath]: api.reducer,
+    [base.reducerPath]: base.reducer,
     ...rootReducer,
   }),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware().concat(base.middleware),
   devTools: NODE_ENV !== "production",
   preloadedState,
   // enhancers: [reduxBatch],

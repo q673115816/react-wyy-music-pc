@@ -8,11 +8,11 @@ import { SymbolWB } from "@/components/Symbol";
 import Loading from "@/components/Loading";
 
 import Layout from "./components/layout";
-import { useAppSelector } from "@/reducers/hooks";
+import { useAppSelector } from "@/modules/hooks";
 const defaultUser = {
   profile: {},
-  bindings: []
-}
+  bindings: [],
+};
 const Detail = () => {
   const { uid } = useParams();
   const { isLogin } = useAppSelector(({ common }) => common);
@@ -21,9 +21,9 @@ const Detail = () => {
   const [playlist, setPlaylist] = useState([]);
   const [loading, setLoading] = useState(false);
   const isSelf = useMemo(() => {
-    if(!isLogin) return false
-    return String(account.profile.userId) === uid
-  }, [isLogin])
+    if (!isLogin) return false;
+    return String(account.profile.userId) === uid;
+  }, [isLogin]);
 
   const ownPlaylist = playlist.filter((item) => String(item.userId) === uid);
 
@@ -34,7 +34,7 @@ const Detail = () => {
         apiUserDetail({ uid }),
         apiUserPlaylist({ uid }),
       ]);
-      setUser({...defaultUser, ...user });
+      setUser({ ...defaultUser, ...user });
       setPlaylist(playlist);
       setLoading(true);
     } catch (error) {
@@ -70,10 +70,8 @@ const Detail = () => {
       </div>
     );
   }
-  if(user.code === 404) {
-    return (
-      <div className={`flex`}>用户不存在</div>
-    )
+  if (user.code === 404) {
+    return <div className={`flex`}>用户不存在</div>;
   }
   return (
     <div className="domUserDetail">

@@ -11,10 +11,10 @@ import {
   setAudioCurrentTime,
   setAudioNext,
   setRunErrorAdd,
-} from "@/reducers/audio/slice";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+} from "@/modules/reducers/audio/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { apiLyric, apiSongUrl } from "@/api";
-import { setLyricText } from "@/reducers/lrc/slice";
+import { setLyricText } from "@/modules/reducers/lrc/slice";
 
 const Audio = () => {
   const dispatch = useAppDispatch();
@@ -24,13 +24,13 @@ const Audio = () => {
 
   const [audioReady, setAudioReady] = useState(false);
   const RefAudio = useRef(null);
-  console.log("currentTime:", currentTime);
+  // console.log("currentTime:", currentTime);
   const handleDurationChange: ReactEventHandler<HTMLAudioElement> = (e) => {
-    console.log("handleDurationChange", e);
+    // console.log("handleDurationChange", e);
   };
 
   const handleLoadedMetadata: ReactEventHandler<HTMLAudioElement> = (e) => {
-    if (running) e.target.play();
+    if (running) e.currentTarget.play();
   };
 
   const handleProgress: ReactEventHandler<HTMLAudioElement> = (e) => {
@@ -83,7 +83,7 @@ const Audio = () => {
   }, [currentSong]);
 
   const handleRunningFollow: ReactEventHandler<HTMLAudioElement> = (e) => {
-    console.log("handleRunningFollow", e.target.currentTime, running);
+    // console.log("handleRunningFollow", e.target.currentTime, running);
     if (dropping) return;
     if (!running) return;
     dispatch(setAudioCurrentTime(e.target.currentTime));

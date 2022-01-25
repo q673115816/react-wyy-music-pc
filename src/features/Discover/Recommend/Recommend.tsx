@@ -8,8 +8,8 @@ import {
   apiPersonalizedMV,
   apiPersonalizedDjprogram,
 } from "@/api";
-import { setHomeRecommend } from "@/reducers/home/slice";
-import { setDialogHomeOrderShow } from "@/reducers/mask/slice";
+import { setHomeRecommend } from "@/modules/reducers/home/slice";
+import { setDialogHomeOrderShow } from "@/modules/reducers/mask/slice";
 import DomSwiper from "@/components/Swiper";
 import { IconChevronRight } from "@tabler/icons";
 import DOMkankan from "@/components/AdLookRectangle";
@@ -21,7 +21,7 @@ import RecommendPrivatecontent from "./Privatecontent";
 import RecommendNewsong from "./Newsong";
 import RecommendDjprogram from "./Djprogram";
 import RecommendMV from "./MV";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const GridObj = {
   推荐歌单: ["/home/playlist", RecommendPlaylist],

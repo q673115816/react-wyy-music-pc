@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, memo } from "react";
 import "./style.scss";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { setLoginVisibilty } from "@/reducers/common/slice";
+import { setLoginVisibilty } from "@/modules/reducers/common/slice";
 // import useIsLogin from '@/hooks/useIsLogin';
 
 import DomNormal from "./Normal";

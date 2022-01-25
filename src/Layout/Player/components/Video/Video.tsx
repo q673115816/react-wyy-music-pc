@@ -10,7 +10,10 @@ import React, {
 } from "react";
 import { IconPlayerPlay, IconRefresh } from "@tabler/icons";
 import classNames from "classnames";
-import { setPositionFalse, setPositionTrue } from "@/reducers/inset/slice";
+import {
+  setPositionFalse,
+  setPositionTrue,
+} from "@/modules/reducers/inset/slice";
 import { useDispatch } from "react-redux";
 import DomControl from "./Control";
 import DomTiming from "./Timing";

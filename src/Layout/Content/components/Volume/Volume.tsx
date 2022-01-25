@@ -1,7 +1,7 @@
 import React, { useState, useEffect, memo, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { IconVolume, IconVolume3 } from "@tabler/icons";
-import { setVolume, setBeforeMuted } from "@/reducers/volume/slice";
+import { setVolume, setBeforeMuted } from "@/modules/reducers/volume/slice";
 import Panel from "./Panel";
 
 const Volume = () => {

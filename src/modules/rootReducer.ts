@@ -2,7 +2,11 @@ import { combineReducers, ReducersMapObject } from "@reduxjs/toolkit";
 
 const root: ReducersMapObject = {};
 
-const requireContext = require.context("./", true, /^\.\/.*\/slice\.ts$/);
+const requireContext = require.context(
+  "./reducers",
+  true,
+  /^\.\/.*\/slice\.ts$/
+);
 
 requireContext.keys().forEach((key) => {
   const mod = requireContext(key);

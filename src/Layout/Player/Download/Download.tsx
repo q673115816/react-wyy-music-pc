@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { setToast, setDialogDownloadVideoShow } from "@/reducers/mask/slice";
+import {
+  setToast,
+  setDialogDownloadVideoShow,
+} from "@/modules/reducers/mask/slice";
 import DownloadWorker from "./download.worker?worker";
-import { useAppDispatch } from "@/reducers/hooks";
+import { useAppDispatch } from "@/modules/hooks";
 
 export default (url = "", title = "") => {
   const dispatch = useAppDispatch();

@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef, memo } from "react";
 import "./style.scss";
 import classNames from "classnames";
 import { apiArtistList } from "@/api";
-import { addHomeTopArtists, initHomeTopArtists } from "@/reducers/home/slice";
+import {
+  addHomeTopArtists,
+  initHomeTopArtists,
+} from "@/modules/reducers/home/slice";
 import useInfinite from "@/hooks/useInfinite";
 import DomResize from "@/components/ResizeObserver";
 import Loading from "@/components/Loading";

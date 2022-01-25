@@ -8,8 +8,8 @@ import React, {
 import { Link } from "react-router-dom";
 import { IconTrash, IconX } from "@tabler/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
-import { setSearchHistory } from "@/reducers/search/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { setSearchHistory } from "@/modules/reducers/search/slice";
 
 export default memo(({ handleSearch }) => {
   const dispatch = useAppDispatch();

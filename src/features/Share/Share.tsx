@@ -3,7 +3,7 @@ import { Navigate, useParams } from "react-router-dom";
 import {
   setAudioImmediate,
   setAudioImmediateNext,
-} from "@/reducers/audio/slice";
+} from "@/modules/reducers/audio/slice";
 
 import { apiSongDetail } from "@/api";
 import { useDispatch } from "react-redux";

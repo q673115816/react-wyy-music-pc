@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { useAppSelector, useAppDispatch } from "@/reducers/hooks";
+import { useAppSelector, useAppDispatch } from "@/modules/hooks";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import {
@@ -7,8 +7,8 @@ import {
   setSearchHistory,
   setSearchHot,
   setSearchSuggest,
-} from "@/reducers/search/slice";
-import { setDialogReset } from "@/reducers/mask/slice";
+} from "@/modules/reducers/search/slice";
+import { setDialogReset } from "@/modules/reducers/mask/slice";
 import Mask from "../Mask";
 import History from "./History";
 import HotList from "./HotList";

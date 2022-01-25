@@ -1,6 +1,6 @@
 import React, { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
-import { setHomeDj } from "@/reducers/home/slice";
+import { setHomeDj } from "@/modules/reducers/home/slice";
 import Slider from "react-slick";
 import { IconChevronLeft, IconChevronRight, IconChartBar } from "@tabler/icons";
 import {
@@ -14,8 +14,8 @@ import Swiper from "@/components/Swiper";
 import Loading from "@/components/Loading";
 
 import style from "./style.module.scss";
-import { useAppDispatch, useAppSelector } from "@/reducers/hooks";
-import Item from './Item'
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import Item from "./Item";
 
 const PrevArrow = ({ onClick }) => (
   <button
