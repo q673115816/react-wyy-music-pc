@@ -1,10 +1,10 @@
 import React, { memo, useEffect, useState } from "react";
 import { apiCommentMusic, apiSimiSong } from "@/api";
 import DomLoading from "@/components/Loading";
-import DomPage from "@/components/Page";
+import Page from "@/components/Page";
 import { useLocation } from "react-router-dom";
 
-import DomCommentsList from "@/components/CommentsList";
+import CommentsList from "@/components/CommentsList";
 import "./style.scss";
 import { setLyricHide } from "@/modules/reducers/lrc/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
@@ -12,7 +12,7 @@ import Left from "./components/Left";
 import Center from "./components/Center";
 import Right from "./components/Right";
 
-export default memo(() => {
+const Lrc = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { currentSong } = useAppSelector(({ audio }) => audio);
@@ -55,11 +55,8 @@ export default memo(() => {
     else handleLeftInit();
   }, [lyricVisibility, page, currentSong.id]);
   useEffect(() => {
-    // const unlisten = listen((route) => {
-    //   dispatch(setLyricHide());
-    // });
-    // return unlisten;
-  }, []);
+    dispatch(setLyricHide())
+  }, [location]);
 
   if (!lyricVisibility) return null;
   return (
@@ -79,12 +76,12 @@ export default memo(() => {
                 </div>
               ) : (
                 <>
-                  <DomCommentsList
+                  <CommentsList
                     comments={comments}
                     more={currentSong.id}
                     type="song"
                   />
-                  <DomPage
+                  <Page
                     total={Math.ceil(comments.total / limit)}
                     page={page}
                     func={setPage}
@@ -97,4 +94,6 @@ export default memo(() => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Lrc)

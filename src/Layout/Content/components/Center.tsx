@@ -20,13 +20,14 @@ import { audioPattern } from "@/common/config";
 import classNames from "classnames";
 import Timing from "./Timing";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import style from "./style.module.scss";
+
+const iconSize = 16
 
 const audioPatternIcon = [
-  IconPlaylist,
   IconRotate,
   IconRefreshAlert,
   IconArrowsSplit2,
+  IconPlaylist,
 ];
 
 export default memo(function Center() {
@@ -52,47 +53,47 @@ export default memo(function Center() {
   const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
   return (
     <div className={"flex-center flex-col flex-1"}>
-      <div className="footer_center_Top flex-center">
+      <div className="flex-center gap-7">
         <button
           type="button"
-          className="mx-2 hover:ui_themeColor"
+          className="hover:ui_themeColor"
           title={audioPattern[pattern]}
           onClick={handleChangePattern}
         >
-          <AudioPatternIcon size={22} />
+          <AudioPatternIcon size={iconSize} />
         </button>
         <button
           type="button"
           onClick={handlePrev}
-          className="footer_center_prev flex-center mx-2 hover:ui_themeColor"
+          className="footer_center_prev flex-center hover:ui_themeColor"
           title="上一首（Ctrl + Left）"
         >
-          <IconPlayerSkipBack size={20} className="fill-current" />
+          <IconPlayerSkipBack size={iconSize} className="fill-current" />
         </button>
         <button
           type="button"
           onClick={handleToggle}
-          className="footer_center_play flex-center mx-2 bg-gray-200 hover:bg-gray-300 rounded-full w-9 h-9"
+          className="footer_center_play flex-center bg-gray-200 hover:bg-gray-300 rounded-full w-9 h-9"
           title={running ? "暂停（Ctrl + P）" : "播放（Ctrl + P）"}
         >
           {running ? (
-            <IconPlayerPause size={24} className="fill-current" />
+            <IconPlayerPause size={iconSize * 1.25} className="fill-current" />
           ) : (
-            <IconPlayerPlay size={24} className="fill-current" stroke="0" />
+            <IconPlayerPlay size={iconSize * 1.25} className="fill-current" stroke="0" />
           )}
         </button>
         <button
           type="button"
           title="下一首（Ctrl + Right）"
           onClick={handleNext}
-          className="footer_center_next flex-center mx-2 hover:ui_themeColor"
+          className="footer_center_next flex-center hover:ui_themeColor"
         >
-          <IconPlayerSkipForward size={20} className="fill-current" />
+          <IconPlayerSkipForward size={iconSize} className="fill-current" />
         </button>
         <button
           type="button"
           className={classNames(
-            "mx-2 px-1 hover:ui_themeColor relative",
+            "px-1 hover:ui_themeColor relative",
             globalLrcVisibility && "ui_themeColor"
           )}
           title="打开歌词"
