@@ -7,7 +7,7 @@ interface iProps {
     name: string;
     id: number;
   }[];
-  className: string;
+  className?: string;
 }
 
 const Artists: FC<iProps> = ({ artists = [], className = "" }) =>
@@ -19,9 +19,14 @@ const Artists: FC<iProps> = ({ artists = [], className = "" }) =>
       {artists.map((artist, index) => (
         <span key={artist.id + artist.name}>
           {index > 0 && " / "}
-          <Link to={`/artist/${artist.id}`} className="ui_text_gray_hover">
+          {artist.id === 0 ?
+            <span className={``}>{artist.name}</span> :
+            (
+              <Link to={`/artist/${artist.id}`} className="ui_text_gray_hover">
             {artist.name}
-          </Link>
+            </Link>
+            )
+          }
         </span>
       ))}
     </div>

@@ -1,5 +1,6 @@
 import React, {
-  memo,
+  FC,
+  memo, MouseEventHandler,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -7,16 +8,22 @@ import React, {
 } from "react";
 import { Link } from "react-router-dom";
 import { IconTrash, IconX } from "@tabler/icons";
-import { useDispatch, useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { setSearchHistory } from "@/modules/reducers/search/slice";
 
-export default memo(({ handleSearch }) => {
+interface iProps {
+  handleSearch: () => void
+}
+
+const History: FC<iProps> = ({ handleSearch }) => {
   const dispatch = useAppDispatch();
   const [isHidden, setIsHidden] = useState(false);
   const refHistory = useRef<HTMLDivElement>(null);
   const { searchHistory } = useAppSelector(({ search }) => search);
-  const handleDeleteSearchHistory = (keywords) => {
+  const handleDeleteSearchHistory = (keywords): MouseEventHandler<HTMLButtonElement> =>
+    (e) =>  {
+    e.preventDefault()
+    e.stopPropagation()
     dispatch(
       setSearchHistory(searchHistory.filter((search) => search !== keywords))
     );
@@ -67,11 +74,7 @@ export default memo(({ handleSearch }) => {
               <button
                 type="button"
                 className="ico absolute opacity-0 group-hover:opacity-100 inset-y-0 m-auto text-gray-400"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleDeleteSearchHistory(item);
-                }}
+                onClick={handleDeleteSearchHistory(item)}
               >
                 <IconX size={14} stroke={2} />
               </button>
@@ -81,4 +84,6 @@ export default memo(({ handleSearch }) => {
       </div>
     </>
   );
-});
+};
+
+export default memo(History)

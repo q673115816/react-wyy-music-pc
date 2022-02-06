@@ -1,7 +1,11 @@
-import React from "react";
-import DomGridVideo from "@/components/GridVideo";
+import React, {FC, memo} from "react";
+import GridVideo from "@/components/GridVideo";
 
-export default ({ videos = [] }) => {
+interface iProps {
+  videos: []
+}
+
+const Videos: FC<iProps> = ({ videos = [] }) => {
   const list = videos.map(
     ({ type, title, coverUrl, playTime, creator, vid, durationms }) => ({
       id: vid,
@@ -15,7 +19,9 @@ export default ({ videos = [] }) => {
   );
   return (
     <div className="videos_list py-5 px-10">
-      <DomGridVideo list={list} />
+      <GridVideo list={list} />
     </div>
   );
 };
+
+export default memo(Videos)

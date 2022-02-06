@@ -21,12 +21,11 @@ const Item = ({ item = {}, item: { type = 1 } }) => (
             <div className="absolute top-0 left-0 right-0 h-1/4 ui_linear_mask_top" />
             <div className="absolute top-0 right-0 my-0.5 mx-2 text-white flex-center">
               <IconPlayerPlay size={12} />
-              &nbsp;
               {transPlayCount(item.playCount)}
             </div>
           </>
         )}
-        {item.duration && (
+        {item.duration > 0 && (
           <>
             <div className="mask absolute left-0 right-0 bottom-0 h-1/4 ui_linear_mask_bottom" />
             <div className="absolute bottom-0 right-0 my-0.5 mx-2 text-white">

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IconChevronUp, IconChevronDown } from "@tabler/icons";
 import { setLyricText, setLyricToggle } from "@/modules/reducers/lrc/slice";
 import Heart from "@/components/Table/Heart";
+import Artists from '@/components/Table/Artists'
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Audio from "./Audio";
 const Left = () => {
@@ -61,19 +62,7 @@ const Left = () => {
               </button>
               <Heart id={currentSong.id} />
             </div>
-            <div className="truncate mt-1">
-              {currentSong.ar.map((artist, index) => (
-                <span className="" key={artist.id}>
-                  {index > 0 && " / "}
-                  <Link
-                    to={`/artist/${artist.id}`}
-                    className="text-sm text-gray-600"
-                  >
-                    {artist.name}
-                  </Link>
-                </span>
-              ))}
-            </div>
+            <Artists artists={currentSong.ar} className={`mt-1`}/>
           </div>
         </>
       )}

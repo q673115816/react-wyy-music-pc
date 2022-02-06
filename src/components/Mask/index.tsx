@@ -2,7 +2,11 @@ import React, { FC, memo, MouseEventHandler, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
 
-const Mask: FC<{}> = ({ children, ...props }) => {
+interface iProps {
+
+}
+
+const Mask: FC<iProps> = ({ children, ...props }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
   // console.log(ref);

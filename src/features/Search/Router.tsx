@@ -8,7 +8,7 @@ const Router = () => {
     <Routes>
       <Route path=":keywords" element={<Layout />}>
         <Route path={`:type`} element={<Home />} />
-        <Route index element={<Navigate to="单曲" />} />
+        <Route index element={<Navigate to="单曲" replace={true} />} />
       </Route>
     </Routes>
   );

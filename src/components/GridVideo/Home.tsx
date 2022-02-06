@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import MenuCreate from "@/components/MenuCreate";
 import Item from "./Item";
 
-export default memo(({ list = [], schema = [] }) => (
+const GridVideo = ({ list = [], schema = [] }) => (
   <div className="grid grid-cols-3 gap-5">
     {list.map((item) => (
       <MenuCreate
@@ -14,4 +14,6 @@ export default memo(({ list = [], schema = [] }) => (
       </MenuCreate>
     ))}
   </div>
-));
+);
+
+export default memo(GridVideo)
