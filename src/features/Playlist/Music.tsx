@@ -43,7 +43,7 @@ export default memo(function Playlist() {
   const [songs, setSongs] = useState([]);
   const [data, setData] = useImmer({});
   // const [privileges, setPrivileges] = useState([]);
-  const [status, setStatus] = useState(navs[0][1]);
+  const [status, setStatus] = useState<Paths>(navs[0][1]);
   const handleInit = async () => {
     try {
       const data = await apiPlaylistDetail({

@@ -34,8 +34,8 @@ const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
       />
     </div>
     <div className="info flex-auto w-0 ml-5">
-      <div className="name">
-        <span className="whitespace-nowrap text-red-500 border border-current p-0.5 rounded mr-2 leading-none inline-block">
+      <div className="name leading-tight">
+        <span className="whitespace-nowrap text-red-500 border border-current p-0.5 rounded mr-2 align-bottom inline-block">
           歌单
         </span>
         <span className="h1 select-text">
@@ -45,7 +45,7 @@ const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
       <div className="creator flex items-center mt-2">
         <Link
           to={`/user/${data.playlist.creator?.userId}`}
-          className="avator w-6 h-6 rounded-full overflow-hidden mr-2"
+          className="w-6 h-6 rounded-full overflow-hidden mr-2"
         >
           <img
             className=""

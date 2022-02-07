@@ -1,5 +1,6 @@
-export interface Daily {
-  code: number;
+import { resWithCode } from "../types";
+
+export interface Daily extends resWithCode {
   data: {
     dailySongs: DailySong[];
     orderSongs: [];

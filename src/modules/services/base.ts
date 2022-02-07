@@ -5,9 +5,10 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
   FetchBaseQueryMeta,
-  retry
+  retry,
 } from "@reduxjs/toolkit/query/react";
-import {QueryReturnValue} from "@reduxjs/toolkit/dist/query/baseQueryTypes";
+import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
+import { Get } from "@/modules/utils";
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
@@ -22,17 +23,14 @@ const baseQuery = fetchBaseQuery({
   // },
 });
 
-const baseQueryWithIntercept: BaseQueryFn<
+const _baseQueryWithIntercept: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError
-  > = async (args, api, extraOptions) => {
-  const result: QueryReturnValue<
-    any,
-    FetchBaseQueryError,
-    FetchBaseQueryMeta
-    > = await baseQuery(args, api, extraOptions);
-  console.log(result, '拦截器');
+> = async (args, api, extraOptions) => {
+  const result: QueryReturnValue<any, FetchBaseQueryError, FetchBaseQueryMeta> =
+    await baseQuery(args, api, extraOptions);
+  console.log(result, "拦截器");
   const { data, error, meta } = result;
   // 如果遇到错误的时候
   if (error) {
@@ -57,28 +55,44 @@ export const printHttpError = (httpStatus: number, path: string): void => {
     // 401: 未登录
     // 未登录则跳转登录页面，并携带当前页面的路径
     case 401:
-      console.log('你没有登录,请先登录');
+      console.log("你没有登录,请先登录");
       window.location.reload();
       break;
     // 跳转登录页面
     case 403:
-      console.log('登录过期，请重新登录');
+      console.log("登录过期，请重新登录");
       // 清除全部的缓存数据
       window.localStorage.clear();
       window.location.reload();
       break;
     // 404请求不存在
     case 404:
-      console.log('网络请求不存在');
+      console.log("网络请求不存在");
       break;
     // 其他错误，直接抛出错误提示
     default:
-      console.log('我也不知道是什么错误');
+      console.log("我也不知道是什么错误");
       break;
   }
 };
 
-const baseQueryWithRetry = retry(baseQuery, { maxRetries: 2 });
+const baseQueryWithIntercept: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  console.log("baseQueryWithIntercept", args, api, extraOptions);
+  if (typeof args !== "string") {
+    args.body = args.body ?? {};
+    args.body.cookie = Get({ key: "cookie" });
+  }
+  const result: QueryReturnValue<any, FetchBaseQueryError, FetchBaseQueryMeta> =
+    await baseQuery(args, api, extraOptions);
+
+  return result;
+};
+
+const baseQueryWithRetry = retry(baseQueryWithIntercept, { maxRetries: 2 });
 
 export const base = createApi({
   reducerPath: "daily",

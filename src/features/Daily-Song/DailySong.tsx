@@ -12,8 +12,7 @@ export default memo(function DailySong() {
 
   const { data, error, isLoading, isFetching, isSuccess, isError, refetch } =
     useGetRecommendSongsQuery();
-  console.log(data, isLoading);
-
+  const dailySongs = data?.data?.dailySongs || [];
   if (isLoading) {
     return (
       <div className={`flex-center pt-48`}>
@@ -36,7 +35,7 @@ export default memo(function DailySong() {
           </div>
         </div>
         <div className="actions flex mt-5">
-          <GroupPlay playlist={data.data.dailySongs} />
+          <GroupPlay playlist={dailySongs} />
           &nbsp; &nbsp;
           <button
             type="button"
@@ -47,7 +46,7 @@ export default memo(function DailySong() {
           </button>
         </div>
       </div>
-      <Content dailySongs={data.data.dailySongs} />
+      <Content dailySongs={dailySongs} />
     </div>
   );
 });
