@@ -34,10 +34,9 @@ interface iProps {
   detail: any;
   brs: [];
   fixed: boolean;
-  next: Object;
 }
 
-const Video: FC<iProps> = ({ url, detail, brs = [], fixed, next = {} }) => {
+const Video: FC<iProps> = ({ url, detail, brs = [], fixed, }) => {
   const [
     { play, duration, currentTime, jumpTime, buffered, full },
     videoDispatch,

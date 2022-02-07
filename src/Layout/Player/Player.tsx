@@ -69,7 +69,6 @@ const Player = () => {
     isLike,
     pending,
     urls,
-    related,
     detail,
     detailInfo,
     handleSub,
@@ -83,7 +82,6 @@ const Player = () => {
     commentsLoading,
     setPage,
 
-    next,
   } = useInit({ type, vid });
 
   // const { type, vid } = params;
@@ -125,7 +123,7 @@ const Player = () => {
         <div className="flex items-center text-base font-bold">相关推荐</div>
         <div className="left" style={{ width: 620 }}>
           <div className="aspect-video" ref={DomVideoWrap}>
-            <Video url={urls?.url} detail={detail} fixed={fixed} next={next} />
+            <Video url={urls?.url} detail={detail} fixed={fixed} />
           </div>
           <div className="domVideoDetail_creator flex items-center mt-5">
             <Link

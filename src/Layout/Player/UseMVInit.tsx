@@ -11,7 +11,6 @@ import {
 export default () => {
   const [pending, setPending] = useState(false);
   const [urls, setUrls] = useState({});
-  const [related, setRelated] = useState([]);
   const [detail, setDetail] = useState({});
   const [detailInfo, setDetailInfo] = useState({});
 
@@ -19,14 +18,10 @@ export default () => {
     try {
       const [
         { data: urls },
-        { data: related = [] },
         { data: detail = {} },
         detailInfo = {},
       ] = await Promise.all([
         apiMVUrl({
-          id,
-        }),
-        apiRelatedAllvideo({
           id,
         }),
         apiMVDetail({
@@ -40,7 +35,6 @@ export default () => {
       detail.description = detail.desc;
       unstable_batchedUpdates(() => {
         setUrls(urls);
-        setRelated(related);
         setDetail(detail);
         setDetailInfo(detailInfo);
         setPending(true);
@@ -52,7 +46,6 @@ export default () => {
   return {
     pending,
     urls,
-    related,
     detail,
     detailInfo,
     handleInit,

@@ -52,7 +52,7 @@ const UseInit = ({ vid, type }: iProps) => {
     [vid, mvSublist]
   );
   const isLike = useMemo(() => null, [vid]);
-  const { pending, urls, related, detail, detailInfo, handleInit } =
+  const { pending, urls, detail, detailInfo, handleInit } =
     switchs[type].init();
 
   const handleGetMVSublist = async () => {
@@ -115,11 +115,6 @@ const UseInit = ({ vid, type }: iProps) => {
 
   const params = useMemo(() => ({ type, vid }), [type, vid]);
 
-  const next = useMemo(
-    () => ({ title: related?.[0]?.title || "", link: "" }),
-    [type, vid]
-  );
-
   const {
     downloadProcess,
     downloadState,
@@ -149,7 +144,6 @@ const UseInit = ({ vid, type }: iProps) => {
     isLike,
     pending,
     urls,
-    related,
     detail,
     detailInfo,
     handleSub,
@@ -163,7 +157,6 @@ const UseInit = ({ vid, type }: iProps) => {
     commentsLoading,
     setPage,
 
-    next,
   };
 };
 

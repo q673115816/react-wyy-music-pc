@@ -10,7 +10,6 @@ import {
 export default () => {
   const [pending, setPending] = useState(false);
   const [urls, setUrls] = useState({});
-  const [related, setRelated] = useState([]);
   const [detail, setDetail] = useState({});
   const [detailInfo, setDetailInfo] = useState({});
 
@@ -18,14 +17,10 @@ export default () => {
     try {
       const [
         { urls },
-        { data: related = [] },
         { data: detail = {} },
         detailInfo = {},
       ] = await Promise.all([
         apiVideoUrl({
-          id: vid,
-        }),
-        apiRelatedAllvideo({
           id: vid,
         }),
         apiVideoDetail({
@@ -38,7 +33,6 @@ export default () => {
       detail.playCount = detail.playTime;
       unstable_batchedUpdates(() => {
         setUrls(urls[0]);
-        setRelated(related);
         setDetail(detail);
         setDetailInfo(detailInfo);
         setPending(true);
@@ -50,7 +44,6 @@ export default () => {
   return {
     pending,
     urls,
-    related,
     detail,
     detailInfo,
     handleInit,
