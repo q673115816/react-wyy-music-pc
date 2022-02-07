@@ -1,6 +1,6 @@
-import { resWithCode } from "../types";
+import { ResWithCode, PlayList } from "../types";
 
-export interface Daily extends resWithCode {
+export interface Daily extends ResWithCode {
   data: {
     dailySongs: DailySong[];
     orderSongs: [];
@@ -8,16 +8,4 @@ export interface Daily extends resWithCode {
   };
 }
 
-export interface DailySong {
-  name: string;
-  alia: string[];
-  id: number;
-  dt: number;
-  al: {
-    id: number;
-    name: string;
-    pic: number;
-    picUrl: string;
-  };
-  ar: { id: number; name: string }[];
-}
+export interface DailySong extends PlayList {}

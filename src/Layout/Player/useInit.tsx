@@ -34,7 +34,12 @@ const switchs = {
   },
 };
 
-export default ({ vid, type }) => {
+interface iProps {
+  vid: string;
+  type: string;
+}
+
+const UseInit = ({ vid, type }: iProps) => {
   const dispatch = useAppDispatch();
   const { mvSublist } = useAppSelector(({ account }) => account);
 
@@ -161,3 +166,5 @@ export default ({ vid, type }) => {
     next,
   };
 };
+
+export default UseInit;

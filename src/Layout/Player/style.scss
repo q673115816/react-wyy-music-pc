@@ -1,23 +1,5 @@
 .domVideoDetail {
-  &_header {
-    height: 50px;
-  }
-
-  &_creator {
-    .avatar {
-      width: 50px;
-      height: 50px;
-    }
-
-    .follow {
-      width: 80px;
-    }
-  }
 
   &_related {
-    .cover {
-      width: 140px;
-      height: 80px;
-    }
   }
 }

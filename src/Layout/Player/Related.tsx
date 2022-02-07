@@ -1,25 +1,45 @@
-import React from "react";
+import React, { FC, memo } from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import { transPlayCount } from "@/common/utils";
 import { IconPlayerPlay } from "@tabler/icons";
 import { playerTypes } from "@/common/config";
-import DomTagMV from "@/components/Tags/Box";
+import TagMV from "@/components/Tags/Box";
+import { useGetRelatedAllVideoQuery } from "@/modules/services/player";
+import Loading from "@/components/Loading";
 
-export default ({ related = [] }) => (
-  <div className="right" style={{ width: 280 }}>
-    <div className="domVideoDetail_header flex items-center text-base font-bold">
-      相关推荐
-    </div>
-    <div className="domVideoDetail_related">
+interface iProps {}
+
+const Related: FC<iProps> = () => {
+  const { vid: id } = useParams<string>();
+  const { data, error, isLoading, isFetching, isSuccess, isError, refetch } =
+    useGetRelatedAllVideoQuery({ id });
+  const related = data?.data || [];
+  if (isError) {
+    return <div>{JSON.stringify(error)}</div>;
+  }
+  if (isLoading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
+  return (
+    <div className="right flex flex-col gap-2.5">
       {related.map((item) => (
-        <div className="item mb-2.5 flex" key={item.vid}>
+        <div className="flex" key={item.vid}>
           <Link
             to={`/player/${playerTypes[item.type]}/${item.vid}`}
-            className="cover relative flex-none rounded overflow-hidden"
+            className="relative flex-0 rounded overflow-hidden"
           >
-            <img className="" src={item.coverUrl} alt="" />
+            <img
+              className="ratio-video object-scale-down"
+              style={{ height: 80 }}
+              src={item.coverUrl}
+              alt=""
+            />
             <div className="playTime absolute top-0 right-0 mx-2 my-1 flex-center text-white">
               <IconPlayerPlay size={12} />
               {transPlayCount(item.playTime)}
@@ -28,14 +48,14 @@ export default ({ related = [] }) => (
               {dayjs(item.durationms).format("mm:ss")}
             </div>
           </Link>
-          <div className="content p-2 flex-auto w-0">
+          <div className="content p-2 flex-1">
             <div className="title ui_ellipse">
               <Link
                 title={item.title}
                 to={`/player/${playerTypes[item.type]}/${item.vid}`}
                 className="ui_text_black_hover"
               >
-                {item.type === 0 && <DomTagMV className="inline-block" />}
+                {item.type === 0 && <TagMV className="inline-block" />}
                 {item.title}
               </Link>
             </div>
@@ -52,5 +72,7 @@ export default ({ related = [] }) => (
         </div>
       ))}
     </div>
-  </div>
-);
+  );
+};
+
+export default memo(Related);

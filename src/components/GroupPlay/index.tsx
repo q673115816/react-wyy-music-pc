@@ -5,9 +5,10 @@ import {
   setAudioPlaylist,
   setAudioPlaylistAdd,
 } from "@/modules/reducers/audio/slice";
+import { PlayList } from "@/modules/services/types";
 
 interface iProps {
-  playlist: [];
+  playlist: PlayList[];
 }
 
 const GroupPlay: FC<iProps> = ({ playlist = [] }) => {

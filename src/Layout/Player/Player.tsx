@@ -30,8 +30,8 @@ import Loading from "@/components/Loading";
 import DownloadVideo from "@/components/Dialog/DownloadVideo";
 import Related from "./Related";
 import Video from "./components/Video";
-import FNInit from "./Init";
-import FNIO from "./IO";
+import useInit from "./useInit";
+import useIO from "./useIO";
 
 const Group = ({ list = [], func }) => (
   <div className="domVideoDetail_group mt-3 space-x-1">
@@ -50,6 +50,11 @@ const Group = ({ list = [], func }) => (
 
 const Player = () => {
   const { type, vid } = useParams();
+  const navigate = useNavigate();
+
+  if (!type || !vid) {
+    navigate("/", { replace: true });
+  }
   console.log("player");
   const dispatch = useAppDispatch();
 
@@ -79,11 +84,10 @@ const Player = () => {
     setPage,
 
     next,
-  } = FNInit({ type, vid });
+  } = useInit({ type, vid });
 
   // const { type, vid } = params;
 
-  const navigate = useNavigate();
   const [descriptionVisibility, setDescriptionVisibility] = useState(false);
   const [value, setValue] = useState("");
   const handleChange = useCallback((e) => {
@@ -100,31 +104,39 @@ const Player = () => {
     }
   };
 
-  const { DomVideoWrap, DomScroll, fixed } = FNIO();
+  const { DomVideoWrap, DomScroll, fixed } = useIO();
 
   return (
     <div className=" overflow-auto h-full" ref={DomScroll}>
-      <div style={{ width: 930 }} className="flex justify-between m-auto">
+      <div
+        style={{ width: 930, gridTemplate: `50px 1fr/1fr 280px` }}
+        className="grid m-auto"
+      >
+        <div className="flex items-center">
+          <button
+            type="button"
+            className="flex items-center text-base font-bold"
+            onClick={() => navigate(-1)}
+          >
+            <IconChevronLeft size={28} stroke={1} />
+            {name}
+          </button>
+        </div>
+        <div className="flex items-center text-base font-bold">相关推荐</div>
         <div className="left" style={{ width: 620 }}>
-          <div className="domVideoDetail_header flex items-center">
-            <button
-              type="button"
-              className="flex items-center text-base font-bold"
-              onClick={() => navigate(-1)}
-            >
-              <IconChevronLeft size={28} stroke={1} />
-              {name}
-            </button>
-          </div>
           <div className="aspect-video" ref={DomVideoWrap}>
             <Video url={urls?.url} detail={detail} fixed={fixed} next={next} />
           </div>
           <div className="domVideoDetail_creator flex items-center mt-5">
             <Link
               to={`/user/${detail?.creator?.userId}`}
-              className="avatar rounded-full overflow-hidden border"
+              className="rounded-full overflow-hidden border"
             >
-              <img className="" src={detail?.creator?.avatarUrl} alt="" />
+              <img
+                className="w-12 h-12"
+                src={detail?.creator?.avatarUrl}
+                alt=""
+              />
             </Link>
             <Link
               className="nickname ml-2.5"
@@ -137,7 +149,7 @@ const Player = () => {
                 onClick={handleFollow}
                 type="button"
                 className={classNames(
-                  "follow text-red-500 bg-red-50 ml-auto h-8 rounded-full",
+                  "w-20 text-red-500 bg-red-50 ml-auto h-8 rounded-full",
                   { on: detail?.creator?.followed }
                 )}
               >
@@ -253,7 +265,7 @@ const Player = () => {
             )}
           </div>
         </div>
-        <Related related={related} />
+        <Related />
       </div>
     </div>
   );

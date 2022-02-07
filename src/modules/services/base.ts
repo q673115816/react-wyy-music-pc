@@ -81,11 +81,11 @@ const baseQueryWithIntercept: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  console.log("baseQueryWithIntercept", args, api, extraOptions);
   if (typeof args !== "string") {
     args.body = args.body ?? {};
     args.body.cookie = Get({ key: "cookie" });
   }
+  console.log("baseQueryWithIntercept", args, api, extraOptions);
   const result: QueryReturnValue<any, FetchBaseQueryError, FetchBaseQueryMeta> =
     await baseQuery(args, api, extraOptions);
 

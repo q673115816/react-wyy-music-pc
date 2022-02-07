@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 
-export default () => {
+const useIO = () => {
   const DomVideoWrap = useRef(null);
   const DomScroll = useRef(null);
   const Io = useRef(null);
@@ -36,3 +36,5 @@ export default () => {
     fixed,
   };
 };
+
+export default useIO;
