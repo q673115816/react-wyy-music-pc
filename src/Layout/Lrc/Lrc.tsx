@@ -4,7 +4,7 @@ import DomLoading from "@/components/Loading";
 import Page from "@/components/Page";
 import { useLocation } from "react-router-dom";
 
-import CommentsList from "@/components/CommentsList";
+import CommentsList from "@/components/Comments/CommentsList";
 import "./style.scss";
 import { setLyricHide } from "@/modules/reducers/lrc/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
@@ -55,7 +55,7 @@ const Lrc = () => {
     else handleLeftInit();
   }, [lyricVisibility, page, currentSong.id]);
   useEffect(() => {
-    dispatch(setLyricHide())
+    dispatch(setLyricHide());
   }, [location]);
 
   if (!lyricVisibility) return null;
@@ -96,4 +96,4 @@ const Lrc = () => {
   );
 };
 
-export default memo(Lrc)
+export default memo(Lrc);

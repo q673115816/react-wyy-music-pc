@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, memo } from "react";
 import { apiCommentHot, apiCommentLike } from "@/api";
-import Comment from "@/components/Comment";
+import Comment from "@/components/Comments/Comment";
 import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";
 import produce from "immer";

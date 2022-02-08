@@ -1,10 +1,14 @@
-import { Related } from "./types";
+import { ResRelated } from "./types";
 import { base } from "../base";
 
 export const api = base.injectEndpoints({
   endpoints: (build) => ({
-    getRelatedAllVideo: build.query<Related, { id: string }>({
-      query: ({ id }) => `related/allvideo?id=${id}`,
+    getRelatedAllVideo: build.query<ResRelated, { id: string }>({
+      query: (body) => ({
+        url: `related/allvideo`,
+        method: "POST",
+        body,
+      }),
     }),
   }),
 });

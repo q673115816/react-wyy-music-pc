@@ -82,8 +82,10 @@ const baseQueryWithIntercept: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   if (typeof args !== "string") {
-    args.body = args.body ?? {};
-    args.body.cookie = Get({ key: "cookie" });
+    args.body ??= {};
+    // args.body.cookie ??= Get({ key: "cookie" });
+    args.body = { ...args.body, cookie: Get({ key: "cookie" }) };
+    args.url += `?timestamp=${Date.now()}`;
   }
   console.log("baseQueryWithIntercept", args, api, extraOptions);
   const result: QueryReturnValue<any, FetchBaseQueryError, FetchBaseQueryMeta> =

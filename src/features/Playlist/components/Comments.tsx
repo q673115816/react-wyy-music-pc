@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-import CommentsList from "@/components/CommentsList";
+import CommentsList from "@/components/Comments/CommentsList";
 import Write from "@/components/Write";
 import { apiCommentPlaylist } from "@/api";
 import Loading from "@/components/Loading";

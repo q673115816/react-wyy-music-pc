@@ -1,38 +1,20 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   apiFollow,
   apiVideoSub,
   apiMVSub,
   apiMVSublist,
-  apiCommentVideo,
-  apiCommentMV,
   apiResourceLike,
 } from "@/api";
-import { commentLimit as limit } from "@/common/config";
 import {
   setToast,
   setDialogDownloadVideoShow,
 } from "@/modules/reducers/mask/slice";
 import { setMVSublist } from "@/modules/reducers/account/slice";
-import UseVideoInit from "./UseVideoInit";
-import UseMVInit from "./UseMVInit";
 import FNDownload from "./Download";
 
-const switchs = {
-  video: {
-    init: UseVideoInit,
-    name: "视频详情",
-    sub: "subscribeCount",
-    apiComments: apiCommentVideo,
-  },
-  mv: {
-    init: UseMVInit,
-    name: "MV详情",
-    sub: "subCount",
-    apiComments: apiCommentMV,
-  },
-};
+import config from "./config";
 
 interface iProps {
   vid: string;
@@ -43,17 +25,12 @@ const UseInit = ({ vid, type }: iProps) => {
   const dispatch = useAppDispatch();
   const { mvSublist } = useAppSelector(({ account }) => account);
 
-  const [page, setPage] = useState(1);
-  const [comments, setComments] = useState({});
-  const [commentsLoading, setCommentsLoading] = useState(true);
-
   const isSub = useMemo(
     () => mvSublist.find((mv) => mv.vid === vid),
     [vid, mvSublist]
   );
   const isLike = useMemo(() => null, [vid]);
-  const { pending, urls, detail, detailInfo, handleInit } =
-    switchs[type].init();
+  const { pending, urls, detail, detailInfo, handleInit } = config[type].init();
 
   const handleGetMVSublist = async () => {
     try {
@@ -97,22 +74,6 @@ const UseInit = ({ vid, type }: iProps) => {
     }
   };
 
-  const handleComments = async () => {
-    try {
-      const comments = await switchs[type].apiComments({
-        id: vid,
-        limit,
-        offset: (page - 1) * limit,
-      });
-      setComments(comments);
-      if (commentsLoading) {
-        setCommentsLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const params = useMemo(() => ({ type, vid }), [type, vid]);
 
   const {
@@ -125,21 +86,15 @@ const UseInit = ({ vid, type }: iProps) => {
 
   useEffect(() => {
     handleInit(vid);
-    handleComments();
     handleInitDownload();
     return () => {
       handleUnLoadDownload();
     };
   }, [vid]);
 
-  useEffect(() => {
-    handleComments();
-  }, [page]);
-
   return {
     params,
-    name: switchs[type].name,
-    sub: switchs[type].sub,
+    sub: config[type].sub,
     isSub,
     isLike,
     pending,
@@ -151,12 +106,6 @@ const UseInit = ({ vid, type }: iProps) => {
     downloadProcess,
     downloadState,
     handleDownload,
-
-    page,
-    comments,
-    commentsLoading,
-    setPage,
-
   };
 };
 

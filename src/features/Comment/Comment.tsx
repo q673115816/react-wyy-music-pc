@@ -11,7 +11,7 @@ import {
 } from "@/api";
 import { commentLimit as limit } from "@/common/config";
 import Write from "@/components/Write";
-import DomCommentsList from "@/components/CommentsList";
+import DomCommentsList from "@/components/Comments/CommentsList";
 import DomLoading from "@/components/Loading";
 import DomPage from "@/components/Page";
 

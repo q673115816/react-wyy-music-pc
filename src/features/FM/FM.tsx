@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { apiPersonalfm, apiCommentMusic } from "@/api";
-import DomCommentsList from "@/components/CommentsList";
+import DomCommentsList from "@/components/Comments/CommentsList";
 import DomLoading from "@/components/Loading";
 import { Link } from "react-router-dom";
 const FM = () => {

@@ -33,10 +33,10 @@ interface iProps {
   url: string;
   detail: any;
   brs: [];
-  fixed: boolean;
+  fixed?: boolean;
 }
 
-const Video: FC<iProps> = ({ url, detail, brs = [], fixed, }) => {
+const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
   const [
     { play, duration, currentTime, jumpTime, buffered, full },
     videoDispatch,
