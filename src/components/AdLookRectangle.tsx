@@ -1,12 +1,11 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
 
 const link = "https://look.163.com/hot?livetype=2";
 
 const ADLookRectangle: FC<{ tag: boolean }> = ({ tag = false }) => (
   <div className="item">
     <div className="rounded overflow-hidden relative">
-      <Link to={link}>
+      <a href={link}>
         <img
           loading={`lazy`}
           className="object-cover aspect-square"
@@ -24,10 +23,10 @@ const ADLookRectangle: FC<{ tag: boolean }> = ({ tag = false }) => (
             <div className="tag">理想女友</div>
           </div>
         )}
-      </Link>
+      </a>
     </div>
     <div className="footer text-sm mt-1">
-      <Link to={link}>name</Link>
+      <a href={link}>name</a>
     </div>
   </div>
 );

@@ -5,12 +5,15 @@ import {
   setDialogUnSubscriptionShow,
   setToast,
 } from "@/modules/reducers/mask/slice";
-import { apiArtistDetail, apiArtistSub } from "@/api";
 import { useRefreshArtistSublist } from "@/hooks/useHelp";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import {
+  useGetArtistDetailQuery,
+  usePostArtistSubMutation,
+} from "@/modules/services/artist";
 
 export default memo(function Header() {
-  const { id } = useParams();
+  const { id = "" } = useParams();
   const { artistSublist } = useAppSelector(({ account }) => account);
 
   const isSub = useMemo(
@@ -18,17 +21,9 @@ export default memo(function Header() {
     [artistSublist, id]
   );
   const dispatch = useAppDispatch();
-  const [detail, setDetail] = useState({});
-  const handleInit = async () => {
-    try {
-      const { data: detail } = await apiArtistDetail({
-        id,
-      });
-      setDetail(detail);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [subPost, { isLoading: isSubbing }] = usePostArtistSubMutation();
+  const { data } = useGetArtistDetailQuery({ id });
+  const detail = data?.data || {};
   const handleUnSubscription = () => {
     dispatch(
       setDialogUnSubscriptionShow({
@@ -39,7 +34,7 @@ export default memo(function Header() {
 
   const handleSubscription = async () => {
     try {
-      await apiArtistSub({
+      await subPost({
         id,
         t: 1,
       });
@@ -54,9 +49,9 @@ export default memo(function Header() {
     isSub ? handleUnSubscription() : await handleSubscription();
   };
 
-  useEffect(() => {
-    handleInit();
-  }, [id]);
+  // useEffect(() => {
+  //   handleInit();
+  // }, [id]);
   return (
     <div className="domArtist_header flex p-8">
       <div className="w-44 h-44 border overflow-hidden rounded">
@@ -97,7 +92,7 @@ export default memo(function Header() {
         <div className="info mt-5 space-x-5">
           <span className="size">
             单曲数:
-            {detail.artist?.musicSize}
+            {detail?.artist?.musicSize}
           </span>
           <span className="size">
             专辑数:

@@ -28,7 +28,6 @@ const Contents = {
 };
 
 export default memo(function Artist() {
-  const { id } = useParams();
   const [active, setActive] = useState<Nav>(navs[0][1]);
   return (
     <div className="domArtist overflow-auto max-h-full flex-auto">

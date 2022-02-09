@@ -16,8 +16,6 @@ import { transPlayCount } from "@/common/utils";
 import { setVideoListId } from "@/modules/reducers/videolist/slice";
 import DownloadVideo from "@/components/Dialog/DownloadVideo";
 import Write from "@/components/Write";
-import Loading from "@/components/Loading";
-import CommentsList from "@/components/Comments/CommentsList";
 import Page from "@/components/Page/Page";
 import { commentLimit } from "@/common/config";
 import { useAppDispatch } from "@/modules/hooks";
@@ -204,7 +202,7 @@ const Content: FC<iProps> = ({ type, vid }) => {
           &nbsp;
           <span>{`(${detail.commentCount})`}</span>
         </div>
-        <div className="domVideoDetail_feedback mb-10">
+        <div className="mb-10">
           <Write max={140} onChange={handleChange} />
         </div>
         <Comment type={type} vid={vid} />

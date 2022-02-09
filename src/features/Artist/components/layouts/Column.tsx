@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { FC, memo, useEffect, useState } from "react";
 import { IconPlayerPlay, IconFolderPlus, IconDownload } from "@tabler/icons";
 
 import dayjs from "dayjs";
@@ -7,7 +7,12 @@ import DomTags from "@/components/Tags";
 import DomHeart from "@/components/Table/Heart";
 import { apiArtistTopSong } from "@/api";
 
-export default memo(({ hotAlbums = [], id }) => {
+interface iProps {
+  hotAlbums: [];
+  id: string;
+}
+
+const Column: FC<iProps> = ({ hotAlbums = [], id }) => {
   console.log("artist_column");
   const [top50, setTop50] = useState([]);
   const [limit, setLimit] = useState(10);
@@ -56,7 +61,7 @@ export default memo(({ hotAlbums = [], id }) => {
                   "item hover:bg-gray-100 focus:outline-none focus:bg-gray-200",
                   { "bg-gray-50": index % 2 === 0 }
                 )}
-                tabIndex="2"
+                tabIndex={2}
                 key={item.id}
               >
                 <div className="index flex-none text-right text-gray-400">
@@ -106,4 +111,6 @@ export default memo(({ hotAlbums = [], id }) => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Column);

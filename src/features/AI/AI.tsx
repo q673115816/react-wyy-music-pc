@@ -1,15 +1,20 @@
-import React, { useState, memo, useEffect, MouseEventHandler, FC } from "react";
+import React, {
+  useState,
+  memo,
+  useEffect,
+  MouseEventHandler,
+  FC,
+  useCallback,
+} from "react";
 import { IconFileImport, IconMicrophone } from "@tabler/icons";
 import "./style.scss";
 import { setToast } from "@/modules/reducers/mask/slice";
 import IconRejected from "./Icon";
 import Speech from "./Speech";
 import { useAppDispatch } from "@/modules/hooks";
-import { useCallback } from "react";
-import { useRef } from "react";
 
 interface IProps {
-  handleCallback: MouseEventHandler;
+  handleCallback: () => void;
 }
 
 const Wait = memo<IProps>(function Wait({ handleCallback }: IProps) {
