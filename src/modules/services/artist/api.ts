@@ -1,4 +1,4 @@
-import { Detail } from "./types";
+import {Artists, Detail} from "./types";
 import { base } from "../base";
 
 export const api = base.injectEndpoints({
@@ -17,7 +17,18 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getSimiArtist: build.query<Artists, { id: string; }>({
+      query: (body) => ({
+        url: `simi/artist`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetArtistDetailQuery, usePostArtistSubMutation } = api;
+export const {
+  useGetArtistDetailQuery,
+  useGetSimiArtistQuery,
+  usePostArtistSubMutation,
+} = api;

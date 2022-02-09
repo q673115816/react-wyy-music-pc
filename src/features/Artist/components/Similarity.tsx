@@ -1,35 +1,22 @@
-import React, { useState, useEffect, memo } from "react";
-import { apiSimiArtist } from "@/api";
+import React, { memo, FC} from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "@/components/Loading";
+import {useGetSimiArtistQuery} from "@/modules/services/artist";
 
-export default memo(function Similarity() {
-  const { id } = useParams();
-  const [simiArtists, setSimiArtists] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const handleInit = async () => {
-    try {
-      const { artists } = await apiSimiArtist({
-        id,
-      });
-      setSimiArtists(artists);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleInit();
-  }, []);
+const Similarity = () => {
+  const {id = ''} = useParams()
+  const {data, isLoading} = useGetSimiArtistQuery({id})
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex justify-center pt-12">
         <Loading />
       </div>
     );
   }
-  if (simiArtists.length === 0) {
+  const artists = data?.artists || []
+
+  if (artists.length === 0) {
     return (
       <div className="text-center text-gray-400 text-sm pt-16">
         没有相似歌手
@@ -39,7 +26,7 @@ export default memo(function Similarity() {
   return (
     <div className="domArtist_section p-8">
       <div className="grid grid-cols-5 gap-5">
-        {simiArtists.map((item) => (
+        {artists.map((item) => (
           <div className="item" key={item.id}>
             <div className="cover rounded overflow-hidden border">
               <Link to={`/artist/${item.id}`} className="">
@@ -61,4 +48,6 @@ export default memo(function Similarity() {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Similarity)

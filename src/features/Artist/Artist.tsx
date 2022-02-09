@@ -9,7 +9,7 @@ import MV from "./components/MV";
 import Detail from "./components/Detail";
 import Similarity from "./components/Similarity";
 import Header from "./components/Header";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 type Nav = "Album" | "MV" | "Detail" | "Similarity";
 

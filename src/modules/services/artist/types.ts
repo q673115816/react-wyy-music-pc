@@ -14,3 +14,14 @@ export interface Detail extends ResWithCode {
     };
   };
 }
+
+export interface Artists extends ResWithCode {
+  artists: Artist[]
+}
+
+interface Artist {
+  accountId: number;
+  id: number;
+  name: string;
+  picUrl: string;
+}
