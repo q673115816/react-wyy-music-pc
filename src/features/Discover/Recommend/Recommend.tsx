@@ -12,7 +12,7 @@ import { setHomeRecommend } from "@/modules/reducers/home/slice";
 import { setDialogHomeOrderShow } from "@/modules/reducers/mask/slice";
 import DomSwiper from "@/components/Swiper";
 import { IconChevronRight } from "@tabler/icons";
-import DOMkankan from "@/components/AdLookRectangle";
+import KANKAN from "@/components/AdLookRectangle";
 import DialogHomeOrder from "@/components/Dialog/HomeOrder";
 
 import Loading from "@/components/Loading";
@@ -34,7 +34,7 @@ const GridObj = {
     () => (
       <div className="domHome_recommend_kankan mt-4 grid grid-cols-4 gap-5">
         {Object.keys(Array(4).fill(0)).map((item) => (
-          <DOMkankan key={item} />
+          <KANKAN key={item} />
         ))}
       </div>
     ),
@@ -59,7 +59,7 @@ const Recommend = () => {
       ] = await Promise.all([
         apiBanner(),
         apiRecommendResource({
-          limit: 10,
+          // limit: 10,
         }),
         apiPersonalizedPrivatecontent(),
         apiPersonalizedNewsong({
