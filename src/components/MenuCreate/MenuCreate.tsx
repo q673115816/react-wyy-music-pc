@@ -1,27 +1,22 @@
-import React, { useState } from "react";
+import React, { FC, memo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setAudioImmediate } from "@/modules/reducers/audio/slice";
 import { setContextMenuShow } from "@/modules/reducers/mask/slice";
-import { apiCommentMusic, apiCommentMV, apiCommentVideo } from "@/api";
+
+import config from "./config";
 
 const defaultSchema = [
   ["评论", "播放", "下一首播放"],
   ["收藏到歌单", "分享", "复制链接", "不感兴趣", "下载"],
 ];
 
-const switchs = {
-  song: {
-    comment: apiCommentMusic,
-  },
-  mv: {
-    comment: apiCommentMV,
-  },
-  video: {
-    comment: apiCommentVideo,
-  },
-};
+interface iProps {
+  type: string;
+  item: {};
+  schema: [];
+}
 
-export default ({
+const MenuCreate: FC<iProps> = ({
   children,
   item = {},
   type = "song",
@@ -39,7 +34,7 @@ export default ({
   };
   const handleRightClick = async (e, item, type) => {
     try {
-      const { total } = await switchs[type]?.comment({
+      const { total } = await config[type]?.comment({
         id: item.id,
       });
       dispatch(
@@ -69,3 +64,5 @@ export default ({
     </div>
   );
 };
+
+export default memo(MenuCreate);

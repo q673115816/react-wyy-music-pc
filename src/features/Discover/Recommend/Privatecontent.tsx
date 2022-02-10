@@ -1,7 +1,7 @@
 import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
-import DomMenuCreate from "@/components/MenuCreate";
+import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
 
 interface iProps {
   privatecontent: [];

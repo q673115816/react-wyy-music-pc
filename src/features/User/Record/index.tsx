@@ -1,7 +1,7 @@
 import React, { useEffect, useState, memo } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { apiUserRecord } from "@/api";
-import DomMenuCreate from "@/components/MenuCreate";
+import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
 import classNames from "classnames";
 import Rank from "@/components/Table/Rank";
 import Heart from "@/components/Table/Heart";

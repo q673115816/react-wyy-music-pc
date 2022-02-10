@@ -3,14 +3,13 @@ import classNames from "classnames";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import Search from "@/components/HeaderBarSearch";
-import { apiUserCloud } from "@/api";
 
-import MenuCreate from "@/components/MenuCreate";
+import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import Rank from "@/components/Table/Rank";
-import DomHeart from "@/components/Table/Heart";
+import Heart from "@/components/Table/Heart";
 import Download from "@/components/Table/Download";
-import DomGroupPlay from "@/components/GroupPlay";
-import DomName from "@/components/Table/Name";
+import GroupPlay from "@/components/GroupPlay";
+import Name from "@/components/Table/Name";
 import Artists from "@/components/Table/Artists";
 import Album from "@/components/Table/Album";
 
@@ -22,6 +21,7 @@ import {
   IconPlus,
   IconPlayerPlay,
 } from "@tabler/icons";
+import { useGetUserCloudQuery } from "@/modules/services/user";
 
 const defaultSort = (a, b, sort) =>
   String(a[sort.code]).localeCompare(String(b[sort.code]), "zh-CN") * sort.type;
@@ -54,13 +54,10 @@ const BuildSort = (item, sort) => {
   if (sort.type === 0)
     return <IconSwitchVertical size={14} color="#f00" stroke={1} />;
 };
+
 const Cloud = () => {
   const [visibility, setVisibility] = useState(false);
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
-  const [count, setCount] = useState(0);
-  const [maxSize, seMaxSize] = useState("");
-  const [size, setSize] = useState("");
 
   const [sort, setSort] = useState({
     name: "上传时间",
@@ -73,24 +70,10 @@ const Cloud = () => {
     setVisibility(!visibility);
   };
 
-  const handleInit = async () => {
-    try {
-      const {
-        data = [],
-        count = 0,
-        maxSize = 0,
-        size = 0,
-      } = await apiUserCloud({
-        limit: 100,
-      });
-      setData(data);
-      setCount(count);
-      seMaxSize(maxSize);
-      setSize(size);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { data: useCloud = {}, isLoading } = useGetUserCloudQuery({
+    limit: 100,
+  });
+  const { data = [], count = 0, maxSize = "", size = "" } = useCloud;
 
   const handleSort = (obj) => {
     if (sort.name !== obj.name) {
@@ -120,16 +103,13 @@ const Cloud = () => {
     }
   };
 
-  useEffect(() => {
-    handleInit();
-  }, []);
-
   // useEffect(() => {
   //   console.log('qwe');
   //   setData(
   //     data.sort((a, b) => sort.callback(a, b, sort)),
   //   );
   // }, [data, sort]);
+  if (isLoading) return null;
   return (
     <div className="domManage overflow-auto h-full">
       <div className="domManage_header ui_header">
@@ -138,10 +118,12 @@ const Cloud = () => {
       <div className="domCloud_info py-2.5 px-8">
         <span>云盘容量</span>
         &nbsp;
-        <div
-          className="ui_process"
-          style={{ "--ratio": size / maxSize || 0 }}
-        />
+        <div className="w-28 h-2.5 inline-block bg-gray-200 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-blue-600"
+            style={{ width: (size / maxSize) * 100 || 0 }}
+          />
+        </div>
         &nbsp;
         <span className="num">
           {(size / 1024 / 1024 / 1024).toFixed(2)}
@@ -160,7 +142,7 @@ const Cloud = () => {
       </div>
       <div className="ui_headerBar border-b">
         <div className="left space-x-2">
-          <DomGroupPlay />
+          <GroupPlay />
           <button
             type="button"
             className="flex-center ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
@@ -173,10 +155,7 @@ const Cloud = () => {
           <Search {...{ search, setSearch, placeholder: "搜索我的音乐云盘" }} />
         </div>
       </div>
-      <div
-        className="overflow-auto max-h-full flex-auto"
-        style={{ paddingLeft: 30, paddingRight: 20 }}
-      >
+      <div className="overflow-auto max-h-full flex-auto pl-8 pr-5">
         <div
           className="domManage_table"
           style={{

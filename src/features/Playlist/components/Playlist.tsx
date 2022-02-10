@@ -2,7 +2,7 @@ import React, { CSSProperties, memo } from "react";
 import classNames from "classnames";
 import dayjs from "dayjs";
 
-import MenuCreate from "@/components/MenuCreate";
+import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import Rank from "@/components/Table/Rank";
 import Heart from "@/components/Table/Heart";
 import Download from "@/components/Table/Download";

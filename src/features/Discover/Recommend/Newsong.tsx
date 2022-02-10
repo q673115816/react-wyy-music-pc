@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
 import DomTags from "@/components/Tags";
-import DomMenuCreate from "@/components/MenuCreate";
+import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
 
 export default memo(({ newsong = [] }) => (
   <div className="domHome_recommend_newsong grid gap-x-2 gap-y-4 mt-4 grid-cols-3 grid-rows-4 grid-flow-col">

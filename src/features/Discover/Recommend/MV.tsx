@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
-import MenuCreate from "@/components/MenuCreate";
+import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import { IconPlayerPlay } from "@tabler/icons";
 
 interface iProps {

@@ -1,5 +1,5 @@
 import React, { FC, memo } from "react";
-import MenuCreate from "@/components/MenuCreate";
+import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import classNames from "classnames";
 import Rank from "@/components/Table/Rank";
 import Heart from "@/components/Table/Heart";

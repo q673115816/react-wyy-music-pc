@@ -1,7 +1,17 @@
-import React from "react";
+import React, { FC, memo } from "react";
 import { IconX, IconSearch } from "@tabler/icons";
 
-export default ({ search, setSearch, placeholder = "" }) => (
+interface iProps {
+  search: string;
+  setSearch: (keyword: string) => void;
+  placeholder: string;
+}
+
+const HeaderBarSearch: FC<iProps> = ({
+  search,
+  setSearch,
+  placeholder = "",
+}) => (
   <div className="search">
     <input
       type="text"
@@ -20,3 +30,5 @@ export default ({ search, setSearch, placeholder = "" }) => (
     </div>
   </div>
 );
+
+export default memo(HeaderBarSearch);

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { IconPlayerPlay, IconLock } from "@tabler/icons";
 import { transPlayCount } from "@/common/utils";
 import PlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
-import DomMenuCreate from "@/components/MenuCreate";
+import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
 
 interface iProps {
   item: {};

@@ -158,26 +158,6 @@
   }
 }
 
-
-.ui_process {
-  --ratio: 0;
-  display: inline-block;
-  width: 110px;
-  height: 10px;
-  border-radius: 5px;
-  background-color: #E8E8EA;
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    display: block;
-    height: 100%;
-    width: calc(var(--ratio) * 100%);
-    // min-width: 1%;
-    background-color: #507DAF;
-  }
-}
-
 .ui_header {
   flex: none;
   height: 60px;

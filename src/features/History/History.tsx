@@ -12,7 +12,7 @@ import DomRank from "@/components/Table/Rank";
 import DomGroupPlay from "@/components/GroupPlay";
 import DomName from "@/components/Table/Name";
 import DomArtist from "@/components/Table/Artists";
-import DomMenuCreate from "@/components/MenuCreate";
+import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
 import { setAudioHistoryClear } from "@/modules/reducers/audio/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 

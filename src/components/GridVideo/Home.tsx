@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import MenuCreate from "@/components/MenuCreate";
+import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import Item from "./Item";
 
 const GridVideo = ({ list = [], schema = [] }) => (
@@ -16,4 +16,4 @@ const GridVideo = ({ list = [], schema = [] }) => (
   </div>
 );
 
-export default memo(GridVideo)
+export default memo(GridVideo);

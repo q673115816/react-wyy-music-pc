@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { IconChevronRight } from "@tabler/icons";
-import DomMenuCreate from "@/components/MenuCreate";
+import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
 import DomRank from "@/components/Table/Rank";
 import DomHeart from "@/components/Table/Heart";
 import DomDownload from "@/components/Table/Download";

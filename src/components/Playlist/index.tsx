@@ -12,7 +12,7 @@ import {
 import { setAudioPlaylistClear } from "@/modules/reducers/audio/slice";
 import { setPopupPlaylistToggle } from "@/modules/reducers/mask/slice";
 import DomName from "@/components/Table/Name";
-import DomMenuCreate from "@/components/MenuCreate";
+import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
 import "./style.scss";
 
 const Empty = () => {
