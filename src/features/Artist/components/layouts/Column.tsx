@@ -5,30 +5,17 @@ import dayjs from "dayjs";
 import classNames from "classnames";
 import DomTags from "@/components/Tags";
 import DomHeart from "@/components/Table/Heart";
-import { apiArtistTopSong } from "@/api";
+import { useGetArtistTopSongQuery } from "@/modules/services/artist";
+import { useParams } from "react-router-dom";
 
-interface iProps {
-  hotAlbums: [];
-  id: string;
-}
+interface iProps {}
 
-const Column: FC<iProps> = ({ hotAlbums = [], id }) => {
+const Column: FC<iProps> = () => {
+  const { id = "" } = useParams();
   console.log("artist_column");
-  const [top50, setTop50] = useState([]);
   const [limit, setLimit] = useState(10);
-  const handleInit = async () => {
-    try {
-      const { songs } = await apiArtistTopSong({
-        id,
-      });
-      setTop50(songs);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleInit();
-  }, []);
+  const { data } = useGetArtistTopSongQuery({ id });
+  const top50 = data?.songs || [];
   return (
     <div className="column p-8">
       <div className="column_item">
@@ -65,7 +52,7 @@ const Column: FC<iProps> = ({ hotAlbums = [], id }) => {
                 key={item.id}
               >
                 <div className="index flex-none text-right text-gray-400">
-                  {String(index + 1).padStart(2, 0)}
+                  {String(index + 1).padStart(2, "0")}
                 </div>
                 <div className="heart flex-none text-center">
                   <DomHeart id={item.id} />

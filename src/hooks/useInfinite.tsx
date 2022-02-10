@@ -1,7 +1,14 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, ReactNode, RefObject } from "react";
 
-export default (scrollCallback, domScroll, domObserver, deps = []) => {
-  const io = useRef();
+interface iProps {}
+
+export default (
+  scrollCallback: () => void,
+  domScroll: RefObject<HTMLElement>,
+  domObserver: RefObject<HTMLElement>,
+  deps = []
+) => {
+  const io = useRef<IntersectionObserver>(null);
 
   const handleIo = () => {
     io.current = new IntersectionObserver(

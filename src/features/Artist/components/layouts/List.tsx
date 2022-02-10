@@ -1,9 +1,10 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import { iProps } from "./types";
 
-export default memo(({ hotAlbums = [] }) => (
+const List: FC<iProps> = ({ hotAlbums = [] }) => (
   <div className="list pt-4">
     {hotAlbums.map((item, index) => (
       <div
@@ -45,4 +46,6 @@ export default memo(({ hotAlbums = [] }) => (
       </div>
     ))}
   </div>
-));
+);
+
+export default memo(List);

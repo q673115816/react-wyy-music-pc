@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  memo,
-  createElement,
-  ReactNode,
-} from "react";
+import React, { memo, createElement, ReactNode } from "react";
 import {
   IconLayoutGrid,
   IconList,
@@ -12,12 +6,13 @@ import {
   TablerIcon,
 } from "@tabler/icons";
 import classNames from "classnames";
-import { apiArtistAlbum } from "@/api";
 import Grid from "./layouts/Grid";
 import List from "./layouts/List";
 import Column from "./layouts/Column";
 import { useParams } from "react-router-dom";
 import { useLocalStorage } from "react-use";
+import { useGetArtistAlbumQuery } from "@/modules/services/artist";
+import Loading from "@/components/Loading";
 
 export type Layout = "Grid" | "List" | "Column";
 
@@ -34,28 +29,21 @@ const Contents: { [key in Layout]: ReactNode } = {
 };
 
 export default memo(function Album() {
-  const { id } = useParams();
+  const { id = "" } = useParams();
   const [layout = "Grid", setLayout, remove] = useLocalStorage<Layout>(
     "layout",
     navs[0][0]
   );
-  const [album, setAlbum] = useState({ hotAlbums: [], more: null });
-
-  const handleInit = async () => {
-    try {
-      const { hotAlbums, more } = await apiArtistAlbum({
-        id,
-      });
-
-      setAlbum({ hotAlbums, more });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    handleInit();
-  }, []);
+  const { data, isLoading } = useGetArtistAlbumQuery({ id });
+  const hotAlbums = data?.hotAlbums || [];
+  const more = data?.more || false;
+  if (isLoading) {
+    return (
+      <div className="flex-center">
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div className="domArtist_section relative">
       <div className="absolute right-8 bottom-full actions ml-auto space-x-0.5 flex rounded-sm overflow-hidden">
@@ -75,7 +63,7 @@ export default memo(function Album() {
         ))}
       </div>
       <div className="domArtist_section_layout">
-        {createElement(Contents[layout], { hotAlbums: album.hotAlbums, id })}
+        {createElement(Contents[layout], { hotAlbums, id })}
       </div>
     </div>
   );

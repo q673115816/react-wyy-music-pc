@@ -1,5 +1,7 @@
-import { ResWithCode } from "../types";
-
+import { MV, ResWithCode, Song } from "../types";
+export interface Req {
+  id: string;
+}
 export interface Detail extends ResWithCode {
   data: {
     artist: {
@@ -16,7 +18,7 @@ export interface Detail extends ResWithCode {
 }
 
 export interface Artists extends ResWithCode {
-  artists: Artist[]
+  artists: Artist[];
 }
 
 interface Artist {
@@ -25,3 +27,41 @@ interface Artist {
   name: string;
   picUrl: string;
 }
+
+export interface Albums extends ResWithCode {
+  more: boolean;
+  hotAlbums: HotAlbums;
+}
+
+export type HotAlbums = HotAlbum[];
+
+interface HotAlbum {
+  id: number;
+  alias: string[];
+  picUrl: string;
+  name: string;
+  publishTime: number;
+  size: number;
+}
+
+export interface TopSongs extends ResWithCode {
+  more: boolean;
+  songs: Songs;
+}
+
+type Songs = Song[];
+
+export interface Desc extends ResWithCode {
+  briefDesc: string;
+  count: number;
+  introduction: { ti: string; txt: string }[];
+  topicData: [];
+}
+
+export interface ArtistMV extends ResWithCode {
+  hasMore: boolean;
+  time: number;
+  mvs: MVs;
+}
+
+type MVs = MV[];

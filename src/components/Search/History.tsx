@@ -1,6 +1,7 @@
 import React, {
   FC,
-  memo, MouseEventHandler,
+  memo,
+  MouseEventHandler,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -8,43 +9,41 @@ import React, {
 } from "react";
 import { Link } from "react-router-dom";
 import { IconTrash, IconX } from "@tabler/icons";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { setSearchHistory } from "@/modules/reducers/search/slice";
+import { HandleSearch } from "./types";
+import { useLocalStorage } from "react-use";
+import classNames from "classnames";
 
 interface iProps {
-  handleSearch: () => void
+  handleSearch: HandleSearch;
 }
 
 const History: FC<iProps> = ({ handleSearch }) => {
-  const dispatch = useAppDispatch();
   const [isHidden, setIsHidden] = useState(false);
   const refHistory = useRef<HTMLDivElement>(null);
-  const { searchHistory } = useAppSelector(({ search }) => search);
-  const handleDeleteSearchHistory = (keywords): MouseEventHandler<HTMLButtonElement> =>
-    (e) =>  {
-    e.preventDefault()
-    e.stopPropagation()
-    dispatch(
-      setSearchHistory(searchHistory.filter((search) => search !== keywords))
-    );
-  };
+  const [searchHistory, setSearchHistory, removeSearchHistory] =
+    useLocalStorage("searchHistory", []);
 
-  const handleDeleteAllSearchHistory = () => {
-    dispatch(setSearchHistory([]));
-  };
+  const handleDeleteSearchHistory =
+    (keywords: string): MouseEventHandler<HTMLButtonElement> =>
+    (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setSearchHistory(searchHistory?.filter((search) => search !== keywords));
+    };
 
-  useEffect(() => {
-    if (refHistory.current && refHistory.current.clientHeight > 66) {
+  useLayoutEffect(() => {
+    if (refHistory.current && refHistory.current.clientHeight > 64) {
       setIsHidden(true);
     }
   }, []);
 
+  if (!searchHistory?.length) return null;
   return (
     <>
       <div className="subtitle flex items-center px-5 py-2 text-gray-500">
         <span className="text-sm">搜索历史</span>
         &nbsp;
-        <button type="button" onClick={handleDeleteAllSearchHistory}>
+        <button type="button" onClick={removeSearchHistory}>
           <IconTrash size={16} />
         </button>
         {isHidden && (
@@ -58,8 +57,7 @@ const History: FC<iProps> = ({ handleSearch }) => {
         )}
       </div>
       <div
-        className="px-5"
-        style={isHidden ? { height: 66, overflow: "hidden" } : null}
+        className={classNames("px-5 overflow-hidden", isHidden && `h-16`)}
         ref={refHistory}
       >
         <div className="searchHistory flex flex-wrap -m-1">
@@ -86,4 +84,4 @@ const History: FC<iProps> = ({ handleSearch }) => {
   );
 };
 
-export default memo(History)
+export default memo(History);

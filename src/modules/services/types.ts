@@ -15,3 +15,18 @@ export interface PlayList {
   };
   ar: { id: number; name: string }[];
 }
+
+export interface Song {
+  name: string;
+  id: number;
+  alia: string[];
+  dt: number;
+}
+
+export interface MV {
+  id: number;
+  name: string;
+  duration: number;
+  playCount: number;
+  imgurl: string;
+}

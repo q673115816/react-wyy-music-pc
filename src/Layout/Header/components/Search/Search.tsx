@@ -9,7 +9,6 @@ import { apiSearchHotDetail, apiSearchSuggest } from "@/api";
 
 import {
   setSearchValue,
-  setSearchHistory,
   setSearchHot,
   setSearchSuggest,
 } from "@/modules/reducers/search/slice";
@@ -20,7 +19,7 @@ import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 const Search = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { searchHistory, searchValue } = useAppSelector(({ search }) => search);
+  const { searchValue } = useAppSelector(({ search }) => search);
   const handleSearchInit = async () => {
     try {
       const { data } = await apiSearchHotDetail();

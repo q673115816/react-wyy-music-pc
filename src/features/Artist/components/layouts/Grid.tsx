@@ -1,9 +1,10 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
+import { iProps } from "./types";
 
-export default memo(({ hotAlbums = [] }) => (
+const Grid: FC<iProps> = ({ hotAlbums = [] }) => (
   <div className="grid grid-cols-4 p-8 gap-x-20 gap-y-5">
     {hotAlbums.map((item) => (
       <div className="item" key={item.id}>
@@ -34,4 +35,6 @@ export default memo(({ hotAlbums = [] }) => (
       </div>
     ))}
   </div>
-));
+);
+
+export default memo(Grid);

@@ -4,31 +4,24 @@ import { Link } from "react-router-dom";
 import classNames from "classnames";
 import {
   setSearchValue,
-  setSearchHistory,
   setSearchHot,
   setSearchSuggest,
 } from "@/modules/reducers/search/slice";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
 import Mask from "../Mask";
 import History from "./History";
-import HotList from "./HotList";
+import Hot from "./Hot";
 import style from "./style.module.scss";
 
 const Search = () => {
   const dispatch = useAppDispatch();
-  const { searchValue, searchHot, searchSuggest, searchHistory } =
-    useAppSelector(({ search }) => search);
+  const { searchValue, searchHot, searchSuggest } = useAppSelector(
+    ({ search }) => search
+  );
   const { searchVisibility } = useAppSelector(({ mask }) => mask);
   const handleSearch = (keywords: string) => {
-    // setSearchVisibility(false);
     dispatch(setDialogReset());
     dispatch(setSearchValue({ searchValue: keywords }));
-    dispatch(
-      setSearchHistory([
-        keywords,
-        ...searchHistory.filter((search: string) => search !== keywords),
-      ])
-    );
     // push(`/search?keywords=${keywords}`);
   };
   if (!searchVisibility) return null;
@@ -71,13 +64,11 @@ const Search = () => {
               "overflow-auto h-full flex-auto"
             )}
           >
-            {searchHistory.length > 0 && (
-              <History handleSearch={handleSearch} />
-            )}
+            <History handleSearch={handleSearch} />
             <div className="subtitle px-5 py-3 text-sm text-gray-400">
               热搜榜
             </div>
-            <HotList list={searchHot} handleSearch={handleSearch} />
+            <Hot list={searchHot} handleSearch={handleSearch} />
           </div>
         )}
       </div>
