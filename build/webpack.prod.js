@@ -107,7 +107,7 @@ const prod = {
   mode: "production",
   output: {
     clean: true,
-    publicPath: `${VITE_PUBLIC_URL}/`,
+    publicPath: VITE_PUBLIC_URL,
     path: path.join(__dirname, "../dist"),
     filename: "js/[name].js?version=[chunkhash:8]",
     // library: '[name]_[fullhash]',
