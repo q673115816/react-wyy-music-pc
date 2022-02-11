@@ -13,7 +13,7 @@ const defaultSchema = [
 interface iProps {
   type: string;
   item: {};
-  schema: [];
+  schema: string[][];
 }
 
 const MenuCreate: FC<iProps> = ({

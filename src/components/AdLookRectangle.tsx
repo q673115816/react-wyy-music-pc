@@ -2,7 +2,7 @@ import React, { FC, memo } from "react";
 
 const link = "https://look.163.com/hot?livetype=2";
 
-const ADLookRectangle: FC<{ tag: boolean }> = ({ tag = false }) => (
+const ADLookRectangle: FC<{ tag?: boolean }> = ({ tag = false }) => (
   <div className="item">
     <div className="rounded overflow-hidden relative">
       <a href={link}>

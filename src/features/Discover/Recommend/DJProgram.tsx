@@ -1,8 +1,13 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
+import { DJProgram as DJProgramProps } from "@/modules/services/types";
 
-export default memo(({ djprogram = [] }) => (
-  <div className="domHome_recommend_djprogram grid grid-cols-5 gap-5 mt-4">
+interface iProps {
+  djprogram: DJProgramProps[];
+}
+
+const DJProgram: FC<iProps> = ({ djprogram = [] }) => (
+  <div className="grid grid-cols-5 gap-5 mt-4">
     {djprogram.slice(0, 5).map((item) => (
       <div className="item" key={item.id}>
         <div className="cover border relative rounded overflow-hidden ">
@@ -32,4 +37,6 @@ export default memo(({ djprogram = [] }) => (
       </div>
     ))}
   </div>
-));
+);
+
+export default memo(DJProgram);

@@ -2,13 +2,13 @@ import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import { IconPlayerPlay } from "@tabler/icons";
-
+import { MV as MVProps } from "@/modules/services/types";
 interface iProps {
-  mv: [];
+  mv: MVProps[];
 }
 
 const MV: FC<iProps> = ({ mv = [] }) => (
-  <div className="domHome_recommend_mv grid gap-x-5 grid-cols-3 mt-4">
+  <div className="grid gap-x-5 grid-cols-3 mt-4">
     {mv.slice(0, 3).map((item) => (
       <div className="item" key={item.id}>
         <MenuCreate

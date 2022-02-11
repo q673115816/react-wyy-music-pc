@@ -1,3 +1,5 @@
+import { Privatecontents } from "@/modules/services/discover";
+
 export interface ResWithCode {
   code: number;
 }
@@ -28,5 +30,53 @@ export interface MV {
   name: string;
   duration: number;
   playCount: number;
-  imgurl: string;
+  copywriter: string;
+  artists: { id: number; name: string }[];
+  imgurl?: string;
+  picUrl?: string;
+}
+
+export interface Banner {
+  url: string;
+  titleColor: string;
+  typeTitle: string;
+  imageUrl: string;
+}
+
+export interface DJProgram {
+  akg: string;
+  canDislike: boolean;
+  id: number;
+  picUrl: string;
+  type: number;
+  name: string;
+  program: {
+    radio: {
+      id: number;
+      name: string;
+      picUrl: string;
+      rcmdText: string;
+    };
+  };
+}
+
+export interface Newsong {
+  id: number;
+  type: number;
+  name: string;
+  picUrl: string;
+  song: {
+    mvid: number;
+    privilege: {
+      maxbr: number;
+    };
+    artists: { id: number; name: string }[];
+  };
+}
+
+export interface Privatecontent {
+  id: number;
+  url: string;
+  name: string;
+  sPicUrl: string;
 }

@@ -1,37 +1,38 @@
 import {
-  Banner,
-  Privatecontent,
-  Newsong,
-  MV,
-  DJProgram,
+  Banners,
+  Privatecontents,
+  Newsongs,
+  MVs,
+  DJPrograms,
+  Resources,
 } from "./types";
 import { base } from "../base";
 
 export const api = base.injectEndpoints({
   endpoints: (build) => ({
-    getRecommendResource: build.query<Banner, void>({
+    getRecommendResource: build.query<Resources, void>({
       query: () => ({
         url: `recommend/resource`,
-        method: "POST"
+        method: "POST",
       }),
     }),
-    getBanner: build.query<Banner, void>({
+    getBanner: build.query<Banners, void>({
       query: () => `banner`,
     }),
-    getPersonalizedPrivatecontent: build.query<Privatecontent, void>({
+    getPersonalizedPrivatecontent: build.query<Privatecontents, void>({
       query: () => `personalized/privatecontent`,
     }),
-    getPersonalizedNewsong: build.query<Newsong, void>({
+    getPersonalizedNewsong: build.query<Newsongs, { limit: number }>({
       query: (body) => ({
         url: `personalized/newsong`,
         method: "POST",
-        body
+        body,
       }),
     }),
-    getPersonalizedMV: build.query<MV, void>({
+    getPersonalizedMV: build.query<MVs, void>({
       query: () => `personalized/mv`,
     }),
-    getPersonalizedDJProgram: build.query<DJProgram, void>({
+    getPersonalizedDJProgram: build.query<DJPrograms, void>({
       query: () => `personalized/djprogram`,
     }),
   }),
@@ -43,5 +44,5 @@ export const {
   useGetPersonalizedPrivatecontentQuery,
   useGetPersonalizedNewsongQuery,
   useGetPersonalizedMVQuery,
-  useGetPersonalizedDJProgramQuery
+  useGetPersonalizedDJProgramQuery,
 } = api;

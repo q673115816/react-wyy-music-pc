@@ -21,7 +21,7 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <script data-ad-client="ca-pub-4402649596916888" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
     <!-- 将http的不安全请求升级为https -->
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <!-- <script src="https://cdn.polyfill.io/v2/polyfill.js"></script> -->
@@ -34,12 +34,8 @@
     <link rel="dns-prefetch" href="//p3.music.126.net">
     <link rel="dns-prefetch" href="//m7.music.126.net">
     <link rel="dns-prefetch" href="//m8.music.126.net">
-<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.min.css">
-<!--    <script src="https://polyfill.io/v3/polyfill.min.js"></script>-->
   <% if(process.env.NODE_ENV === 'production') { %>
+  <script data-ad-client="ca-pub-4402649596916888" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= process.env.GA_TRACKING_ID %>"></script>
   <script>
@@ -50,6 +46,11 @@
     gtag('config', '<%= process.env.GA_TRACKING_ID %>');
   </script>
   <% } %>
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.min.css">
+<!--    <script src="https://polyfill.io/v3/polyfill.min.js"></script>-->
 </head>
 
 <body>

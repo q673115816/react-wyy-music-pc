@@ -7,7 +7,7 @@ import "./style.scss";
 import HOCDialog from "../Dialog";
 import Actions from "./Actions";
 
-export default memo(() => {
+export default memo(function HomeOrder() {
   const dispatch = useAppDispatch();
   const { dialogHomeOrderVisibility } = useAppSelector(({ mask }) => mask);
   const { homeOrder } = useAppSelector(({ setting }) => setting);

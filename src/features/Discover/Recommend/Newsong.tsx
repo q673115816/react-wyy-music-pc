@@ -1,11 +1,16 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
 import DomTags from "@/components/Tags";
 import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
+import { Newsong as NewsongProps } from "@/modules/services/types";
 
-export default memo(({ newsong = [] }) => (
-  <div className="domHome_recommend_newsong grid gap-x-2 gap-y-4 mt-4 grid-cols-3 grid-rows-4 grid-flow-col">
+interface iProps {
+  newsong: NewsongProps[];
+}
+
+const Newsong: FC<iProps> = ({ newsong = [] }) => (
+  <div className="grid gap-x-2 gap-y-4 mt-4 grid-cols-3 grid-rows-4 grid-flow-col">
     {newsong.map((item) => (
       // <DomMenuCreate
       //   key={item.id}
@@ -62,4 +67,6 @@ export default memo(({ newsong = [] }) => (
       </div>
     ))}
   </div>
-));
+);
+
+export default memo(Newsong);
