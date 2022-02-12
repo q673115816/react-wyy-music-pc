@@ -2,8 +2,8 @@ import { MouseEventHandler } from "react";
 
 export type pageProps = {
   total: number;
-  page: number;
-  func: (nextPage: number) => null;
+  page: number | string;
+  func: (nextPage: number) => void;
 };
 
 export interface btnProps {

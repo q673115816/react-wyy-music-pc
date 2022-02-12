@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { IconPlayerPlay, IconLock } from "@tabler/icons";
 import { transPlayCount } from "@/common/utils";
 import PlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
-import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
+import MenuCreate from "@/components/MenuCreate/MenuCreate";
 
 interface iProps {
   item: {};
 }
 
 const Item: FC<iProps> = ({ item = {} }) => (
-  // <DomMenuCreate
+  // <MenuCreate
   //   item={item}
   //   type="playlist"
   //   schema={[

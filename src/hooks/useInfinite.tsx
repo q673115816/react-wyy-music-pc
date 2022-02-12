@@ -4,7 +4,7 @@ interface iProps {}
 
 export default (
   scrollCallback: () => void,
-  domScroll: RefObject<HTMLElement>,
+  domScroll: RefObject<HTMLElement> | null,
   domObserver: RefObject<HTMLElement>,
   deps = []
 ) => {
@@ -21,7 +21,7 @@ export default (
         });
       },
       {
-        root: domScroll.current,
+        root: domScroll?.current || null,
         // rootMargin: '100px 0px 0px 0px',
         // thresholds: [1],
       }

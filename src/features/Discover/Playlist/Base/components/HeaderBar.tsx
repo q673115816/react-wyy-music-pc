@@ -1,61 +1,20 @@
 import React, { memo, useState } from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import classNames from "classnames";
 import { IconChevronRight } from "@tabler/icons";
-import { useSelector } from "react-redux";
+import {useGetPlaylistHotQuery, useGetPlaylistCatListQuery} from "@/modules/services/discover";
+import SubList from './SubList'
 
-const SmallHot = () => (
-  <svg
-    className="absolute left-full top-1/4 fill-current"
-    viewBox="0 0 12 12"
-    width="12"
-    height="6"
-  >
-    <text
-      dominantBaseline="middle"
-      textAnchor="middle"
-      x="0.5em"
-      y="0.5em"
-      className="fill-current ui_themeColor font-bold"
-    >
-      hot
-    </text>
-  </svg>
-);
 
-const SubList = memo(({ sub = [], category = null, cat = "" }) => (
-  <div className="flex-auto grid grid-cols-6 gap-y-4">
-    {sub
-      .filter((item) => item.category === Number(category))
-      .map((item) => (
-        <NavLink
-          className={({ isActive }) =>
-            classNames(
-              "text-gray-600 hover:ui_themeColor",
-              isActive && "on ui_themeColor"
-            )
-          }
-          to={`/home/playlist/${encodeURIComponent(item.name)}`}
-          key={item.name}
-        >
-          <span
-            className={classNames(
-              "inline-flex inner px-4 py-1 rounded-full overflow-hidden",
-              { ui_bg_opacity: item.name === cat }
-            )}
-          >
-            <span className="relative">
-              {item.name}
-              {item.hot && <SmallHot />}
-            </span>
-          </span>
-        </NavLink>
-      ))}
-  </div>
-));
-export default memo(({ cat }) => {
+const HeaderBar = () => {
+  const { cat = '' } = useParams()
   const [popup, setPopup] = useState(false);
-  const { hot, catlist } = useSelector(({ home }) => home.playlist);
+  const {data: resHot, isLoading: isLoading1} = useGetPlaylistHotQuery()
+  const {data: catlist = {}, isLoading: isLoading2} = useGetPlaylistCatListQuery()
+  if(isLoading1 && isLoading2) return null
+  const tags = resHot?.tags || []
+  const categories = catlist?.categories && Object.entries(catlist.categories) || []
+  const sub = catlist?.sub || []
   return (
     <div className="domHome_playlist_nav pt-4 pb-4 flex items-center">
       <div className="relative">
@@ -80,7 +39,7 @@ export default memo(({ cat }) => {
                   isActive && "on ui_themeColor"
                 )
               }
-              to="/home/playlist/全部歌单"
+              to="../全部歌单"
             >
               <span
                 className={classNames(
@@ -93,17 +52,17 @@ export default memo(({ cat }) => {
             </NavLink>
           </div>
           <div className="p-5 space-y-4">
-            {Object.entries(catlist.categories).map(([category, value]) => (
+            {categories.map(([category, value]) => (
               <div key={category} className="flex">
                 <div className="category text-gray-300">{value}</div>
-                <SubList sub={catlist.sub} category={category} cat={cat} />
+                <SubList sub={sub} category={category} cat={cat} />
               </div>
             ))}
           </div>
         </div>
       </div>
       <div className="ml-auto flex">
-        {hot.tags?.map((item) => (
+        {tags?.map((item) => (
           <NavLink
             className={({ isActive }) =>
               classNames(
@@ -111,7 +70,7 @@ export default memo(({ cat }) => {
                 isActive && "ui_themeColor ui_bg_opacity"
               )
             }
-            to={`/home/playlist/${encodeURIComponent(item.name)}`}
+            to={`../${encodeURIComponent(item.name)}`}
             key={item.name}
           >
             {item.name}
@@ -120,4 +79,6 @@ export default memo(({ cat }) => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(HeaderBar)

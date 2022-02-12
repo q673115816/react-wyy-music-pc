@@ -70,7 +70,8 @@ const DomPosition: FC<pageProps> = (props) => {
 };
 
 const Page: FC<pageProps> = ({ total = 1, page, func }) => {
-  if (total <= 1) return null;
+  if (Number(total) <= 1) return null;
+  page = Number(page)
   return (
     <div className="flex items-center justify-center pt-10 pb-10 space-x-1 flex-wrap">
       <Button handleClick={() => func(page - 1)} status={page === 1}>

@@ -50,3 +50,59 @@ export interface DJPrograms extends ResWithCode {
   category: number;
   result: DJProgram[];
 }
+
+
+export interface Tags extends ResWithCode {
+  tags: Tag[]
+}
+
+export interface Tag {
+  category: number;
+  hot: boolean;
+  id: number;
+  name: string;
+  type: number;
+}
+
+export interface Highqualitys extends ResWithCode {
+  lasttime: number;
+  more: boolean;
+  playlists: Highquality[];
+  total: number;
+}
+
+export interface Highquality {
+  id: number;
+  userId: number;
+  name: string;
+  copywriter: string;
+  coverImgUrl: string;
+  playCount: number;
+  tag: string;
+  tags: string[];
+  creator: {
+    nickname: string;
+    avatarDetail: {
+      identityIconUrl: string
+    }
+  }
+}
+
+export interface Playlists extends ResWithCode {
+  cat: string;
+  more: boolean;
+  playlists: Playlist[];
+  total: number;
+}
+
+export interface Playlist {
+  id: number;
+  userId: number;
+  playCount: number;
+  name: string;
+  coverImgUrl: string;
+  creator: {
+
+  };
+  privacy: number;
+}
