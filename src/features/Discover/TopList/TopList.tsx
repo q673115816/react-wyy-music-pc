@@ -1,62 +1,13 @@
 import React, { useEffect, useState, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
-import classNames from "classnames";
 import dayjs from "dayjs";
 import { apiToplistDetail, apiPlaylistDetail, apiToplistArtist } from "@/api";
 import { setTopListsDetail } from "@/modules/reducers/home/slice";
 import { transPlayCount } from "@/common/utils";
 import Loading from "@/components/Loading";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-
-const Content = ({ tracks = [] }) => (
-  <div className="official_rank_list flex-1 flex flex-col h-full">
-    {tracks.map((track, index) => (
-      <div
-        tabIndex={2}
-        className={classNames(
-          "item flex flex-1 px-2.5 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none",
-          { "bg-gray-50": index % 2 === 0 }
-        )}
-        key={track.name}
-      >
-        <span
-          className={classNames(
-            "index text-sm w-4",
-            index < 3 ? "ui_themeColor" : "text-gray-300"
-          )}
-        >
-          {index + 1}
-        </span>
-        <span className="status w-4 flex-center">&nbsp;口&nbsp;</span>
-        <span className="name" title={track.name + track.alia}>
-          {track.name}
-          {track.alia.length > 0 && (
-            <span className="text-gray-400">
-              ({track.alia.map((alia) => alia)})
-            </span>
-          )}
-        </span>
-        <span
-          className="ml-auto text-gray-400"
-          title={track.ar.map((artist) => artist.name).join("/")}
-        >
-          {track.ar.map((artist, index) => (
-            <span key={artist.id}>
-              {index > 0 && " / "}
-              <Link
-                to={`/artist/${artist.id}`}
-                className="artist text-gray-400 hover:text-gray-500"
-              >
-                {artist.name}
-              </Link>
-            </span>
-          ))}
-        </span>
-      </div>
-    ))}
-  </div>
-);
+import Content from "./Content";
 
 export default memo(function TopList() {
   const { list = [] } = useAppSelector(({ home }) => home.toplist);

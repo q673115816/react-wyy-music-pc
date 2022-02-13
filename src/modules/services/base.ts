@@ -90,7 +90,14 @@ const baseQueryWithIntercept: BaseQueryFn<
   console.log("baseQueryWithIntercept", args, api, extraOptions);
   const result: QueryReturnValue<any, FetchBaseQueryError, FetchBaseQueryMeta> =
     await baseQuery(args, api, extraOptions);
-
+  const { data, meta, error } = result;
+  console.log("data", data, "meta", meta, "error", error);
+  if (error) {
+    const { status } = error;
+    if (status === 301) {
+      console.log("弹出登录窗口");
+    }
+  }
   return result;
 };
 
