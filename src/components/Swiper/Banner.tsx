@@ -15,7 +15,16 @@ const Banner: FC<iProps> = ({ banner, children }) => (
     }}
     className="block"
   >
-    {children}
+    <img
+      loading={`lazy`}
+      className={``}
+      style={{
+        width: 1080 * 0.5,
+        height: 400 * 0.5,
+      }}
+      src={banner.imageUrl}
+      alt="banner"
+    />
     <div
       className={classNames(
         "typeTitle px-3 py-2",

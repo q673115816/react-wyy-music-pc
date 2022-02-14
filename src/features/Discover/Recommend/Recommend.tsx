@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { createElement, memo, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { setDialogHomeOrderShow } from "@/modules/reducers/mask/slice";
 import Swiper from "@/components/Swiper";
@@ -21,13 +21,14 @@ import {
   useGetPersonalizedPrivatecontentQuery,
   useGetRecommendResourceQuery,
 } from "@/modules/services/discover";
+import { Order, settingSelector } from "@/modules/reducers/setting/slice";
 
-const GridObj = {
-  推荐歌单: ["/home/playlist", playlist],
+const config: { [key in Order]: [string, ReactNode] } = {
+  推荐歌单: ["/discover/playlist", playlist],
   独家放送: ["/exclusive", Privatecontent],
   最新音乐: ["/home/playlist", Newsong],
   推荐MV: ["/video/mvlist", MV],
-  主播电台: ["/home/dj", DJProgram],
+  主播电台: ["/discover/dj", DJProgram],
   看看: [
     "https://look.163.com/hot?livetype=2",
     () => (
@@ -55,7 +56,7 @@ const Recommend = () => {
   const newsong = resNewsong?.result || [];
   const mv = resMV?.result || [];
   const djprogram = resDJProgram?.result || [];
-  const { homeOrder } = useAppSelector(({ setting }) => setting);
+  const { order } = useAppSelector(settingSelector);
   const dispatch = useAppDispatch();
   if (isLoading) {
     return (
@@ -65,37 +66,34 @@ const Recommend = () => {
     );
   }
   return (
-    <div className="domHome_content px-8 overflow-auto max-h-full flex-auto">
-      <div className="domHome_recommend ui_w1100">
+    <div className="px-8 overflow-auto max-h-full flex-auto">
+      <div className="ui_w1100">
         <Swiper banners={banners} />
-        {homeOrder.map((name) => {
-          const [path, Dom] = GridObj[name];
+        {order.map((name) => {
+          const [path, Dom] = config[name];
           return (
             <div className="mt-8" key={name}>
               <Link className="h1 inline-flex items-center" to={path}>
                 {name}
                 <IconChevronRight size={24} />
               </Link>
-              <Dom
-                {...{
-                  playlist,
-                  privatecontent,
-                  newsong,
-                  mv,
-                  djprogram,
-                }}
-              />
+              {createElement(Dom, {
+                playlist,
+                privatecontent,
+                newsong,
+                mv,
+                djprogram,
+              })}
             </div>
           );
         })}
-        <div className="domHome_recommend_diy mt-4 text-center pb-10">
-          <div className="text-gray-500">
+        <div className="mt-4 text-center pb-10">
+          <div className="text-gray-500 mb-4">
             现在可以根据个人喜好，自由调整首页栏目顺序啦~
           </div>
-          <br />
           <button
             type="button"
-            className="btn ui_themeColor border rounded-sm border-current w-32 h-8"
+            className="ui_themeColor border rounded border-current w-32 h-8"
             onClick={() => dispatch(setDialogHomeOrderShow())}
           >
             调整栏目顺序

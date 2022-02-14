@@ -1,6 +1,10 @@
 import React, { useState, memo } from "react";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
-import { setHomeOrder, defaultOrder } from "@/modules/reducers/setting/slice";
+import {
+  setHomeOrder,
+  defaultOrder,
+  settingSelector,
+} from "@/modules/reducers/setting/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { IconBulb } from "@tabler/icons";
 import "./style.scss";
@@ -10,8 +14,8 @@ import Actions from "./Actions";
 export default memo(function HomeOrder() {
   const dispatch = useAppDispatch();
   const { dialogHomeOrderVisibility } = useAppSelector(({ mask }) => mask);
-  const { homeOrder } = useAppSelector(({ setting }) => setting);
-  const [tempHomeOrder, setTempHomeOrder] = useState(homeOrder);
+  const { order } = useAppSelector(settingSelector);
+  const [tempHomeOrder, setTempHomeOrder] = useState(order);
 
   const handleReset = () => {
     setTempHomeOrder(defaultOrder);

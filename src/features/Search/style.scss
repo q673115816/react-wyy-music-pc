@@ -5,48 +5,38 @@
     }
   }
 
-  &_main {
-    ._list {
+  ._list {
 
-      .item {
-        padding: 10px 30px;
-        grid-template-columns: var(--grid-template-columns);
-        .cover {
-          width: 60px;
-          height: 60px;
-          border-radius: 4px;
-          overflow: hidden;
-          border: 1px solid #ccc;
-        }
+    .item {
+      padding: 10px 30px;
+      grid-template-columns: var(--grid-template-columns);
+      .cover {
+        width: 60px;
+        height: 60px;
+        border-radius: 4px;
+        overflow: hidden;
+        border: 1px solid #ccc;
       }
     }
+  }
+}
 
-    .lyrics_list {
+.lyrics_list {
 
-      .lrc {
-        grid-column: 4 / 9;
+  .lrc {
+    grid-column: 4 / 9;
 
-        .content {
-          word-break: break-all;
-          white-space: pre-line;
-          &::first-line {
-            // margin-top: 0.2em;
-            margin-bottom: 0.2em;
-            font-size: larger;
-          }
-          b {
-            color: var(--linkColor);
-            font-weight: normal;
-          }
-        }
+    .content {
+      word-break: break-all;
+      white-space: pre-line;
+      &::first-line {
+        // margin-top: 0.2em;
+        margin-bottom: 0.2em;
+        font-size: larger;
       }
-    }
-
-    .userprofiles_list {
-      .item {
-        .cover {
-          border-radius: 50%;
-        }
+      b {
+        color: var(--linkColor);
+        font-weight: normal;
       }
     }
   }

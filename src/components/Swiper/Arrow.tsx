@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import React, { FC, memo } from "react";
-import { iArrowProps } from "./types";
+import { iArrowWithIconProps } from "./types";
 
-const Arrow: FC<iArrowProps> = ({ onClick, children, className }) => (
+const Arrow: FC<iArrowWithIconProps> = ({ onClick, children, className }) => (
   <button
     type="button"
     onClick={onClick}

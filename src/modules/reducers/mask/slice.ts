@@ -83,8 +83,7 @@ const slice = createSlice({
       Object.assign(state, visibilityState, action.payload);
       state.dialogUnSubscriptionVisibility = true;
     },
-    setDialogHomeOrderShow(state, action) {
-      Object.assign(state, visibilityState, action.payload);
+    setDialogHomeOrderShow(state) {
       state.dialogHomeOrderVisibility = true;
     },
     setDialogReset(state) {

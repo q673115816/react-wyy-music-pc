@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import DomGender from "@/components/Gender";
@@ -7,7 +7,7 @@ const layouts = {
   "--grid-template-columns": "60px 5fr 2fr",
 };
 
-export default ({ userprofiles = [] }) => (
+const UserProfiles = ({ userprofiles = [] }) => (
   <div className="userprofiles_list _list" style={layouts}>
     {userprofiles.map((item, index) => (
       <Link
@@ -17,7 +17,7 @@ export default ({ userprofiles = [] }) => (
         })}
         key={item.userId}
       >
-        <div className="cover">
+        <div className="rounded-full overflow-hidden">
           <img src={`${item.avatarUrl}?param=60y60`} alt="" />
         </div>
         <div className="name px-5">
@@ -30,3 +30,5 @@ export default ({ userprofiles = [] }) => (
     ))}
   </div>
 );
+
+export default memo(UserProfiles);

@@ -1,12 +1,20 @@
-import React, { memo, MouseEvent, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  memo,
+  MouseEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Drag from "@/components/Drag";
 import classNames from "classnames";
 import { IconMenu } from "@tabler/icons";
-import produce from "immer";
-import { Order } from "@/modules/reducers/setting/slice";
+import { Orders } from "@/modules/reducers/setting/slice";
+import { useImmer } from "use-immer";
 
-const useActions = ({ order }: { order: Order }) => {
-  const [tempHomeOrder, setTempHomeOrder] = useState(order);
+const useActions = ({ order }: { order: Orders }) => {
+  const [currentOrder, setCurrentOrder] = useImmer(order);
   const [active, setActive] = useState("");
   const [top, setTop] = useState(0);
   const [startY, setStartY] = useState(0);
@@ -14,60 +22,16 @@ const useActions = ({ order }: { order: Order }) => {
   const RefTop = useRef(top);
   const RefStartY = useRef(startY);
 
-  const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    const apart = e.clientY - startY;
-    const { current: index } = RefIndex;
-    if (index <= 0 && apart <= 0) return false;
-    if (index >= tempHomeOrder.length - 1 && apart >= 0) return false;
-    if (apart >= 48 * (3 / 4)) {
-      RefStartY.current += 48;
-      setTempHomeOrder(
-        produce((draft) => {
-          [draft[index], draft[index + 1]] = [draft[index + 1], draft[index]];
-        })
-      );
-      RefIndex.current += 1;
-      RefTop.current = -48 * (1 / 4);
-      return false;
-    }
-    if (apart <= -48 * (3 / 4)) {
-      RefStartY.current -= 48;
-      setTempHomeOrder(
-        produce((draft) => {
-          [draft[index], draft[index - 1]] = [draft[index - 1], draft[index]];
-        })
-      );
-      RefIndex.current -= 1;
-      RefTop.current = 48 * (1 / 4);
-      return false;
-    }
-    RefTop.current = apart;
-  };
+  const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {};
 
-  const onMouseUp = () => {
-    setActive("");
-  };
+  const onMouseUp = () => {};
 
-  const onMouseDown = (
-    e: MouseEvent<HTMLDivElement>,
-    active: string,
-    index: number
-  ) => {
-    setActive(active);
-    RefStartY.current = e.clientY;
-    RefIndex.current = index;
-  };
-
-  useEffect(() => {
-    setTop(RefTop.current);
-  }, [RefTop]);
-
-  useEffect(() => {
-    setStartY(RefStartY.current);
-  }, [RefStartY]);
+  const onMouseDown =
+    (active: string, index: number): MouseEventHandler<HTMLDivElement> =>
+    (e) => {};
 
   return {
-    tempHomeOrder,
+    currentOrder,
     onMouseMove,
     onMouseUp,
     onMouseDown,
@@ -76,26 +40,28 @@ const useActions = ({ order }: { order: Order }) => {
   };
 };
 
-export default memo<{ order: Order }>(({ order }) => {
-  const { tempHomeOrder, onMouseMove, onMouseUp, onMouseDown, active, top } =
+interface iProps {
+  order: Orders;
+}
+
+const Actions: FC<iProps> = ({ order }) => {
+  const { currentOrder, onMouseMove, onMouseUp, onMouseDown, active, top } =
     useActions({ order });
 
   return (
     <div className="flex flex-col relative">
-      {tempHomeOrder.map((order, index) => (
-        <div key={order} className="h-12 text-base text-gray-500">
+      {currentOrder.map((order, index) => (
+        <div key={order} className="h-12 text-base text-gray-500 bg-white">
           <Drag
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
-            onMouseDown={(e: MouseEvent<HTMLDivElement>) =>
-              onMouseDown(e, order, index)
-            }
+            onMouseDown={onMouseDown(order, index)}
             className={classNames(
-              "w-full border-b hover:bg-gray-200 bg-white px-10 h-12 flex items-center",
+              "w-full border-b hover:bg-gray-200 px-10 h-12 flex items-center",
               active === order && "absolute shadow z-10"
             )}
             style={{
-              transform: `translate(0, ${active === order ? top : 0}px)`,
+              transform: `translateY(${active === order ? top : 0}px)`,
             }}
           >
             {order}
@@ -105,4 +71,6 @@ export default memo<{ order: Order }>(({ order }) => {
       ))}
     </div>
   );
-});
+};
+
+export default memo(Actions);

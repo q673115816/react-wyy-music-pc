@@ -6,14 +6,15 @@ import Arrow from "./Arrow";
 import Banner from "./Banner";
 import "./Swiper.scss";
 import { Banner as BannerProps } from "@/modules/services/types";
-const Prev = (props) => (
-  <Arrow {...props} className="left-1">
+import { iArrowProps } from "./types";
+const Prev: FC<iArrowProps> = ({ onClick }) => (
+  <Arrow onClick={onClick} className="left-1">
     <IconChevronLeft size={16} />
   </Arrow>
 );
 
-const Next = (props) => (
-  <Arrow {...props} className="right-1">
+const Next: FC<iArrowProps> = ({ onClick }) => (
+  <Arrow onClick={onClick} className="right-1">
     <IconChevronRight size={16} />
   </Arrow>
 );
@@ -44,15 +45,10 @@ const Swiper: FC<iProps> = ({ banners = [] }) => {
       <Slider {...settings}>
         {banners.map((banner, index) => (
           <div
-            className="cover overflow-hidden border rounded-lg transition relative"
+            className="cover overflow-hidden rounded-lg transition relative"
             key={banner.imageUrl}
-            style={{
-              width: 1080 * 0.5,
-            }}
           >
-            <Banner banner={banner}>
-              <img src={banner.imageUrl} alt="banner" />
-            </Banner>
+            <Banner banner={banner} />
           </div>
         ))}
       </Slider>

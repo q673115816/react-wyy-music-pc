@@ -1,15 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { LOCALSTORAGE } from "@/common/utils";
+import { Draft } from "immer";
 
 export interface SettingState {
   theme: string;
   custom: boolean;
   font: string;
-  homeOrder: string[];
+  order: string[];
 }
 
-export type Order = string[];
-export const defaultOrder: Order = [
+export type Order =
+  | "推荐歌单"
+  | "独家放送"
+  | "最新音乐"
+  | "推荐MV"
+  | "主播电台"
+  | "看看";
+export type Orders = Order[];
+export const defaultOrder: Orders = [
   "推荐歌单",
   "独家放送",
   "最新音乐",
@@ -21,13 +29,13 @@ export const defaultOrder: Order = [
 const theme = LOCALSTORAGE("theme", "#D03535");
 const custom = LOCALSTORAGE("custom", false);
 const font = LOCALSTORAGE("font", "inherit");
-const homeOrder = LOCALSTORAGE("homeOrder", defaultOrder);
+const order = LOCALSTORAGE("homeOrder", defaultOrder);
 
 const initialState: SettingState = {
   theme,
   custom,
   font,
-  homeOrder,
+  order,
 };
 
 const slice = createSlice({
@@ -48,10 +56,16 @@ const slice = createSlice({
     },
     setHomeOrder(state, action) {
       window.localStorage.setItem("homeOrder", JSON.stringify(action.payload));
-      state.homeOrder = action.payload;
+      state.order = action.payload;
     },
   },
 });
+
+export const settingSelector = <T = Draft<SettingState>>({
+  setting,
+}: {
+  setting: T;
+}): T => setting;
 
 export default slice.reducer;
 
