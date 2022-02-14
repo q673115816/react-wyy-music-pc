@@ -10,7 +10,7 @@ interface ReqSearch {
 
 export const api = base.injectEndpoints({
   endpoints: (build) => ({
-    getCloudSearch: build.query<Searchs, ReqSearch>({
+    getCloudSearch: build.mutation<Searchs, ReqSearch>({
       query: (body) => ({
         url: `cloudSearch`,
         method: "POST",
@@ -27,4 +27,4 @@ export const api = base.injectEndpoints({
   }),
 });
 
-export const { useGetCloudSearchQuery, useGetSearchMultimatchQuery } = api;
+export const { useGetCloudSearchMutation, useGetSearchMultimatchQuery } = api;

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Draft } from "immer";
 
 export interface SearchState {
   searchValue: string;
@@ -33,7 +34,11 @@ const slice = createSlice({
   },
 });
 
-export const searchSelector = ({ search }) => search;
+export const searchSelector = <T = Draft<SearchState>>({
+  search,
+}: {
+  search: T;
+}) => search;
 
 export default slice.reducer;
 

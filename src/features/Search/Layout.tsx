@@ -18,7 +18,7 @@ const Layout = () => {
     setSearchHistory([keywords, ...otherSearchHistory]);
   }, [keywords]);
 
-  const { unit } = config[type];
+  const unit = config[type]?.unit || "";
 
   return (
     <div className="domSearch overflow-auto max-h-full flex-auto">
