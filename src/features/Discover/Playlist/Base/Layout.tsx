@@ -8,11 +8,10 @@ import HeaderBar from "./components/HeaderBar";
 import { useGetTopPlaylistHighqualityMutation } from "@/modules/services/discover";
 
 export default memo(function Playlist() {
-  const { cat = "", page = "" } = useParams();
+  const { cat = "" } = useParams();
   const [highquality, setHighquality] = useState({});
   const [highqualityGet, { isLoading }] =
     useGetTopPlaylistHighqualityMutation();
-  console.log("page", page);
   useEffect(() => {
     (async () => {
       const data = await highqualityGet({ cat, limit: 1 });

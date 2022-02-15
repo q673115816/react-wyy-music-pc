@@ -133,7 +133,7 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
             onDoubleClick={handleChangeFull}
             onEnded={handleEnd}
             playsInline
-            autoPlay={true}
+            autoPlay={play}
           />
           {!play && (
             <button
