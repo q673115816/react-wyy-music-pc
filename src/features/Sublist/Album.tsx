@@ -1,23 +1,16 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiAlbumSublist } from "@/api";
 import Search from "@/components/HeaderBarSearch";
 import useInit from "./useInit";
 import Empty from "./components/Empty";
-import ListItem from "./components/Listitem";
+import ListItem from "./components/ListItem";
 
 const NAME = "专辑";
 
 const ListBuild = (filter, search, navigate) => {
   if (search && filter.length === 0) {
-    return (
-      <Empty>
-        未能找到与“
-        {search}
-        ”相关的任何
-        {NAME}
-      </Empty>
-    );
+    return <Empty tips={`未能找到与“${search}”相关的任何${NAME}`} />;
   }
   if (filter.length > 0) {
     return filter.map((item) => (
@@ -58,12 +51,7 @@ const ListBuild = (filter, search, navigate) => {
       </div>
     ));
   }
-  return (
-    <Empty>
-      暂无收藏
-      {NAME}
-    </Empty>
-  );
+  return <Empty tips={`暂无收藏 ${NAME}`} />;
 };
 
 const filterRule = (data, search) =>
@@ -73,26 +61,15 @@ const filterRule = (data, search) =>
       item.artists.find((artist) => artist.name.indexOf(search) >= 0)
   );
 
-export default () => {
+const Album = () => {
   const navigate = useNavigate();
   const { count, setSearch, search, filter } = useInit(
     apiAlbumSublist,
     filterRule
   );
   return (
-    <>
-      <div className="ui_headerBar">
-        <span className="title">
-          <b>收藏的专辑</b>
-          &nbsp; ({count})
-        </span>
-        <div className="right">
-          <Search {...{ search, setSearch, placeholder: "搜索收藏专辑" }} />
-        </div>
-      </div>
-      <div className="domSublist_list">
-        {ListBuild(filter, search, navigate)}
-      </div>
-    </>
+    <div className="domSublist_list">{ListBuild(filter, search, navigate)}</div>
   );
 };
+
+export default memo(Album);

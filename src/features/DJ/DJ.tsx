@@ -1,21 +1,20 @@
-import React, { useEffect, useState, memo } from "react";
-import { apiDjSublist } from "@/api";
+import React, { memo } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useGetDJSublistQuery } from "@/modules/services/dj";
+import Loading from "@/components/Loading";
 
 function DJ() {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
-  const handleInit = async () => {
-    try {
-      const { djRadios } = await apiDjSublist();
-      setData(djRadios);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleInit();
-  }, []);
+  const { data, isLoading } = useGetDJSublistQuery();
+  const djRadios = data?.djRadios || [];
+  const count = data?.count || 0;
+  if (isLoading) {
+    return (
+      <div className={`flex-center`}>
+        <Loading />
+      </div>
+    );
+  }
   return (
     <div className="overflow-auto max-h-full flex-auto">
       <div className="domSublist_nav px-8 py-5 space-x-4">
@@ -24,10 +23,10 @@ function DJ() {
       <div className="domSublist_headerBar ui_headerBar">
         <b className="title">我订阅的播客</b>
         &nbsp;
-        <span className="text-gray-400">({data.length})</span>
+        <span className="text-gray-400">({count})</span>
       </div>
       <div className="domSublist_list">
-        {data.map((item) => (
+        {djRadios.map((item) => (
           <div
             onClick={() => navigate(`/playlist/dj/${item.id}`)}
             key={item.id}

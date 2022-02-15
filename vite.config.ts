@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { resolve } from "path";
 import { ConfigEnv, defineConfig } from "vite";
 import reactRefresh from "@vitejs/plugin-react-refresh";
@@ -7,7 +6,7 @@ import legacyPlugin from "@vitejs/plugin-legacy";
 export default ({ mode, command }: ConfigEnv) => {
   const isDev = mode === "development";
   return defineConfig({
-    base: isDev ? "/" : "/",
+    base: "/",
     plugins: [
       reactRefresh(),
       legacyPlugin({

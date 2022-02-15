@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiTopicSublist } from "@/api";
 import Search from "@/components/HeaderBarSearch";
@@ -9,14 +9,7 @@ const NAME = "专栏";
 
 const ListBuild = (filter, search, navigate) => {
   if (search && filter.length === 0) {
-    return (
-      <Empty>
-        未能找到与“
-        {search}
-        ”相关的任何
-        {NAME}
-      </Empty>
-    );
+    return <Empty tips={`未能找到与“${search}”相关的任何${NAME}`} />;
   }
   if (filter.length > 0) {
     return filter.map((item) => (
@@ -56,15 +49,10 @@ const ListBuild = (filter, search, navigate) => {
       </button>
     ));
   }
-  return (
-    <Empty>
-      暂无收藏
-      {NAME}
-    </Empty>
-  );
+  return <Empty tips={`暂无收藏 ${NAME}`} />;
 };
 
-export default () => {
+const Topic = () => {
   const navigate = useNavigate();
   const { count, setSearch, search, filter } = useInit(apiTopicSublist);
   return (
@@ -89,3 +77,5 @@ export default () => {
     </>
   );
 };
+
+export default memo(Topic);

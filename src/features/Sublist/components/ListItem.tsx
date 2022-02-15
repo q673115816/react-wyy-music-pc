@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 
-export default ({ item = {}, push }) => (
+const ListItem = ({ item = {}, push }) => (
   <div
     role="button"
     className="item"
@@ -36,3 +36,5 @@ export default ({ item = {}, push }) => (
     <div className="size text-gray-400">{item.size}首</div>
   </div>
 );
+
+export default memo(ListItem);
