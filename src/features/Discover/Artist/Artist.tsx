@@ -1,73 +1,13 @@
-import React, { useState, useEffect, useRef, memo } from "react";
-import "./style.scss";
+import React, { useEffect, useRef, memo } from "react";
+import style from "./artist.module.scss";
 import classNames from "classnames";
-import { apiArtistList } from "@/api";
-import {
-  addHomeTopArtists,
-  initHomeTopArtists,
-} from "@/modules/reducers/home/slice";
 import useInfinite from "@/hooks/useInfinite";
-import DomResize from "@/components/ResizeObserver";
+import Resize from "@/components/ResizeObserver";
 import Loading from "@/components/Loading";
 import Item from "./Item";
-const navs = [
-  {
-    type: "语种",
-    code: "area",
-    sub: [
-      [-1, "全部", 1],
-      [7, "华语", 1],
-      [96, "欧美", 2],
-      [8, "日本", 4],
-      [16, "韩国", 3],
-      [0, "其他", 1],
-    ],
-  },
-  {
-    type: "分类",
-    code: "type",
-    sub: [
-      [-1, "全部"],
-      [1, "男歌手"],
-      [2, "女歌手"],
-      [3, "乐队"],
-    ],
-  },
-  {
-    type: "筛选",
-    code: "initial",
-    sub: [
-      [-1, "热门"],
-      ["A", "A"],
-      ["B", "B"],
-      ["C", "C"],
-      ["D", "D"],
-      ["E", "E"],
-      ["F", "F"],
-      ["G", "G"],
-      ["H", "H"],
-      ["I", "I"],
-      ["J", "J"],
-      ["K", "K"],
-      ["L", "L"],
-      ["M", "M"],
-      ["N", "N"],
-      ["O", "O"],
-      ["P", "P"],
-      ["Q", "Q"],
-      ["R", "R"],
-      ["S", "S"],
-      ["T", "T"],
-      ["U", "U"],
-      ["V", "V"],
-      ["W", "W"],
-      ["X", "X"],
-      ["Y", "Y"],
-      ["Z", "Z"],
-      ["#", "#"],
-    ],
-  },
-];
+import config from "./config";
+import { useGetArtistListMutation } from "@/modules/services/discover";
+import { useImmer } from "use-immer";
 
 const initialOptions = {
   type: -1,
@@ -75,14 +15,16 @@ const initialOptions = {
   initial: -1,
 };
 
+const limit = 30;
+
 export default memo(function Artist() {
-  const [option, setOption] = useState(() => initialOptions);
+  const [option, setOption] = useImmer(() => initialOptions);
   const RefOption = useRef(option);
-  const limit = 30;
   const offset = useRef(0);
   const DomScroll = useRef(null);
   const DomObserver = useRef(null);
-  const [artists, setArtists] = useState([]);
+  const [artists, setArtists] = useImmer([]);
+  const [artistListGet, {}] = useGetArtistListMutation();
   const handleChangeOption = (newoption) => {
     setOption((prev) => ({
       ...prev,
@@ -95,7 +37,7 @@ export default memo(function Artist() {
   const handleInit = async () => {
     try {
       const { type, area, initial } = RefOption.current;
-      const { artists } = await apiArtistList({
+      const data = await artistListGet({
         type,
         area,
         initial,
@@ -103,7 +45,9 @@ export default memo(function Artist() {
         offset: offset.current,
       });
       offset.current += limit;
-      setArtists((prev) => [...prev, ...artists]);
+      setArtists((draft) => {
+        draft.push(...data.data.artists);
+      });
       // dispatch(addHomeTopArtists(artists));
     } catch (error) {
       console.log(error);
@@ -120,24 +64,24 @@ export default memo(function Artist() {
     <div className="px-8 pb-8 overflow-auto h-full flex-auto" ref={DomScroll}>
       <div className="ui_w1100">
         <div className="space-y-1">
-          {navs.map(({ type, code, sub }) => (
-            <div
-              className="domHome_artist_filter flex items-baseline"
-              key={type}
-            >
+          {config.map(({ type, code, sub }) => (
+            <div className="flex items-baseline whitespace-nowrap" key={type}>
               <div className="w-10 flex-none">{type}</div>
-              <div className="flex flex-wrap list">
+              <div className="flex flex-wrap">
                 {sub.map(([key, value]) => (
-                  <div className="item flex-center" key={key}>
+                  <div
+                    className={classNames(
+                      style.item,
+                      "item flex-center relative w-20 my-0.5"
+                    )}
+                    key={key}
+                  >
                     <button
                       type="button"
                       onClick={() => handleChangeOption({ [code]: key })}
                       className={classNames(
                         "px-2 rounded-full",
-                        key === option[code] && [
-                          "ui_themeColor",
-                          "ui_bg_opacity",
-                        ]
+                        key === option[code] && "ui_themeColor ui_bg_opacity"
                       )}
                     >
                       {value}
@@ -148,7 +92,7 @@ export default memo(function Artist() {
             </div>
           ))}
         </div>
-        <DomResize
+        <Resize
           className="mt-2.5 grid gap-4"
           small="grid-cols-5"
           big="grid-cols-6"
@@ -158,7 +102,7 @@ export default memo(function Artist() {
               <div className="cover boarder relative rounded overflow-hidden border">
                 <Link
                   to={`/toplist-artist/${
-                    navs[0].sub.find((item) => item[0] === option.area)[2]
+                    config[0].sub.find((item) => item[0] === option.area)[2]
                   }`}
                 >
                   <img
@@ -175,7 +119,7 @@ export default memo(function Artist() {
               <div className="info mt-2 text-sm text-gray-600 hover:text-black">
                 <Link
                   to={`/toplist-artist/${
-                    navs[0].sub.find((item) => item[0] === option.area)[2]
+                    config[0].sub.find((item) => item[0] === option.area)[2]
                   }`}
                 >
                   歌手排行榜 &gt;
@@ -186,7 +130,7 @@ export default memo(function Artist() {
           {artists.map((item) => (
             <Item item={item} key={item.id} />
           ))}
-        </DomResize>
+        </Resize>
       </div>
       <div className="flex-center" ref={DomObserver}>
         <Loading />

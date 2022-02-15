@@ -46,10 +46,8 @@ interface HotAlbum {
 
 export interface TopSongs extends ResWithCode {
   more: boolean;
-  songs: Songs;
+  songs: Song[];
 }
-
-type Songs = Song[];
 
 export interface Desc extends ResWithCode {
   briefDesc: string;

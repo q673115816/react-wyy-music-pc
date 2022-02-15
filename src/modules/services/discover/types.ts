@@ -5,6 +5,7 @@ import {
   ResWithCode,
   Newsong,
   Privatecontent,
+  Song,
 } from "../types";
 
 export interface Resources extends ResWithCode {
@@ -51,9 +52,8 @@ export interface DJPrograms extends ResWithCode {
   result: DJProgram[];
 }
 
-
 export interface Tags extends ResWithCode {
-  tags: Tag[]
+  tags: Tag[];
 }
 
 export interface Tag {
@@ -83,9 +83,9 @@ export interface Highquality {
   creator: {
     nickname: string;
     avatarDetail: {
-      identityIconUrl: string
-    }
-  }
+      identityIconUrl: string;
+    };
+  };
 }
 
 export interface Playlists extends ResWithCode {
@@ -101,8 +101,41 @@ export interface Playlist {
   playCount: number;
   name: string;
   coverImgUrl: string;
-  creator: {
-
-  };
+  creator: {};
   privacy: number;
+}
+
+export interface Artists extends ResWithCode {
+  more: boolean;
+  result: Artist[];
+}
+
+export interface Artist {
+  id: number;
+  albumSize: number;
+  alias: string[];
+  img1v1Url: string;
+  name: string;
+  musicSize: number;
+  fansCount: number;
+  followed: boolean;
+  accountId?: number;
+}
+
+export interface Songs extends ResWithCode {
+  data: TopSong[];
+}
+interface TopSong extends Song {
+  name: string;
+  mvid: number;
+  duration: number;
+  album: {
+    id: number;
+    name: string;
+    blurPicUrl: string;
+  };
+  artists: {
+    id: number;
+    name: string;
+  }[];
 }

@@ -1,0 +1,15 @@
+.item {
+  &:not(:last-of-type) {
+    &::after {
+      content: '';
+      position: absolute;
+      height: 12px;
+      top: 50%;
+      transform: translate(0, -50%);
+      right: 0;
+      margin-left: auto;
+      background-color: #ddd;
+      width: 1px;
+    }
+  }
+}

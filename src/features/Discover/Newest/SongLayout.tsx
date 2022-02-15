@@ -1,26 +1,15 @@
-import React, { useEffect, memo, useState, useMemo } from "react";
-import dayjs from "dayjs";
-import {
-  NavLink,
-  Link,
-  useParams,
-  useLocation,
-  Outlet,
-} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { apiTopSong, apiSongUrl } from "@/api";
-import { setTopSong } from "@/modules/reducers/home/slice";
+import React, { memo } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 import { IconPlayerPlay, IconFolderPlus } from "@tabler/icons";
 import classNames from "classnames";
-import Tags from "@/components/Tags";
-import { songNavs } from "./config";
+import { songConfig } from "./config";
 
 const SongLayout = () => {
   return (
     <>
       <div className="flex px-8 py-2">
         <div className={`flex space-x-4 text-sm`}>
-          {Object.keys(songNavs).map((name) => (
+          {Object.keys(songConfig).map((name) => (
             <NavLink
               key={name}
               className={({ isActive }) => classNames(isActive && "font-bold")}

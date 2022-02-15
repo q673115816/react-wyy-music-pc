@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Routes, Navigate, Route } from "react-router-dom";
-import NewestLayout from "./Newest";
+import NewestLayout from "./NewestLayout";
 import SongLayout from "./SongLayout";
 import Song from "./Song";
 import Album from "./Album";

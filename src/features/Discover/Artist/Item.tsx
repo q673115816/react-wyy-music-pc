@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import { IconUser } from "@tabler/icons";
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
+import { Artist } from "@/modules/services/discover";
 
-export default memo(function Item({ item = {} }) {
+interface iProps {
+  item: Artist;
+}
+
+const Item: FC<iProps> = ({ item = {} }) => {
   return (
     <div className="item">
       <div className="cover boarder relative rounded overflow-hidden border">
-        <Link to={item.id} className="">
+        <Link to={`/artist/${item.id}`} className="">
           <img
             loading={`lazy`}
             className="aspect-square w-full h-full"
@@ -28,4 +33,6 @@ export default memo(function Item({ item = {} }) {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Item);

@@ -5,7 +5,6 @@ import {
   MVs,
   DJPrograms,
   Resources,
-
   Tags,
   Highqualitys,
   Playlists,
@@ -13,7 +12,6 @@ import {
 import { base } from "../base";
 
 interface ReqHighquality {}
-
 
 export const api = base.injectEndpoints({
   endpoints: (build) => ({
@@ -43,8 +41,6 @@ export const api = base.injectEndpoints({
       query: () => `personalized/djprogram`,
     }),
 
-
-
     getPlaylistHighqualityTags: build.query<Tags, void>({
       query: () => `playlist/highquality/tags`,
     }),
@@ -55,14 +51,20 @@ export const api = base.injectEndpoints({
       query: () => `playlist/catlist`,
     }),
 
-    getTopPlaylistHighquality: build.mutation<Highqualitys, { cat: string, limit?: number, before?: number }>({
+    getTopPlaylistHighquality: build.mutation<
+      Highqualitys,
+      { cat: string; limit?: number; before?: number }
+    >({
       query: (body) => ({
         url: `top/playlist/highquality`,
         method: "POST",
         body,
       }),
     }),
-    getTopPlaylist: build.query<Playlists, { order: string, cat: string, limit: number, offset: number }>({
+    getTopPlaylist: build.query<
+      Playlists,
+      { order: string; cat: string; limit: number; offset: number }
+    >({
       query: (body) => ({
         url: `top/playlist`,
         method: "POST",
@@ -84,5 +86,8 @@ export const {
   useGetPlaylistCatListQuery,
   useGetTopPlaylistQuery,
   useGetPlaylistHighqualityTagsQuery,
-  useGetTopPlaylistHighqualityMutation
+  useGetTopPlaylistHighqualityMutation,
 } = api;
+
+export * from "./toplist";
+export * from "./newest";
