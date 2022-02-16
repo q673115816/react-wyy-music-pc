@@ -1,9 +1,10 @@
 import React, { memo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { apiTopicSublist } from "@/api";
 import Search from "@/components/HeaderBarSearch";
 import useInit from "./useInit";
 import Empty from "./components/Empty";
+import HeaderBar from "./components/HeaderBar";
 
 const NAME = "专栏";
 
@@ -31,12 +32,13 @@ const ListBuild = (filter, search, navigate) => {
         <div className="name truncate">
           <Link to={`/playlist/music/${item.id}`}>{item.name}</Link>
           <span className="text-gray-400">
-            {item.alias.map((alia) => alia)}
+            {item.alias.map((alia: string) => alia)}
           </span>
         </div>
         <div className="artist">
           {item.artists.map((artist) => (
             <Link
+              key={artist.id}
               onClick={(e) => e.stopPropagation()}
               to={`/artist/${artist.id}`}
               className="text-gray-400 hover"
@@ -54,23 +56,11 @@ const ListBuild = (filter, search, navigate) => {
 
 const Topic = () => {
   const navigate = useNavigate();
+  const { path = "" } = useParams();
   const { count, setSearch, search, filter } = useInit(apiTopicSublist);
   return (
     <>
-      <div className="ui_headerBar">
-        <span className="title">
-          <b>
-            收藏的
-            {NAME}
-          </b>
-          &nbsp; ({count})
-        </span>
-        <div className="right">
-          <Search
-            {...{ search, setSearch, placeholder: `搜索我收藏的${NAME}` }}
-          />
-        </div>
-      </div>
+      <HeaderBar search={search} setSearch={setSearch} count={count} />
       <div className="domSublist_list">
         {ListBuild(filter, search, navigate)}
       </div>

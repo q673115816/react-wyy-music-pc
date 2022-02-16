@@ -1,11 +1,5 @@
-import React, { memo, useMemo } from "react";
-import { apiMVSublist } from "@/api";
-import Search from "@/components/HeaderBarSearch";
+import React, { FC, memo, useMemo } from "react";
 import GridVideo from "@/components/GridVideo";
-import useInit from "./useInit";
-import Empty from "./components/Empty";
-
-const NAME = "视频";
 
 const filterRule = (data, search) =>
   data.filter(
@@ -14,15 +8,14 @@ const filterRule = (data, search) =>
       item.creator.find((creator) => creator.userName.indexOf(search) >= 0)
   );
 
-const MV = () => {
-  const { count, setSearch, search, filter } = useInit(
-    apiMVSublist,
-    filterRule
-  );
+interface iProps {
+  list: [];
+}
 
+const MV: FC<iProps> = ({ list }) => {
   const memoFilter = useMemo(
     () =>
-      filter.map(
+      list.map(
         ({ vid, coverUrl, playTime, durationms, title, type, creator }) => ({
           id: vid,
           cover: coverUrl,
@@ -33,15 +26,11 @@ const MV = () => {
           creator,
         })
       ),
-    [filter, search]
+    [list]
   );
   return (
     <div className="domSublist_grid">
-      {search && filter.length === 0 ? (
-        <Empty tips={`未能找到与“${search}”相关的任何${NAME}`} />
-      ) : (
-        <GridVideo list={memoFilter} />
-      )}
+      <GridVideo list={memoFilter} />
     </div>
   );
 };

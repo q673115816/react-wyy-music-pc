@@ -1,20 +1,9 @@
 import classNames from "classnames";
 import React, { memo } from "react";
-import {Navigate, NavLink, Outlet, useParams} from "react-router-dom";
-
-const navs = [
-  '专辑',
-  '歌手',
-  '视频',
-  '专栏',
-]
+import { NavLink, Outlet } from "react-router-dom";
+import { navs } from "./config";
 
 const Layout = () => {
-  const {path = ''} = useParams()
-  console.log(path)
-  if(!navs.includes(path) ) {
-    return <Navigate to={navs[0]} replace={true} />
-  }
   return (
     <div className="overflow-auto max-h-full flex-auto">
       <div className="px-8 py-5 space-x-4 text-base">

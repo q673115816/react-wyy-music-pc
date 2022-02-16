@@ -1,14 +1,15 @@
 import React, { FC, memo } from "react";
 import Search from "@/components/HeaderBarSearch";
+import { useParams } from "react-router-dom";
 
 interface iProps {
   count: number;
   search: string;
-  setSearch: () => void;
-  path: string;
+  setSearch: (search: string) => void;
 }
 
-const HeaderBar: FC<iProps> = ({ count, search, setSearch, path }) => {
+const HeaderBar: FC<iProps> = ({ count, search, setSearch }) => {
+  const { path = "" } = useParams();
   return (
     <div className="ui_headerBar">
       <span className="title">

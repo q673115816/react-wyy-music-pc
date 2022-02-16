@@ -1,20 +1,36 @@
-import React, {createElement, memo} from 'react'
-import Album from "./Album";
-import Artist from "./Artist";
-import MV from "./MV";
-import Topic from "./Topic";
-import {useParams} from "react-router-dom";
-
-const config = {
-  '专辑': Album,
-  '歌手': Artist,
-  '视频': MV,
-  '专栏': Topic,
-}
+import React, { memo, createElement, FC } from "react";
+import { apis, ConfigName, elements } from "./config";
+import { Navigate, useParams } from "react-router-dom";
+import HeaderBar from "./components/HeaderBar";
+import useInit from "./useInit";
+import Loading from "@/components/Loading";
+import Template from "./Template";
 
 const SubList = () => {
-  const {path = ''} = useParams()
-  return createElement(config[path])
-}
+  const { path = "" } = useParams();
+  if (!(path in elements)) {
+    return <Navigate to={""} replace={true} />;
+  }
+  const api = apis[path];
+  const { data, isLoading } = api();
+  const count = data?.count || 0;
+  const { search, setSearch, list } = useInit(data?.data);
 
-export default memo(SubList)
+  if (isLoading) {
+    return (
+      <div className={`flex-center`}>
+        <Loading />
+      </div>
+    );
+  }
+  return (
+    <>
+      <HeaderBar search={search} setSearch={setSearch} count={count} />
+      <Template search={search} list={list} setSearch={setSearch} count={count}>
+        {createElement(elements[path as ConfigName], { list })}
+      </Template>
+    </>
+  );
+};
+
+export default memo(SubList);
