@@ -10,7 +10,33 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getTopicSubList: build.query<MV, void>({
+      query: (body) => ({
+        url: `topic/sublist`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getArtistSubList: build.query<MV, void>({
+      query: (body) => ({
+        url: `artist/sublist`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getAlbumSubList: build.query<MV, void>({
+      query: (body) => ({
+        url: `album/sublist`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetMVSubListQuery } = api;
+export const {
+  useGetMVSubListQuery,
+  useGetTopicSubListQuery,
+  useGetArtistSubListQuery,
+  useGetAlbumSubListQuery,
+} = api;

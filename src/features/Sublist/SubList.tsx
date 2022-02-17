@@ -1,20 +1,32 @@
-import React, { memo, createElement, FC } from "react";
-import { apis, ConfigName, elements } from "./config";
-import { Navigate, useParams } from "react-router-dom";
-import HeaderBar from "./components/HeaderBar";
-import useInit from "./useInit";
+import React, { createElement, memo, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Loading from "@/components/Loading";
-import Template from "./Template";
+import HeaderBar from "@/features/Sublist/components/HeaderBar";
+import Empty from "@/features/Sublist/components/Empty";
+import { apis, elements } from "@/features/Sublist/config";
 
 const SubList = () => {
   const { path = "" } = useParams();
-  if (!(path in elements)) {
-    return <Navigate to={""} replace={true} />;
-  }
-  const api = apis[path];
-  const { data, isLoading } = api();
+  const { data, isLoading } = apis(path)();
+  const [filter, setFilter] = useState([]);
+  const [search, setSearch] = useState("");
+
   const count = data?.count || 0;
-  const { search, setSearch, list } = useInit(data?.data);
+
+  const handleFilter = () => {
+    const filter = data?.data || [];
+    if (search.trim()) {
+      // setFilter(filterRule(data, search));
+      setFilter(filter);
+    } else {
+      setSearch("");
+      setFilter(filter);
+    }
+  };
+
+  useEffect(() => {
+    handleFilter();
+  }, [data, search]);
 
   if (isLoading) {
     return (
@@ -26,9 +38,11 @@ const SubList = () => {
   return (
     <>
       <HeaderBar search={search} setSearch={setSearch} count={count} />
-      <Template search={search} list={list} setSearch={setSearch} count={count}>
-        {createElement(elements[path as ConfigName], { list })}
-      </Template>
+      {filter.length ? (
+        createElement(elements[path], { filter })
+      ) : (
+        <Empty count={count} search={search} path={path} />
+      )}
     </>
   );
 };

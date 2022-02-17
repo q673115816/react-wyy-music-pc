@@ -12,10 +12,10 @@ interface iProps {
   list: [];
 }
 
-const MV: FC<iProps> = ({ list }) => {
+const MV: FC<iProps> = ({ filter }) => {
   const memoFilter = useMemo(
     () =>
-      list.map(
+      filter.map(
         ({ vid, coverUrl, playTime, durationms, title, type, creator }) => ({
           id: vid,
           cover: coverUrl,
@@ -26,7 +26,7 @@ const MV: FC<iProps> = ({ list }) => {
           creator,
         })
       ),
-    [list]
+    [filter]
   );
   return (
     <div className="domSublist_grid">

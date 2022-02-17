@@ -1,8 +1,5 @@
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import { apiArtistSublist } from "@/api";
-import Search from "@/components/HeaderBarSearch";
-import useInit from "./useInit";
 
 const AliasOrTrans = ({ alias, trans }) => {
   if (alias.length) {
@@ -21,11 +18,7 @@ const filterRule = (data, search) =>
       item.alias.find((alia) => alia.indexOf(search) >= 0)
   );
 
-const Artist = () => {
-  const { count, setSearch, search, filter } = useInit(
-    apiArtistSublist,
-    filterRule
-  );
+const Artist = ({ filter }) => {
   return (
     <div className="domSublist_list">
       {filter.map((item) => (

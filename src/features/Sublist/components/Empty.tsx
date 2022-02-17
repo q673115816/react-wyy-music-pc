@@ -1,6 +1,12 @@
 import React, { FC, memo } from "react";
 
-const Empty: FC<{ tips: string }> = ({ tips = "" }) => (
+interface iProps {
+  count: number;
+  search: string;
+  path: string;
+}
+
+const Empty: FC<iProps> = ({ count = 0, search, path }) => (
   <div className="flex flex-col items-center text-center pt-24">
     <svg viewBox="0 0 1024 1024" width="128" height="128">
       <path
@@ -20,7 +26,9 @@ const Empty: FC<{ tips: string }> = ({ tips = "" }) => (
         fill="#7F4545"
       />
     </svg>
-    <div className="mt-4">{tips}</div>
+    <div className="mt-4">
+      {count ? `未能找到与“${search}”相关的任何${path}` : `暂无收藏${path}`}
+    </div>
   </div>
 );
 
