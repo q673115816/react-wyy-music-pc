@@ -1,5 +1,8 @@
 import React, { FC, memo, useMemo } from "react";
 import GridVideo from "@/components/GridVideo";
+import useInit from "@/features/Sublist/useInit";
+import { useGetMVSubListQuery } from "@/modules/services/sublist";
+import HeaderBar from "@/features/Sublist/components/HeaderBar";
 
 const filterRule = (data, search) =>
   data.filter(
@@ -8,11 +11,10 @@ const filterRule = (data, search) =>
       item.creator.find((creator) => creator.userName.indexOf(search) >= 0)
   );
 
-interface iProps {
-  list: [];
-}
+const MV = () => {
+  const { filter, setSearch, search, data, isLoading, count } =
+    useInit(useGetMVSubListQuery);
 
-const MV: FC<iProps> = ({ filter }) => {
   const memoFilter = useMemo(
     () =>
       filter.map(
@@ -29,9 +31,12 @@ const MV: FC<iProps> = ({ filter }) => {
     [filter]
   );
   return (
-    <div className="domSublist_grid">
-      <GridVideo list={memoFilter} />
-    </div>
+    <>
+      <HeaderBar search={search} setSearch={setSearch} count={count} />
+      <div className="domSublist_grid">
+        <GridVideo list={memoFilter} />
+      </div>
+    </>
   );
 };
 

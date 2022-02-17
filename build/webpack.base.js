@@ -168,7 +168,8 @@ module.exports = {
         // use: ['babel-loader?cacheDirectory=true'],
         use: [
           {
-            loader: "babel-loader",
+            // loader: "babel-loader",
+            loader: "swc-loader",
             options: {
               cacheDirectory: true,
             },

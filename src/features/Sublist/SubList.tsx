@@ -1,4 +1,4 @@
-import React, { createElement, memo, useEffect, useState } from "react";
+import React, {createElement, memo, useCallback, useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import Loading from "@/components/Loading";
 import HeaderBar from "@/features/Sublist/components/HeaderBar";
@@ -7,7 +7,7 @@ import { apis, elements } from "@/features/Sublist/config";
 
 const SubList = () => {
   const { path = "" } = useParams();
-  const { data, isLoading } = apis[path]();
+  const { data, isLoading } = useCallback(apis[path], [path])();
   const [filter, setFilter] = useState([]);
   const [search, setSearch] = useState("");
 

@@ -68,7 +68,7 @@ const plugins = [
     cdn,
     // prefetch,
     meta,
-    filename,
+    // filename,
     base: {
       href: VITE_PUBLIC_URL,
     },
@@ -120,13 +120,7 @@ const prod = {
         exclude: /(node_modules|bower_components)/,
         include: src,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            // options: {
-            //   // publicPath: (resourcePath, context) => `${path.relative(path.dirname(resourcePath), context)}/css`,
-            //   publicPath: process.env.PUBLIC_PATH,
-            // },
-          },
+          MiniCssExtractPlugin.loader,
           "css-loader",
           "postcss-loader",
           "sass-loader",

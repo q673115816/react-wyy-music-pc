@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, memo } from "react";
-import style from "./artist.module.scss";
+import style from "./Artist.module.scss";
 import classNames from "classnames";
 import useInfinite from "@/hooks/useInfinite";
 import Resize from "@/components/ResizeObserver";
