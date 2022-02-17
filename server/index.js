@@ -1,40 +1,71 @@
-if (typeof window === 'undefined') {
-  global.window = {};
+let path = require("path");
+let fsp = require("fs/promises");
+let express = require("express");
+
+let root = process.cwd();
+let isProduction = process.env.NODE_ENV === "production";
+
+function resolve(p) {
+  return path.resolve(__dirname, p);
 }
 
-const fs = require('fs');
-const path = require('path');
-const express = require('express');
-const { renderToString } = require('react-dom/server');
+async function createServer() {
+  let app = express();
+  /**
+   * @type {import('vite').ViteDevServer}
+   */
+  let vite;
 
-const SSR = require('../dist/search-server');
+  if (!isProduction) {
+    vite = await require("vite").createServer({
+      root,
+      server: { middlewareMode: "ssr" },
+    });
 
-console.log('entry ssr');
-const template = fs.readFileSync(
-  path.join(__dirname, '../dist/404.html'),
-  'utf-8',
-);
+    app.use(vite.middlewares);
+  } else {
+    app.use(require("compression")());
+    app.use(express.static(resolve("dist/client")));
+  }
 
-const renderMarkup = (str) => template.replace('<!--HTML_PLACEHOLDER-->', str);
+  app.use("*", async (req, res) => {
+    let url = req.originalUrl;
 
-const server = (port) => {
-  const app = express();
+    try {
+      let template;
+      let render;
 
-  app.use(express.static('dist'));
+      if (!isProduction) {
+        template = await fsp.readFile(resolve("index.html"), "utf8");
+        template = await vite.transformIndexHtml(url, template);
+        render = await vite
+          .ssrLoadModule("src/entry.server.tsx")
+          .then((m) => m.render);
+      } else {
+        template = await fsp.readFile(
+          resolve("dist/client/index.html"),
+          "utf8"
+        );
+        render = require(resolve("dist/server/entry.server.js")).render;
+      }
 
-  app.get('/search', (req, res) => {
-    console.log('SSR-----------》', SSR);
-    const renderSSR = renderToString(SSR);
-    console.log('renderToString(SSR)------>', renderSSR);
-    const html = renderMarkup(renderSSR);
-    res.status(200).send(html);
+      let html = template.replace("<!--app-html-->", render(url));
+      res.setHeader("Content-Type", "text/html");
+      return res.status(200).end(html);
+    } catch (error) {
+      if (!isProduction) {
+        vite.ssrFixStacktrace(error);
+      }
+      console.log(error.stack);
+      res.status(500).end(error.stack);
+    }
   });
 
-  app.listen(port, () => {
-    console.log(`Server is running on port：${port}`);
+  return app;
+}
+
+createServer().then((app) => {
+  app.listen(3000, () => {
+    console.log("HTTP server is running at http://localhost:3000");
   });
-};
-
-const PORT = process.env.PORT || 8080;
-
-server(PORT);
+});
