@@ -7,7 +7,7 @@ import { apis, elements } from "@/features/Sublist/config";
 
 const SubList = () => {
   const { path = "" } = useParams();
-  const { data, isLoading } = apis(path)();
+  const { data, isLoading } = apis[path]();
   const [filter, setFilter] = useState([]);
   const [search, setSearch] = useState("");
 
