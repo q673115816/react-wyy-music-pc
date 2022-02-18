@@ -2,14 +2,11 @@ import React, { memo, useContext, useState } from "react";
 import classNames from "classnames";
 import { IconCaretDown, IconDeviceMobile } from "@tabler/icons";
 import { SET_SIGNIN_COUNTRYCODE, LoginContext } from "../Content";
-import { useAppSelector } from "@/modules/hooks";
-import {
-  CountriesCodeItem,
-  CountryItem,
-} from "@/modules/reducers/common/slice";
+import { useGetCountriesCodeListQuery } from "@/modules/services/account";
 
-export default memo(() => {
-  const { countriesCodeList } = useAppSelector(({ common }) => common);
+const Select = () => {
+  const { data, isLoading } = useGetCountriesCodeListQuery();
+  const countriesCodeList = data?.data || [];
   const {
     loginReducer: { countrycode },
     loginDispatch,
@@ -39,8 +36,8 @@ export default memo(() => {
         className="customOptionGroup"
         style={{ display: visibility ? "" : "none" }}
       >
-        {countriesCodeList.map(({ countryList }: CountriesCodeItem) =>
-          countryList.map(({ zh, code }: CountryItem) => (
+        {countriesCodeList.map(({ countryList }) =>
+          countryList.map(({ zh, code }) => (
             <button
               key={zh}
               type="button"
@@ -58,4 +55,6 @@ export default memo(() => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Select);

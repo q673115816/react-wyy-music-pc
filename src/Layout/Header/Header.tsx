@@ -8,13 +8,9 @@ import React, {
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "@/modules/hooks";
 
-import {
-  setContriesCodeList,
-  setMsgPrivate,
-} from "@/modules/reducers/common/slice";
+import { setMsgPrivate } from "@/modules/reducers/common/slice";
 import { setLoginInfo } from "@/modules/reducers/account/slice";
 import {
-  apiCountriesCodeList,
   apiUserAccount,
   apiMsgPrivate,
   apiUserPlaylist,
@@ -43,15 +39,6 @@ import "./style.scss";
 
 const useInit = () => {
   const dispatch = useAppDispatch();
-
-  const handleGetCountriesCodeList = async () => {
-    try {
-      const { data } = await apiCountriesCodeList();
-      dispatch(setContriesCodeList({ countriesCodeList: data }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleCookieInit = async () => {
     try {
@@ -97,7 +84,6 @@ const useInit = () => {
 
   useEffect(() => {
     void (async () => {
-      await handleGetCountriesCodeList();
       await handleCookieInit();
       await handlePrivateLetterInit();
     })();

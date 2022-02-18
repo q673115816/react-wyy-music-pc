@@ -6,13 +6,13 @@ import React, {
   useState,
 } from "react";
 import { IconFaceId, IconDeviceMobile } from "@tabler/icons";
-import DomSelect from "./components/Select";
-import DomThrees from "./components/Threes";
+import Select from "./components/Select";
+import Threes from "./components/Threes";
 
 import { LoginContext } from "./Content";
 import { SET_TYPE } from "./Content";
 
-export default memo(() => {
+const SignUp = () => {
   const [warn, setWarn] = useState("");
   const {
     loginReducer: { registerphone, registerpassword, countrycode },
@@ -66,7 +66,7 @@ export default memo(() => {
           <tbody>
             <tr>
               <td>
-                <DomSelect />
+                <Select />
               </td>
               <td colSpan={2}>
                 <input
@@ -115,9 +115,11 @@ export default memo(() => {
           <div className="hint flex items-center justify-between mt-8 mb-4">
             其他注册方式
           </div>
-          <DomThrees />
+          <Threes />
         </div>
       </form>
     </div>
   );
-});
+};
+
+export default memo(SignUp);

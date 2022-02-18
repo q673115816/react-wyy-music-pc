@@ -1,28 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface CountriesCodeItem {
-  label: string;
-  countryList: CountryItem[];
-}
-
-export interface CountryItem {
-  zh: string;
-  en: string;
-  locale: string;
-  code: string;
-}
-
 interface CommonState {
-  countriesCodeList: CountriesCodeItem[];
   [key: string]: any;
 }
 
 const initialState: CommonState = {
   history: [],
   newMsgCount: 0,
-  countriesCodeList: [],
   loginVisibility: false,
-  // isLogin: window.localStorage.getItem('cookie') !== null,
   isLogin: false,
   msgs: [],
   comments: [],
@@ -44,9 +29,6 @@ const slice = createSlice({
     setMsgPrivate(state, action) {
       Object.assign(state, action.payload);
     },
-    setContriesCodeList(state, action) {
-      Object.assign(state, action.payload);
-    },
     setLoginVisibilty(state) {
       state.loginVisibility = !state.loginVisibility;
     },
@@ -55,10 +37,5 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const {
-  setContriesCodeList,
-  setIsLogin,
-  setLoginVisibilty,
-  setMsgPrivate,
-  setNotLogin,
-} = slice.actions;
+export const { setIsLogin, setLoginVisibilty, setMsgPrivate, setNotLogin } =
+  slice.actions;

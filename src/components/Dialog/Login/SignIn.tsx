@@ -12,9 +12,9 @@ import { IconFaceId, IconQrcode } from "@tabler/icons";
 
 import Checkbox from "@/components/Checkbox";
 import { LoginContext, SET_SIGNIN_PHONE } from "./Content";
-import DomSelect from "./components/Select";
-import DomThrees from "./components/Threes";
-import DomSubmitBtn from "./components/SubmitBtn";
+import Select from "./components/Select";
+import Threes from "./components/Threes";
+import SubmitBtn from "./components/SubmitBtn";
 import {
   SET_SIGNIN_ARGEEARGUMENT,
   SET_SIGNIN_PASSWORD,
@@ -23,7 +23,7 @@ import {
 import Input from "./components/Input";
 import { Set } from "@/modules/utils";
 
-export default memo(() => {
+const SignIn = () => {
   const {
     loginReducer: { argeeArgument, loginphone, loginpassword, countrycode },
     loginDispatch,
@@ -153,7 +153,7 @@ export default memo(() => {
           <tbody>
             <tr>
               <td>
-                <DomSelect />
+                <Select />
               </td>
               <td colSpan={2}>
                 <Input
@@ -218,7 +218,7 @@ export default memo(() => {
           >
             注册
           </button>
-          <DomThrees />
+          <Threes />
         </div>
         <Argument>
           <Checkbox
@@ -230,7 +230,9 @@ export default memo(() => {
       </form>
     </div>
   );
-});
+};
+
+export default memo(SignIn);
 
 const Argument = memo(({ children }) => (
   <label

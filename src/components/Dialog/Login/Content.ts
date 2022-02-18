@@ -10,24 +10,24 @@ export const SET_SIGNIN_PASSWORD = "SET_SIGNIN_PASSWORD";
 export const SET_SIGNIN_ARGEEARGUMENT = "SET_SIGNIN_ARGEEARGUMENT";
 export const SET_SIGNIN_COUNTRYCODE = "SET_SIGNIN_COUNTRYCODE";
 
-export const LoginReducer: Reducer = (draft, action) => {
-  switch (action.type) {
+export const LoginReducer: Reducer = (draft, { type, payload }) => {
+  switch (type) {
     case SET_TYPE:
-      draft.type = action.payload.type;
+      draft.type = payload.type;
       return;
     case SET_SIGNIN_WARN:
       return;
     case SET_SIGNIN_PHONE:
-      draft.loginphone = action.payload.loginphone;
+      draft.loginphone = payload.loginphone;
       return;
     case SET_SIGNIN_PASSWORD:
-      draft.loginpassword = action.payload.loginpassword;
+      draft.loginpassword = payload.loginpassword;
       return;
     case SET_SIGNIN_ARGEEARGUMENT:
-      draft.argeeArgument = action.payload.argeeArgument;
+      draft.argeeArgument = payload.argeeArgument;
       return;
     case SET_SIGNIN_COUNTRYCODE:
-      draft.countrycode = action.payload.countrycode;
+      draft.countrycode = payload.countrycode;
       return;
     default:
       return;

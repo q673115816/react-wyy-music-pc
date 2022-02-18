@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  memo,
-  ReactNode,
-  useMemo,
-  useReducer,
-} from "react";
+import React, { memo, ReactNode } from "react";
 import { IconX } from "@tabler/icons";
 import { setLoginVisibilty } from "@/modules/reducers/common/slice";
 import { useImmerReducer } from "use-immer";
@@ -31,7 +25,7 @@ const Build: { [key in LoginType]: ReactNode } = {
   identify: <Identify />,
 };
 
-export default memo(() => {
+const Login = () => {
   const dispatch = useAppDispatch();
   const { loginVisibility } = useAppSelector(({ common }) => common);
   const [loginReducer, loginDispatch] = useImmerReducer<LoginState>(
@@ -56,4 +50,6 @@ export default memo(() => {
       </LoginContext.Provider>
     </div>
   );
-});
+};
+
+export default memo(Login);
