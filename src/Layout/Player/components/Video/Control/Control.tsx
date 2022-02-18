@@ -1,58 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, memo } from "react";
 import {
   IconPlayerPlay,
   IconPlayerPause,
   IconArrowsMaximize,
   IconArrowsMinimize,
-  IconDeviceDesktop,
 } from "@tabler/icons";
 import dayjs from "dayjs";
-import { VideoContext } from "./Video";
-
-const sizes = ["标清", "高清", "超清", "1080P", "没这功能"];
+import { VideoContext } from "../reducer";
+import Size from "./Size";
 
 const DomSpeed = () => <div className="relative w-20">{}</div>;
 
-const DomSize = () => {
-  const [sizeListShow, setSizeListShow] = useState(false);
-  const [curr, setCurr] = useState("超清");
-  const handleCheck = (br) => {
-    setCurr(br);
-    setSizeListShow(false);
-  };
-  return (
-    <div className="relative w-16">
-      <button
-        onClick={() => setSizeListShow(!sizeListShow)}
-        type="button"
-        className="flex-center w-full group"
-      >
-        <IconDeviceDesktop
-          className="text-gray-600 group-hover:text-gray-400"
-          size={20}
-        />
-        &nbsp;
-        <span className="text-gray-400">{curr}</span>
-      </button>
-      {sizeListShow && (
-        <div className="absolute left-0 right-0 bottom-full border text-white divide-y divide-gray-400 transform -translate-y-4 bg-black bg-opacity-80 border-gray-400 text-center">
-          {sizes.map((size) => (
-            <button
-              key={size}
-              type="button"
-              className="black w-full py-1"
-              onClick={() => handleCheck(size)}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default () => {
+const Control = () => {
   const {
     handlechangeFull,
     full,
@@ -85,7 +44,7 @@ export default () => {
           <div>{}</div>
         </div>
         {/* <DomSpeed /> */}
-        <DomSize />
+        <Size />
         <button
           onClick={handlechangeFull}
           type="button"
@@ -101,3 +60,5 @@ export default () => {
     </div>
   );
 };
+
+export default memo(Control);

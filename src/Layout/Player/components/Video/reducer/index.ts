@@ -6,6 +6,11 @@ import {
   SET_CURRENTTIME,
   SET_JUMPTIME,
 } from "./actionTypes";
+import { createContext } from "react";
+
+export const VideoContext = createContext(null);
+
+export const { Provider } = VideoContext;
 
 export const initialState = {
   play: false,

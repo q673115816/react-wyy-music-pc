@@ -1,30 +1,30 @@
-import { MV } from "./types";
+import { MVs, Albums, Topics, Artists } from "./types";
 import { base } from "../base";
 
 export const api = base.injectEndpoints({
   endpoints: (build) => ({
-    getMVSubList: build.query<MV, void>({
+    getMVSubList: build.query<MVs, void>({
       query: (body) => ({
         url: `mv/sublist`,
         method: "POST",
         body,
       }),
     }),
-    getTopicSubList: build.query<MV, void>({
+    getTopicSubList: build.query<Topics, void>({
       query: (body) => ({
         url: `topic/sublist`,
         method: "POST",
         body,
       }),
     }),
-    getArtistSubList: build.query<MV, void>({
+    getArtistSubList: build.query<Artists, void>({
       query: (body) => ({
         url: `artist/sublist`,
         method: "POST",
         body,
       }),
     }),
-    getAlbumSubList: build.query<MV, void>({
+    getAlbumSubList: build.query<Albums, void>({
       query: (body) => ({
         url: `album/sublist`,
         method: "POST",
@@ -35,8 +35,8 @@ export const api = base.injectEndpoints({
 });
 
 export const {
+  useGetAlbumSubListQuery,
+  useGetArtistSubListQuery,
   useGetMVSubListQuery,
   useGetTopicSubListQuery,
-  useGetArtistSubListQuery,
-  useGetAlbumSubListQuery,
 } = api;

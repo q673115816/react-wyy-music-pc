@@ -6,9 +6,9 @@ import React, {
   MouseEventHandler,
 } from "react";
 import dayjs from "dayjs";
-import { VideoContext } from "./Video";
 import { actionSetJumpTime } from "./reducer/actions";
 import Drag from "@/components/Drag";
+import { VideoContext } from "./reducer";
 
 const Timing = () => {
   const [timeTips, setTimeTips] = useState(false);

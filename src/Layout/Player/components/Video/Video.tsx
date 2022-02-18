@@ -2,23 +2,22 @@ import React, {
   useState,
   useEffect,
   useRef,
-  createContext,
-  useReducer,
   memo,
   FC,
   ReactEventHandler,
 } from "react";
 import { IconPlayerPlay, IconRefresh } from "@tabler/icons";
 import classNames from "classnames";
+import { useImmerReducer } from "use-immer";
 import {
   setPositionFalse,
   setPositionTrue,
 } from "@/modules/reducers/inset/slice";
 import { useDispatch } from "react-redux";
-import DomControl from "./Control";
-import DomTiming from "./Timing";
+import Control from "./Control";
+import Timing from "./Timing";
 
-import videoReducer, { initialState } from "./reducer";
+import videoReducer, { initialState, Provider } from "./reducer";
 import {
   actionSetFull,
   actionSetPlay,
@@ -26,8 +25,6 @@ import {
   actionSetCurrentTime,
   actionSetDuration,
 } from "./reducer/actions";
-
-export const VideoContext = createContext(null);
 
 interface iProps {
   url: string;
@@ -40,7 +37,7 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
   const [
     { play, duration, currentTime, jumpTime, buffered, full },
     videoDispatch,
-  ] = useReducer(videoReducer, initialState);
+  ] = useImmerReducer(videoReducer, initialState);
   const refVideo = useRef<HTMLVideoElement>(null);
   const dispatch = useDispatch();
   const [isEnd, setIsEnd] = useState(false);
@@ -165,7 +162,7 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
             </div>
           </div>*/}
         </div>
-        <VideoContext.Provider
+        <Provider
           value={{
             handleChangePlay,
             play,
@@ -177,9 +174,9 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
             videoDispatch,
           }}
         >
-          <DomTiming />
-          <DomControl />
-        </VideoContext.Provider>
+          <Timing />
+          <Control />
+        </Provider>
       </div>
     </div>
   );

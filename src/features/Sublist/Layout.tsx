@@ -2,7 +2,6 @@ import classNames from "classnames";
 import React, { memo } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { navs } from "./config";
-
 const Layout = () => {
   return (
     <div className="overflow-auto max-h-full flex-auto">

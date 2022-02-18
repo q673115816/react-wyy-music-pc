@@ -80,3 +80,21 @@ export interface Privatecontent {
   name: string;
   sPicUrl: string;
 }
+
+export interface Artist {
+  accountId: number;
+  id: number;
+  name: string;
+  picUrl: string;
+}
+
+export interface Album {
+  id: number;
+  size: number;
+  picUrl: string;
+  picId: number;
+  name: string;
+  alias: string[];
+  transNames: string[];
+  artists: Artist[];
+}

@@ -1,4 +1,4 @@
-import { MV, ResWithCode, Song } from "../types";
+import { Artist, MV, ResWithCode, Song } from "../types";
 export interface Req {
   id: string;
 }
@@ -19,13 +19,6 @@ export interface Detail extends ResWithCode {
 
 export interface Artists extends ResWithCode {
   artists: Artist[];
-}
-
-interface Artist {
-  accountId: number;
-  id: number;
-  name: string;
-  picUrl: string;
 }
 
 export interface Albums extends ResWithCode {
