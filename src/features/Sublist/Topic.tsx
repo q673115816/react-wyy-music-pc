@@ -2,11 +2,11 @@ import React, { memo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loading from "@/components/Loading";
 import Empty from "./components/Empty";
-import { useGetAlbumSubListQuery } from "@/modules/services/sublist";
+import { useGetTopicSubListQuery } from "@/modules/services/sublist";
 
 const Topic = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetAlbumSubListQuery();
+  const { data, isLoading } = useGetTopicSubListQuery();
   const count = data?.count || 0;
   const filter = data?.data || [];
   if (isLoading) {
@@ -37,7 +37,7 @@ const Topic = () => {
               />
             </Link>
           </div>
-          <div className="name truncate">
+          <div className="px-2.5 truncate">
             <Link to={`/playlist/music/${item.id}`}>{item.name}</Link>
             <span className="text-gray-400">
               {item.alias.map((alia: string) => alia)}

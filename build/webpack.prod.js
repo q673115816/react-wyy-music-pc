@@ -68,7 +68,7 @@ const plugins = [
     cdn,
     // prefetch,
     meta,
-    // filename,
+    filename,
     base: {
       href: VITE_PUBLIC_URL,
     },

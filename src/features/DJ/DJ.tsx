@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useGetDJSublistQuery } from "@/modules/services/dj";
 import Loading from "@/components/Loading";
+import classNames from "classnames";
 
 function DJ() {
   const navigate = useNavigate();
@@ -17,35 +18,39 @@ function DJ() {
   }
   return (
     <div className="overflow-auto max-h-full flex-auto">
-      <div className="domSublist_nav px-8 py-5 space-x-4">
+      <div className="px-8 py-5 space-x-4">
         <span className="h1">我的播客</span>
       </div>
-      <div className="domSublist_headerBar ui_headerBar">
-        <b className="title">我订阅的播客</b>
+      <div className="ui_headerBar">
+        <b className="text-sm">收藏的播客</b>
         &nbsp;
-        <span className="text-gray-400">({count})</span>
+        <span className="text-gray-300">({count})</span>
       </div>
       <div className="domSublist_list">
-        {djRadios.map((item) => (
+        {djRadios.map((item, index) => (
           <div
             onClick={() => navigate(`/playlist/dj/${item.id}`)}
             key={item.id}
-            className="item"
+            className={classNames(
+              "sublistItem hover:bg-gray-100 items-center cursor-pointer",
+              index % 2 === 0 && "bg-gray-50"
+            )}
           >
-            <div className="cover">
+            <div className="rounded overflow-hidden border w-16 h-16">
               <img className="" src={`${item.picUrl}?param=60y60`} alt="" />
             </div>
-            <div className="name truncate">{item.name}</div>
+            <div className="px-2.5 truncate">{item.name}</div>
             <div className="creator text-gray-400">
               by&nbsp;
               <Link
+                onClick={(e) => e.stopPropagation()}
                 to={`/user/${item.dj.userId}`}
                 className="ui_text_gray_hover"
               >
                 {item.dj.nickname}
               </Link>
             </div>
-            <div className="size text-gray-400">
+            <div className="text-gray-400">
               节目
               {item.programCount}
             </div>

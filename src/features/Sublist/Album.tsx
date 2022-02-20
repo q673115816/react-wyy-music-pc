@@ -1,18 +1,28 @@
-import React, { FC, memo } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { FC, memo, useContext, useEffect } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import Loading from "@/components/Loading";
 import Empty from "@/features/Sublist/components/Empty";
 import useInit from "./useInit";
 import { useGetAlbumSubListQuery } from "@/modules/services/sublist";
+import Bar from "./components/Bar";
+import classNames from "classnames";
 
-const Album = () => {
-  const { pathname } = useLocation();
-  const path = pathname.slice(9);
-  // const { isLoading, count, search, setSearch, filter } = useInit(path);
-  const { data, isLoading } = useGetAlbumSubListQuery();
-  const count = data?.count || 0;
+const rule = (data, search, reg = new RegExp(search)) =>
+  data.filter(
+    ({ name, artists }) =>
+      reg.test(name) || artists.some(({ name }) => reg.test(name))
+  );
+
+interface iProps {
+  isLoading: boolean;
+  count: number;
+  search: string;
+  path: string;
+  filter: [];
+}
+
+const Content: FC<iProps> = ({ isLoading, count, search, path, filter }) => {
   const navigate = useNavigate();
-  const filter = data?.data || [];
   if (isLoading) {
     return (
       <div className={`flex-center`}>
@@ -20,28 +30,32 @@ const Album = () => {
       </div>
     );
   }
-  // if (count === 0) {
-  //   return <Empty count={count} search={search} path={path} />;
-  // }
+  if (count === 0) {
+    return <Empty count={count} search={search} path={path} />;
+  }
   return (
     <div className="domSublist_list">
-      {filter.map((item) => (
+      {filter.map((item, index) => (
         <div
           role="button"
-          className="item"
+          className={classNames(
+            "sublistItem hover:bg-gray-100 items-center ",
+            index % 2 === 0 && "bg-gray-50"
+          )}
           key={item.id}
           onClick={() => navigate(`/playlist/album/${item.id}`)}
         >
-          <div className="cover">
-            <Link to={`/playlist/album/${item.id}`}>
-              <img
-                className="ui_containimg"
-                src={`${item.picUrl}?param=100y100`}
-                alt=""
-              />
-            </Link>
-          </div>
-          <div className="name truncate">
+          <Link
+            className="rounded overflow-hidden border w-16 h-16"
+            to={`/playlist/album/${item.id}`}
+          >
+            <img
+              className="ui_containimg"
+              src={`${item.picUrl}?param=100y100`}
+              alt=""
+            />
+          </Link>
+          <div className="px-2.5 truncate">
             <span>{item.name}</span>
             <span className="text-gray-400">
               {item.alias.map((alia) => alia)}
@@ -63,6 +77,23 @@ const Album = () => {
         </div>
       ))}
     </div>
+  );
+};
+
+const Album = ({ path }) => {
+  const { data, isLoading } = useGetAlbumSubListQuery();
+  const { filter, count, search, setSearch } = useInit(data, rule);
+  return (
+    <>
+      <Bar path={path} count={count} search={search} setSearch={setSearch} />
+      <Content
+        path={path}
+        isLoading={isLoading}
+        search={search}
+        count={count}
+        filter={filter}
+      />
+    </>
   );
 };
 

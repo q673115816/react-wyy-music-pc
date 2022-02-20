@@ -1,2 +1,8 @@
-@import 'sublist';
 @import 'manage';
+
+.sublistItem {
+  display: grid;
+  grid-template-columns: 60px 15fr 8fr 4fr;
+  height: 80px;
+  padding-left: 30px;
+}

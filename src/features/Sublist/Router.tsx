@@ -1,18 +1,22 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./Layout";
 import Album from "./Album";
 import Artist from "./Artist";
 import MV from "./MV";
 import Topic from "./Topic";
+import { elements } from "./config";
 const Router = () => {
   return (
     <Routes>
-      <Route path="/*" element={<Layout />}>
-        <Route path={encodeURIComponent(`专辑`)} element={<Album />} />
-        <Route path={encodeURIComponent(`歌手`)} element={<Artist />} />
-        <Route path={encodeURIComponent(`视频`)} element={<MV />} />
-        <Route path={encodeURIComponent(`专栏`)} element={<Topic />} />
+      <Route path={`/*`} element={<Layout />}>
+        {elements.map(([path, Element]) => (
+          <Route path={path} key={path} element={<Element path={path} />} />
+        ))}
+        <Route
+          index
+          element={<Navigate to={elements[0][0]} replace={true} />}
+        />
       </Route>
     </Routes>
   );

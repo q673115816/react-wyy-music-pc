@@ -1,25 +1,21 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Discover from "./Discover";
-import Recommend from "./Recommend";
-import Playlist from "./Playlist";
-import Newest from "./Newest";
-import TopList from "./TopList";
-import Artist from "./Artist";
-import DJ from "./DJ";
+import { elements } from "./config";
+
 const Router = () => (
   <Routes>
-    <Route element={<Discover />}>
-      <Route path={`Recommend`} element={<Recommend />} />
-      <Route path={`DJ/*`} element={<DJ />} />
-      <Route path={`Playlist/*`} element={<Playlist />} />
-      <Route path={`TopList`} element={<TopList />} />
-      <Route path={`Newest/*`} element={<Newest />} />
-      <Route path={`Artist`} element={<Artist />} />
-      <Route
-        path={`*`}
-        element={<Navigate to={"Recommend"} replace={true} />}
-      />
+    <Route path={`/*`} element={<Discover />}>
+      {elements.map(([path, Element]) => (
+        <Route path={path + "/*"} key={path} element={<Element />} />
+      ))}
+      {/*<Route path={encodeURIComponent(`个性推荐`)} element={<Recommend />} />
+      <Route path={`专属定制/*`} element={<DJ />} />
+      <Route path={`歌单/*`} element={<Playlist />} />
+      <Route path={`排行榜`} element={<TopList />} />
+      <Route path={`歌手`} element={<Artist />} />
+      <Route path={`最新音乐/*`} element={<Newest />} />*/}
+      <Route index element={<Navigate to={elements[0][0]} replace={true} />} />
     </Route>
   </Routes>
 );

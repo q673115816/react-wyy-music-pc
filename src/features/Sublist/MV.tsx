@@ -4,13 +4,13 @@ import Empty from "@/features/Sublist/components/Empty";
 import Loading from "@/components/Loading";
 import { useLocation, useNavigate } from "react-router-dom";
 import useInit from "@/features/Sublist/useInit";
-import { useGetAlbumSubListQuery } from "@/modules/services/sublist";
+import { useGetMVSubListQuery } from "@/modules/services/sublist";
 
 const MV = () => {
   const { pathname } = useLocation();
   const path = pathname.slice(9);
   // const { isLoading, count, search, setSearch, filter } = useInit(path);
-  const { data, isLoading } = useGetAlbumSubListQuery();
+  const { data, isLoading } = useGetMVSubListQuery();
   const count = data?.count || 0;
   const navigate = useNavigate();
   const filter = data?.data || [];
@@ -41,7 +41,7 @@ const MV = () => {
   // }
 
   return (
-    <div className="domSublist_grid">
+    <div className="px-8 pt-8">
       <GridVideo list={memoFilter} />
     </div>
   );
