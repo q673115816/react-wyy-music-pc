@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState, memo } from "react";
+import React, { useEffect, useRef, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import classNames from "classnames";
 import GridVideo from "@/components/GridVideo";
 import useInfinite from "@/hooks/useInfinite";
 import { apiMVAll } from "@/api";
+import { useImmer } from "use-immer";
 
 const filters = [
   ["area", "地区", ["全部", "内地", "港台", "欧美", "韩国", "日本"]],
@@ -30,7 +31,7 @@ export default memo(function MVAll() {
     defaultSearch[k] = v;
   }
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useImmer([]);
 
   const handleInit = async () => {
     try {
@@ -40,38 +41,31 @@ export default memo(function MVAll() {
         offset: offset.current,
       });
       offset.current += limit;
-      setData((prev) => [
-        ...prev,
-        ...data.map(({ id, name, cover, playCount, duration, artists }) => ({
-          id,
-          cover,
-          duration,
-          playCount,
-          title: name,
-          creator: artists.map(({ id: userId, name: userName }) => ({
-            userId,
-            userName,
-          })),
-        })),
-      ]);
+      setData((draft) => {
+        draft.push(
+          ...data.map(({ id, name, cover, playCount, duration, artists }) => ({
+            type: 0,
+            playCount,
+            id,
+            cover,
+            duration,
+            title: name,
+            creator: artists.map(({ id: userId, name: userName }) => ({
+              userId,
+              userName,
+            })),
+          }))
+        );
+      });
     } catch (error) {
       console.log(error);
     }
   };
   useInfinite(handleInit, domScroll, domObserver, [search]);
 
-  // useEffect(() => {
-  //   // handleInit();
-  //   handleIo();
-  //   return () => {
-  //     handleUnIo();
-  //   };
-  // }, [search]);
-
   useEffect(() => {
     setData([]);
     offset.current = 0;
-    // handleInit();
   }, [search]);
 
   return (

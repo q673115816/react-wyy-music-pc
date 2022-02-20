@@ -1,8 +1,13 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import Item from "./Item";
 
-const GridVideo = ({ list = [], schema = [] }) => (
+interface iProps {
+  list: [];
+  schema: [][];
+}
+
+const GridVideo: FC<iProps> = ({ list = [], schema = [] }) => (
   <div className="grid grid-cols-3 gap-5">
     {list.map((item) => (
       <MenuCreate
