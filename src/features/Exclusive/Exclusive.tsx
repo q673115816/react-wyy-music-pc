@@ -19,11 +19,12 @@ import {
 } from "@/modules/reducers/exclusive/slice";
 import ResizeObserver from "@/components/ResizeObserver";
 
+const limit = 60;
+
 export default memo(function Exclusive() {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const { result, scrollTop } = useAppSelector(({ exclusive }) => exclusive);
-  const limit = 60;
   const offset = useRef(0);
   const handleInit = () => {
     dispatch(handleGetData({ limit, offset: offset.current }));
@@ -32,23 +33,7 @@ export default memo(function Exclusive() {
   const DomScroll = useRef<HTMLDivElement>(null);
   const DomObserver = useRef<HTMLDivElement>(null);
   useInfinite(handleInit, DomScroll, DomObserver);
-  // useEffect(() => {
-  //   if (location === "PUSH") {
-  //     dispatch(setExclusiveResultEmpty());
-  //   } else if (DomScroll.current) {
-  //     DomScroll.current.scrollTop = scrollTop;
-  //   }
-  // }, [location]);
-  // useLayoutEffect(
-  //   () => () => {
-  //     dispatch(
-  //       setExclusiveScrollTop({
-  //         scrollTop: DomScroll.current?.scrollTop || 0,
-  //       })
-  //     );
-  //   },
-  //   []
-  // );
+
   return (
     <div className="overflow-auto p-8 h-full" ref={DomScroll}>
       <div className="ui_w1100">

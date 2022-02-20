@@ -1,16 +1,17 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { apiDjRadioHot } from "@/api";
 import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";
 
+const limit = 40;
+
 const DJCategory = () => {
   const { type, rid } = useParams();
   const [data, setData] = useState([]);
-  const DomScroll = useRef();
-  const DomObserver = useRef();
+  const DomScroll = useRef(null);
+  const DomObserver = useRef(null);
   const offset = useRef(0);
-  const limit = 40;
 
   const handleInit = async () => {
     try {

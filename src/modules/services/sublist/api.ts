@@ -1,4 +1,4 @@
-import { MVs, Albums, Topics, Artists } from "./types";
+import { MVs, Albums, Topics, Artists, DJs } from "./types";
 import { base } from "../base";
 
 export const api = base.injectEndpoints({
@@ -31,6 +31,13 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getDJSublist: build.query<DJs, void>({
+      query: (body) => ({
+        url: `dj/sublist`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -39,4 +46,5 @@ export const {
   useGetArtistSubListQuery,
   useGetMVSubListQuery,
   useGetTopicSubListQuery,
+  useGetDJSublistQuery,
 } = api;

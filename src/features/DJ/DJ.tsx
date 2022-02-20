@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useGetDJSublistQuery } from "@/modules/services/dj";
 import Loading from "@/components/Loading";
 import classNames from "classnames";
+import { useGetDJSublistQuery } from "@/modules/services/sublist";
 
 function DJ() {
   const navigate = useNavigate();

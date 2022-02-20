@@ -1,15 +1,14 @@
 import React, { memo, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { apiPersonalfm, apiCommentMusic } from "@/api";
-import DomCommentsList from "@/components/Comments/CommentsList";
-import DomLoading from "@/components/Loading";
+import CommentsList from "@/components/Comments/CommentsList";
+import Loading from "@/components/Loading";
 import { Link } from "react-router-dom";
+
 const FM = () => {
   console.log("fm");
   const [data, setData] = useState([]);
   const [comments, setComment] = useState({});
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
   const handleInit = async () => {
     try {
       const { data } = await apiPersonalfm();
@@ -29,7 +28,7 @@ const FM = () => {
   if (loading)
     return (
       <div className="flex-center w-full h-full">
-        <DomLoading />
+        <Loading />
       </div>
     );
   return (
@@ -60,7 +59,7 @@ const FM = () => {
               条评论)
             </span>
           </div>
-          <DomCommentsList comments={comments} more={data[0].id} type="song" />
+          <CommentsList comments={comments} more={data[0].id} type="song" />
         </div>
       </div>
     </div>
