@@ -98,7 +98,7 @@ const Content = ({ msg = {} }) => {
   return (
     <>
       {transTextEmoji(msg.msg)}
-      {type === 1 && <DomSong msg={msg} />}
+      {type === 1 && <Song msg={msg} />}
       {type === 2 && <Album msg={msg} />}
     </>
   );

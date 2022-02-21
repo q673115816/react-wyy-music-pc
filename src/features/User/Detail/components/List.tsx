@@ -1,10 +1,10 @@
 import classNames from "classnames";
-import React from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay, IconFolderPlus } from "@tabler/icons";
 import { transPlayCount } from "@/common/utils";
 
-export default ({ list = [] }) => (
+const List = ({ list = [] }) => (
   <div>
     {list.map((item, index) => (
       <div
@@ -67,3 +67,5 @@ export default ({ list = [] }) => (
     ))}
   </div>
 );
+
+export default memo(List);

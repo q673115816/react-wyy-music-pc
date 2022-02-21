@@ -1,13 +1,10 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { apiEvent } from "@/api";
-
 import { IconPlus } from "@tabler/icons";
-
 import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";
 import Dynamic from "@/components/Dynamic";
 import Aside from "./components/Aside";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const getArticleFromJson = (json) => {
   const obj = JSON.parse(json);
@@ -23,7 +20,7 @@ const getArticleFromJson = (json) => {
   );
 };
 
-export default memo(function Friend() {
+const Friend = () => {
   const [event, setEvent] = useState([]);
 
   const DomScroll = useRef(null);
@@ -41,11 +38,6 @@ export default memo(function Friend() {
       console.log(error);
     }
   };
-  // const handleInit = async () => {
-  //   await handleInitHot()
-  //   await handleInitEvent()
-  // };
-
   useEffect(() => {
     setEvent([]);
   }, []);
@@ -80,9 +72,10 @@ export default memo(function Friend() {
             </div>
           </div>
         </div>
-
         <Aside />
       </div>
     </div>
   );
-});
+};
+
+export default memo(Friend);

@@ -93,9 +93,14 @@ const baseQueryWithIntercept: BaseQueryFn<
   const { data, meta, error } = result;
   console.log("data", data, "meta", meta, "error", error);
   if (error) {
-    const { status } = error;
+    const { status, data } = error;
     if (status === 301) {
       console.log("弹出登录窗口");
+    }
+    if (status === 400) {
+      if (data.code === -462) {
+        console.log(data.data.blockText);
+      }
     }
   }
   return result;
@@ -106,5 +111,6 @@ const baseQueryWithRetry = retry(baseQueryWithIntercept, { maxRetries: 2 });
 export const base = createApi({
   reducerPath: "daily",
   baseQuery: baseQueryWithRetry,
+  tagTypes: ["artist/detail", "user/followeds"],
   endpoints: (build) => ({}),
 });

@@ -1,3 +1,5 @@
-import React from "react";
+import React, { memo } from "react";
 
-export default () => <div>{}</div>;
+const Column = () => <div>{}</div>;
+
+export default memo(Column);

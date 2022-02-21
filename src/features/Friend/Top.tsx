@@ -1,11 +1,10 @@
 import React, { memo, useEffect, useState } from "react";
 import TopicList from "./components/TopicList";
-import { apiHotTopic, apiTopicDetail } from "@/api";
+import { apiTopicDetail } from "@/api";
 import classNames from "classnames";
 
 export default memo(function TOP() {
   const [type, setType] = useState("day");
-  const [hot, setHot] = useState([]);
   const [list, setList] = useState([]);
   const handleInit = async () => {
     setList([
@@ -20,19 +19,6 @@ export default memo(function TOP() {
     ]);
   };
 
-  const handleInitHot = async () => {
-    try {
-      const { hot } = await apiHotTopic({
-        limit: 10,
-      });
-      setHot(hot);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleInitHot();
-  }, []);
   useEffect(() => {
     handleInit();
   }, [type]);
@@ -89,7 +75,7 @@ export default memo(function TOP() {
         </div>
         <div className="domFriend_right flex-none" style={{ width: 230 }}>
           <div className="p-4 text-sm text-gray-700">推荐话题</div>
-          <TopicList list={hot} />
+          <TopicList limit={10} />
         </div>
       </div>
     </div>

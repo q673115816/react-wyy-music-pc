@@ -1,14 +1,5 @@
 .domUser {
   &_binding {
-    &_main {
-      padding: 0 30px;
-    }
-
-    &_title {
-      font-size: 14px;
-      color: #676767;
-    }
-
     &_bar {
       height: 70px;
       padding: 0 20px;
@@ -26,19 +17,11 @@
           margin-bottom: 0.5em;
         }
       }
-
-      .actions {
-        margin-left: auto;
-      }
     }
 
     &_box {
       background-color: #F5F5F7;
       margin-top: 10px;
-    }
-
-    &_three {
-      margin-top: 40px;
     }
 
     &_list {

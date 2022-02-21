@@ -1,24 +1,33 @@
-import React, { memo, useState } from "react";
-import { IconLayoutGrid, IconLayoutList, IconList } from "@tabler/icons";
+import React, { createElement, FC, memo, useState } from "react";
+import {
+  IconLayoutGrid,
+  IconLayoutList,
+  IconList,
+  TablerIcon,
+} from "@tabler/icons";
 import classNames from "classnames";
-import DomGrid from "./Grid";
-import DomList from "./List";
-import DomColumn from "./Column";
+import Grid from "./Grid";
+import List from "./List";
+import Column from "./Column";
 
-const layouts = [
-  ["grid", "大图模式", IconLayoutGrid],
-  ["list", "列表模式", IconLayoutList],
-  ["column", "图列模式", IconList],
+const layouts: [string, string, TablerIcon][] = [
+  ["Grid", "大图模式", IconLayoutGrid],
+  ["List", "列表模式", IconLayoutList],
+  ["Column", "图列模式", IconList],
 ];
 
 const Mains = {
-  grid: DomGrid,
-  list: DomList,
-  column: DomColumn,
+  Grid,
+  List,
+  Column,
 };
 
-export default memo(({ list = [], uid }) => {
-  const [layout, setLayout] = useState("grid");
+interface iProps {
+  list: [];
+}
+
+const Layout: FC<iProps> = ({ list = [] }) => {
+  const [layout, setLayout] = useState("Grid");
   return (
     <div className="pb-10">
       <div className="domUserDetail_headerBar flex items-center px-8 pb-4">
@@ -40,9 +49,9 @@ export default memo(({ list = [], uid }) => {
           ))}
         </div>
       </div>
-      {((Layout) => (
-        <Layout list={list} uid={uid} />
-      ))(Mains[layout])}
+      {createElement(Mains[layout], { list })}
     </div>
   );
-});
+};
+
+export default memo(Layout);

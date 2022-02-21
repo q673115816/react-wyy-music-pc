@@ -6,6 +6,7 @@ import {
   Desc,
   Req,
   ArtistMV,
+  Sub,
 } from "./types";
 import { base } from "../base";
 
@@ -17,13 +18,7 @@ export const api = base.injectEndpoints({
         method: "POST",
         body,
       }),
-    }),
-    postArtistSub: build.mutation<Detail, Req & { t: number }>({
-      query: (body) => ({
-        url: `artist/sub`,
-        method: "POST",
-        body,
-      }),
+      providesTags: (result, error, { id }) => [{ type: "artist/detail", id }],
     }),
     getSimiArtist: build.query<Artists, Req>({
       query: (body) => ({
@@ -62,6 +57,16 @@ export const api = base.injectEndpoints({
         method: "POST",
         body,
       }),
+    }),
+    postArtistSub: build.mutation<Sub, Req & { t?: number }>({
+      query: (body) => ({
+        url: `artist/sub`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: "artist/detail", id },
+      ],
     }),
   }),
 });

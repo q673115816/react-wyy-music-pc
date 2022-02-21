@@ -1,17 +1,17 @@
-import React, { memo, useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { memo, useEffect, useRef } from "react";
 import classNames from "classnames";
 import { IconCircleCheck } from "@tabler/icons";
 import { setToast } from "@/modules/reducers/mask/slice";
 import "./style.scss";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
-export default memo(() => {
-  const { toastTitle } = useSelector(({ mask }) => mask);
+const Toast = () => {
+  const { toastTitle } = useAppSelector(({ mask }) => mask);
   // const [time, setTime] = useState(1500);
   const time = useRef(1500);
   const timer = useRef();
   const prevTime = useRef();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleFadeout = () => {
     if (time.current <= 0) return;
     time.current -= Date.now() - prevTime.current;
@@ -42,4 +42,6 @@ export default memo(() => {
       {toastTitle?.toString()}
     </div>
   );
-});
+};
+
+export default memo(Toast);

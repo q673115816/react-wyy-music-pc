@@ -13,8 +13,13 @@ export interface Detail extends ResWithCode {
     alias?: string[];
     user: {
       userId: number;
+      followed: boolean;
     };
   };
+}
+
+export interface Sub extends ResWithCode {
+  message: string;
 }
 
 export interface Artists extends ResWithCode {

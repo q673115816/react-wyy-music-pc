@@ -2,7 +2,7 @@ import React from "react";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
 import { useDispatch, useSelector } from "react-redux";
 import QRcode from "qrcode.react";
-import HOCDialog from "../Dialog";
+import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
 
 export default () => {

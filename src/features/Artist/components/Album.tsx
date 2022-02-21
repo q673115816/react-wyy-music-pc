@@ -6,9 +6,9 @@ import {
   TablerIcon,
 } from "@tabler/icons";
 import classNames from "classnames";
-import Grid from "./layouts/Grid";
-import List from "./layouts/List";
-import Column from "./layouts/Column";
+import Grid from "../layouts/Grid";
+import List from "../layouts/List";
+import Column from "../layouts/Column";
 import { useParams } from "react-router-dom";
 import { useLocalStorage } from "react-use";
 import { useGetArtistAlbumQuery } from "@/modules/services/artist";

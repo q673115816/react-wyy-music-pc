@@ -3,7 +3,7 @@ import { apiPlaylistCreate } from "@/api";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
 import DomCheckbox from "@/components/Checkbox";
-import HOCDialog from "../Dialog";
+import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
 
 export default () => {

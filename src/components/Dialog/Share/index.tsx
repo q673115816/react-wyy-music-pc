@@ -14,7 +14,7 @@ import {
   setDialogShareWXShow,
   setToast,
 } from "@/modules/reducers/mask/slice";
-import HOCDialog from "../Dialog";
+import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
 import useCopyLink from "@/hooks/useCopyLink";
 

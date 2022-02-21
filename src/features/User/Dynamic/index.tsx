@@ -2,7 +2,7 @@ import React, { useEffect, useState, memo, useRef } from "react";
 import { apiUserEvent, apiUserDetail } from "@/api";
 import DomDynamic from "@/components/Dynamic";
 import useInfinite from "@/hooks/useInfinite";
-import DomLoading from "@/components/Loading";
+import Loading from "@/components/Loading";
 import { useParams } from "react-router-dom";
 
 export default memo(() => {
@@ -10,7 +10,7 @@ export default memo(() => {
   const [data, setData] = useState([]);
   const timing = useRef(-1);
   const [profile, setProfile] = useState({});
-  const hasmore = useRef(true);
+  const hasMore = useRef(true);
   const DomScroll = useRef(null);
   const DomObserver = useRef(null);
 
@@ -26,13 +26,13 @@ export default memo(() => {
   };
 
   const handleInit = async () => {
-    if (!hasmore.current) return null;
+    if (!hasMore.current) return null;
     try {
       const { events, more, lasttime } = await apiUserEvent({
         uid,
         lasttime: timing.current,
       });
-      hasmore.current = more;
+      hasMore.current = more;
       timing.current = lasttime;
       setData((prev) => [...prev, ...events]);
     } catch (error) {
@@ -60,9 +60,9 @@ export default memo(() => {
           )}
         </div>
         <div ref={DomObserver} />
-        {hasmore.current && (
+        {hasMore.current && (
           <div className="flex-center">
-            <DomLoading />
+            <Loading />
           </div>
         )}
       </div>

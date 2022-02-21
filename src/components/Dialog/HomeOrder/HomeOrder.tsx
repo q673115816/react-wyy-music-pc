@@ -8,7 +8,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { IconBulb } from "@tabler/icons";
 import "./style.scss";
-import HOCDialog from "../Dialog";
+import HOCDialog from "../Dialog/Dialog";
 import Actions from "./Actions";
 
 export default memo(function HomeOrder() {

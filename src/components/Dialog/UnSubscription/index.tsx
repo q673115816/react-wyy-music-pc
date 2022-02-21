@@ -1,25 +1,23 @@
 import React, { memo } from "react";
 import { setDialogReset, setToast } from "@/modules/reducers/mask/slice";
-import { useDispatch, useSelector } from "react-redux";
-import { apiArtistSub } from "@/api";
-import { useRefreshArtistSublist } from "@/hooks/useHelp";
-import HOCDialog from "../Dialog";
+import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { usePostArtistSubMutation } from "@/modules/services/artist";
 
-export default memo(() => {
-  const dispatch = useDispatch();
-  const { artistId, dialogUnSubscriptionVisibility } = useSelector(
+const UnSubscription = () => {
+  const dispatch = useAppDispatch();
+  const [subPost, { isLoading: isSubbing }] = usePostArtistSubMutation();
+  const { artistId, dialogUnSubscriptionVisibility } = useAppSelector(
     ({ mask }) => mask
   );
-  // console.log(artistId);
   const handleUnSubscription = async () => {
     try {
-      await apiArtistSub({
+      await subPost({
         id: artistId,
       });
       dispatch(setDialogReset());
       dispatch(setToast("取消收藏！"));
-      useRefreshArtistSublist(dispatch);
     } catch (error) {
       console.log(error);
     }
@@ -43,4 +41,6 @@ export default memo(() => {
       </div>
     </HOCDialog>
   );
-});
+};
+
+export default memo(UnSubscription);

@@ -7,37 +7,31 @@ import {
   SymbolQQ,
   SymbolWB,
 } from "@/components/Symbol";
-import { apiUserBinding } from "@/api";
 import { useParams } from "react-router-dom";
+import Loading from "@/components/Loading";
+import { useGetUserBindingQuery } from "@/modules/services/user";
 
 const maskPhone = (str = "") =>
   str.length === 11 ? str.replace(/(?<=\d{3})(\d{4})(?=\d{4})/, "****") : str;
 
-export default memo(() => {
+const Binding = () => {
   const { uid } = useParams();
-  const [bindings, setBindings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const handleInit = async () => {
-    try {
-      const { bindings } = await apiUserBinding({
-        uid,
-      });
-      setBindings(bindings);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleInit();
-  }, []);
-  if (loading) return <div>loading</div>;
+  const { data, isLoading } = useGetUserBindingQuery({
+    uid: uid as string,
+  });
+  const bindings = data?.bindings || [];
+  if (isLoading)
+    return (
+      <div className="flex-center">
+        <Loading />
+      </div>
+    );
   return (
     <>
-      <div className="h1 domUser_subpage_header ui_header">绑定账号</div>
-      <div className="domUser_binding_main">
+      <div className="h1 ui_header">绑定账号</div>
+      <div className="px-8">
         <div className="domUser_binding_phone">
-          <div className="domUser_binding_title">注册账号</div>
+          <div className="text-sm text-gray-500">注册账号</div>
           <div className="domUser_binding_bar domUser_binding_box">
             <div className="ico">
               <SymbolPhone active />
@@ -53,7 +47,7 @@ export default memo(() => {
                 </button>
               </div>
             </div>
-            <div className="actions">
+            <div className="ml-auto">
               <button
                 type="button"
                 className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
@@ -63,8 +57,8 @@ export default memo(() => {
             </div>
           </div>
         </div>
-        <div className="domUser_binding_three">
-          <div className="domUser_binding_title">其他登录方式</div>
+        <div className="domUser_binding_three mt-10">
+          <div className="text-sm text-gray-500">其他登录方式</div>
           <div className="domUser_binding_list">
             <div className="domUser_binding_bar domUser_binding_item">
               <div className="ico">
@@ -73,7 +67,7 @@ export default memo(() => {
               <div className="content">
                 <div className="name">网易邮箱账号</div>
               </div>
-              <div className="actions">
+              <div className="ml-auto">
                 <button
                   type="button"
                   className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
@@ -93,7 +87,7 @@ export default memo(() => {
                   {JSON.parse(bindings[4].tokenJsonStr).nickname}
                 </div>
               </div>
-              <div className="actions">
+              <div className="ml-auto">
                 <button
                   type="button"
                   className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
@@ -113,7 +107,7 @@ export default memo(() => {
                   {JSON.parse(bindings[3].tokenJsonStr).nickname}
                 </div>
               </div>
-              <div className="actions">
+              <div className="ml-auto">
                 <button
                   type="button"
                   className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
@@ -133,7 +127,7 @@ export default memo(() => {
                   {JSON.parse(bindings[1].tokenJsonStr).name}
                 </div>
               </div>
-              <div className="actions">
+              <div className="ml-auto">
                 <button
                   type="button"
                   className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
@@ -153,4 +147,6 @@ export default memo(() => {
       </div>
     </>
   );
-});
+};
+
+export default memo(Binding);

@@ -1,28 +1,13 @@
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { apiHotTopic } from "@/api";
 import { Link } from "react-router-dom";
 import Gender from "@/components/Gender";
 import { setLoginVisibilty } from "@/modules/reducers/common/slice";
 import TopicList from "./TopicList";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 
 export default memo(function Aside() {
   const { profile } = useAppSelector(({ account }) => account);
   const dispatch = useAppDispatch();
-  const [hot, setHot] = useState([]);
-  const handleInitHot = async () => {
-    try {
-      const { hot = [] } = await apiHotTopic({
-        limit: 5,
-      });
-      setHot(hot);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    handleInitHot();
-  }, []);
   return (
     <div className="flex-none" style={{ width: 250 }}>
       <div className="">
@@ -97,7 +82,7 @@ export default memo(function Aside() {
             更多 &gt;
           </Link>
         </div>
-        <TopicList list={hot} />
+        <TopicList limit={5} />
       </div>
       <div className="mt-8">
         <div className="flex px-5 mb-2.5">
