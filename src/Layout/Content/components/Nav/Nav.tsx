@@ -35,11 +35,15 @@ const options1: NavListProps[] = [
     link: "/discover",
   },
   {
+    name: "播客",
+    link: "/",
+  },
+  {
     name: "视频",
     link: "/video",
   },
   {
-    name: "朋友",
+    name: "关注",
     link: "/friend",
   },
   {
@@ -119,7 +123,7 @@ export default memo(function Nav() {
     <div
       className={classNames(
         style.nav,
-        "overflow-auto max-h-full h-full flex-none p-2.5"
+        "overflow-auto max-h-full h-full flex-none p-2.5 pr-0.5"
       )}
     >
       <nav className="options1 space-y-0.5">

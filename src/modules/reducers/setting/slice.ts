@@ -26,7 +26,7 @@ export const defaultOrder: Orders = [
   "看看",
 ];
 
-const theme = LOCALSTORAGE("theme", "#D03535");
+const theme = LOCALSTORAGE("theme", "#EC4141");
 const custom = LOCALSTORAGE("custom", false);
 const font = LOCALSTORAGE("font", "inherit");
 const order = LOCALSTORAGE("homeOrder", defaultOrder);

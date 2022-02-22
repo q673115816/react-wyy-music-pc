@@ -24,7 +24,10 @@ const Content: FC<iProps> = ({ tracks = [] }) => (
           {index + 1}
         </span>
         <span className="status w-4 flex-center">&nbsp;口&nbsp;</span>
-        <span className="name" title={track.name + track.alia}>
+        <span
+          className="truncate flex-auto w-0"
+          title={track.name + track.alia}
+        >
           {track.name}
           {track.alia.length > 0 && (
             <span className="text-gray-400">
@@ -33,7 +36,7 @@ const Content: FC<iProps> = ({ tracks = [] }) => (
           )}
         </span>
         <span
-          className="ml-auto text-gray-400"
+          className="ml-auto text-gray-500"
           title={track.ar.map((artist) => artist.name).join("/")}
         >
           {track.ar.map((artist, index) => (

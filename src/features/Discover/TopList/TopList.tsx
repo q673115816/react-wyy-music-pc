@@ -51,7 +51,7 @@ export default memo(function TopList() {
             <div key={item.id} className="official_rank flex">
               <Link
                 to={`/playlist/music/${item.id}`}
-                className="official_rank_cover mr-9 w-44 h-44 rounded-lg overflow-hidden relative group"
+                className="official_rank_cover mr-9 w-44 h-44 flex-none rounded-lg overflow-hidden relative group"
               >
                 <img
                   className="ui_containimg"

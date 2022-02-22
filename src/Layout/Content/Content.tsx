@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import { Outlet } from "react-router-dom";
 import Left from "./components/Left";
 import Center from "./components/Center";
 import Right from "./components/Right";
