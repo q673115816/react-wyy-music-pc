@@ -7,11 +7,7 @@ const Desc = () => {
   const { id = "" } = useParams();
   const { data, isLoading } = useGetArtistDescQuery({ id });
   if (isLoading) {
-    return (
-      <div className="flex-center">
-        <Loading />
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <div className="domArtist_section p-8 leading-8 text-sm select-text">

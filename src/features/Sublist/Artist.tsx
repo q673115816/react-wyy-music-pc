@@ -17,11 +17,7 @@ const AliasOrTrans = ({ alias, trans }) => {
 
 const Content = ({ isLoading, count, search, path, filter }) => {
   if (isLoading) {
-    return (
-      <div className={`flex-center`}>
-        <Loading />
-      </div>
-    );
+    return <Loading />;
   }
   if (count === 0) {
     return <Empty count={count} search={search} path={path} />;

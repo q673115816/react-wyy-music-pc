@@ -1,9 +1,6 @@
 import React, { createElement, memo, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  setSearchCount,
-  setSearchValue,
-} from "@/modules/reducers/search/slice";
+import { setSearchCount, setKeywords } from "@/modules/reducers/search/slice";
 import "./style.scss";
 import Loading from "@/components/Loading";
 import Page from "@/components/Page";
@@ -29,7 +26,7 @@ const Search = () => {
   useEffect(() => {
     if (!searchValue) {
       dispatch(
-        setSearchValue({
+        setKeywords({
           searchValue: keywords,
         })
       );

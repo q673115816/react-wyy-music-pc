@@ -2,16 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Draft } from "immer";
 
 export interface SearchState {
-  searchValue: string;
-  searchHot: [];
-  searchSuggest: [];
+  keywords: string;
   count: number;
 }
 
 const initialState: SearchState = {
-  searchValue: "",
-  searchHot: [],
-  searchSuggest: [],
+  keywords: "",
   count: 0,
 };
 
@@ -19,13 +15,7 @@ const slice = createSlice({
   name: "search",
   initialState,
   reducers: {
-    setSearchValue(state, { payload }) {
-      Object.assign(state, payload);
-    },
-    setSearchHot(state, { payload }) {
-      Object.assign(state, payload);
-    },
-    setSearchSuggest(state, { payload }) {
+    setKeywords(state, { payload }) {
       Object.assign(state, payload);
     },
     setSearchCount(state, { payload }) {
@@ -42,9 +32,4 @@ export const searchSelector = <T = Draft<SearchState>>({
 
 export default slice.reducer;
 
-export const {
-  setSearchValue,
-  setSearchHot,
-  setSearchSuggest,
-  setSearchCount,
-} = slice.actions;
+export const { setKeywords, setSearchCount } = slice.actions;

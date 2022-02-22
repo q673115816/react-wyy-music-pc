@@ -38,11 +38,7 @@ export default memo(function Album() {
   const hotAlbums = data?.hotAlbums || [];
   const more = data?.more || false;
   if (isLoading) {
-    return (
-      <div className="flex-center">
-        <Loading />
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <div className="domArtist_section relative">

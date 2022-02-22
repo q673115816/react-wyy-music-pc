@@ -11,11 +11,7 @@ const TopicList: FC<iProps> = ({ limit }) => {
   const { data, isLoading } = useGetHotTopicQuery({ limit });
   const hot = data?.hot || [];
   if (isLoading) {
-    return (
-      <div className={`flex-center`}>
-        <Loading />
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <div className="list">

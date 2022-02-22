@@ -24,11 +24,7 @@ interface iProps {
 const Content: FC<iProps> = ({ isLoading, count, search, path, filter }) => {
   const navigate = useNavigate();
   if (isLoading) {
-    return (
-      <div className={`flex-center`}>
-        <Loading />
-      </div>
-    );
+    return <Loading />;
   }
   if (count === 0) {
     return <Empty count={count} search={search} path={path} />;

@@ -1,4 +1,4 @@
-import { Searchs } from "./types";
+import { Searchs, SearchHotDetails, Suggests } from "./types";
 import { base } from "../base";
 
 interface ReqSearch {
@@ -24,7 +24,22 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getSearchSuggest: build.query<Suggests, { keywords: string }>({
+      query: (body) => ({
+        url: `search/suggest`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getSearchHotDetail: build.query<SearchHotDetails, void>({
+      query: (body) => `search/hot/detail`,
+    }),
   }),
 });
 
-export const { useGetCloudSearchMutation, useGetSearchMultimatchQuery } = api;
+export const {
+  useGetCloudSearchMutation,
+  useGetSearchMultimatchQuery,
+  useGetSearchSuggestQuery,
+  useGetSearchHotDetailQuery,
+} = api;
