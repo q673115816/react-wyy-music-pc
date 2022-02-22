@@ -2,22 +2,16 @@ import React, {
   FC,
   memo,
   MouseEventHandler,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
 } from "react";
 import { Link } from "react-router-dom";
 import { IconTrash, IconX } from "@tabler/icons";
-import { HandleSearch } from "./types";
 import { useLocalStorage } from "react-use";
 import classNames from "classnames";
 
-interface iProps {
-  handleSearch: HandleSearch;
-}
-
-const History: FC<iProps> = ({ handleSearch }) => {
+const History = () => {
   const [isHidden, setIsHidden] = useState(false);
   const refHistory = useRef<HTMLDivElement>(null);
   const [searchHistory, setSearchHistory, removeSearchHistory] =
@@ -65,7 +59,6 @@ const History: FC<iProps> = ({ handleSearch }) => {
             <Link
               key={item}
               to={`/search/${item}`}
-              onClick={() => handleSearch(item)}
               className="item group hover:bg-gray-100 border rounded-full relative m-1 py-1 px-4"
             >
               {item}

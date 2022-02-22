@@ -16,7 +16,7 @@ const orders = {
 
 const Suggest: FC<iProps> = ({ keywords }) => {
   const { data, isLoading } = useGetSearchSuggestQuery({ keywords });
-  const result = data.result || {};
+  const result = data?.result || {};
   if (isLoading) return <Loading />;
   return (
     <div className={"overflow-auto h-full flex-auto px-5"}>

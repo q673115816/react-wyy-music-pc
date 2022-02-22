@@ -14,8 +14,8 @@ const Search = () => {
   };
 
   const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const searchValue = e.target.value;
-    dispatch(setKeywords({ searchValue }));
+    const keywords = e.target.value;
+    dispatch(setKeywords({ keywords }));
   };
 
   const handleSubmit: FormEventHandler = (e) => {

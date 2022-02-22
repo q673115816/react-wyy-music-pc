@@ -87,6 +87,7 @@ const slice = createSlice({
       state.dialogHomeOrderVisibility = true;
     },
     setDialogReset(state) {
+      console.log("reset");
       Object.assign(state, visibilityState, maskState);
     },
     setPopupLetterToggle(state) {

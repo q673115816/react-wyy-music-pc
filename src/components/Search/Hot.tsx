@@ -1,15 +1,10 @@
 import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { HandleSearch } from "./types";
 import { useGetSearchHotDetailQuery } from "@/modules/services/search";
 import Loading from "@/components/Loading";
 
-interface iProps {
-  handleSearch: HandleSearch;
-}
-
-const Hot: FC<iProps> = ({ handleSearch }) => {
+const Hot = () => {
   const { data, isLoading } = useGetSearchHotDetailQuery();
   const list = data?.data || [];
 
@@ -19,7 +14,6 @@ const Hot: FC<iProps> = ({ handleSearch }) => {
       {list.map((item, index) => (
         <Link
           to={`/search/${item.searchWord}`}
-          onClick={() => handleSearch(item.searchWord)}
           className="h-14 flex items-center w-full hover:bg-gray-100"
           key={index}
         >
