@@ -1,11 +1,12 @@
-import React, { memo } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { FC, memo, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import classNames from "classnames";
+import { useGetArtistSubListQuery } from "@/modules/services/sublist";
+import { useImmer } from "use-immer";
+import Bar from "@/features/Sublist/components/Bar";
 import Loading from "@/components/Loading";
 import Empty from "@/features/Sublist/components/Empty";
-import useInit from "@/features/Sublist/useInit";
-import { useGetArtistSubListQuery } from "@/modules/services/sublist";
-import classNames from "classnames";
-import Bar from "@/features/Sublist/components/Bar";
+import { iProps } from "@/features/Artist/layouts/types";
 const AliasOrTrans = ({ alias, trans }) => {
   if (alias.length) {
     return <span className="text-gray-400">({alias[0]})</span>;
@@ -15,13 +16,7 @@ const AliasOrTrans = ({ alias, trans }) => {
   }
 };
 
-const Content = ({ isLoading, count, search, path, filter }) => {
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (count === 0) {
-    return <Empty count={count} search={search} path={path} />;
-  }
+const Content = ({ filter }) => {
   return (
     <div className="domSublist_list">
       {filter.map((item, index) => (
@@ -59,27 +54,39 @@ const Content = ({ isLoading, count, search, path, filter }) => {
   );
 };
 
+interface iProps {
+  path: string;
+}
+
+const Artist: FC<iProps> = ({ path }) => {
+  const { data: { data = [], count = 0 } = {}, isLoading } =
+    useGetArtistSubListQuery();
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useImmer([]);
+  useEffect(() => {
+    setFilter(data);
+  }, [isLoading]);
+  useEffect(() => {
+    setFilter(rule(data, search));
+  }, [search]);
+  return (
+    <div>
+      <Bar count={count} search={search} setSearch={setSearch} path={path} />
+      {isLoading ? (
+        <Loading />
+      ) : filter?.length > 0 ? (
+        <Content filter={filter} />
+      ) : (
+        <Empty count={count} search={search} path={path} />
+      )}
+    </div>
+  );
+};
+
 const rule = (data, search, reg = new RegExp(search)) =>
   data.filter(
     ({ name, trans = "", alias }) =>
       reg.test(name) || reg.test(trans) || alias.some((alia) => reg.test(alia))
   );
-
-const Artist = ({ path }) => {
-  const { data, isLoading } = useGetArtistSubListQuery();
-  const { filter, count, search, setSearch } = useInit(data, rule);
-  return (
-    <>
-      <Bar path={path} count={count} search={search} setSearch={setSearch} />
-      <Content
-        path={path}
-        isLoading={isLoading}
-        search={search}
-        count={count}
-        filter={filter}
-      />
-    </>
-  );
-};
 
 export default memo(Artist);

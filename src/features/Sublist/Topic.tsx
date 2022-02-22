@@ -1,20 +1,17 @@
-import React, { memo } from "react";
+import React, { FC, memo, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  useGetMVSubListQuery,
+  useGetTopicSubListQuery,
+} from "@/modules/services/sublist";
+import { useImmer } from "use-immer";
+import { rule } from "postcss";
+import Bar from "@/features/Sublist/components/Bar";
 import Loading from "@/components/Loading";
-import Empty from "./components/Empty";
-import { useGetTopicSubListQuery } from "@/modules/services/sublist";
+import Empty from "@/features/Sublist/components/Empty";
 
-const Topic = () => {
+const Content = ({ filter }) => {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetTopicSubListQuery();
-  const count = data?.count || 0;
-  const filter = data?.data || [];
-  if (isLoading) {
-    return <Loading />;
-  }
-  // if (count === 0) {
-  //   return <Empty count={count} search={search} path={path} />;
-  // }
   return (
     <div className="domSublist_list">
       {filter.map((item) => (
@@ -54,6 +51,36 @@ const Topic = () => {
           <div className="size text-gray-400">{item.size}首</div>
         </button>
       ))}
+    </div>
+  );
+};
+
+interface iProps {
+  path: string;
+}
+
+const Topic: FC<iProps> = ({ path }) => {
+  const { data: { data = [], count = 0 } = {}, isLoading } =
+    useGetTopicSubListQuery();
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useImmer([]);
+  useEffect(() => {
+    setFilter(data);
+  }, [isLoading]);
+  useEffect(() => {
+    if (search.trim()) setFilter(rule(data, search));
+    else setFilter(data);
+  }, [search]);
+  return (
+    <div>
+      <Bar count={count} search={search} setSearch={setSearch} path={path} />
+      {isLoading ? (
+        <Loading />
+      ) : filter?.length > 0 ? (
+        <Content filter={filter} />
+      ) : (
+        <Empty count={count} search={search} path={path} />
+      )}
     </div>
   );
 };

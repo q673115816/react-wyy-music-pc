@@ -1,19 +1,13 @@
-import React, { memo, useMemo } from "react";
+import React, { FC, memo, useEffect, useMemo, useState } from "react";
 import GridVideo from "@/components/GridVideo";
-import Empty from "@/features/Sublist/components/Empty";
-import Loading from "@/components/Loading";
-import { useLocation, useNavigate } from "react-router-dom";
-import useInit from "@/features/Sublist/useInit";
 import { useGetMVSubListQuery } from "@/modules/services/sublist";
+import { useImmer } from "use-immer";
+import Bar from "@/features/Sublist/components/Bar";
+import Loading from "@/components/Loading";
+import Empty from "@/features/Sublist/components/Empty";
+import { rule } from "postcss";
 
-const MV = () => {
-  const { pathname } = useLocation();
-  const path = pathname.slice(9);
-  // const { isLoading, count, search, setSearch, filter } = useInit(path);
-  const { data, isLoading } = useGetMVSubListQuery();
-  const count = data?.count || 0;
-  const navigate = useNavigate();
-  const filter = data?.data || [];
+const Content = ({ filter }) => {
   const memoFilter = useMemo(
     () =>
       filter.map(
@@ -29,16 +23,39 @@ const MV = () => {
       ),
     [filter]
   );
-  if (isLoading) {
-    return <Loading />;
-  }
-  // if (count === 0) {
-  //   return <Empty count={count} search={search} path={path} />;
-  // }
-
   return (
-    <div className="px-8 pt-8">
+    <div className="px-8">
       <GridVideo list={memoFilter} />
+    </div>
+  );
+};
+
+interface iProps {
+  path: string;
+}
+
+const MV: FC<iProps> = ({ path }) => {
+  const { data: { data = [], count = 0 } = {}, isLoading } =
+    useGetMVSubListQuery();
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useImmer([]);
+  useEffect(() => {
+    setFilter(data);
+  }, [isLoading]);
+  useEffect(() => {
+    if (search.trim()) setFilter(rule(data, search));
+    else setFilter(data);
+  }, [search]);
+  return (
+    <div>
+      <Bar count={count} search={search} setSearch={setSearch} path={path} />
+      {isLoading ? (
+        <Loading />
+      ) : filter?.length > 0 ? (
+        <Content filter={filter} />
+      ) : (
+        <Empty count={count} search={search} path={path} />
+      )}
     </div>
   );
 };

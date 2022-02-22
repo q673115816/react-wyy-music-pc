@@ -2,14 +2,16 @@ import { NavLink, Outlet, useParams } from "react-router-dom";
 import React, { memo, useEffect } from "react";
 import { useLocalStorage } from "react-use";
 import classNames from "classnames";
-import config from "./config";
+import config, { navs } from "./config";
 import { useAppSelector } from "@/modules/hooks";
 import { searchSelector } from "@/modules/reducers/search/slice";
 
 const Layout = () => {
   const { keywords = "", type = "" } = useParams();
-  const [searchHistory, setSearchHistory, removeSearchHistory] =
-    useLocalStorage("searchHistory", []);
+  const [searchHistory, setSearchHistory] = useLocalStorage(
+    "searchHistory",
+    []
+  );
   const { count = 0 } = useAppSelector(searchSelector);
   useEffect(() => {
     const otherSearchHistory =
@@ -29,10 +31,10 @@ const Layout = () => {
           {unit}
         </div>
         <div className="mt-5 space-x-4">
-          {Object.keys(config).map((name) => (
+          {navs.map((name) => (
             <NavLink
               key={name}
-              to={name}
+              to={encodeURIComponent(name)}
               className={({ isActive }) =>
                 classNames("text-sm", isActive && "font-bold")
               }

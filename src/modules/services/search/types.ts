@@ -28,3 +28,14 @@ export interface Suggest {
   playlists?: [];
   songs?: [];
 }
+
+export interface Multimatchs extends ResWithCode {
+  result: Multimatch[];
+}
+
+export interface Multimatch {
+  album?: [];
+  artist?: [];
+  new_mlog?: [];
+  orders?: string[];
+}

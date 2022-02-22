@@ -28,6 +28,17 @@ type Config = {
   };
 };
 
+export const navs: Types[] = [
+  "单曲",
+  "歌手",
+  "专辑",
+  "视频",
+  "歌单",
+  "歌词",
+  "主播电台",
+  "用户",
+];
+
 const config: Config = {
   单曲: {
     code: 1,

@@ -1,4 +1,4 @@
-import { Searchs, SearchHotDetails, Suggests } from "./types";
+import { Searchs, SearchHotDetails, Suggests, Multimatchs } from "./types";
 import { base } from "../base";
 
 interface ReqSearch {
@@ -17,7 +17,7 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
-    getSearchMultimatch: build.query<Searchs, { keywords: string }>({
+    getSearchMultimatch: build.query<Multimatchs, { keywords: string }>({
       query: (body) => ({
         url: `search/multimatch`,
         method: "POST",

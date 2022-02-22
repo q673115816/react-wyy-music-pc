@@ -1,11 +1,11 @@
-import React, { FC, memo, useContext, useEffect } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import Loading from "@/components/Loading";
-import Empty from "@/features/Sublist/components/Empty";
-import useInit from "./useInit";
+import React, { FC, memo, useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import classNames from "classnames";
 import { useGetAlbumSubListQuery } from "@/modules/services/sublist";
 import Bar from "./components/Bar";
-import classNames from "classnames";
+import Loading from "@/components/Loading";
+import Empty from "./components/Empty";
+import { useImmer } from "use-immer";
 
 const rule = (data, search, reg = new RegExp(search)) =>
   data.filter(
@@ -13,22 +13,8 @@ const rule = (data, search, reg = new RegExp(search)) =>
       reg.test(name) || artists.some(({ name }) => reg.test(name))
   );
 
-interface iProps {
-  isLoading: boolean;
-  count: number;
-  search: string;
-  path: string;
-  filter: [];
-}
-
-const Content: FC<iProps> = ({ isLoading, count, search, path, filter }) => {
+const Content = ({ filter }) => {
   const navigate = useNavigate();
-  if (isLoading) {
-    return <Loading />;
-  }
-  if (count === 0) {
-    return <Empty count={count} search={search} path={path} />;
-  }
   return (
     <div className="domSublist_list">
       {filter.map((item, index) => (
@@ -76,20 +62,33 @@ const Content: FC<iProps> = ({ isLoading, count, search, path, filter }) => {
   );
 };
 
-const Album = ({ path }) => {
-  const { data, isLoading } = useGetAlbumSubListQuery();
-  const { filter, count, search, setSearch } = useInit(data, rule);
+interface iProps {
+  path: string;
+}
+
+const Album: FC<iProps> = ({ path }) => {
+  const { data: { data = [], count = 0 } = {}, isLoading } =
+    useGetAlbumSubListQuery();
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useImmer([]);
+  useEffect(() => {
+    setFilter(data);
+  }, [isLoading]);
+  useEffect(() => {
+    if (search.trim()) setFilter(rule(data, search));
+    else setFilter(data);
+  }, [search]);
   return (
-    <>
-      <Bar path={path} count={count} search={search} setSearch={setSearch} />
-      <Content
-        path={path}
-        isLoading={isLoading}
-        search={search}
-        count={count}
-        filter={filter}
-      />
-    </>
+    <div>
+      <Bar count={count} search={search} setSearch={setSearch} path={path} />
+      {isLoading ? (
+        <Loading />
+      ) : filter?.length > 0 ? (
+        <Content filter={filter} />
+      ) : (
+        <Empty count={count} search={search} path={path} />
+      )}
+    </div>
   );
 };
 

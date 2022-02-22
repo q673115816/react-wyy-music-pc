@@ -1,8 +1,7 @@
 import React, { FC, memo } from "react";
 import classNames from "classnames";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import dayjs from "dayjs";
-import { IconChevronRight } from "@tabler/icons";
 import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import Rank from "@/components/Table/Rank";
 import Heart from "@/components/Table/Heart";
@@ -11,89 +10,17 @@ import Name from "@/components/Table/Name";
 import Artists from "@/components/Table/Artists";
 import Album from "@/components/Table/Album";
 import Pop from "@/components/Table/Pop";
-import { useGetSearchMultimatchQuery } from "@/modules/services/search";
-import Loading from "@/components/Loading";
-
-const Build = {
-  artist: ({ item }) => (
-    <Link
-      to={`/artist/${item.id}`}
-      className="item group h-20 flex items-center bg-gray-100 rounded overflow-hidden"
-    >
-      <div className="cover">
-        <img className="" src={`${item.picUrl}?param=80y80`} alt="" />
-      </div>
-      <div className="content px-2">
-        <div className="name text-sm">
-          歌手：
-          {item.name}
-          {item.alias?.length > 0 && (
-            <span className="text-gray-400">{`（${item.alias}）`}</span>
-          )}
-        </div>
-      </div>
-      <div className="ico text-gray-600 group-hover:text-black ml-auto mr-4">
-        <IconChevronRight size={24} stroke={1} />
-      </div>
-    </Link>
-  ),
-  album: ({ item }) => (
-    <Link
-      to={`/playlist/album/${item.id}`}
-      className="item h-20 flex items-center bg-gray-100 rounded overflow-hidden"
-    >
-      <div className="cover">
-        <img className="" src={`${item.blurPicUrl}?param=80y80`} alt="" />
-      </div>
-      <div className="content px-2">
-        <div className="name text-sm">{item.name}</div>
-        <div className="subname">{item.artist.name}</div>
-      </div>
-      <div className="ico text-gray-600 group-hover:text-black ml-auto mr-4">
-        <IconChevronRight size={24} stroke={1} />
-      </div>
-    </Link>
-  ),
-};
-
-const Multimatch: FC<{ list: [] }> = ({ list = [] }) => {
-  const BuildKeys = Object.keys(Build);
-  if (list.length === 0) return null;
-  return (
-    <div className="domSearch_multimatch border-b px-8 py-5">
-      <div className="title text-bold">最佳匹配</div>
-      <div className="list mt-5 flex space-x-6">
-        {list.map(
-          ([item, Dom, order]) =>
-            BuildKeys.includes(order) && <Dom item={item} key={order} />
-        )}
-      </div>
-    </div>
-  );
-};
+import Multimatch from "./Multimatch";
 
 interface iProps {
   songs: [];
 }
 
 const Songs: FC<iProps> = ({ songs = [] }) => {
-  // const { keywords = "", type = "" } = useParams();
-  // const { data, isLoading } = useGetSearchMultimatchQuery({ keywords });
-  // const multimatch = data?.result || {};
-  // const list = multimatch.orders?.map((order) => [
-  //   multimatch[order][0],
-  //   Build[order],
-  //   order,
-  // ]);
+  const { keywords = "" } = useParams();
   return (
     <>
-      {/*{isLoading ? (
-        <div className={`flex-center`}>
-          <Loading />
-        </div>
-      ) : (
-        <Multimatch list={list} />
-      )}*/}
+      <Multimatch keywords={keywords} />
       <div
         className="songs_list"
         style={{
