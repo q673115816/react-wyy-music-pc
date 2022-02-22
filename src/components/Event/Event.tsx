@@ -8,7 +8,7 @@ import {
   IconDots,
   IconPlayerPlay,
 } from "@tabler/icons";
-import { apiCommentEvent } from "@/api";
+import { apiCommentEvent, apiSongDetail } from "@/api";
 import { transTextEmoji } from "@/common/faces";
 import classNames from "classnames";
 import DomComment from "./Comment";
@@ -20,7 +20,7 @@ const types = {
   36: "分享歌手",
 };
 
-const DomResource = ({ item }) => {
+const Resource = ({ item }) => {
   if (!item) return null;
   return (
     <Link
@@ -39,13 +39,10 @@ const DomResource = ({ item }) => {
   );
 };
 
-const DomSong = ({ item }) => {
+const Song = ({ item }) => {
   if (!item) return null;
   return (
-    <button
-      type="button"
-      className="song bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5"
-    >
+    <div className="song bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5">
       <div className="cover relative overflow-hidden rounded flex-none">
         <img
           className="rounded w-10 h-10"
@@ -62,11 +59,11 @@ const DomSong = ({ item }) => {
           {item.artists.map(({ name }) => name).join(" / ")}
         </div>
       </div>
-    </button>
+    </div>
   );
 };
 
-const DomPics = ({ item }) => {
+const Pics = ({ item }) => {
   if (!item) return null;
   let len = item.length;
   if (len === 1) {
@@ -185,9 +182,9 @@ const Event = ({ item = {}, commentIsShow, handleToggleComment }) => {
           <div className="text whitespace-pre-line text-sm mt-2.5">
             {json.msg && transTextEmoji(json.msg)}
           </div>
-          <DomResource item={json.resource} />
-          <DomSong item={json.song} />
-          <DomPics item={item.pics} />
+          <Resource item={json.resource} />
+          <Song item={json.song} />
+          <Pics item={item.pics} />
           <div className="info flex mt-2.5">
             <div className="left text-gray-400">
               {item?.rcmdInfo?.reason && `--${item.rcmdInfo.reason}`}

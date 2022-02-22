@@ -19,13 +19,13 @@ const Binding = () => {
   const { data, isLoading } = useGetUserBindingQuery({
     uid: uid as string,
   });
+  console.log(data);
   const bindings = data?.bindings || [];
-  if (isLoading)
-    return (
-      <div className="flex-center">
-        <Loading />
-      </div>
-    );
+  const code = data?.code;
+  if (isLoading) return <Loading />;
+  if (code === 301) {
+    return "登录查看";
+  }
   return (
     <>
       <div className="h1 ui_header">绑定账号</div>

@@ -1,44 +1,10 @@
-.domUserDetail {
-  // padding: 30px;
-
-  &_header {
-    display: flex;
-
-    .content {
-      flex: auto;
-      margin-left: 20px;
-    }
-
-    .contain {
-      display: flex;
-      padding: 8px 0;
-      align-items: center;
-      .left {
-        .authentication {
-          display: flex;
-          margin-right: 0.5em;
-          padding-right: 6px;
-          height: 16px;
-          line-height: 16px;
-          border-radius: 8px;
-          background-color: #FDE4E2;
-          color: #ED4036;
-          .ico {
-            width: 16px;
-            height: 16px;
-            margin-right: 4px;
-          }
-        }
-        .level {
-          width: 32px;
-          height: 16px;
-          text-align: center;
-          line-height: 16px;
-          background-color: #F0F0F0;
-          border-radius: 8px;
-          margin-right: 0.5em;
-        }
-      }
-    }
-  }
+.authentication {
+  display: flex;
+  margin-right: 0.5em;
+  padding-right: 6px;
+  height: 16px;
+  line-height: 16px;
+  border-radius: 8px;
+  background-color: #FDE4E2;
+  color: #ED4036;
 }

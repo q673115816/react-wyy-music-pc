@@ -1,71 +1,54 @@
-import React, { useEffect, useState, memo, useRef } from "react";
-import { apiUserEvent, apiUserDetail } from "@/api";
+import React, { memo, useRef, useContext } from "react";
 import DomDynamic from "@/components/Dynamic";
 import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";
 import { useParams } from "react-router-dom";
+import { context } from "@/features/User/context";
+import { useGetUserEventMutation } from "@/modules/services/user";
+import { useImmer } from "use-immer";
 
-export default memo(() => {
-  const { uid } = useParams();
-  const [data, setData] = useState([]);
+const Dynamic = () => {
+  const { uid = "" } = useParams();
+  const [data, setData] = useImmer([]);
   const timing = useRef(-1);
-  const [profile, setProfile] = useState({});
+  const { profile } = useContext(context);
+  const [userEventGet, { isLoading }] = useGetUserEventMutation();
   const hasMore = useRef(true);
   const DomScroll = useRef(null);
   const DomObserver = useRef(null);
 
-  const handlePrevInit = async () => {
-    try {
-      const { profile } = await apiUserDetail({
-        uid,
-      });
-      setProfile(profile);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleInit = async () => {
     if (!hasMore.current) return null;
     try {
-      const { events, more, lasttime } = await apiUserEvent({
+      const { data } = await userEventGet({
         uid,
         lasttime: timing.current,
       });
+      const { events, more, lasttime } = data;
       hasMore.current = more;
       timing.current = lasttime;
-      setData((prev) => [...prev, ...events]);
+      setData((draft) => {
+        draft.push(...events);
+      });
     } catch (error) {
       console.log(error);
     }
   };
   useInfinite(handleInit, DomScroll, DomObserver);
-  useEffect(() => {
-    if (data.length > 0) {
-      setData([]);
-    }
-    handlePrevInit();
-  }, [uid]);
+
   return (
     <div className="h-full overflow-auto" ref={DomScroll}>
-      <div className="h1 domUser_subpage_header ui_header">
-        {`${profile.nickname}的动态`}
-      </div>
-      <div className="domUser_dynamic_main">
-        <div className="list px-8">
-          {data.length > 0 ? (
-            <DomDynamic list={data} />
-          ) : (
-            <div className="empty">暂无动态</div>
-          )}
-        </div>
-        <div ref={DomObserver} />
-        {hasMore.current && (
-          <div className="flex-center">
-            <Loading />
-          </div>
+      <div className="h1 ui_header">{`${profile.nickname}的动态`}</div>
+      <div className="px-8">
+        {data.length > 0 ? (
+          <DomDynamic list={data} />
+        ) : (
+          <div className="empty">暂无动态</div>
         )}
       </div>
+      <div ref={DomObserver}>{hasMore.current && <Loading />}</div>
     </div>
   );
-});
+};
+
+export default memo(Dynamic);

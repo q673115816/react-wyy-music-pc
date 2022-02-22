@@ -8,7 +8,7 @@ const Nodes = {
   artist: ({ item }) => (
     <Link
       to={`/artist/${item.id}`}
-      className="group h-20 flex items-center bg-gray-100 rounded overflow-hidden flex-1"
+      className="h-20 w-1/2 flex items-center bg-gray-100 rounded overflow-hidden"
     >
       <div className="">
         <img className="" src={`${item.picUrl}?param=80y80`} alt="" />
@@ -30,7 +30,7 @@ const Nodes = {
   album: ({ item }) => (
     <Link
       to={`/playlist/album/${item.id}`}
-      className="h-20 flex items-center bg-gray-100 rounded overflow-hidden flex-1"
+      className="h-20 w-1/2 flex items-center bg-gray-100 rounded overflow-hidden"
     >
       <div className="">
         <img className="" src={`${item.blurPicUrl}?param=80y80`} alt="" />
@@ -59,11 +59,10 @@ const Multimatch: FC<iProps> = ({ keywords }) => {
     <div className="border-b px-8 py-5">
       <div className="font-bold">最佳匹配</div>
       <div className="mt-5 flex gap-6">
-        {result.orders
-          .slice(0, 2)
-          .map((order) =>
-            createElement(Nodes[order], { item: result[order][0], key: order })
-          )}
+        {result.artist &&
+          createElement(Nodes["artist"], { item: result.artist[0] })}
+        {result.album &&
+          createElement(Nodes["album"], { item: result.album[0] })}
       </div>
     </div>
   );

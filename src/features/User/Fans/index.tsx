@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import DomCardList from "../components/CardList";
+import CardList from "../components/CardList";
 import { context } from "../context";
 import {
   useGetUserFollowedsQuery,
@@ -38,9 +38,9 @@ const Fans = () => {
         的粉丝
       </div>
       <div className="domUser_followlist_main">
-        <DomCardList list={followeds} handleClick={handleClick}>
+        <CardList list={followeds} handleClick={handleClick}>
           <div className="empty">还没有粉丝</div>
-        </DomCardList>
+        </CardList>
       </div>
     </div>
   );

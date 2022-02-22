@@ -5,7 +5,6 @@ import { IconCheck, IconEdit, IconMail, IconPlus } from "@tabler/icons";
 import { SymbolWB } from "@/components/Symbol";
 import { usePostFollowMutation } from "@/modules/services/user";
 import { context } from "@/features/User/context";
-import account from "@/Layout/Header/components/Account";
 import { useAppSelector } from "@/modules/hooks";
 
 const Header = () => {
@@ -34,7 +33,7 @@ const Header = () => {
     return null;
   }
   return (
-    <div className="domUserDetail_header p-8">
+    <div className="domUserDetail_header flex p-8">
       <div className="avatar w-44 h-44 rounded-full overflow-hidden flex-none">
         <img
           src={`${profile?.avatarUrl}?param=180y180`}
@@ -42,9 +41,9 @@ const Header = () => {
           className="w-full h-ull object-cover block"
         />
       </div>
-      <div className="content">
+      <div className="ml-5 flex-auto">
         <div className="font-bold text-xl">{profile?.nickname}</div>
-        <div className="contain">
+        <div className="flex items-center py-2">
           <div className="left flex-center">
             {profile?.vipType === 11 && (
               <>
@@ -57,7 +56,7 @@ const Header = () => {
                 className="authentication"
                 title={profile.identify.imageDesc}
               >
-                <span className="ico">
+                <span className="w-4 h-4 ml-1">
                   <img
                     className="ui_containimg"
                     src={profile.identify.imageUrl}
@@ -67,7 +66,10 @@ const Header = () => {
                 {profile.identify.imageDesc}
               </span>
             )}
-            <a className="level" href="https://music.163.com/#/user/level">
+            <a
+              className="w-8 h-4 flex-center rounded-full mr-2 bg-gray-200"
+              href="https://music.163.com/#/user/level"
+            >
               Lv
               {profile.level}
             </a>
@@ -115,21 +117,18 @@ const Header = () => {
           </div>
         </div>
         <hr />
-        <div
-          className="infos text-center divide-x grid mt-5"
-          style={{ gridTemplateColumns: "repeat(3, 88px)" }}
-        >
-          <Link to={`dynamic`} className="info">
-            <div className="num text-base">{profile?.eventCount}</div>
-            <div className="string">动态</div>
+        <div className="text-center divide-x flex mt-5">
+          <Link to={`dynamic`} className={`w-20`}>
+            <div className="text-base">{profile?.eventCount}</div>
+            <div>动态</div>
           </Link>
-          <Link to={`follow`} className="info">
-            <div className="num text-base">{profile?.follows}</div>
-            <div className="string">关注</div>
+          <Link to={`follow`} className={`w-20`}>
+            <div className="text-base">{profile?.follows}</div>
+            <div>关注</div>
           </Link>
-          <Link to={`fans`} className="info">
-            <div className="num text-base">{profile?.followeds}</div>
-            <div className="string">粉丝</div>
+          <Link to={`fans`} className={`w-20`}>
+            <div className="text-base">{profile?.followeds}</div>
+            <div>粉丝</div>
           </Link>
         </div>
         <div className="leading-6 mt-2 text-sm">
@@ -137,7 +136,7 @@ const Header = () => {
                 <span>所在地区：</span>
                 <span className="text-gray-400">浙江省 温州市</span>
               </div> */}
-          <div className="item">
+          <div>
             <span>社交网络：</span>
             {bindings?.map((item) => {
               if (item.url) {
@@ -154,7 +153,7 @@ const Header = () => {
               }
             })}
           </div>
-          <div className="item">
+          <div>
             <span>个人介绍：</span>
             <span className="text-gray-400" style={{ whiteSpace: "pre-wrap" }}>
               {profile?.signature || "暂无介绍"}

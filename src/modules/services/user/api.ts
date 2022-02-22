@@ -17,6 +17,20 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getUserEvent: build.mutation<Clouds, { uid: string; lasttime: number }>({
+      query: (body) => ({
+        url: `user/event`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getUserSubCount: build.query<Clouds, void>({
+      query: (body) => ({
+        url: `user/subcount`,
+        method: "POST",
+        body,
+      }),
+    }),
     getUserPlaylist: build.query<Clouds, { uid: string }>({
       query: (body) => ({
         url: `user/playlist`,
@@ -57,6 +71,8 @@ export const api = base.injectEndpoints({
 export const {
   useGetUserCloudQuery,
   useGetUserDetailQuery,
+  useGetUserEventMutation,
+  useGetUserSubCountQuery,
   useGetUserBindingQuery,
   useGetUserPlaylistQuery,
   useGetUserFollowedsQuery,
