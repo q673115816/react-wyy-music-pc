@@ -9,7 +9,12 @@ const Item: FC<iItem> = ({ item = {} }) => (
   <div className="item">
     <div className="cover relative rounded border overflow-hidden">
       <Link to={`/playlist/dj/${item.id}`}>
-        <img className="aspect-square object-fit" src={item.picUrl} alt="" />
+        <img
+          loading={`lazy`}
+          className="w-full h-full aspect-square object-fit"
+          src={item.picUrl}
+          alt=""
+        />
         <div className="absolute bottom-0 left-0 right-0 h-1/4 ui_linear_mask_bottom" />
         <div className="absolute left-0 bottom-0 max-w-full px-2 py-1 text-white truncate">
           {item.name}

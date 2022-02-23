@@ -105,23 +105,6 @@ export interface Playlist {
   privacy: number;
 }
 
-export interface Artists extends ResWithCode {
-  more: boolean;
-  result: Artist[];
-}
-
-export interface Artist {
-  id: number;
-  albumSize: number;
-  alias: string[];
-  img1v1Url: string;
-  name: string;
-  musicSize: number;
-  fansCount: number;
-  followed: boolean;
-  accountId?: number;
-}
-
 export interface Songs extends ResWithCode {
   data: TopSong[];
 }

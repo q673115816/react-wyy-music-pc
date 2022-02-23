@@ -1,8 +1,11 @@
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import React, { FC, memo } from "react";
+import { Track } from "@/modules/services/playlist";
 
-interface iProps {}
+interface iProps {
+  tracks: Track[];
+}
 
 const Content: FC<iProps> = ({ tracks = [] }) => (
   <div className="official_rank_list flex-1 flex flex-col h-full">

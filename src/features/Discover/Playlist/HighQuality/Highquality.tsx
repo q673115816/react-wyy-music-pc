@@ -1,34 +1,34 @@
-import React, {memo, useEffect, useRef, useState} from 'react'
-import {Link, useParams} from "react-router-dom";
-import {IconCrown, IconPlayerPlay} from "@tabler/icons";
-import {transPlayCount} from "@/common/utils";
+import React, { memo, useEffect, useRef } from "react";
+import { Link, useParams } from "react-router-dom";
+import { IconCrown, IconPlayerPlay } from "@tabler/icons";
+import { transPlayCount } from "@/common/utils";
 import PlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
 import TagsBox from "@/components/Tags/Box";
-import {apiTopPlaylistHighquality} from "@/api";
 import useInfinite from "@/hooks/useInfinite";
-import {useGetTopPlaylistHighqualityMutation} from "@/modules/services/discover";
+import { useGetTopPlaylistHighqualityMutation } from "@/modules/services/discover";
 import Loading from "@/components/Loading";
-import {useImmer} from "use-immer";
-import { Highquality as iHighquality} from '@/modules/services/discover'
+import { useImmer } from "use-immer";
+import { Highquality as iHighquality } from "@/modules/services/discover";
 const Highquality = () => {
-  const { cat = '' } = useParams();
+  const { cat = "" } = useParams();
   const before = useRef(0);
   const [data, setData] = useImmer<iHighquality[]>([]);
-  const [highqualityGet, {isLoading}] = useGetTopPlaylistHighqualityMutation()
+  const [highQualityGet, { isLoading }] =
+    useGetTopPlaylistHighqualityMutation();
   const domObserver = useRef(null);
   const domScroll = useRef(null);
   const handleInit = async () => {
     try {
-      const data = await highqualityGet({
+      const data = await highQualityGet({
         cat,
         limit: 20,
         before: before.current,
       });
-      const playlists = data?.data?.playlists || []
-      const lasttime = data?.data?.lasttime
+      const playlists = data?.data?.playlists || [];
+      const lasttime = data?.data?.lasttime;
       before.current = lasttime;
       setData((draft) => {
-        draft.push(...playlists)
+        draft.push(...playlists);
       });
     } catch (error) {
       console.log(error);
@@ -37,9 +37,9 @@ const Highquality = () => {
 
   useInfinite(handleInit, null, domObserver);
   useEffect(() => {
-    setData([])
+    setData([]);
     // handleInit()
-  }, [cat])
+  }, [cat]);
   // useEffect(() => {
   //   setData([]);
   // }, [cat]);
@@ -50,9 +50,9 @@ const Highquality = () => {
         <div className="item flex" key={item.id}>
           <div className="cover w-32 h-32 rounded-lg group overflow-hidden flex-none relative">
             <Link to={`/playlist/music/${item.id}`} className="">
-                <span className="absolute top-0 left-0 p-0.5 w-8 h-8 bg-yellow-500 text-white ui_angle_top_left">
-                  <IconCrown size={14} className="transform -rotate-45" />
-                </span>
+              <span className="absolute top-0 left-0 p-0.5 w-8 h-8 bg-yellow-500 text-white ui_angle_top_left">
+                <IconCrown size={14} className="transform -rotate-45" />
+              </span>
               <img
                 loading={`lazy`}
                 src={`${item.coverImgUrl}?param=200y200`}
@@ -98,9 +98,11 @@ const Highquality = () => {
           </div>
         </div>
       ))}
-      <div ref={domObserver}><Loading/></div>
+      <div ref={domObserver}>
+        <Loading />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default memo(Highquality)
+export default memo(Highquality);

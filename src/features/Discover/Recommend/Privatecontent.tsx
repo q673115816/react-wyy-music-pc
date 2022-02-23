@@ -19,7 +19,7 @@ const Privatecontent: FC<iProps> = ({ privatecontent = [] }) => (
               </span>
               <img
                 loading={"lazy"}
-                className="ui_containimg aspect-video"
+                className="w-full h-full ui_containimg aspect-video"
                 src={item.sPicUrl}
                 alt=""
               />

@@ -2,18 +2,18 @@ import React, { memo } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { IconPlayerPlay, IconFolderPlus } from "@tabler/icons";
 import classNames from "classnames";
-import { songConfig } from "./config";
+import { songNavs } from "../config";
 
-const SongLayout = () => {
+const Layout = () => {
   return (
     <>
       <div className="flex px-8 py-2">
         <div className={`flex space-x-4 text-sm`}>
-          {Object.keys(songConfig).map((name) => (
+          {songNavs.map((name) => (
             <NavLink
               key={name}
               className={({ isActive }) => classNames(isActive && "font-bold")}
-              to={name}
+              to={encodeURI(name)}
             >
               {name}
             </NavLink>
@@ -41,4 +41,4 @@ const SongLayout = () => {
   );
 };
 
-export default memo(SongLayout);
+export default memo(Layout);

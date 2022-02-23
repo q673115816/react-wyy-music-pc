@@ -1,8 +1,16 @@
 import { base } from "../base";
 import { Songs } from "./types";
+import { limit } from "@/common/config";
 
 interface ReqArtists {
   type: number;
+}
+
+interface ResAlbums {
+  area: string;
+  type: string;
+  limit: number;
+  offset: number;
 }
 
 const api = base.injectEndpoints({
@@ -14,7 +22,14 @@ const api = base.injectEndpoints({
         body,
       }),
     }),
+    getTopAlbum: build.query<Songs, ResAlbums>({
+      query: (body) => ({
+        url: `top/album`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetTopSongQuery } = api;
+export const { useGetTopSongQuery, useGetTopAlbumQuery } = api;
