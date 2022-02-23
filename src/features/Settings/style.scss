@@ -1,35 +1,13 @@
 .domSetting {
-
   .nav_target {
     margin-top: 30px;
     padding-top: 30px;
     border-top: 1px solid #ccc;
   }
-
-  &_header {
-    flex: none;
-    height: 114px;
-    padding: 20px 30px;
-  }
-
-  &_nav {
-    margin-top: 30px;
-
-    &_link {
-      margin-right: 1em;
-
-    }
-  }
-
-  &_main {
-    padding: 0 30px;
-  }
-
   &_select {
     border: 1px solid #E0E0E0;
     height: 24px;
   }
-
   &_radio {
     input {
       display: none;
@@ -38,7 +16,6 @@
         border-color: currentColor;
       }
     }
-
     .ico {
       width: 16px;
       height: 16px;
@@ -55,17 +32,14 @@
       }
     }
   }
-
   &_block {
     &_title {
       font-weight: bold;
       font-size: 14px;
     }
   }
-
   &_subBlock {
     margin-top: 24px;
-
     &_title {
       margin-bottom: 10px;
     }

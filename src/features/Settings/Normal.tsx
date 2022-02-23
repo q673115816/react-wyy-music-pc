@@ -1,29 +1,16 @@
 import React, { ChangeEventHandler, memo, useState } from "react";
-import CompoenntCheckbox from "@/components/Checkbox";
-import { setFont } from "@/modules/reducers/setting/slice";
+import Checkbox from "@/components/Checkbox";
+import { setFont, settingSelector } from "@/modules/reducers/setting/slice";
 import SettingRadio from "./components/SettingRadio";
 import SettingCheck from "./components/SettingCheck";
 import { setToast } from "@/modules/reducers/mask/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-
-const fonts = [
-  ["inherit", "默认"],
-  ["仿宋", "仿宋"],
-  ["宋体", "宋体"],
-  ["微软雅黑", "微软雅黑"],
-  ["微软雅黑 Light", "微软雅黑 Light"],
-  ["新宋体", "新宋体"],
-  ["方正兰亭超细黑简体", "方正兰亭超细黑简体"],
-  ["方正粗黑宋简体", "方正粗黑宋简体"],
-  ["楷体", "楷体"],
-  ["等线", "等线"],
-  ["等线 Light", "等线 Light"],
-  ["黑体", "黑体"],
-];
+import { fonts } from "./config";
+import Row from "./components/Row";
 
 const Normal = () => {
   const dispatch = useAppDispatch();
-  const { font } = useAppSelector(({ setting }) => setting);
+  const { font } = useAppSelector(settingSelector);
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
     dispatch(setFont(e.target.value));
     dispatch(setToast("设置已更新"));
@@ -34,52 +21,43 @@ const Normal = () => {
   return (
     <>
       <div className="domSetting_block_title">常规</div>
-      <div className="domSetting_subBlock">
-        <div className="domSetting_subBlock_title">
-          字体选择：
-          <span className="text-gray-400">
-            如果字体显示不清晰，请在控制面板——字体设置中启用系统Clear Type设置
-          </span>
-        </div>
-        <div className="domSetting_subBlock_content">
-          <select
-            className="domSetting_select"
-            onChange={handleSelect}
-            value={font}
-          >
-            {fonts.map(([value, name]) => (
-              <option
-                key={value}
-                value={value}
-                title={name}
-                style={{ fontFamily: value }}
-              >
-                {name}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-      <div className="domSetting_subBlock">
-        <div className="domSetting_subBlock_title">启动：</div>
+      <Row
+        title="字体选择"
+        tips="如果字体显示不清晰，请在控制面板——字体设置中启用系统Clear Type设置"
+      >
+        <select
+          className="domSetting_select"
+          onChange={handleSelect}
+          value={font}
+        >
+          {fonts.map(([value, name]) => (
+            <option
+              key={value}
+              value={value}
+              title={name}
+              style={{ fontFamily: value }}
+            >
+              {name}
+            </option>
+          ))}
+        </select>
+      </Row>
+      <Row title="启动">
         <SettingCheck name="启动" list={[["开机自动启动", false]]} />
-      </div>
-      <div className="domSetting_subBlock">
-        <div className="domSetting_subBlock_title">关联：</div>
+      </Row>
+      <Row title="关联">
         <SettingCheck
           name="关联"
           list={[["将网易云音乐设为默认播放器", false]]}
         />
-      </div>
-      <div className="domSetting_subBlock">
-        <div className="domSetting_subBlock_title">动画：</div>
+      </Row>
+      <Row title="动画">
         <SettingCheck
           name="动画"
           list={[["禁用动画效果", false, "减少部分资源占用"]]}
         />
-      </div>
-      <div className="domSetting_subBlock">
-        <div className="domSetting_subBlock_title">GPU加速：</div>
+      </Row>
+      <Row title="GPU加速">
         <SettingCheck
           name="GPU加速"
           list={[
@@ -90,22 +68,20 @@ const Normal = () => {
             ],
           ]}
         />
-      </div>
-      <div className="domSetting_subBlock">
-        <div className="domSetting_subBlock_title">关闭主面板：</div>
+      </Row>
+      <Row title="关闭主面板">
         <SettingRadio
           name="关闭主面板"
           list={["最小化到系统托盘", "退出云音乐"]}
           checked={关闭主面板}
           handle={设置关闭主面板}
         />
-      </div>
-      <div className="domSetting_subBlock">
-        <div className="domSetting_subBlock_title">定时关机：</div>
+      </Row>
+      <Row title="定时关机">
         <div className="domSetting_subBlock_content">
           <div className="item">
             <label className="domSetting_check flex items-center">
-              <CompoenntCheckbox />
+              <Checkbox />
               &nbsp;
               <span>开启定时关机</span>
             </label>
@@ -130,18 +106,13 @@ const Normal = () => {
             分
           </div>
         </div>
-      </div>
-
-      <div className="domSetting_subBlock">
-        <div className="domSetting_subBlock_title">
-          高清屏适配：
-          <span className="text-gray-400">禁用后建议重启软件</span>
-        </div>
+      </Row>
+      <Row title="高清屏适配" tips="禁用后建议重启软件">
         <SettingCheck
           name="高清屏适配"
           list={[["禁用系统缩放比例", false, "减少部分资源占用"]]}
         />
-      </div>
+      </Row>
     </>
   );
 };

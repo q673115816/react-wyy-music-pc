@@ -55,34 +55,34 @@ const About = () => (
         iPhone版
       </a>
     </div>
-    <div className="pt-8 pb-7">
+    <div className="pt-8 pb-7 flex gap-2">
       <a
         href="https://music.163.com"
-        className="mr-2 underline text-gray-600 hover:text-black"
+        className="underline text-gray-600 hover:text-black"
       >
         《网易云音乐官网》
       </a>
       <a
         href="https://music.163.com"
-        className="mr-2 underline text-gray-600 hover:text-black"
+        className="underline text-gray-600 hover:text-black"
       >
         《网易云音乐社区管理细则》
       </a>
       <a
         href="https://music.163.com"
-        className="mr-2 underline text-gray-600 hover:text-black"
+        className="underline text-gray-600 hover:text-black"
       >
         《服务条款》
       </a>
       <a
         href="https://music.163.com"
-        className="mr-2 underline text-gray-600 hover:text-black"
+        className="underline text-gray-600 hover:text-black"
       >
         《隐私政策》
       </a>
       <a
         href="https://music.163.com"
-        className="mr-2 underline text-gray-600 hover:text-black"
+        className="underline text-gray-600 hover:text-black"
       >
         《儿童隐私政策》
       </a>
