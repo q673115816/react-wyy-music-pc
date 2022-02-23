@@ -132,16 +132,12 @@ const CustomDrag = memo(function CustomDrag() {
 export default memo(function Header() {
   useInit();
   return (
-    <div className="domHeader ui_theme_bg_color relative px-5 flex flex-none items-center text-white">
+    <div className="domHeader ui_theme_bg_color relative flex flex-none items-center text-white">
       <CustomDrag />
-      <Link
-        to="/"
-        className="domHeader_logo tracking-widest text-lg z-10"
-        style={{ width: 210 }}
-      >
+      <Link to="/" className="tracking-widest text-lg z-10 pl-5 w-56">
         网易云音乐
       </Link>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-2">
         <VisitStack />
         <Search />
         <Link

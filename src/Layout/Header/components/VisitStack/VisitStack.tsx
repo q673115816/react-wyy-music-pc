@@ -27,7 +27,7 @@ export default memo(function VisitStack() {
     navigate(1);
   }, []);
   return (
-    <div className="domHeader_page flex space-x-2">
+    <div className="domHeader_page flex gap-2">
       <button
         type="button"
         onClick={handleGoPrev}

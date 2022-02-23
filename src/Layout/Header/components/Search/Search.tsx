@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 const Search = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { searchVisibility } = useAppSelector(({ mask }) => mask);
   const { keywords } = useAppSelector(searchSelector);
   const handleSearchInit = async () => {
     dispatch(setSearchShow());
@@ -28,7 +29,11 @@ const Search = () => {
   };
 
   return (
-    <form className="relative" onSubmit={handleSubmit}>
+    <form
+      className="relative"
+      style={{ zIndex: searchVisibility ? 99 : "initial" }}
+      onSubmit={handleSubmit}
+    >
       <IconSearch
         size={16}
         className="absolute inset-y-0 m-auto left-3 text-white"

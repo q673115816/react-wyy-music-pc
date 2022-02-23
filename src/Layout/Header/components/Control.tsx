@@ -29,7 +29,7 @@ const Control = () => {
     dispatch(setPositionTrue());
   };
   return (
-    <div className="domHeader_control space-x-3">
+    <div className="flex gap-3 pr-5">
       <button
         type="button"
         className="relative text-white text-opacity-90 hover:text-opacity-100 z-10"

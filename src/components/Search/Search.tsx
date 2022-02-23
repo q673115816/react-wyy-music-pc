@@ -1,7 +1,7 @@
-import React, { memo } from "react";
-import { useAppSelector } from "@/modules/hooks";
+import React, { ChangeEventHandler, memo } from "react";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import classNames from "classnames";
-import { searchSelector } from "@/modules/reducers/search/slice";
+import { searchSelector, setKeywords } from "@/modules/reducers/search/slice";
 import Mask from "../Mask";
 import History from "./History";
 import Hot from "./Hot";
@@ -10,7 +10,12 @@ import Suggest from "./Suggest";
 
 const Search = () => {
   const { keywords } = useAppSelector(searchSelector);
+  const dispatch = useAppDispatch();
   const { searchVisibility } = useAppSelector(({ mask }) => mask);
+  const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const keywords = e.target.value;
+    dispatch(setKeywords({ keywords }));
+  };
   if (!searchVisibility) return null;
 
   return (
@@ -19,7 +24,7 @@ const Search = () => {
         className={classNames(
           style.box,
           keywords && style.val,
-          "absolute shadow rounded bg-white py-2 z-10"
+          "absolute top-0 left-48 shadow rounded bg-white py-2 mt-16"
         )}
       >
         {keywords ? (

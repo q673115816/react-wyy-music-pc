@@ -1,4 +1,4 @@
-import React, { lazy, memo } from "react";
+import React, { memo } from "react";
 import { createPortal } from "react-dom";
 import useIsLogin from "@/hooks/useIsLogin";
 import useKeyActions from "./hooks/useKeyActions";
@@ -12,14 +12,14 @@ const App = () => {
   useKeyActions();
   useIsLogin();
   return (
-    <>
+    <div>
       <Layout />
       <GlobalLrc />
       {createPortal(
         <Coffee />,
         document.querySelector("#author-root") as HTMLDivElement
       )}
-    </>
+    </div>
   );
 };
 

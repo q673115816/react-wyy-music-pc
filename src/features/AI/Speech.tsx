@@ -3,8 +3,21 @@ import { setToast } from "@/modules/reducers/mask/slice";
 import { IconBrandGithub } from "@tabler/icons";
 import React, { memo, useCallback, useState } from "react";
 import { useRef } from "react";
+import { useSpeech } from "react-use";
 
-export default memo(() => {
+const voices = window.speechSynthesis.getVoices();
+
+const Demo = () => {
+  const state = useSpeech("Hello world!", {
+    rate: 0.8,
+    pitch: 0.5,
+    voice: voices[0],
+  });
+
+  return <pre>{JSON.stringify(state, null, 2)}</pre>;
+};
+
+const Speech = () => {
   const dispatch = useAppDispatch();
   const [text, setText] = useState("");
   const active = useRef(false);
@@ -96,6 +109,7 @@ export default memo(() => {
       console.log("Ready to receive a color command.");
     }
   }, []);
+
   return (
     <div className="absolute bottom-0 left-0">
       {_active && <textarea value={text} readOnly />}
@@ -114,4 +128,6 @@ export default memo(() => {
       </button>
     </div>
   );
-});
+};
+
+export default memo(Speech);

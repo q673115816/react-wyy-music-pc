@@ -31,7 +31,7 @@ import reportWebVitals from "./reportWebVitals";
 render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter basename={PUBLIC_URL}>
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
