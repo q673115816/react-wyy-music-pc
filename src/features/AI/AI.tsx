@@ -12,6 +12,8 @@ import { setToast } from "@/modules/reducers/mask/slice";
 import IconRejected from "./Icon";
 import Speech from "./Speech";
 import { useAppDispatch } from "@/modules/hooks";
+import { useToggle } from "react-use";
+import useToast from "@/hooks/useToast";
 
 interface IProps {
   handleCallback: () => void;
@@ -84,15 +86,13 @@ const Rejected = memo<FC<IProps>>(function Rejected({
 });
 
 export default memo(function AI() {
-  const dispatch = useAppDispatch();
-  const [listen, setListen] = useState(true);
+  const toast = useToast();
+  const [listen, toggleListen] = useToggle(true);
   /**
    * 应该不会有成功吧？
    * TODO
    * speech
    */
-  const handleRejected = useCallback(() => setListen(false), []);
-  const handleFulfilled = useCallback(() => setListen(true), []);
   return (
     <div className="py-5 px-8 flex flex-col h-full relative">
       <Speech />
@@ -101,7 +101,7 @@ export default memo(function AI() {
         <button
           type="button"
           className="ml-auto flex items-center"
-          onClick={() => dispatch(setToast("创建【听歌识曲】图标至桌面成功"))}
+          onClick={() => toast("创建【听歌识曲】图标至桌面成功")}
         >
           <IconFileImport size={16} stroke={1} />
           创建桌面快捷方式
@@ -109,9 +109,9 @@ export default memo(function AI() {
       </div>
       <div className="flex-auto flex-center">
         {listen ? (
-          <Wait handleCallback={handleRejected} />
+          <Wait handleCallback={toggleListen} />
         ) : (
-          <Rejected handleCallback={handleFulfilled} />
+          <Rejected handleCallback={toggleListen} />
         )}
       </div>
     </div>

@@ -1,20 +1,15 @@
-import React, { memo, FC} from "react";
+import React, { memo, FC } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "@/components/Loading";
-import {useGetSimiArtistQuery} from "@/modules/services/artist";
+import { useGetSimiArtistQuery } from "@/modules/services/artist";
 
 const Similarity = () => {
-  const {id = ''} = useParams()
-  const {data, isLoading} = useGetSimiArtistQuery({id})
+  const { id = "" } = useParams();
+  const { data, isLoading } = useGetSimiArtistQuery({ id });
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center pt-12">
-        <Loading />
-      </div>
-    );
-  }
-  const artists = data?.artists || []
+  const artists = data?.artists || [];
+
+  if (isLoading) return <Loading />;
 
   if (artists.length === 0) {
     return (
@@ -24,22 +19,23 @@ const Similarity = () => {
     );
   }
   return (
-    <div className="domArtist_section p-8">
+    <div className="p-8">
       <div className="grid grid-cols-5 gap-5">
         {artists.map((item) => (
-          <div className="item" key={item.id}>
-            <div className="cover rounded overflow-hidden border">
-              <Link to={`/artist/${item.id}`} className="">
-                <img
-                  loading={`lazy`}
-                  className="aspect-square"
-                  src={`${item.picUrl}?param=200y200`}
-                  alt=""
-                />
-              </Link>
-            </div>
-            <div className="footer text-sm mt-2">
-              <Link to={`/artist/${item.id}`} className="">
+          <div className={`space-y-2`} key={item.id}>
+            <Link
+              to={`/artist/${item.id}`}
+              className="block rounded overflow-hidden border"
+            >
+              <img
+                loading={`lazy`}
+                className="aspect-square object-fit w-full h-full"
+                src={`${item.picUrl}?param=200y200`}
+                alt=""
+              />
+            </Link>
+            <div>
+              <Link to={`/artist/${item.id}`} className="text-sm">
                 {item.name}
               </Link>
             </div>
@@ -50,4 +46,4 @@ const Similarity = () => {
   );
 };
 
-export default memo(Similarity)
+export default memo(Similarity);

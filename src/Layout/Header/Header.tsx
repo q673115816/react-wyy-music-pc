@@ -134,7 +134,7 @@ export default memo(function Header() {
   return (
     <div className="domHeader ui_theme_bg_color relative flex flex-none items-center text-white">
       <CustomDrag />
-      <Link to="/" className="tracking-widest text-lg z-10 pl-5 w-56">
+      <Link to="/" className="tracking-widest text-lg z-10 mx-5 w-56">
         网易云音乐
       </Link>
       <div className="flex items-center gap-2">

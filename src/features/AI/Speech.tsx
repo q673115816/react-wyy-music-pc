@@ -1,21 +1,7 @@
 import { useAppDispatch } from "@/modules/hooks";
 import { setToast } from "@/modules/reducers/mask/slice";
 import { IconBrandGithub } from "@tabler/icons";
-import React, { memo, useCallback, useState } from "react";
-import { useRef } from "react";
-import { useSpeech } from "react-use";
-
-const voices = window.speechSynthesis.getVoices();
-
-const Demo = () => {
-  const state = useSpeech("Hello world!", {
-    rate: 0.8,
-    pitch: 0.5,
-    voice: voices[0],
-  });
-
-  return <pre>{JSON.stringify(state, null, 2)}</pre>;
-};
+import React, { memo, useCallback, useState, useRef } from "react";
 
 const Speech = () => {
   const dispatch = useAppDispatch();
