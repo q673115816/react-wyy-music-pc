@@ -4,9 +4,26 @@ import { base } from "./services/base";
 // We'll use redux-logger just as an example of adding another middleware
 import logger from "redux-logger";
 import { combineReducers } from "redux";
-
 // And use redux-batch as an example of adding enhancers
 // import { reduxBatch } from "@manaflair/redux-batch";
+
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
+// const persistConfig = {
+//   key: "root",
+//   version: 1,
+//   storage,
+// };
 
 const preloadedState = {};
 
@@ -19,6 +36,14 @@ if (window && window.__STATE__) {
   delete window.__STATE__;
 }
 
+// const persistedReducer = persistReducer(
+//   persistConfig,
+//   combineReducers({
+//     [base.reducerPath]: base.reducer,
+//     ...rootReducer,
+//   })
+// );
+
 const store = configureStore({
   reducer: combineReducers({
     [base.reducerPath]: base.reducer,
@@ -26,10 +51,17 @@ const store = configureStore({
   }),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(base.middleware),
+  // {
+  // serializableCheck: {
+  //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+  // },
+  // }
   devTools: NODE_ENV !== "production",
   preloadedState,
   // enhancers: [reduxBatch],
 });
+
+// let persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

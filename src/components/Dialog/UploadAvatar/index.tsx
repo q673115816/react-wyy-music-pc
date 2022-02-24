@@ -1,14 +1,13 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { memo } from "react";
 import HOCDialog from "../Dialog";
 import "./style.scss";
+import { useAppSelector } from "@/modules/hooks";
 
-export default () => {
-  const { dialogUploadAvatarVisibility, avatar } = useSelector(
+const UploadAvatar = () => {
+  const { dialogUploadAvatarVisibility, avatar } = useAppSelector(
     ({ mask }) => mask
   );
   if (!dialogUploadAvatarVisibility) return null;
-  console.log(avatar);
   return (
     <HOCDialog id="dialogUploadAvatar" title="上传头像">
       <div className="main">
@@ -46,3 +45,4 @@ export default () => {
     </HOCDialog>
   );
 };
+export default memo(UploadAvatar);

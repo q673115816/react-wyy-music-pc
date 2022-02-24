@@ -28,6 +28,7 @@ const Search = () => {
   useEffect(() => {
     dispatch(setSearchCount({ count }));
   }, [count]);
+
   useEffect(() => {
     if (!searchValue) {
       dispatch(
@@ -36,7 +37,7 @@ const Search = () => {
         })
       );
     }
-  }, []);
+  }, [keywords]);
 
   const handleInit = async (page: number) => {
     const data = await cloudSearchGet({

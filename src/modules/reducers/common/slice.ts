@@ -14,6 +14,7 @@ const initialState: CommonState = {
   forwards: [],
   notices: [],
   baseUrl: "https://music.163.com",
+  gitUrl: "https://neteasecloudmusic.fun",
 };
 
 const slice = createSlice({

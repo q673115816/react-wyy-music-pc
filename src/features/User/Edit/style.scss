@@ -1,44 +1,29 @@
-.domUserEdit {
-  &_main {
-
-    .left {
-      width: 490px;
-      .row {
-        .key {
-          line-height: 30px;
-        }
-        .value {
-          .gender {
-            display: inline-flex;
-            align-items: center;
-            line-height: 30px;
-            margin-right: 2em;
-            .ico {
-              position: relative;
-              margin-right: 0.5em;
-              width: 18px;
-              height: 18px;
-              border-radius: 50%;
-              border: 1px solid #D0D0D0;
-              &::before {
-                opacity: 0;
-                width: 12px;
-                height: 12px;
-                content: '';
-                border-radius: 50%;
-                background-color: var(--themeColor);
-              }
-            }
-            [type="radio"]:checked {
-              & + .ico {
-                border-color: var(--themeColor);
-                &::before {
-                  opacity: 1;
-                }
-              }
-            }
-          }
-        }
+.gender {
+  display: inline-flex;
+  align-items: center;
+  line-height: 30px;
+  margin-right: 2em;
+  .ico {
+    position: relative;
+    margin-right: 0.5em;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid #D0D0D0;
+    &::before {
+      opacity: 0;
+      width: 12px;
+      height: 12px;
+      content: '';
+      border-radius: 50%;
+      background-color: var(--themeColor);
+    }
+  }
+  [type="radio"]:checked {
+    & + .ico {
+      border-color: var(--themeColor);
+      &::before {
+        opacity: 1;
       }
     }
   }

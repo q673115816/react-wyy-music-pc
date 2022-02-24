@@ -1,11 +1,12 @@
 import React, { FC, memo, useCallback, useEffect, useState } from "react";
 import Select from "../Select";
 import provinces from "./provinces";
+import { EditHandler } from "../../types";
 
 interface iProps {
   city: number;
   province: number;
-  handleEdit: (name: string, value: any) => void;
+  handleEdit: EditHandler;
 }
 
 const Location: FC<iProps> = ({ city, province, handleEdit }) => {

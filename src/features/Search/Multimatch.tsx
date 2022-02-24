@@ -64,6 +64,22 @@ const Nodes = {
       </div>
     </Link>
   ),
+  playlist: ({ item }) => (
+    <Link
+      to={`/playlist/music/${item.id}`}
+      className="h-16 w-1/3 flex items-center bg-gray-100 rounded overflow-hidden px-2"
+      title={item.name}
+    >
+      <img className="h-10" src={`${item.coverImgUrl}?param=60y60`} alt="" />
+      <div className="px-2 flex-1 w-0">
+        <div className="text-sm truncate">
+          歌单：
+          {item.name}
+        </div>
+        <div className="text-gray-400">{item.creator.name}</div>
+      </div>
+    </Link>
+  ),
 };
 
 interface iProps {

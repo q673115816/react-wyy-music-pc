@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useState } from "react";
-import { apiUserDetail, apiUserUpdate } from "@/api";
 import { Link, useParams } from "react-router-dom";
 import classNames from "classnames";
 import { setDialogUploadAvatarShow } from "@/modules/reducers/mask/slice";
@@ -12,31 +11,26 @@ import { useAppDispatch } from "@/modules/hooks";
 import { useImmer } from "use-immer";
 import useToast from "@/hooks/useToast";
 import Row from "./components/Row";
+import { EditHandler } from "@/features/User/Edit/types";
+import {
+  useGetUserDetailQuery,
+  usePostUserUpdateMutation,
+} from "@/modules/services/user";
+import Gender from "./components/Gender";
 
 const Edit = () => {
-  const { uid } = useParams();
+  const { uid = "" } = useParams();
   const dispatch = useAppDispatch();
   const toast = useToast();
-  const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useImmer({});
-  const [edit, setEdit] = useImmer({});
+  const { data, isLoading } = useGetUserDetailQuery({
+    uid,
+  });
+  const [updatePost, { isLoading: isUpdating }] = usePostUserUpdateMutation();
+  const { profile, code } = data;
+  const [edit, setEdit] = useImmer(profile);
 
   const [signature, setSignature] = useState("");
   const [disabled, setDisabled] = useState(true);
-  const handleInit = async () => {
-    try {
-      const { code, profile } = await apiUserDetail({
-        uid,
-      });
-      if (code !== 200) return;
-      setProfile(profile);
-      setEdit(profile);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleSave = async () => {
     try {
@@ -48,17 +42,16 @@ const Edit = () => {
         city: edit.city,
         signature: edit.signature,
       };
-      const { code } = await apiUserUpdate(params);
-      if (code !== 200) return;
+      const { data } = await updatePost(params);
+      if (data.code !== 200) return;
       setDisabled(true);
-      setProfile(edit);
       toast("修改个人资料成功");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleEdit = (name, value) => {
+  const handleEdit: EditHandler = (name, value) => {
     setEdit((draft) => {
       draft[name] = value;
     });
@@ -80,27 +73,20 @@ const Edit = () => {
   };
 
   useEffect(() => {
-    handleInit();
-  }, [uid]);
-
-  useEffect(() => {
-    // console.log(initialState.current === edit);
-    // console.log(JSON.stringify(profile) === JSON.stringify(edit));
-    // 可以保存修改值判断
     setDisabled(JSON.stringify(profile) === JSON.stringify(edit));
   }, [edit]);
 
-  if (loading)
+  if (isLoading)
     return (
       <div className="flex-center w-full h-full">
         <Loading />
       </div>
     );
   return (
-    <div className="domUserEdit">
-      <div className="h1 domUser_subpage_header ui_header">编辑个人信息</div>
-      <div className="domUserEdit_main flex px-8 py-5">
-        <div className="left flex flex-col gap-5">
+    <div>
+      <div className="h1 ui_header">编辑个人信息</div>
+      <div className="flex px-8 py-5 gap-x-20">
+        <div className="flex flex-1 flex-col gap-5">
           <Row label={`昵称`}>
             <div className="value">
               <input
@@ -115,7 +101,6 @@ const Edit = () => {
             <div className="border flex-1">
               <div className="signature rounded flex flex-col items-end">
                 <textarea
-                  type="text"
                   value={edit.signature}
                   className="w-full outline-0 py-1 px-2.5 border-0 h-12 resize-none"
                   onChange={({ target }) =>
@@ -124,53 +109,16 @@ const Edit = () => {
                 />
                 <div
                   className={classNames("p-1", {
-                    ui_red: signature.length > 300,
+                    ui_red: edit.signature.length > 300,
                   })}
                 >
-                  {300 - signature.length}
+                  {300 - edit.signature.length}
                 </div>
               </div>
             </div>
           </Row>
           <Row label={"性别"}>
-            <div className="value">
-              <label htmlFor="secret" className="gender">
-                <input
-                  type="radio"
-                  className="hidden"
-                  name="gender"
-                  id="secret"
-                  checked={edit.gender === 0}
-                  onChange={() => handleEdit("gender", 0)}
-                />
-                <i className="ico flex-center" />
-                <span>保密</span>
-              </label>
-              <label htmlFor="male" className="gender">
-                <input
-                  type="radio"
-                  className="hidden"
-                  name="gender"
-                  id="male"
-                  checked={edit.gender === 1}
-                  onChange={() => handleEdit("gender", 1)}
-                />
-                <i className="ico flex-center" />
-                <span>男</span>
-              </label>
-              <label htmlFor="famale" className="gender">
-                <input
-                  type="radio"
-                  className="hidden"
-                  name="gender"
-                  id="famale"
-                  checked={edit.gender === 2}
-                  onChange={() => handleEdit("gender", 2)}
-                />
-                <i className="ico flex-center" />
-                <span>女</span>
-              </label>
-            </div>
+            <Gender gender={edit.gender} handleEdit={handleEdit} />
           </Row>
           <Row label={"生日"}>
             <Birthday birthday={edit.birthday} handleEdit={handleEdit} />
@@ -206,8 +154,8 @@ const Edit = () => {
             </div>
           </Row>
         </div>
-        <div className="right ml-20">
-          <div className="avatar border rounded overflow-hidden w-40 h-40">
+        <div>
+          <div className="border rounded overflow-hidden w-40 h-40">
             <img className="" src={edit.avatarUrl} alt="" />
           </div>
           <label

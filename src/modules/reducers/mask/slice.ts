@@ -64,8 +64,8 @@ const slice = createSlice({
       Object.assign(state, visibilityState, action.payload);
       state.dialogShareVisibility = true;
     },
-    setDialogShareWXShow(state, action) {
-      Object.assign(state, visibilityState, action.payload);
+    setDialogShareWXShow(state) {
+      // Object.assign(state, visibilityState, action.payload);
       state.dialogShareWXVisibility = true;
     },
     setDialogUploadAvatarShow(state, action) {

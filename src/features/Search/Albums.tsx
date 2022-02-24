@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
@@ -6,11 +6,11 @@ const layouts = {
   "--grid-template-columns": "60px 1fr 1fr",
 };
 
-export default ({ albums = [] }) => (
+const Albums = ({ albums = [] }) => (
   <div className="albums_list _list" style={layouts}>
     {albums.map((item, index) => (
       <div
-        tabIndex="2"
+        tabIndex={2}
         className={classNames(
           "item grid items-center relative hover:bg-gray-100",
           { "bg-gray-50": index % 2 === 1 }
@@ -47,3 +47,5 @@ export default ({ albums = [] }) => (
     ))}
   </div>
 );
+
+export default memo(Albums);

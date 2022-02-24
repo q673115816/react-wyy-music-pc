@@ -6,7 +6,7 @@ import Playlists from "./Playlists";
 import Lyrics from "./Lyrics";
 import DJRadios from "./DJRadios";
 import UserProfiles from "./UserProfiles";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
 export type Types =
   | "单曲"

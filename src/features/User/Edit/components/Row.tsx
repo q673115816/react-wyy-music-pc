@@ -7,7 +7,7 @@ interface iProps {
 const Row: FC<iProps> = ({ label, children }) => {
   return (
     <div className="row flex">
-      <div className="key w-12">{label ? `${label}：` : ""}</div>
+      <div className="leading-8 w-12">{label ? `${label}：` : ""}</div>
       <div className="flex-1">{children}</div>
     </div>
   );

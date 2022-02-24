@@ -35,7 +35,7 @@ const Layout = () => {
                 key={name}
                 to={encodeURIComponent(name)}
                 className={({ isActive }) =>
-                  classNames("text-sm", isActive && "font-bold")
+                  classNames("text-sm", isActive && "font-bold ui_underline")
                 }
               >
                 {name}

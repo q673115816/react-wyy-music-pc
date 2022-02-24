@@ -6,12 +6,12 @@ import {
 } from "@/modules/reducers/audio/slice";
 
 import { apiSongDetail } from "@/api";
-import { useDispatch } from "react-redux";
 import Songs from "../Search/Songs";
+import { useAppDispatch } from "@/modules/hooks";
 
 export default memo(function Share() {
   const { type, id } = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = {
     music: async () => {
       const {

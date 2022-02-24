@@ -43,3 +43,27 @@ export interface Binding {
 }
 
 export interface Followeds extends ResWithCode {}
+
+export interface Details extends ResWithCode {
+  adValid: boolean;
+  bindings: [];
+  createDays: number;
+  createTime: number;
+  level: number;
+  listenSongs: number;
+  mobileSign: boolean;
+  pcSign: boolean;
+  peopleCanSeeMyPlayRecord: boolean;
+  profile: {};
+  profileVillageInfo: {};
+  userPoint: {};
+}
+
+export interface ReqUpdate {
+  gender: number;
+  birthday: number;
+  nickname: string;
+  province: number;
+  city: number;
+  signature: string;
+}

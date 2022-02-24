@@ -1,7 +1,11 @@
 import React, { useRef, useState, useEffect, memo, FC } from "react";
 import Select from "./Select";
+import { EditHandler } from "../types";
 
-interface iProps {}
+interface iProps {
+  birthday: string;
+  handleEdit: EditHandler;
+}
 
 const Birthday: FC<iProps> = ({ birthday = "", handleEdit }) => {
   const nowYear = useRef(new Date().getFullYear());
