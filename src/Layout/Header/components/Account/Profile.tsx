@@ -166,9 +166,7 @@ const Profile: FC<{ handleHide: MouseEventHandler }> = ({ handleHide }) => {
           </li>
         </ul>
       ) : (
-        <div className="flex-center">
-          <Loading />
-        </div>
+        <Loading />
       )}
     </div>
   );

@@ -1,6 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, memo, FC } from "react";
+import Select from "./Select";
 
-export default ({ birthday = "", handleEdit }) => {
+interface iProps {}
+
+const Birthday: FC<iProps> = ({ birthday = "", handleEdit }) => {
   const nowYear = useRef(new Date().getFullYear());
   const year = useRef(new Date(birthday).getFullYear());
   const month = useRef(new Date(birthday).getMonth());
@@ -68,8 +71,8 @@ export default ({ birthday = "", handleEdit }) => {
   }, [month.current]);
 
   return (
-    <>
-      <select className="select" value={year.current} onChange={handleYear}>
+    <div className="grid grid-cols-3 gap-3">
+      <Select value={year.current} onChange={handleYear}>
         {Object.keys(Array(100).fill(0))
           .reverse()
           .map((item) => (
@@ -77,21 +80,23 @@ export default ({ birthday = "", handleEdit }) => {
               {nowYear.current - item}年
             </option>
           ))}
-      </select>
-      <select className="select" value={month.current} onChange={handleMonth}>
+      </Select>
+      <Select value={month.current} onChange={handleMonth}>
         {Object.keys(Array(12).fill(0)).map((item) => (
           <option key={item} value={item}>
             {Number(item) + 1}月
           </option>
         ))}
-      </select>
-      <select className="select" value={day.current} onChange={handleDay}>
+      </Select>
+      <Select value={day.current} onChange={handleDay}>
         {Object.keys(Array(oneMonth).fill(0)).map((item) => (
           <option key={Number(item) + 1} value={Number(item) + 1}>
             {Number(item) + 1}日
           </option>
         ))}
-      </select>
-    </>
+      </Select>
+    </div>
   );
 };
+
+export default memo(Birthday);

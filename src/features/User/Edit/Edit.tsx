@@ -1,24 +1,25 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { apiUserDetail, apiUserUpdate } from "@/api";
 import { Link, useParams } from "react-router-dom";
 import classNames from "classnames";
-import produce from "immer";
-import {
-  setToast,
-  setDialogUploadAvatarShow,
-} from "@/modules/reducers/mask/slice";
-import { useDispatch } from "react-redux";
+import { setDialogUploadAvatarShow } from "@/modules/reducers/mask/slice";
 import "./style.scss";
-import DomLoading from "@/components/Loading";
+import Loading from "@/components/Loading";
 import DialogUploadAvatar from "@/components/Dialog/UploadAvatar";
-import DomBirthday from "./components/Birthday";
+import Birthday from "./components/Birthday";
+import Location from "./components/Location";
+import { useAppDispatch } from "@/modules/hooks";
+import { useImmer } from "use-immer";
+import useToast from "@/hooks/useToast";
+import Row from "./components/Row";
 
-export default memo(() => {
+const Edit = () => {
   const { uid } = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const toast = useToast();
   const [loading, setLoading] = useState(true);
-  const [profile, setProfile] = useState();
-  const [edit, setEdit] = useState();
+  const [profile, setProfile] = useImmer({});
+  const [edit, setEdit] = useImmer({});
 
   const [signature, setSignature] = useState("");
   const [disabled, setDisabled] = useState(true);
@@ -29,7 +30,7 @@ export default memo(() => {
       });
       if (code !== 200) return;
       setProfile(profile);
-      setEdit(() => produce(profile, () => {}));
+      setEdit(profile);
     } catch (error) {
       console.log(error);
     } finally {
@@ -51,18 +52,16 @@ export default memo(() => {
       if (code !== 200) return;
       setDisabled(true);
       setProfile(edit);
-      dispatch(setToast("修改个人资料成功"));
+      toast("修改个人资料成功");
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleEdit = (name, value) => {
-    setEdit(
-      produce((draft) => {
-        draft[name] = value;
-      })
-    );
+    setEdit((draft) => {
+      draft[name] = value;
+    });
   };
 
   const handleUpload = ({ target }) => {
@@ -94,39 +93,37 @@ export default memo(() => {
   if (loading)
     return (
       <div className="flex-center w-full h-full">
-        <DomLoading />
+        <Loading />
       </div>
     );
   return (
     <div className="domUserEdit">
       <div className="h1 domUser_subpage_header ui_header">编辑个人信息</div>
-      <div className="domUserEdit_main">
-        <div className="left">
-          <div className="row">
-            <div className="key">昵称：</div>
+      <div className="domUserEdit_main flex px-8 py-5">
+        <div className="left flex flex-col gap-5">
+          <Row label={`昵称`}>
             <div className="value">
               <input
                 type="text"
                 value={edit.nickname}
-                className="input"
+                className="h-8 block w-full px-2.5 border rounded"
                 onChange={({ target }) => handleEdit("nickname", target.value)}
               />
             </div>
-          </div>
-          <div className="row">
-            <div className="key">介绍：</div>
-            <div className="value">
-              <div className="signature">
+          </Row>
+          <Row label="介绍">
+            <div className="border flex-1">
+              <div className="signature rounded flex flex-col items-end">
                 <textarea
                   type="text"
                   value={edit.signature}
-                  className="textarea"
+                  className="w-full outline-0 py-1 px-2.5 border-0 h-12 resize-none"
                   onChange={({ target }) =>
                     handleEdit("signature", target.value)
                   }
                 />
                 <div
-                  className={classNames("signatureLength", {
+                  className={classNames("p-1", {
                     ui_red: signature.length > 300,
                   })}
                 >
@@ -134,14 +131,13 @@ export default memo(() => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="key">性别：</div>
+          </Row>
+          <Row label={"性别"}>
             <div className="value">
               <label htmlFor="secret" className="gender">
                 <input
                   type="radio"
-                  className="radio"
+                  className="hidden"
                   name="gender"
                   id="secret"
                   checked={edit.gender === 0}
@@ -153,7 +149,7 @@ export default memo(() => {
               <label htmlFor="male" className="gender">
                 <input
                   type="radio"
-                  className="radio"
+                  className="hidden"
                   name="gender"
                   id="male"
                   checked={edit.gender === 1}
@@ -165,7 +161,7 @@ export default memo(() => {
               <label htmlFor="famale" className="gender">
                 <input
                   type="radio"
-                  className="radio"
+                  className="hidden"
                   name="gender"
                   id="famale"
                   checked={edit.gender === 2}
@@ -175,35 +171,26 @@ export default memo(() => {
                 <span>女</span>
               </label>
             </div>
-          </div>
-          <div className="row">
-            <div className="key">生日：</div>
-            <div
-              className="value"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <DomBirthday birthday={edit.birthday} handleEdit={handleEdit} />
-            </div>
-          </div>
-          <div className="row">
-            <div className="key">地区：</div>
-            <div className="value">
-              <select name="" id="" className="select">
-                <option value="" />
-              </select>
-            </div>
-          </div>
-          <div className="row">
-            <div className="key" />
-            <div className="value">
-              <div className="actions">
+          </Row>
+          <Row label={"生日"}>
+            <Birthday birthday={edit.birthday} handleEdit={handleEdit} />
+          </Row>
+          <Row label="地区">
+            <Location
+              province={edit.province}
+              city={edit.city}
+              handleEdit={handleEdit}
+            />
+          </Row>
+          <Row label="">
+            <div className="value mt-5">
+              <div className="actions flex gap-5 text-sm">
                 <button
                   type="button"
                   className={classNames(
-                    "ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red",
-                    { disabled }
+                    "flex-center border px-3 h-8 rounded-full ui_theme_bg_color text-white",
+                    disabled && `opacity-60`
                   )}
-                  style={{ marginRight: "2em" }}
                   disabled={disabled}
                   onClick={handleSave}
                 >
@@ -211,13 +198,13 @@ export default memo(() => {
                 </button>
                 <Link
                   to="./"
-                  className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
+                  className="flex-center border px-3 h-8 rounded-full"
                 >
                   取&nbsp;消
                 </Link>
               </div>
             </div>
-          </div>
+          </Row>
         </div>
         <div className="right ml-20">
           <div className="avatar border rounded overflow-hidden w-40 h-40">
@@ -242,4 +229,6 @@ export default memo(() => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Edit);

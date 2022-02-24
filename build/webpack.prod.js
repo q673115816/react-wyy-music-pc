@@ -90,6 +90,7 @@ const externals = [
     "react-dom": "ReactDOM",
     "react-router": "ReactRouter",
     "react-router-dom": "ReactRouterDOM",
+    hisitory: "HistoryLibrary",
     immer: "immer",
     redux: "Redux",
     "react-redux": "ReactRedux",
