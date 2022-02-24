@@ -3,7 +3,6 @@ import React, {
   useState,
   memo,
   useCallback,
-  useMemo,
   ReactNode,
   createElement,
 } from "react";
@@ -21,6 +20,7 @@ import Subscribers from "./components/Subscribers";
 import { useAppDispatch } from "@/modules/hooks";
 import { useParams } from "react-router-dom";
 import { useImmer } from "use-immer";
+import useToast from "@/hooks/useToast";
 
 type Paths = "Playlist" | "Comments" | "Subscribers";
 
@@ -38,7 +38,7 @@ const Contents: { [key in Paths]: ReactNode } = {
 
 export default memo(function Playlist() {
   const { id } = useParams();
-  const dispatch = useAppDispatch();
+  const toast = useToast();
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
   const [data, setData] = useImmer({});
@@ -71,7 +71,7 @@ export default memo(function Playlist() {
           id,
         });
         if (code === 200) {
-          dispatch(setToast(isSub ? "取消收藏成功！" : "收藏成功！"));
+          toast(isSub ? "取消收藏成功！" : "收藏成功！");
           setData((draft) => {
             draft.playlist.subscribed = !isSub;
           });

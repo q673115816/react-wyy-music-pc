@@ -1,4 +1,4 @@
-import { Details } from "./types";
+import { Details, Comments } from "./types";
 import { base } from "../base";
 
 export const api = base.injectEndpoints({
@@ -10,7 +10,14 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getCommentPlaylist: build.query<Comments, { id: number }>({
+      query: (body) => ({
+        url: `comment/playlist`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetPlaylistDetailQuery } = api;
+export const { useGetPlaylistDetailQuery, useGetCommentPlaylistQuery } = api;

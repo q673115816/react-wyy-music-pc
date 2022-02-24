@@ -20,13 +20,8 @@ const Content = () => {
   const ownPlaylist = playlist.filter((item) => String(item.userId) === uid);
 
   const savePlaylist = playlist.filter((item) => String(item.userId) !== uid);
-  if (isLoading) {
-    return (
-      <div className="flex-center">
-        <Loading />
-      </div>
-    );
-  }
+  if (isLoading) return <Loading />;
+
   return (
     <div className="domUserDetail_main">
       <div className={`flex px-8 pb-4`}>

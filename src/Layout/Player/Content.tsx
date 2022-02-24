@@ -1,4 +1,4 @@
-import React, { FC, memo, useCallback, useEffect, useState } from "react";
+import React, { FC, memo, useCallback, useState } from "react";
 import Video from "@/Layout/Player/components/Video/Video";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
@@ -16,15 +16,10 @@ import { transPlayCount } from "@/common/utils";
 import { setVideoListId } from "@/modules/reducers/videolist/slice";
 import DownloadVideo from "@/components/Dialog/DownloadVideo";
 import Write from "@/components/Write";
-import Page from "@/components/Page/Page";
-import { commentLimit } from "@/common/config";
 import { useAppDispatch } from "@/modules/hooks";
-import { setAudioRunningPause } from "@/modules/reducers/audio/slice";
 import useInit from "@/Layout/Player/useInit";
-import { apiFollow } from "@/api";
 import Comment from "./Comment";
-import config from "./config";
-
+import { usePostFollowMutation } from "@/modules/services/user";
 const Group = ({ list = [] }) => {
   const dispatch = useAppDispatch();
   return (
@@ -50,8 +45,6 @@ interface iProps {
 
 const Content: FC<iProps> = ({ type, vid }) => {
   console.log("player");
-  const dispatch = useAppDispatch();
-
   const {
     sub,
     isSub,
@@ -66,7 +59,7 @@ const Content: FC<iProps> = ({ type, vid }) => {
     downloadState,
     handleDownload,
   } = useInit({ type, vid });
-
+  const [followPost, { isLoading }] = usePostFollowMutation();
   // const { type, vid } = params;
 
   const [descriptionVisibility, setDescriptionVisibility] = useState(false);
@@ -77,7 +70,7 @@ const Content: FC<iProps> = ({ type, vid }) => {
 
   const handleFollow = async () => {
     try {
-      const {} = await apiFollow({
+      const {} = await followPost({
         id: detail.creator.userId,
         t: followed ? 0 : 1,
       });
@@ -118,18 +111,19 @@ const Content: FC<iProps> = ({ type, vid }) => {
           </button>
         )}
       </div>
-      <button
-        type="button"
-        className="h1 flex items-center mt-5"
-        onClick={() => setDescriptionVisibility(!descriptionVisibility)}
-      >
+      <div className="h1 flex mt-5 text-left">
         {detail?.title}
-        {descriptionVisibility ? (
-          <IconCaretUp size={24} className="fill-current" />
-        ) : (
-          <IconCaretDown size={24} className="fill-current" />
-        )}
-      </button>
+        <button
+          type={`button`}
+          onClick={() => setDescriptionVisibility(!descriptionVisibility)}
+        >
+          {descriptionVisibility ? (
+            <IconCaretUp size={24} className="fill-current" />
+          ) : (
+            <IconCaretDown size={24} className="fill-current" />
+          )}
+        </button>
+      </div>
       <div className="text-gray-300 mt-3">
         发布：
         {dayjs(detail?.publishTime).format("YYYY-MM-DD")}
@@ -138,9 +132,9 @@ const Content: FC<iProps> = ({ type, vid }) => {
       </div>
       <Group list={detail?.videoGroup} />
       {descriptionVisibility && (
-        <div className="mt-4">{detail.description}</div>
+        <div className="mt-5">{detail.description}</div>
       )}
-      <div className="flex space-x-3 mt-8">
+      <div className="flex gap-3 mt-8">
         <button
           type="button"
           className="flex-center border h-8 rounded-full px-6 hover:bg-gray-100"

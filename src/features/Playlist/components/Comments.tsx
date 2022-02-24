@@ -4,32 +4,23 @@ import Write from "@/components/Write";
 import { apiCommentPlaylist } from "@/api";
 import Loading from "@/components/Loading";
 import { useParams } from "react-router-dom";
+import { useGetCommentPlaylistQuery } from "@/modules/services/playlist";
 
 export default memo(function Comments() {
   const { id } = useParams();
-  if (!id) return null;
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-
-  const handleInit = async () => {
-    const data = await apiCommentPlaylist({
-      id,
-    });
-    setData(data);
-    setLoading(false);
-  };
+  const { data, isLoading } = useGetCommentPlaylistQuery({
+    id,
+  });
 
   const handleChange = useCallback(() => {}, []);
-  useEffect(() => {
-    handleInit();
-  }, []);
+
   return (
     <div className="px-8">
       {/* TODO */}
       <div className="pt-10 pb-10">
         <Write max={140} placeholder={""} onChange={handleChange} />
       </div>
-      {loading ? (
+      {isLoading ? (
         <Loading />
       ) : (
         <CommentsList comments={data} type={0} more={id} />

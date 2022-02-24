@@ -136,9 +136,9 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
             <button
               onClick={handleChangePlay}
               type="button"
-              className="ico text-white bg-black bg-opacity-10 border border-gray-300 cursor-pointer hover:border-white rounded-full absolute inset-0 m-auto w-16 h-16 flex-center"
+              className="text-white bg-black bg-opacity-25 border border-gray-400 hover:border-white rounded-full absolute inset-0 m-auto w-16 h-16 flex-center"
             >
-              <IconPlayerPlay size={24} className="fill-current" />
+              <IconPlayerPlay size={36} className="fill-current" />
             </button>
           )}
           {/*<div className="absolute text-gray-300 inset-0 flex-center flex-col bg-black bg-opacity-60">
