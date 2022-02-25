@@ -36,3 +36,6 @@ export const arealist = [
     code: "JP",
   },
 ];
+export const areas = ["全部", "华语", "欧美", "韩国", "日本"];
+
+export const types = ["推荐", "全部"];

@@ -1,6 +1,6 @@
 import React, { FC, memo, MouseEventHandler, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { apiDailysignin, apiLogout, apiUserDetail } from "@/api";
+import { apiDailysignin, apiUserDetail } from "@/api";
 import { setLoginInfoUpdate } from "@/modules/reducers/account/slice";
 import { Link } from "react-router-dom";
 import {
@@ -14,11 +14,15 @@ import {
 } from "@tabler/icons";
 import Loading from "@/components/Loading";
 import { Remove } from "@/modules/utils";
+import { useGetLogoutMutation } from "@/modules/services/account";
+import useToast from "@/hooks/useToast";
 
 const Profile: FC<{ handleHide: MouseEventHandler }> = ({ handleHide }) => {
   const [loading, setLoading] = useState(true);
+  const toast = useToast();
   const { profile } = useAppSelector(({ account }) => account);
   const { isLogin } = useAppSelector(({ common }) => common);
+  const [logoutGet] = useGetLogoutMutation();
   const dispatch = useAppDispatch();
   const handleInit = async () => {
     try {
@@ -35,7 +39,11 @@ const Profile: FC<{ handleHide: MouseEventHandler }> = ({ handleHide }) => {
 
   const handleLogout = async () => {
     try {
-      const {} = await apiLogout();
+      const data = await logoutGet();
+      if (data?.data?.code !== 200) {
+        toast("退出失败");
+        return;
+      }
       Remove({ key: "cookie" });
       window.location.reload();
     } catch (error) {

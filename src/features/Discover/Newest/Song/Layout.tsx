@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
       <div className="flex px-8 py-2">
-        <div className={`flex space-x-4 text-sm`}>
+        <div className={`flex gap-x-4 text-sm`}>
           {songNavs.map((name) => (
             <NavLink
               key={name}

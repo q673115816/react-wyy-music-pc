@@ -8,36 +8,42 @@ import React, {
 } from "react";
 import { Link } from "react-router-dom";
 import { IconTrash, IconX } from "@tabler/icons";
-import { useLocalStorage } from "react-use";
 import classNames from "classnames";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import {
+  searchSelector,
+  delHistory,
+  clearHistory,
+} from "@/modules/reducers/search/slice";
 
 const History = () => {
   const [isHidden, setIsHidden] = useState(false);
+  const dispatch = useAppDispatch();
   const refHistory = useRef<HTMLDivElement>(null);
-  const [searchHistory, setSearchHistory, removeSearchHistory] =
-    useLocalStorage("searchHistory", []);
-
+  const { history } = useAppSelector(searchSelector);
   const handleDeleteSearchHistory =
     (keywords: string): MouseEventHandler<HTMLButtonElement> =>
     (e) => {
       e.preventDefault();
       e.stopPropagation();
-      setSearchHistory(searchHistory?.filter((search) => search !== keywords));
+      dispatch(delHistory({ keywords }));
     };
-
+  const handleClearHistory = () => {
+    dispatch(clearHistory());
+  };
   useLayoutEffect(() => {
     if (refHistory.current && refHistory.current.clientHeight > 64) {
       setIsHidden(true);
     }
   }, []);
 
-  if (!searchHistory?.length) return null;
+  if (!history?.length) return null;
   return (
     <>
       <div className="subtitle flex items-center px-5 py-2 text-gray-500">
         <span className="text-sm">搜索历史</span>
         &nbsp;
-        <button type="button" onClick={removeSearchHistory}>
+        <button type="button" onClick={handleClearHistory}>
           <IconTrash size={16} />
         </button>
         {isHidden && (
@@ -55,7 +61,7 @@ const History = () => {
         ref={refHistory}
       >
         <div className="searchHistory flex flex-wrap -m-1">
-          {searchHistory.map((item) => (
+          {history.map((item) => (
             <Link
               key={item}
               to={`/search/${item}`}

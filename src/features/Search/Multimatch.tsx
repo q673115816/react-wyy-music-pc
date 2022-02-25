@@ -80,6 +80,23 @@ const Nodes = {
       </div>
     </Link>
   ),
+  concert: ({ item }) => (
+    <a
+      target={`_blank`}
+      href={item.url}
+      className="h-16 w-1/3 flex items-center bg-gray-100 rounded overflow-hidden px-2"
+      title={item.title}
+    >
+      <img className="h-10" src={`${item.cover}?param=60y60`} alt="" />
+      <div className="px-2 flex-1 w-0">
+        <div className="text-sm truncate">
+          演唱会：
+          {item.title}
+        </div>
+        <div className="text-gray-400 truncate">{item.artists}</div>
+      </div>
+    </a>
+  ),
 };
 
 interface iProps {

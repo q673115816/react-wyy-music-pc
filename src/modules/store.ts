@@ -23,6 +23,8 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  timeout: 2000, // 缓解卡顿
+  blackList: ["mask"],
 };
 
 const preloadedState = {};
@@ -56,7 +58,6 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(base.middleware),
-
   devTools: NODE_ENV !== "production",
   preloadedState,
   // enhancers: [reduxBatch],

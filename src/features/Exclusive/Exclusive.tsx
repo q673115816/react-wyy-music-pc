@@ -1,13 +1,6 @@
-import React, {
-  memo,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { memo, useRef } from "react";
+import { Link } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
-import { apiPersonalizedPrivatecontentList } from "@/api";
 import useInfinite from "@/hooks/useInfinite";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
@@ -22,7 +15,6 @@ import ResizeObserver from "@/components/ResizeObserver";
 const limit = 60;
 
 export default memo(function Exclusive() {
-  const location = useLocation();
   const dispatch = useAppDispatch();
   const { result, scrollTop } = useAppSelector(({ exclusive }) => exclusive);
   const offset = useRef(0);

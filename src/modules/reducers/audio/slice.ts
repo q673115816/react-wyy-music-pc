@@ -1,7 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { audioPattern } from "@/common/config";
 
-const initialState = {
+interface State {
+  errorCount: number;
+  running: boolean;
+  dropping: boolean;
+  currentSong: {};
+  playlist: [];
+  history: [];
+  currentTime: number;
+  jumpTime: null;
+  buffered: [];
+  lyric: {};
+  lrcList: [];
+  pattern: number;
+}
+
+const initialState: State = {
   errorCount: 0,
   running: false,
   dropping: false,
@@ -16,25 +31,22 @@ const initialState = {
   pattern: 0,
 };
 
-type State = typeof initialState;
-
-const FnChange = (state) => {
+const FnChange = (state: State) => {
   state.currentTime = 0;
   state.buffered = [];
   state.running = true;
 };
 
-const FnAddNext = (state, currentSong: {}) => {
-  if (state.playlist.every((song) => song.id !== currentSong.id)) {
-    // 未在歌单中的新歌
-    const beforeIndex = state.playlist.findIndex(
-      (item) => item.id === state.currentSong.id
-    );
-    state.playlist.splice(beforeIndex + 1, 0, currentSong);
-  }
+const FnAddNext = (state: State, currentSong: {}) => {
+  if (state.playlist.some((song) => song.id === currentSong.id)) return;
+  // 未在歌单中的新歌
+  const beforeIndex = state.playlist.findIndex(
+    (item) => item.id === state.currentSong.id
+  );
+  state.playlist.splice(beforeIndex + 1, 0, currentSong);
 };
 
-const FnAddHistory = (state, currentSong: {}) => {
+const FnAddHistory = (state: State, currentSong: {}) => {
   if (state.history.some((song) => song.id === currentSong.id)) {
     const historyIndex = state.history.findIndex(
       (song) => song.id === currentSong.id
@@ -45,7 +57,7 @@ const FnAddHistory = (state, currentSong: {}) => {
   state.history.unshift({ ...currentSong, lastTime: Date.now() });
 };
 
-function FnImmediate(state, currentSong: {}) {
+function FnImmediate(state: State, currentSong: {}) {
   FnChange(state);
   FnAddNext(state, currentSong);
   FnAddHistory(state, currentSong);
@@ -58,12 +70,12 @@ const slice = createSlice({
   name: "audio",
   initialState,
   reducers: {
-    setAudioImmediate(state, action) {
-      const { currentSong } = action.payload;
+    setAudioImmediate(state, { payload }) {
+      const { currentSong } = payload;
       FnImmediate(state, currentSong);
     },
-    setAudioImmediateNext(state, action) {
-      const { currentSong } = action.payload;
+    setAudioImmediateNext(state, { payload }) {
+      const { currentSong } = payload;
       FnAddNext(state, currentSong);
     },
     setAudioPlaylist(state, action) {
@@ -150,6 +162,7 @@ const slice = createSlice({
       state.buffered = action.payload;
     },
     setAudioPlaylistClear(state) {
+      state.running = false;
       state.currentTime = 0;
       state.currentSong = {};
       state.playlist = [];

@@ -1,21 +1,21 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import { setHomeDj } from "@/modules/reducers/home/slice";
 import Slider from "react-slick";
 import { IconChevronLeft, IconChevronRight, IconChartBar } from "@tabler/icons";
-import {
-  apiDjBanner,
-  apiDjCatelist,
-  apiDjCategoryRecommend,
-  apiDjPersonalizeRecommend,
-  apiDjRadioHot,
-} from "@/api";
+
 import Swiper from "@/components/Swiper";
 import Loading from "@/components/Loading";
 
 import style from "./style.module.scss";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+
 import Item from "./Item";
+import {
+  useGetDJCategoryRecommendQuery,
+  useGetDJCateListQuery,
+  useGetDJBannerQuery,
+  useGetDJPersonalizeRecommendQuery,
+  useGetDJRadioHotQuery,
+} from "@/modules/services/dj";
 
 const PrevArrow = ({ onClick }) => (
   <button
@@ -76,74 +76,42 @@ const Category = ({ catelist = [] }) => {
 const navs = ["创作翻唱", "声之剧场", "音乐故事", "情感调频", "声音恋人"];
 
 export default memo(function DJ() {
-  const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState(true);
-  const { DjBanner, category, catelist, DjPersonalizeRecommend, result } =
-    useAppSelector(({ home }) => home.dj);
-
-  const handleInit = async () => {
-    try {
-      const [
-        DjBanner,
-        category,
-        catelist = [],
-        DjPersonalizeRecommend,
-        创作翻唱,
-        声之剧场,
-        音乐故事,
-        情感调频,
-        声音恋人,
-      ] = await Promise.all([
-        apiDjBanner(),
-        apiDjCategoryRecommend(),
-        apiDjCatelist(),
-        apiDjPersonalizeRecommend(),
-        apiDjRadioHot({
-          cateId: 2001,
-          limit: 6,
-        }),
-        apiDjRadioHot({
-          cateId: 10001,
-          limit: 6,
-        }),
-        apiDjRadioHot({
-          cateId: 2,
-          limit: 6,
-        }),
-        apiDjRadioHot({
-          cateId: 3,
-          limit: 6,
-        }),
-        apiDjRadioHot({
-          cateId: 3001,
-          limit: 6,
-        }),
-      ]);
-      dispatch(
-        setHomeDj({
-          DjBanner: DjBanner.data,
-          category: category.data,
-          catelist: catelist.categories,
-          DjPersonalizeRecommend: DjPersonalizeRecommend.data,
-          result: {
-            创作翻唱: 创作翻唱.djRadios,
-            声之剧场: 声之剧场.djRadios,
-            音乐故事: 音乐故事.djRadios,
-            情感调频: 情感调频.djRadios,
-            声音恋人: 声音恋人.djRadios,
-          },
-        })
-      );
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
+  const { data: resBanner, isLoading } = useGetDJBannerQuery();
+  const { data: resCategoryRecommend } = useGetDJCategoryRecommendQuery();
+  const { data: resCateList } = useGetDJCateListQuery();
+  const { data: resPersonalizeRecommend } = useGetDJPersonalizeRecommendQuery();
+  const { data: res创作翻唱 } = useGetDJRadioHotQuery({
+    cateId: 2001,
+    limit: 6,
+  });
+  const { data: res声之剧场 } = useGetDJRadioHotQuery({
+    cateId: 10001,
+    limit: 6,
+  });
+  const { data: res音乐故事 } = useGetDJRadioHotQuery({
+    cateId: 2,
+    limit: 6,
+  });
+  const { data: res情感调频 } = useGetDJRadioHotQuery({
+    cateId: 3,
+    limit: 6,
+  });
+  const { data: res声音恋人 } = useGetDJRadioHotQuery({
+    cateId: 3001,
+    limit: 6,
+  });
+  const DJBanner = resBanner?.data || [];
+  const catelist = resCateList?.categories || [];
+  const DjPersonalizeRecommend = resPersonalizeRecommend?.data || [];
+  const result = {
+    创作翻唱: res创作翻唱?.djRadios || [],
+    声之剧场: res声之剧场?.djRadios || [],
+    音乐故事: res音乐故事?.djRadios || [],
+    情感调频: res情感调频?.djRadios || [],
+    声音恋人: res声音恋人?.djRadios || [],
   };
 
-  useEffect(() => {
-    handleInit();
-  }, []);
-  if (loading)
+  if (isLoading)
     return (
       <div className="flex-center w-full h-full">
         <Loading />
@@ -153,7 +121,7 @@ export default memo(function DJ() {
     <div className="px-8 overflow-auto max-h-full flex-auto">
       <div className="pb-16 ui_w1100">
         <div className={style.banner}>
-          {DjBanner.length > 0 && <Swiper list={DjBanner} coverSrc="pic" />}
+          {DJBanner.length > 0 && <Swiper list={DJBanner} coverSrc="pic" />}
         </div>
         <Category catelist={catelist} />
         <div className="space-y-8 mt-8">
@@ -172,7 +140,7 @@ export default memo(function DJ() {
                 &gt;
               </Link>
               <div className="mt-4 grid grid-cols-5 gap-5">
-                {result[name].slice(0, 5).map((item) => (
+                {result?.[name].slice(0, 5).map((item) => (
                   <Item item={item} key={item.id} />
                 ))}
               </div>

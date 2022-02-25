@@ -6,7 +6,10 @@ export const api = base.injectEndpoints({
     getCountriesCodeList: build.query<Countries, void>({
       query: () => `countries/code/list`,
     }),
+    getLogout: build.mutation<{ code: number }, void>({
+      query: () => `logout`,
+    }),
   }),
 });
 
-export const { useGetCountriesCodeListQuery } = api;
+export const { useGetCountriesCodeListQuery, useGetLogoutMutation } = api;

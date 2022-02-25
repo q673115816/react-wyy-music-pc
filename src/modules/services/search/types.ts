@@ -38,5 +38,6 @@ export interface Multimatch {
   artist?: [];
   new_mlog?: [];
   playlist?: [];
+  concert?: [];
   orders?: string[];
 }

@@ -17,13 +17,8 @@ const Content: FC<iProps> = ({ type }) => {
   const { data, isLoading, isFetching } = useGetTopSongQuery({
     type: songCode[type],
   });
-  if (isFetching) {
-    return (
-      <div className={`flex-center`}>
-        <Loading />
-      </div>
-    );
-  }
+  if (isFetching) return <Loading />;
+
   return (
     <div className="">
       {data?.data?.map((item, index) => (
