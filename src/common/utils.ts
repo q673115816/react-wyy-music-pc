@@ -21,18 +21,6 @@ function typeToString(target: any) {
   return Object.prototype.toString.call(target);
 }
 
-export const LOCALSTORAGE = (key: string, base: any = {}) => {
-  try {
-    const item = localStorage.getItem(key);
-    if (!item) return base;
-    const value = JSON.parse(item);
-    // console.log(base, typeToString(value) === typeToString(base));
-    return typeToString(value) === typeToString(base) ? value : base;
-  } catch {
-    return base;
-  }
-};
-
 export const sleep = (delay = 1000) =>
   new Promise((resolve) => setTimeout(resolve, delay));
 

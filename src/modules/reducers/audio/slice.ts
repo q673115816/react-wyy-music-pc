@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LOCALSTORAGE } from "@/common/utils";
 import { audioPattern } from "@/common/config";
 
-const resetState = {
+const initialState = {
   errorCount: 0,
   running: false,
   dropping: false,
@@ -14,21 +13,12 @@ const resetState = {
   buffered: [],
   lyric: {},
   lrcList: [],
-};
-
-const initialState = {
-  ...resetState,
-  pattern: LOCALSTORAGE("pattern", 0),
-  currentSong: LOCALSTORAGE("currentSong", {}),
-  playlist: LOCALSTORAGE("playlist", []),
-  history: LOCALSTORAGE("history", []),
-  currentTime: LOCALSTORAGE("currentTime", 0),
+  pattern: 0,
 };
 
 type State = typeof initialState;
 
 const FnChange = (state) => {
-  window.localStorage.setItem("currentTime", 0);
   state.currentTime = 0;
   state.buffered = [];
   state.running = true;
@@ -41,7 +31,6 @@ const FnAddNext = (state, currentSong: {}) => {
       (item) => item.id === state.currentSong.id
     );
     state.playlist.splice(beforeIndex + 1, 0, currentSong);
-    window.localStorage.setItem("playlist", JSON.stringify(state.playlist));
   }
 };
 
@@ -54,7 +43,6 @@ const FnAddHistory = (state, currentSong: {}) => {
     // state.history = state.history.filter((history) => history.id !== currentSong.id)
   }
   state.history.unshift({ ...currentSong, lastTime: Date.now() });
-  window.localStorage.setItem("history", JSON.stringify(state.history));
 };
 
 function FnImmediate(state, currentSong: {}) {
@@ -64,7 +52,6 @@ function FnImmediate(state, currentSong: {}) {
   // state.history = [currentSong, ...state.history.filter((history) => history.id !== currentSong.id)];
   state.currentSong = currentSong;
   // state.currentTime = 0;
-  window.localStorage.setItem("currentSong", JSON.stringify(currentSong));
 }
 
 const slice = createSlice({
@@ -83,13 +70,10 @@ const slice = createSlice({
       FnChange(state);
       const { playlist } = action.payload;
       const currentSong = playlist[0];
-      window.localStorage.setItem("playlist", JSON.stringify(playlist));
       state.playlist = playlist;
       state.currentSong = currentSong;
       FnAddHistory(state, currentSong);
       // state.history = [currentSong, ...state.history.filter((history) => history.id !== currentSong.id)];
-      window.localStorage.setItem("currentSong", JSON.stringify(currentSong));
-      window.localStorage.setItem("history", JSON.stringify(state.history));
     },
     setAudioPlaylistAdd(state, action) {},
     setAudioPrev(state) {
@@ -102,7 +86,6 @@ const slice = createSlice({
       const currentSong = state.playlist[(currentIndex + len - 1) % len];
       state.currentSong = currentSong;
       FnAddHistory(state, currentSong);
-      window.localStorage.setItem("currentSong", JSON.stringify(currentSong));
     },
     setAudioNext(state) {
       if (state.playlist.length === 0) return;
@@ -115,7 +98,6 @@ const slice = createSlice({
       const currentSong = state.playlist[(currentIndex + 1) % len];
       state.currentSong = currentSong;
       FnAddHistory(state, currentSong);
-      window.localStorage.setItem("currentSong", JSON.stringify(currentSong));
       // if (currentIndex === state.playlist.length - 1) {
       //   state.running = false;
       //   state.currentSong = {};
@@ -159,32 +141,20 @@ const slice = createSlice({
       state.dropping = action.payload.dropping;
     },
     setAudioCurrentTime(state, action) {
-      window.localStorage.setItem(
-        "currentTime",
-        JSON.stringify(Number(action.payload))
-      );
       state.currentTime = action.payload;
     },
     setJumpToAudioCurrentTime(state, action) {
-      window.localStorage.setItem(
-        "currentTime",
-        JSON.stringify(Number(action.payload))
-      );
       state.jumpTime = action.payload;
     },
     setAudioBuffered(state, action) {
       state.buffered = action.payload;
     },
     setAudioPlaylistClear(state) {
-      window.localStorage.removeItem("currentSong");
-      window.localStorage.removeItem("currentTime");
-      window.localStorage.removeItem("playlist");
       state.currentTime = 0;
       state.currentSong = {};
       state.playlist = [];
     },
     setAudioHistoryClear(state) {
-      window.localStorage.removeItem("history");
       state.history = [];
     },
     setAudioPattern(state) {

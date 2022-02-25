@@ -4,6 +4,7 @@ import { IconUser, IconCaretDown } from "@tabler/icons";
 import { setLoginVisibilty } from "@/modules/reducers/common/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Profile from "./Profile";
+
 const Account = () => {
   const dispatch = useAppDispatch();
   const { isLogin } = useAppSelector(({ common }) => common);

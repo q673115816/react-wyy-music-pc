@@ -19,11 +19,11 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 
-// const persistConfig = {
-//   key: "root",
-//   version: 1,
-//   storage,
-// };
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+};
 
 const preloadedState = {};
 
@@ -36,32 +36,33 @@ if (window && window.__STATE__) {
   delete window.__STATE__;
 }
 
-// const persistedReducer = persistReducer(
-//   persistConfig,
-//   combineReducers({
-//     [base.reducerPath]: base.reducer,
-//     ...rootReducer,
-//   })
-// );
-
-const store = configureStore({
-  reducer: combineReducers({
+const persistedReducer = persistReducer(
+  persistConfig,
+  combineReducers({
     [base.reducerPath]: base.reducer,
     ...rootReducer,
-  }),
+  })
+);
+
+const store = configureStore({
+  // reducer: combineReducers({
+  //   [base.reducerPath]: base.reducer,
+  //   ...rootReducer,
+  // }),
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(base.middleware),
-  // {
-  // serializableCheck: {
-  //   ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-  // },
-  // }
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(base.middleware),
+
   devTools: NODE_ENV !== "production",
   preloadedState,
   // enhancers: [reduxBatch],
 });
 
-// let persistor = persistStore(store);
+export const persistor = persistStore(store);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

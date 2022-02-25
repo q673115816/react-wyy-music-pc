@@ -24,8 +24,6 @@ function POSTPlugin<T extends AxiosRequestConfig>(req: T): T {
     ...req.data,
     cookie,
   };
-  // cookie && req.data ? req.data.cookie = cookie : req.data = {cookie}
-  // res.data.cookie ||= cookie
   return req;
 }
 

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import formatLrc from "./format";
 import { Draft } from "immer";
-import { Get, Set } from "../../utils";
 interface LrcState {
   globalLrcVisibility: boolean;
   lyricVisibility: boolean;
@@ -9,34 +8,25 @@ interface LrcState {
   lrcList: { time: number; word: string }[];
 }
 
-const globalLrcVisibility = Get({
-  key: "globalLrcVisibility",
-  base: false,
-});
-
 const initialState: LrcState = {
-  globalLrcVisibility,
+  globalLrcVisibility: false,
   lyricVisibility: false,
   lyric: {},
   lrcList: [],
 };
-
-function setGlobalVisibility(state: Draft<LrcState>, value: boolean) {
-  Set({
-    key: "globalLrcVisibility",
-    value,
-    callback() {
-      state.globalLrcVisibility = value;
-    },
-  });
-}
 
 const slice = createSlice({
   name: "lrc",
   initialState,
   reducers: {
     setGlobalLrcToggle(state) {
-      setGlobalVisibility(state, !state.globalLrcVisibility);
+      state.globalLrcVisibility = !state.globalLrcVisibility;
+    },
+    setGlobalLrcShow(state) {
+      state.globalLrcVisibility = true;
+    },
+    setGlobalLrcHide(state) {
+      state.globalLrcVisibility = false;
     },
     setLyricText(state, action) {
       const { lyric } = action.payload;
@@ -72,12 +62,6 @@ const slice = createSlice({
       });
       arr.sort(({ time: time1 }, { time: time2 }) => time1 - time2);
       state.lrcList = arr;
-    },
-    setGlobalLrcShow(state) {
-      setGlobalVisibility(state, true);
-    },
-    setGlobalLrcHide(state) {
-      setGlobalVisibility(state, false);
     },
     setLyricShow(state) {
       state.lyricVisibility = true;

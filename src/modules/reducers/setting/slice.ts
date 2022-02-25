@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LOCALSTORAGE } from "@/common/utils";
 import { Draft } from "immer";
 
 export interface SettingState {
@@ -26,16 +25,11 @@ export const defaultOrder: Orders = [
   "看看",
 ];
 
-const theme = LOCALSTORAGE("theme", "#EC4141");
-const custom = LOCALSTORAGE("custom", false);
-const font = LOCALSTORAGE("font", "inherit");
-const order = LOCALSTORAGE("homeOrder", defaultOrder);
-
 const initialState: SettingState = {
-  theme,
-  custom,
-  font,
-  order,
+  theme: "#EC4141",
+  custom: false,
+  font: "inherit",
+  order: defaultOrder,
 };
 
 const slice = createSlice({
@@ -43,19 +37,15 @@ const slice = createSlice({
   initialState,
   reducers: {
     setTheme(state, action) {
-      window.localStorage.setItem("theme", JSON.stringify(action.payload));
       state.theme = action.payload;
     },
     setFont(state, action) {
-      window.localStorage.setItem("custom", JSON.stringify(action.payload));
       state.custom = action.payload;
     },
     setCustom(state, action) {
-      window.localStorage.setItem("font", JSON.stringify(action.payload));
       state.font = action.payload;
     },
     setHomeOrder(state, action) {
-      window.localStorage.setItem("homeOrder", JSON.stringify(action.payload));
       state.order = action.payload;
     },
   },

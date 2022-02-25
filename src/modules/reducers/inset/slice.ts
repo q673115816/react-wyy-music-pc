@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { LOCALSTORAGE } from "@/common/utils";
 
 interface InsetState {
   POSITION: boolean;
@@ -32,17 +31,15 @@ interface InsetState {
   globalLrcHeight: number;
 }
 
-const globalX = LOCALSTORAGE("x", 0);
-const globalY = LOCALSTORAGE("y", 0);
-const globalWidth = LOCALSTORAGE("width", 1022);
-const globalHeight = LOCALSTORAGE("height", 670);
-const globalLrcWidth = LOCALSTORAGE("lrcWidth", 550);
-const globalLrcHeight = LOCALSTORAGE("lrcHeight", 100);
-const globalLrcX = LOCALSTORAGE(
-  "lrcX",
-  globalX + (globalWidth - globalLrcWidth) / 2
-);
-const globalLrcY = LOCALSTORAGE("lrcY", globalY + globalHeight);
+const globalX = 0;
+const globalY = 0;
+const globalWidth = 1022;
+const globalHeight = 670;
+const globalLrcWidth = 550;
+const globalLrcHeight = 100;
+const globalLrcX = globalX + (globalWidth - globalLrcWidth) / 2;
+const globalLrcY = globalY + globalHeight;
+
 const initialState: InsetState = {
   POSITION: true,
   SCREEN: "normal",
@@ -84,8 +81,6 @@ const slice = createSlice({
     setGlobalInset(state, action) {
       const x = action.payload.x - state.globalStartX + state.globalBeforeX;
       const y = action.payload.y - state.globalStartY + state.globalBeforeY;
-      window.localStorage.setItem("x", x);
-      window.localStorage.setItem("y", y);
       state.globalX = x;
       state.globalY = y;
     },
@@ -118,8 +113,6 @@ const slice = createSlice({
 
       const nextwidth = width > MINWIDTH ? width : MINWIDTH;
       const nextheight = height > MINHEIGHT ? height : MINHEIGHT;
-      window.localStorage.setItem("width", nextwidth);
-      window.localStorage.setItem("height", nextheight);
       state.globalWidth = nextwidth;
       state.globalHeight = nextheight;
       state.GlobalRectLock = false;
@@ -144,8 +137,6 @@ const slice = createSlice({
         action.payload.x - state.globalStartLrcX + state.globalBeforeLrcX;
       const lrcY =
         action.payload.y - state.globalStartLrcY + state.globalBeforeLrcY;
-      window.localStorage.setItem("lrcX", lrcX);
-      window.localStorage.setItem("lrcY", lrcY);
       state.globalLrcX = lrcX;
       state.globalLrcY = lrcY;
     },
