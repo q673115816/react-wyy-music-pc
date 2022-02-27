@@ -44,6 +44,21 @@ export interface Binding {
 
 export interface Followeds extends ResWithCode {}
 
+export interface Accounts extends ResWithCode {
+  account: {};
+  profile: Profile;
+}
+
+export interface Profile {
+  nickname: string;
+  city: number;
+  province: number;
+  signature: string;
+  birthday: number;
+  userId: number;
+  gender: number;
+}
+
 export interface Details extends ResWithCode {
   adValid: boolean;
   bindings: [];

@@ -66,7 +66,6 @@ const useInit = () => {
             albumSublist,
           })
         );
-        // dispatch(setIsLogin());
       }
     } catch (error) {
       console.log(error);

@@ -78,7 +78,7 @@ const Header = () => {
           <div className="right ml-auto flex-center">
             {isSelf ? (
               <Link
-                to={`edit`}
+                to={`/user/edit`}
                 className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full flex-center"
               >
                 <IconEdit size={18} stroke={1.5} />

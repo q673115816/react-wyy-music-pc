@@ -14,6 +14,14 @@ export const songCode: SongConfig = {
   日本: 8,
 };
 
+export const albumCode = {
+  全部: "ALL",
+  华语: "ZH",
+  欧美: "EA",
+  韩国: "KR",
+  日本: "JP",
+};
+
 export const arealist = [
   {
     name: "全部",

@@ -1,5 +1,5 @@
-import React, { memo, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { ChangeEventHandler, memo, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { setDialogUploadAvatarShow } from "@/modules/reducers/mask/slice";
 import "./style.scss";
@@ -7,29 +7,30 @@ import Loading from "@/components/Loading";
 import DialogUploadAvatar from "@/components/Dialog/UploadAvatar";
 import Birthday from "./components/Birthday";
 import Location from "./components/Location";
-import { useAppDispatch } from "@/modules/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useImmer } from "use-immer";
 import useToast from "@/hooks/useToast";
 import Row from "./components/Row";
 import { EditHandler } from "@/features/User/Edit/types";
 import {
-  useGetUserDetailQuery,
+  useGetUserAccountQuery,
   usePostUserUpdateMutation,
+  Profile,
 } from "@/modules/services/user";
 import Gender from "./components/Gender";
+import { cloneDeep } from "lodash";
 
 const Edit = () => {
-  const { uid = "" } = useParams();
   const dispatch = useAppDispatch();
   const toast = useToast();
-  const { data, isLoading } = useGetUserDetailQuery({
-    uid,
-  });
+  const { data, isLoading } = useGetUserAccountQuery();
+  console.log(data);
   const [updatePost, { isLoading: isUpdating }] = usePostUserUpdateMutation();
-  const { profile, code } = data;
-  const [edit, setEdit] = useImmer(profile);
-
-  const [signature, setSignature] = useState("");
+  const profile: Profile = data?.profile || {};
+  const [edit, setEdit] = useImmer<Profile>({});
+  useEffect(() => {
+    if (!isLoading) setEdit(cloneDeep(profile));
+  }, [isLoading]);
   const [disabled, setDisabled] = useState(true);
 
   const handleSave = async () => {
@@ -57,7 +58,7 @@ const Edit = () => {
     });
   };
 
-  const handleUpload = ({ target }) => {
+  const handleUpload: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     // console.log(target);
     const reader = new FileReader();
     const [file] = target.files;
@@ -76,6 +77,9 @@ const Edit = () => {
     setDisabled(JSON.stringify(profile) === JSON.stringify(edit));
   }, [edit]);
 
+  if (data?.code === 301) {
+    return null;
+  }
   if (isLoading)
     return (
       <div className="flex-center w-full h-full">
@@ -87,7 +91,7 @@ const Edit = () => {
       <div className="h1 ui_header">编辑个人信息</div>
       <div className="flex px-8 py-5 gap-x-20">
         <div className="flex flex-1 flex-col gap-5">
-          <Row label={`昵称`}>
+          {/*<Row text={`昵称`}>
             <div className="value">
               <input
                 type="text"
@@ -96,8 +100,8 @@ const Edit = () => {
                 onChange={({ target }) => handleEdit("nickname", target.value)}
               />
             </div>
-          </Row>
-          <Row label="介绍">
+          </Row>*/}
+          {/*<Row text="介绍">
             <div className="border flex-1">
               <div className="signature rounded flex flex-col items-end">
                 <textarea
@@ -109,28 +113,28 @@ const Edit = () => {
                 />
                 <div
                   className={classNames("p-1", {
-                    ui_red: edit.signature.length > 300,
+                    ui_red: edit?.signature?.length > 300,
                   })}
                 >
-                  {300 - edit.signature.length}
+                  {300 - edit?.signature?.length}
                 </div>
               </div>
             </div>
-          </Row>
-          <Row label={"性别"}>
+          </Row>*/}
+          {/*<Row text={"性别"}>
             <Gender gender={edit.gender} handleEdit={handleEdit} />
-          </Row>
-          <Row label={"生日"}>
+          </Row>*/}
+          {/*<Row text={"生日"}>
             <Birthday birthday={edit.birthday} handleEdit={handleEdit} />
-          </Row>
-          <Row label="地区">
+          </Row>*/}
+          {/*<Row text="地区">
             <Location
               province={edit.province}
               city={edit.city}
               handleEdit={handleEdit}
             />
-          </Row>
-          <Row label="">
+          </Row>*/}
+          {/*<Row>
             <div className="value mt-5">
               <div className="actions flex gap-5 text-sm">
                 <button
@@ -152,7 +156,7 @@ const Edit = () => {
                 </Link>
               </div>
             </div>
-          </Row>
+          </Row>*/}
         </div>
         <div>
           <div className="border rounded overflow-hidden w-40 h-40">

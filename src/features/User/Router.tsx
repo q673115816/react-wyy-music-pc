@@ -18,9 +18,9 @@ const Router = () => (
       <Route path={`Fans`} element={<Fans />} />
       <Route path={`Fans`} element={<Fans />} />
       <Route path={`Record`} element={<Record />} />
-      <Route path={`Edit`} element={<Edit />} />
       <Route path={`Binding`} element={<Binding />} />
     </Route>
+    <Route path={`Edit`} element={<Edit />} />
   </Routes>
 );
 

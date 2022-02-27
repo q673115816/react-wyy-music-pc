@@ -15,6 +15,7 @@ const cdnBase = "https://cdn.jsdelivr.net/npm";
 const cdn = {
   js: [
     `${cdnBase}/axios/dist/axios.min.js`,
+    `${cdnBase}/rxjs/dist/bundles/rxjs.umd.js`,
     `${cdnBase}/store2/dist/store2.min.js`,
     `${cdnBase}/react/umd/react.production.min.js`,
     `${cdnBase}/react-dom/umd/react-dom.production.min.js`,
@@ -103,6 +104,7 @@ const externals = [
     "socket.io-client": "io",
     "webrtc-adapter": "adapter",
     store: "store",
+    rxjs: "rxjs",
   },
 ];
 

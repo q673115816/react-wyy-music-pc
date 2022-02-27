@@ -48,9 +48,6 @@ const SignIn = () => {
         });
       if (code === 200) {
         Set({ key: "cookie", value: cookie });
-        // handleToggle();
-        // dispatch(setLoginInfo(profile));
-        // dispatch(setIsLogin());
         window.location.reload();
       }
       if (code === 502) {

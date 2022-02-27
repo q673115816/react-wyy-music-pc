@@ -7,7 +7,7 @@ const Item = ({ item }) => (
       <Link to={`/playlist/album/${item.id}`}>
         <img
           loading={"lazy"}
-          className="ui_containimg"
+          className=" aspect-square w-full h-full object-fit"
           src={`${item.blurPicUrl}?param=170y170`}
           alt=""
         />

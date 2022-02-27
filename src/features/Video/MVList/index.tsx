@@ -3,9 +3,9 @@ import { useAppSelector, useAppDispatch } from "@/modules/hooks";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { IconChevronRight } from "@tabler/icons";
-import DomGridVideo from "@/components/GridVideo";
-import DomGridMVToplist from "@/components/GridMVToplist";
-import DomLoading from "@/components/Loading";
+import GridVideo from "@/components/GridVideo";
+import GridMVToplist from "@/components/GridMVToplist";
+import Loading from "@/components/Loading";
 import {
   handleInit,
   handleChangeFirstArea,
@@ -38,7 +38,7 @@ export default memo(function MVList() {
   if (memoLoading)
     return (
       <div className="w-full h-full flex-center">
-        <DomLoading />
+        <Loading />
       </div>
     );
   return (
@@ -71,7 +71,7 @@ export default memo(function MVList() {
             ))}
           </div>
         </div>
-        <DomGridVideo list={first} />
+        <GridVideo list={first} />
       </div>
       <div className="domMVList_sublist">
         <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
@@ -83,7 +83,7 @@ export default memo(function MVList() {
             <IconChevronRight size={20} />
           </Link>
         </div>
-        <DomGridVideo list={hot} />
+        <GridVideo list={hot} />
       </div>
       <div className="domMVList_sublist">
         <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
@@ -95,7 +95,7 @@ export default memo(function MVList() {
             <IconChevronRight size={20} />
           </Link>
         </div>
-        <DomGridVideo list={wy} />
+        <GridVideo list={wy} />
       </div>
       <div className="domMVList_header mt-8 mb-5 flex justify-between items-center">
         <Link
@@ -124,7 +124,7 @@ export default memo(function MVList() {
           ))}
         </div>
       </div>
-      <DomGridMVToplist
+      <GridMVToplist
         list={top}
         schema={[
           ["评论", "播放"],

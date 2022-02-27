@@ -1,11 +1,18 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import AlbumItem from "@/features/Discover/Newest/Album/Item";
 import { useGetTopAlbumQuery } from "@/modules/services/discover";
 import { limit } from "@/common/config";
+import { albumCode } from "../config";
+import Loading from "@/components/Loading";
 
-const Content = ({ area, type }) => {
+interface iProps {
+  area: string;
+  type: string;
+}
+
+const Content: FC<iProps> = ({ area, type }) => {
   const { data, isLoading } = useGetTopAlbumQuery({
-    area,
+    area: albumCode[area],
     type,
     limit,
     offset: 0,
@@ -13,6 +20,7 @@ const Content = ({ area, type }) => {
 
   const weekData = data?.weekData || [];
   const monthData = data?.monthData || [];
+  if (isLoading) return <Loading />;
   return (
     <div className="px-8">
       {area === "全部" && type !== "推荐" && weekData.length > 0 && (

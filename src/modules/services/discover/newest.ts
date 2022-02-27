@@ -7,7 +7,7 @@ interface ReqArtists {
 }
 
 interface ResAlbums {
-  area: string;
+  area: number;
   type: string;
   limit: number;
   offset: number;

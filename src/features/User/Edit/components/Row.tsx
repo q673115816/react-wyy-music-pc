@@ -1,13 +1,13 @@
 import React, { FC, memo } from "react";
 
 interface iProps {
-  label: string;
+  text: string;
 }
 
-const Row: FC<iProps> = ({ label, children }) => {
+const Row: FC<iProps> = ({ text = "", children }) => {
   return (
     <div className="row flex">
-      <div className="leading-8 w-12">{label ? `${label}：` : ""}</div>
+      <div className="leading-8 w-12">{text ? `${text}：` : ""}</div>
       <div className="flex-1">{children}</div>
     </div>
   );

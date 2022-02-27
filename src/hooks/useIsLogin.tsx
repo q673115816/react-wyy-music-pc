@@ -4,7 +4,6 @@ import { setIsLogin } from "@/modules/reducers/common/slice";
 import { useDispatch } from "react-redux";
 
 const useIsLogin = () => {
-  // const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
   const handleCheck = async () => {
     try {

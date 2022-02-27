@@ -1,4 +1,11 @@
-import { Clouds, Bindings, Followeds, Details, ReqUpdate } from "./types";
+import {
+  Clouds,
+  Bindings,
+  Followeds,
+  Details,
+  ReqUpdate,
+  Accounts,
+} from "./types";
 import { base } from "../base";
 
 export const api = base.injectEndpoints({
@@ -17,12 +24,20 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getUserAccount: build.query<Accounts, void>({
+      query: () => ({
+        url: `user/account`,
+        method: "POST",
+      }),
+      providesTags: (result, error) => [{ type: "user/account" }],
+    }),
     postUserUpdate: build.mutation<{ code: number }, ReqUpdate>({
       query: (body) => ({
         url: `user/update`,
         method: "POST",
         body,
       }),
+      invalidatesTags: (result, error, {}) => [{ type: "user/account" }],
     }),
     getUserEvent: build.mutation<Clouds, { uid: string; lasttime: number }>({
       query: (body) => ({
@@ -78,6 +93,7 @@ export const api = base.injectEndpoints({
 export const {
   useGetUserCloudQuery,
   useGetUserDetailQuery,
+  useGetUserAccountQuery,
   usePostUserUpdateMutation,
   useGetUserEventMutation,
   useGetUserSubCountQuery,

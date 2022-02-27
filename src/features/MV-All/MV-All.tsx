@@ -24,15 +24,16 @@ const MVAll = () => {
 
   const handleInit = async () => {
     try {
-      const { data } = await apiMVAll({
+      const { data, code } = await apiMVAll({
         ...defaultSearch,
         limit,
         offset: offset.current,
       });
       offset.current += limit;
+      if (code !== 200) return;
       setData((draft) => {
         draft.push(
-          ...data.map(({ id, name, cover, playCount, duration, artists }) => ({
+          ...data?.map(({ id, name, cover, playCount, duration, artists }) => ({
             type: 0,
             playCount,
             id,
