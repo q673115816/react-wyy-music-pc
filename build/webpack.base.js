@@ -114,6 +114,14 @@ module.exports = {
           name: "react-use",
           test: /[\\/]node_modules[\\/]_?react-use(.*)/,
         },
+        components: {
+          name: "components",
+          test: path.resolve(src, "components"),
+        },
+        modules: {
+          name: "modules",
+          test: path.resolve(src, "modules"),
+        },
       },
       // cacheGroups: {
       //   commons: {
