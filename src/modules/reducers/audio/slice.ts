@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { audioPattern } from "@/common/config";
 
 interface State {
+  src: string;
   errorCount: number;
   running: boolean;
   dropping: boolean;
@@ -32,6 +33,7 @@ const initialState: State = {
 };
 
 const FnChange = (state: State) => {
+  state.jumpTime = null;
   state.currentTime = 0;
   state.buffered = [];
   state.running = true;
@@ -70,6 +72,9 @@ const slice = createSlice({
   name: "audio",
   initialState,
   reducers: {
+    setAudioSrc(state, { payload }) {
+      state.src = payload.src;
+    },
     setAudioImmediate(state, { payload }) {
       const { currentSong } = payload;
       FnImmediate(state, currentSong);
@@ -130,9 +135,9 @@ const slice = createSlice({
       // }
     },
     setAudioCurrent(state, action) {},
-    setAudioRunning(state, action) {
+    setAudioRunning(state, { payload }) {
       if (state?.currentSong?.id) {
-        state.running = action.payload.running;
+        state.running = payload.running;
       } else if (state.playlist.length > 0) {
         const currentSong = state.playlist[0];
         FnImmediate(state, currentSong);
@@ -152,8 +157,8 @@ const slice = createSlice({
     setAudioDropping(state, action) {
       state.dropping = action.payload.dropping;
     },
-    setAudioCurrentTime(state, action) {
-      state.currentTime = action.payload;
+    setAudioCurrentTime(state, { payload }) {
+      state.currentTime = payload.currentTime;
     },
     setJumpToAudioCurrentTime(state, action) {
       state.jumpTime = action.payload;
@@ -183,9 +188,12 @@ const slice = createSlice({
   },
 });
 
+export const audioSelector = ({ audio }) => audio;
+
 export default slice.reducer;
 
 export const {
+  setAudioSrc,
   setAudioBuffered,
   setAudioCurrent,
   setAudioCurrentTime,

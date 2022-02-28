@@ -34,6 +34,8 @@ const slice = createSlice({
   },
 });
 
+export const volumeSelector = ({ volume }) => volume;
+
 export default slice.reducer;
 
 export const { setVolume, setVolumePlusTen, setVolumeSubTen, setBeforeMuted } =

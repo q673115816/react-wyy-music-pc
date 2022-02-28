@@ -53,7 +53,7 @@ const Lrc = () => {
     if (!lyricVisibility) return;
     if (loading) handleInit();
     else handleLeftInit();
-  }, [lyricVisibility, page, currentSong.id]);
+  }, [lyricVisibility, page, currentSong]);
   useEffect(() => {
     dispatch(setLyricHide());
   }, [location]);

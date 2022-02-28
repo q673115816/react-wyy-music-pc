@@ -24,10 +24,16 @@ const Edit = () => {
   const dispatch = useAppDispatch();
   const toast = useToast();
   const { data, isLoading } = useGetUserAccountQuery();
-  console.log(data);
+
   const [updatePost, { isLoading: isUpdating }] = usePostUserUpdateMutation();
   const profile: Profile = data?.profile || {};
-  const [edit, setEdit] = useImmer<Profile>({});
+  const [edit, setEdit] = useImmer<Profile>({
+    nickname: "",
+    signature: "",
+    gender: 0,
+    birthday: 0,
+    province: 0,
+  });
   useEffect(() => {
     if (!isLoading) setEdit(cloneDeep(profile));
   }, [isLoading]);
@@ -91,23 +97,23 @@ const Edit = () => {
       <div className="h1 ui_header">编辑个人信息</div>
       <div className="flex px-8 py-5 gap-x-20">
         <div className="flex flex-1 flex-col gap-5">
-          {/*<Row text={`昵称`}>
+          <Row text={`昵称`}>
             <div className="value">
               <input
                 type="text"
                 value={edit.nickname}
                 className="h-8 block w-full px-2.5 border rounded"
-                onChange={({ target }) => handleEdit("nickname", target.value)}
+                onInput={({ target }) => handleEdit("nickname", target.value)}
               />
             </div>
-          </Row>*/}
-          {/*<Row text="介绍">
+          </Row>
+          <Row text="介绍">
             <div className="border flex-1">
               <div className="signature rounded flex flex-col items-end">
                 <textarea
                   value={edit.signature}
                   className="w-full outline-0 py-1 px-2.5 border-0 h-12 resize-none"
-                  onChange={({ target }) =>
+                  onInput={({ target }) =>
                     handleEdit("signature", target.value)
                   }
                 />
@@ -120,21 +126,21 @@ const Edit = () => {
                 </div>
               </div>
             </div>
-          </Row>*/}
-          {/*<Row text={"性别"}>
+          </Row>
+          <Row text={"性别"}>
             <Gender gender={edit.gender} handleEdit={handleEdit} />
-          </Row>*/}
-          {/*<Row text={"生日"}>
+          </Row>
+          <Row text={"生日"}>
             <Birthday birthday={edit.birthday} handleEdit={handleEdit} />
-          </Row>*/}
-          {/*<Row text="地区">
+          </Row>
+          <Row text="地区">
             <Location
               province={edit.province}
               city={edit.city}
               handleEdit={handleEdit}
             />
-          </Row>*/}
-          {/*<Row>
+          </Row>
+          <Row>
             <div className="value mt-5">
               <div className="actions flex gap-5 text-sm">
                 <button
@@ -156,7 +162,7 @@ const Edit = () => {
                 </Link>
               </div>
             </div>
-          </Row>*/}
+          </Row>
         </div>
         <div>
           <div className="border rounded overflow-hidden w-40 h-40">

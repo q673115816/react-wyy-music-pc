@@ -18,6 +18,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+import hardSet from "redux-persist/lib/stateReconciler/hardSet";
 
 const persistConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const persistConfig = {
   timeout: 2000, // 缓解卡顿
   whitelist: ["setting", "inset", "audio", "search", "volume"],
   // blackList: ["mask", base.reducerPath],
+  stateReconciler: hardSet,
 };
 
 const preloadedState = {};

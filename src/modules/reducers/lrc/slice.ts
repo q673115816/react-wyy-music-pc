@@ -2,14 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import formatLrc from "./format";
 import { Draft } from "immer";
 interface LrcState {
-  globalLrcVisibility: boolean;
   lyricVisibility: boolean;
   lyric: {};
   lrcList: { time: number; word: string }[];
 }
 
 const initialState: LrcState = {
-  globalLrcVisibility: false,
   lyricVisibility: false,
   lyric: {},
   lrcList: [],
@@ -19,15 +17,6 @@ const slice = createSlice({
   name: "lrc",
   initialState,
   reducers: {
-    setGlobalLrcToggle(state) {
-      state.globalLrcVisibility = !state.globalLrcVisibility;
-    },
-    setGlobalLrcShow(state) {
-      state.globalLrcVisibility = true;
-    },
-    setGlobalLrcHide(state) {
-      state.globalLrcVisibility = false;
-    },
     setLyricText(state, action) {
       const { lyric } = action.payload;
       state.lyric = lyric;
@@ -79,12 +68,5 @@ export const LrcSelector = <T = Draft<LrcState>>({ lrc }: { lrc: T }): T => lrc;
 
 export default slice.reducer;
 
-export const {
-  setGlobalLrcHide,
-  setGlobalLrcShow,
-  setGlobalLrcToggle,
-  setLyricHide,
-  setLyricShow,
-  setLyricText,
-  setLyricToggle,
-} = slice.actions;
+export const { setLyricHide, setLyricShow, setLyricText, setLyricToggle } =
+  slice.actions;

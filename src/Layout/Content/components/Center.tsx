@@ -14,14 +14,19 @@ import {
   setAudioPattern,
   setAudioPrev,
   setAudioNext,
+  audioSelector,
 } from "@/modules/reducers/audio/slice";
-import { setGlobalLrcToggle } from "@/modules/reducers/lrc/slice";
 import { audioPattern } from "@/common/config";
 import classNames from "classnames";
 import Timing from "./Timing";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import Audio from "./Audio";
+import {
+  settingSelector,
+  setGlobalLrcToggle,
+} from "@/modules/reducers/setting/slice";
 
-const iconSize = 16
+const iconSize = 16;
 
 const audioPatternIcon = [
   IconRotate,
@@ -32,8 +37,8 @@ const audioPatternIcon = [
 
 export default memo(function Center() {
   const dispatch = useAppDispatch();
-  const { running, pattern } = useAppSelector(({ audio }) => audio);
-  const { globalLrcVisibility } = useAppSelector(({ lrc }) => lrc);
+  const { running, pattern, src } = useAppSelector(audioSelector);
+  const { globalLrcVisibility } = useAppSelector(settingSelector);
   const handleToggle = () => {
     dispatch(setAudioRunning({ running: !running }));
   };
@@ -51,6 +56,7 @@ export default memo(function Center() {
   };
 
   const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
+
   return (
     <div className={"flex-center flex-col flex-1"}>
       <div className="flex-center gap-7">
@@ -79,7 +85,11 @@ export default memo(function Center() {
           {running ? (
             <IconPlayerPause size={iconSize * 1.25} className="fill-current" />
           ) : (
-            <IconPlayerPlay size={iconSize * 1.25} className="fill-current" stroke="0" />
+            <IconPlayerPlay
+              size={iconSize * 1.25}
+              className="fill-current"
+              stroke="0"
+            />
           )}
         </button>
         <button
@@ -104,6 +114,9 @@ export default memo(function Center() {
             <span className="absolute right-0 rounded-full bottom-0 w-1.5 h-1.5 ui_theme_bg_color" />
           )}
         </button>
+      </div>
+      <div hidden>
+        <Audio src={src} />
       </div>
       <Timing />
     </div>

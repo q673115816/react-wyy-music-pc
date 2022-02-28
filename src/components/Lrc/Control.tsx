@@ -1,5 +1,6 @@
 import React, { FC, memo } from "react";
-import { setGlobalLrcHide, setLyricToggle } from "@/modules/reducers/lrc/slice";
+import { setLyricToggle } from "@/modules/reducers/lrc/slice";
+import { setGlobalLrcHide } from "@/modules/reducers/setting/slice";
 import {
   IconMusic,
   IconPlayerPause,
@@ -9,6 +10,7 @@ import {
   IconX,
 } from "@tabler/icons";
 import {
+  audioSelector,
   setAudioNext,
   setAudioPrev,
   setAudioRunningToggle,
@@ -19,7 +21,7 @@ interface iControlProps {}
 
 const Control: FC<iControlProps> = () => {
   const dispatch = useAppDispatch();
-  const { running } = useAppSelector(({ audio }) => audio);
+  const { running } = useAppSelector(audioSelector);
   return (
     <div className="absolute top-0 left-0 right-0 mx-auto flex-center space-x-4 w-min z-10 text-white my-2">
       <button

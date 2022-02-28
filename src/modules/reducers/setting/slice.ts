@@ -6,6 +6,7 @@ export interface SettingState {
   custom: boolean;
   font: string;
   order: string[];
+  globalLrcVisibility: boolean;
 }
 
 export type Order =
@@ -30,6 +31,7 @@ const initialState: SettingState = {
   custom: false,
   font: "inherit",
   order: defaultOrder,
+  globalLrcVisibility: false,
 };
 
 const slice = createSlice({
@@ -48,6 +50,15 @@ const slice = createSlice({
     setHomeOrder(state, action) {
       state.order = action.payload;
     },
+    setGlobalLrcToggle(state) {
+      state.globalLrcVisibility = !state.globalLrcVisibility;
+    },
+    setGlobalLrcShow(state) {
+      state.globalLrcVisibility = true;
+    },
+    setGlobalLrcHide(state) {
+      state.globalLrcVisibility = false;
+    },
   },
 });
 
@@ -59,4 +70,12 @@ export const settingSelector = <T = Draft<SettingState>>({
 
 export default slice.reducer;
 
-export const { setTheme, setFont, setCustom, setHomeOrder } = slice.actions;
+export const {
+  setTheme,
+  setFont,
+  setCustom,
+  setHomeOrder,
+  setGlobalLrcHide,
+  setGlobalLrcShow,
+  setGlobalLrcToggle,
+} = slice.actions;
