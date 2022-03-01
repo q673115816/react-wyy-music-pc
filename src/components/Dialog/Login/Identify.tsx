@@ -1,10 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo } from "react";
 import { IconFaceId, IconKey } from "@tabler/icons";
 import { apiCaptchaSent } from "@/api";
-import { LoginContext } from "./Content";
-import { SET_TYPE } from "./Content";
+import {
+  actionSwitchSignIn,
+  actionSwitchSignUp,
+  LoginContext,
+} from "./Content";
 
-export default () => {
+const Identify = () => {
   const [warn, setWarn] = useState("");
   const {
     loginReducer: {},
@@ -29,9 +32,7 @@ export default () => {
         <button
           className="mt-2.5"
           type="button"
-          onClick={() =>
-            loginDispatch({ type: SET_TYPE, payload: { type: "signin" } })
-          }
+          onClick={() => loginDispatch(actionSwitchSignIn())}
         >
           &lt; 返回登录
         </button>
@@ -73,3 +74,5 @@ export default () => {
     </div>
   );
 };
+
+export default memo(Identify);

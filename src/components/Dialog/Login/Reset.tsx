@@ -3,14 +3,18 @@ import React, {
   useContext,
   FormEventHandler,
   ChangeEventHandler,
+  memo,
 } from "react";
 import { IconFaceId } from "@tabler/icons";
 import { apiRegisterCellphone } from "@/api";
-import { LoginContext } from "./Content";
+import {
+  actionSwitchIdentify,
+  actionSwitchSignUp,
+  LoginContext,
+} from "./Content";
 import DomSelect from "./components/Select";
-import { SET_TYPE } from "./Content";
 
-export default () => {
+const Reset = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [warn, setWarn] = useState("");
@@ -34,7 +38,7 @@ export default () => {
     } else if (!password) {
       setWarn("⚠️请输入登录密码");
     } else {
-      loginDispatch({ type: SET_TYPE, payload: { type: "identify" } });
+      loginDispatch(actionSwitchIdentify());
     }
   };
 
@@ -44,9 +48,7 @@ export default () => {
         <button
           className="mt-2.5"
           type="button"
-          onClick={() =>
-            loginDispatch({ type: SET_TYPE, payload: { type: "signin" } })
-          }
+          onClick={() => loginDispatch(actionSwitchSignUp())}
         >
           &lt; 返回登录
         </button>
@@ -116,3 +118,5 @@ export default () => {
     </div>
   );
 };
+
+export default memo(Reset);

@@ -11,15 +11,17 @@ import { apiLoginCellphone } from "@/api";
 import { IconFaceId, IconQrcode } from "@tabler/icons";
 
 import Checkbox from "@/components/Checkbox";
-import { LoginContext, SET_SIGNIN_PHONE } from "./Content";
+import {
+  actionSwitchReset,
+  actionSwitchScan,
+  actionSwitchSignUp,
+  LoginContext,
+  SET_SIGNIN_PHONE,
+} from "./Content";
 import Select from "./components/Select";
 import Threes from "./components/Threes";
 import SubmitBtn from "./components/SubmitBtn";
-import {
-  SET_SIGNIN_ARGEEARGUMENT,
-  SET_SIGNIN_PASSWORD,
-  SET_TYPE,
-} from "./Content";
+import { SET_SIGNIN_ARGEEARGUMENT, SET_SIGNIN_PASSWORD } from "./Content";
 import Input from "./components/Input";
 import { Set } from "@/modules/utils";
 
@@ -113,10 +115,7 @@ const SignIn = () => {
 
   const handleToSignUp = () => {
     if (argeeArgument) {
-      loginDispatch({
-        type: SET_TYPE,
-        payload: { type: "signup" },
-      });
+      loginDispatch(actionSwitchSignUp());
     } else {
       alert("请先勾选同意《服务条款》《服务条款》《服务条款》");
     }
@@ -125,12 +124,7 @@ const SignIn = () => {
   return (
     <div className="form px-10">
       <div className="angle absolute top-0 left-0">
-        <button
-          type="button"
-          onClick={() =>
-            loginDispatch({ type: SET_TYPE, payload: { type: "scan" } })
-          }
-        >
+        <button type="button" onClick={() => loginDispatch(actionSwitchScan())}>
           <IconQrcode size={36} />
         </button>
         <span className="absolute top-3 left-12 pr-3 pl-4 py-1.5 tips text-white whitespace-nowrap bg-gray-400">
@@ -177,12 +171,7 @@ const SignIn = () => {
                   <button
                     type="button"
                     className="text-gray-400"
-                    onClick={() =>
-                      loginDispatch({
-                        type: SET_TYPE,
-                        payload: { type: "reset" },
-                      })
-                    }
+                    onClick={() => loginDispatch(actionSwitchReset())}
                   >
                     重设密码
                   </button>

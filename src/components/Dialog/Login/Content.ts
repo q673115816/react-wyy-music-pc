@@ -34,7 +34,7 @@ export const LoginReducer: Reducer = (draft, { type, payload }) => {
   }
 };
 
-export type LoginType = "scan" | "signin" | "signup" | "reset" | "identify";
+export type LoginType = "Scan" | "SignIn" | "SignUp" | "Reset" | "Identify";
 
 export interface LoginState {
   argeeArgument: boolean;
@@ -52,6 +52,19 @@ export const LoginInitialState: LoginState = {
   loginpassword: "",
   registerphone: "",
   registerpassword: "",
-  type: "scan",
+  type: "Scan",
   countrycode: "86",
 };
+
+const createActionSwitch = (type: LoginType) => () => ({
+  type: SET_TYPE,
+  payload: {
+    type,
+  },
+});
+
+export const actionSwitchScan = createActionSwitch("Scan");
+export const actionSwitchSignIn = createActionSwitch("SignIn");
+export const actionSwitchSignUp = createActionSwitch("SignUp");
+export const actionSwitchReset = createActionSwitch("Reset");
+export const actionSwitchIdentify = createActionSwitch("Identify");

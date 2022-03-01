@@ -1,4 +1,4 @@
-import React, { memo, ReactNode } from "react";
+import React, { createElement, memo, ReactNode } from "react";
 import { IconX } from "@tabler/icons";
 import { setLoginVisibilty } from "@/modules/reducers/common/slice";
 import { useImmerReducer } from "use-immer";
@@ -18,11 +18,11 @@ import {
 } from "./Content";
 
 const Build: { [key in LoginType]: ReactNode } = {
-  scan: <Scan />,
-  signin: <SignIn />,
-  signup: <SignUp />,
-  reset: <Reset />,
-  identify: <Identify />,
+  Scan,
+  SignIn,
+  SignUp,
+  Reset,
+  Identify,
 };
 
 const Login = () => {
@@ -46,7 +46,7 @@ const Login = () => {
         <IconX stroke={1.5} />
       </button>
       <LoginContext.Provider value={{ loginReducer, loginDispatch }}>
-        {Build[loginReducer.type]}
+        {createElement(Build[loginReducer.type])}
       </LoginContext.Provider>
     </div>
   );

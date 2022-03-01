@@ -9,19 +9,22 @@ import React, {
   useState,
 } from "react";
 import { unstable_batchedUpdates as batchedUpdates } from "react-dom";
-import { LoginContext, SET_TYPE } from "../Content";
+import {
+  actionSwitchSignIn,
+  actionSwitchSignUp,
+  LoginContext,
+} from "../Content";
 import Refresh from "@/components/Dialog/Login/Scan/Refresh";
 import { apiLoginQrCreate, apiLoginQrKey } from "@/api";
 import { Set } from "@/modules/utils";
 import Success from "@/components/Dialog/Login/Scan/Success";
 import { useGetLoginQRCheckMutation } from "@/modules/services/account";
 
-interface iWaitProps {}
+interface iProps {}
 
-const Content: FC<iWaitProps> = () => {
+const Content: FC<iProps> = () => {
   const { loginDispatch } = useContext(LoginContext);
-  const handleChooseOtherSign = () =>
-    loginDispatch({ type: SET_TYPE, payload: { type: "signin" } });
+  const handleChooseOtherSign = () => loginDispatch(actionSwitchSignIn());
   const [qrimg, setQrimg] = useState("");
   const [key, setKey] = useState("");
   const [status, setStatus] = useState(0);

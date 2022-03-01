@@ -9,8 +9,11 @@ import { IconFaceId, IconDeviceMobile } from "@tabler/icons";
 import Select from "./components/Select";
 import Threes from "./components/Threes";
 
-import { LoginContext } from "./Content";
-import { SET_TYPE } from "./Content";
+import {
+  actionSwitchSignIn,
+  actionSwitchSignUp,
+  LoginContext,
+} from "./Content";
 
 const SignUp = () => {
   const [warn, setWarn] = useState("");
@@ -43,9 +46,7 @@ const SignUp = () => {
         <button
           className="mt-2.5"
           type="button"
-          onClick={() =>
-            loginDispatch({ type: SET_TYPE, payload: { type: "signin" } })
-          }
+          onClick={() => loginDispatch(actionSwitchSignIn())}
         >
           &lt; 返回登录
         </button>
