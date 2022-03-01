@@ -17,6 +17,12 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getDailySignIn: build.mutation<{ code: number; point: number }, void>({
+      query: () => ({
+        url: `daily_signin`,
+        method: "POST",
+      }),
+    }),
     getUserDetail: build.query<Details, { uid: string }>({
       query: (body) => ({
         url: `user/detail`,
@@ -91,6 +97,7 @@ export const api = base.injectEndpoints({
 });
 
 export const {
+  useGetDailySignInMutation,
   useGetUserCloudQuery,
   useGetUserDetailQuery,
   useGetUserAccountQuery,
