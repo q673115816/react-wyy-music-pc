@@ -1,12 +1,12 @@
-import React, { memo, MouseEventHandler } from "react";
+import React, { FC, memo, MouseEventHandler } from "react";
 
-interface iRefreshProps {
+interface iProps {
   handleInit: MouseEventHandler;
 }
 
-export default memo(function Refresh({ handleInit }: iRefreshProps) {
+const Refresh: FC<iProps> = ({ handleInit }) => {
   return (
-    <div className="absolute bg-black bg-opacity-60 flex-center flex-col inset-0 mask text-white">
+    <div className="absolute bg-black bg-opacity-60 flex-center flex-col inset-0 text-white">
       <div>二维码已失效</div>
       <button
         type="button"
@@ -17,4 +17,6 @@ export default memo(function Refresh({ handleInit }: iRefreshProps) {
       </button>
     </div>
   );
-});
+};
+
+export default memo(Refresh);

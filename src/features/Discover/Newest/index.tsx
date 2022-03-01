@@ -10,8 +10,8 @@ export default memo(function Index() {
     <Routes>
       <Route path="/*" element={<Layout />}>
         <Route path={encodeURI("新歌速递")} element={<Song />} />
-        <Route path={encodeURI("新碟上架") + "/*"} element={<Album />} />
-        {/*<Route path="*" element={<Navigate to="新歌速递" replace={true} />} />*/}
+        <Route path={encodeURI("新碟上架")} element={<Album />} />
+        <Route path="*" element={<Navigate to="新歌速递" replace={true} />} />
       </Route>
     </Routes>
   );

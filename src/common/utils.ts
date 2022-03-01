@@ -17,18 +17,10 @@ export const wordLength = (words: string = ""): number => {
   return length;
 };
 
-function typeToString(target: any) {
-  return Object.prototype.toString.call(target);
-}
-
 export const sleep = (delay = 1000) =>
   new Promise((resolve) => setTimeout(resolve, delay));
 
 type Dir = "x" | "y";
-
-type Dist = {
-  [key in Dir]: string[];
-};
 
 export const computedPositionPercentage = (
   event: MouseEvent,
@@ -52,11 +44,3 @@ export const isInTheRect = (event: MouseEvent, dom: HTMLElement) => {
     x <= inset.right && x >= inset.left && y <= inset.bottom && y >= inset.top
   );
 };
-
-export const UUIDGeneratorBrowser = () =>
-  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-    (
-      c ^
-      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-    ).toString(16)
-  );

@@ -5,9 +5,9 @@ import { songNavs } from "@/features/Discover/Newest/config";
 
 const Song = () => {
   const { type = "" } = useParams();
-  if (!songNavs.includes(type)) {
-    return <Navigate to={songNavs[0]} />;
-  }
+  // if (!songNavs.includes(type)) {
+  //   return <Navigate to={songNavs[0]} />;
+  // }
   return <Content type={type} />;
 };
 

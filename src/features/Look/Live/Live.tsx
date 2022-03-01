@@ -14,7 +14,6 @@ import useLoginStatus, { handleLoginStatus } from "@/hooks/useLoginStatus";
 import { set, get } from "lodash";
 import { LookContent } from "@/features/Look/Look";
 import useGetInput, { iUseGetInput } from "@/features/Look/Live/useGetInput";
-import { UUIDGeneratorBrowser } from "@/common/utils";
 import { useImmer } from "use-immer";
 import RTC from "../RTC";
 

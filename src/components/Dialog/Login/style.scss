@@ -9,28 +9,23 @@
         width: 280px;
 
         .left {
-          position: absolute;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          transition: ease 0.4s;
           width: 100%;
           opacity: 0;
         }
 
         .right {
           width: 100%;
-          position: absolute;
           top: 50%;
           right: 50%;
           transform: translate(50%, -50%);
-          transition: ease 0.4s;
         }
 
         .qrimg {
           width: 180px;
           height: 180px;
-          transition: ease 0.4s;
         }
 
         &:hover {

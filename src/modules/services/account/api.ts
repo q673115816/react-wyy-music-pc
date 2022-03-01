@@ -9,7 +9,21 @@ export const api = base.injectEndpoints({
     getLogout: build.mutation<{ code: number }, void>({
       query: () => `logout`,
     }),
+    getLoginQRKey: build.mutation<{ code: number }, void>({
+      query: () => `login/qr/key`,
+    }),
+    getLoginQRCheck: build.mutation<{ code: number }, { key: number }>({
+      query: (body) => ({
+        url: `login/qr/check`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetCountriesCodeListQuery, useGetLogoutMutation } = api;
+export const {
+  useGetCountriesCodeListQuery,
+  useGetLogoutMutation,
+  useGetLoginQRCheckMutation,
+} = api;
