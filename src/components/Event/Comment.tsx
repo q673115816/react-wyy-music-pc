@@ -15,7 +15,7 @@ const Comment = ({ comment }) => (
         alt=""
       />
     </Link>
-    <div className="commentContent pl-3 select-text">
+    <div className="commentContent flex-1 pl-3 select-text">
       <div className="">
         <Link to={`/user/${comment.user.userId}`} className="ui_link">
           {`${comment.user.nickname}：`}
@@ -23,14 +23,16 @@ const Comment = ({ comment }) => (
         {transTextEmoji(comment.content)}
       </div>
       {comment.beReplied.length > 0 && (
-        <div className="bg-white p-2.5 mt-2.5">
+        <div className="bg-white px-2 py-1 mt-2 rounded">
           <Link
             to={`/user/${comment.beReplied[0].user.userId}`}
             className="ui_link"
           >
-            {comment.beReplied[0].user.nickname}：
+            @{comment.beReplied[0].user.nickname}：
           </Link>
-          {transTextEmoji(comment.beReplied[0].content)}
+          <span className={`text-gray-500`}>
+            {transTextEmoji(comment.beReplied[0].content)}
+          </span>
         </div>
       )}
       <div className="mt-2">

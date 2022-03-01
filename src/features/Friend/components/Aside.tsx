@@ -13,7 +13,7 @@ export default memo(function Aside() {
       <div className="">
         {profile.userId ? (
           <div className="h-40 pt-8 bg-gray-100">
-            <div className="top flex px-5 items-start">
+            <div className="top flex gap-2 px-5 items-start">
               <Link
                 to={`/user/${profile.userId}`}
                 className="avatar w-12 h-12 rounded-full overflow-hidden"
@@ -24,15 +24,13 @@ export default memo(function Aside() {
                   alt=""
                 />
               </Link>
-              <div className="flex-center">
-                <Link
-                  to={`/user/${profile.userId}`}
-                  className="nickname ml-2.5"
-                >
-                  {profile.nickname}
-                </Link>
-                &nbsp;
-                <Gender gender={profile.gender} size={14} />
+              <div>
+                <div className="flex-center">
+                  <Link to={`/user/${profile.userId}`}>{profile.nickname}</Link>
+                  &nbsp;
+                  <Gender gender={profile.gender} size={14} />
+                </div>
+                <div className={`text-gray-500`}>{profile.signature}</div>
               </div>
             </div>
             <div className="infos flex divide-x text-center mt-4">

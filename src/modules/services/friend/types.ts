@@ -13,3 +13,11 @@ export interface TopicDetails extends ResWithCode {
     text: string[];
   };
 }
+
+export interface Events extends ResWithCode {
+  more: boolean;
+  lasttime: number;
+  event: Event[];
+}
+
+interface Event {}

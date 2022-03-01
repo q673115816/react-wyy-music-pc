@@ -1,4 +1,4 @@
-import { Tops, Topics, TopicDetails } from "./types";
+import { Tops, Topics, TopicDetails, Events } from "./types";
 import { base } from "../base";
 
 export const api = base.injectEndpoints({
@@ -17,7 +17,26 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getEvent: build.mutation<Events, { lasttime: number }>({
+      query: (body) => ({
+        url: `event`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getTopicDetailEventHot: build.query<Events, { actid: number }>({
+      query: (body) => ({
+        url: `topic/detail/event/hot`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetHotTopicQuery, useGetTopicDetailQuery } = api;
+export const {
+  useGetHotTopicQuery,
+  useGetTopicDetailQuery,
+  useGetEventMutation,
+  useGetTopicDetailEventHotQuery,
+} = api;

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { FC, memo, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import {
@@ -10,9 +10,11 @@ import {
 } from "@tabler/icons";
 import { apiCommentEvent, apiSongDetail } from "@/api";
 import { transTextEmoji } from "@/common/faces";
-import classNames from "classnames";
-import DomComment from "./Comment";
-import DomTextarea from "./Textarea";
+import Comment from "./Comment";
+import Textarea from "./Textarea";
+import Song from "./Song";
+import Pics from "./Pics";
+import Resource from "./Resource";
 import "./style.scss";
 
 const types = {
@@ -20,101 +22,24 @@ const types = {
   36: "分享歌手",
 };
 
-const Resource = ({ item }) => {
-  if (!item) return null;
-  return (
-    <Link
-      to={`/artist/${item.id}`}
-      className="mt-2 flex items-center p-2 h-14 rounded bg-gray-100 hover:bg-gray-200"
-    >
-      <div className="w-10 h-10 rounded">
-        <img
-          src={item.img80x80}
-          className="rounded w-full h-full object-cover"
-          alt=""
-        />
-      </div>
-      <div className="px-3">{`歌手：${item.name}`}</div>
-    </Link>
-  );
-};
+interface iProps {
+  item: {};
+  commentIsShow: boolean;
+  handleToggleComment: () => void;
+}
 
-const Song = ({ item }) => {
-  if (!item) return null;
-  return (
-    <div className="song bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5">
-      <div className="cover relative overflow-hidden rounded flex-none">
-        <img
-          className="rounded w-10 h-10"
-          src={`${item.album.blurPicUrl}?param=40y40`}
-          alt=""
-        />
-        <div className="ico flex-center absolute inset-0 m-auto bg-white rounded-full w-6 h-6 ui_themeColor">
-          <IconPlayerPlay size={14} className="fill-current" />
-        </div>
-      </div>
-      <div className="aside text-left px-3 w-0 flex-auto">
-        <div className="name">{item.name}</div>
-        <div className="artist truncate mt-1 text-gray-400">
-          {item.artists.map(({ name }) => name).join(" / ")}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Pics = ({ item }) => {
-  if (!item) return null;
-  let len = item.length;
-  if (len === 1) {
-    return (
-      <div className="pics grid gap-1 mt-2.5 pic_1">
-        <div className="img">
-          <img
-            src={item[0].originUrl}
-            className="max-h-full max-w-full object-cover rounded-lg"
-            alt=""
-          />
-        </div>
-      </div>
-    );
-  }
-  if (len === 8) len = "even";
-  else len = 3;
-  return (
-    <div className={classNames("pics grid gap-1 mt-2.5", `pic_${len}`)}>
-      {item.map((pic) => (
-        <div
-          key={pic.originUrl}
-          className="img relative rounded-lg overflow-hidden"
-        >
-          <div className="absolute inset-0">
-            <img
-              loading={`lazy`}
-              src={pic.originUrl}
-              className="w-full object-cover h-full aspect-square"
-              alt=""
-            />
-          </div>
-          {pic.width / pic.height < 0.75 && (
-            <div className="absolute bottom-0 right-0 mx-1 my-2 border leading-tight bg-black bg-opacity-20 text-white border-current px-1 rounded-full">
-              长图
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-const Event = ({ item = {}, commentIsShow, handleToggleComment }) => {
+const Event: FC<iProps> = ({
+  item = {},
+  commentIsShow,
+  handleToggleComment,
+}) => {
   // console.log('event');
   const json = JSON.parse(item.json);
   const [comments, setComments] = useState([]);
   const [hotComments, setHotComments] = useState([]);
   // console.log(json);
   // const { comments, hotComments } = useSelector(({ friend }) => friend);
-  const handleGetComment = async (threadId) => {
+  const handleGetComment = async (threadId: number) => {
     try {
       const { comments, hotComments } = await apiCommentEvent({
         threadId,
@@ -233,7 +158,7 @@ const Event = ({ item = {}, commentIsShow, handleToggleComment }) => {
           {commentIsShow && (
             <div className="comment bg-gray-100 mt-3 rounded">
               <div className="p-3">
-                <DomTextarea />
+                <Textarea />
               </div>
               {hotComments.length > 0 && (
                 <>
@@ -242,7 +167,7 @@ const Event = ({ item = {}, commentIsShow, handleToggleComment }) => {
                   </div>
                   <div className="divide-y">
                     {hotComments.slice(0, 10).map((comment) => (
-                      <DomComment key={comment.commentId} comment={comment} />
+                      <Comment key={comment.commentId} comment={comment} />
                     ))}
                   </div>
                 </>
@@ -255,7 +180,7 @@ const Event = ({ item = {}, commentIsShow, handleToggleComment }) => {
                   </div>
                   <div className="divide-y">
                     {comments.slice(0, 10).map((comment) => (
-                      <DomComment key={comment.commentId} comment={comment} />
+                      <Comment key={comment.commentId} comment={comment} />
                     ))}
                   </div>
                 </>

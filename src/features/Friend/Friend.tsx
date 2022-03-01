@@ -1,10 +1,11 @@
-import React, { memo, useEffect, useRef, useState } from "react";
-import { apiEvent } from "@/api";
-import { IconPlus } from "@tabler/icons";
+import React, { memo, useEffect, useRef } from "react";
+import { IconEdit } from "@tabler/icons";
 import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";
 import Dynamic from "@/components/Dynamic";
 import Aside from "./components/Aside";
+import { useGetEventMutation } from "@/modules/services/friend";
+import { useImmer } from "use-immer";
 
 const getArticleFromJson = (json) => {
   const obj = JSON.parse(json);
@@ -21,19 +22,23 @@ const getArticleFromJson = (json) => {
 };
 
 const Friend = () => {
-  const [event, setEvent] = useState([]);
-
+  const [event, setEvent] = useImmer([]);
+  const [eventGet] = useGetEventMutation();
   const DomScroll = useRef(null);
   const DomObserver = useRef(null);
   const refLasttime = useRef(-1);
   const handleInitEvent = async () => {
     try {
-      const { event = [], lasttime = -1 } = await apiEvent({
+      const data = await eventGet({
         lasttime: refLasttime.current,
       });
+      const lasttime = data.data.lasttime;
+      const event = data.data.event;
       refLasttime.current = lasttime;
       // dispatch(setFriendEventAdd({ event }));
-      setEvent((prev) => [...prev, ...event]);
+      setEvent((draft) => {
+        draft.push(...event);
+      });
     } catch (error) {
       console.log(error);
     }
@@ -51,10 +56,10 @@ const Friend = () => {
             <span className="h1">动态</span>
             <button
               type="button"
-              className="flex ml-auto items-center ui_theme_bg_color text-white h-6 px-3 rounded-full"
+              className="flex-center ml-4 ui_theme_bg_color text-sm text-white h-8 px-4 rounded-full"
             >
-              <IconPlus size={12} stroke={5} />
-              写动态
+              <IconEdit size={20} stroke={1} />
+              发动态
             </button>
           </div>
           <div className="domFriend_content">
