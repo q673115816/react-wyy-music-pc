@@ -29,7 +29,15 @@ const api = base.injectEndpoints({
         body,
       }),
     }),
+    getAlbumNew: build.query<Songs, ResAlbums>({
+      query: (body) => ({
+        url: `album/new`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetTopSongQuery, useGetTopAlbumQuery } = api;
+export const { useGetTopSongQuery, useGetTopAlbumQuery, useGetAlbumNewQuery } =
+  api;

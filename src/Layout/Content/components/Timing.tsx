@@ -1,4 +1,4 @@
-import React, { useRef, useState, memo, MouseEventHandler } from "react";
+import React, { useRef, memo, MouseEventHandler } from "react";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
@@ -15,7 +15,7 @@ import classNames from "classnames";
 
 export default memo(function Timing() {
   const dispatch = useAppDispatch();
-  const { currentTime, currentSong, buffered, song } = useAppSelector(
+  const { currentTime, currentSong, buffered } = useAppSelector(
     ({ audio }) => audio
   );
 
@@ -50,7 +50,10 @@ export default memo(function Timing() {
         {currentTime ? dayjs(currentTime * 1000).format("mm:ss") : "00:00"}
       </span>
       <div
-        className={classNames(style.playTimerShaft, "mx-1.5 relative h-1")}
+        className={classNames(
+          style.playTimerShaft,
+          "group mx-1.5 relative h-1"
+        )}
         onClick={handleClick}
         ref={RefProgress}
       >

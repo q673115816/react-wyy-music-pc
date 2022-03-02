@@ -2,18 +2,18 @@ import React, { FC, memo } from "react";
 import AlbumItem from "@/features/Discover/Newest/Album/Item";
 import { useGetTopAlbumQuery } from "@/modules/services/discover";
 import { limit } from "@/common/config";
-import { albumCode } from "../config";
+import { albumCode, albumTypes } from "../config";
 import Loading from "@/components/Loading";
+import { useParams } from "react-router-dom";
 
-interface iProps {
-  area: string;
-  type: string;
-}
+interface iProps {}
 
-const Content: FC<iProps> = ({ area, type }) => {
+const Content: FC<iProps> = () => {
+  const { area, type } = useParams();
+
   const { data, isLoading } = useGetTopAlbumQuery({
     area: albumCode[area],
-    type,
+    type: albumTypes[type],
     limit,
     offset: 0,
   });
@@ -23,7 +23,7 @@ const Content: FC<iProps> = ({ area, type }) => {
   if (isLoading) return <Loading />;
   return (
     <div className="px-8">
-      {area === "全部" && type !== "推荐" && weekData.length > 0 && (
+      {weekData.length > 0 && (
         <div className="domHome_newest_album_sublist relative pl-12 mb-12">
           <div className="sign w-10 h-10 absolute top-0 left-0 text-lg">
             本周
