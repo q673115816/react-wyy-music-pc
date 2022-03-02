@@ -17,8 +17,8 @@ const slice = createSlice({
   name: "lrc",
   initialState,
   reducers: {
-    setLyricText(state, action) {
-      const { lyric } = action.payload;
+    setLyricText(state, { payload }) {
+      const { lyric } = payload;
       state.lyric = lyric;
       const {
         tlyric: { lyric: tlyric } = { lyric: "" },

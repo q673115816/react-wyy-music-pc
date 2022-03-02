@@ -34,7 +34,7 @@ const Left = () => {
       const lyric = await LyricGet({
         id,
       });
-      dispatch(setLyricText({ lyric }));
+      dispatch(setLyricText({ lyric: lyric.data }));
     } catch (error) {
       console.log(error);
     }
