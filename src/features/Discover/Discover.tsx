@@ -12,7 +12,7 @@ const Discover = () => {
             className={({ isActive }) =>
               classNames(isActive && "text-xl font-bold ui_underline")
             }
-            to={encodeURIComponent(path)}
+            to={encodeURI(path)}
             key={path}
           >
             {path}

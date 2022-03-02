@@ -1,18 +1,19 @@
 import React, { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { IconPlayerPlay } from "@tabler/icons";
-import DomTags from "@/components/Tags";
-import DomMenuCreate from "@/components/MenuCreate/MenuCreate";
+import Tags from "@/components/Tags";
+import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import { Newsong as NewsongProps } from "@/modules/services/types";
+import SongAsyncReplace from "@/components/GroupPlay/SongAsyncReplace";
 
 interface iProps {
   newsong: NewsongProps[];
 }
 
-const Newsong: FC<iProps> = ({ newsong = [] }) => (
+const NewSong: FC<iProps> = ({ newsong = [] }) => (
   <div className="grid gap-x-2 gap-y-4 mt-4 grid-cols-3 grid-rows-4 grid-flow-col">
     {newsong.map((item) => (
-      // <DomMenuCreate
+      // <MenuCreate
       //   key={item.id}
       //   item={item}
       //   type="song"
@@ -26,9 +27,8 @@ const Newsong: FC<iProps> = ({ newsong = [] }) => (
         key={item.id}
         className="item flex hover:bg-gray-100 rounded overflow-hidden"
       >
-        <button
-          type="button"
-          onClick={() => console.log(item.id)}
+        <SongAsyncReplace
+          id={item.id}
           className="cover flex-none relative rounded overflow-hidden"
         >
           <span className="ico absolute text-red-500 bg-white rounded-full bg-opacity-90 inset-0 m-auto flex-center w-6 h-6">
@@ -40,11 +40,11 @@ const Newsong: FC<iProps> = ({ newsong = [] }) => (
             src={`${item.picUrl}?param=50y50`}
             alt=""
           />
-        </button>
+        </SongAsyncReplace>
         <div className="content flex-auto flex flex-col w-0 px-2 py-1">
           <div className="name text-sm truncate">{item.name}</div>
           <div className="artist mt-1 flex">
-            <DomTags
+            <Tags
               item={item}
               sq={item.song.privilege.maxbr === 999000}
               mv={item.song.mvid}
@@ -69,4 +69,4 @@ const Newsong: FC<iProps> = ({ newsong = [] }) => (
   </div>
 );
 
-export default memo(Newsong);
+export default memo(NewSong);

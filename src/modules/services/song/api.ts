@@ -10,6 +10,13 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getSongDetail: build.mutation<Songs, { ids: string }>({
+      query: (body) => ({
+        url: `song/detail`,
+        method: "POST",
+        body,
+      }),
+    }),
     getLyric: build.mutation<Lyrics, { id: number }>({
       query: (body) => ({
         url: `lyric`,
@@ -20,4 +27,8 @@ export const api = base.injectEndpoints({
   }),
 });
 
-export const { useGetSongUrlMutation, useGetLyricMutation } = api;
+export const {
+  useGetSongUrlMutation,
+  useGetLyricMutation,
+  useGetSongDetailMutation,
+} = api;

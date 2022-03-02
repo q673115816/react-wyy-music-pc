@@ -8,7 +8,6 @@ import {
   IconDots,
   IconPlayerPlay,
 } from "@tabler/icons";
-import { apiSongDetail } from "@/api";
 import { transTextEmoji } from "@/common/faces";
 import Song from "./Song";
 import Pics from "./Pics";

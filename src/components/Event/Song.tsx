@@ -1,5 +1,6 @@
 import { IconPlayerPlay } from "@tabler/icons";
 import React, { FC, memo } from "react";
+import SongAsyncReplace from "@/components/GroupPlay/SongAsyncReplace";
 
 interface iProps {
   item: {};
@@ -8,7 +9,10 @@ interface iProps {
 const Song: FC<iProps> = ({ item }) => {
   if (!item) return null;
   return (
-    <div className="bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5">
+    <SongAsyncReplace
+      id={item.id}
+      className="bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5"
+    >
       <div className="relative overflow-hidden rounded flex-none">
         <img
           className="rounded w-10 h-10"
@@ -25,7 +29,7 @@ const Song: FC<iProps> = ({ item }) => {
           {item.artists.map(({ name }) => name).join(" / ")}
         </div>
       </div>
-    </div>
+    </SongAsyncReplace>
   );
 };
 

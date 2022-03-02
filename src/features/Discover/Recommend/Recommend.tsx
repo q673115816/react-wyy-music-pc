@@ -9,7 +9,7 @@ import DialogHomeOrder from "@/components/Dialog/HomeOrder";
 import Loading from "@/components/Loading";
 import playlist from "./playlist";
 import Privatecontent from "./Privatecontent";
-import Newsong from "./Newsong";
+import NewSong from "./NewSong";
 import DJProgram from "./DJProgram";
 import MV from "./MV";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
@@ -26,7 +26,7 @@ import { Order, settingSelector } from "@/modules/reducers/setting/slice";
 const config: { [key in Order]: [string, ReactNode] } = {
   推荐歌单: ["/discover/playlist", playlist],
   独家放送: ["/exclusive", Privatecontent],
-  最新音乐: ["/home/playlist", Newsong],
+  最新音乐: ["/home/playlist", NewSong],
   推荐MV: ["/video/mvlist", MV],
   主播电台: ["/discover/dj", DJProgram],
   看看: [
