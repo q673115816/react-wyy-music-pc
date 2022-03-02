@@ -7,7 +7,6 @@ interface iProps {
 
 const Song: FC<iProps> = ({ item }) => {
   if (!item) return null;
-  console.log(item);
   return (
     <div className="bg-gray-100 hover:bg-gray-200 flex w-full mt-2 rounded p-2.5">
       <div className="relative overflow-hidden rounded flex-none">

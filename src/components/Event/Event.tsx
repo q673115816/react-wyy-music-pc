@@ -8,14 +8,13 @@ import {
   IconDots,
   IconPlayerPlay,
 } from "@tabler/icons";
-import { apiCommentEvent, apiSongDetail } from "@/api";
+import { apiSongDetail } from "@/api";
 import { transTextEmoji } from "@/common/faces";
-import Comment from "./Comment";
-import Textarea from "./Textarea";
 import Song from "./Song";
 import Pics from "./Pics";
 import Resource from "./Resource";
 import "./style.scss";
+import Popup from "@/components/Event/Popup";
 
 const types = {
   18: "分享单曲",
@@ -33,30 +32,9 @@ const Event: FC<iProps> = ({
   commentIsShow,
   handleToggleComment,
 }) => {
-  // console.log('event');
   const json = JSON.parse(item.json);
-  const [comments, setComments] = useState([]);
-  const [hotComments, setHotComments] = useState([]);
-  // console.log(json);
-  // const { comments, hotComments } = useSelector(({ friend }) => friend);
-  const handleGetComment = async (threadId: number) => {
-    try {
-      const { comments, hotComments } = await apiCommentEvent({
-        threadId,
-      });
-      setComments(comments);
-      setHotComments(hotComments);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    if (commentIsShow) {
-      handleGetComment(item.info.threadId);
-    }
-  }, [commentIsShow]);
+
   if (item.type === 33) {
-    // console.log(json);
     return (
       <div className="py-5 px-12">
         <div className="relative rounded-xl overflow-hidden">
@@ -155,42 +133,7 @@ const Event: FC<iProps> = ({
               </div>
             </div>
           </div>
-          {commentIsShow && (
-            <div className="comment bg-gray-100 mt-3 rounded">
-              <div className="p-3">
-                <Textarea />
-              </div>
-              {hotComments.length > 0 && (
-                <>
-                  <div className="text-sm px-3 text-gray-500 font-bold">
-                    精彩评论
-                  </div>
-                  <div className="divide-y">
-                    {hotComments.slice(0, 10).map((comment) => (
-                      <Comment key={comment.commentId} comment={comment} />
-                    ))}
-                  </div>
-                </>
-              )}
-              {comments.length > 0 ? (
-                <>
-                  <div className="text-sm px-3 text-gray-500 font-bold">
-                    最新评论
-                    {`(${comments.length})`}
-                  </div>
-                  <div className="divide-y">
-                    {comments.slice(0, 10).map((comment) => (
-                      <Comment key={comment.commentId} comment={comment} />
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="flex-center py-10 text-gray-500">
-                  还没有评论哦，快来抢沙发~
-                </div>
-              )}
-            </div>
-          )}
+          {commentIsShow && <Popup threadId={item.info.threadId} />}
         </div>
       </div>
     </div>
