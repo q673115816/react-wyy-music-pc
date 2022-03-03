@@ -59,7 +59,7 @@ export default memo(function Center() {
 
   return (
     <div className={"flex-center flex-col flex-1"}>
-      <div className="flex-center gap-7">
+      <div className="flex-center gap-x-7">
         <button
           type="button"
           className="hover:ui_themeColor"

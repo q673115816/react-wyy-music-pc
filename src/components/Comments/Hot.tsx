@@ -3,7 +3,7 @@ import Comment from "./Comment";
 import { Link } from "react-router-dom";
 import { iHot } from "./types";
 
-const Hot: FC<iHot> = ({ hotComments, more, type }) => {
+const Hot: FC<iHot> = ({ hotComments = [], more, type }) => {
   if (hotComments?.length === 0) return null;
   return (
     <div className="mb-10">

@@ -99,3 +99,8 @@ const config: Config = {
 };
 
 export default config;
+
+export const new_mlogType = {
+  2: "video",
+  3: "mv",
+};

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useGetSearchMultimatchQuery } from "@/modules/services/search";
 import Loading from "@/components/Loading";
 import { transSubscribeCount } from "@/common/utils";
+import { new_mlogType } from "./config";
 
 const Nodes = {
   artist: ({ item }) => (
@@ -47,9 +48,12 @@ const Nodes = {
       </div>
     </Link>
   ),
-  new_mlog: ({ item }) => (
-    <Link
-      to={`/player/mv/${item.resourceId}`}
+  new_mlog: ({ item }) =>
+    null,
+    /*<Link
+      to={`/player/${new_mlogType[item.baseInfo.resource.mlogBaseData.type]}/${
+        item.resourceId
+      }`}
       className="h-16 w-1/3 flex items-center bg-gray-100 rounded overflow-hidden px-2"
     >
       <img
@@ -62,8 +66,7 @@ const Nodes = {
           {item.resourceName}：{item.baseInfo.resource.mlogBaseData.text}
         </div>
       </div>
-    </Link>
-  ),
+    </Link>*/
   playlist: ({ item }) => (
     <Link
       to={`/playlist/music/${item.id}`}

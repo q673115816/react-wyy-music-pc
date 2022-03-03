@@ -11,7 +11,7 @@ import {
 import { audioSelector, setAudioSrc } from "@/modules/reducers/audio/slice";
 const Left = () => {
   const dispatch = useAppDispatch();
-  const { currentSong } = useAppSelector(audioSelector);
+  const { currentSong, playlist } = useAppSelector(audioSelector);
   const { lyricVisibility } = useAppSelector(({ lrc }) => lrc);
   const [songUrlGet, {}] = useGetSongUrlMutation();
   const [LyricGet, {}] = useGetLyricMutation();
@@ -44,7 +44,7 @@ const Left = () => {
     handleGetUrl();
   }, [currentSong]);
 
-  // if (playlist.length === 0) return null;
+  if (playlist.length === 0) return <div className={`flex-1`} />;
   if (!currentSong) return null;
   return (
     <div className="flex p-2.5 flex-1">
