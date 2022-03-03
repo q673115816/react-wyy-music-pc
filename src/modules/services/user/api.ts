@@ -5,6 +5,7 @@ import {
   Details,
   ReqUpdate,
   Accounts,
+  SignInProgress,
 } from "./types";
 import { base } from "../base";
 
@@ -22,6 +23,15 @@ export const api = base.injectEndpoints({
         url: `daily_signin`,
         method: "POST",
       }),
+      invalidatesTags: [{ type: "dailySignIn" }],
+    }),
+    getSignInProgress: build.query<SignInProgress, { moduleId?: string }>({
+      query: (body) => ({
+        url: `signin/progress`,
+        method: "POST",
+        body,
+      }),
+      providesTags: [{ type: "dailySignIn" }],
     }),
     getUserDetail: build.query<Details, { uid: string }>({
       query: (body) => ({
@@ -103,6 +113,7 @@ export const {
   useGetUserAccountQuery,
   usePostUserUpdateMutation,
   useGetUserEventMutation,
+  useGetSignInProgressQuery,
   useGetUserSubCountQuery,
   useGetUserBindingQuery,
   useGetUserPlaylistQuery,

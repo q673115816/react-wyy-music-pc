@@ -82,3 +82,12 @@ export interface ReqUpdate {
   city: number;
   signature: string;
 }
+
+export interface SignInProgress extends ResWithCode {
+  message: string;
+  data: {
+    today: {
+      todaySignedIn: boolean;
+    };
+  };
+}

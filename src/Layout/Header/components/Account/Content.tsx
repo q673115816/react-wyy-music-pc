@@ -1,13 +1,9 @@
 import React, { FC, memo, useEffect } from "react";
-import {
-  useGetDailySignInMutation,
-  useGetUserDetailQuery,
-} from "@/modules/services/user";
+import { useGetUserDetailQuery } from "@/modules/services/user";
 import { Link } from "react-router-dom";
 import {
   IconBrandVimeo,
   IconCircleSquare,
-  IconCoin,
   IconLogout,
   IconMedal,
   IconShoppingCart,
@@ -19,6 +15,7 @@ import { useAppDispatch } from "@/modules/hooks";
 import { Remove } from "@/modules/utils";
 import { useGetLogoutMutation } from "@/modules/services/account";
 import useToast from "@/hooks/useToast";
+import SignIn from "./SignIn";
 
 interface iProps {
   uid: string;
@@ -29,7 +26,6 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
   const toast = useToast();
   const { data, isLoading } = useGetUserDetailQuery({ uid });
   const [logoutGet] = useGetLogoutMutation();
-  const [dailySignInGet] = useGetDailySignInMutation();
   const dispatch = useAppDispatch();
   const profile = data?.profile || {};
   const handleLogout = async () => {
@@ -41,14 +37,6 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
       }
       Remove({ key: "cookie" });
       window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleCheckIn = async () => {
-    try {
-      const {} = await dailySignInGet();
     } catch (error) {
       console.log(error);
     }
@@ -90,14 +78,7 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
           </Link>
         </div>
         <div className="flex-center">
-          <button
-            type="button"
-            className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full text-sm"
-            onClick={handleCheckIn}
-          >
-            <IconCoin size={16} stroke={1} />
-            &nbsp; 签到
-          </button>
+          <SignIn />
         </div>
       </li>
       <li className="py-1.5">
