@@ -1,15 +1,14 @@
 import React, { memo } from "react";
 import { IconFolderPlus, IconCloudDownload, IconShare } from "@tabler/icons";
-import DomHeart from "@/components/Table/Heart";
+import Heart from "@/components/Table/Heart";
 import classNames from "classnames";
 import { useAppSelector } from "@/modules/hooks";
 
-export default memo(() => {
-  const { currentSong } = useAppSelector(({ audio }) => audio);
-  const { running } = useAppSelector(({ audio }) => audio);
+const Left = () => {
+  const { currentSong, running } = useAppSelector(({ audio }) => audio);
 
   return (
-    <div className="left">
+    <div>
       <div className="relative">
         <div
           id="stylus"
@@ -48,8 +47,8 @@ export default memo(() => {
         </div>
       </div>
       <div className="flex mt-4 justify-between">
-        <DomHeart
-          stroke="2"
+        <Heart
+          stroke={2}
           id={currentSong.id}
           size={24}
           className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200"
@@ -75,4 +74,6 @@ export default memo(() => {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Left);

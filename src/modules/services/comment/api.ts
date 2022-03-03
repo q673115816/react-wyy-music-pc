@@ -10,6 +10,16 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getCommentMusic: build.query<
+      ResCommentVideo,
+      { id: number; limit: number; offset: number }
+    >({
+      query: (body) => ({
+        url: `comment/music`,
+        method: "POST",
+        body,
+      }),
+    }),
     getCommentMV: build.query<ResCommentMV, { id: string }>({
       query: (body) => ({
         url: `comment/mv`,
@@ -29,6 +39,7 @@ export const api = base.injectEndpoints({
 
 export const {
   useGetCommentVideoQuery,
+  useGetCommentMusicQuery,
   useGetCommentMVQuery,
   useGetCommentEventQuery,
 } = api;
