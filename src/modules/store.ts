@@ -27,7 +27,7 @@ const persistConfig = {
   timeout: 2000, // 缓解卡顿
   whitelist: ["setting", "inset", "audio", "search", "volume"],
   // blackList: ["mask", base.reducerPath],
-  stateReconciler: hardSet,
+  // stateReconciler: hardSet,
 };
 
 const preloadedState = {};

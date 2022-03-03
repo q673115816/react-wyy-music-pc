@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from "react";
+import React, { FC, memo } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import {
@@ -12,7 +12,6 @@ import { transTextEmoji } from "@/common/faces";
 import Song from "./Song";
 import Pics from "./Pics";
 import Resource from "./Resource";
-import "./style.scss";
 import Popup from "@/components/Event/Popup";
 
 const types = {
