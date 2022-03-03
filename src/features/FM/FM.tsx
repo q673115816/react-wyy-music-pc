@@ -1,23 +1,16 @@
 import React, { memo, useEffect, useState } from "react";
-import { apiPersonalfm, apiCommentMusic } from "@/api";
-import CommentsList from "@/components/Comments/CommentsList";
 import Loading from "@/components/Loading";
-import { Link } from "react-router-dom";
+import Content from "./Content";
+import { useGetPersonalFMMutation } from "@/modules/services/song";
 
 const FM = () => {
   console.log("fm");
-  const [data, setData] = useState([]);
-  const [comments, setComment] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([{}]);
+  const [PersonalFMGet, { isLoading }] = useGetPersonalFMMutation();
   const handleInit = async () => {
     try {
-      const { data } = await apiPersonalfm();
-      const comments = await apiCommentMusic({
-        id: data[0].id,
-      });
-      setData(data);
-      setComment(comments);
-      setLoading(false);
+      const data = await PersonalFMGet();
+      setData(data.data.data);
     } catch (error) {
       console.log(error);
     }
@@ -25,7 +18,7 @@ const FM = () => {
   useEffect(() => {
     handleInit();
   }, []);
-  if (loading)
+  if (isLoading)
     return (
       <div className="flex-center w-full h-full">
         <Loading />
@@ -45,22 +38,7 @@ const FM = () => {
             <div style={{ height: 370 }} />
           </div>
         </div>
-        <div className="domFm_main">
-          <div>
-            <Link
-              to={`/comment/song/${data[0].id}`}
-              className="font-bold text-base"
-            >
-              评论
-            </Link>
-            <span className="text-gray-500">
-              (已有
-              {comments.total}
-              条评论)
-            </span>
-          </div>
-          <CommentsList comments={comments} more={data[0].id} type="song" />
-        </div>
+        <Content id={data[0].id} />
       </div>
     </div>
   );

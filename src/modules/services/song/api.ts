@@ -24,6 +24,9 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getPersonalFM: build.mutation<Lyrics, void>({
+      query: () => `personal_fm`,
+    }),
   }),
 });
 
@@ -31,4 +34,5 @@ export const {
   useGetSongUrlMutation,
   useGetLyricMutation,
   useGetSongDetailMutation,
+  useGetPersonalFMMutation,
 } = api;
