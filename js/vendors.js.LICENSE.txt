@@ -3,3 +3,48 @@
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
+
+/*!
+ * JS File Downloader v 1.1.24
+ * https://github.com/AleeeKoi/js-file-downloader
+ *
+ * Copyright Alessandro Pellizzari
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ */
+
+/*! ./exception */
+
+/*! ./signatures */
+
+/*! @babel/runtime/regenerator */
+
+/*! exports provided: DownloadException, downloadException */
+
+/*! exports provided: default */
+
+/*! exports provided: fileSignatures */
+
+/*! no static exports found */
+
+/*! regenerator-runtime */
+
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
+
+/*!**************************!*\
+  !*** ./src/exception.js ***!
+  \**************************/
+
+/*!***************************!*\
+  !*** ./src/signatures.js ***!
+  \***************************/
+
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
