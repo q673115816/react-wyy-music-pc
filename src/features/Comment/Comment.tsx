@@ -11,9 +11,9 @@ import {
 } from "@/api";
 import { commentLimit as limit } from "@/common/config";
 import Write from "@/components/Write";
-import DomCommentsList from "@/components/Comments/CommentsList";
-import DomLoading from "@/components/Loading";
-import DomPage from "@/components/Page";
+import CommentsList from "@/components/Comments/CommentsList";
+import Loading from "@/components/Loading";
+import Page from "@/components/Page";
 
 const SongHeader = ({ detail }) => (
   <div className="domComment_header">
@@ -30,7 +30,12 @@ const SongHeader = ({ detail }) => (
         </div>
       </div>
       <div className="content px-6 py-2">
-        <div className="title text-lg">{detail.name}</div>
+        <div className="title text-lg">
+          {detail.name}
+          <span className={"text-gray-500"}>
+            {detail.alia.length > 0 && `(${detail.alia})`}
+          </span>
+        </div>
         <div className="info text-gray-500 mt-2 space-x-5">
           <span>
             专辑：
@@ -130,7 +135,7 @@ export default memo(function Comment() {
   if (loading)
     return (
       <div className="w-full h-full flex-center">
-        <DomLoading />
+        <Loading />
       </div>
     );
   return (
@@ -159,8 +164,8 @@ export default memo(function Comment() {
         </div>
       </div>
       <div className="domComment_main mt-8">
-        <DomCommentsList comments={comments} more={id} type={type} />
-        <DomPage
+        <CommentsList comments={comments} more={id} type={type} />
+        <Page
           total={Math.ceil(comments.total / limit)}
           page={page}
           func={setPage}

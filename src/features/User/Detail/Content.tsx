@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Loading from "@/components/Loading";
 import classNames from "classnames";
 import { navs, layouts, layoutsBtn } from "./config";
+import Rank from "./components/Rank";
 
 const Content = () => {
   const { uid } = useParams();
@@ -56,7 +57,11 @@ const Content = () => {
           ))}
         </div>
       </div>
-      {current === navs[0] && <Layout list={ownPlaylist} />}
+      {current === navs[0] && (
+        <Layout list={ownPlaylist}>
+          <Rank />
+        </Layout>
+      )}
       {current === navs[1] && <Layout list={savePlaylist} />}
     </div>
   );

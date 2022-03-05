@@ -91,3 +91,5 @@ export interface SignInProgress extends ResWithCode {
     };
   };
 }
+
+export interface Records extends ResWithCode {}

@@ -5,8 +5,12 @@ interface iProps {
   list: [];
 }
 
-const Layout: FC<iProps> = ({ list = [], layout = "Grid" }) => {
-  return <div className="pb-10">{createElement(Mains[layout], { list })}</div>;
+const Layout: FC<iProps> = ({ list = [], layout = "Grid", children }) => {
+  return (
+    <div className="pb-10">
+      {createElement(Mains[layout], { list, children })}
+    </div>
+  );
 };
 
 export default memo(Layout);

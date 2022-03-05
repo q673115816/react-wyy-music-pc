@@ -80,7 +80,7 @@ const Pics: FC<iProps> = ({
               left: 0,
               top: 0,
               bottom: 0,
-              width: "1.5rem",
+              width: "3rem",
               cursor: "left",
             }}
             onClick={() => setActive((prev) => (prev > 0 ? prev - 1 : 0))}
@@ -126,7 +126,10 @@ const Pics: FC<iProps> = ({
             <img
               loading={`lazy`}
               src={pic.originUrl}
-              className="w-full object-cover h-full aspect-square"
+              className={"w-full object-cover h-full"}
+              style={{
+                aspectRatio: length > 1 ? "1 / 1" : undefined,
+              }}
               alt=""
             />
             {pic.width / pic.height < 0.75 && (

@@ -6,6 +6,7 @@ import {
   ReqUpdate,
   Accounts,
   SignInProgress,
+  Records,
 } from "./types";
 import { base } from "../base";
 
@@ -83,6 +84,13 @@ export const api = base.injectEndpoints({
         body,
       }),
     }),
+    getUserRecord: build.query<Records, { uid: number; type: number }>({
+      query: (body) => ({
+        url: `user/record`,
+        method: "POST",
+        body,
+      }),
+    }),
     getUserFolloweds: build.query<Followeds, { uid: string }>({
       query: (body) => ({
         url: `user/followeds`,
@@ -116,6 +124,7 @@ export const {
   useGetSignInProgressQuery,
   useGetUserSubCountQuery,
   useGetUserBindingQuery,
+  useGetUserRecordQuery,
   useGetUserPlaylistQuery,
   useGetUserFollowedsQuery,
 
