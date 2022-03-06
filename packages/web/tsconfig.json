@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "jsx": "react",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "paths": {
+      "@/*":["./*"],
+      "@img/*": ["./assets/images/*"]
+    }
+  }
+}

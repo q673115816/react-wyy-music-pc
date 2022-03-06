@@ -28,6 +28,10 @@
     "react-dom": "*"
   },
   "devDependencies": {
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "typescript": "*",
+    "prettier": "*"
   },
   "engines": {
     "node": ">=10",

@@ -1,14 +1,6 @@
-import React, {
-  CSSProperties,
-  FC,
-  memo,
-  StyleHTMLAttributes,
-  useMemo,
-  useState,
-} from "react";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
+import React, { CSSProperties, FC, memo, useState } from "react";
 import JsFileDownLoader from "js-file-downloader";
-
+import Cur from "./Cur";
 interface iProps {
   item: [];
   gap: string | number;
@@ -58,8 +50,20 @@ const Pics: FC<iProps> = ({
   };
   if (active >= 0) {
     return (
-      <div className="bg-gray-100 rounded overflow-hidden">
-        <div className={`flex gap-4 p-2`}>
+      <div
+        style={{
+          backgroundColor: "rgb(243, 244, 246)",
+          borderRadius: 4,
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            gap: "1rem",
+            padding: "0.5rem",
+          }}
+        >
           <button type={"button"} onClick={() => setActive(-1)}>
             收起
           </button>
@@ -71,43 +75,61 @@ const Pics: FC<iProps> = ({
             下载
           </button>
         </div>
-        <div className={`mx-10 my-6 relative min-w-min flex-center`}>
+        <div
+          style={{
+            position: "relative",
+            margin: `2rem auto`,
+            minWidth: 450,
+            width: "min-content",
+          }}
+        >
           <button
-            hidden={active === 0}
             type={`button`}
             style={{
               position: "absolute",
               left: 0,
               top: 0,
               bottom: 0,
-              width: "3rem",
-              cursor: "left",
+              width: 100,
+              display: active === 0 ? "none" : "flex",
+              flexDirection: "column",
+              justifyContent: "center",
             }}
             onClick={() => setActive((prev) => (prev > 0 ? prev - 1 : 0))}
           >
-            <IconChevronLeft />
+            <Cur.Left />
           </button>
           <img
             onClick={() => setActive(-1)}
             src={item[active].originUrl}
-            style={{ cursor: "zoom-out", minWidth: "5rem", minHeight: "5rem" }}
+            style={{
+              margin: "auto",
+              display: "block",
+              cursor: "zoom-out",
+              minWidth: "5rem",
+              minHeight: "5rem",
+              maxWidth: 450,
+            }}
             alt=""
           />
           <button
-            hidden={active === length - 1}
             type={`button`}
             style={{
               position: "absolute",
               right: 0,
               top: 0,
               bottom: 0,
-              width: "1.5rem",
+              width: 100,
+              display: active === length - 1 ? "none" : "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "flex-end",
             }}
             onClick={() =>
               setActive((prev) => (prev < length - 1 ? prev + 1 : length - 1))
             }
           >
-            <IconChevronRight />
+            <Cur.Right />
           </button>
         </div>
       </div>
@@ -118,9 +140,14 @@ const Pics: FC<iProps> = ({
       <div style={css} className={className}>
         {item.map((pic, index) => (
           <div
-            style={{ gridColumn: getGridColumn(length, index) }}
+            style={{
+              gridColumn: getGridColumn(length, index),
+              position: "relative",
+              overflow: "hidden",
+              cursor: "zoom-in",
+              borderRadius: "1rem",
+            }}
             key={pic.originUrl}
-            className="relative rounded-lg overflow-hidden cursor-zoom-in"
             onClick={() => setActive(index)}
           >
             <img
