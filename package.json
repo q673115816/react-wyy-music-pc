@@ -21,13 +21,15 @@
     "clean": "pnpm -r exec rm -rf node_modules",
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",
     "web:build": "pnpm -r run build --filter @wyy/web",
-    "web:start": "pnpm -r run start --filter @wyy/web"
+    "web:start": "pnpm -r run start --filter @wyy/web",
+    "dev:web": "concurrently --kill-others \"pnpm run start -C packages/web\" \"pnpm run watch -C packages/ui\" \"pnpm run watch -C packages/utils\""
   },
   "dependencies": {
     "react": "*",
     "react-dom": "*"
   },
   "devDependencies": {
+    "concurrently": "7.0.0",
     "@types/react": "*",
     "@types/react-dom": "*",
     "typescript": "*",

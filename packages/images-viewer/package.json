@@ -1,0 +1,29 @@
+{
+  "name": "@wyy/images-viewer",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "esm/index.js",
+  "sideEffects": false,
+  "license": "",
+  "files": [
+    "lib/",
+    "esm/",
+    "umd/"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "watch": "tsc -w",
+    "build:cjs": "tsc",
+    "build:es": "tsc -m esNext --outDir esm",
+    "build:umd": "tsc -m umd --outDir umd",
+    "build": "yarn build:cjs && yarn build:es && yarn build:es"
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*"
+  }
+}

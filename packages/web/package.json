@@ -59,6 +59,7 @@
 		"use-immer": "*",
 		"web-vitals": "*",
 		"webrtc-adapter": "*",
+    "@wyy/images-viewer": "workspace:*",
 		"workbox-cacheable-response": "^6.5.1",
 		"workbox-expiration": "^6.5.1",
 		"workbox-routing": "^6.5.1",
