@@ -3,13 +3,14 @@
   "version": "0.0.1",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "module": "esm/index.js",
+  "module": "dist/pics-viewer.esm.js",
   "sideEffects": false,
   "license": "",
   "files": [
     "lib/",
     "esm/",
-    "umd/"
+    "umd/",
+    "dist/"
   ],
   "scripts": {
     "clean": "rimraf lib esm dist",

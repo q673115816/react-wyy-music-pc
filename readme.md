@@ -13,5 +13,6 @@
 * [ ] FM
 * [ ] 专辑
 * [ ] 电台
+* [ ] 随机播放
 * [ ] 图片预览
 * [ ] 解锁变灰歌曲 <https://github.com/UnblockNeteaseMusic/server>

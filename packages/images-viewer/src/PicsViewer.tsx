@@ -64,6 +64,7 @@ const PicsViewer: FC<iProps> = ({
           backgroundColor: "rgb(243, 244, 246)",
           borderRadius: 4,
           overflow: "hidden",
+          paddingBottom: "1rem",
         }}
       >
         <div
@@ -140,6 +141,28 @@ const PicsViewer: FC<iProps> = ({
           >
             <Cur.Right />
           </button>
+        </div>
+        <div
+          style={{
+            width: "min-content",
+            margin: "auto",
+            display: "flex",
+            gap: "0.5rem",
+          }}
+        >
+          {srcList.map((_, index) => (
+            <div
+              onClick={() => setActive(index)}
+              key={index}
+              style={{
+                cursor: "pointer",
+                width: "0.5rem",
+                height: "0.5rem",
+                borderRadius: "50%",
+                backgroundColor: active === index ? "red" : "gray",
+              }}
+            />
+          ))}
         </div>
       </div>
     );
