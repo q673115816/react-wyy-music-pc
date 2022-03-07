@@ -23,6 +23,7 @@ const cols: { [key: number]: string } = {
 };
 
 const getGridColumn = (length: number, index: number): string => {
+  if (length < 4) return cols[length];
   const half = length >> 1;
   const col: number = half + (length % 2 === 1 ? (index >= half ? 1 : 0) : 0);
   return cols[col];
