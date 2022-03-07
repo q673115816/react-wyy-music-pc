@@ -10,7 +10,7 @@ import {
 } from "@tabler/icons";
 import { transTextEmoji } from "@/common/faces";
 import Song from "./Song";
-import PicsViewer from "@673115816/pics-viewer";
+import PicsViewer from "@q673115816/pics-viewer";
 import Resource from "./Resource";
 import Popup from "@/components/Event/Popup";
 
