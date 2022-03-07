@@ -10,7 +10,7 @@ import {
 } from "@tabler/icons";
 import { transTextEmoji } from "@/common/faces";
 import Song from "./Song";
-import Pics from "./Pics";
+import PicsViewer from "@673115816/pics-viewer";
 import Resource from "./Resource";
 import Popup from "@/components/Event/Popup";
 
@@ -85,7 +85,7 @@ const Event: FC<iProps> = ({
           </div>
           <Resource item={json.resource} />
           <Song item={json.song} />
-          <Pics className={`mt-2.5`} item={item.pics} />
+          <PicsViewer className={`mt-2.5`} srcList={item.pics} />
           <div className="info flex mt-2.5">
             <div className="left text-gray-400">
               {item?.rcmdInfo?.reason && `--${item.rcmdInfo.reason}`}

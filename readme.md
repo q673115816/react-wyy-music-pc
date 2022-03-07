@@ -8,8 +8,10 @@
 部分内容需要登录查看
 
 ---
+* [x] pnpm menorepo 拆分组件
 * [ ] 关注用户需要账号验证
 * [ ] FM
 * [ ] 专辑
 * [ ] 电台
 * [ ] 图片预览
+* [ ] 解锁变灰歌曲 <https://github.com/UnblockNeteaseMusic/server>

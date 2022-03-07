@@ -1,14 +1,21 @@
 import React, { CSSProperties, FC, memo, useState } from "react";
 import JsFileDownLoader from "js-file-downloader";
 import Cur from "./Cur";
+
+interface SrcObject {
+  originUrl: string;
+  width: number;
+  height: number;
+}
+
 interface iProps {
-  item: [];
+  srcList: SrcObject[];
   gap: string | number;
   width: string | number;
   className?: string;
 }
 
-const cols = {
+const cols: { [key: number]: string } = {
   1: `span 12 / span 12`,
   2: `span 6 / span 6`,
   3: `span 4 / span 4`,
@@ -17,17 +24,18 @@ const cols = {
 
 const getGridColumn = (length: number, index: number): string => {
   const half = length >> 1;
-  return cols[half + (length % 2 === 1 ? (index >= half ? 1 : 0) : 0)];
+  const col: number = half + (length % 2 === 1 ? (index >= half ? 1 : 0) : 0);
+  return cols[col];
 };
 
-const Pics: FC<iProps> = ({
-  item,
+const PicsViewer: FC<iProps> = ({
+  srcList,
   gap = "0.25rem",
   width = 370,
   className = "",
 }) => {
-  if (!item) return null;
-  const { length } = item;
+  if (!srcList) return null;
+  const { length } = srcList;
   const [active, setActive] = useState(-1);
   gap = formatUnit(gap);
   width = formatUnit(width);
@@ -70,7 +78,7 @@ const Pics: FC<iProps> = ({
           <button type={"button"}>查看大图</button>
           <button
             type={"button"}
-            onClick={() => download(item[active].originUrl)}
+            onClick={() => download(srcList[active].originUrl)}
           >
             下载
           </button>
@@ -101,7 +109,7 @@ const Pics: FC<iProps> = ({
           </button>
           <img
             onClick={() => setActive(-1)}
-            src={item[active].originUrl}
+            src={srcList[active].originUrl}
             style={{
               margin: "auto",
               display: "block",
@@ -138,7 +146,7 @@ const Pics: FC<iProps> = ({
   return (
     <div>
       <div style={css} className={className}>
-        {item.map((pic, index) => (
+        {srcList.map((pic, index) => (
           <div
             style={{
               gridColumn: getGridColumn(length, index),
@@ -159,7 +167,7 @@ const Pics: FC<iProps> = ({
               }}
               alt=""
             />
-            {pic.width / pic.height < 0.75 && (
+            {pic.width && pic.height && pic.width / pic.height < 0.75 && (
               <div className="absolute bottom-0 right-0 mx-1 my-2 border leading-tight bg-black bg-opacity-20 text-white border-current px-1 rounded-full">
                 长图
               </div>
@@ -176,4 +184,4 @@ const formatUnit = (val: string | number): string => {
   return val;
 };
 
-export default memo(Pics);
+export default memo(PicsViewer);

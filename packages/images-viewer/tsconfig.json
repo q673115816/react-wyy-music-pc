@@ -1,12 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "umd",
-    "target": "es5",
+    "baseUrl": "./",
+    "rootDir": "./src",
+    "module": "esnext",
+//    "target": "es5",
     "sourceMap": true,
 //    "esModuleInterop": true,
-    "jsx": "react",
-    "outDir": "./dist"
+    "jsx": "react"
+//    "outDir": "./dist"
   },
   "exclude": [
     "node_modules"

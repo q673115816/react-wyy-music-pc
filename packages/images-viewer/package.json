@@ -1,7 +1,8 @@
 {
-  "name": "@wyy/images-viewer",
+  "name": "@673115816/pics-viewer",
   "version": "0.0.1",
   "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "module": "esm/index.js",
   "sideEffects": false,
   "license": "",
@@ -11,14 +12,18 @@
     "umd/"
   ],
   "scripts": {
-    "clean": "rm -rf dist",
-    "watch": "tsc -w",
-    "build:cjs": "tsc",
-    "build:es": "tsc -m esNext --outDir esm",
-    "build:umd": "tsc -m umd --outDir umd",
-    "build": "yarn build:cjs && yarn build:es && yarn build:es"
+    "clean": "rimraf lib esm dist",
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "release": "np"
   },
-  "dependencies": {
+  "devDependencies": {
+    "tslib": "^2.3.1",
+    "tsdx": "^0.14.1",
+    "js-file-downloader": "^1.1.24",
+    "np": "*"
   },
   "peerDependencies": {
     "react": "*",

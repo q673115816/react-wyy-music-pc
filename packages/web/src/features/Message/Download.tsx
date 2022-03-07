@@ -1,6 +1,5 @@
 import React, { useState, memo, useCallback } from "react";
 import classNames from "classnames";
-import ImagesViewer from "@wyy/images-viewer";
 
 const nav = ["已下载单曲", "已下载电台节目", "已下载MV", "正在下载"];
 
@@ -28,8 +27,6 @@ export default memo(function Download() {
             </button>
           ))}
         </div>
-        <div>hello world</div>
-        {/*<ImagesViewer />*/}
         <div className="domManage_list overflow-auto max-h-full flex-auto" />
         {visibility && (
           <div className="domManage_dialog">
