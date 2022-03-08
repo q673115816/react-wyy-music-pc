@@ -29,12 +29,13 @@
     "react-dom": "*"
   },
   "devDependencies": {
-    "concurrently": "7.0.0",
-    "regenerator-runtime": "^0.13.9",
     "@types/react": "*",
     "@types/react-dom": "*",
-    "typescript": "*",
-    "prettier": "*"
+    "concurrently": "7.0.0",
+    "prettier": "*",
+    "regenerator-runtime": "^0.13.9",
+    "rimraf": "^3.0.2",
+    "typescript": "*"
   },
   "engines": {
     "node": ">=10",

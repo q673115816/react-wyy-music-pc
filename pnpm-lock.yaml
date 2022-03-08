@@ -11,6 +11,7 @@ importers:
       react: '*'
       react-dom: '*'
       regenerator-runtime: ^0.13.9
+      rimraf: ^3.0.2
       typescript: '*'
     dependencies:
       react: registry.npmmirror.com/react/17.0.2
@@ -21,6 +22,7 @@ importers:
       concurrently: 7.0.0
       prettier: 2.5.1
       regenerator-runtime: registry.npmmirror.com/regenerator-runtime/0.13.9
+      rimraf: 3.0.2
       typescript: 4.6.2
 
   packages/pics-viewer:
