@@ -1,6 +1,6 @@
 {
   "name": "@q673115816/pics-viewer",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/pics-viewer.esm.js",
