@@ -22,20 +22,14 @@ const Detail: FC<iProps & Active> = ({ srcList, value, control }) => {
     });
     return result;
   };
+  const handleDetail = (value: number) => {};
 
   return (
     <DetailContainer>
       <DetailBar>
-        <Button type={"button"} onClick={() => control.reset()}>
-          收起
-        </Button>
-        <Button type={"button"}>查看大图</Button>
-        <Button
-          type={"button"}
-          onClick={() => download(srcList[value].originUrl)}
-        >
-          下载
-        </Button>
+        <Button onClick={() => control.reset()}>收起</Button>
+        <Button onClick={() => handleDetail(value)}>查看大图</Button>
+        <Button onClick={() => download(srcList[value].originUrl)}>下载</Button>
       </DetailBar>
       <DetailInner>
         <Arrow dir="left" hidden={value === 0} onClick={() => control.dec()}>

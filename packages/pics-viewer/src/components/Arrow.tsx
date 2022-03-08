@@ -5,7 +5,8 @@ interface ArrowProps {
   readonly hidden: boolean;
 }
 
-const Arrow = styled.button<ArrowProps>`
+const Arrow = styled.div<ArrowProps>`
+  cursor: pointer;
   position: absolute;
   top: 0;
   bottom: 0;

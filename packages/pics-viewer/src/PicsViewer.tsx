@@ -5,22 +5,22 @@ import Grid from "./Grid";
 import { useCounter } from "react-use";
 
 const PicsViewer: FC<iProps> = ({
-  srcList,
+  srcList = [],
   gap = "0.25rem",
   width = 370,
   className = "",
 }) => {
-  if (!srcList) return null;
-  const { length } = srcList;
+  const _srcList = srcList.slice(0, 9);
+  const { length } = _srcList;
   const [value, control] = useCounter(-1, length - 1, -1);
   gap = formatUnit(gap);
   width = formatUnit(width);
 
   if (value >= 0)
-    return <Detail srcList={srcList} value={value} control={control} />;
+    return <Detail srcList={_srcList} value={value} control={control} />;
   return (
     <Grid
-      srcList={srcList}
+      srcList={_srcList}
       value={value}
       control={control}
       className={className}
