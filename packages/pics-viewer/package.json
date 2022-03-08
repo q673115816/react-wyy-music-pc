@@ -1,6 +1,6 @@
 {
   "name": "@q673115816/pics-viewer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/pics-viewer.esm.js",
@@ -19,7 +19,7 @@
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "release": "np"
+    "release": "npm run clean && npm run build && np"
   },
   "devDependencies": {
     "js-file-downloader": "^1.1.24",
