@@ -24,7 +24,7 @@
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "release": "npm run clean && npm run build && np"
+    "release": "npm run clean && npm run build && np --yolo"
   },
   "dependencies": {
     "js-file-downloader": "^1.1.24",
