@@ -1,15 +1,17 @@
 # 用react实现网易云图片浏览插件
-
+##### image viewer component built with React.
 [示例](https://neteasecloudmusic.fun/user/46636813/dynamic)
 
 ---
 
-install
+### Installation
+**npm**
 <pre>npm i <a href="https://www.npmjs.com/package/@q673115816/pics-viewer">@q673115816/pics-viewer</a></pre>
 
-use
+### Example
 
-<pre>
+```js
+import React from "react";
 import PicsViewer from "@q673115816/pics-viewer"
 
 const srcList = [
@@ -20,5 +22,9 @@ const srcList = [
   }
 ]
 
-<PicsViewer srcList={srcList}></PicsViewer>
-</pre>
+const App = () => {
+  return (
+    <PicsViewer srcList={srcList} />
+  )
+}
+```
