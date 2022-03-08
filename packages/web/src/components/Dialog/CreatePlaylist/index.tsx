@@ -1,13 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import { apiPlaylistCreate } from "@/api";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
 import DomCheckbox from "@/components/Checkbox";
 import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
+import { useAppSelector } from "@/modules/hooks";
 
-export default () => {
-  const { dialogCreatePlaylistVisibility } = useSelector(({ mask }) => mask);
+const CreatePlayList = () => {
+  const { dialogCreatePlaylistVisibility } = useAppSelector(({ mask }) => mask);
   const [name, setName] = useState("");
   const privacy = useRef();
   const handleSubmit = async (e) => {
@@ -58,3 +58,5 @@ export default () => {
     </HOCDialog>
   );
 };
+
+export default memo(CreatePlayList);

@@ -8,9 +8,9 @@
 **npm**
 <pre>npm i <a href="https://www.npmjs.com/package/@q673115816/pics-viewer">@q673115816/pics-viewer</a></pre>
 
-### Example
+### [Example](https://codesandbox.io/s/pics-viewer-demo-bv1ynq)
 
-```js
+```jsx
 import React from "react";
 import PicsViewer from "@q673115816/pics-viewer"
 
@@ -27,4 +27,17 @@ const App = () => {
     <PicsViewer srcList={srcList} />
   )
 }
+```
+
+### Props
+```typescript
+interface PicsViewer {
+  srcList: {
+    width: number | string;
+    height: number | string;
+    originUrl: string;
+  }[];
+  className: string;
+}
+
 ```

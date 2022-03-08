@@ -2,53 +2,6 @@
   padding-bottom: 30px;
   display: flex;
   flex-direction: column;
-  &_header {
-    &_total {
-      color: #999;
-      font-size: 16px;
-      margin-left: 20px;
-    }
-    &_selectFolder {
-      margin-left: auto;
-      color: #50A5D9;
-    }
-  }
-
-  &_main {
-    padding: 0 30px;
-  }
-
-  &_nav {
-    // margin-top: 20px;
-    font-size: 14px;
-   &_link {
-     position: relative;
-    margin-right: 1em;
-
-   }
-  }
-  &_noFolder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 100px;
-    &_title {
-      font-size: 24px;
-      font-weight: bold;
-    }
-    &_tips {
-      font-size: 20px;
-      margin-top: 1em;
-    }
-    &_button {
-      padding: 0.5em 1em;
-      border-radius: 1000px;
-      color: #fff;
-      font-size: 16px;
-      margin-top: 1em;
-      background-color: #f00;
-    }
-  }
 
   &_table {
     width: 100%;
@@ -78,35 +31,5 @@
         }
       }
     }
-  }
-
-  &_dialog {
-    background-color: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 16px;
-    width: 470px;
-    height: 300px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 36px;
-      color: #999;
-    }
-
-    .title {
-      font-size: 24px;
-      font-weight: bold;
-      padding-top: 16px;
-      padding-bottom: 16px;
-    }
-
-
   }
 }

@@ -1,12 +1,17 @@
 {
   "name": "@q673115816/pics-viewer",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/pics-viewer.esm.js",
   "author": "q673115816",
   "sideEffects": false,
   "license": "",
+  "keywords": [
+    "typescript",
+    "react",
+    "image viewer"
+  ],
   "files": [
     "lib/",
     "esm/",
@@ -21,8 +26,13 @@
     "lint": "tsdx lint",
     "release": "npm run clean && npm run build && np"
   },
-  "devDependencies": {
+  "dependencies": {
     "js-file-downloader": "^1.1.24",
+    "react-use": "*",
+    "styled-components": "^5.3.3"
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.24",
     "np": "*",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1"

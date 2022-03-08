@@ -22,7 +22,7 @@
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",
     "web:build": "pnpm -r run build --filter @wyy/web",
     "web:start": "pnpm -r run start --filter @wyy/web",
-    "dev:web": "concurrently --kill-others \"pnpm run start -C packages/web\" \"pnpm run start -C packages/images-viewer\""
+    "dev:web": "concurrently --kill-others \"pnpm run start -C packages/web\" \"pnpm run start -C packages/pics-viewer\""
   },
   "dependencies": {
     "react": "*",

@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { navs } from "./Config";
 const Message = () => {
   return (
-    <div>
+    <div className={`flex flex-col h-full`}>
       <div className="px-8 py-5 space-x-4 text-base">
         {navs.map(({ path, name }) => (
           <NavLink

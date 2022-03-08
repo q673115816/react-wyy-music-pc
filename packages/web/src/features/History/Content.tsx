@@ -35,7 +35,7 @@ const Content = () => {
             ]}
             type="song"
             item={item}
-            key={item.id}
+            key={item.name + item.id}
             tabIndex="2"
             className={classNames(
               "grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template",

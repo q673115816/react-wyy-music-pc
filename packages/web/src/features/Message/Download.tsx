@@ -1,71 +1,81 @@
 import React, { useState, memo, useCallback } from "react";
 import classNames from "classnames";
+import PicsViewer from "@q673115816/pics-viewer";
 
 const nav = ["已下载单曲", "已下载电台节目", "已下载MV", "正在下载"];
 
+const srcList = [
+  {
+    width: 600,
+    height: 600,
+    originUrl: "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/奥特之父.jpg",
+  },
+  {
+    width: 600,
+    height: 600,
+    originUrl: "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/佐菲.jpg",
+  },
+  {
+    width: 600,
+    height: 600,
+    originUrl: "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/奥特之母.jpg",
+  },
+  {
+    width: 600,
+    height: 600,
+    originUrl: "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/奥特曼.jpg",
+  },
+  {
+    width: 640,
+    height: 640,
+    originUrl:
+      "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/巴尔坦星人.jpg",
+  },
+  {
+    width: 600,
+    height: 600,
+    originUrl:
+      "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/杰克奥特曼.jpg",
+  },
+  {
+    width: 600,
+    height: 600,
+    originUrl:
+      "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/艾斯奥特曼.jpg",
+  },
+  {
+    width: 600,
+    height: 600,
+    originUrl:
+      "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/泰罗奥特曼.jpg",
+  },
+  {
+    width: 600,
+    height: 600,
+    originUrl:
+      "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/雷欧奥特曼.jpg",
+  },
+];
+
 export default memo(function Download() {
   console.log("download");
-  const [visibility, setVisibility] = useState(false);
   const [current, setCurrent] = useState("已下载单曲");
-  const handleToggleVisibility = useCallback(() => {
-    setVisibility(!visibility);
-  }, []);
   return (
-    <div className="domManage">
-      <div className="domManage_main">
-        <div className="domManage_nav">
-          {nav.map((item) => (
-            <button
-              onClick={() => setCurrent(item)}
-              key={item}
-              className={classNames("domManage_nav_link", {
-                on: item === current,
-              })}
-              type="button"
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-        <div className="domManage_list overflow-auto max-h-full flex-auto" />
-        {visibility && (
-          <div className="domManage_dialog">
-            <button
-              type="button"
-              className="close"
-              onClick={handleToggleVisibility}
-            >
-              ×
-            </button>
-            <div className="title">选择本地音乐文件夹</div>
-            <div className="tips">
-              将自动扫描您勾选的目录，文件增删实时同步。
-            </div>
-            <ul>
-              <li>
-                <span className="checkbox">
-                  <input type="text" />
-                  <i className="material-icons">checkbox</i>
-                </span>
-                暂时没法做
-              </li>
-            </ul>
-            <div className="actions">
-              <button
-                type="button"
-                className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full red"
-              >
-                确认
-              </button>
-              <button
-                type="button"
-                className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full"
-              >
-                添加文件
-              </button>
-            </div>
-          </div>
-        )}
+    <div className="domManage flex-1 h-0">
+      <div className="text-sm flex gap-4 px-8">
+        {nav.map((item) => (
+          <button
+            onClick={() => setCurrent(item)}
+            key={item}
+            className={classNames(item === current && "ui_underline font-bold")}
+            type="button"
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+      <div className="flex-1 px-8 overflow-auto">
+        <PicsViewer srcList={srcList} />
       </div>
     </div>
   );
