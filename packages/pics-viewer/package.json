@@ -32,5 +32,9 @@
     "react-dom": "*",
     "@types/react": "*",
     "@types/react-dom": "*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
   }
 }
