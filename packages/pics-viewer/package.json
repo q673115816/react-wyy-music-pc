@@ -1,13 +1,14 @@
 {
   "name": "@q673115816/pics-viewer",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "module": "dist/pics-viewer.esm.js",
   "author": "q673115816",
   "sideEffects": false,
   "license": "APGL",
-  "homepage": "https://neteasecloudmusic.fun",
+  "repository": "https://github.com/q673115816/react-wyy-music-pc/tree/master/packages/pics-viewer#readme",
+  "homepage": "https://github.com/q673115816/react-wyy-music-pc/tree/master/packages/pics-viewer",
   "bugs": {
     "url": "https://github.com/q673115816/react-wyy-music-pc/issues",
     "email": "673115816@qq.com"
