@@ -11,6 +11,7 @@ export interface iProps {
   gap?: string | number;
   width?: string | number;
   className?: string;
+  el?: string;
 }
 
 export interface Active {

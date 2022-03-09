@@ -8,8 +8,8 @@ const cols: { [key: number]: string } = {
 };
 
 const GridColumn = ({ length, index }: GridItemProps): string => {
-  if (length === 9) return cols[3];
-  if (length < 4) return cols[length];
+  if (length % 3 === 0) return cols[3];
+  if (length < 3) return cols[length];
   const half = length >> 1;
   const col: number = half + (length % 2 === 1 ? (index >= half ? 1 : 0) : 0);
   return cols[col];

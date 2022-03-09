@@ -9,15 +9,18 @@ const PicsViewer: FC<iProps> = ({
   gap = "0.25rem",
   width = 370,
   className = "",
+  el = "",
 }) => {
+  if (!srcList.length) return null;
   const _srcList = srcList.slice(0, 9);
   const { length } = _srcList;
   const [value, control] = useCounter(-1, length - 1, -1);
   gap = formatUnit(gap);
   width = formatUnit(width);
-
   if (value >= 0)
-    return <Detail srcList={_srcList} value={value} control={control} />;
+    return (
+      <Detail srcList={_srcList} value={value} control={control} el={el} />
+    );
   return (
     <Grid
       srcList={_srcList}

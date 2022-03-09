@@ -37,7 +37,7 @@ interface PicsViewer {
     height: number | string;
     originUrl: string;
   }[];
-  className: string;
+  className?: string;
 }
 
 ```

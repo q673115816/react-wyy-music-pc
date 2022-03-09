@@ -50,6 +50,7 @@ const Inset: FC<iInset> = ({ children }) => {
   return (
     <div className="App" style={themeStyle}>
       <div
+        id={`inset`}
         className="Wrap flex flex-col shadow-lg select-none"
         style={{
           ...sizeStyle,

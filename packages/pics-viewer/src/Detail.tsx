@@ -1,5 +1,4 @@
 import { Arrow } from "./components";
-import Cur from "./Cur";
 import React, { FC, memo } from "react";
 import JsFileDownLoader from "js-file-downloader";
 import { iProps, Active } from "./types";
@@ -12,8 +11,13 @@ import {
   DetailContainer,
   Controls,
 } from "./components";
+import { createPortal } from "react-dom";
+import View from "./View";
+import { useCounter } from "react-use";
 
-const Detail: FC<iProps & Active> = ({ srcList, value, control }) => {
+const Detail: FC<iProps & Active> = ({ srcList, value, control, el = "" }) => {
+  const [detail, detailControl] = useCounter(-1, srcList.length, -1);
+  const root = (el && document.querySelector(el)) || document.body;
   const download = async (url: string) => {
     const result = await new JsFileDownLoader({
       url,
@@ -22,27 +26,22 @@ const Detail: FC<iProps & Active> = ({ srcList, value, control }) => {
     });
     return result;
   };
-  const handleDetail = (value: number) => {};
 
   return (
     <DetailContainer>
       <DetailBar>
         <Button onClick={() => control.reset()}>收起</Button>
-        <Button onClick={() => handleDetail(value)}>查看大图</Button>
+        <Button onClick={() => detailControl.set(value)}>查看大图</Button>
         <Button onClick={() => download(srcList[value].originUrl)}>下载</Button>
       </DetailBar>
       <DetailInner>
-        <Arrow dir="left" hidden={value === 0} onClick={() => control.dec()}>
-          <Cur.Left />
-        </Arrow>
+        <Arrow dir="left" hidden={value === 0} onClick={() => control.dec()} />
         <DetailImg
-          onClick={() => control.reset(-1)}
+          onClick={() => control.reset()}
           src={srcList[value].originUrl}
           alt=""
         />
-        <Arrow dir="right" hidden={false} onClick={() => control.inc()}>
-          <Cur.Right />
-        </Arrow>
+        <Arrow dir="right" hidden={false} onClick={() => control.inc()} />
       </DetailInner>
       <Controls>
         {srcList.map((_, index) => (
@@ -53,6 +52,16 @@ const Detail: FC<iProps & Active> = ({ srcList, value, control }) => {
           />
         ))}
       </Controls>
+      {detail >= 0 &&
+        detail < srcList.length &&
+        createPortal(
+          <View
+            srcList={srcList}
+            detail={detail}
+            detailControl={detailControl}
+          />,
+          root
+        )}
     </DetailContainer>
   );
 };

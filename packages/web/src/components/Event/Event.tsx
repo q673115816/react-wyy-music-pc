@@ -85,7 +85,7 @@ const Event: FC<iProps> = ({
           </div>
           <Resource item={json.resource} />
           <Song item={json.song} />
-          <PicsViewer className={`mt-2.5`} srcList={item.pics} />
+          <PicsViewer className={`mt-2.5`} el={`#inset`} srcList={item.pics} />
           <div className="info flex mt-2.5">
             <div className="left text-gray-400">
               {item?.rcmdInfo?.reason && `--${item.rcmdInfo.reason}`}
