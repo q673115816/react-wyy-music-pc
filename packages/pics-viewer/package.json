@@ -6,7 +6,12 @@
   "module": "dist/pics-viewer.esm.js",
   "author": "q673115816",
   "sideEffects": false,
-  "license": "",
+  "license": "APGL",
+  "homepage": "https://neteasecloudmusic.fun",
+  "bugs": {
+    "url": "https://github.com/q673115816/react-wyy-music-pc/issues",
+    "email": "673115816@qq.com"
+  },
   "keywords": [
     "typescript",
     "react",
