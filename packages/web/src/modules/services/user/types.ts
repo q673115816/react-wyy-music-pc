@@ -93,3 +93,24 @@ export interface SignInProgress extends ResWithCode {
 }
 
 export interface Records extends ResWithCode {}
+
+export interface Evnets extends ResWithCode {
+  size: number;
+  more: boolean;
+  lasttime: number;
+  events: Event[];
+}
+
+interface Event {
+  actName: string | null;
+  pics: {
+    format: string;
+    width: number;
+    height: number;
+    originUrl: string;
+    pcRectangleUrl: string;
+    pcSquareUrl: string;
+    rectangleUrl: string;
+    squareUrl: string;
+  }[];
+}

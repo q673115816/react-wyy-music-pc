@@ -17,6 +17,7 @@
     "email": "673115816@qq.com"
   },
   "scripts": {
+    "upgrade:pkg": "pnpm -r exec ncu -u",
     "build": "pnpm -r run build",
     "clean": "pnpm -r exec rm -rf node_modules",
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",

@@ -7,6 +7,7 @@ import {
   Accounts,
   SignInProgress,
   Records,
+  Evnets,
 } from "./types";
 import { base } from "../base";
 
@@ -56,7 +57,7 @@ export const api = base.injectEndpoints({
       }),
       invalidatesTags: (result, error, {}) => [{ type: "user/account" }],
     }),
-    getUserEvent: build.mutation<Clouds, { uid: string; lasttime: number }>({
+    getUserEvent: build.mutation<Evnets, { uid: string; lasttime: number }>({
       query: (body) => ({
         url: `user/event`,
         method: "POST",

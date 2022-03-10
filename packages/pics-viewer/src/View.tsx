@@ -15,7 +15,7 @@ const ViewContainer = styled.div`
 const ViewMask = styled.div`
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
 `;
 
 const ViewClose = styled.div`
@@ -82,19 +82,20 @@ const ViewPage = styled.div<{ dir: "left" | "right" }>`
 `;
 
 const ViewDownload = styled.div`
-  cursor: pointer;
   position: absolute;
   bottom: 10%;
   right: 0;
   left: 0;
   width: min-content;
   margin: auto;
-  border: 1px solid;
-  padding: 0.4em 1.6em;
-  color: white;
-  border-radius: 1000px;
+  padding: 0.8em 1.6em;
+  color: gray;
+  border-radius: 0.25rem;
   white-space: nowrap;
   background-color: rgba(0, 0, 0, 0.6);
+  &:hover {
+    background-color: #000;
+  }
 `;
 
 interface iProps {
@@ -137,9 +138,14 @@ const View: FC<iProps> = ({ srcList, detail, detailControl }) => {
           />
         </ViewSource>
       </ViewInner>
-      <ViewDownload onClick={() => download(srcList[detail].originUrl)}>
-        {detail + 1} / {srcList.length}
-        下载
+      <ViewDownload>
+        {detail + 1}/{srcList.length} |
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => download(srcList[detail].originUrl)}
+        >
+          下载
+        </span>
       </ViewDownload>
     </ViewContainer>
   );

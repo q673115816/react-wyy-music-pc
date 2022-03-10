@@ -17,25 +17,27 @@ const PicsViewer: FC<iProps> = ({
   const [value, control] = useCounter(-1, length - 1, -1);
   gap = formatUnit(gap);
   width = formatUnit(width);
-  if (value >= 0)
-    return (
-      <Detail
-        srcList={_srcList}
-        className={className}
-        value={value}
-        control={control}
-        el={el}
-      />
-    );
   return (
-    <Grid
-      srcList={_srcList}
-      value={value}
-      control={control}
-      className={className}
-      gap={gap}
-      width={width}
-    />
+    <>
+      {value >= 0 ? (
+        <Detail
+          srcList={_srcList}
+          className={className}
+          value={value}
+          control={control}
+          el={el}
+        />
+      ) : (
+        <Grid
+          srcList={_srcList}
+          value={value}
+          control={control}
+          className={className}
+          gap={gap}
+          width={width}
+        />
+      )}
+    </>
   );
 };
 

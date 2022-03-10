@@ -2,6 +2,7 @@ import { CounterActions } from "react-use/lib/useCounter";
 
 export interface SrcObject {
   originUrl: string;
+  thumbUrl?: string;
   width: number;
   height: number;
 }
