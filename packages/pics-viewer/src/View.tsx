@@ -27,12 +27,23 @@ const ViewClose = styled.div`
   font-size: 2rem;
 `;
 
+const ViewInner = styled.div`
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
+  -ms-overflow-style: none;
+  overflow: -moz-scrollbars-none;
+`;
+
 const ViewSource = styled.div`
   position: relative;
-  margin: auto;
-  display: flex;
-  max-width: 60%;
-  max-height: 60%;
+  max-width: 80%;
 `;
 
 const ViewControl = styled.div<{ dir: "left" | "right" }>`
@@ -49,6 +60,7 @@ const ViewControl = styled.div<{ dir: "left" | "right" }>`
 
 const ViewImg = styled.img`
   display: block;
+  max-width: 100%;
   object-fit: scale-down;
 `;
 
@@ -82,6 +94,7 @@ const ViewDownload = styled.div`
   color: white;
   border-radius: 1000px;
   white-space: nowrap;
+  background-color: rgba(0, 0, 0, 0.6);
 `;
 
 interface iProps {
@@ -113,17 +126,19 @@ const View: FC<iProps> = ({ srcList, detail, detailControl }) => {
       <ViewPage dir={`right`} onClick={() => detailControl.inc()}>
         <Cur.Right size={25} />
       </ViewPage>
-
-      <ViewSource>
-        <ViewControl dir={`left`} onClick={() => detailControl.dec()} />
-        <ViewControl dir={`right`} onClick={() => detailControl.inc()} />
-        <ViewImg
-          src={srcList[detail].originUrl}
-          onClick={handleImgClick}
-          alt=""
-        />
-      </ViewSource>
+      <ViewInner>
+        <ViewSource>
+          <ViewControl dir={`left`} onClick={() => detailControl.dec()} />
+          <ViewControl dir={`right`} onClick={() => detailControl.inc()} />
+          <ViewImg
+            src={srcList[detail].originUrl}
+            onClick={handleImgClick}
+            alt=""
+          />
+        </ViewSource>
+      </ViewInner>
       <ViewDownload onClick={() => download(srcList[detail].originUrl)}>
+        {detail + 1} / {srcList.length}
         下载
       </ViewDownload>
     </ViewContainer>

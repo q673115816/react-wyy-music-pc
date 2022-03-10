@@ -15,7 +15,13 @@ import { createPortal } from "react-dom";
 import View from "./View";
 import { useCounter } from "react-use";
 
-const Detail: FC<iProps & Active> = ({ srcList, value, control, el = "" }) => {
+const Detail: FC<iProps & Active> = ({
+  srcList,
+  value,
+  control,
+  className,
+  el = "",
+}) => {
   const [detail, detailControl] = useCounter(-1, srcList.length, -1);
   const root = (el && document.querySelector(el)) || document.body;
   const download = async (url: string) => {
@@ -28,7 +34,7 @@ const Detail: FC<iProps & Active> = ({ srcList, value, control, el = "" }) => {
   };
 
   return (
-    <DetailContainer>
+    <DetailContainer className={className}>
       <DetailBar>
         <Button onClick={() => control.reset()}>收起</Button>
         <Button onClick={() => detailControl.set(value)}>查看大图</Button>
@@ -43,15 +49,17 @@ const Detail: FC<iProps & Active> = ({ srcList, value, control, el = "" }) => {
         />
         <Arrow dir="right" hidden={false} onClick={() => control.inc()} />
       </DetailInner>
-      <Controls>
-        {srcList.map((_, index) => (
-          <ControlPoint
-            onClick={() => control.set(index)}
-            key={index}
-            active={value === index}
-          />
-        ))}
-      </Controls>
+      {srcList.length > 1 && (
+        <Controls>
+          {srcList.map((_, index) => (
+            <ControlPoint
+              onClick={() => control.set(index)}
+              key={index}
+              active={value === index}
+            />
+          ))}
+        </Controls>
+      )}
       {detail >= 0 &&
         detail < srcList.length &&
         createPortal(

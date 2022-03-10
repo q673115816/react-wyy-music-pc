@@ -19,7 +19,13 @@ const PicsViewer: FC<iProps> = ({
   width = formatUnit(width);
   if (value >= 0)
     return (
-      <Detail srcList={_srcList} value={value} control={control} el={el} />
+      <Detail
+        srcList={_srcList}
+        className={className}
+        value={value}
+        control={control}
+        el={el}
+      />
     );
   return (
     <Grid
