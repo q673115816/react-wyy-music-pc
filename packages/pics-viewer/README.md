@@ -38,6 +38,7 @@ interface PicsViewer {
     originUrl: string;
   }[];
   className?: string;
+  el?: string; // appendDOM default = document.body
 }
 
 ```
