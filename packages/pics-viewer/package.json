@@ -7,7 +7,11 @@
   "author": "q673115816",
   "sideEffects": false,
   "license": "APGL",
-  "repository": "https://github.com/q673115816/react-wyy-music-pc/tree/master/packages/pics-viewer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/q673115816/react-wyy-music-pc.git",
+    "directory": "packages/pics-viewer"
+  },
   "homepage": "https://github.com/q673115816/react-wyy-music-pc/tree/master/packages/pics-viewer",
   "bugs": {
     "url": "https://github.com/q673115816/react-wyy-music-pc/issues",
@@ -48,9 +52,5 @@
     "@types/react-dom": "*",
     "react": "*",
     "react-dom": "*"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
   }
 }
