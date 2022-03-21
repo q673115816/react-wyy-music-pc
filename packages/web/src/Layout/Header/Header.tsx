@@ -4,9 +4,10 @@ import React, {
   useCallback,
   MouseEvent,
   MouseEventHandler,
+  useRef,
 } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch } from "@/modules/hooks";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 import { setMsgPrivate } from "@/modules/reducers/common/slice";
 import { setLoginInfo } from "@/modules/reducers/account/slice";
@@ -26,6 +27,7 @@ import {
   setGlobalInset,
   setGlobalDragger,
   setGlobalStartInset,
+  insetSelector,
 } from "@/modules/reducers/inset/slice";
 import Drag from "@/components/Drag";
 import { IconMicrophone } from "@tabler/icons";
@@ -36,6 +38,7 @@ import Account from "./components/Account";
 import Control from "./components/Control";
 import Function from "./components/Function";
 import "./style.scss";
+import useDraggable from "@/hooks/useDraggable";
 
 const useInit = () => {
   const dispatch = useAppDispatch();
@@ -91,7 +94,6 @@ const useInit = () => {
 
 const CustomDrag = memo(function CustomDrag() {
   const dispatch = useAppDispatch();
-
   const onMouseMove: MouseEventHandler = useCallback(
     ({ clientX: x, clientY: y }: MouseEvent) => {
       dispatch(
@@ -105,11 +107,11 @@ const CustomDrag = memo(function CustomDrag() {
   );
 
   const onMouseUp: MouseEventHandler = useCallback(() => {
-    dispatch(setGlobalDragger(false));
+    // dispatch(setGlobalDragger(false));
   }, []);
 
   const onMouseDown: MouseEventHandler = useCallback((e: MouseEvent) => {
-    dispatch(setGlobalDragger(true));
+    // dispatch(setGlobalDragger(true));
     dispatch(
       setGlobalStartInset({
         x: e.clientX,
@@ -129,7 +131,20 @@ const CustomDrag = memo(function CustomDrag() {
 });
 
 export default memo(function Header() {
+  const dispatch = useAppDispatch();
   useInit();
+  /*const Drag = useDraggable({
+    ele: <div className={`absolute inset-0 z-0 w-full`} title="长按拖拽" />,
+    offset: "#inset",
+    next: ({ x, y }) => {
+      dispatch(
+        setGlobalInset({
+          x,
+          y,
+        })
+      );
+    },
+  });*/
   return (
     <div className="domHeader ui_theme_bg_color relative flex flex-none items-center text-white">
       <CustomDrag />

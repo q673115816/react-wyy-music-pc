@@ -1,6 +1,7 @@
 import React, { FC, memo, useMemo } from "react";
 import { useAppSelector } from "@/modules/hooks";
 import "./style.scss";
+import { insetSelector } from "@/modules/reducers/inset/slice";
 
 interface iInset {}
 
@@ -13,7 +14,7 @@ const Inset: FC<iInset> = ({ children }) => {
     globalDragger,
     globalWidth,
     globalHeight,
-  } = useAppSelector(({ inset }) => inset);
+  } = useAppSelector(insetSelector);
   const { theme, font } = useAppSelector(({ setting }) => setting);
 
   const themeStyle = {

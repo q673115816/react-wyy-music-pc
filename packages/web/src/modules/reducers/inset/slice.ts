@@ -71,8 +71,8 @@ const initialState: InsetState = {
   globalLrcHeight,
 };
 
-const MINWIDTH = 1022;
-const MINHEIGHT = 670;
+const MIN_WIDTH = 1022;
+const MIN_HEIGHT = 670;
 
 const slice = createSlice({
   name: "inset",
@@ -111,8 +111,8 @@ const slice = createSlice({
       const height =
         action.payload.y - state.globalStartRectY + state.globalBeforeHeight;
 
-      const nextwidth = width > MINWIDTH ? width : MINWIDTH;
-      const nextheight = height > MINHEIGHT ? height : MINHEIGHT;
+      const nextwidth = width > MIN_WIDTH ? width : MIN_WIDTH;
+      const nextheight = height > MIN_HEIGHT ? height : MIN_HEIGHT;
       state.globalWidth = nextwidth;
       state.globalHeight = nextheight;
       state.GlobalRectLock = false;
@@ -150,6 +150,8 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
+
+export const insetSelector = ({ inset }) => inset;
 
 export const {
   setGlobalDragger,
