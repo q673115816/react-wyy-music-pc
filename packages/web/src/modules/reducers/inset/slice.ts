@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface InsetState {
   POSITION: boolean;
-  SCREEN: string;
   globalVisibility: boolean;
   globalDragger: boolean;
   globalResizer: boolean;
@@ -42,7 +41,6 @@ const globalLrcY = globalY + globalHeight;
 
 const initialState: InsetState = {
   POSITION: true,
-  SCREEN: "normal",
   globalVisibility: false,
   globalDragger: false,
   globalResizer: false,
@@ -117,12 +115,6 @@ const slice = createSlice({
       state.globalHeight = nextheight;
       state.GlobalRectLock = false;
     },
-    setScreenFull(state) {
-      state.SCREEN = "full";
-    },
-    setScreenNormal(state) {
-      state.SCREEN = "normal";
-    },
     togglePosition(state) {
       state.POSITION = !state.POSITION;
     },
@@ -165,6 +157,4 @@ export const {
   setGlobalStartRectLock,
   setPositionFalse,
   setPositionTrue,
-  setScreenFull,
-  setScreenNormal,
 } = slice.actions;

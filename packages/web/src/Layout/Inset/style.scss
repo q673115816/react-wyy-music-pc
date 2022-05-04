@@ -7,4 +7,9 @@
   height: var(--HEIGHT);
   background-color: #fff;
   // transform: translate(0, 0);
+  @media (display-mode: fullscreen) {
+    width: 100vw;
+    height: 100vh;
+    position: initial!important;
+  }
 }

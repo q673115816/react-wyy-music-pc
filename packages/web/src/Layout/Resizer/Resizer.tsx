@@ -8,10 +8,12 @@ import {
   setGlobalStartRectLock,
 } from "@/modules/reducers/inset/slice";
 import Drag from "@/components/Drag";
+import classNames from "classnames";
+import style from "./Resizer.module.scss";
 
 export default memo(function Resizer() {
   const dispatch = useAppDispatch();
-  const { SCREEN, GlobalRectLock } = useAppSelector(({ inset }) => inset);
+  const { GlobalRectLock } = useAppSelector(({ inset }) => inset);
 
   const onMouseMove: MouseEventHandler = useCallback((e) => {
     e.preventDefault();
@@ -41,12 +43,12 @@ export default memo(function Resizer() {
       })
     );
   }, []);
-
-  if (SCREEN !== "normal") return null;
   return (
     <Drag
-      className="absolute right-0 bottom-0 text-gray-500"
-      style={{ cursor: "se-resize" }}
+      className={classNames(
+        style.resizer,
+        "absolute right-0 bottom-0 text-gray-500"
+      )}
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}

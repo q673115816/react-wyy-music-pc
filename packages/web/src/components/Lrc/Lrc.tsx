@@ -5,7 +5,6 @@ import {
   setGlobalLrcInset,
   setGlobalLrcStartInset,
 } from "@/modules/reducers/inset/slice";
-import "./style.scss";
 import Drag from "@/components/Drag";
 import Control from "./Control";
 import { settingSelector } from "@/modules/reducers/setting/slice";
@@ -51,16 +50,12 @@ const Lrc = () => {
   if (!globalLrcVisibility) return null;
   return (
     <div
-      className={classNames(
-        "flex-center z-40 text-xl",
-        dragger ? "relative" : "fixed"
-      )}
+      className={classNames("flex-center z-40 text-xl fixed")}
       style={{
         width,
         height,
-        ...(dragger
-          ? { transform: `translate(${x}px, ${y}px)` }
-          : { top: y, left: x }),
+        top: y,
+        left: x,
       }}
     >
       <div onMouseEnter={() => setActive(true)}>
