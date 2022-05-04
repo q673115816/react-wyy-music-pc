@@ -19,20 +19,21 @@
   "scripts": {
     "upgrade:pkg": "pnpm -r exec ncu -u",
     "build": "pnpm -r run build",
-    "clean": "pnpm -r exec rm -rf node_modules",
+    "update": "pnpm up --latest",
+    "clean": "rm -rf node_modules && pnpm -r exec rm -rf node_modules",
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",
     "web:build": "pnpm -r run build --filter @wyy/web",
     "web:start": "pnpm -r run start --filter @wyy/web",
-    "dev:web": "concurrently --kill-others \"pnpm run start -C packages/web\" \"pnpm run start -C packages/pics-viewer\""
+    "dev:web": "concurrently --kill-others \"npm run start -C packages/web\" \"npm run start -C packages/pics-viewer\""
   },
   "dependencies": {
-    "react": "*",
-    "react-dom": "*"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   },
   "devDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "concurrently": "7.0.0",
+    "concurrently": "7.1.0",
     "prettier": "*",
     "regenerator-runtime": "^0.13.9",
     "rimraf": "^3.0.2",
@@ -56,6 +57,14 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "react": "18",
+        "react-dom": "18"
+      }
     }
   }
 }
