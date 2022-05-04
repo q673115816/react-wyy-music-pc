@@ -38,7 +38,7 @@ const Identify = () => {
         </button>
       </div>
       <div
-        style={{ height: 200, color: "var(--themeColor)" }}
+        style={{ height: 200, color: "var(--theme-color)" }}
         className="flex-center"
       >
         <IconFaceId size={100} stroke={1} />

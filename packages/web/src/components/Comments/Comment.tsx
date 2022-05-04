@@ -115,7 +115,7 @@ const Comment: FC<iProps> = ({
                 onClick={() => handleLike(item.commentId, item.liked)}
               >
                 {item.liked ? (
-                  <IconThumbUp size={16} stroke={0} fill="var(--themeColor)" />
+                  <IconThumbUp size={16} stroke={0} fill="var(--theme-color)" />
                 ) : (
                   <IconThumbUp size={16} stroke={1} />
                 )}

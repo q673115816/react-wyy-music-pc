@@ -19,7 +19,7 @@ const playlist: FC<iProps> = ({ playlist = [] }) => {
       <div className="item">
         <div className="cover border relative group rounded-lg overflow-hidden">
           <Link to="/daily-song" className="aspect-square">
-            <div className="inner" style={{ color: "var(--themeColor)" }}>
+            <div className="inner" style={{ color: "var(--theme-color)" }}>
               <SymbolToday />
             </div>
           </Link>

@@ -16,12 +16,12 @@
       height: 12px;
       content: '';
       border-radius: 50%;
-      background-color: var(--themeColor);
+      background-color: var(--theme-color);
     }
   }
   [type="radio"]:checked {
     & + .ico {
-      border-color: var(--themeColor);
+      border-color: var(--theme-color);
       &::before {
         opacity: 1;
       }

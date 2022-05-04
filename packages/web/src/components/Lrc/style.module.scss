@@ -1,0 +1,8 @@
+.word {
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right,
+      var(--lrcColor) 0%,
+      var(--lrcColor) var(--p, 0),
+      var(--theme-color) var(--p, 0),
+      #f00 100%);
+}

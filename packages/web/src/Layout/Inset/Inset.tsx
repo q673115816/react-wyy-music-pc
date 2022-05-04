@@ -2,6 +2,8 @@ import React, { FC, memo, useMemo } from "react";
 import { useAppSelector } from "@/modules/hooks";
 import "./style.scss";
 import { insetSelector } from "@/modules/reducers/inset/slice";
+import { useCss } from "react-use";
+import classNames from "classnames";
 
 interface iInset {}
 
@@ -17,46 +19,35 @@ const Inset: FC<iInset> = ({ children }) => {
   } = useAppSelector(insetSelector);
   const { theme, font } = useAppSelector(({ setting }) => setting);
 
-  const themeStyle = {
+  const themeStyle = useCss({
     fontFamily: font,
-    "--themeColor": theme,
-  };
+    "--theme-color": theme,
+  });
 
-  const sizeStyle = useMemo(() => {
-    if (SCREEN === "normal")
-      return {
-        "--WIDTH": `${globalWidth}px`,
-        "--HEIGHT": `${globalHeight}px`,
-      };
-    return {
-      "--WIDTH": "100vw",
-      "--HEIGHT": "100vh",
-    };
-  }, [SCREEN, globalWidth, globalHeight]);
+  const sizeStyle = useCss({
+    "--WIDTH": `${globalWidth}px`,
+    "--HEIGHT": `${globalHeight}px`,
+  });
 
-  const positionStyle = useMemo(() => {
-    if (!POSITION) return null;
-    if (globalDragger) {
-      return {
-        transform: `translate(${globalX}px, ${globalY}px)`,
-      };
-    }
-    return {
-      position: "absolute",
-      left: `${globalX}px`,
-      top: `${globalY}px`,
-    };
-  }, [POSITION, globalDragger, globalX, globalY]);
+  const transStyle = useCss({
+    transform: `translate(${globalX}px, ${globalY}px)`,
+  });
+
+  const insetStyle = useCss({
+    position: "absolute",
+    left: `${globalX}px`,
+    top: `${globalY}px`,
+  });
 
   return (
-    <div className="App" style={themeStyle}>
+    <div className={classNames("App", themeStyle)}>
       <div
         id={`inset`}
-        className="Wrap flex flex-col shadow-lg select-none"
-        style={{
-          ...sizeStyle,
-          ...positionStyle,
-        }}
+        className={classNames(
+          "Wrap flex flex-col shadow-lg select-none",
+          sizeStyle,
+          globalDragger ? transStyle : insetStyle
+        )}
       >
         {children}
       </div>

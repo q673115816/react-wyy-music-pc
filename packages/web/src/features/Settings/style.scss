@@ -12,7 +12,7 @@
     input {
       display: none;
       &:checked+.ico {
-        color: var(--themeColor);
+        color: var(--theme-color);
         border-color: currentColor;
       }
     }

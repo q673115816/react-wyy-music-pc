@@ -14,7 +14,7 @@
 }
 
 .ui_themeColor {
-  color: var(--themeColor) !important;
+  color: var(--theme-color) !important;
 }
 
 .ui_text_gray_hover {
@@ -50,11 +50,11 @@
 }
 
 .ui_theme_bg_color {
-  background-color: var(--themeColor) !important;
+  background-color: var(--theme-color) !important;
 }
 
 .hover\:ui_themeColor:hover {
-  color: var(--themeColor);
+  color: var(--theme-color);
 }
 
 .ui_bg_opacity {
@@ -95,7 +95,7 @@
     right: 0.3em;
     bottom: -0.3em;
     height: 0.15em;
-    background-color: var(--themeColor);
+    background-color: var(--theme-color);
   }
 
 }
