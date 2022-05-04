@@ -5,6 +5,7 @@ import Header from "./Header";
 import Inset from "./Inset";
 import Help from "./Help";
 import Lrc from "./Lrc";
+import GlobalLrc from "@/components/Lrc";
 
 const Layout = () => {
   return (
@@ -14,6 +15,7 @@ const Layout = () => {
       <Lrc />
       <Help />
       <Resizer />
+      <GlobalLrc />
     </Inset>
   );
 };

@@ -1,5 +1,5 @@
-import React from "react";
-import { render } from "react-dom";
+import React, { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import store, { persistor } from "./modules/store";
@@ -29,8 +29,10 @@ import reportWebVitals from "./reportWebVitals";
 //         .catch( err => console.log('ServiceWorker registration failed: ', err));
 // }
 
-render(
-  <React.StrictMode>
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
@@ -38,8 +40,7 @@ render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </StrictMode>
 );
 
 reportWebVitals();

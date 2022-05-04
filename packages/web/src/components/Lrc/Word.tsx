@@ -1,14 +1,17 @@
+import React, { memo, useEffect, useState } from "react";
 import { useAppSelector } from "@/modules/hooks";
 import { LrcSelector } from "@/modules/reducers/lrc/slice";
-import React, { memo, useEffect, useState } from "react";
 import { audioSelector } from "@/modules/reducers/audio/slice";
+import { useCss } from "react-use";
+import classNames from "classnames";
+import style from "./style.module.scss";
 
 const Word = () => {
   const { currentTime } = useAppSelector(audioSelector);
   const { lrcList } = useAppSelector(LrcSelector);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [percentage, setPercentage] = useState(0);
-
+  const className = useCss({ "--p": `${percentage}%` });
   useEffect(() => {
     let nextIndex = 0;
     lrcList.forEach(({ time }, index) => {
@@ -27,9 +30,11 @@ const Word = () => {
   }, [currentTime]);
   return (
     <div
-      id="global_lrc_text"
-      className="text-center select-none text-transparent whitespace-pre-line pointer-events-none px-4"
-      style={{ "--p": `${percentage}%` }}
+      className={classNames(
+        style.word,
+        className,
+        "text-center select-none text-transparent whitespace-pre-line pointer-events-none px-4"
+      )}
     >
       {lrcList?.[currentLineIndex]?.word}
       &nbsp;
