@@ -1,8 +1,8 @@
-import { Arrow } from "./components";
 import React, { FC, memo } from "react";
 import JsFileDownLoader from "js-file-downloader";
 import { iProps, Active } from "./types";
 import {
+  Arrow,
   Button,
   DetailImg,
   DetailInner,
