@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { Draft } from "immer";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const visibilityState = {
   lyricVisibility: false,
@@ -31,24 +30,16 @@ const maskState = {
 
 const shareState = {};
 
-const toastState = {
-  toastTitle: [""],
-};
-
 const initialState = {
   ...visibilityState,
   ...maskState,
   ...shareState,
-  ...toastState,
 };
 
 const slice = createSlice({
   name: "mask",
   initialState,
   reducers: {
-    setToast(state, action) {
-      state.toastTitle = [action.payload];
-    },
     setContextMenuShow(state, action) {
       Object.assign(state, action.payload);
       state.contextMenuVisibility = true;
@@ -60,8 +51,7 @@ const slice = createSlice({
       // Object.assign(state, visibilityState, maskState, action.payload);
       state.searchVisibility = true;
     },
-    setDialogShareShow(state, action) {
-      Object.assign(state, visibilityState, action.payload);
+    setDialogShareShow(state) {
       state.dialogShareVisibility = true;
     },
     setDialogShareWXShow(state) {
@@ -76,8 +66,7 @@ const slice = createSlice({
       Object.assign(state, visibilityState, action.payload);
       state.dialogDownloadVideoVisibility = true;
     },
-    setDialogCreatePlaylistShow(state, action) {
-      Object.assign(state, visibilityState, action.payload);
+    setDialogCreatePlaylistShow(state) {
       state.dialogHomeOrderVisibility = true;
     },
     setDialogUnSubscriptionShow(state, action) {
@@ -88,7 +77,6 @@ const slice = createSlice({
       state.dialogHomeOrderVisibility = true;
     },
     setDialogReset(state) {
-      console.log("reset");
       Object.assign(state, visibilityState, maskState);
     },
     setPopupLetterToggle(state) {
@@ -102,6 +90,8 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
+
+export const maskSelector = ({ mask }) => mask;
 
 export const {
   setContextMenuShareLink,
@@ -117,5 +107,4 @@ export const {
   setPopupLetterToggle,
   setPopupPlaylistToggle,
   setSearchShow,
-  setToast,
 } = slice.actions;

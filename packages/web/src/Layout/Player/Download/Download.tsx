@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  setToast,
-  setDialogDownloadVideoShow,
-} from "@/modules/reducers/mask/slice";
+import { setDialogDownloadVideoShow } from "@/modules/reducers/mask/slice";
 import DownloadWorker from "./download.worker?worker";
 import { useAppDispatch } from "@/modules/hooks";
 
@@ -12,7 +9,6 @@ export default (url = "", title = "") => {
   const downloadResponse = useRef();
   const [downloadProcess, setDownloadProcess] = useState(0);
   const [downloadState, setDownloadState] = useState("下载");
-
   const handleInitDownload = () => {
     setDownloadProcess(0);
     setDownloadState("下载");

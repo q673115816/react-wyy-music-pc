@@ -20,8 +20,8 @@ import {
   setDialogShareShow,
   setDialogCreatePlaylistShow,
   setContextMenuShareLink,
-  setToast,
 } from "@/modules/reducers/mask/slice";
+import { useToast } from "@/components/Toast";
 import { setLoginVisibilty } from "@/modules/reducers/common/slice";
 import {
   setAudioImmediate,
@@ -31,6 +31,7 @@ import { apiMVSub } from "@/api";
 import useCopyLink from "@/hooks/useCopyLink";
 import DomMask from "@/components/Mask";
 import "./Contextmenu.scss";
+import { useCopyToClipboard } from "react-use";
 
 const initBuild = (functionClose) => ({
   评论: ({ contextMenuItem, contextMenuTotal, contextMenuType }) => (
@@ -285,8 +286,10 @@ const initBuild = (functionClose) => ({
   ),
 });
 
-export default () => {
+const Contextmenu = () => {
   const dispatch = useDispatch();
+  const [, copyToClipboard] = useCopyToClipboard();
+  const toast = useToast();
   const { baseUrl } = useSelector(({ common }) => common);
   const { profile, playlist } = useSelector(({ account }) => account);
   const {
@@ -343,7 +346,7 @@ export default () => {
         t: 1,
       });
       dispatch(setDialogReset());
-      dispatch(setToast(message));
+      toast(message);
     } catch (error) {
       console.log(error);
     }
@@ -354,9 +357,8 @@ export default () => {
     // data.items.add('text/plain', ShareUrl);
     // await navigator.clipboard.writeText(ShareUrl);
     // alert('链接复制成功');
-    useCopyLink(ShareUrl, () => {
-      dispatch(setToast("复制链接成功"));
-    });
+    copyToClipboard(ShareUrl);
+    toast("复制链接成功");
     dispatch(setDialogReset());
   };
 
@@ -416,3 +418,5 @@ export default () => {
     </DomMask>
   );
 };
+
+export default Contextmenu;

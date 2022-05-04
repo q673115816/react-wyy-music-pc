@@ -14,7 +14,7 @@ import { setLoginInfoUpdate } from "@/modules/reducers/account/slice";
 import { useAppDispatch } from "@/modules/hooks";
 import { Remove } from "@/modules/utils";
 import { useGetLogoutMutation } from "@/modules/services/account";
-import useToast from "@/hooks/useToast";
+import { useToast } from "@/components/Toast";
 import SignIn from "./SignIn";
 
 interface iProps {

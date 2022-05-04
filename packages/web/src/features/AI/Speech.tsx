@@ -1,10 +1,11 @@
 import { useAppDispatch } from "@/modules/hooks";
-import { setToast } from "@/modules/reducers/mask/slice";
+import { useToast } from "@/components/Toast";
 import { IconBrandGithub } from "@tabler/icons";
 import React, { memo, useCallback, useState, useRef } from "react";
 
 const Speech = () => {
   const dispatch = useAppDispatch();
+  const toast = useToast();
   const [text, setText] = useState("");
   const active = useRef(false);
   const [_active, setActive] = useState(false);
@@ -76,7 +77,8 @@ const Speech = () => {
   const message = `在最新浏览器下使用`;
   const handleStart = useCallback(() => {
     if (!("speechSynthesis" in globalThis)) {
-      return dispatch(setToast(message));
+      toast(message);
+      return;
     }
 
     if (active.current) {

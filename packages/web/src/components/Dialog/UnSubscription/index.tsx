@@ -1,5 +1,6 @@
 import React, { memo } from "react";
-import { setDialogReset, setToast } from "@/modules/reducers/mask/slice";
+import { setDialogReset } from "@/modules/reducers/mask/slice";
+import { useToast } from "@/components/Toast";
 import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
@@ -7,6 +8,7 @@ import { usePostArtistSubMutation } from "@/modules/services/artist";
 
 const UnSubscription = () => {
   const dispatch = useAppDispatch();
+  const toast = useToast();
   const [subPost, { isLoading: isSubbing }] = usePostArtistSubMutation();
   const { artistId, dialogUnSubscriptionVisibility } = useAppSelector(
     ({ mask }) => mask
@@ -17,7 +19,7 @@ const UnSubscription = () => {
         id: artistId,
       });
       dispatch(setDialogReset());
-      dispatch(setToast("取消收藏！"));
+      toast("取消收藏！");
     } catch (error) {
       console.log(error);
     }

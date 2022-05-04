@@ -1,6 +1,6 @@
 import IconRejected from "@/features/AI/Icon";
 import React, { FC, memo } from "react";
-import useToast from "@/hooks/useToast";
+import { useToast } from "@/components/Toast";
 
 interface iProps {
   handleCallback: () => void;

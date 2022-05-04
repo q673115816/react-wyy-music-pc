@@ -3,17 +3,18 @@ import Checkbox from "@/components/Checkbox";
 import { setFont, settingSelector } from "@/modules/reducers/setting/slice";
 import SettingRadio from "./components/SettingRadio";
 import SettingCheck from "./components/SettingCheck";
-import { setToast } from "@/modules/reducers/mask/slice";
+import { useToast } from "@/components/Toast";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { fonts } from "./config";
 import Row from "./components/Row";
 
 const Normal = () => {
   const dispatch = useAppDispatch();
+  const toast = useToast();
   const { font } = useAppSelector(settingSelector);
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
     dispatch(setFont(e.target.value));
-    dispatch(setToast("设置已更新"));
+    toast("设置已更新");
   };
 
   const [关闭主面板, 设置关闭主面板] = useState("最小化到系统托盘");

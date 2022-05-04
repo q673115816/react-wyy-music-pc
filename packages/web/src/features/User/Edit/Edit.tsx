@@ -9,7 +9,7 @@ import Birthday from "./components/Birthday";
 import Location from "./components/Location";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useImmer } from "use-immer";
-import useToast from "@/hooks/useToast";
+import { useToast } from "@/components/Toast";
 import Row from "./components/Row";
 import { EditHandler } from "@/features/User/Edit/types";
 import {

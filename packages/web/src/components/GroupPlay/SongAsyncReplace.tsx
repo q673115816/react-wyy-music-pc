@@ -2,7 +2,7 @@ import React, { FC, memo } from "react";
 import { setAudioImmediate } from "@/modules/reducers/audio/slice";
 import { useAppDispatch } from "@/modules/hooks";
 import { useGetSongDetailMutation } from "@/modules/services/song";
-import useToast from "@/hooks/useToast";
+import { useToast } from "@/components/Toast";
 
 interface iProps {
   id: number;

@@ -9,7 +9,6 @@ import React, {
 
 import { apiPlaylistDetail, apiPlaylistSubscribe, apiSongDetail } from "@/api";
 
-import { setToast } from "@/modules/reducers/mask/slice";
 import classNames from "classnames";
 import Loading from "@/components/Loading";
 
@@ -20,7 +19,7 @@ import Subscribers from "./components/Subscribers";
 import { useAppDispatch } from "@/modules/hooks";
 import { useParams } from "react-router-dom";
 import { useImmer } from "use-immer";
-import useToast from "@/hooks/useToast";
+import { useToast } from "@/components/Toast";
 
 type Paths = "Playlist" | "Comments" | "Subscribers";
 

@@ -5,22 +5,21 @@ import useKeyActions from "./hooks/useKeyActions";
 import "./styles/tailwind.scss";
 import "./styles/index.scss";
 import Layout from "./Layout";
-import GlobalLrc from "./components/Lrc";
 import Coffee from "./author/Coffee";
+import Toast from "@/components/Toast";
 
 const App = () => {
   console.log("app");
   useKeyActions();
   useIsLogin();
   return (
-    <div>
+    <Toast.Provider>
       <Layout />
-      <GlobalLrc />
       {createPortal(
         <Coffee />,
         document.querySelector("#author-root") as HTMLDivElement
       )}
-    </div>
+    </Toast.Provider>
   );
 };
 

@@ -1,18 +1,17 @@
 import React, { memo } from "react";
 import { IconFolderPlus, IconCheckbox } from "@tabler/icons";
 import { Link, useParams } from "react-router-dom";
-import {
-  setDialogUnSubscriptionShow,
-  setToast,
-} from "@/modules/reducers/mask/slice";
+import { setDialogUnSubscriptionShow } from "@/modules/reducers/mask/slice";
 import { useAppDispatch } from "@/modules/hooks";
 import {
   useGetArtistDetailQuery,
   usePostArtistSubMutation,
 } from "@/modules/services/artist";
+import { useToast } from "@/components/Toast";
 
 const Detail = () => {
   const { id = "" } = useParams();
+  const toast = useToast();
   const dispatch = useAppDispatch();
   const [subPost, { isLoading: isSubbing }] = usePostArtistSubMutation();
   const { data } = useGetArtistDetailQuery({ id });
@@ -32,7 +31,7 @@ const Detail = () => {
         id,
         t: 1,
       });
-      dispatch(setToast("收藏成功！"));
+      toast("收藏成功！");
     } catch (error) {
       console.log(error);
     }

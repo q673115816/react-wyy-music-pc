@@ -2,7 +2,7 @@ import React, { FC, memo } from "react";
 import classNames from "classnames";
 import { IconHeart } from "@tabler/icons";
 import { apiLike } from "@/api";
-import { setToast } from "@/modules/reducers/mask/slice";
+import { useToast } from "@/components/Toast";
 import {
   setLikelistAdd,
   setLikelistDel,
@@ -23,7 +23,7 @@ const Heart: FC<IProps> = ({
   stroke = 1,
 }) => {
   const dispatch = useAppDispatch();
-
+  const toast = useToast();
   const { likelist } = useAppSelector(({ account }) => account);
   const handleLike = async () => {
     try {
@@ -32,14 +32,10 @@ const Heart: FC<IProps> = ({
         like: !likelist.includes(id),
       });
       if (code !== 200) {
-        dispatch(setToast(message));
+        toast(message);
         return;
       }
-      dispatch(
-        setToast(
-          likelist.includes(id) ? "取消喜欢成功" : "已添加到我喜欢的音乐"
-        )
-      );
+      toast(likelist.includes(id) ? "取消喜欢成功" : "已添加到我喜欢的音乐");
       likelist.includes(id)
         ? dispatch(setLikelistDel({ id }))
         : dispatch(setLikelistAdd({ id }));

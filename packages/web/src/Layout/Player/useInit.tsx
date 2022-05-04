@@ -7,14 +7,11 @@ import {
   apiMVSublist,
   apiResourceLike,
 } from "@/api";
-import {
-  setToast,
-  setDialogDownloadVideoShow,
-} from "@/modules/reducers/mask/slice";
 import { setMVSublist } from "@/modules/reducers/account/slice";
 import FNDownload from "./Download";
 
 import config from "./config";
+import { useToast } from "@/components/Toast";
 
 interface iProps {
   vid: string;
@@ -22,6 +19,7 @@ interface iProps {
 }
 
 const UseInit = ({ vid, type }: iProps) => {
+  const toast = useToast();
   const dispatch = useAppDispatch();
   const { mvSublist } = useAppSelector(({ account }) => account);
 
@@ -68,7 +66,7 @@ const UseInit = ({ vid, type }: iProps) => {
               t: isSub ? 0 : 1,
             });
       if (code === 200) handleGetMVSublist();
-      dispatch(setToast(isSub ? "取消收藏成功" : "收藏成功"));
+      toast(isSub ? "取消收藏成功" : "收藏成功");
     } catch (error) {
       console.log(error);
     }

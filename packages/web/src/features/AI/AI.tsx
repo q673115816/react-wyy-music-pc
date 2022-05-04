@@ -3,7 +3,7 @@ import { IconFileImport } from "@tabler/icons";
 import "./style.scss";
 import Speech from "./Speech";
 import { useToggle } from "react-use";
-import useToast from "@/hooks/useToast";
+import { useToast } from "@/components/Toast";
 import Wait from "./Wait";
 import Rejected from "./Rejected";
 

@@ -17,7 +17,7 @@ import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useCopyToClipboard } from "react-use";
-import useToast from "@/hooks/useToast";
+import { useToast } from "@/components/Toast";
 
 const types = {
   songs: "单曲",

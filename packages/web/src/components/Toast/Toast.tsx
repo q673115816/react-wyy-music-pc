@@ -1,47 +1,23 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import classNames from "classnames";
 import { IconCircleCheck } from "@tabler/icons";
-import { setToast } from "@/modules/reducers/mask/slice";
-import "./style.scss";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { context } from "./Content";
 
 const Toast = () => {
-  const { toastTitle } = useAppSelector(({ mask }) => mask);
-  // const [time, setTime] = useState(1500);
-  const time = useRef(1500);
-  const timer = useRef();
-  const prevTime = useRef();
-  const dispatch = useAppDispatch();
-  const handleFadeout = () => {
-    if (time.current <= 0) return;
-    time.current -= Date.now() - prevTime.current;
-
-    prevTime.current = Date.now();
-    requestAnimationFrame(handleFadeout);
-  };
-  // console.log('123123');
-  useEffect(() => {
-    if (!toastTitle?.toString()) return false;
-    time.current = 1500;
-    handleFadeout();
-    clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
-      dispatch(setToast(""));
-    }, 1500);
-  }, [toastTitle]);
-  if (!toastTitle?.toString()) return null;
+  const [{ id, text }] = useContext(context);
+  if (!text) return null;
   return (
     <div
-      id="toast"
+      style={{ minWidth: 270 }}
       className={classNames(
-        "absolute z-50 whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg"
+        "absolute h-20 w-min z-50 whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg"
       )}
     >
       <IconCircleCheck size={24} />
       &nbsp;
-      {toastTitle?.toString()}
+      {text}
     </div>
   );
 };
 
-export default memo(Toast);
+export default Toast;

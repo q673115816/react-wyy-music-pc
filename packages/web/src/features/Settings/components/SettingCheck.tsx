@@ -1,7 +1,7 @@
 import React, { FC, memo } from "react";
 import { IconCheck } from "@tabler/icons";
 import Checkbox from "@/components/Checkbox";
-import { setToast } from "@/modules/reducers/mask/slice";
+import { useToast } from "@/components/Toast";
 import { useDispatch } from "react-redux";
 
 interface iSettingCheck {
@@ -16,15 +16,13 @@ const SettingCheck: FC<iSettingCheck> = ({
   handle = () => {},
 }) => {
   const dispatch = useDispatch();
+  const toast = useToast();
   return (
     <div className="domSetting_subBlock_content">
       {list.map(([item, checked, tips]) => (
         <div className="item leading-loose" key={item}>
           <label className="domSetting_check flex items-center" htmlFor={item}>
-            <Checkbox
-              name={item}
-              onChange={() => dispatch(setToast("设置已更新"))}
-            />
+            <Checkbox name={item} onChange={() => toast("设置已更新")} />
             &nbsp;
             {/* <input
                     name={name}
