@@ -1,22 +1,27 @@
-import React, { useContext } from "react";
-import classNames from "classnames";
+import React, { useContext, useRef } from "react";
 import { IconCircleCheck } from "@tabler/icons";
+import { CSSTransition } from "react-transition-group";
 import { context } from "./Content";
+import style from "./toast.module.css";
+import "./toast.css";
 
 const Toast = () => {
-  const [{ id, text }] = useContext(context);
-  if (!text) return null;
+  const [{ text, visible }] = useContext(context);
+  const nodeRef = useRef(null);
   return (
-    <div
-      style={{ minWidth: 270 }}
-      className={classNames(
-        "absolute h-20 w-min z-50 whitespace-nowrap px-4 inset-0 m-auto flex-center rounded-lg bg-black bg-opacity-80 text-gray-200 text-lg"
-      )}
+    <CSSTransition
+      in={visible}
+      classNames={`toast`}
+      nodeRef={nodeRef}
+      unmountOnExit
+      timeout={300}
     >
-      <IconCircleCheck size={24} />
-      &nbsp;
-      {text}
-    </div>
+      <div ref={nodeRef} className={style.toast}>
+        <IconCircleCheck size={24} />
+        &nbsp;
+        {text}
+      </div>
+    </CSSTransition>
   );
 };
 

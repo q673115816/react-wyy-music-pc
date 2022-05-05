@@ -1,0 +1,18 @@
+.toast {
+  box-sizing: border-box;
+  margin: auto;
+  position: absolute;
+  inset: 0;
+  height: 5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min-content;
+  font-size: 18px;
+  padding: 0 1em;
+  color: #fff;
+  white-space: nowrap;
+  border-radius: 0.25em;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 50;
+}
