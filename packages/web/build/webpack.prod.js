@@ -15,7 +15,7 @@ const cdnBase = "https://cdn.jsdelivr.net/npm";
 const cdn = {
   js: [
     `${cdnBase}/axios/dist/axios.min.js`,
-    `${cdnBase}/npm/ua-parser-js/dist/ua-parser.min.js`,
+    `${cdnBase}/ua-parser-js/dist/ua-parser.min.js`,
     `${cdnBase}/lodash/lodash.min.js`,
     `${cdnBase}/web-vitals/dist/web-vitals.umd.min.js`,
     `${cdnBase}/rxjs/dist/bundles/rxjs.umd.js`,
