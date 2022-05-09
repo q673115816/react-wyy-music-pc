@@ -40,7 +40,6 @@
 		"dayjs": "*",
 		"history": "*",
 		"immer": "*",
-		"js-file-downloader": "^1.1.24",
 		"lodash-es": "*",
 		"qrcode.react": "*",
     "react-transition-group": "^4.4.2",
