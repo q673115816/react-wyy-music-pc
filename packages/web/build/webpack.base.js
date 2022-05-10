@@ -122,6 +122,10 @@ module.exports = {
           name: "modules",
           test: path.resolve(src, "modules"),
         },
+        "@q673115816/pics-viewer": {
+          name: "@q673115816/pics-viewer",
+          test: /pics-viewer/,
+        },
       },
       // cacheGroups: {
       //   commons: {
