@@ -47,10 +47,15 @@
   </script>
   <% } %>
 <!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css">-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.min.css">
 <!--    <script src="https://polyfill.io/v3/polyfill.min.js"></script>-->
+  <% if (process.env.NODE_ENV === 'production') { %>
+    <% for(var js of htmlWebpackPlugin.options.cdn.js) { %>
+      <script async src="<%=js%>"></script>
+    <% } %>
+  <% } %>
 </head>
 
 <body>
@@ -70,11 +75,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <% if (process.env.NODE_ENV === 'production') { %>
-      <% for(var js of htmlWebpackPlugin.options.cdn.js) { %>
-        <script src="<%=js%>"></script>
-      <% } %>
-    <% } %>
 </body>
 
 </html>
