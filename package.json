@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "concurrently": "7.1.0",
+    "concurrently": "7.2.0",
     "prettier": "*",
     "regenerator-runtime": "^0.13.9",
     "rimraf": "^3.0.2",
