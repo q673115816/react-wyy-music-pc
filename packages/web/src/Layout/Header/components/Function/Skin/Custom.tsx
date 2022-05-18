@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { setCustom, setTheme } from "@/modules/reducers/setting/slice";
+import { setCustom, setTheme } from "@/modules/reducers/settings/slice";
 import Check from "./Check";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { hexToHSL, HSLToHex } from "./utils";

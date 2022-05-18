@@ -1,19 +1,18 @@
-import React, { FC, memo } from "react";
-import Slider from "react-slick";
-
+import React, { FC, memo, useRef } from "react";
+import Slider, { CustomArrowProps } from "react-slick";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
 import Arrow from "./Arrow";
 import Banner from "./Banner";
 import "./Swiper.scss";
 import { Banner as BannerProps } from "@/modules/services/types";
-import { iArrowProps } from "./types";
-const Prev: FC<iArrowProps> = ({ onClick }) => (
+
+const Prev: FC<CustomArrowProps> = ({ onClick }) => (
   <Arrow onClick={onClick} className="left-1">
     <IconChevronLeft size={16} />
   </Arrow>
 );
 
-const Next: FC<iArrowProps> = ({ onClick }) => (
+const Next: FC<CustomArrowProps> = ({ onClick }) => (
   <Arrow onClick={onClick} className="right-1">
     <IconChevronRight size={16} />
   </Arrow>
@@ -24,11 +23,14 @@ interface iProps {
 }
 
 const Swiper: FC<iProps> = ({ banners = [] }) => {
+  const slider = useRef(null);
   const settings = {
     // className: 'slider variable-width',
+    className: "center",
     dots: true,
     infinite: true,
     centerMode: true,
+    // centerPadding: "160px",
     adaptiveHeight: true,
     draggable: false,
     // autoplay: true,
@@ -39,10 +41,16 @@ const Swiper: FC<iProps> = ({ banners = [] }) => {
     pauseOnHover: true,
     prevArrow: <Prev />,
     nextArrow: <Next />,
+    customPaging: (i) => (
+      <div
+        className={`customPaging`}
+        onMouseEnter={() => slider.current.slickGoTo(i)}
+      ></div>
+    ),
   };
   return (
     <div className="ui_swiper group">
-      <Slider {...settings}>
+      <Slider {...settings} ref={slider}>
         {banners.map((banner, index) => (
           <div
             className="cover overflow-hidden rounded-lg transition relative"

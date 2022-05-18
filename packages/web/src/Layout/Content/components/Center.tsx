@@ -24,7 +24,7 @@ import Audio from "./Audio";
 import {
   settingSelector,
   setGlobalLrcToggle,
-} from "@/modules/reducers/setting/slice";
+} from "@/modules/reducers/settings/slice";
 
 const iconSize = 16;
 

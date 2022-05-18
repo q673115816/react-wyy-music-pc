@@ -1,13 +1,8 @@
-import React, {
-  FormEventHandler,
-  memo,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-import { IconFaceId, IconDeviceMobile } from "@tabler/icons";
-import Select from "./components/Select";
+import React, { FormEventHandler, memo, useContext, useState } from "react";
+import { IconFaceId } from "@tabler/icons";
 import Threes from "./components/Threes";
+import Table from "./components/Table";
+import Submit from "./components/Submit";
 
 import {
   actionSwitchSignIn,
@@ -18,27 +13,13 @@ import {
 const SignUp = () => {
   const [warn, setWarn] = useState("");
   const {
-    loginReducer: { registerphone, registerpassword, countrycode },
+    loginReducer: { countrycode },
     loginDispatch,
   } = useContext(LoginContext);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
-    if (!registerphone) {
-      setWarn("⚠️请输入手机号码");
-    } else if (!registerpassword) {
-      setWarn("⚠️请输入登录密码");
-    }
   };
-
-  const handleFocus = useCallback(
-    ({ target }) => target.removeAttribute("readonly"),
-    []
-  );
-
-  const handlePhone = () => {};
-
-  const handlePassword = () => {};
 
   return (
     <div className="form px-10">
@@ -58,49 +39,8 @@ const SignUp = () => {
         <IconFaceId size={100} stroke={1} />
       </div>
       <form onSubmit={handleSubmit} autoComplete="off">
-        <table className="table">
-          <colgroup>
-            <col width="84" />
-            <col width="auto" />
-            <col width="84" />
-          </colgroup>
-          <tbody>
-            <tr>
-              <td>
-                <Select />
-              </td>
-              <td colSpan={2}>
-                <input
-                  type="text"
-                  name="phone"
-                  placeholder="请输入手机号"
-                  className="input"
-                  readOnly
-                  onFocus={handleFocus}
-                  value={registerphone}
-                  onChange={handlePhone}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td colSpan={3}>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="设置登录密码"
-                  className="input"
-                  readOnly
-                  onFocus={handleFocus}
-                  value={registerpassword}
-                  minLength={8}
-                  maxLength={20}
-                  onChange={handlePassword}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="info">
+        <Table />
+        <div className="py-4">
           {warn ? (
             <div className="warn ui_red">{warn}</div>
           ) : (
@@ -110,9 +50,7 @@ const SignUp = () => {
           )}
         </div>
         <div className="actions">
-          <button type="submit" className="submit">
-            注册
-          </button>
+          <Submit>注册</Submit>
           <div className="hint flex items-center justify-between mt-8 mb-4">
             其他注册方式
           </div>

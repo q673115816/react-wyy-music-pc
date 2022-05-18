@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
-import DomCheckbox from "@/components/Checkbox";
+import DomCheckbox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
 

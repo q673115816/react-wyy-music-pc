@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
-import SettingRadio from "./components/SettingRadio";
-import SettingCheck from "./components/SettingCheck";
+import SettingRadio from "./components/Radio";
+import SettingCheck from "./components/Check";
 
 const Play = () => {
   const [输出设备, 设置输出设备] = useState("directSound主声音驱动程序");

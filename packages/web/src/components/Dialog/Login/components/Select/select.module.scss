@@ -1,0 +1,31 @@
+.select {
+}
+
+.default {
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 30px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.option {
+  &.on,
+  &:hover {
+    background-color: #E4E5E7;
+  }
+}
+
+.optionGroup {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 260px;
+  height: 220px;
+  background-color: #fff;
+  border: 1px solid #D8D8D8;
+  border-radius: 0 0 4px 4px;
+  overflow: auto;
+  z-index: 2;
+}

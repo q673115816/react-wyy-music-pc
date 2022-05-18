@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import { setLyricToggle } from "@/modules/reducers/lrc/slice";
-import { setGlobalLrcHide } from "@/modules/reducers/setting/slice";
+import { setGlobalLrcHide } from "@/modules/reducers/settings/slice";
 import {
   IconMusic,
   IconPlayerPause,

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import SettingRadio from "./components/SettingRadio";
+import SettingRadio from "./components/Radio";
 
 const Download = () => (
   <>

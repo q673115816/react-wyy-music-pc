@@ -10,7 +10,7 @@ import React, {
 import Drag from "@/components/Drag";
 import classNames from "classnames";
 import { IconMenu } from "@tabler/icons";
-import { Orders } from "@/modules/reducers/setting/slice";
+import { Orders } from "@/modules/reducers/settings/slice";
 import { useImmer } from "use-immer";
 
 const useActions = ({ order }: { order: Orders }) => {

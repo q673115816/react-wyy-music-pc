@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import { IconCheck } from "@tabler/icons";
-import Checkbox from "@/components/Checkbox";
+import Checkbox from "@/components/CheckBox";
 import { useToast } from "@/components/Toast";
 import { useDispatch } from "react-redux";
 
@@ -10,7 +10,7 @@ interface iSettingCheck {
   handle?: () => void;
 }
 
-const SettingCheck: FC<iSettingCheck> = ({
+const Check: FC<iSettingCheck> = ({
   list = [],
   name = "",
   handle = () => {},
@@ -43,4 +43,4 @@ const SettingCheck: FC<iSettingCheck> = ({
   );
 };
 
-export default memo(SettingCheck);
+export default memo(Check);

@@ -1,0 +1,50 @@
+.qr {
+  .scanwait {
+    .qrbox {
+      height: 330px;
+      width: 280px;
+
+      .left {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        opacity: 0;
+      }
+
+      .right {
+        width: 100%;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+      }
+
+      .qrimg {
+        width: 180px;
+        height: 180px;
+      }
+
+      &:hover {
+        .left {
+          left: 0;
+          transform: translate(0, -50%);
+          width: 50%;
+          opacity: 1;
+        }
+
+        .right {
+          width: 50%;
+          right: 0;
+          transform: translate(0, -50%);
+        }
+
+
+        .qrimg {
+          width: 124px;
+          height: 124px;
+        }
+      }
+    }
+  }
+
+}

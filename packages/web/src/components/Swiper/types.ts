@@ -1,9 +1,7 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 
 export interface iArrowProps {
   onClick: MouseEventHandler;
-}
-
-export interface iArrowWithIconProps extends iArrowProps {
+  children: ReactNode;
   className: string;
 }

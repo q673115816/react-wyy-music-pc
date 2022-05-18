@@ -32,6 +32,7 @@ const Login = () => {
     LoginReducer,
     LoginInitialState
   );
+  const { type } = loginReducer;
   if (!loginVisibility) return null;
   return (
     <div
@@ -46,7 +47,7 @@ const Login = () => {
         <IconX stroke={1.5} />
       </button>
       <LoginContext.Provider value={{ loginReducer, loginDispatch }}>
-        {createElement(Build[loginReducer.type])}
+        {createElement(Build[type])}
       </LoginContext.Provider>
     </div>
   );

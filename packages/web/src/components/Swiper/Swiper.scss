@@ -17,3 +17,25 @@
     }
   }
 }
+
+.slick-dots li {
+  width: auto;
+  height: auto;
+
+  .customPaging {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  &.slick-active {
+    .customPaging {
+      background-color: var(--themeColor);
+    }
+  }
+}
+
+.slick-center.slick-current {
+  //transform: scale(1.5);
+}

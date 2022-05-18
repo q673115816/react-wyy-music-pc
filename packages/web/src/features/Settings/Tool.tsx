@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import SettingRadio from "./components/SettingRadio";
-import SettingCheck from "./components/SettingCheck";
+import SettingRadio from "./components/Radio";
+import SettingCheck from "./components/Check";
 
 const Tool = () => (
   <>

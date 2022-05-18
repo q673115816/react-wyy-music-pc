@@ -7,7 +7,7 @@ import {
 } from "@/modules/reducers/inset/slice";
 import Drag from "@/components/Drag";
 import Control from "./Control";
-import { settingSelector } from "@/modules/reducers/setting/slice";
+import { settingSelector } from "@/modules/reducers/settings/slice";
 import Content from "./Content";
 
 const Lrc = () => {

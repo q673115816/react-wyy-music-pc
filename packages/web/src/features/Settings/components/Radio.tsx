@@ -9,7 +9,7 @@ interface iSettingRadio {
   row?: boolean;
 }
 
-const SettingRadio: FC<iSettingRadio> = ({
+const Radio: FC<iSettingRadio> = ({
   list = [],
   checked = "",
   name = "",
@@ -38,4 +38,4 @@ const SettingRadio: FC<iSettingRadio> = ({
   </div>
 );
 
-export default memo(SettingRadio);
+export default memo(Radio);

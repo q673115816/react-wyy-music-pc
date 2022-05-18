@@ -21,7 +21,7 @@ import {
   useGetPersonalizedPrivatecontentQuery,
   useGetRecommendResourceQuery,
 } from "@/modules/services/discover";
-import { Order, settingSelector } from "@/modules/reducers/setting/slice";
+import { Order, settingSelector } from "@/modules/reducers/settings/slice";
 
 const config: { [key in Order]: [string, ReactNode] } = {
   推荐歌单: ["/discover/playlist", playlist],

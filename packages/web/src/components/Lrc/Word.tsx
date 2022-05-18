@@ -33,7 +33,7 @@ const Word = () => {
       className={classNames(
         style.word,
         className,
-        "text-center select-none text-transparent whitespace-pre-line pointer-events-none px-4"
+        "text-center text-2xl select-none text-transparent whitespace-pre-line pointer-events-none px-4 cursor-pointer"
       )}
     >
       {lrcList?.[currentLineIndex]?.word}

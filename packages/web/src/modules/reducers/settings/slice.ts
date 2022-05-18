@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Draft } from "immer";
 
-export interface SettingState {
+export interface State {
   theme: string;
   custom: boolean;
   font: string;
@@ -26,7 +26,7 @@ export const defaultOrder: Orders = [
   "看看",
 ];
 
-const initialState: SettingState = {
+const initialState: State = {
   theme: "#EC4141",
   custom: false,
   font: "inherit",
@@ -35,7 +35,7 @@ const initialState: SettingState = {
 };
 
 const slice = createSlice({
-  name: "setting",
+  name: "settings",
   initialState,
   reducers: {
     setTheme(state, action) {
@@ -62,11 +62,11 @@ const slice = createSlice({
   },
 });
 
-export const settingSelector = <T = Draft<SettingState>>({
-  setting,
+export const settingSelector = <T = Draft<State>>({
+  settings,
 }: {
-  setting: T;
-}): T => setting;
+  settings: T;
+}): T => settings;
 
 export default slice.reducer;
 

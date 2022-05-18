@@ -4,6 +4,7 @@ import "./style.scss";
 import { insetSelector } from "@/modules/reducers/inset/slice";
 import { useCss } from "react-use";
 import classNames from "classnames";
+import { settingSelector } from "@/modules/reducers/settings/slice";
 
 interface iInset {}
 
@@ -17,7 +18,7 @@ const Inset: FC<iInset> = ({ children }) => {
     globalWidth,
     globalHeight,
   } = useAppSelector(insetSelector);
-  const { theme, font } = useAppSelector(({ setting }) => setting);
+  const { theme, font } = useAppSelector(settingSelector);
 
   const themeStyle = useCss({
     fontFamily: font,

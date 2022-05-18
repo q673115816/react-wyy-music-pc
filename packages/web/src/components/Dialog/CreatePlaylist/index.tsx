@@ -1,7 +1,7 @@
 import React, { memo, useRef, useState } from "react";
 import { apiPlaylistCreate } from "@/api";
 import classNames from "classnames";
-import DomCheckbox from "@/components/Checkbox";
+import DomCheckbox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
 import "./style.scss";
 import { useAppSelector } from "@/modules/hooks";

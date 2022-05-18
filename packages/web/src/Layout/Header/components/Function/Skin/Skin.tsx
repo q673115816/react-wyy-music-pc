@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import classNames from "classnames";
 
-import { setTheme, setCustom } from "@/modules/reducers/setting/slice";
+import { setTheme, setCustom } from "@/modules/reducers/settings/slice";
 import "./style.scss";
 import { themes, colors } from "./utils";
 

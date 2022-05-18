@@ -4,7 +4,7 @@ import {
   setHomeOrder,
   defaultOrder,
   settingSelector,
-} from "@/modules/reducers/setting/slice";
+} from "@/modules/reducers/settings/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { IconBulb } from "@tabler/icons";
 import "./style.scss";

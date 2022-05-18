@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { IconBrandApple } from "@tabler/icons";
-import SettingRadio from "./components/SettingRadio";
+import SettingRadio from "./components/Radio";
 
 const About = () => (
   <>

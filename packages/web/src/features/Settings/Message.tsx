@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import SettingRadio from "./components/SettingRadio";
-import DomCheckbox from "./components/SettingCheck";
+import SettingRadio from "./components/Radio";
+import DomCheckbox from "./components/Check";
 
 const Message = () => (
   <>

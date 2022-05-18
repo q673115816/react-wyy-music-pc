@@ -1,8 +1,8 @@
 import React, { ChangeEventHandler, memo, useState } from "react";
-import Checkbox from "@/components/Checkbox";
-import { setFont, settingSelector } from "@/modules/reducers/setting/slice";
-import SettingRadio from "./components/SettingRadio";
-import SettingCheck from "./components/SettingCheck";
+import Checkbox from "@/components/CheckBox";
+import { setFont, settingSelector } from "@/modules/reducers/settings/slice";
+import SettingRadio from "./components/Radio";
+import SettingCheck from "./components/Check";
 import { useToast } from "@/components/Toast";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { fonts } from "./config";
