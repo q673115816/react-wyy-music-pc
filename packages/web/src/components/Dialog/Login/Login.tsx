@@ -1,6 +1,9 @@
-import React, { createElement, memo, ReactNode } from "react";
+import React, { createElement, FC, memo } from "react";
 import { IconX } from "@tabler/icons";
-import { setLoginVisibilty } from "@/modules/reducers/common/slice";
+import {
+  commonSelector,
+  setLoginVisibilty,
+} from "@/modules/reducers/common/slice";
 import { useImmerReducer } from "use-immer";
 import "./style.scss";
 import Scan from "./Scan";
@@ -17,7 +20,7 @@ import {
   LoginState,
 } from "./Content";
 
-const Build: { [key in LoginType]: ReactNode } = {
+const Build: { [key in LoginType]: FC } = {
   Scan,
   SignIn,
   SignUp,
@@ -27,7 +30,7 @@ const Build: { [key in LoginType]: ReactNode } = {
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const { loginVisibility } = useAppSelector(({ common }) => common);
+  const { loginVisibility } = useAppSelector(commonSelector);
   const [loginReducer, loginDispatch] = useImmerReducer<LoginState>(
     LoginReducer,
     LoginInitialState

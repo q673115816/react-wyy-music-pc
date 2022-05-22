@@ -36,6 +36,8 @@ const slice = createSlice({
   },
 });
 
+export const commonSelector = ({ common }) => common;
+
 export default slice.reducer;
 
 export const { setIsLogin, setLoginVisibilty, setMsgPrivate, setNotLogin } =
