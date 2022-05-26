@@ -1,6 +1,7 @@
 export default class {
   private ctx: AudioContext = new AudioContext();
   private source = this.ctx.createBufferSource();
+  analyser = this.ctx.createAnalyser();
   duration: number;
   constructor() {}
 
@@ -29,5 +30,8 @@ export default class {
 
   time() {
     const { contextTime, performanceTime } = this.ctx.getOutputTimestamp();
+    return { contextTime, performanceTime };
   }
+
+  draw(canvasCtx) {}
 }

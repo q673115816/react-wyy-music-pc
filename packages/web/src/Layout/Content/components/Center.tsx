@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import React, { createElement, memo, useMemo, useRef } from "react";
 import {
   IconArrowsSplit2,
   IconPlayerSkipBack,
@@ -35,7 +35,7 @@ const audioPatternIcon = [
   IconPlaylist,
 ];
 
-export default memo(function Center() {
+const Center = () => {
   const dispatch = useAppDispatch();
   const { running, pattern, src } = useAppSelector(audioSelector);
   const { globalLrcVisibility } = useAppSelector(settingSelector);
@@ -55,8 +55,6 @@ export default memo(function Center() {
     dispatch(setAudioNext());
   };
 
-  const AudioPatternIcon = useMemo(() => audioPatternIcon[pattern], [pattern]);
-
   return (
     <div className={"flex-center flex-col flex-1"}>
       <div className="flex-center gap-x-7">
@@ -66,7 +64,7 @@ export default memo(function Center() {
           title={audioPattern[pattern]}
           onClick={handleChangePattern}
         >
-          <AudioPatternIcon size={iconSize} />
+          {createElement(audioPatternIcon[pattern], { size: iconSize })}
         </button>
         <button
           type="button"
@@ -121,4 +119,6 @@ export default memo(function Center() {
       <Timing />
     </div>
   );
-});
+};
+
+export default memo(Center);

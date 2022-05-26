@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { audioPattern } from "@/common/config";
 
 interface State {
-  src: string;
   errorCount: number;
   running: boolean;
   dropping: boolean;

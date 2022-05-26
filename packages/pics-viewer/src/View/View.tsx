@@ -1,24 +1,24 @@
 import React, { FC, memo, MouseEventHandler } from "react";
 import styled, { css } from "styled-components";
-import { SrcObject } from "./types";
+import { SrcObject } from "../types";
 import { CounterActions } from "react-use/lib/useCounter";
 import JsFileDownLoader from "js-file-downloader";
-import Cur from "./Cur";
+import Cur from "../Cur";
 
-const ViewContainer = styled.div`
+const Container = styled.div`
   position: absolute;
   inset: 0;
   z-index: 99;
   display: flex;
 `;
 
-const ViewMask = styled.div`
+const Mask = styled.div`
   position: absolute;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.8);
 `;
 
-const ViewClose = styled.div`
+const Close = styled.div`
   position: absolute;
   cursor: pointer;
   top: 1rem;
@@ -27,7 +27,7 @@ const ViewClose = styled.div`
   font-size: 2rem;
 `;
 
-const ViewInner = styled.div`
+const Inner = styled.div`
   display: flex;
   overflow: auto;
   align-items: center;
@@ -41,12 +41,12 @@ const ViewInner = styled.div`
   overflow: -moz-scrollbars-none;
 `;
 
-const ViewSource = styled.div`
+const Source = styled.div`
   position: relative;
   max-width: 80%;
 `;
 
-const ViewControl = styled.div<{ dir: "left" | "right" }>`
+const Control = styled.div<{ dir: "left" | "right" }>`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -58,13 +58,13 @@ const ViewControl = styled.div<{ dir: "left" | "right" }>`
     `}
 `;
 
-const ViewImg = styled.img`
+const Img = styled.img`
   display: block;
   max-width: 100%;
   object-fit: scale-down;
 `;
 
-const ViewPage = styled.div<{ dir: "left" | "right" }>`
+const Page = styled.div<{ dir: "left" | "right" }>`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -81,7 +81,7 @@ const ViewPage = styled.div<{ dir: "left" | "right" }>`
   `}
 `;
 
-const ViewDownload = styled.div`
+const Download = styled.div`
   position: absolute;
   bottom: 10%;
   right: 0;
@@ -118,27 +118,27 @@ const View: FC<iProps> = ({ srcList, detail, detailControl }) => {
   };
 
   return (
-    <ViewContainer>
-      <ViewMask onClick={() => detailControl.reset()} />
-      <ViewClose onClick={() => detailControl.reset()}>×</ViewClose>
-      <ViewPage dir={`left`} onClick={() => detailControl.dec()}>
+    <Container>
+      <Mask onClick={() => detailControl.reset()} />
+      <Close onClick={() => detailControl.reset()}>×</Close>
+      <Page dir={`left`} onClick={() => detailControl.dec()}>
         <Cur.Left size={25} />
-      </ViewPage>
-      <ViewPage dir={`right`} onClick={() => detailControl.inc()}>
+      </Page>
+      <Page dir={`right`} onClick={() => detailControl.inc()}>
         <Cur.Right size={25} />
-      </ViewPage>
-      <ViewInner>
-        <ViewSource>
-          <ViewControl dir={`left`} onClick={() => detailControl.dec()} />
-          <ViewControl dir={`right`} onClick={() => detailControl.inc()} />
-          <ViewImg
+      </Page>
+      <Inner>
+        <Source>
+          <Control dir={`left`} onClick={() => detailControl.dec()} />
+          <Control dir={`right`} onClick={() => detailControl.inc()} />
+          <Img
             src={srcList[detail].originUrl}
             onClick={handleImgClick}
             alt=""
           />
-        </ViewSource>
-      </ViewInner>
-      <ViewDownload>
+        </Source>
+      </Inner>
+      <Download>
         {detail + 1}/{srcList.length} |
         <span
           style={{ cursor: "pointer" }}
@@ -146,8 +146,8 @@ const View: FC<iProps> = ({ srcList, detail, detailControl }) => {
         >
           下载
         </span>
-      </ViewDownload>
-    </ViewContainer>
+      </Download>
+    </Container>
   );
 };
 

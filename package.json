@@ -20,7 +20,7 @@
     "upgrade:pkg": "pnpm -r exec ncu -u",
     "build": "pnpm -r run build",
     "update": "pnpm -r up --latest",
-    "clean": "rm -rf node_modules && pnpm -r exec rm -rf node_modules",
+    "clean": "rm -rf node_modules **/*/node_modules",
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",
     "web:build": "pnpm -r run build --filter @wyy/web",
     "web:start": "pnpm -r run start --filter @wyy/web",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/react": "*",
     "@types/react-dom": "*",
-    "concurrently": "7.2.0",
+    "concurrently": "7.2.1",
     "prettier": "*",
     "regenerator-runtime": "^0.13.9",
     "rimraf": "^3.0.2",
