@@ -25,7 +25,8 @@
     "web:build": "pnpm -r run build --filter @wyy/web",
     "web:start": "pnpm -r run start --filter @wyy/web",
     "start": "concurrently --kill-others \"npm run start -C packages/web\" \"npm run start -C packages/pics-viewer\"",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "test": "jest"
   },
   "dependencies": {
     "react": "^18.1.0",
