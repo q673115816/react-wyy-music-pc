@@ -2,7 +2,7 @@ import React, { FC, memo, MouseEventHandler } from "react";
 import { SrcObject } from "../types";
 import { CounterActions } from "react-use/lib/useCounter";
 import JsFileDownLoader from "js-file-downloader";
-import Cur from "../Cur";
+import Cursor from "../Cursor";
 import {
   Close,
   Container,
@@ -39,10 +39,10 @@ const View: FC<iProps> = ({ srcList, detail, detailControl }) => {
       <Mask onClick={() => detailControl.reset()} />
       <Close onClick={() => detailControl.reset()}>×</Close>
       <Page dir={`left`} onClick={() => detailControl.dec()}>
-        <Cur.Left size={25} />
+        <Cursor.Left size={25} />
       </Page>
       <Page dir={`right`} onClick={() => detailControl.inc()}>
-        <Cur.Right size={25} />
+        <Cursor.Right size={25} />
       </Page>
       <Inner>
         <Source>

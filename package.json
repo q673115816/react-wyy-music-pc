@@ -24,18 +24,16 @@
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",
     "web:build": "pnpm -r run build --filter @wyy/web",
     "web:start": "pnpm -r run start --filter @wyy/web",
-    "start": "concurrently --kill-others \"npm run start -C packages/web\" \"npm run start -C packages/pics-viewer\""
+    "start": "concurrently --kill-others \"npm run start -C packages/web\" \"npm run start -C packages/pics-viewer\"",
+    "commit": "git-cz"
   },
   "dependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
   },
   "devDependencies": {
-    "husky": "^8.0.1",
-    "jest": "^28.1.1",
-    "babel-jest": "^28.1.1",
-    "ts-jest": "^28.0.4",
-    "lint-staged": "^13.0.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
     "@types/jest": "^28.1.1",
     "@types/node": "^17.0.42",
     "@types/react": "*",
@@ -43,11 +41,17 @@
     "@types/webpack-env": "^1.17.0",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.27.1",
+    "babel-jest": "^28.1.1",
     "concurrently": "7.2.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
+    "git-cz": "^4.9.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.1",
+    "lint-staged": "^13.0.1",
     "prettier": "*",
     "regenerator-runtime": "^0.13.9",
     "rimraf": "^3.0.2",
@@ -55,9 +59,7 @@
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard-scss": "^4.0.0",
     "stylelint-prettier": "^2.0.0",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "cz-conventional-changelog": "^3.3.0",
+    "ts-jest": "^28.0.4",
     "typescript": "*"
   },
   "engines": {
