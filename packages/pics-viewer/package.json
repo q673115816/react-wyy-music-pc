@@ -1,12 +1,12 @@
 {
   "name": "@q673115816/pics-viewer",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "main": "dist/index.js",
-  "module": "esm/index.js",
+  "module": "dist/index.js",
   "exports": {
     ".": {
       "require": "./dist/index.js",
-      "import": "./esm/index.js"
+      "import": "./dist/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -32,6 +32,7 @@
   ],
   "files": [
     "lib/",
+    "cjs/",
     "esm/",
     "umd/",
     "dist/"
@@ -39,10 +40,11 @@
   "scripts": {
     "clean": "rimraf lib esm umd dist",
     "start": "tsc --watch -m esnext",
+    "build": "tsc",
     "build:esm": "tsc -m esnext -outDir esm",
     "build:umd": "tsc -m umd -outDir umd",
-    "build:cjs": "tsc",
-    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:umd",
+    "build:cjs": "tsc -m commonjs -outDir cjs",
+    "build:all": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:umd",
     "test": "jest",
     "lint": "lint",
     "release": "npm run clean && npm run build && npm publish"
