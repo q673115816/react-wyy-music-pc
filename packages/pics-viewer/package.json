@@ -1,9 +1,17 @@
 {
   "name": "@q673115816/pics-viewer",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": "dist/index.js",
+  "module": "esm/index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./esm/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
-  "module": "dist/pics-viewer.esm.js",
   "author": "q673115816",
   "sideEffects": false,
   "license": "APGL",
@@ -29,10 +37,13 @@
     "dist/"
   ],
   "scripts": {
-    "clean": "rimraf lib esm dist",
-    "start": "tsc --watch --module esnext",
-    "build": "tsc --module umd",
-    "test": "tsdx test --passWithNoTests",
+    "clean": "rimraf lib esm umd dist",
+    "start": "tsc --watch -m esnext",
+    "build:esm": "tsc -m esnext -outDir esm",
+    "build:umd": "tsc -m umd -outDir umd",
+    "build:cjs": "tsc",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:umd",
+    "test": "jest",
     "lint": "lint",
     "release": "npm run clean && npm run build && npm publish"
   },
