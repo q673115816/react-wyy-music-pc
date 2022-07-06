@@ -9,7 +9,6 @@ import Coffee from "./author/Coffee";
 import Toast from "@/components/Toast";
 
 const App = () => {
-  console.log("app");
   useKeyActions();
   useIsLogin();
   return (

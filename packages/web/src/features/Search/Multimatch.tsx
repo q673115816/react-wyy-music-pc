@@ -48,9 +48,9 @@ const Nodes = {
       </div>
     </Link>
   ),
-  new_mlog: ({ item }) =>
-    null,
-    /*<Link
+  orpheus: ({ item }) => null,
+  new_mlog: ({ item }) => null,
+  /*<Link
       to={`/player/${new_mlogType[item.baseInfo.resource.mlogBaseData.type]}/${
         item.resourceId
       }`}
