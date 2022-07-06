@@ -33,8 +33,8 @@
   "dependencies": {
     "@q673115816/pics-viewer": "workspace:*",
     "@reduxjs/toolkit": "*",
-    "@sentry/react": "^7.5.0",
-    "@sentry/tracing": "^7.5.0",
+    "@sentry/react": "^7.5.1",
+    "@sentry/tracing": "^7.5.1",
     "@tabler/icons": "*",
     "axios": "*",
     "classnames": "*",

@@ -1,9 +1,10 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./src",
     "jsx": "react",
     "target": "ESNext",
-    "module": "CommonJS",
+    "module": "esnext",
     "esModuleInterop": true,
     "paths": {
       "@/*":["./*"],
