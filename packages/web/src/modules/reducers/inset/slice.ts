@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../store";
 
 interface InsetState {
   POSITION: boolean;
@@ -143,7 +144,7 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const insetSelector = ({ inset }) => inset;
+export const insetSelector = (store: RootState) => store.inset;
 
 export const {
   setGlobalDragger,

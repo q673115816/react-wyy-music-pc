@@ -18,7 +18,7 @@ import {
   Profile,
 } from "@/modules/services/user";
 import Gender from "./components/Gender";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 
 const Edit = () => {
   const dispatch = useAppDispatch();

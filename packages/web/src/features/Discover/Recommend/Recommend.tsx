@@ -1,9 +1,9 @@
-import React, { createElement, memo, ReactNode } from "react";
+import React, { createElement, FC, memo, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { setDialogHomeOrderShow } from "@/modules/reducers/mask/slice";
 import Swiper from "@/components/Swiper";
 import { IconChevronRight } from "@tabler/icons";
-import KANKAN from "@/components/AdLookRectangle";
+import AD from "./AD";
 import DialogHomeOrder from "@/components/Dialog/HomeOrder";
 
 import Loading from "@/components/Loading";
@@ -21,24 +21,26 @@ import {
   useGetPersonalizedPrivatecontentQuery,
   useGetRecommendResourceQuery,
 } from "@/modules/services/discover";
-import { Order, settingSelector } from "@/modules/reducers/settings/slice";
+import {
+  Order,
+  Orders,
+  settingSelector,
+} from "@/modules/reducers/settings/slice";
 
-const config: { [key in Order]: [string, ReactNode] } = {
-  推荐歌单: ["/discover/playlist", playlist],
-  独家放送: ["/exclusive", Privatecontent],
-  最新音乐: ["/home/playlist", NewSong],
-  推荐MV: ["/video/mvlist", MV],
-  主播电台: ["/discover/dj", DJProgram],
-  看看: [
-    "https://look.163.com/hot?livetype=2",
-    () => (
-      <div className="mt-4 grid grid-cols-4 gap-5">
-        {Object.keys(Array(4).fill(0)).map((item) => (
-          <KANKAN key={item} />
-        ))}
-      </div>
-    ),
-  ],
+const paths: { [key in Order]: string } = {
+  推荐歌单: "/discover/playlist",
+  独家放送: "/exclusive",
+  最新音乐: "/home/playlist",
+  推荐MV: "/video/mvlist",
+  主播电台: "/discover/dj",
+};
+
+const nodes: { [key in Order]: FC } = {
+  推荐歌单: playlist,
+  独家放送: Privatecontent,
+  最新音乐: NewSong,
+  推荐MV: MV,
+  主播电台: DJProgram,
 };
 
 const Recommend = () => {
@@ -56,6 +58,7 @@ const Recommend = () => {
   const newsong = resNewsong?.result || [];
   const mv = resMV?.result || [];
   const djprogram = resDJProgram?.result || [];
+
   const { order } = useAppSelector(settingSelector);
   const dispatch = useAppDispatch();
   if (isLoading) {
@@ -70,14 +73,13 @@ const Recommend = () => {
       <div className="ui_w1100">
         <Swiper banners={banners} />
         {order.map((name) => {
-          const [path, Dom] = config[name];
           return (
             <div className="mt-8" key={name}>
-              <Link className="h1 inline-flex items-center" to={path}>
+              <Link className="h1 inline-flex items-center" to={paths[name]}>
                 {name}
                 <IconChevronRight size={24} />
               </Link>
-              {createElement(Dom, {
+              {createElement(nodes[name], {
                 playlist,
                 privatecontent,
                 newsong,

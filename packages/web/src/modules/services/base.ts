@@ -12,7 +12,7 @@ import { Get } from "@/modules/utils";
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
-  baseUrl: API_URL,
+  baseUrl: import.meta.env.VITE_API_URL,
   // prepareHeaders: (headers, { getState }) => {
   //   // By default, if we have a token in the store, let's use that for authenticated requests
   //   const token = (getState() as RootState).auth.token;

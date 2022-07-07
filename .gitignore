@@ -110,3 +110,4 @@ yarn.lock
 dll
 
 .swc
+.stats.html

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "@/modules/store";
 
 interface CommonState {
   [key: string]: any;
@@ -24,9 +25,6 @@ const slice = createSlice({
     setIsLogin(state) {
       state.isLogin = true;
     },
-    setNotLogin(state) {
-      state.isLogin = false;
-    },
     setMsgPrivate(state, action) {
       Object.assign(state, action.payload);
     },
@@ -36,9 +34,8 @@ const slice = createSlice({
   },
 });
 
-export const commonSelector = ({ common }) => common;
+export const commonSelector = (state: RootState) => state.common;
 
 export default slice.reducer;
 
-export const { setIsLogin, setLoginVisibilty, setMsgPrivate, setNotLogin } =
-  slice.actions;
+export const { setIsLogin, setLoginVisibilty, setMsgPrivate } = slice.actions;

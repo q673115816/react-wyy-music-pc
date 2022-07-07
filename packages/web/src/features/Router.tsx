@@ -1,7 +1,7 @@
 import React, { lazy, LazyExoticComponent, memo, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Loading from "@/components/Loading";
-import Discover from "./Discover";
+
 const root: [string, LazyExoticComponent<any>][] = [
   ["AI", lazy(() => import(/* webpackChunkName: "AI" */ "./AI"))],
   ["Artist", lazy(() => import(/* webpackChunkName: "Artist" */ "./Artist"))],
@@ -39,7 +39,7 @@ const root: [string, LazyExoticComponent<any>][] = [
     "History",
     lazy(() => import(/* webpackChunkName: "History" */ "./History")),
   ],
-  ["Look", lazy(() => import(/* webpackChunkName: "Look" */ "./Look"))],
+  // ["Look", lazy(() => import(/* webpackChunkName: "Look" */ "./Look"))],
   [
     "Message",
     lazy(() => import(/* webpackChunkName: "Message" */ "./Message")),
@@ -66,10 +66,6 @@ const root: [string, LazyExoticComponent<any>][] = [
   ["User", lazy(() => import(/* webpackChunkName: "User" */ "./User"))],
   ["Video", lazy(() => import(/* webpackChunkName: "Video" */ "./Video"))],
 ];
-// const requireContext = require.context("./", true, /^\.\/.*\/Router\.tsx$/);
-// requireContext.keys().forEach((path) => {
-//   root.push([path.slice(2, -11), requireContext(path).default]);
-// });
 
 export default memo(function Features() {
   return (

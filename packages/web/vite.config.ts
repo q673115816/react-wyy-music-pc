@@ -1,18 +1,21 @@
 import { resolve } from "path";
 import { ConfigEnv, defineConfig } from "vite";
-import reactRefresh from "@vitejs/plugin-react-refresh";
+import react from "@vitejs/plugin-react";
 import legacyPlugin from "@vitejs/plugin-legacy";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default ({ mode, command }: ConfigEnv) => {
   const isDev = mode === "development";
   return defineConfig({
     base: "/",
+    define: {},
     plugins: [
-      reactRefresh(),
+      react(),
       legacyPlugin({
-        additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
-        polyfills: true,
+        // additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
+        // polyfills: true,
       }),
+      visualizer(),
     ],
     server: {
       port: 8080,
@@ -31,9 +34,9 @@ export default ({ mode, command }: ConfigEnv) => {
       assetsDir: "static/assets",
       rollupOptions: {
         output: {
-          chunkFileNames: "static/js/[name].js?version=[hash]",
-          entryFileNames: "static/js/[name].js?version=[hash]",
-          assetFileNames: "static/[ext]/[name].[ext]?version=[hash]",
+          // chunkFileNames: "static/js/[name].js?version=[hash]",
+          // entryFileNames: "static/js/[name].js?version=[hash]",
+          // assetFileNames: "static/[ext]/[name].[ext]?version=[hash]",
         },
         external: [
           // "react",

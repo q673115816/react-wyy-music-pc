@@ -1,14 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
-    "rootDir": "./src",
+    "rootDir": "src",
     "target": "es5",
     "module": "commonjs",
     "sourceMap": true,
-    //    "esModuleInterop": true,
     "jsx": "react",
-    "outDir": "./dist"
+    "outDir": "lib"
   },
   "exclude": ["node_modules", "dist", "esm", "umd", "tests", "lib"]
 }

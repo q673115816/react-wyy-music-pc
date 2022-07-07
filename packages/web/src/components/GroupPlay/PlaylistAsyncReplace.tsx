@@ -1,9 +1,9 @@
-import React, { FC, memo } from "react";
+import React, { FC, memo, PropsWithChildren } from "react";
 import { setAudioPlaylist } from "@/modules/reducers/audio/slice";
 import { apiPlaylistDetail, apiSongDetail } from "@/api";
 import { useAppDispatch } from "@/modules/hooks";
 
-interface iProps {
+interface iProps extends PropsWithChildren {
   id: number;
   className: string;
 }

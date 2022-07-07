@@ -1,21 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Draft } from "immer";
-
-export interface State {
-  theme: string;
-  custom: boolean;
-  font: string;
-  order: string[];
-  globalLrcVisibility: boolean;
-}
+import type { RootState } from "@/modules/store";
 
 export type Order =
   | "推荐歌单"
   | "独家放送"
   | "最新音乐"
   | "推荐MV"
-  | "主播电台"
-  | "看看";
+  | "主播电台";
 export type Orders = Order[];
 export const defaultOrder: Orders = [
   "推荐歌单",
@@ -23,8 +15,15 @@ export const defaultOrder: Orders = [
   "最新音乐",
   "推荐MV",
   "主播电台",
-  "看看",
 ];
+
+export interface State {
+  theme: string;
+  custom: boolean;
+  font: string;
+  order: Orders;
+  globalLrcVisibility: boolean;
+}
 
 const initialState: State = {
   theme: "#EC4141",
@@ -53,20 +52,13 @@ const slice = createSlice({
     setGlobalLrcToggle(state) {
       state.globalLrcVisibility = !state.globalLrcVisibility;
     },
-    setGlobalLrcShow(state) {
-      state.globalLrcVisibility = true;
-    },
     setGlobalLrcHide(state) {
       state.globalLrcVisibility = false;
     },
   },
 });
 
-export const settingSelector = <T = Draft<State>>({
-  settings,
-}: {
-  settings: T;
-}): T => settings;
+export const settingSelector = (state: RootState) => state.settings;
 
 export default slice.reducer;
 
@@ -76,6 +68,5 @@ export const {
   setCustom,
   setHomeOrder,
   setGlobalLrcHide,
-  setGlobalLrcShow,
   setGlobalLrcToggle,
 } = slice.actions;

@@ -1,19 +1,17 @@
 // const { GenerateSW } = require("workbox-webpack-plugin");
 const path = require("path");
 const { DefinePlugin } = require("webpack");
-const dotenv = require("./env")();
+require("./env")();
 const { src, img } = require("./util");
 
-const devMode = process.env.NODE_ENV !== "production";
 const { VITE_PUBLIC_URL, VITE_LIVE_URL, VITE_API_URL, NODE_ENV } = process.env;
 const plugins = [
   new DefinePlugin({
-    // "process.env": JSON.stringify(dotenv.parsed),
     PUBLIC_URL: JSON.stringify(VITE_PUBLIC_URL),
     LIVE_URL: JSON.stringify(VITE_LIVE_URL),
     API_URL: JSON.stringify(VITE_API_URL),
     NODE_ENV: JSON.stringify(NODE_ENV),
-    "process.env.GA_TRACKING_ID": JSON.stringify("G-JCYJ5YJR7G"),
+    GA_TRACKING_ID: JSON.stringify("G-JCYJ5YJR7G"),
   }),
   // new GenerateSW({
   //   // Do not precache images

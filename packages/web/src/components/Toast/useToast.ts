@@ -1,11 +1,15 @@
 import { useCallback, useContext } from "react";
 import { setToast, context, resetToast } from "./Content";
 
-const defaultConfig = {
+interface Props {
+  delay: number;
+}
+
+const defaultConfig: Props = {
   delay: 2000,
 };
 
-const useToast = (config) => {
+const useToast = (config?: Props) => {
   const { delay } = Object.assign(defaultConfig, config);
   const [state, dispatch] = useContext(context);
   return (text: string) => {

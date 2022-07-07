@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Draft } from "immer";
-import { remove } from "lodash";
+import remove from "lodash/remove";
+
 interface State {
   keywords: string;
   count: number;

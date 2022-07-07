@@ -2,6 +2,7 @@ import React, {
   FC,
   memo,
   MouseEventHandler,
+  PropsWithChildren,
   ReactEventHandler,
   useCallback,
   useContext,
@@ -11,13 +12,16 @@ import React, {
 } from "react";
 import classnames from "classnames";
 import useLoginStatus, { handleLoginStatus } from "@/hooks/useLoginStatus";
-import { set, get } from "lodash";
+
+import set from "lodash/set";
+import get from "lodash/get";
+
 import { LookContent } from "@/features/Look/Look";
 import useGetInput, { iUseGetInput } from "@/features/Look/Live/useGetInput";
 import { useImmer } from "use-immer";
 import RTC from "../RTC";
 
-interface iButtonProps {
+interface iButtonProps extends PropsWithChildren {
   onClick: MouseEventHandler;
   status?: boolean;
 }
@@ -37,7 +41,7 @@ const Button: FC<iButtonProps> = ({ onClick, children, status = false }) => {
   );
 };
 
-interface iCheck<T> {
+interface iCheck<T> extends PropsWithChildren {
   name: T;
   checked: boolean;
   onChange: (key: T) => void;

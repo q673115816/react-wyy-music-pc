@@ -48,7 +48,7 @@ const options1: NavListProps[] = [
   },
   {
     name: "直播",
-    link: "/look",
+    link: "/",
   },
   {
     name: "私人FM",

@@ -1,15 +1,16 @@
 import React, { FC, memo } from "react";
+import img from "@img/kankan.jpg";
 
 const link = "https://look.163.com/hot?livetype=2";
 
-const ADLookRectangle: FC<{ tag?: boolean }> = ({ tag = false }) => (
+const AD: FC<{ tag?: boolean }> = ({ tag = false }) => (
   <div className="item">
     <div className="rounded overflow-hidden relative">
       <a href={link}>
         <img
           loading={`lazy`}
           className="object-cover aspect-square"
-          src={require(`@img/kankan.jpg`)}
+          src={img}
           alt=""
         />
         <div className="absolute top-0 right-0 m-1">
@@ -31,4 +32,4 @@ const ADLookRectangle: FC<{ tag?: boolean }> = ({ tag = false }) => (
   </div>
 );
 
-export default memo(ADLookRectangle);
+export default memo(AD);
