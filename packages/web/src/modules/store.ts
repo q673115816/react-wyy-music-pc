@@ -35,7 +35,7 @@ export const createStore = (
     //   }).concat(base.middleware),
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(base.middleware),
-    devTools: import.meta.env.mode !== "production",
+    devTools: import.meta.env.DEV,
     ...options,
     // preloadedState,
   });

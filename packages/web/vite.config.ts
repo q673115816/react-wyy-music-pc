@@ -31,12 +31,18 @@ export default ({ mode, command }: ConfigEnv) => {
       exclude: [],
     },
     build: {
-      assetsDir: "static/assets",
+      // assetsDir: "static/assets",
       rollupOptions: {
+        // input: {
+        //   404: resolve(__dirname, "index.html"),
+        // },
         output: {
           // chunkFileNames: "static/js/[name].js?version=[hash]",
           // entryFileNames: "static/js/[name].js?version=[hash]",
           // assetFileNames: "static/[ext]/[name].[ext]?version=[hash]",
+          // entryFileNames: "[name]-[hash].[ext]",
+          // chunkFileNames: "[name]-[hash].[ext]",
+          // assetFileNames: "[ext]/[name]-[hash][ext]",
         },
         external: [
           // "react",

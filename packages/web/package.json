@@ -19,14 +19,15 @@
   "scripts": {
     "test": "echo \" ci run success \"",
     "webpack:dev": "webpack serve --config build/webpack.dev.js --mode development",
-    "build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.js",
+    "webpack:build": "cross-env NODE_ENV=production webpack --config build/webpack.prod.js",
     "build:dll": "cross-env NODE_ENV=production webpack --config build/webpack.dll.js",
     "serve": "webpack serve --config build/webpack.dev.js --progress --profile --watch --content-base src/",
     "analyz": "cross-env NODE_ENV=production webpack --config build/webpack.analyze.js",
     "lint": "eslint --fix ./src/**/*",
-    "vite:dev": "vite --config vite.config.ts",
-    "vite:build": "vite build --config vite.config.ts",
+    "vite:dev": "vite",
+    "vite:build": "vite build",
     "start": "npm run vite:dev",
+    "build": "npm run vite:build",
     "jest": "jest"
   },
   "dependencies": {
