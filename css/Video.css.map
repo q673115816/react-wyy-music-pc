@@ -1,1 +1,0 @@
-{"version":3,"file":"css/Video.css?version=fc892176","mappings":"AAAA,kBAEE,aADA,WACA,CAGF,qBAEE,YADA,WACA,C","sources":["webpack://@wyy/web/./src/features/Video/VideoList/components/Select/style.scss"],"sourcesContent":[".group_select_box {\n  width: 640px;\n  height: 490px;\n}\n\n.group_select_button {\n  width: 100px;\n  height: 30px;\n}\n"],"names":[],"sourceRoot":""}
