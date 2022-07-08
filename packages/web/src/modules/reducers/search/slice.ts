@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Draft } from "immer";
 import remove from "lodash/remove";
+import { RootState } from "@/modules/store";
 
 interface State {
   keywords: string;
@@ -40,8 +40,7 @@ const slice = createSlice({
   },
 });
 
-export const searchSelector = <T = Draft<State>>({ search }: { search: T }) =>
-  search;
+export const searchSelector = (state: RootState) => state.search;
 
 export default slice.reducer;
 

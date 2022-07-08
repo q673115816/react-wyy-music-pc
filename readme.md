@@ -9,6 +9,7 @@
 
 ---
 * [x] pnpm menorepo 拆分组件
+* [x] webpack迁移至vite
 * [ ] 关注用户需要账号验证
 * [ ] FM
 * [ ] 专辑

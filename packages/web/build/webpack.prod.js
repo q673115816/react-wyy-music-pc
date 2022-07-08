@@ -101,7 +101,7 @@ const externals = [
     "react-router": "ReactRouter",
     "react-router-dom": "ReactRouterDOM",
     "react-transition-group": "ReactTransitionGroup",
-    hisitory: "HistoryLibrary",
+    history: "HistoryLibrary",
     immer: "immer",
     redux: "Redux",
     "react-redux": "ReactRedux",

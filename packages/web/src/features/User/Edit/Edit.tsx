@@ -83,9 +83,7 @@ const Edit = () => {
     setDisabled(JSON.stringify(profile) === JSON.stringify(edit));
   }, [edit]);
 
-  if (data?.code === 301) {
-    return null;
-  }
+  if (data?.code === 301) return null;
   if (isLoading)
     return (
       <div className="flex-center w-full h-full">
