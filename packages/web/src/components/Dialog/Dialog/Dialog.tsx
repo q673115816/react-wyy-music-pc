@@ -1,4 +1,4 @@
-import React, { FC, memo, MouseEventHandler } from "react";
+import React, { FC, memo, MouseEventHandler, PropsWithChildren } from "react";
 import { useDispatch } from "react-redux";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
 import { IconX } from "@tabler/icons";
@@ -50,7 +50,7 @@ const reducer: Reducer<State> = (draft, { type, payload }) => {
   }
 };
 
-interface iProps {
+interface iProps extends PropsWithChildren {
   id: string;
   title: string;
   className?: string;

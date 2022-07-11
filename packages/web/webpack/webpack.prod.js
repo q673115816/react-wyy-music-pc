@@ -15,7 +15,6 @@ const cdnBase = "https://cdn.jsdelivr.net/npm";
 const cdn = {
   js: [
     `${cdnBase}/axios/dist/axios.min.js`,
-    `${cdnBase}/ua-parser-js/dist/ua-parser.min.js`,
     `${cdnBase}/lodash/lodash.min.js`,
     `${cdnBase}/web-vitals/dist/web-vitals.umd.min.js`,
     `${cdnBase}/rxjs/dist/bundles/rxjs.umd.js`,
@@ -94,7 +93,6 @@ const externals = [
     // 'swiper': ['Swiper', 'swiper-react'],
     // 'swiper': 'Swiper',
     lodash: "_",
-    "ua-parser-js": "UAParser",
     "web-vitals": "webVitals",
     react: "React",
     "react-dom": "ReactDOM",

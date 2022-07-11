@@ -3,10 +3,6 @@ import { Socket } from "socket.io-client";
 export const SOCKET_CONNECT = "SOCKET_CONNECT";
 export const SOCKET_DISCONNECT = "SOCKET_DISCONNECT";
 
-import UAParser from "ua-parser-js";
-
-console.log(new UAParser().getResult());
-
 export interface LookState {
   socket: Socket;
 }

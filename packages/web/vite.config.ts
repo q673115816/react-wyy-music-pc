@@ -22,7 +22,7 @@ export default ({ mode, command }: ConfigEnv) => {
         // additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
         // polyfills: true,
       }),
-      visualizer(),
+      mode === "analyze" && visualizer(),
     ],
     server: {
       port: 8080,
@@ -91,7 +91,6 @@ export default ({ mode, command }: ConfigEnv) => {
           // "axios",
           // "socket.io-client",
           // "webrtc-adapter",
-          // "ua-parser-js",
           // "store",
           // "rxjs",
         ],

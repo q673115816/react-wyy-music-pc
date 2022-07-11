@@ -45,7 +45,7 @@ export default memo(() => (
     <SkinBtn />
     <Link
       to="/settings"
-      className="relative text-white text-opacity-90 hover:text-opacity-100 "
+      className="relative text-white text-opacity-90 hover:text-opacity-100"
       title="设置"
     >
       <IconSettings size={24} />

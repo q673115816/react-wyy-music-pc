@@ -1,0 +1,56 @@
+{
+  "name": "@q673115816/editor",
+  "version": "0.0.1",
+  "main": "lib/index.js",
+  "module": "esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
+  "author": "q673115816",
+  "sideEffects": false,
+  "license": "APGL",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/q673115816/react-wyy-music-pc.git",
+    "directory": "packages/editor"
+  },
+  "homepage": "https://github.com/q673115816/react-wyy-music-pc/tree/master/packages/editor",
+  "bugs": "https://github.com/q673115816/react-wyy-music-pc/issues",
+  "keywords": [
+    "typescript",
+    "react",
+    "theme"
+  ],
+  "files": [
+    "lib/",
+    "esm/",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rimraf lib esm umd dist",
+    "start": "tsc --watch",
+    "build:cjs": "tsc",
+    "build:es": "tsc -m esNext --outDir esm",
+    "build": "npm run build:cjs && npm run build:es",
+    "test": "jest",
+    "lint": "lint",
+    "release": "npm run clean && npm run build && npm publish"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/react": "*",
+    "@types/react-dom": "*"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0  || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0  || ^17.0.0 || ^18.0.0"
+  }
+}

@@ -5,13 +5,13 @@ import React, {
   PropsWithChildren,
   useRef,
 } from "react";
-import { useDispatch } from "react-redux";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
+import { useAppDispatch } from "@/modules/hooks";
 
 const Mask: FC<PropsWithChildren> = ({ children, ...props }) => {
-  const dispatch = useDispatch();
-  const ref = useRef<HTMLDivElement>(null);
-  const handleMaskClick: MouseEventHandler<HTMLDivElement> = (e) => {
+  const dispatch = useAppDispatch();
+  const ref = useRef(null);
+  const handleMaskClick: MouseEventHandler = (e) => {
     if (e.target === ref.current) {
       dispatch(setDialogReset());
     }
