@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, memo } from "react";
 import SvgMale from "@img/male.svg";
 import SvgFemale from "@img/famale.svg";
 
@@ -28,7 +28,11 @@ export const Female = ({ size = 0 }) => (
   </span>
 );
 
-const Gender = ({ gender, ...props }) => {
+interface iProps {
+  gender: number;
+}
+
+const Gender: FC<iProps> = ({ gender, ...props }) => {
   switch (gender) {
     case 1:
       return <Male {...props} />;
@@ -39,4 +43,4 @@ const Gender = ({ gender, ...props }) => {
   }
 };
 
-export default Gender;
+export default memo(Gender);

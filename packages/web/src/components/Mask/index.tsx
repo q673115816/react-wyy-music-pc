@@ -1,10 +1,14 @@
-import React, { FC, memo, MouseEventHandler, useRef } from "react";
+import React, {
+  FC,
+  memo,
+  MouseEventHandler,
+  PropsWithChildren,
+  useRef,
+} from "react";
 import { useDispatch } from "react-redux";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
 
-interface iProps {}
-
-const Mask: FC<iProps> = ({ children, ...props }) => {
+const Mask: FC<PropsWithChildren> = ({ children, ...props }) => {
   const dispatch = useDispatch();
   const ref = useRef<HTMLDivElement>(null);
   const handleMaskClick: MouseEventHandler<HTMLDivElement> = (e) => {

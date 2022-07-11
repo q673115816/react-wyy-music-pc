@@ -1,26 +1,28 @@
-import React, {memo} from 'react'
-import Resize from "@/components/ResizeObserver";
+import React, { memo } from "react";
+import Resize from "@/components/Resize";
 import Item from "@/components/GridPlaylist/Item";
 import Page from "@/components/Page/Page";
-import {useGetTopPlaylistQuery} from "@/modules/services/discover";
-import {useNavigate, useParams} from "react-router-dom";
+import { useGetTopPlaylistQuery } from "@/modules/services/discover";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "@/components/Loading";
 
 const Base = () => {
-  const {cat = '', page = '1'} = useParams()
-  const navigate = useNavigate()
-  const limit = 100
+  const { cat = "", page = "1" } = useParams();
+  const navigate = useNavigate();
+  const limit = 100;
 
   const { data, isLoading } = useGetTopPlaylistQuery({
-    order: 'hot',
+    order: "hot",
     cat,
     limit,
     offset: (page - 1) * limit,
-  })
-  if(isLoading) {
+  });
+  if (isLoading) {
     return (
-      <div className={`flex-center`}><Loading/></div>
-    )
+      <div className={`flex-center`}>
+        <Loading />
+      </div>
+    );
   }
   return (
     <>
@@ -39,7 +41,7 @@ const Base = () => {
         func={(nextPage) => navigate(`../${nextPage}`)}
       />
     </>
-  )
-}
+  );
+};
 
-export default memo(Base)
+export default memo(Base);

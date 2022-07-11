@@ -1,18 +1,18 @@
-import React, { FC, memo, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { FC, memo, PropsWithChildren } from "react";
 import { setAudioImmediate } from "@/modules/reducers/audio/slice";
 import { setContextMenuShow } from "@/modules/reducers/mask/slice";
 
 import config from "./config";
+import { useAppDispatch } from "@/modules/hooks";
 
 const defaultSchema = [
   ["评论", "播放", "下一首播放"],
   ["收藏到歌单", "分享", "复制链接", "不感兴趣", "下载"],
 ];
 
-interface iProps {
+interface iProps extends PropsWithChildren {
   type: string;
-  item: {};
+  item: object;
   schema: string[][];
 }
 
@@ -23,8 +23,7 @@ const MenuCreate: FC<iProps> = ({
   schema = defaultSchema,
   ...props
 }) => {
-  const dispatch = useDispatch();
-  const [state, setstate] = useState();
+  const dispatch = useAppDispatch();
   const handleDoubleClick = (item) => {
     dispatch(
       setAudioImmediate({

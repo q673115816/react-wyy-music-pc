@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import React, { FC, memo } from "react";
+import React, { FC, memo, PropsWithChildren } from "react";
 
-interface iBox {
+interface iBox extends PropsWithChildren {
   text: string;
   className?: string | [];
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, memo } from "react";
 import style from "./Artist.module.scss";
 import classNames from "classnames";
 import useInfinite from "@/hooks/useInfinite";
-import Resize from "@/components/ResizeObserver";
+import Resize from "@/components/Resize";
 import Loading from "@/components/Loading";
 import Item from "./Item";
 import config from "./config";

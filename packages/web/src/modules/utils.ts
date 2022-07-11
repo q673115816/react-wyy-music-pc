@@ -3,7 +3,7 @@ interface iProps<T> {
   key: string;
   value?: T;
   base?: T;
-  callback?: Function;
+  callback?: () => void;
 }
 
 export const Set = <T>({ key, value, callback }: iProps<T>) => {

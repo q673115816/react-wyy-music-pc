@@ -10,7 +10,7 @@ import {
   setExclusiveScrollTop,
   handleGetData,
 } from "@/modules/reducers/exclusive/slice";
-import ResizeObserver from "@/components/ResizeObserver";
+import Resize from "@/components/Resize";
 
 const limit = 60;
 
@@ -30,11 +30,7 @@ export default memo(function Exclusive() {
     <div className="overflow-auto p-8 h-full" ref={DomScroll}>
       <div className="ui_w1100">
         <div className="h1 pb-4">独家放送</div>
-        <ResizeObserver
-          className="grid gap-5"
-          small="grid-cols-2"
-          big="grid-cols-3"
-        >
+        <Resize className="grid gap-5" small="grid-cols-2" big="grid-cols-3">
           {result.map((item: ResultProps) => (
             <div key={item.picUrl}>
               <Link
@@ -66,7 +62,7 @@ export default memo(function Exclusive() {
             </div>
           ))}
           <div ref={DomObserver} />
-        </ResizeObserver>
+        </Resize>
       </div>
     </div>
   );
