@@ -1,1 +1,0 @@
-import{F as l}from"./index.89c01ead.js";const s=l.injectEndpoints({endpoints:e=>({getPlaylistDetail:e.query({query:t=>({url:"playlist/detail",method:"POST",body:t})}),getCommentPlaylist:e.query({query:t=>({url:"comment/playlist",method:"POST",body:t})})})}),{useGetPlaylistDetailQuery:i,useGetCommentPlaylistQuery:o}=s;export{o as a,i as u};

@@ -1,1 +1,0 @@
-import{r as o}from"./react.23cc8478.js";import{G as r}from"./index.89c01ead.js";import{u as e}from"./react-router-dom.1e37ceed.js";const s=async a=>{try{const{data:{profile:t}}=await r();a&&a(t)}catch(t){console.log(t)}};var c=()=>{const a=e();o.exports.useEffect(()=>{s(t=>{t||a("/",{replace:!0})})},[])};export{c as u};
