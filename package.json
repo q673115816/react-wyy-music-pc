@@ -22,7 +22,9 @@
     "update": "pnpm -r up --latest",
     "clean": "rm -rf node_modules **/*/node_modules",
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",
+    "web:dev": "npm run c:build & pnpm -r run start --filter @wyy/web",
     "web:build": "pnpm -r run build --filter @wyy/web",
+    "c:build": "pnpm -r run build --filter components",
     "start": "pnpm -r run start",
     "commit": "git-cz",
     "test": "jest"
@@ -38,10 +40,8 @@
     "@types/node": "^18.0.3",
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@types/webpack-env": "^1.17.0",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
-    "babel-jest": "^28.1.2",
     "concurrently": "7.2.2",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.19.0",
@@ -55,7 +55,6 @@
     "jest": "^28.1.2",
     "lint-staged": "^13.0.3",
     "prettier": "*",
-    "regenerator-runtime": "^0.13.9",
     "rimraf": "^3.0.2",
     "stylelint": "^14.9.1",
     "stylelint-config-prettier": "^9.0.3",
@@ -65,7 +64,7 @@
     "typescript": "*"
   },
   "engines": {
-    "node": ">=10",
+    "node": ">=14",
     "pnpm": ">=3"
   },
   "husky": {
