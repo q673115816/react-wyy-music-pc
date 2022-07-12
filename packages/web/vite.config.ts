@@ -3,6 +3,7 @@ import { ConfigEnv, defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 import legacyPlugin from "@vitejs/plugin-legacy";
 import { visualizer } from "rollup-plugin-visualizer";
+import { build } from "./vite";
 
 export default ({ mode, command }: ConfigEnv) => {
   const isDev = mode === "development";
@@ -40,9 +41,10 @@ export default ({ mode, command }: ConfigEnv) => {
     build: {
       // assetsDir: "static/assets",
       rollupOptions: {
-        input: {
-          index: resolve(__dirname, "404.html"),
-        },
+        input: !isDev ? build().input : "",
+        // input: {
+        //   index: resolve(__dirname, "404.html"),
+        // },
         output: {
           chunkFileNames: "assets/js/[name].[hash].js",
           entryFileNames: "assets/js/[name].[hash].js",

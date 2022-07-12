@@ -25,16 +25,16 @@
     "webpack:analyze": "cross-env NODE_ENV=production webpack --config webpack/webpack.analyze.js",
     "lint": "eslint --fix ./src/**/*",
     "clean": "rimraf lib esm umd dist",
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "analyze": "vite build --mode analyze",
     "preview": "vite preview",
     "jest": "jest"
   },
   "dependencies": {
+    "@q673115816/editor": "workspace:*",
     "@q673115816/pics-viewer": "workspace:*",
     "@q673115816/theme-color": "workspace:*",
-    "@q673115816/editor": "workspace:*",
     "@reduxjs/toolkit": "*",
     "@sentry/react": "^7.6.0",
     "@sentry/tracing": "^7.6.0",
@@ -64,6 +64,7 @@
     "webrtc-adapter": "*"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
     "@types/lodash": "*",
     "@types/react-router-dom": "*",
     "@types/react-slick": "^0.23.10",
@@ -75,6 +76,7 @@
     "autoprefixer": "^10.4.7",
     "coveralls": "^3.1.1",
     "cssnano": "^5.1.12",
+    "fs-extra": "^10.1.0",
     "postcss": "^8.4.14",
     "react-test-renderer": "^18.2.0",
     "rollup-plugin-visualizer": "^5.6.0",

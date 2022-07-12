@@ -23,8 +23,7 @@
     "clean": "rm -rf node_modules **/*/node_modules",
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",
     "web:build": "pnpm -r run build --filter @wyy/web",
-    "web:start": "pnpm -r run start --filter @wyy/web",
-    "start": "concurrently --kill-others \"npm run start -C packages/web\" \"npm run start -C packages/pics-viewer\"",
+    "start": "pnpm -r run start",
     "commit": "git-cz",
     "test": "jest"
   },
