@@ -32,7 +32,6 @@
     "jest": "jest"
   },
   "dependencies": {
-    "@q673115816/editor": "workspace:*",
     "@q673115816/pics-viewer": "workspace:*",
     "@q673115816/theme-color": "workspace:*",
     "@reduxjs/toolkit": "*",
