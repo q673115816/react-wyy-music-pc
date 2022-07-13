@@ -1,30 +1,14 @@
-import React, { useState, memo } from "react";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import { IconSettings, IconPalette, IconMail } from "@tabler/icons";
+import { IconSettings, IconMail } from "@tabler/icons";
 import { setPopupLetterToggle } from "@/modules/reducers/mask/slice";
-import DomSkinPop from "./Skin";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-
-const SkinBtn = memo(() => {
-  const [visibility, setVisibility] = useState(false);
-  return (
-    <div className="domHeader_function_skin">
-      <button
-        onClick={() => setVisibility(!visibility)}
-        type="button"
-        className="block focus:outline-none text-white text-opacity-90 hover:text-opacity-100"
-        title="换肤"
-      >
-        <IconPalette size={24} />
-      </button>
-      {visibility && <DomSkinPop />}
-    </div>
-  );
-});
+import { commonSelector } from "@/modules/reducers/common/slice";
+import Skin from "./Skin";
 
 const LetterBtn = memo(() => {
   const dispatch = useAppDispatch();
-  const { newMsgCount } = useAppSelector(({ common }) => common);
+  const { newMsgCount } = useAppSelector(commonSelector);
   return (
     <button
       type="button"
@@ -41,8 +25,8 @@ const LetterBtn = memo(() => {
 });
 
 export default memo(() => (
-  <div className="domHeader_function flex space-x-3 relative h-full items-center">
-    <SkinBtn />
+  <div className="space-x-3 relative h-full flex-center">
+    <Skin />
     <Link
       to="/settings"
       className="relative text-white text-opacity-90 hover:text-opacity-100"

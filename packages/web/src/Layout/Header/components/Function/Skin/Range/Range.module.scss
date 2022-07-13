@@ -1,0 +1,28 @@
+.wrapper {
+  --ballsize: 14px;
+  height: 4px;
+  background-color: #ccc;
+  border-radius: 2px;
+}
+
+.inner {
+  margin: 0 calc(var(--ballsize) / 2);
+  position: relative;
+  height: 100%;
+}
+
+.drag {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--ballsize);
+  height: var(--ballsize);
+  border-radius: 50%;
+  border: 1px solid #E2E2E2;
+  background-color: #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  &:hover {
+    background-color: #F5F5F7;
+  }
+}

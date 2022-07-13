@@ -38,8 +38,10 @@
     "@sentry/react": "^7.6.0",
     "@sentry/tracing": "^7.6.0",
     "@tabler/icons": "*",
+    "@types/color": "^3.0.3",
     "axios": "*",
     "classnames": "*",
+    "color": "^4.2.3",
     "dayjs": "*",
     "history": "*",
     "immer": "*",
@@ -80,7 +82,7 @@
     "react-test-renderer": "^18.2.0",
     "rollup-plugin-visualizer": "^5.6.0",
     "sass": "^1.53.0",
-    "tailwindcss": "^3.1.5",
+    "tailwindcss": "^3.1.6",
     "vite": "^2.9.14"
   }
 }

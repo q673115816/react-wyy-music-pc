@@ -1,0 +1,16 @@
+.skin {
+  width: 324px;
+  height: 250px;
+}
+
+.themes {
+  grid-template: repeat(2, 90px)/repeat(3, 90px);
+}
+
+.colors {
+  grid-template: repeat(2, 40px)/repeat(6, 40px)
+}
+
+.colour {
+  background-image: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+}
