@@ -17,9 +17,6 @@ export const wordLength = (words: string = ""): number => {
   return length;
 };
 
-export const sleep = (delay = 1000) =>
-  new Promise((resolve) => setTimeout(resolve, delay));
-
 type Dir = "x" | "y";
 
 export const computedPositionPercentage = (

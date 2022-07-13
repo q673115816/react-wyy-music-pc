@@ -1,6 +1,6 @@
 {
   "name": "@q673115816/pics-viewer",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "exports": {
@@ -19,9 +19,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/q673115816/react-wyy-music-pc.git",
-    "directory": "packages/pics-viewer"
+    "directory": "components/pics-viewer"
   },
-  "homepage": "https://github.com/q673115816/react-wyy-music-pc/tree/master/packages/pics-viewer",
+  "homepage": "https://github.com/q673115816/react-wyy-music-pc/tree/master/components/pics-viewer",
   "bugs": "https://github.com/q673115816/react-wyy-music-pc/issues",
   "keywords": [
     "typescript",

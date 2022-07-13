@@ -1,8 +1,8 @@
+import React, { FC, memo, MouseEventHandler, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { computedPositionPercentage, isInTheRect } from "@/common/utils";
-import { setVolume } from "@/modules/reducers/volume/slice";
+import { setVolume, volumeSelector } from "@/modules/reducers/volume/slice";
 import Drag from "@/components/Drag";
-import React, { FC, memo, MouseEventHandler, useRef, useState } from "react";
 
 interface iPanelProps {
   setVisible: (bool: boolean) => void;
@@ -10,7 +10,7 @@ interface iPanelProps {
 
 const Panel: FC<iPanelProps> = ({ setVisible }) => {
   const dispatch = useAppDispatch();
-  const { volume } = useAppSelector(({ volume }) => volume);
+  const { volume } = useAppSelector(volumeSelector);
   const RefRect = useRef<HTMLDivElement>(null);
   const RefProgress = useRef<HTMLDivElement>(null);
 

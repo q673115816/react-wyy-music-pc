@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "@/modules/store";
 
 interface VolumeState {
   volume: number;
@@ -34,7 +35,7 @@ const slice = createSlice({
   },
 });
 
-export const volumeSelector = ({ volume }) => volume;
+export const volumeSelector = (state: RootState) => state.volume;
 
 export default slice.reducer;
 
