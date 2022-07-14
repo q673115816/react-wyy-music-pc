@@ -2,7 +2,10 @@ import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { transTextEmoji } from "@/common/faces";
 import { apiSendText, apiMsgPrivateHistory } from "@/api";
-import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
+import {
+  letterSelector,
+  setMsgPrivateHistory,
+} from "@/modules/reducers/letter/slice";
 import { wordLength } from "@/common/utils";
 import { Link } from "react-router-dom";
 import {
@@ -14,83 +17,12 @@ import {
 import PanelEmoji from "@/components/PanelEmoji";
 import Write from "@/components/Write";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-
-const Song = ({ msg = {} }) => (
-  <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">
-    <div className="avatar flex-none w-10 h-10 rounded relative overflow-hidden">
-      <img src={`${msg.song.album.picUrl}?param=100y100`} alt="" />
-      <i className="absolute inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
-        <IconPlayerPlay size={14} className="fill-current" />
-      </i>
-    </div>
-    <div className="content flex-auto w-0 pl-2.5 text-left">
-      <div className="name truncate">
-        {msg.song.name}
-        {msg.song.alias.length > 0 && (
-          <span className="text-gray-400">
-            {`（${msg.song.alias.join(",")}）`}
-          </span>
-        )}
-      </div>
-      <div className="text-gray-400 artist truncate">
-        {msg.song.artists.map((artist, index) => (
-          <span key={artist.name}>
-            {index > 0 && " / "}
-            {artist.name}
-          </span>
-        ))}
-      </div>
-    </div>
-  </button>
-);
-const Album = ({ msg = {} }) => (
-  <Link
-    to={`/playlist/album/${msg.album.id}`}
-    className="share flex rounded p-2 bg-gray-50 mt-2 w-56"
-  >
-    <button
-      type="button"
-      className="avatar flex-none w-10 h-10 rounded relative overflow-hidden group"
-    >
-      <img src={`${msg.album.picUrl}?param=100y100`} alt="" />
-      <i className="absolute opacity-0 group-hover:opacity-100 inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
-        <IconPlayerPlay size={14} className="fill-current" />
-      </i>
-    </button>
-    <div className="content flex-auto w-0 pl-2.5 text-left">
-      <div className="name truncate">
-        {msg.album.name}
-        {msg.album.alias.length > 0 && (
-          <span className="text-gray-400">
-            {`（${msg.album.alias.join(",")}）`}
-          </span>
-        )}
-      </div>
-      <div className="text-gray-400 artist truncate">
-        {msg.album.artist.name}
-      </div>
-    </div>
-  </Link>
-);
-
-const Circle = ({ msg = {} }) => <div>云圈</div>;
-
-const Promotion = ({ msg = {} }) => (
-  <a href={msg.promotion.url} className="embed">
-    <div className="cover">
-      <img className="" src={msg.promotion.coverUrl} alt="" />
-    </div>
-    <div className="promotion text-gray-400">{msg.promotion.title}</div>
-  </a>
-);
-
-const Image = ({ msg = {} }) => (
-  <div className="img">
-    <img src={msg.picInfo.picUrl} className="" alt="" />
-  </div>
-);
-
-const Msg = ({ msg = {} }) => transTextEmoji(msg.msg);
+import Song from "./Song";
+import Album from "./Album";
+import Circle from "./Circle";
+import Promotion from "./Promotion";
+import Image from "./Image";
+import Msg from "./Msg";
 
 const Content = ({ msg = {} }) => {
   const { type } = msg;
@@ -128,9 +60,7 @@ const Message = () => {
   const dispatch = useAppDispatch();
   const history = useRef(null);
 
-  const { uid, hint, nickname, privatMsgs } = useAppSelector(
-    ({ letter }) => letter
-  );
+  const { uid, hint, nickname, privatMsgs } = useAppSelector(letterSelector);
 
   const { profile } = useAppSelector(({ account }) => account);
 

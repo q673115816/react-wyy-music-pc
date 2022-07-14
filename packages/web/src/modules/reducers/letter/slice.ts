@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "@/modules/store";
 
 interface LetterState {
   nickname: string;
@@ -27,5 +28,7 @@ const slice = createSlice({
 });
 
 export default slice.reducer;
+
+export const letterSelector = (state: RootState) => state.letter;
 
 export const { setMsgPrivateHistory } = slice.actions;

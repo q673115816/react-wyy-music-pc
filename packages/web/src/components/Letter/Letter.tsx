@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
-import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
-import DomList from "./List";
-import DomMessage from "./Message";
+import React, { useEffect, memo } from "react";
+import {
+  letterSelector,
+  setMsgPrivateHistory,
+} from "@/modules/reducers/letter/slice";
+import List from "./List";
+import Message from "./Message";
 import "./style.scss";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
-export default () => {
-  const { showMsgPrivateHistory } = useAppSelector(({ letter }) => letter);
+const Letter = () => {
+  const { showMsgPrivateHistory } = useAppSelector(letterSelector);
   const { popupStatus } = useAppSelector(({ mask }) => mask);
   const dispatch = useAppDispatch();
 
@@ -23,7 +26,9 @@ export default () => {
   if (popupStatus !== "letter") return null;
   return (
     <div id="privateLetter" className="flex flex-col absolute z-40">
-      {showMsgPrivateHistory ? <DomMessage /> : <DomList />}
+      {showMsgPrivateHistory ? <Message /> : <List />}
     </div>
   );
 };
+
+export default memo(Letter);

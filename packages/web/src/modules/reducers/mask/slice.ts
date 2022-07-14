@@ -1,4 +1,5 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { RootState } from "@/modules/store";
 
 const visibilityState = {
   lyricVisibility: false,
@@ -91,7 +92,7 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-export const maskSelector = ({ mask }) => mask;
+export const maskSelector = (state: RootState) => state.mask;
 
 export const {
   setContextMenuShareLink,

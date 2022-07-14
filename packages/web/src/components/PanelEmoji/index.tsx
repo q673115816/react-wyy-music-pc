@@ -7,15 +7,15 @@ import React, {
 } from "react";
 import { IconX } from "@tabler/icons";
 import faces from "@/common/faces";
-import "./style.scss";
+import style from "./emoji.module.scss";
 import classNames from "classnames";
 
-interface iPanelEmoji {
+interface iProps {
   handleHide: MouseEventHandler<HTMLButtonElement>;
   handleCheck: (emoji: string) => void;
 }
 
-const PanelEmoji: FC<iPanelEmoji> = ({ handleHide, handleCheck }) => {
+const PanelEmoji: FC<iProps> = ({ handleHide, handleCheck }) => {
   const [page, setPage] = useState(0);
   const handleWheel: WheelEventHandler<HTMLDivElement> = (e) => {
     if (e.deltaY < 0) {
@@ -25,7 +25,10 @@ const PanelEmoji: FC<iPanelEmoji> = ({ handleHide, handleCheck }) => {
     }
   };
   return (
-    <div className="emojiFace bg-white rounded shadow" onWheel={handleWheel}>
+    <div
+      className={classNames(style.emoji, "bg-white rounded shadow")}
+      onWheel={handleWheel}
+    >
       <button
         type="button"
         className="absolute close right-0 top-0 ui_text_gray_hover mx-1"
@@ -38,7 +41,7 @@ const PanelEmoji: FC<iPanelEmoji> = ({ handleHide, handleCheck }) => {
           <button
             key={face}
             type="button"
-            className="ico"
+            className={style.ico}
             title={name}
             onClick={() => handleCheck(`[${name}]`)}
           >
