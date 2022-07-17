@@ -16,6 +16,7 @@ export default ({ mode, command }: ConfigEnv) => {
       PUBLIC_URL: JSON.stringify(env.VITE_PUBLIC_URL),
       LIVE_URL: JSON.stringify(env.VITE_LIVE_URL),
       API_URL: JSON.stringify(env.VITE_API_URL),
+      WYY_VERSION: JSON.stringify("0.0.1"),
     },
     plugins: [
       react(),
@@ -41,7 +42,7 @@ export default ({ mode, command }: ConfigEnv) => {
     build: {
       // assetsDir: "static/assets",
       rollupOptions: {
-        input: !isDev ? build().input : "",
+        // input: !isDev ? build().input : "",
         // input: {
         //   index: resolve(__dirname, "404.html"),
         // },
