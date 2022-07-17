@@ -2,17 +2,11 @@
   --swiper-pagination-color: var(--theme-color);
 
   .cover {
-    // --rate: calc(164 / 400);
-    // width: calc(var(--rate) * 1080px);
-    // height: calc(var(--rate) * 400px);
-    // transform: scale(0.8);
-
     .typeTitle {
       position: absolute;
       bottom: 0;
       right: 0;
       color: #fff;
-      // padding: 10px;
       border-top-left-radius: 6px;
     }
   }
@@ -34,8 +28,4 @@
       background-color: var(--themeColor);
     }
   }
-}
-
-.slick-center.slick-current {
-  //transform: scale(1.5);
 }
