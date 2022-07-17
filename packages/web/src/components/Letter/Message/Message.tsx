@@ -6,14 +6,8 @@ import {
   letterSelector,
   setMsgPrivateHistory,
 } from "@/modules/reducers/letter/slice";
-import { wordLength } from "@/common/utils";
-import { Link } from "react-router-dom";
-import {
-  IconChevronLeft,
-  IconPhoto,
-  IconMoodSmile,
-  IconPlayerPlay,
-} from "@tabler/icons";
+import { wordLength } from "@/components/Write";
+import { IconChevronLeft, IconPhoto, IconMoodSmile } from "@tabler/icons";
 import PanelEmoji from "@/components/PanelEmoji";
 import Write from "@/components/Write";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";

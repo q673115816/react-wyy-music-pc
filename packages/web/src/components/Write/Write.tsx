@@ -1,12 +1,13 @@
 import React, {
   ChangeEventHandler,
+  FC,
   memo,
   useCallback,
   useEffect,
   useState,
 } from "react";
 import classNames from "classnames";
-import { wordLength } from "@/common/utils";
+import { wordLength } from "@/components/Write";
 import "./style.scss";
 
 interface iProps {
@@ -15,7 +16,7 @@ interface iProps {
   max?: number;
 }
 
-export default memo<iProps>(({ onChange, placeholder = "", max = 140 }) => {
+const Write: FC<iProps> = ({ onChange, placeholder = "", max = 140 }) => {
   const [n, setN] = useState(0);
   const [text, setText] = useState("");
   const handleChanage: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
@@ -47,4 +48,6 @@ export default memo<iProps>(({ onChange, placeholder = "", max = 140 }) => {
       </span>
     </div>
   );
-});
+};
+
+export default memo(Write);

@@ -1,28 +1,15 @@
-export const transPlayCount = (playCount: number = 0) => {
+export const transPlayCount = (playCount = 0) => {
   return String(playCount).replace(/(?<=\d{2,})\d{4}$/, "万");
 };
 
-export const transSubscribeCount = (subscribeCount: number = 0) => {
+export const transSubscribeCount = (subscribeCount = 0) => {
   return String(subscribeCount).replace(/(?<=\d+)\d{4}$/, "万");
 };
-
-export const wordLength = (words: string = ""): number => {
-  // console.log(word);
-  let length = 0;
-  for (let i = 0; i < words.length; i++) {
-    const code = words.codePointAt(i);
-    if (!code) continue;
-    length += code < 0x080 ? 0.5 : 1;
-  }
-  return length;
-};
-
-type Dir = "x" | "y";
 
 export const computedPositionPercentage = (
   event: MouseEvent,
   dom: HTMLElement,
-  dir: Dir = "x"
+  dir: "x" | "y" = "x"
 ) => {
   const inset: DOMRect = dom.getBoundingClientRect();
   let percentage =
