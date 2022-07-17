@@ -43,7 +43,7 @@ export default ({ mode, command }: ConfigEnv) => {
       minify: "esbuild",
       // assetsDir: "static/assets",
       rollupOptions: {
-        // input: !isDev ? build().input : "",
+        input: !isDev ? build().input : "",
         // input: {
         //   index: resolve(__dirname, "404.html"),
         // },
