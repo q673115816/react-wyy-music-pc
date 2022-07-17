@@ -1,0 +1,1 @@
+System.register(["./@tabler/icons-legacy.cf07e60e.js","./qrcode.react-legacy.406c3b0d.js"],(function(e){"use strict";var t,c;return{setters:[function(e){t=e.P},function(e){c=e.j}],execute:function(){e("D",(function(){return c("button",{type:"button",className:"ui_text_gray_hover",children:c(t,{size:20,stroke:1})})}))}}}));
