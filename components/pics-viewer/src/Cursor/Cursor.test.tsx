@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Cursor from "./Cursor"
+import Cursor from "./Cursor";
 
 describe("it", () => {
   it("renders without crashing", () => {

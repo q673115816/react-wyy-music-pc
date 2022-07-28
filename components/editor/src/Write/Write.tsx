@@ -6,9 +6,27 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import classNames from "classnames";
 import { wordLength } from "./core";
-import style from "./write.module.scss";
+import styled, { css } from "styled-components";
+const Textarea = styled.textarea`
+  width: 100%;
+  display: block;
+  resize: none;
+  height: 70px;
+  border: 1px solid #ccc;
+  padding: 0.5em 0.25em;
+  border-radius: 0.25em;
+`;
+
+const Length = styled.span<{ readonly red: boolean }>`
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0 0.5em;
+  ${(props) => css`
+    color: ${props.red ? "red" : "#ccc"};
+  `}
+`;
 
 interface iProps {
   onChange: ChangeEventHandler<HTMLTextAreaElement>;
@@ -31,24 +49,13 @@ const Write: FC<iProps> = ({ onChange, placeholder = "", max = 140 }) => {
     setN(wordLength(text) >> 0);
   }, [text]);
   return (
-    <div className="ui_write relative">
-      <textarea
+    <div style={{ position: "relative" }}>
+      <Textarea
         onChange={handleChanage}
         value={text}
-        className={classNames(
-          style.textarea,
-          "textarea border rounded px-2 py-1"
-        )}
         placeholder={placeholder}
       />
-      <span
-        className={classNames(
-          "absolute right-0 bottom-0 mx-2",
-          n > max ? "red" : "text-gray-300"
-        )}
-      >
-        {max - n}
-      </span>
+      <Length red={n > max}>{max - n}</Length>
     </div>
   );
 };
