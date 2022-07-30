@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
-import { transTextEmoji } from "@/common/faces";
+import { transTextEmoji } from "@/components/Emoji";
 
 const Comment = ({ comment }) => (
   <div className="flex py-4 px-3" key={comment.commentId}>

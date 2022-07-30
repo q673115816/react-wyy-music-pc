@@ -5,8 +5,9 @@ import {
 } from "@/modules/reducers/letter/slice";
 import List from "./List";
 import Message from "./Message";
-import "./style.scss";
+import style from "./Letter.module.scss";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import classNames from "classnames";
 
 const Letter = () => {
   const { showMsgPrivateHistory } = useAppSelector(letterSelector);
@@ -25,7 +26,12 @@ const Letter = () => {
   );
   if (popupStatus !== "letter") return null;
   return (
-    <div id="privateLetter" className="flex flex-col absolute z-40">
+    <div
+      className={classNames(
+        style.letter,
+        "bg-white shadow flex flex-col absolute z-40"
+      )}
+    >
       {showMsgPrivateHistory ? <Message /> : <List />}
     </div>
   );

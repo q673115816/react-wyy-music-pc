@@ -4,8 +4,9 @@ import classNames from "classnames";
 import { IconFolderPlus } from "@tabler/icons";
 import { setAudioPlaylistClear } from "@/modules/reducers/audio/slice";
 import "./style.scss";
+import List from "./List";
 
-export default memo(() => {
+const PlayList = () => {
   const dispatch = useDispatch();
   const { popupStatus } = useSelector(({ mask }) => mask);
   const { playlist, currentSong } = useSelector(({ audio }) => audio);
@@ -48,8 +49,10 @@ export default memo(() => {
         </div>
       </div>
       <div className="overflow-auto h-full flex-auto">
-        <DomList list={playlist} currentId={currentSong.id} />
+        <List list={playlist} currentId={currentSong.id} />
       </div>
     </div>
   );
-});
+};
+
+export default memo(PlayList);

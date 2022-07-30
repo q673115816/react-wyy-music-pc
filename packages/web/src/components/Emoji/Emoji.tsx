@@ -6,7 +6,7 @@ import React, {
   WheelEventHandler,
 } from "react";
 import { IconX } from "@tabler/icons";
-import faces from "@/common/faces";
+import faces from "./faces";
 import style from "./emoji.module.scss";
 import classNames from "classnames";
 
@@ -15,7 +15,7 @@ interface iProps {
   handleCheck: (emoji: string) => void;
 }
 
-const PanelEmoji: FC<iProps> = ({ handleHide, handleCheck }) => {
+const Emoji: FC<iProps> = ({ handleHide, handleCheck }) => {
   const [page, setPage] = useState(0);
   const handleWheel: WheelEventHandler<HTMLDivElement> = (e) => {
     if (e.deltaY < 0) {
@@ -66,4 +66,4 @@ const PanelEmoji: FC<iProps> = ({ handleHide, handleCheck }) => {
   );
 };
 
-export default memo(PanelEmoji);
+export default memo(Emoji);

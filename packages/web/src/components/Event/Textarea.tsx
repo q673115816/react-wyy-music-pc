@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect, useRef, useState } from "react";
 import { IconMoodSmile, IconAt, IconHash } from "@tabler/icons";
-import PanelEmoji from "@/components/PanelEmoji";
+import Emoji from "@/components/Emoji";
 
 const Face: FC<{ handleCheck: (emoji: string) => void }> = ({
   handleCheck,
@@ -17,11 +17,9 @@ const Face: FC<{ handleCheck: (emoji: string) => void }> = ({
       </button>
       {visibility && (
         <div className="absolute mt-2 left-0">
-          <PanelEmoji
-            {...{
-              handleHide: () => setVisibility(false),
-              handleCheck,
-            }}
+          <Emoji
+            handleHide={() => setVisibility(false)}
+            handleCheck={handleCheck}
           />
         </div>
       )}

@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
-
-export default ({ lyrics = [] }) => {
+import React, { memo, useEffect, useRef, useState } from "react";
+import style from "./Lyrics.module.scss";
+import classNames from "classnames";
+const Item = ({ lyrics = [] }) => {
   const content = useRef();
   const [status, SetStatus] = useState(false);
   useEffect(() => {
@@ -19,8 +20,8 @@ export default ({ lyrics = [] }) => {
     document.body.removeChild(input);
   };
   return (
-    <div className="lrc flex pb-2">
-      <div className="content w-2/3 px-2 text-gray-500">
+    <div className={classNames(style.lrc, "flex pb-2")}>
+      <div className={classNames(style.content, "w-2/3 px-2 text-gray-500")}>
         {lyrics.slice(0, status ? Infinity : 4).map((lrc, index) => (
           <div key={lrc + index} dangerouslySetInnerHTML={{ __html: lrc }} />
         ))}
@@ -65,3 +66,5 @@ export default ({ lyrics = [] }) => {
     </div>
   );
 };
+
+export default memo(Item);

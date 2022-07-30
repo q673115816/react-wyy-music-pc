@@ -13,6 +13,14 @@
   grid-template: var(--ui_grid_template);
 }
 
+.ui_grid_template_song {
+  grid-template: 36px / 54px 24px 24px 37% 4fr 5fr 2fr 3fr;
+}
+
+.ui_grid_template_column {
+  grid-template-columns: var(--ui_grid_template_column);
+}
+
 .ui_themeColor {
   color: var(--theme-color) !important;
 }

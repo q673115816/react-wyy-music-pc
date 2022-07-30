@@ -11,7 +11,7 @@ const defaultConfig: Props = {
 
 const useToast = (config?: Props) => {
   const { delay } = Object.assign(defaultConfig, config);
-  const [state, dispatch] = useContext(context);
+  const { state, dispatch } = useContext(context);
   return (text: string) => {
     if (state.id) clearTimeout(state.id);
     const id = setTimeout(() => dispatch(resetToast()), delay);

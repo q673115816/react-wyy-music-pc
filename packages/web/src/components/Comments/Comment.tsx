@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { apiCommentLike } from "@/api";
 import { IconThumbUp, IconScreenShare, IconMessageCircle } from "@tabler/icons";
-import { transTextEmoji } from "@/common/faces";
+import { transTextEmoji } from "@/components/Emoji";
 
 const enum Type {
   "歌曲",

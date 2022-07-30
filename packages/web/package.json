@@ -32,6 +32,7 @@
     "jest": "jest"
   },
   "dependencies": {
+    "@q673115816/editor": "workspace:*",
     "@q673115816/pics-viewer": "workspace:*",
     "@reduxjs/toolkit": "*",
     "@sentry/react": "^7.8.0",
@@ -50,7 +51,7 @@
     "react-router": "*",
     "react-router-dom": "*",
     "react-slick": "*",
-    "react-transition-group": "^4.4.2",
+    "react-transition-group": "^4.4.4",
     "react-use": "*",
     "redux": "*",
     "redux-persist": "*",
@@ -72,16 +73,16 @@
     "@types/redux-persist": "^4.3.1",
     "@vitejs/plugin-legacy": "^2.0.0",
     "@vitejs/plugin-react": "^2.0.0",
-    "autoprefixer": "^10.4.7",
+    "autoprefixer": "^10.4.8",
     "coveralls": "^3.1.1",
     "cssnano": "^5.1.12",
-    "esbuild": "^0.14.50",
+    "esbuild": "^0.14.51",
     "postcss": "^8.4.14",
     "react-test-renderer": "^18.2.0",
     "rollup-plugin-visualizer": "^5.7.1",
     "sass": "^1.54.0",
-    "tailwindcss": "^3.1.6",
+    "tailwindcss": "^3.1.7",
     "terser": "^5.14.2",
-    "vite": "^3.0.3"
+    "vite": "^3.0.4"
   }
 }

@@ -20,24 +20,3 @@
     }
   }
 }
-
-.lyrics_list {
-
-  .lrc {
-    grid-column: 4 / 9;
-
-    .content {
-      word-break: break-all;
-      white-space: pre-line;
-      &::first-line {
-        // margin-top: 0.2em;
-        margin-bottom: 0.2em;
-        font-size: larger;
-      }
-      b {
-        color: var(--linkColor);
-        font-weight: normal;
-      }
-    }
-  }
-}

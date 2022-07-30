@@ -16,14 +16,9 @@ interface iProps {
 
 const Songs: FC<iProps> = ({ songs = [] }) => {
   return (
-    <div
-      className="songs_list"
-      style={{
-        "--ui_grid_template": "36px / 54px 24px 24px 37% 4fr 5fr 2fr 3fr",
-      }}
-    >
+    <div className="songs_list">
       <div className="thead">
-        <div className="item grid items-center text-gray-400 ui_grid_template">
+        <div className="item grid items-center text-gray-400 ui_grid_template_song">
           <div className="index" />
           <div className="heart" />
           <div className="download" />
@@ -31,7 +26,7 @@ const Songs: FC<iProps> = ({ songs = [] }) => {
           <div className="artist flex-none px-2">歌手</div>
           <div className="album flex-none px-2">专辑</div>
           <div className="duration flex-none px-2">时长</div>
-          <div className="pop flex-none px-2">热度</div>
+          <div className="flex-none px-2">热度</div>
         </div>
       </div>
       <div className="tbody">
@@ -48,7 +43,7 @@ const Songs: FC<iProps> = ({ songs = [] }) => {
             <div
               tabIndex={2}
               className={classNames(
-                "item grid items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template",
+                "item grid items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template_song",
                 { "bg-gray-50": index % 2 === 0 }
               )}
             >
@@ -73,7 +68,7 @@ const Songs: FC<iProps> = ({ songs = [] }) => {
               <div className="duration text-gray-400 truncate flex-none px-2">
                 {dayjs(item.dt).format("mm:ss")}
               </div>
-              <div className="pop">
+              <div className="">
                 <Pop pop={item.pop} />
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
-import { transTextEmoji } from "@/common/faces";
+import { transTextEmoji } from "@/components/Emoji";
 import { apiSendText, apiMsgPrivateHistory } from "@/api";
 import {
   letterSelector,
@@ -8,7 +8,7 @@ import {
 } from "@/modules/reducers/letter/slice";
 import { wordLength } from "@/components/Write";
 import { IconChevronLeft, IconPhoto, IconMoodSmile } from "@tabler/icons";
-import PanelEmoji from "@/components/PanelEmoji";
+import Emoji from "@/components/Emoji";
 import Write from "@/components/Write";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Song from "./Song";
@@ -17,6 +17,9 @@ import Circle from "./Circle";
 import Promotion from "./Promotion";
 import Image from "./Image";
 import Msg from "./Msg";
+import style from "./Message.module.scss";
+import classNames from "classnames";
+import { useToast } from "@/components/Toast";
 
 const Content = ({ msg = {} }) => {
   const { type } = msg;
@@ -33,7 +36,7 @@ const Content = ({ msg = {} }) => {
 const MsgLeft = ({ msg = {} }) => (
   <div className="flex">
     <div className="w-60 flex">
-      <div className="rounded-lg rounded-tl-none bg-blue-50 p-3 select-text">
+      <div className="rounded-lg rounded-tl-none bg-gray-100 p-3 select-text">
         <Content msg={msg} />
       </div>
     </div>
@@ -52,6 +55,7 @@ const MsgRight = ({ msg = {} }) => (
 
 const Message = () => {
   const dispatch = useAppDispatch();
+  const toast = useToast();
   const history = useRef(null);
 
   const { uid, hint, nickname, privatMsgs } = useAppSelector(letterSelector);
@@ -86,10 +90,18 @@ const Message = () => {
 
   const handleSend = async () => {
     try {
-      const { newMsgs = [] } = await apiSendText({
+      const {
+        newMsgs = [],
+        code,
+        message,
+      } = await apiSendText({
         user_ids: uid,
         msg: value,
       });
+      if (code === 2201) {
+        toast(message);
+        return;
+      }
       dispatch(
         setMsgPrivateHistory({
           privatMsgs: newMsgs.reverse(),
@@ -100,10 +112,10 @@ const Message = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const length = wordLength(value);
     if (length <= 200) {
-      handleSend();
+      await handleSend();
       setValue("");
     } else {
       console.log("to long");
@@ -117,7 +129,7 @@ const Message = () => {
   return (
     <>
       <div
-        className="topbar relative text-center text-sm flex-center"
+        className="relative text-center text-sm flex-center"
         style={{ height: 50 }}
       >
         <button
@@ -132,12 +144,12 @@ const Message = () => {
         <span>{nickname}</span>
       </div>
       <div
-        className="history overflow-auto max-h-full flex-auto px-5"
+        className="flex-1 overflow-auto max-h-full flex-auto px-5"
         ref={history}
       >
         {privatMsgs.map((item) => (
           <div className="item mt-5" key={item.id}>
-            <div className="time text-gray-400">
+            <div className={classNames(style.time, "text-gray-400")}>
               {dayjs(item.time).format("YYYY年MM月DD日 HH:mm")}
             </div>
             {item.toUser.userId === profile.userId ? (
@@ -152,7 +164,7 @@ const Message = () => {
             )}
           </div>
         ))}
-        {hint && <div className="hint">{hint}</div>}
+        {hint && <div className={style.hint}>{hint}</div>}
       </div>
       <div className="feedback p-3">
         <Write
@@ -164,7 +176,7 @@ const Message = () => {
           <div className="left relative">
             {visibility && (
               <div className="-translate-x-3 -translate-y-1/2 absolute faces right-full top-1/2 transform">
-                <PanelEmoji
+                <Emoji
                   handleHide={() => setVisibility(false)}
                   handleCheck={handleCheck}
                 />

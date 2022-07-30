@@ -11,6 +11,7 @@ import {
 import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
 import { setMsgPrivate } from "@/modules/reducers/common/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import style from "./List.module.scss";
 
 const BuildList = {
   song: (msg) => (
@@ -149,13 +150,13 @@ export default () => {
             type="button"
             key={nav}
             className={classNames(
-              "nav_link relative w-20 h-8 rounded-full",
+              "relative w-20 h-8 rounded-full",
               active === nav ? "bg-gray-400 text-white" : "hover:bg-gray-200"
             )}
           >
             {nav}
             {nav === "私信" && (
-              <span className="lt_ico border border-white rounded-full leading-tight px-1 absolute top-0 right-0 bg-red-500 transform translate-x-1/2 -translate-y-1/2 z-10">
+              <span className="border border-white rounded-full leading-tight px-1 absolute top-0 right-0 bg-red-500 transform translate-x-1/2 -translate-y-1/2 z-10">
                 {newMsgCount}
               </span>
             )}
@@ -214,7 +215,7 @@ export default () => {
             </div>
           ))
         ) : (
-          <div className="empty">
+          <div className={style.empty}>
             暂无
             {active}
             内容
