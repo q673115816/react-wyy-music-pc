@@ -1,7 +1,12 @@
 import { Songs, Lyrics } from "./types";
-import { base } from "../base";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery, { base } from "../base";
 
-export const api = base.injectEndpoints({
+export const reducerPath = "song";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getSongUrl: build.mutation<Songs, { id: number }>({
       query: (body) => ({

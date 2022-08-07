@@ -6,6 +6,7 @@
     "target": "ESNext",
     "module": "esnext",
     "esModuleInterop": true,
+    "types": ["vite/client"],
     "paths": {
       "@/*":["./*"],
       "@img/*": ["./assets/images/*"]

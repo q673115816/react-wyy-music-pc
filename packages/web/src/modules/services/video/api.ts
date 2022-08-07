@@ -1,7 +1,12 @@
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery, { base } from "../base";
 import { Alls } from "./types";
-import { base } from "../base";
 
-export const api = base.injectEndpoints({
+export const reducerPath = "video";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getMVAll: build.mutation<Alls, void>({
       query: (body) => ({

@@ -1,12 +1,13 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 import AI from "./AI";
 const Router = () => {
-  return (
-    <Routes>
-      <Route index element={<AI />} />
-    </Routes>
-  );
+  return useRoutes([
+    {
+      path: "",
+      element: <AI />,
+    },
+  ]);
 };
 
 export default Router;

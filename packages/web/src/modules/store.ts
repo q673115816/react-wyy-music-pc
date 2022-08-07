@@ -4,8 +4,8 @@ import {
   Action,
   ConfigureStoreOptions,
 } from "@reduxjs/toolkit";
-import rootReducer from "./rootReducer";
-import { base } from "./services/base";
+import reducers from "./reducers";
+import services from "./services";
 
 const preloadedState = {};
 
@@ -23,8 +23,8 @@ export const createStore = (
 ) =>
   configureStore({
     reducer: {
-      [base.reducerPath]: base.reducer,
-      ...rootReducer,
+      ...services,
+      ...reducers,
     },
     // reducer: persistedReducer,
     // middleware: (getDefaultMiddleware) =>
@@ -33,8 +33,7 @@ export const createStore = (
     //       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     //     },
     //   }).concat(base.middleware),
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(base.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     devTools: import.meta.env.DEV,
     ...options,
     // preloadedState,

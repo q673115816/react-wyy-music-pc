@@ -9,9 +9,14 @@ import {
   Records,
   Evnets,
 } from "./types";
-import { base } from "../base";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery, { base } from "../base";
 
-export const api = base.injectEndpoints({
+export const reducerPath = "user";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getUserCloud: build.query<Clouds, { limit: number }>({
       query: (body) => ({

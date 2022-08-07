@@ -108,8 +108,9 @@ const baseQueryWithIntercept: BaseQueryFn<
 
 const baseQueryWithRetry = retry(baseQueryWithIntercept, { maxRetries: 2 });
 
+export default baseQueryWithRetry;
+
 export const base = createApi({
-  reducerPath: "daily",
   baseQuery: baseQueryWithRetry,
   tagTypes: ["dailySignIn", "artist/detail", "user/followeds", "user/account"],
   endpoints: (build) => ({}),

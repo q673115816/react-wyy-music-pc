@@ -1,7 +1,12 @@
 import { Daily } from "./types";
-import { base } from "../base";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery, { base } from "../base";
 
-export const api = base.injectEndpoints({
+export const reducerPath = "daily";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getRecommendSongs: build.query<Daily, void>({
       query: (body) => ({

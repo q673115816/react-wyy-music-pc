@@ -1,7 +1,12 @@
 import { MVs, Albums, Topics, Artists, DJs } from "./types";
-import { base } from "../base";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery, { base } from "../base";
 
-export const api = base.injectEndpoints({
+export const reducerPath = "sublist";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getMVSubList: build.query<MVs, void>({
       query: (body) => ({

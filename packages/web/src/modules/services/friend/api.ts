@@ -1,7 +1,12 @@
 import { Tops, Topics, TopicDetails, Events } from "./types";
-import { base } from "../base";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery, { base } from "../base";
 
-export const api = base.injectEndpoints({
+export const reducerPath = "friend";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getHotTopic: build.query<Topics, { limit: number }>({
       query: (body) => ({

@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState, useRef, useMemo } from "react";
 import classNames from "classnames";
 import useInfinite from "@/hooks/useInfinite";
-import DomGridVideo from "@/components/GridVideo";
+import GridVideo from "@/components/GridVideo";
 import {
   handleAddList,
   handlePrevInit,
@@ -11,7 +11,7 @@ import {
   VideoListSelector,
 } from "@/modules/reducers/videolist/slice";
 import { useAppSelector, useAppDispatch } from "@/modules/hooks";
-import DomLoading from "@/components/Loading";
+import Loading from "@/components/Loading";
 import Select from "./components/Select";
 
 const VideoList = () => {
@@ -78,9 +78,9 @@ const VideoList = () => {
         </div>
       </div>
       <div className="my-4">
-        <DomGridVideo list={videoList} />
+        <GridVideo list={videoList} />
         <div ref={domObserver} className="flex-center">
-          <DomLoading />
+          <Loading />
         </div>
       </div>
     </div>

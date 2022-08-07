@@ -1,5 +1,4 @@
 import { Searchs, SearchHotDetails, Suggests, Multimatchs } from "./types";
-import { base } from "../base";
 
 interface ReqSearch {
   keywords: string;
@@ -8,7 +7,14 @@ interface ReqSearch {
   offset: number;
 }
 
-export const api = base.injectEndpoints({
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery, { base } from "../base";
+
+export const reducerPath = "search";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getCloudSearch: build.mutation<Searchs, ReqSearch>({
       query: (body) => ({

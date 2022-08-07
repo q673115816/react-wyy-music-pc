@@ -4,7 +4,7 @@ import Center from "./components/Center";
 import Right from "./components/Right";
 import Nav from "./components/Nav";
 import style from "./style.module.scss";
-import Features from "@/features/Router";
+import Features from "@/features/Features";
 import classnames from "classnames";
 
 const Content = () => (

@@ -1,7 +1,12 @@
 import { ResCommentVideo, ResCommentMV, Events } from "./types";
-import { base } from "../base";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery, { base } from "../base";
 
-export const api = base.injectEndpoints({
+export const reducerPath = "comment";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getCommentVideo: build.query<ResCommentVideo, { id: string }>({
       query: (body) => ({
