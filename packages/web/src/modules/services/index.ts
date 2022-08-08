@@ -1,9 +1,11 @@
 import { Api } from "@reduxjs/toolkit/dist/query/apiTypes";
-const root = {};
+export const services = {};
+export const middlewares = [];
 
 const modules = import.meta.glob("./**/api.ts", { eager: true });
 
 for (const path in modules) {
-  root[path.slice(2, -7)] = modules[path].api;
+  const { api } = modules[path];
+  middlewares.push(api.middleware);
+  services[api.reducerPath] = api.reducer;
 }
-export default root;

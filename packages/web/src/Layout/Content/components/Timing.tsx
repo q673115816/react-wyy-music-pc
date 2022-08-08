@@ -57,7 +57,7 @@ export default memo(function Timing() {
         onClick={handleClick}
         ref={RefProgress}
       >
-        <div className="absolute inset-0" title="缓存">
+        <div className="absolute inset-0">
           {currentSong.dt &&
             buffered.map(([start, end]) => (
               <div

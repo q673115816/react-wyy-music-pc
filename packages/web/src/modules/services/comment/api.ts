@@ -1,8 +1,8 @@
 import { ResCommentVideo, ResCommentMV, Events } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
+import baseQuery from "../base";
 
-export const reducerPath = "comment";
+export const reducerPath = "comment/api";
 
 export const api = createApi({
   reducerPath,

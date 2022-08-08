@@ -10,9 +10,9 @@ import {
   Playlists,
 } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
+import baseQuery from "../base";
 
-export const reducerPath = "user";
+export const reducerPath = "discover/api";
 
 export const api = createApi({
   reducerPath,

@@ -2,7 +2,7 @@ import { Daily } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery, { base } from "../base";
 
-export const reducerPath = "daily";
+export const reducerPath = "daily/api";
 
 export const api = createApi({
   reducerPath,

@@ -1,8 +1,8 @@
 import { ResRelated } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
+import baseQuery from "../base";
 
-export const reducerPath = "player";
+export const reducerPath = "player/api";
 
 export const api = createApi({
   reducerPath,

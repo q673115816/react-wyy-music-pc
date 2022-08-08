@@ -9,9 +9,9 @@ import {
   Sub,
 } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
+import baseQuery from "../base";
 
-export const reducerPath = "artist";
+export const reducerPath = "artist/api";
 
 export const api = createApi({
   reducerPath,

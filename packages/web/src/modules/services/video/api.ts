@@ -1,8 +1,8 @@
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
 import { Alls } from "./types";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery from "../base";
 
-export const reducerPath = "video";
+export const reducerPath = "video/api";
 
 export const api = createApi({
   reducerPath,

@@ -10,9 +10,9 @@ import {
   Evnets,
 } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
+import baseQuery from "../base";
 
-export const reducerPath = "user";
+export const reducerPath = "user/api";
 
 export const api = createApi({
   reducerPath,
@@ -60,7 +60,7 @@ export const api = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: (result, error, {}) => [{ type: "user/account" }],
+      invalidatesTags: (result, error) => [{ type: "user/account" }],
     }),
     getUserEvent: build.mutation<Evnets, { uid: string; lasttime: number }>({
       query: (body) => ({

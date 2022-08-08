@@ -8,9 +8,9 @@ interface ReqSearch {
 }
 
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
+import baseQuery from "../base";
 
-export const reducerPath = "search";
+export const reducerPath = "search/api";
 
 export const api = createApi({
   reducerPath,

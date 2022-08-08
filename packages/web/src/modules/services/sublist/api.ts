@@ -1,8 +1,8 @@
 import { MVs, Albums, Topics, Artists, DJs } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
+import baseQuery from "../base";
 
-export const reducerPath = "sublist";
+export const reducerPath = "sublist/api";
 
 export const api = createApi({
   reducerPath,

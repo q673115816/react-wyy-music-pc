@@ -1,8 +1,8 @@
 import { Songs, Lyrics } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery, { base } from "../base";
+import baseQuery from "../base";
 
-export const reducerPath = "song";
+export const reducerPath = "song/api";
 
 export const api = createApi({
   reducerPath,
