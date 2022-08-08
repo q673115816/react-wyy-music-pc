@@ -40,6 +40,7 @@ export default ({ mode, command }: ConfigEnv) => {
       exclude: [],
     },
     build: {
+      emptyOutDir: true,
       minify: "esbuild",
       // assetsDir: "static/assets",
       rollupOptions: {

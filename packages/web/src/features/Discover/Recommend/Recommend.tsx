@@ -1,9 +1,8 @@
-import React, { createElement, FC, memo, ReactNode } from "react";
+import React, { createElement, FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { setDialogHomeOrderShow } from "@/modules/reducers/mask/slice";
 import Swiper from "@/components/Swiper";
 import { IconChevronRight } from "@tabler/icons";
-import AD from "./AD";
 import DialogHomeOrder from "@/components/Dialog/HomeOrder";
 
 import Loading from "@/components/Loading";

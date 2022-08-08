@@ -2,7 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@/modules/store";
 
 interface CommonState {
-  [key: string]: any;
+  history: [];
+  newMsgCount: number;
+  loginVisibility: boolean;
+  isLogin: boolean;
+  msgs: [];
+  comments: [];
+  forwards: [];
+  notices: [];
+  baseUrl: string;
+  gitUrl: string;
 }
 
 const initialState: CommonState = {

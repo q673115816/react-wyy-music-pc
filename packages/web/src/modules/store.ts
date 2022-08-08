@@ -33,8 +33,18 @@ if (window && window.__STATE__) {
 
 const persistConfig = {
   key: "root",
-  version: 1,
+  version: 1.2,
   storage,
+  debug: import.meta.env.DEV,
+  whitelist: [
+    "common",
+    "account",
+    "settings",
+    "inset",
+    "audio",
+    "search",
+    "volume",
+  ],
 };
 
 const baseReducer = {
