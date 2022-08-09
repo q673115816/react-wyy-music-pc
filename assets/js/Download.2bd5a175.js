@@ -1,1 +1,0 @@
-import{Q as t}from"./@tabler/icons.1bddd3c4.js";import{j as o}from"./qrcode.react.d8dda151.js";const a=()=>o("button",{type:"button",className:"ui_text_gray_hover",children:o(t,{size:20,stroke:1})});export{a as D};
