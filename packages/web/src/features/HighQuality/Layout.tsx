@@ -11,7 +11,7 @@ const Layout = () => {
   const tags = resTags?.tags || [];
   const handleHidden = useCallback(() => setShowPopup(false), []);
   return (
-    <div className="px-8 overflow-auto flex-auto">
+    <div className="px-8 max-h-full overflow-auto flex-auto">
       <div className="py-3 flex items-center justify-between">
         <div className="flex items-center">
           <span className="font-bold text-xl">精品歌单</span>

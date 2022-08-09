@@ -6,10 +6,8 @@ import { albumCode, albumTypes } from "../config";
 import Loading from "@/components/Loading";
 import { useParams } from "react-router-dom";
 
-interface iProps {}
-
-const Content: FC<iProps> = () => {
-  const { area, type } = useParams();
+const Album: FC = () => {
+  const { area = "", type = "" } = useParams();
 
   const { data, isLoading } = useGetTopAlbumQuery({
     area: albumCode[area],
@@ -55,4 +53,4 @@ const Content: FC<iProps> = () => {
   );
 };
 
-export default memo(Content);
+export default memo(Album);

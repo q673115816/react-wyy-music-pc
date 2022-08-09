@@ -7,7 +7,7 @@ import Banner from "./components/Banner";
 import HeaderBar from "./components/HeaderBar";
 import { useGetTopPlaylistHighqualityMutation } from "@/modules/services/discover";
 
-export default memo(function Playlist() {
+const Layout = () => {
   const { cat = "" } = useParams();
   const [highquality, setHighquality] = useState({});
   const [highqualityGet, { isLoading }] =
@@ -35,4 +35,6 @@ export default memo(function Playlist() {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Layout);

@@ -3,10 +3,10 @@ import { NavLink, Outlet } from "react-router-dom";
 import classNames from "classnames";
 import { navs } from "./config";
 
-const Discover = () => {
+const Layout = () => {
   return (
     <div className="flex flex-col h-full">
-      <div className="ui_header text-base space-x-5">
+      <div className="ui_header text-base gap-x-5">
         {navs.map((path) => (
           <NavLink
             className={({ isActive }) =>
@@ -24,4 +24,4 @@ const Discover = () => {
   );
 };
 
-export default memo(Discover);
+export default memo(Layout);

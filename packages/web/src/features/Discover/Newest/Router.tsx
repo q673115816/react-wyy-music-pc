@@ -1,8 +1,10 @@
 import React, { memo } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import Layout from "./Layout";
-import VideoList from "./VideoList";
-import MVList from "./MVList";
+import Song from "./Song";
+import Album from "./Album";
+import { divide } from "lodash";
+
 const Router = () => {
   return useRoutes([
     {
@@ -11,15 +13,15 @@ const Router = () => {
       children: [
         {
           index: true,
-          element: <Navigate to="videolist" replace={true} />,
+          element: <Navigate to="新歌速递" replace={true} />,
         },
         {
-          path: "videolist",
-          element: <VideoList />,
+          path: encodeURIComponent("新歌速递") + "/*",
+          element: <Song />,
         },
         {
-          path: "MVList",
-          element: <VideoList />,
+          path: encodeURIComponent("新碟上架") + "/*",
+          element: <Album />,
         },
       ],
     },

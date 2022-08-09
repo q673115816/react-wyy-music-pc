@@ -1,20 +1,24 @@
 import React, { memo, useState } from "react";
-import {NavLink, useParams} from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import classNames from "classnames";
 import { IconChevronRight } from "@tabler/icons";
-import {useGetPlaylistHotQuery, useGetPlaylistCatListQuery} from "@/modules/services/discover";
-import SubList from './SubList'
-
+import {
+  useGetPlaylistHotQuery,
+  useGetPlaylistCatListQuery,
+} from "@/modules/services/discover";
+import SubList from "./SubList";
 
 const HeaderBar = () => {
-  const { cat = '' } = useParams()
+  const { cat = "" } = useParams();
   const [popup, setPopup] = useState(false);
-  const {data: resHot, isLoading: isLoading1} = useGetPlaylistHotQuery()
-  const {data: catlist = {}, isLoading: isLoading2} = useGetPlaylistCatListQuery()
-  if(isLoading1 && isLoading2) return null
-  const tags = resHot?.tags || []
-  const categories = catlist?.categories && Object.entries(catlist.categories) || []
-  const sub = catlist?.sub || []
+  const { data: resHot, isLoading: isLoading1 } = useGetPlaylistHotQuery();
+  const { data: catlist = {}, isLoading: isLoading2 } =
+    useGetPlaylistCatListQuery();
+  if (isLoading1 && isLoading2) return null;
+  const tags = resHot?.tags || [];
+  const categories =
+    (catlist?.categories && Object.entries(catlist.categories)) || [];
+  const sub = catlist?.sub || [];
   return (
     <div className="domHome_playlist_nav pt-4 pb-4 flex items-center">
       <div className="relative">
@@ -81,4 +85,4 @@ const HeaderBar = () => {
   );
 };
 
-export default memo(HeaderBar)
+export default memo(HeaderBar);

@@ -1,6 +1,6 @@
-import { base } from "../base";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import baseQuery from "../../base";
 import { Songs } from "./types";
-import { limit } from "@/common/config";
 
 interface ReqArtists {
   type: number;
@@ -13,7 +13,11 @@ interface ResAlbums {
   offset: number;
 }
 
-const api = base.injectEndpoints({
+export const reducerPath = "discover/newest/api";
+
+export const api = createApi({
+  reducerPath,
+  baseQuery,
   endpoints: (build) => ({
     getTopSong: build.query<Songs, ReqArtists>({
       query: (body) => ({

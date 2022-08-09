@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loading from "@/components/Loading";
 
 const Base = () => {
-  const { cat = "", page = "1" } = useParams();
+  const { cat = "", page = 1 } = useParams();
   const navigate = useNavigate();
   const limit = 100;
 
@@ -15,7 +15,7 @@ const Base = () => {
     order: "hot",
     cat,
     limit,
-    offset: (page - 1) * limit,
+    offset: (Number(page) - 1) * limit,
   });
   if (isLoading) {
     return (

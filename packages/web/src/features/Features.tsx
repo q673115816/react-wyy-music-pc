@@ -65,6 +65,10 @@ const root: [string, LazyExoticComponent<any>][] = [
   ],
   ["User", lazy(() => import(/* webpackChunkName: "User" */ "./User"))],
   ["Video", lazy(() => import(/* webpackChunkName: "Video" */ "./Video"))],
+  [
+    "HighQuality",
+    lazy(() => import(/* webpackChunkName: "HighQuality" */ "./HighQuality")),
+  ],
 ];
 // const modules = import.meta.glob("./*/index.ts", { eager: true }) || [];
 // console.log(modules);

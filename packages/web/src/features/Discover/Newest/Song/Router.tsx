@@ -1,22 +1,22 @@
 import React, { memo } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import Layout from "./Layout";
-import { elements } from "./config";
+import Song from "./Song";
 
 const Router = () => {
   return useRoutes([
     {
-      path: "/*",
+      index: true,
+      element: <Navigate to="全部" replace={true} />,
+    },
+    {
+      path: "/",
       element: <Layout />,
       children: [
         {
-          index: true,
-          element: <Navigate to={elements[0][0]} replace={true} />,
+          path: ":type",
+          element: <Song />,
         },
-        ...elements.map(([path, Element]) => ({
-          path: `${path}/*`,
-          element: <Element />,
-        })),
       ],
     },
   ]);

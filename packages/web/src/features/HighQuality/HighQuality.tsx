@@ -9,7 +9,7 @@ import { useGetTopPlaylistHighqualityMutation } from "@/modules/services/discove
 import Loading from "@/components/Loading";
 import { useImmer } from "use-immer";
 import { Highquality as iHighquality } from "@/modules/services/discover";
-const Highquality = () => {
+const HighQuality = () => {
   const { cat = "" } = useParams();
   const before = useRef(0);
   const [data, setData] = useImmer<iHighquality[]>([]);
@@ -105,4 +105,4 @@ const Highquality = () => {
   );
 };
 
-export default memo(Highquality);
+export default memo(HighQuality);

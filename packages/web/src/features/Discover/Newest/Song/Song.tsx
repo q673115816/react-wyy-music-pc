@@ -1,23 +1,20 @@
 import React, { FC, memo } from "react";
-import { useGetTopSongQuery } from "@/modules/services/discover";
+import { useGetTopSongQuery } from "@/modules/services/discover/newest";
 import { songCode, SongConfigType } from "@/features/Discover/Newest/config";
 import Loading from "@/components/Loading";
 import classNames from "classnames";
 import { IconPlayerPlay } from "@tabler/icons";
 import Tags from "@/components/Tags";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import Artists from "@/components/Table/Artists";
 
-interface iProps {
-  type: string;
-}
-
-const Content: FC<iProps> = ({ type }) => {
+const Song: FC = () => {
+  const { type = "" } = useParams();
   const { data, isLoading, isFetching } = useGetTopSongQuery({
     type: songCode[type],
   });
-  if (isFetching) return <Loading />;
+  if (isLoading) return <Loading />;
 
   return (
     <div className="">
@@ -53,10 +50,7 @@ const Content: FC<iProps> = ({ type }) => {
             <Artists artists={item.artists} />
           </span>
           <span className="truncate w-1/5 px-1">
-            <Link
-              to={`/playlist/album/${item.album.id}`}
-              className="ui_text_gray_hover"
-            >
+            <Link to={`${item.album.id}`} className="ui_text_gray_hover">
               {item.album.name}
             </Link>
           </span>
@@ -69,4 +63,4 @@ const Content: FC<iProps> = ({ type }) => {
   );
 };
 
-export default memo(Content);
+export default memo(Song);
