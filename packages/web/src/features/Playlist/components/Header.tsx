@@ -71,7 +71,7 @@ const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
         <button
           onClick={() => handleSub(data.playlist.subscribed)}
           type="button"
-          className="flex-center border px-3 h-8 rounded-full hover:bg-gray-50"
+          className="flex-center text-sm border px-3 h-8 rounded-full hover:bg-gray-50"
         >
           {data.playlist.subscribed ? (
             <IconCheckbox size={20} stroke={1} />
@@ -84,7 +84,7 @@ const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
         </button>
         <button
           type="button"
-          className="flex-center border px-3 h-8 rounded-full hover:bg-gray-50"
+          className="flex-center text-sm border px-3 h-8 rounded-full hover:bg-gray-50"
         >
           <IconScreenShare size={20} stroke={1} />
           &nbsp; 分享
@@ -92,13 +92,13 @@ const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
         </button>
         <button
           type="button"
-          className="flex-center border px-3 h-8 rounded-full hover:bg-gray-50"
+          className="flex-center text-sm border px-3 h-8 rounded-full hover:bg-gray-50"
         >
           <IconCloudDownload size={20} stroke={1} />
           &nbsp; 下载全部
         </button>
       </div>
-      <div className="space-y-1 mt-2">
+      <div className="flex gap-y-1 mt-3">
         <Tags tags={data.playlist.tags} />
         <div>
           <span className="mr-3">

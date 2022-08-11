@@ -1,12 +1,13 @@
 import React, { useContext, useRef } from "react";
 import { IconCircleCheck } from "@tabler/icons";
 import { CSSTransition } from "react-transition-group";
-import { context } from "./Content";
+import { Context, context } from "./Content";
 import style from "./toast.module.css";
 import "./toast.css";
 
 const Toast = () => {
-  const [{ text, visible }] = useContext(context);
+  const { status, dispatch } = useContext(context);
+  const { text, visible } = status;
   const nodeRef = useRef(null);
   return (
     <CSSTransition

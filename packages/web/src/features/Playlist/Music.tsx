@@ -103,7 +103,7 @@ const Music = () => {
               type="button"
               className={classNames(
                 "text-sm",
-                status === code && "font-bold ui_underline"
+                status === code && "font-bold text-lg ui_underline"
               )}
               key={nav}
               onClick={() => setStatus(code)}

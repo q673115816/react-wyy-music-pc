@@ -9,7 +9,6 @@ import {
   IconShoppingCart,
   IconUser,
 } from "@tabler/icons";
-import Cookies from "js-cookie";
 import Loading from "@/components/Loading";
 import { setLoginInfoUpdate, reset } from "@/modules/reducers/account/slice";
 import { useAppDispatch } from "@/modules/hooks";
@@ -38,9 +37,7 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
       }
       Remove({ key: "cookie" });
       dispatch(reset());
-      for (const c in Cookies.get()) {
-        Cookies.remove(c);
-      }
+
       window.location.reload();
     } catch (error) {
       console.log(error);

@@ -1,19 +1,34 @@
-import { createContext } from "react";
+import { createContext, Dispatch } from "react";
+import { Reducer } from "use-immer";
 
-export const context = createContext(null);
+interface State {
+  id: number | null;
+  text: string | null;
+  visible: boolean;
+}
 
-export const initialStatus = {
+export const initialState: State = {
   id: null,
   text: null,
   visible: false,
 };
 
-export const reducer = (state = initialStatus, { payload, type }) => {
+export interface Context {
+  state: State;
+  dispatch: Dispatch<<T>(payload?: T) => { type: string; payload?: T }>;
+}
+
+export const context = createContext(null);
+
+export const reducer: Reducer = (state = initialState, { payload, type }) => {
   switch (type) {
     case "change":
-      return { ...state, ...payload, visible: true };
+      Object.assign(state, payload);
+      state.visible = true;
+      return;
     case "reset":
-      return { ...state, visible: false };
+      Object.assign(state, initialState);
+      return;
     default:
       return state;
   }
