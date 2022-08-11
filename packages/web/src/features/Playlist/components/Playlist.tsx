@@ -1,4 +1,4 @@
-import React, { CSSProperties, memo } from "react";
+import React, { CSSProperties, FC, memo } from "react";
 import classNames from "classnames";
 import dayjs from "dayjs";
 
@@ -10,7 +10,11 @@ import Name from "@/components/Table/Name";
 import Artists from "@/components/Table/Artists";
 import Album from "@/components/Table/Album";
 
-const Playlist = ({ songs = [] }) => {
+interface iProps {
+  songs: any[];
+}
+
+const Playlist: FC<iProps> = ({ songs = [] }) => {
   if (!songs.length) {
     return (
       <div className="pt-16 text-center text-sm text-gray-400">暂无音乐</div>

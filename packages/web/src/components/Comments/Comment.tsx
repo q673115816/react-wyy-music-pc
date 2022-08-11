@@ -5,7 +5,7 @@ import { apiCommentLike } from "@/api";
 import { IconThumbUp, IconScreenShare, IconMessageCircle } from "@tabler/icons";
 import { transTextEmoji } from "@/components/Emoji";
 
-const enum Type {
+const enum Types {
   "歌曲",
   "MV",
   "歌单",
@@ -15,18 +15,11 @@ const enum Type {
   "动态",
 }
 
-const types = {
-  歌曲: 0,
-  MV: 1,
-  歌单: 2,
-  专辑: 3,
-  电台: 4,
-  视频: 5,
-  动态: 6,
-};
-
 interface iProps {
-  item: {};
+  item: any;
+  handleLike: () => void;
+  type: string;
+  threadId: number;
 }
 
 const Comment: FC<iProps> = ({
@@ -35,13 +28,13 @@ const Comment: FC<iProps> = ({
   type = "0",
   threadId,
 }) => {
-  const handleClick = async () => {
+  const handleClick = async (id, t) => {
     try {
       const {} = await apiCommentLike({
         id,
         cid,
         t,
-        type: types[type],
+        type: Types[type],
       });
     } catch (error) {
       console.log(error);

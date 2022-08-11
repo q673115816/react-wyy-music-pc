@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "@/modules/store";
 
 export interface AccountState {
+  isLogin: boolean;
   profile: {};
   playlist: playlistState[];
   bindings: [];
@@ -19,6 +21,7 @@ export interface playlistState {
 }
 
 const initialState: AccountState = {
+  isLogin: false,
   profile: {},
   playlist: [],
   bindings: [],
@@ -33,6 +36,9 @@ const slice = createSlice({
   name: "account",
   initialState,
   reducers: {
+    reset(state) {
+      Object.assign(state, initialState);
+    },
     setLoginInfo(state, { payload }) {
       // state.profile = action.payload.profile;
       // state.playlist = action.payload.playlist;
@@ -42,6 +48,7 @@ const slice = createSlice({
       // state.albumSublist = action.payload.albumSublist;
       // state.mvSublist = action.payload.mvSublist;
       Object.assign(state, payload);
+      state.isLogin = true;
     },
     setLoginInfoUpdate(state, action) {
       state.profile = action.payload.profile;
@@ -83,7 +90,10 @@ const slice = createSlice({
 
 export default slice.reducer;
 
+export const accountSelector = (state: RootState) => state.account;
+
 export const {
+  reset,
   setAlbumSublist,
   setArtistSublist,
   setArtistSublistAdd,

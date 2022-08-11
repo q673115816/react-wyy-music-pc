@@ -8,6 +8,7 @@ import {
   SignInProgress,
   Records,
   Evnets,
+  SignInProgressError,
 } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "../base";
@@ -32,7 +33,10 @@ export const api = createApi({
       }),
       invalidatesTags: [{ type: "dailySignIn" }],
     }),
-    getSignInProgress: build.query<SignInProgress, { moduleId?: string }>({
+    getSignInProgress: build.query<
+      SignInProgress | SignInProgressError,
+      { moduleId?: string }
+    >({
       query: (body) => ({
         url: `signin/progress`,
         method: "POST",

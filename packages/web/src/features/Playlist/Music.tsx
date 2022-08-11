@@ -5,6 +5,7 @@ import React, {
   useCallback,
   ReactNode,
   createElement,
+  FC,
 } from "react";
 
 import { apiPlaylistDetail, apiPlaylistSubscribe, apiSongDetail } from "@/api";
@@ -29,13 +30,13 @@ const navs: [string, Paths][] = [
   ["收藏者", "Subscribers"],
 ];
 
-const Contents: { [key in Paths]: ReactNode } = {
+const Contents: { [key in Paths]: FC } = {
   Playlist,
   Comments,
   Subscribers,
 };
 
-export default memo(function Playlist() {
+const Music = () => {
   const { id } = useParams();
   const toast = useToast();
   const [loading, setLoading] = useState(true);
@@ -116,4 +117,6 @@ export default memo(function Playlist() {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Music);

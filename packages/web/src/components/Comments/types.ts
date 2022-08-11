@@ -1,5 +1,9 @@
 export interface iComment {
   commentId: number;
+  liked: boolean;
+  likedCount: number;
+  time: number;
+  user: any;
 }
 
 export interface iList {

@@ -2,6 +2,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 import { RootState } from "@/modules/store";
 
 const visibilityState = {
+  loginVisibility: false,
   lyricVisibility: false,
   maskVisibility: false,
   searchVisibility: false,
@@ -87,6 +88,9 @@ const slice = createSlice({
       state.popupStatus =
         state.popupStatus === "playlist" ? "false" : "playlist";
     },
+    setLoginVisibilty(state) {
+      state.loginVisibility = !state.loginVisibility;
+    },
   },
 });
 
@@ -108,4 +112,5 @@ export const {
   setPopupLetterToggle,
   setPopupPlaylistToggle,
   setSearchShow,
+  setLoginVisibilty,
 } = slice.actions;

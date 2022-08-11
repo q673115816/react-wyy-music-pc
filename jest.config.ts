@@ -3,7 +3,7 @@ module.exports = {
   preset: "ts-jest",
   // collectCoverage: true,
   testEnvironment: "jsdom", // document is not defined
-  roots: ["<rootDir>/src"],
+  // roots: ["<rootDir>/src"],
   transform: {
     "^.+\\.tsx?$": "ts-jest",
   },

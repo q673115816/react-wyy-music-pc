@@ -4,9 +4,10 @@ import { useAppSelector } from "@/modules/hooks";
 import { context } from "../context";
 import Content from "./Content";
 import Header from "./Header";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 const Detail = () => {
-  const { isLogin } = useAppSelector(({ common }) => common);
+  const { isLogin } = useAppSelector(accountSelector);
   const { code } = useContext(context);
   if (!isLogin) {
     return <div>查看个人信息请先登录</div>;

@@ -50,7 +50,7 @@ const Category = ({ catelist = [] }) => {
   return (
     <div className="px-10 mt-9">
       <Slider {...settings}>
-        <Link to="TopList">
+        <Link to="/TopList">
           <div className="flex flex-col items-center">
             <div className="rounded-full w-12 h-12 flex-center bg-red-50 hover:bg-red-100 ui_themeColor">
               <IconChartBar stroke={1} />
@@ -75,7 +75,7 @@ const Category = ({ catelist = [] }) => {
 
 const navs = ["创作翻唱", "声之剧场", "音乐故事", "情感调频", "声音恋人"];
 
-export default memo(function DJ() {
+const DJ = () => {
   const { data: resBanner, isLoading } = useGetDJBannerQuery();
   const { data: resCategoryRecommend } = useGetDJCategoryRecommendQuery();
   const { data: resCateList } = useGetDJCateListQuery();
@@ -150,4 +150,6 @@ export default memo(function DJ() {
       </div>
     </div>
   );
-});
+};
+
+export default memo(DJ);

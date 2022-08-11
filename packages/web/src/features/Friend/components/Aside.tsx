@@ -1,12 +1,13 @@
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { Link } from "react-router-dom";
 import Gender from "@/components/Gender";
-import { setLoginVisibilty } from "@/modules/reducers/common/slice";
+import { setLoginVisibilty } from "@/modules/reducers/mask/slice";
 import TopicList from "./TopicList";
 import React, { memo } from "react";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 export default memo(function Aside() {
-  const { profile } = useAppSelector(({ account }) => account);
+  const { profile } = useAppSelector(accountSelector);
   const dispatch = useAppDispatch();
   return (
     <div className="flex-none" style={{ width: 250 }}>

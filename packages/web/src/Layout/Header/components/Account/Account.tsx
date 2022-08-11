@@ -1,14 +1,14 @@
 import React, { useState, memo, MouseEventHandler, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { IconUser, IconCaretDown } from "@tabler/icons";
-import { setLoginVisibilty } from "@/modules/reducers/common/slice";
+import { setLoginVisibilty } from "@/modules/reducers/mask/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Profile from "./Profile";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 const Account = () => {
   const dispatch = useAppDispatch();
-  const { isLogin } = useAppSelector(({ common }) => common);
-  const { profile } = useAppSelector(({ account }) => account);
+  const { profile, isLogin } = useAppSelector(accountSelector);
   const [visibility, setVisibility] = useState(false);
 
   const handleHide: MouseEventHandler = useCallback(

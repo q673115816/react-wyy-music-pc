@@ -9,8 +9,9 @@ import {
   IconShoppingCart,
   IconUser,
 } from "@tabler/icons";
+import Cookies from "js-cookie";
 import Loading from "@/components/Loading";
-import { setLoginInfoUpdate } from "@/modules/reducers/account/slice";
+import { setLoginInfoUpdate, reset } from "@/modules/reducers/account/slice";
 import { useAppDispatch } from "@/modules/hooks";
 import { Remove } from "@/modules/utils";
 import { useGetLogoutMutation } from "@/modules/services/account";
@@ -36,6 +37,10 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
         return;
       }
       Remove({ key: "cookie" });
+      dispatch(reset());
+      for (const c in Cookies.get()) {
+        Cookies.remove(c);
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

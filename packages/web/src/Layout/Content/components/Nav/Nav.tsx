@@ -12,7 +12,10 @@ import classNames from "classnames";
 import { useAppSelector } from "@/modules/hooks";
 import style from "./style.module.scss";
 import Playlist from "../Playlist";
-import { AccountState } from "@/modules/reducers/account/slice";
+import {
+  accountSelector,
+  AccountState,
+} from "@/modules/reducers/account/slice";
 
 interface CustomLinkProps {
   name: string;
@@ -107,9 +110,8 @@ const CustomLink: FC<CustomLinkProps> = ({
   </NavLink>
 );
 
-export default memo(function Nav() {
-  const { playlist } = useAppSelector<AccountState>(({ account }) => account);
-  const { isLogin } = useAppSelector(({ common }) => common);
+const Nav = () => {
+  const { playlist, isLogin } = useAppSelector(accountSelector);
 
   const ownPlaylist = useMemo(
     () => playlist.filter((item) => !item.subscribed),
@@ -148,4 +150,6 @@ export default memo(function Nav() {
       {isLogin && <Playlist name="收藏的歌单" playlist={subscribedPlaylist} />}
     </div>
   );
-});
+};
+
+export default memo(Nav);

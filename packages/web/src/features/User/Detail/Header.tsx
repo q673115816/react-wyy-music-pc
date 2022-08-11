@@ -6,13 +6,14 @@ import { SymbolWB } from "@/components/Symbol";
 import { usePostFollowMutation } from "@/modules/services/user";
 import { context } from "@/features/User/context";
 import { useAppSelector } from "@/modules/hooks";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 const Header = () => {
   const { uid } = useParams();
   const [followPost] = usePostFollowMutation();
   const { profile, code, bindings } = useContext(context);
-  const { isLogin } = useAppSelector(({ common }) => common);
-  const account = useAppSelector(({ account }) => account);
+  const { isLogin } = useAppSelector(accountSelector);
+  const account = useAppSelector(accountSelector);
   const isSelf = useMemo(() => {
     if (!isLogin) return false;
     return String(account.profile.userId) === uid;

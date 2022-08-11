@@ -18,7 +18,7 @@ const SignIn = () => {
     }
   };
   if (isLoading) return <Loading />;
-  if (data.data.today.todaySignedIn) {
+  if (data?.data?.today?.todaySignedIn) {
     return (
       <button
         type="button"

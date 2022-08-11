@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Routes, Route } from "react-router-dom";
 import Music from "./Music";
 import DJ from "./DJ";
@@ -14,4 +14,4 @@ const Router = () => {
   );
 };
 
-export default Router;
+export default memo(Router);

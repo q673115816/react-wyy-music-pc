@@ -1,9 +1,6 @@
 import React, { createElement, FC, memo } from "react";
 import { IconX } from "@tabler/icons";
-import {
-  commonSelector,
-  setLoginVisibilty,
-} from "@/modules/reducers/common/slice";
+import { commonSelector } from "@/modules/reducers/common/slice";
 import { useImmerReducer } from "use-immer";
 import "./style.scss";
 import Scan from "./Scan";
@@ -19,6 +16,7 @@ import {
   LoginType,
   LoginState,
 } from "./Content";
+import { maskSelector, setLoginVisibilty } from "@/modules/reducers/mask/slice";
 
 const Build: { [key in LoginType]: FC } = {
   Scan,
@@ -30,8 +28,8 @@ const Build: { [key in LoginType]: FC } = {
 
 const Login = () => {
   const dispatch = useAppDispatch();
-  const { loginVisibility } = useAppSelector(commonSelector);
-  const [loginReducer, loginDispatch] = useImmerReducer<LoginState>(
+  const { loginVisibility } = useAppSelector(maskSelector);
+  const [loginReducer, loginDispatch] = useImmerReducer(
     LoginReducer,
     LoginInitialState
   );

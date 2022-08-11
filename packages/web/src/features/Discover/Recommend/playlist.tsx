@@ -7,13 +7,14 @@ import PlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
 import { useAppSelector } from "@/modules/hooks";
 import { Resource } from "@/modules/services/discover";
 import { commonSelector } from "@/modules/reducers/common/slice";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 interface iProps {
   playlist: Resource[];
 }
 
 const playlist: FC<iProps> = ({ playlist = [] }) => {
-  const { isLogin } = useAppSelector(commonSelector);
+  const { isLogin } = useAppSelector(accountSelector);
   if (!isLogin) return <div>需要登录</div>;
   return (
     <div className="grid gap-5 grid-cols-5 mt-4">

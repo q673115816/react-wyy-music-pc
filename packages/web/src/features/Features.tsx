@@ -6,6 +6,10 @@ const root: [string, LazyExoticComponent<any>][] = [
   ["AI", lazy(() => import(/* webpackChunkName: "AI" */ "./AI"))],
   ["Artist", lazy(() => import(/* webpackChunkName: "Artist" */ "./Artist"))],
   [
+    "TopList",
+    lazy(() => import(/* webpackChunkName: "TopList" */ "./TopList")),
+  ],
+  [
     "Artist-TopList",
     lazy(
       () => import(/* webpackChunkName: "Artist-TopList" */ "./Artist-TopList")

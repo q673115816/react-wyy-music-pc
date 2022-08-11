@@ -6,11 +6,7 @@ import TopListLayout from "./TopList/TopListLayout";
 
 const Router = () => (
   <Routes>
-    <Route path={"*"} element={<DJ />} />
-    <Route path="TopList" element={<TopListLayout/>}>
-      <Route path=":type" element={<TopList />}/>
-      <Route index element={<Navigate to="program" replace={true}/>}/>
-    </Route>
+    <Route index element={<DJ />} />
   </Routes>
 );
 

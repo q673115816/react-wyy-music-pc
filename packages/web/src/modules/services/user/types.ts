@@ -92,6 +92,12 @@ export interface SignInProgress extends ResWithCode {
   };
 }
 
+export interface SignInProgressError extends ResWithCode {
+  exception: "com.netease.music.common.core.exception.IgnoredException";
+  message: "用户未登录";
+  msg: "需要登录";
+}
+
 export interface Records extends ResWithCode {}
 
 export interface Evnets extends ResWithCode {

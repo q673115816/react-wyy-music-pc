@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
@@ -9,9 +9,10 @@ import {
   apiMsgNotices,
 } from "@/api";
 import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
-import { setMsgPrivate } from "@/modules/reducers/common/slice";
+import { commonSelector, setMsgPrivate } from "@/modules/reducers/common/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import style from "./List.module.scss";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 const BuildList = {
   song: (msg) => (
@@ -58,16 +59,16 @@ const BuildTransLastMsg = (msg = {}) => {
 
 const navs = ["私信", "评论", "@我", "通知"];
 
-export default () => {
+const List = () => {
   const dispatch = useAppDispatch();
+  const { isLogin } = useAppSelector(accountSelector);
   const {
-    isLogin,
     newMsgCount,
     msgs = [],
     comments = [],
     forwards = [],
     notices = [],
-  } = useAppSelector(({ common }) => common);
+  } = useAppSelector(commonSelector);
   const [data, setData] = useState([]);
   const [active, setActive] = useState("私信");
 
@@ -225,3 +226,5 @@ export default () => {
     </>
   );
 };
+
+export default memo(List);
