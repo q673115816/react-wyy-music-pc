@@ -1,4 +1,11 @@
-import { ResCommentVideo, ResCommentMV, Events } from "./types";
+import {
+  ResCommentVideo,
+  ResCommentMV,
+  Events,
+  reqComment,
+  resComment,
+  Comments,
+} from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "../base";
 
@@ -7,6 +14,7 @@ export const reducerPath = "comment/api";
 export const api = createApi({
   reducerPath,
   baseQuery,
+  tagTypes: ["comment/playlist"],
   endpoints: (build) => ({
     getCommentVideo: build.query<ResCommentVideo, { id: string }>({
       query: (body) => ({
@@ -39,12 +47,25 @@ export const api = createApi({
         body,
       }),
     }),
-    getComment: build.query<Events, { threadId: number }>({
+    getCommentPlaylist: build.query<Comments, { id: number }>({
+      query: (body) => ({
+        url: `comment/playlist`,
+        method: "POST",
+        body,
+      }),
+      providesTags: (result, error, { id }) => {
+        return [{ type: "comment/playlist", id }];
+      },
+    }),
+    postComment: build.mutation<resComment, reqComment>({
       query: (body) => ({
         url: `comment`,
         method: "POST",
         body,
       }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: "comment/playlist", id },
+      ],
     }),
   }),
 });
@@ -54,4 +75,6 @@ export const {
   useGetCommentMusicQuery,
   useGetCommentMVQuery,
   useGetCommentEventQuery,
+  useGetCommentPlaylistQuery,
+  usePostCommentMutation,
 } = api;

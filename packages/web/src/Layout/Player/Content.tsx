@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import { transPlayCount } from "@/common/utils";
 import { setVideoListId } from "@/modules/reducers/videolist/slice";
 import DownloadVideo from "@/components/Dialog/DownloadVideo";
-import Write from "@/components/Write";
+import { Textarea } from "@/components/editor";
 import { useAppDispatch } from "@/modules/hooks";
 import useInit from "@/Layout/Player/useInit";
 import Comment from "./Comment";
@@ -197,7 +197,7 @@ const Content: FC<iProps> = ({ type, vid }) => {
           <span>{`(${detail.commentCount})`}</span>
         </div>
         <div className="mb-10">
-          <Write max={140} onChange={handleChange} />
+          <Textarea max={140} onChange={handleChange} />
         </div>
         <Comment type={type} vid={vid} />
       </div>

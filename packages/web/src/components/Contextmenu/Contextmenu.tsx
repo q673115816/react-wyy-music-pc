@@ -352,10 +352,6 @@ const Contextmenu = () => {
   };
 
   const handleCopyLink = () => {
-    // const data = new DataTransfer();
-    // data.items.add('text/plain', ShareUrl);
-    // await navigator.clipboard.writeText(ShareUrl);
-    // alert('链接复制成功');
     copyToClipboard(ShareUrl);
     toast("复制链接成功");
     dispatch(setDialogReset());

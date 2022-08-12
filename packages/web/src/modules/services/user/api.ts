@@ -18,6 +18,7 @@ export const reducerPath = "user/api";
 export const api = createApi({
   reducerPath,
   baseQuery,
+  tagTypes: ["user"],
   endpoints: (build) => ({
     getUserCloud: build.query<Clouds, { limit: number }>({
       query: (body) => ({
@@ -31,7 +32,7 @@ export const api = createApi({
         url: `daily_signin`,
         method: "POST",
       }),
-      invalidatesTags: [{ type: "dailySignIn" }],
+      invalidatesTags: [{ type: "user", id: "dailySignIn" }],
     }),
     getSignInProgress: build.query<
       SignInProgress | SignInProgressError,
@@ -42,7 +43,7 @@ export const api = createApi({
         method: "POST",
         body,
       }),
-      providesTags: [{ type: "dailySignIn" }],
+      providesTags: [{ type: "user", id: "dailySignIn" }],
     }),
     getUserDetail: build.query<Details, { uid: string }>({
       query: (body) => ({
@@ -56,7 +57,7 @@ export const api = createApi({
         url: `user/account`,
         method: "POST",
       }),
-      providesTags: (result, error) => [{ type: "user/account" }],
+      providesTags: (result, error) => [{ type: "user", id: "account" }],
     }),
     postUserUpdate: build.mutation<{ code: number }, ReqUpdate>({
       query: (body) => ({
@@ -64,7 +65,7 @@ export const api = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: (result, error) => [{ type: "user/account" }],
+      invalidatesTags: (result, error) => [{ type: "user", id: "account" }],
     }),
     getUserEvent: build.mutation<Evnets, { uid: string; lasttime: number }>({
       query: (body) => ({
@@ -107,9 +108,7 @@ export const api = createApi({
         method: "POST",
         body,
       }),
-      providesTags: (result, error, { uid }) => [
-        { type: "user/followeds", id: uid },
-      ],
+      providesTags: (result, error, { uid }) => [{ type: "user", id: uid }],
     }),
     postFollow: build.mutation<Followeds, { id: string; t: number }>({
       query: (body) => ({
@@ -117,9 +116,7 @@ export const api = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: (result, error, { id }) => [
-        { type: "user/followeds", id },
-      ],
+      invalidatesTags: (result, error, { id }) => [{ type: "user", id }],
     }),
   }),
 });

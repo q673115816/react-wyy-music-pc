@@ -1,7 +1,7 @@
 import React, {
   ChangeEventHandler,
-  FC,
-  memo,
+  forwardRef,
+  ForwardRefRenderFunction,
   useCallback,
   useEffect,
   useState,
@@ -16,13 +16,17 @@ interface iProps {
   max?: number;
 }
 
-const Write: FC<iProps> = ({ onChange, placeholder = "", max = 140 }) => {
+const Textarea: ForwardRefRenderFunction<HTMLTextAreaElement, iProps> = (
+  { onChange, placeholder = "", max = 140 },
+  ref
+) => {
   const [n, setN] = useState(0);
   const [text, setText] = useState("");
-  const handleChanage: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
+  const handleChange: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
     (event) => {
       const value = event.target.value;
       setText(value);
+      onChange(event);
     },
     []
   );
@@ -30,10 +34,13 @@ const Write: FC<iProps> = ({ onChange, placeholder = "", max = 140 }) => {
   useEffect(() => {
     setN(wordLength(text) >> 0);
   }, [text]);
+
+  useEffect(() => () => setText(""), []);
   return (
     <div className="ui_write relative">
       <textarea
-        onChange={handleChanage}
+        ref={ref}
+        onChange={handleChange}
         value={text}
         className={classNames(
           style.textarea,
@@ -53,4 +60,4 @@ const Write: FC<iProps> = ({ onChange, placeholder = "", max = 140 }) => {
   );
 };
 
-export default memo(Write);
+export default forwardRef(Textarea);

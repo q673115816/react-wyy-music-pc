@@ -10,12 +10,6 @@ export interface Details extends ResWithCode {
   privileges: [];
 }
 
-export interface Comments extends ResWithCode {
-  hotComments: [];
-  comments: [];
-  total: number;
-}
-
 export interface Track {
   id: number;
   name: string;

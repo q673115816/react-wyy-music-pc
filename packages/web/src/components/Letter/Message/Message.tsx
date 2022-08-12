@@ -6,10 +6,10 @@ import {
   letterSelector,
   setMsgPrivateHistory,
 } from "@/modules/reducers/letter/slice";
-import { wordLength } from "@/components/Write";
+import { wordLength } from "@/components/editor";
 import { IconChevronLeft, IconPhoto, IconMoodSmile } from "@tabler/icons";
 import Emoji from "@/components/Emoji";
-import Write from "@/components/Write";
+import { ImageSender, EmojiSender, Textarea } from "@/components/editor";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Song from "./Song";
 import Album from "./Album";
@@ -167,7 +167,7 @@ const Message = () => {
         {hint && <div className={style.hint}>{hint}</div>}
       </div>
       <div className="feedback p-3">
-        <Write
+        <Textarea
           placeholder={`回复 ${nickname}`}
           max={200}
           onChange={handleChange}
@@ -182,16 +182,8 @@ const Message = () => {
                 />
               </div>
             )}
-            <button
-              type="button"
-              className="action"
-              onClick={() => setVisibility(!visibility)}
-            >
-              <IconMoodSmile size={24} stroke={1.4} />
-            </button>
-            <button type="button" className="action">
-              <IconPhoto size={24} stroke={1.4} />
-            </button>
+            <EmojiSender onClick={() => setVisibility(!visibility)} />
+            <ImageSender />
           </div>
           <button
             type="button"

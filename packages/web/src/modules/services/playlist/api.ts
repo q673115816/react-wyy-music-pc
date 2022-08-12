@@ -1,4 +1,4 @@
-import { Details, Comments } from "./types";
+import { Details } from "./types";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import baseQuery from "../base";
 
@@ -15,14 +15,7 @@ export const api = createApi({
         body,
       }),
     }),
-    getCommentPlaylist: build.query<Comments, { id: number }>({
-      query: (body) => ({
-        url: `comment/playlist`,
-        method: "POST",
-        body,
-      }),
-    }),
   }),
 });
 
-export const { useGetPlaylistDetailQuery, useGetCommentPlaylistQuery } = api;
+export const { useGetPlaylistDetailQuery } = api;
