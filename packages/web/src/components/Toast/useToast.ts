@@ -1,5 +1,5 @@
 import { useCallback, useContext } from "react";
-import { setToast, context, resetToast } from "./Content";
+import { setToast, context, hideToast } from "./Content";
 
 interface Props {
   delay: number;
@@ -14,7 +14,7 @@ const useToast = (config?: Props) => {
   const { state, dispatch } = useContext(context);
   return (text: string) => {
     if (state.id) clearTimeout(state.id);
-    const id = setTimeout(() => dispatch(resetToast()), delay);
+    const id = setTimeout(() => dispatch(hideToast()), delay);
     dispatch(setToast({ text, id }));
   };
 };

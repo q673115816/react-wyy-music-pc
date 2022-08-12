@@ -39,6 +39,13 @@ export const api = createApi({
         body,
       }),
     }),
+    getComment: build.query<Events, { threadId: number }>({
+      query: (body) => ({
+        url: `comment`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 

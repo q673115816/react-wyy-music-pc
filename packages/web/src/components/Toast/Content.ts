@@ -2,7 +2,7 @@ import { createContext, Dispatch } from "react";
 import { Reducer } from "use-immer";
 
 interface State {
-  id: number | null;
+  id: NodeJS.Timeout | null;
   text: string | null;
   visible: boolean;
 }
@@ -18,13 +18,21 @@ export interface Context {
   dispatch: Dispatch<<T>(payload?: T) => { type: string; payload?: T }>;
 }
 
-export const context = createContext(null);
+export const context = createContext<Context | null>(null);
 
-export const reducer: Reducer = (state = initialState, { payload, type }) => {
+export const { Provider } = context;
+
+export const reducer: Reducer<State> = (
+  state = initialState,
+  { payload, type }
+) => {
   switch (type) {
     case "change":
       Object.assign(state, payload);
       state.visible = true;
+      return;
+    case "hide":
+      state.visible = false;
       return;
     case "reset":
       Object.assign(state, initialState);
@@ -34,11 +42,14 @@ export const reducer: Reducer = (state = initialState, { payload, type }) => {
   }
 };
 
-export const setToast = (payload) => ({
+export const setToast = (payload: Partial<State>) => ({
   type: "change",
   payload,
 });
 
 export const resetToast = () => ({
   type: "reset",
+});
+export const hideToast = () => ({
+  type: "hide",
 });

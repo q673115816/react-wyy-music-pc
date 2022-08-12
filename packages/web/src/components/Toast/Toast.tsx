@@ -6,8 +6,8 @@ import style from "./toast.module.css";
 import "./toast.css";
 
 const Toast = () => {
-  const { status, dispatch } = useContext(context);
-  const { text, visible } = status;
+  const { state, dispatch } = useContext(context);
+  const { text, visible } = state;
   const nodeRef = useRef(null);
   return (
     <CSSTransition
