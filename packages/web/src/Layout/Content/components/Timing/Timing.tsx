@@ -7,6 +7,7 @@ import {
   setAudioDropping,
   setAudioRunning,
   setAudioPattern,
+  audioSelector,
 } from "@/modules/reducers/audio/slice";
 import { computedPositionPercentage } from "@/common/utils";
 import Drag from "@/components/Drag";
@@ -15,9 +16,7 @@ import classNames from "classnames";
 
 export default memo(function Timing() {
   const dispatch = useAppDispatch();
-  const { currentTime, currentSong, buffered } = useAppSelector(
-    ({ audio }) => audio
-  );
+  const { currentTime, currentSong, buffered } = useAppSelector(audioSelector);
 
   const RefProgress = useRef<HTMLDivElement>(null);
   const computedPosition = (e) => {

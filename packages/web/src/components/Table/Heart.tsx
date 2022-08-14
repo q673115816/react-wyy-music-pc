@@ -4,6 +4,7 @@ import { IconHeart } from "@tabler/icons";
 import { apiLike } from "@/api";
 import { useToast } from "@/components/Toast";
 import {
+  accountSelector,
   setLikelistAdd,
   setLikelistDel,
 } from "@/modules/reducers/account/slice";
@@ -14,6 +15,7 @@ interface IProps {
   size?: number;
   className?: string;
   stroke?: number;
+  title?: string;
 }
 
 const Heart: FC<IProps> = ({
@@ -21,10 +23,11 @@ const Heart: FC<IProps> = ({
   size = 20,
   className = "",
   stroke = 1,
+  ...props
 }) => {
   const dispatch = useAppDispatch();
   const toast = useToast();
-  const { likelist } = useAppSelector(({ account }) => account);
+  const { likelist } = useAppSelector(accountSelector);
   const handleLike = async () => {
     try {
       const { code, message } = await apiLike({
@@ -57,6 +60,7 @@ const Heart: FC<IProps> = ({
           : "ui_text_gray_hover"
       )}
       onClick={handleLike}
+      {...props}
     >
       <IconHeart
         size={size}

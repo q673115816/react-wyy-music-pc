@@ -4,9 +4,10 @@ import Page from "@/components/Page/Page";
 import Loading from "@/components/Loading";
 import { useGetCommentMusicQuery } from "@/modules/services/comment/api";
 import { useAppSelector } from "@/modules/hooks";
+import { audioSelector } from "@/modules/reducers/audio/slice";
 
 const Content = () => {
-  const { currentSong } = useAppSelector(({ audio }) => audio);
+  const { currentSong } = useAppSelector(audioSelector);
   const [page, setPage] = useState(1);
   const limit = 20;
   const { data, isLoading } = useGetCommentMusicQuery({

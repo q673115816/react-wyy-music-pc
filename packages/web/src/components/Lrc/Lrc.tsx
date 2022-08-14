@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React, { useState, memo, MouseEventHandler } from "react";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
+  insetSelector,
   setGlobalLrcInset,
   setGlobalLrcStartInset,
 } from "@/modules/reducers/inset/slice";
@@ -17,7 +18,7 @@ const Lrc = () => {
     globalLrcY: y,
     globalLrcWidth: width,
     globalLrcHeight: height,
-  } = useAppSelector(({ inset }) => inset);
+  } = useAppSelector(insetSelector);
   const { globalLrcVisibility } = useAppSelector(settingSelector);
   const [dragger, setDragger] = useState(false);
   const [active, setActive] = useState(false);

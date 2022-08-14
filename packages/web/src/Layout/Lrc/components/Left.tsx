@@ -1,11 +1,10 @@
 import React, { memo } from "react";
-import { IconFolderPlus, IconCloudDownload, IconShare } from "@tabler/icons";
-import Heart from "@/components/Table/Heart";
 import classNames from "classnames";
 import { useAppSelector } from "@/modules/hooks";
+import { audioSelector } from "@/modules/reducers/audio/slice";
 
 const Left = () => {
-  const { currentSong, running } = useAppSelector(({ audio }) => audio);
+  const { currentSong, running } = useAppSelector(audioSelector);
 
   return (
     <div>
@@ -45,32 +44,6 @@ const Left = () => {
             />
           </div>
         </div>
-      </div>
-      <div className="flex mt-4 justify-between">
-        <Heart
-          stroke={2}
-          id={currentSong.id}
-          size={24}
-          className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200"
-        />
-        <button
-          type="button"
-          className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200"
-        >
-          <IconFolderPlus size={24} stroke={1} />
-        </button>
-        <button
-          type="button"
-          className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200"
-        >
-          <IconCloudDownload size={24} stroke={1} />
-        </button>
-        <button
-          type="button"
-          className="w-10 h-10 flex-center rounded-full bg-gray-100 hover:bg-gray-200"
-        >
-          <IconShare size={24} stroke={1} />
-        </button>
       </div>
     </div>
   );

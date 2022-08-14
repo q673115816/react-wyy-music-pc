@@ -1,5 +1,11 @@
 import React, { memo, useEffect } from "react";
-import { IconChevronUp, IconChevronDown } from "@tabler/icons";
+import {
+  IconChevronUp,
+  IconChevronDown,
+  IconFolderPlus,
+  IconCloudDownload,
+  IconShare,
+} from "@tabler/icons";
 import { setLyricText, setLyricToggle } from "@/modules/reducers/lrc/slice";
 import Heart from "@/components/Table/Heart";
 import Artists from "@/components/Table/Artists";
@@ -9,6 +15,7 @@ import {
   useGetSongUrlMutation,
 } from "@/modules/services/song";
 import { audioSelector, setAudioSrc } from "@/modules/reducers/audio/slice";
+
 const Left = () => {
   const dispatch = useAppDispatch();
   const { currentSong, playlist } = useAppSelector(audioSelector);
@@ -46,6 +53,44 @@ const Left = () => {
 
   if (playlist.length === 0) return <div className={`flex-1`} />;
   if (!currentSong) return null;
+  if (lyricVisibility)
+    return (
+      <div className="flex items-center flex-1">
+        <button type="button" onClick={handleLyric} className="px-4">
+          <IconChevronDown stroke={1} size={24} />
+        </button>
+        <div className="flex gap-3 px-2">
+          <Heart
+            title={"喜欢"}
+            stroke={2}
+            id={currentSong.id}
+            size={24}
+            className="w-10 h-10 flex-center rounded-full border hover:bg-gray-200"
+          />
+          <button
+            title={"收藏"}
+            type="button"
+            className="w-10 h-10 flex-center rounded-full border hover:bg-gray-200"
+          >
+            <IconFolderPlus size={24} stroke={1} />
+          </button>
+          <button
+            title={"下载"}
+            type="button"
+            className="w-10 h-10 flex-center rounded-full border hover:bg-gray-200"
+          >
+            <IconCloudDownload size={24} stroke={1} />
+          </button>
+          <button
+            title={"分享"}
+            type="button"
+            className="w-10 h-10 flex-center rounded-full border hover:bg-gray-200"
+          >
+            <IconShare size={24} stroke={1} />
+          </button>
+        </div>
+      </div>
+    );
   return (
     <div className="flex p-2.5 flex-1">
       <button
@@ -60,11 +105,7 @@ const Left = () => {
         />
         <div className="absolute opacity-0 inset-0 flex-center bg-black group-hover:opacity-60" />
         <div className="absolute opacity-0 inset-0 flex-center group-hover:opacity-100 text-white">
-          {lyricVisibility ? (
-            <IconChevronDown size={24} />
-          ) : (
-            <IconChevronUp size={24} />
-          )}
+          <IconChevronUp size={24} />
         </div>
       </button>
       <div className="pl-3 w-44">

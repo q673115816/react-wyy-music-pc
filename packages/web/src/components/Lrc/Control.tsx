@@ -17,9 +17,7 @@ import {
 } from "@/modules/reducers/audio/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
-interface iControlProps {}
-
-const Control: FC<iControlProps> = () => {
+const Control: FC = () => {
   const dispatch = useAppDispatch();
   const { running } = useAppSelector(audioSelector);
   return (

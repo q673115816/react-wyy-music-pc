@@ -2,9 +2,12 @@ import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import { useAppSelector } from "@/modules/hooks";
 import Lrc from "./Lrc";
+import { audioSelector } from "@/modules/reducers/audio/slice";
+import style from "./Center.module.scss";
+import classNames from "classnames";
 
 const Center = () => {
-  const { currentSong } = useAppSelector(({ audio }) => audio);
+  const { currentSong } = useAppSelector(audioSelector);
   return (
     <div className="center overflow-auto pt-5" style={{ width: 300 }}>
       <div className="text-2xl text-center">{currentSong.name}</div>
@@ -34,8 +37,18 @@ const Center = () => {
         <div className="relative mt-8" style={{ height: 330 }}>
           <Lrc />
         </div>
-        <div className="absolute pointer-events-none left-0 right-0 top-0 h-6 bg-gradient-to-b from-white to-transparent" />
-        <div className="absolute pointer-events-none left-0 right-0 bottom-0 h-6 bg-gradient-to-t from-white to-transparent" />
+        <div
+          className={classNames(
+            style.maskTop,
+            "absolute pointer-events-none left-0 right-0 top-0 h-6"
+          )}
+        />
+        <div
+          className={classNames(
+            style.maskBottom,
+            "absolute pointer-events-none left-0 right-0 bottom-0 h-6"
+          )}
+        />
       </div>
     </div>
   );

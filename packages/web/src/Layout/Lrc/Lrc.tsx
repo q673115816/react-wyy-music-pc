@@ -21,7 +21,7 @@ const Lrc = () => {
   if (!lyricVisibility) return null;
   return (
     <div id="lrc" className="absolute inset-x-0 z-10 overflow-hidden">
-      <div className="w-full h-full bg-white overflow-auto transform">
+      <div className="w-full h-full overflow-auto transform">
         <div className="m-auto" style={{ width: 888 }}>
           <div className="flex justify-between">
             <Left />
