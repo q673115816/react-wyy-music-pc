@@ -57,6 +57,16 @@ export const api = createApi({
         return [{ type: "comment/playlist", id }];
       },
     }),
+    getCommentHot: build.query<
+      Comments,
+      { id: number; type: number; offset: number; limit: number }
+    >({
+      query: (body) => ({
+        url: `comment/hot`,
+        method: "POST",
+        body,
+      }),
+    }),
     postComment: build.mutation<resComment, reqComment>({
       query: (body) => ({
         url: `comment`,
@@ -67,10 +77,19 @@ export const api = createApi({
         { type: "comment/playlist", id },
       ],
     }),
+    postCommentLike: build.mutation<resComment, reqComment>({
+      query: (body) => ({
+        url: `comment/like`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
 export const {
+  useGetCommentHotQuery,
+  useLazyGetCommentHotQuery,
   useGetCommentVideoQuery,
   useGetCommentMusicQuery,
   useGetCommentMVQuery,

@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useState, useMemo, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { IconMoodSmile, IconAt, IconHash } from "@tabler/icons";
 import {
   apiCommentMusic,
   apiSongDetail,
@@ -21,75 +20,40 @@ import CommentsList from "@/components/Comments/CommentsList";
 import Loading from "@/components/Loading";
 import Page from "@/components/Page";
 import Header from "./Header";
+import {
+  useGetCommentMusicQuery,
+  useGetCommentMVQuery,
+  useGetCommentVideoQuery,
+} from "@/modules/services/comment";
 
-const switchs = {
+const apis = {
   song: {
     apiDetail: ({ id }) => apiSongDetail({ ids: id }),
-    apiComment: apiCommentMusic,
-    header: Header,
+    comment: useGetCommentMusicQuery,
   },
   mv: {
     apiDetail: apiMVDetail,
-    apiComment: apiCommentMV,
+    comment: useGetCommentMVQuery,
     header: () => <div />,
   },
   video: {
     apiDetail: apiVideoDetail,
-    apiComment: apiCommentVideo,
-    header: () => <div />,
+    comment: useGetCommentVideoQuery,
   },
 };
 
 const Comment = () => {
   console.log("comment");
   const { id, type } = useParams();
-  const [detail, setDetail] = useState({});
-  const [comments, setComments] = useState({});
   const [value, setValue] = useState("");
-  const [loading, SetLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const handleDetailInit = async () => {
-    try {
-      const { songs } = await switchs[type].apiDetail({
-        id,
-      });
-      setDetail(songs[0]);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { data, isLoading } = apis[type].comment({
+    id,
+    offset: (page - 1) * 20,
+    limit,
+  });
 
-  const handleChange = useCallback((e) => {}, []);
-
-  const handleCommentsInit = async () => {
-    try {
-      const comments = await switchs[type].apiComment({
-        id,
-        offset: (page - 1) * 20,
-        limit,
-      });
-      setComments(comments);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleInit = async () => {
-    await handleDetailInit();
-    await handleCommentsInit();
-    SetLoading(false);
-  };
-
-  const MemoHeader = useMemo(() => switchs[type].header, [type]);
-
-  useEffect(() => {
-    if (loading) {
-      handleInit();
-    } else {
-      handleCommentsInit();
-    }
-  }, [page]);
-
-  if (loading)
+  if (isLoading)
     return (
       <div className="w-full h-full flex-center">
         <Loading />
@@ -97,8 +61,8 @@ const Comment = () => {
     );
   return (
     <div className="domComment overflow-auto px-8 py-5 h-full">
-      <MemoHeader detail={detail} />
-      <div className="domComment_write mt-4">
+      <Header />
+      <div className="mt-4">
         <Editor />
         <div className="flex mt-2">
           <div className="flex space-x-2">
@@ -114,10 +78,10 @@ const Comment = () => {
           </button>
         </div>
       </div>
-      <div className="domComment_main mt-8">
-        <CommentsList comments={comments} more={id} type={type} />
+      <div className="mt-8">
+        <CommentsList comments={data} more={id} type={type} />
         <Page
-          total={Math.ceil(comments.total / limit)}
+          total={Math.ceil(data.total / limit)}
           page={page}
           func={setPage}
         />

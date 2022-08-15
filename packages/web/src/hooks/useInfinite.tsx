@@ -1,6 +1,4 @@
-import React, { useRef, useEffect, ReactNode, RefObject } from "react";
-
-interface iProps {}
+import React, { useRef, useEffect, RefObject } from "react";
 
 export default (
   scrollCallback: () => void,

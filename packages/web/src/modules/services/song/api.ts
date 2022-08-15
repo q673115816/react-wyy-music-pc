@@ -15,7 +15,7 @@ export const api = createApi({
         body,
       }),
     }),
-    getSongDetail: build.mutation<Songs, { ids: string }>({
+    getSongDetail: build.query<Songs, { ids: string }>({
       query: (body) => ({
         url: `song/detail`,
         method: "POST",
@@ -38,6 +38,7 @@ export const api = createApi({
 export const {
   useGetSongUrlMutation,
   useGetLyricMutation,
-  useGetSongDetailMutation,
+  useGetSongDetailQuery,
+  useLazyGetSongDetailQuery,
   useGetPersonalFMMutation,
 } = api;

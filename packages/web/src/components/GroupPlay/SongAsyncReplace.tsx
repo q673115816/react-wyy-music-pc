@@ -1,10 +1,10 @@
-import React, { FC, memo } from "react";
+import React, { FC, memo, PropsWithChildren } from "react";
 import { setAudioImmediate } from "@/modules/reducers/audio/slice";
 import { useAppDispatch } from "@/modules/hooks";
-import { useGetSongDetailMutation } from "@/modules/services/song";
+import { useLazyGetSongDetailQuery } from "@/modules/services/song";
 import { useToast } from "@/components/Toast";
 
-interface iProps {
+interface iProps extends PropsWithChildren {
   id: number;
   className?: string;
 }
@@ -12,7 +12,7 @@ interface iProps {
 const SongAsyncReplace: FC<iProps> = ({ children, id, className = "" }) => {
   const dispatch = useAppDispatch();
   const toast = useToast();
-  const [SongDetailGet] = useGetSongDetailMutation();
+  const [SongDetailGet, { data }] = useLazyGetSongDetailQuery();
   const handleAllPlay = async () => {
     const data = await SongDetailGet({
       ids: String(id),
