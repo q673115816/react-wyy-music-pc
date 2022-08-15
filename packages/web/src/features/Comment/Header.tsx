@@ -3,10 +3,20 @@ import { Link, useParams } from "react-router-dom";
 import React, { FC, memo, useEffect } from "react";
 import { useGetSongDetailQuery } from "@/modules/services/song";
 import Loading from "@/components/Loading";
+import {
+  useGetMVDetailQuery,
+  useGetVideoDetailQuery,
+} from "@/modules/services/player";
+
+const apis = {
+  song: useGetSongDetailQuery,
+  video: useGetMVDetailQuery,
+  mv: useGetVideoDetailQuery,
+};
 
 const Header: FC = () => {
   const { id, type } = useParams();
-  const { data, isFetching, isSuccess } = useGetSongDetailQuery({ ids: id });
+  const { data, isFetching, isSuccess } = apis[type]({ ids: id });
   if (isFetching) return <Loading />;
   const detail = data.songs[0];
   if (isSuccess)

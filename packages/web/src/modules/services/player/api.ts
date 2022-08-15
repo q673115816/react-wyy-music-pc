@@ -36,6 +36,13 @@ export const api = createApi({
         body,
       }),
     }),
+    getMVDetail: build.query<unknown, { ids: string }>({
+      query: (body) => ({
+        url: `mv/detail`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -44,4 +51,5 @@ export const {
   useGetVideoUrlQuery,
   useGetVideoDetailQuery,
   useGetVideoDetailInfoQuery,
+  useGetMVDetailQuery,
 } = api;
