@@ -1,6 +1,5 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import { assert, describe, expect, it } from "vitest";
 import Link from "./Link";
 
 function toJson(component: renderer.ReactTestRenderer) {
@@ -10,7 +9,7 @@ function toJson(component: renderer.ReactTestRenderer) {
   return result as renderer.ReactTestRendererJSON;
 }
 
-describe("Link changes the class when hovered", () => {
+test("Link changes the class when hovered", () => {
   const component = renderer.create(
     <Link page="http://antfu.me">Anthony Fu</Link>
   );
