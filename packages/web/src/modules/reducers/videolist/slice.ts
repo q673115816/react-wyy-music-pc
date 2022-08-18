@@ -6,6 +6,7 @@ import {
   apiVideoTimelineRecommend,
 } from "@/api";
 import { Draft } from "immer";
+import { RootState } from "@/modules/store";
 
 interface ItemProps {
   id: number;
@@ -104,11 +105,7 @@ const slice = createSlice({
   },
 });
 
-export const VideoListSelector = <T = Draft<VideoListState>>({
-  videolist,
-}: {
-  videolist: T;
-}): T => videolist;
+export const VideoListSelector = (state: RootState) => state.videolist;
 
 export default slice.reducer;
 

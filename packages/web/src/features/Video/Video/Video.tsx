@@ -42,12 +42,9 @@ const VideoList = () => {
   }, [id]);
 
   return (
-    <div
-      className="domVideoList_content px-8 overflow-auto flex-auto"
-      ref={domScroll}
-    >
-      <div className="video_sort_filter_bar flex items-center justify-between">
-        <div className="group_select_wrap relative z-10">
+    <div className="px-8 overflow-auto flex-auto" ref={domScroll}>
+      <div className="flex items-center justify-between">
+        <div className="relative z-10">
           <button
             type="button"
             className="group_select_button border rounded-full hover:bg-gray-100 text-sm"
@@ -58,13 +55,13 @@ const VideoList = () => {
           </button>
           {groupListVisibility && <Select id={id} />}
         </div>
-        <div className="recommend_nav divide-x flex">
+        <div className="divide-x flex">
           {categoryList.map((item: Category) => (
             <div key={item.id}>
               <button
                 type="button"
                 className={classNames(
-                  "recommend_nav_link rounded-full px-2 mx-1",
+                  "rounded-full px-2 mx-1",
                   id === item.id
                     ? "bg-red-50 text-red-500"
                     : "ui_text_black_hover"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo, ReactNode } from "react";
 import {
   IconFlame,
   IconArrowDown,
@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import "./style.scss";
 
-const BuildLastRank = (lastRank, currentRank) => {
+const BuildLastRank = (lastRank: number, currentRank: number): ReactNode => {
   if (lastRank < currentRank) {
     return <IconArrowDown className="text-blue-800" size={10} />;
   }
@@ -18,13 +18,13 @@ const BuildLastRank = (lastRank, currentRank) => {
   return <IconMinus size={10} />;
 };
 
-export default ({ list = [] }) => (
+const GridMVToplist = ({ list = [] }) => (
   <div className="domVideoTop grid grid-cols-2">
     {list.map((item, index) => (
       <div className="item" key={item.id}>
         <div className="rank flex-center flex-none flex-col">
           <div className="num text-gray-400">
-            {String(index + 1).padStart(2, 0)}
+            {String(index + 1).padStart(2, "0")}
           </div>
           <div className="arrow">{BuildLastRank(item.lastRank, index + 1)}</div>
         </div>
@@ -68,3 +68,5 @@ export default ({ list = [] }) => (
     ))}
   </div>
 );
+
+export default memo(GridMVToplist);

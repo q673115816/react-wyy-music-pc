@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiMVAll, apiMVExclusiveRcmd, apiMVFirst, apiTopMV } from "@/api";
-import { Draft } from "immer";
+import { RootState } from "@/modules/store";
 
 export interface MVListState {
   firstArea: string;
@@ -138,10 +138,6 @@ const slice = createSlice({
   },
 });
 
-export const MVListSelector = <T = Draft<MVListState>>({
-  mvlist,
-}: {
-  mvlist: T;
-}): T => mvlist;
+export const MVListSelector = (state: RootState) => state.mvlist;
 
 export default slice.reducer;

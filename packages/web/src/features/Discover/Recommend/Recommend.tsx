@@ -30,7 +30,7 @@ const paths: { [key in Order]: string } = {
   推荐歌单: "/discover/playlist",
   独家放送: "/exclusive",
   最新音乐: "/home/playlist",
-  推荐MV: "/video/mvlist",
+  推荐MV: "/video/mv",
   主播电台: "/discover/dj",
 };
 

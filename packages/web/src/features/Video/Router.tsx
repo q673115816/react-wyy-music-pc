@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 import Layout from "./Layout";
-import VideoList from "./VideoList";
-import MVList from "./MVList";
+import Video from "./Video";
+import MV from "./MV";
 const Router = () => {
   return useRoutes([
     {
@@ -11,15 +11,15 @@ const Router = () => {
       children: [
         {
           index: true,
-          element: <Navigate to="videolist" replace={true} />,
+          element: <Navigate to="视频" replace={true} />,
         },
         {
-          path: "videolist",
-          element: <VideoList />,
+          path: encodeURIComponent("视频"),
+          element: <Video />,
         },
         {
-          path: "MVList",
-          element: <VideoList />,
+          path: "MV",
+          element: <MV />,
         },
       ],
     },

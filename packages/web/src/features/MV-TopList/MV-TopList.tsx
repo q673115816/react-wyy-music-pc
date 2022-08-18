@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import { apiTopMV } from "@/api";
-import DomGridMVToplist from "@/components/GridMVToplist";
+import GridMVToplist from "@/components/GridMVToplist";
 
 const navs = ["内地", "港台", "欧美", "日本", "韩国"];
 
@@ -39,7 +39,7 @@ export default memo(function MVTopList() {
           </div>
         </div>
       </div>
-      <DomGridMVToplist list={data} />
+      <GridMVToplist list={data} />
     </div>
   );
 });
