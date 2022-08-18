@@ -3,7 +3,6 @@ import { Navigate, useRoutes } from "react-router-dom";
 import Layout from "./Layout";
 import Song from "./Song";
 import Album from "./Album";
-import { divide } from "lodash";
 
 const Router = () => {
   return useRoutes([
