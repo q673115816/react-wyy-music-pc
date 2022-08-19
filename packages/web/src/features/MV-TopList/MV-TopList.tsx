@@ -4,7 +4,7 @@ import GridMVToplist from "@/components/GridMVToplist";
 
 const navs = ["内地", "港台", "欧美", "日本", "韩国"];
 
-export default memo(function MVTopList() {
+const MVTopList = () => {
   const [data, setData] = useState();
   const [area, setArea] = useState();
   const handleInit = async () => {
@@ -42,4 +42,6 @@ export default memo(function MVTopList() {
       <GridMVToplist list={data} />
     </div>
   );
-});
+};
+
+export default memo(MVTopList);
