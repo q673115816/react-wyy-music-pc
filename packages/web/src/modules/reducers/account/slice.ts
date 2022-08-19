@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@/modules/store";
+import { Profile } from "@/modules/services/user";
 
 export interface AccountState {
   isLogin: boolean;
-  profile: {};
+  profile: Profile;
   playlist: playlistState[];
   bindings: [];
   likelist: number[];

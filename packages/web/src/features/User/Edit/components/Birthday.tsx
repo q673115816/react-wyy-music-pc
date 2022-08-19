@@ -1,103 +1,78 @@
-import React, { useRef, useState, useEffect, memo, FC } from "react";
+import React, { memo, FC, ChangeEventHandler, useMemo } from "react";
 import Select from "./Select";
 import { EditHandler } from "../types";
-
+import dayjs from "dayjs";
 interface iProps {
-  birthday: string;
+  birthday: number | null;
   handleEdit: EditHandler;
 }
-
-const Birthday: FC<iProps> = ({ birthday = "", handleEdit }) => {
-  const nowYear = useRef(new Date().getFullYear());
-  const year = useRef(new Date(birthday).getFullYear());
-  const month = useRef(new Date(birthday).getMonth());
-  const day = useRef(new Date(birthday).getDate());
-  const [oneMonth, setOneMonth] = useState();
-  // console.log('year', year);
-  // console.log('%centry DomBirthday', 'color: #fcc');
-
-  const callhandleEdit = () => {
-    handleEdit(
-      "birthday",
-      new Date(`${year.current}/${month.current + 1}/${day.current}`).valueOf()
-    );
+const currentYear = new Date().getFullYear();
+const Birthday: FC<iProps> = ({ birthday = Date.now(), handleEdit }) => {
+  const year = useMemo(() => dayjs(birthday).year(), [birthday]);
+  const month = useMemo(() => dayjs(birthday).month(), [birthday]);
+  const date = useMemo(() => dayjs(birthday).date(), [birthday]);
+  const triggerEdit = ({
+    year,
+    month,
+    date,
+  }: Record<"year" | "month" | "date", string | number>) => {
+    handleEdit("birthday", new Date(`${year}/${month}/${date}`).valueOf());
+  };
+  const handleYear: ChangeEventHandler<HTMLInputElement> = (e) => {
+    triggerEdit({
+      year: e.target.value,
+      month: 1,
+      date: 1,
+    });
   };
 
-  const handleMonthLenChange = () => {
-    // console.log('month');
-    switch (Number(month.current)) {
-      case 1:
-        if (
-          (year.current % 4 === 0 && year.current % 100 !== 0) ||
-          year.current % 400 === 0
-        ) {
-          // 闰年
-          setOneMonth(29);
-        } else {
-          setOneMonth(28);
-        }
-        return;
-      case 0:
-      case 2:
-      case 4:
-      case 6:
-      case 7:
-      case 9:
-      case 11:
-        setOneMonth(31);
-        return;
-      default:
-        setOneMonth(30);
-    }
+  const handleMonth: ChangeEventHandler<HTMLInputElement> = (e) => {
+    triggerEdit({
+      year,
+      month: e.target.value,
+      date: 1,
+    });
   };
 
-  const handleYear = (e) => {
-    year.current = e.target.value;
-    month.current = 0;
-    day.current = 1;
-    // handleMonthLenChange();
-    callhandleEdit();
+  const handleDay: ChangeEventHandler<HTMLInputElement> = (e) => {
+    triggerEdit({
+      year,
+      month,
+      date: e.target.value,
+    });
   };
-
-  const handleMonth = (e) => {
-    month.current = e.target.value;
-    day.current = 1;
-    // handleMonthLenChange();
-    callhandleEdit();
-  };
-
-  const handleDay = (e) => {
-    day.current = e.target.value;
-    callhandleEdit();
-  };
-  useEffect(() => {
-    handleMonthLenChange();
-  }, [month.current]);
 
   return (
     <div className="grid grid-cols-3 gap-3">
-      <Select value={year.current} onChange={handleYear}>
-        {Object.keys(Array(100).fill(0))
-          .reverse()
-          .map((item) => (
-            <option key={nowYear.current - item} value={nowYear.current - item}>
-              {nowYear.current - item}年
+      <Select value={year} onChange={handleYear}>
+        {Array(100)
+          .fill(0)
+          .map((_, index) => (
+            <option
+              key={currentYear + index - 99}
+              value={currentYear + index - 99}
+            >
+              {currentYear + index - 99}年
             </option>
           ))}
       </Select>
-      <Select value={month.current} onChange={handleMonth}>
-        {Object.keys(Array(12).fill(0)).map((item) => (
-          <option key={item} value={item}>
-            {Number(item) + 1}月
-          </option>
-        ))}
+      <Select value={month} onChange={handleMonth}>
+        {Array(12)
+          .fill(0)
+          .map((_, index) => (
+            <option key={index} value={index}>
+              {index + 1}月
+            </option>
+          ))}
       </Select>
-      <Select value={day.current} onChange={handleDay}>
-        {Object.keys(Array(oneMonth).fill(0)).map((item) => (
-          <option key={Number(item) + 1} value={Number(item) + 1}>
-            {Number(item) + 1}日
-          </option>
-        ))}
+      <Select value={date} onChange={handleDay}>
+        {Array(dayjs(birthday).daysInMonth())
+          .fill(0)
+          .map((_, index) => (
+            <option key={index + 1} value={index + 1}>
+              {index + 1}日
+            </option>
+          ))}
       </Select>
     </div>
   );

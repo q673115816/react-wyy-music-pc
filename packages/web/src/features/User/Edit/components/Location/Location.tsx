@@ -1,4 +1,10 @@
-import React, { FC, memo, useCallback, useEffect, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  FC,
+  memo,
+  useCallback,
+  useMemo,
+} from "react";
 import Select from "../Select";
 import provinces from "./provinces";
 import { EditHandler } from "../../types";
@@ -10,24 +16,26 @@ interface iProps {
 }
 
 const Location: FC<iProps> = ({ city, province, handleEdit }) => {
-  const [cities, setCities] = useState<{ [key: string]: string }>(() => {
+  const cities = useMemo(() => {
     return provinces.find(({ id }) => id === province)?.cities || {};
-  });
-  const handleProvinceChange = useCallback(({ target }) => {
-    const [selectedOption] = target.selectedOptions;
-    handleEdit("province", Number(target.value));
-    setCities(JSON.parse(selectedOption.dataset.cities));
-  }, []);
+  }, [province]);
+  const handleProvinceChange: ChangeEventHandler<HTMLSelectElement> =
+    useCallback(({ target }) => {
+      handleEdit("province", Number(target.value));
+    }, []);
 
-  const handleCityChange = useCallback(({ target }) => {
-    handleEdit("city", Number(target.value));
-  }, []);
+  const handleCityChange: ChangeEventHandler<HTMLSelectElement> = useCallback(
+    ({ target }) => {
+      handleEdit("city", Number(target.value));
+    },
+    []
+  );
 
   return (
     <div className={`grid gap-2 grid-cols-3`}>
       <Select value={province} onChange={handleProvinceChange}>
-        {provinces.map(({ id, name, cities }) => (
-          <option value={id} key={id} data-cities={JSON.stringify(cities)}>
+        {provinces.map(({ id, name }) => (
+          <option value={id} key={id}>
             {name}
           </option>
         ))}

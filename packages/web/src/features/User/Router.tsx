@@ -8,9 +8,11 @@ import Fans from "./Fans";
 import Record from "./Record";
 import Edit from "./Edit";
 import Binding from "./Binding";
+import Layout from "./Layout";
 
 const Router = () => (
   <Routes>
+    <Route index element={<Layout />} />
     <Route path={"/:uid"} element={<User />}>
       <Route index element={<Detail />} />
       <Route path={`Dynamic`} element={<Dynamic />} />

@@ -34,7 +34,7 @@ const Header = () => {
     return null;
   }
   return (
-    <div className="domUserDetail_header flex p-8">
+    <div className="flex p-8">
       <div className="avatar w-44 h-44 rounded-full overflow-hidden flex-none">
         <img
           src={`${profile?.avatarUrl}?param=180y180`}
@@ -156,7 +156,7 @@ const Header = () => {
           </div>
           <div>
             <span>个人介绍：</span>
-            <span className="text-gray-400" style={{ whiteSpace: "pre-wrap" }}>
+            <span className="text-gray-400 break-all whitespace-pre-line">
               {profile?.signature || "暂无介绍"}
             </span>
           </div>

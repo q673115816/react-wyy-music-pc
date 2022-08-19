@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react";
+import { useContext } from "react";
 import { setToast, context, hideToast } from "./Content";
 
 interface Props {

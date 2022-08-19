@@ -18,7 +18,7 @@ export interface Context {
   dispatch: Dispatch<<T>(payload?: T) => { type: string; payload?: T }>;
 }
 
-export const context = createContext<Context | null>(null);
+export const context = createContext<Context>({ state: null, dispatch: null });
 
 export const { Provider } = context;
 

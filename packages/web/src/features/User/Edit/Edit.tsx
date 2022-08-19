@@ -1,13 +1,9 @@
-import React, { ChangeEventHandler, memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { setDialogUploadAvatarShow } from "@/modules/reducers/mask/slice";
-import "./style.scss";
 import Loading from "@/components/Loading";
-import DialogUploadAvatar from "@/components/Dialog/UploadAvatar";
 import Birthday from "./components/Birthday";
 import Location from "./components/Location";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useImmer } from "use-immer";
 import { useToast } from "@/components/Toast";
 import Row from "./components/Row";
@@ -18,25 +14,25 @@ import {
   Profile,
 } from "@/modules/services/user";
 import Gender from "./components/Gender";
-import cloneDeep from "lodash/cloneDeep";
+import Upload from "./components/Upload";
 
 const Edit = () => {
-  const dispatch = useAppDispatch();
   const toast = useToast();
-  const { data, isLoading } = useGetUserAccountQuery();
+  const { data, isLoading, isSuccess } = useGetUserAccountQuery();
 
   const [updatePost, { isLoading: isUpdating }] = usePostUserUpdateMutation();
   const profile: Profile = data?.profile || {};
-  const [edit, setEdit] = useImmer<Profile>({
+  const [edit, setEdit] = useImmer({
     nickname: "",
     signature: "",
     gender: 0,
     birthday: 0,
     province: 0,
+    city: 0,
   });
   useEffect(() => {
-    if (!isLoading) setEdit(cloneDeep(profile));
-  }, [isLoading]);
+    if (isSuccess) setEdit(profile);
+  }, [isSuccess]);
   const [disabled, setDisabled] = useState(true);
 
   const handleSave = async () => {
@@ -50,9 +46,12 @@ const Edit = () => {
         signature: edit.signature,
       };
       const { data } = await updatePost(params);
-      if (data.code !== 200) return;
-      setDisabled(true);
-      toast("修改个人资料成功");
+      if (data.code === 200) {
+        setDisabled(true);
+        toast("修改个人资料成功");
+      } else if (data.code === 400) {
+        toast(data.message);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -62,21 +61,6 @@ const Edit = () => {
     setEdit((draft) => {
       draft[name] = value;
     });
-  };
-
-  const handleUpload: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    // console.log(target);
-    const reader = new FileReader();
-    const [file] = target.files;
-    if (!file) return;
-    reader.readAsDataURL(file);
-    reader.onload = (event) => {
-      dispatch(
-        setDialogUploadAvatarShow({
-          avatar: event.target.result,
-        })
-      );
-    };
   };
 
   useEffect(() => {
@@ -153,7 +137,7 @@ const Edit = () => {
                   保&nbsp;存
                 </button>
                 <Link
-                  to="./"
+                  to={`/user/${profile.userId}`}
                   className="flex-center border px-3 h-8 rounded-full"
                 >
                   取&nbsp;消
@@ -166,21 +150,7 @@ const Edit = () => {
           <div className="border rounded overflow-hidden w-40 h-40">
             <img className="" src={edit.avatarUrl} alt="" />
           </div>
-          <label
-            htmlFor="avatar"
-            className="border cursor-pointer hover:bg-gray-50 flex-center h-8 m-auto mt-5 px-3 rounded-full update w-min whitespace-nowrap"
-          >
-            <input
-              onChange={handleUpload}
-              type="file"
-              name=""
-              id="avatar"
-              hidden
-              accept="image/bmp,image/gif,image/jpg,image/svg,image/png,image/webp,image/ico,image/svgz,image/tif,image/jpeg,image/jfif,image/pjpeg,image/pjp,image/tiff,image/xbm"
-            />
-            修改头像
-          </label>
-          <DialogUploadAvatar />
+          <Upload />
         </div>
       </div>
     </div>

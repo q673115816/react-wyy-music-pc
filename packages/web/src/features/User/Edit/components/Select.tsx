@@ -1,6 +1,6 @@
-import React, { ChangeEventHandler, FC, memo } from "react";
+import React, { ChangeEventHandler, FC, memo, PropsWithChildren } from "react";
 
-interface iProps {
+interface iProps extends PropsWithChildren {
   value: string | number;
   onChange: ChangeEventHandler;
 }

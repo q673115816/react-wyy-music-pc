@@ -1,12 +1,11 @@
-import React, { memo, useEffect, useLayoutEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import HOCDialog from "../Dialog";
 import "./style.scss";
 import { useAppSelector } from "@/modules/hooks";
+import { maskSelector } from "@/modules/reducers/mask/slice";
 
 const UploadAvatar = () => {
-  const { dialogUploadAvatarVisibility, avatar } = useAppSelector(
-    ({ mask }) => mask
-  );
+  const { dialogUploadAvatarVisibility, avatar } = useAppSelector(maskSelector);
 
   const RefCanvas = useRef<HTMLCanvasElement>(null);
   const RefCover = useRef<HTMLCanvasElement>(null);
@@ -49,7 +48,7 @@ const UploadAvatar = () => {
             <div className="text-gray-400 mt-1">小尺寸封面</div>
           </div>
         </div>
-        <div className="pb-4 pt-6 space-x-4 flex justify-center">
+        <div className="pb-4 pt-6 gap-x-4 flex justify-center">
           <button
             type="button"
             className="flex-center border px-3 h-8 rounded-full"
