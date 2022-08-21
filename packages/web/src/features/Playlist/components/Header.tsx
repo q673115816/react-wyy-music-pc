@@ -98,7 +98,7 @@ const Header: FC<iHeader> = ({ data = {}, handleSub, songs }) => (
           &nbsp; 下载全部
         </button>
       </div>
-      <div className="flex gap-y-1 mt-3">
+      <div className="flex flex-col gap-y-1 mt-3">
         <Tags tags={data.playlist.tags} />
         <div>
           <span className="mr-3">

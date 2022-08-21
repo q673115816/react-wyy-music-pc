@@ -55,7 +55,7 @@ const Left = () => {
   if (!currentSong) return null;
   if (lyricVisibility)
     return (
-      <div className="flex items-center flex-1">
+      <div className="flex items-center h-full">
         <button type="button" onClick={handleLyric} className="px-4">
           <IconChevronDown stroke={1} size={24} />
         </button>
@@ -92,11 +92,11 @@ const Left = () => {
       </div>
     );
   return (
-    <div className="flex p-2.5 flex-1">
+    <div className="flex items-center h-full">
       <button
         type="button"
         onClick={handleLyric}
-        className="w-12 h-12 relative group rounded overflow-hidden"
+        className="w-12 h-12 mx-3 relative group rounded overflow-hidden"
       >
         <img
           src={currentSong?.al?.picUrl}
@@ -108,7 +108,7 @@ const Left = () => {
           <IconChevronUp size={24} />
         </div>
       </button>
-      <div className="pl-3 w-44">
+      <div className="w-44">
         <div className="text-base flex items-center">
           <button
             type="button"

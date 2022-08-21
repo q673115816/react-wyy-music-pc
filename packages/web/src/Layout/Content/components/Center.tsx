@@ -56,7 +56,7 @@ const Center = () => {
   };
 
   return (
-    <div className={"flex-center flex-col flex-1"}>
+    <div className={"flex-center flex-col  h-full"}>
       <div className="flex-center gap-x-7">
         <button
           type="button"
@@ -72,21 +72,29 @@ const Center = () => {
           className="footer_center_prev flex-center hover:ui_themeColor"
           title="上一首（Ctrl + Left）"
         >
-          <IconPlayerSkipBack size={iconSize} className="fill-current" />
+          <IconPlayerSkipBack
+            size={iconSize}
+            stroke={1}
+            className="fill-current"
+          />
         </button>
         <button
           type="button"
           onClick={handleToggle}
-          className="footer_center_play flex-center bg-gray-200 hover:bg-gray-300 rounded-full w-9 h-9"
+          className="footer_center_play flex-center bg-gray-100 hover:bg-gray-200 rounded-full w-9 h-9"
           title={running ? "暂停（Ctrl + P）" : "播放（Ctrl + P）"}
         >
           {running ? (
-            <IconPlayerPause size={iconSize * 1.25} className="fill-current" />
+            <IconPlayerPause
+              size={iconSize * 1.25}
+              stroke={1}
+              className="fill-current"
+            />
           ) : (
             <IconPlayerPlay
               size={iconSize * 1.25}
+              stroke={1}
               className="fill-current"
-              stroke="0"
             />
           )}
         </button>
@@ -96,7 +104,11 @@ const Center = () => {
           onClick={handleNext}
           className="footer_center_next flex-center hover:ui_themeColor"
         >
-          <IconPlayerSkipForward size={iconSize} className="fill-current" />
+          <IconPlayerSkipForward
+            size={iconSize}
+            stroke={1}
+            className="fill-current"
+          />
         </button>
         <button
           type="button"

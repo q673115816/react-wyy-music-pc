@@ -16,7 +16,7 @@ export default memo(function Right() {
 
   // if (playlist.length === 0) return null;
   return (
-    <div className="flex items-center justify-end flex-1 space-x-3 pr-5">
+    <div className="flex items-center justify-end h-full gap-x-3 pr-5">
       <div className="relative">
         <button
           type="button"

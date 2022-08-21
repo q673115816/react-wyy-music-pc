@@ -27,10 +27,9 @@ const Upload = () => {
         <input
           onChange={handleUpload}
           type="file"
-          name=""
           id="avatar"
           hidden
-          accept="image/bmp,image/gif,image/jpg,image/svg,image/png,image/webp,image/ico,image/svgz,image/tif,image/jpeg,image/jfif,image/pjpeg,image/pjp,image/tiff,image/xbm"
+          accept="image/*"
         />
         修改头像
       </label>

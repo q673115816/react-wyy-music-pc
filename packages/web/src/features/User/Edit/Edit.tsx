@@ -88,6 +88,11 @@ const Edit = () => {
                 onInput={({ target }) => handleEdit("nickname", target.value)}
               />
             </div>
+            {edit.nickname.length > 30 && (
+              <div className={`text-red-800 mt-2`}>
+                昵称为4-30个字，且不包含除-和_以外的特殊字符
+              </div>
+            )}
           </Row>
           <Row text="介绍">
             <div className="border flex-1">

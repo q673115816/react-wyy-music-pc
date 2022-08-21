@@ -51,7 +51,7 @@ export default memo(function Timing() {
       <div
         className={classNames(
           style.playTimerShaft,
-          "group mx-1.5 relative h-1"
+          "group mx-1 relative rounded-full overflow-hidden"
         )}
         onClick={handleClick}
         ref={RefProgress}

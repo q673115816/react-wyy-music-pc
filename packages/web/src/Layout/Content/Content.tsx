@@ -17,9 +17,15 @@ const Content = () => (
       </div>
     </div>
     <div className={classnames(style.footer, "footer flex flex-none")}>
-      <Left />
-      <Center />
-      <Right />
+      <div className="flex-1">
+        <Left />
+      </div>
+      <div className="flex-0">
+        <Center />
+      </div>
+      <div className="flex-1">
+        <Right />
+      </div>
     </div>
   </div>
 );
