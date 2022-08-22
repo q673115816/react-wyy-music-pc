@@ -2,7 +2,7 @@ import React, { CSSProperties, FC, memo, useRef } from "react";
 import scopeStyle from "./Range.module.scss";
 import classNames from "classnames";
 import { useSlider, useUpdateEffect } from "react-use";
-import clamp from "lodash/clamp";
+import { clamp } from "lodash";
 
 interface iProps {
   min: number;

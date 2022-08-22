@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import remove from "lodash/remove";
+import { remove } from "lodash";
 import { RootState } from "@/modules/store";
 
 interface State {

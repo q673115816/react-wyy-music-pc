@@ -33,18 +33,18 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/node": "^18.7.6",
+    "@types/node": "^18.7.9",
     "@types/react": "*",
     "@types/react-dom": "*",
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.33.1",
     "@typescript-eslint/parser": "^5.33.1",
     "@vitejs/plugin-react": "2.0.1",
-    "@vitest/ui": "^0.22.0",
+    "@vitest/ui": "^0.22.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-jest": "^26.8.3",
+    "eslint-plugin-jest": "^26.8.7",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-testing-library": "^5.6.0",
@@ -56,12 +56,12 @@
     "prettier": "*",
     "react-test-renderer": "18.2.0",
     "rimraf": "^3.0.2",
-    "stylelint": "^14.10.0",
+    "stylelint": "^14.11.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard-scss": "^5.0.0",
     "stylelint-prettier": "^2.0.0",
     "typescript": "*",
-    "vitest": "^0.22.0"
+    "vitest": "^0.22.1"
   },
   "engines": {
     "node": ">=14",

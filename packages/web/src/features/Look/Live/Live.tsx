@@ -13,8 +13,7 @@ import React, {
 import classnames from "classnames";
 import useLoginStatus, { handleLoginStatus } from "@/hooks/useLoginStatus";
 
-import set from "lodash/set";
-import get from "lodash/get";
+import { set, get } from "lodash";
 
 import { LookContent } from "@/features/Look/Look";
 import useGetInput, { iUseGetInput } from "@/features/Look/Live/useGetInput";

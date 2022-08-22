@@ -1,4 +1,4 @@
-import toPairs from "lodash/toPairs";
+import { toPairs } from "lodash";
 
 const kv_face: { [key in string]: string }[] = [
   {
