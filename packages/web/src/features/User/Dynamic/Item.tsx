@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useRef } from "react";
+import React, { type Dispatch, FC, memo, useEffect, useRef } from "react";
 import Dynamic from "@/components/Dynamic";
 
 import { useLazyGetUserEventQuery } from "@/modules/services/user";
@@ -8,7 +8,7 @@ import Loading from "@/components/Loading";
 
 interface iProps {
   lasttime: number;
-  setList: () => void;
+  setList: Dispatch<React.SetStateAction<number[]>>;
 }
 
 const Item: FC<iProps> = ({ lasttime, setList }) => {
@@ -28,6 +28,7 @@ const Item: FC<iProps> = ({ lasttime, setList }) => {
       lasttime,
     });
     if (data.more) setList((prev) => [...prev, data.lasttime]);
+    if (data.size === 0) setList([]);
   };
 
   useEffect(() => {
