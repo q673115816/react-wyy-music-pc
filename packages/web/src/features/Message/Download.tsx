@@ -1,6 +1,5 @@
 import React, { useState, memo, useCallback } from "react";
 import classNames from "classnames";
-import PicsViewer from "@q673115816/pics-viewer";
 
 const nav = ["已下载单曲", "已下载电台节目", "已下载MV", "正在下载"];
 
@@ -74,9 +73,7 @@ export default memo(function Download() {
           </button>
         ))}
       </div>
-      <div className="flex-1 px-8 overflow-auto">
-        <PicsViewer srcList={srcList} />
-      </div>
+      <div className="flex-1 px-8 overflow-auto"></div>
     </div>
   );
 });

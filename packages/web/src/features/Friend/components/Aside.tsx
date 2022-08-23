@@ -6,7 +6,7 @@ import TopicList from "./TopicList";
 import React, { memo } from "react";
 import { accountSelector } from "@/modules/reducers/account/slice";
 
-export default memo(function Aside() {
+const Aside = () => {
   const { profile } = useAppSelector(accountSelector);
   const dispatch = useAppDispatch();
   return (
@@ -17,7 +17,7 @@ export default memo(function Aside() {
             <div className="top flex gap-2 px-5 items-start">
               <Link
                 to={`/user/${profile.userId}`}
-                className="avatar w-12 h-12 rounded-full overflow-hidden"
+                className="avatar w-12 h-12 rounded-full overflow-hidden flex-none"
               >
                 <img
                   className=""
@@ -25,13 +25,15 @@ export default memo(function Aside() {
                   alt=""
                 />
               </Link>
-              <div>
-                <div className="flex-center">
+              <div className={`flex-1 w-0`}>
+                <div className="">
                   <Link to={`/user/${profile.userId}`}>{profile.nickname}</Link>
                   &nbsp;
                   <Gender gender={profile.gender} size={14} />
                 </div>
-                <div className={`text-gray-500`}>{profile.signature}</div>
+                <div className={`text-gray-500 truncate`}>
+                  {profile.signature}
+                </div>
               </div>
             </div>
             <div className="infos flex divide-x text-center mt-4">
@@ -98,4 +100,6 @@ export default memo(function Aside() {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Aside);

@@ -1,71 +1,55 @@
-import {
-  cloneElement,
-  createElement,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import { fromEvent, map, takeUntil } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { concatAll, fromEvent, map, takeUntil } from "rxjs";
+import { useEffect, useState } from "react";
 
-const getInitialRect = (ele: Element) => {
-  const { x, y } = ele.getBoundingClientRect();
-  return {
-    initialX: x,
-    initialY: y,
+type Inset = "startX" | "startY" | "moveX" | "moveY";
+
+const useDraggable = (el?: any) => {
+  const [state, setState] = useState<Record<Inset, number | null>>({
+    startX: null,
+    startY: null,
+    moveX: null,
+    moveY: null,
+  });
+
+  const mouseDown$ = fromEvent<MouseEvent>(el || document, "mousedown");
+  const mouseMove$ = fromEvent<MouseEvent>(document, "mousemove");
+  const mouseUp$ = fromEvent<MouseEvent>(document, "mouseup");
+  const handleInit = () => {
+    return mouseDown$
+      .pipe(
+        map((e) => {
+          return {
+            startX: e.clientX,
+            startY: e.clientY,
+          };
+        }),
+        map(({ startX, startY }) =>
+          mouseMove$.pipe(
+            takeUntil(mouseUp$),
+            map((moveEvent) => ({
+              moveX: moveEvent.clientX,
+              moveY: moveEvent.clientY,
+              startX,
+              startY,
+            }))
+          )
+        ),
+        concatAll()
+      )
+      .subscribe({
+        next: (data) => {
+          setState(data);
+        },
+      });
   };
-};
-
-interface iProps {
-  ele: ReactElement;
-  offset: string | null;
-  next: ({ x, y }) => void;
-}
-
-const createDraggable = ({ ele, offset = null, next }) => {
-  const offsetEle = offset ? document.querySelector(offset) : ele;
-  const mouseDown$ = fromEvent(ele, "mousedown");
-  const mouseMove$ = fromEvent(document, "mousemove");
-  const mouseUp$ = fromEvent(document, "mouseup");
-  mouseDown$
-    .pipe(
-      map((down: MouseEvent) => ({
-        clientX: down.clientX,
-        clientY: down.clientY,
-        // initialX: 0,
-        // initialY: 0,
-        ...getInitialRect(offsetEle),
-      })),
-      switchMap((down) => {
-        return mouseMove$.pipe(
-          map((move: MouseEvent) => {
-            return {
-              x: down.initialX - down.clientX + move.clientX,
-              y: down.initialY - down.clientY + move.clientY,
-            };
-          }),
-          takeUntil(mouseUp$)
-        );
-      })
-    )
-    .subscribe({
-      next: (val) => {
-        next(val);
-      },
-    });
-};
-
-const useDraggable = ({ ele, offset = null, next }: iProps) => {
-  const ref = useRef();
-  ele = cloneElement(ele, { ref });
   useEffect(() => {
-    ref.current && createDraggable({ ele: ref.current, offset, next });
-  }, []);
-  console.log(ele);
-  return ele;
+    const subscribed = handleInit();
+    return () => {
+      subscribed.unsubscribe();
+    };
+  }, [el]);
+
+  return state;
 };
 
 export default useDraggable;

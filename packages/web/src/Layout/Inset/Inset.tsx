@@ -18,30 +18,22 @@ const Inset: FC<iInset> = ({ children }) => {
     "--theme-color": theme,
   });
 
-  const sizeStyle = useCss({
-    "--WIDTH": `${globalWidth}px`,
-    "--HEIGHT": `${globalHeight}px`,
-  });
-
-  const transStyle = useCss({
-    transform: `translate(${globalX}px, ${globalY}px)`,
-  });
-
-  const insetStyle = useCss({
-    position: "absolute",
-    left: `${globalX}px`,
-    top: `${globalY}px`,
-  });
-
   return (
     <div className={classNames("App", themeStyle)}>
       <div
         id={`inset`}
-        className={classNames(
-          "Wrap flex flex-col shadow-lg select-none",
-          sizeStyle,
-          globalDragger ? transStyle : insetStyle
-        )}
+        className={classNames("Wrap flex flex-col shadow-lg select-none")}
+        style={{
+          "--WIDTH": `${globalWidth}px`,
+          "--HEIGHT": `${globalHeight}px`,
+          ...(globalDragger
+            ? { transform: `translate(${globalX}px, ${globalY}px)` }
+            : {
+                position: "absolute",
+                left: `${globalX}px`,
+                top: `${globalY}px`,
+              }),
+        }}
       >
         {children}
       </div>

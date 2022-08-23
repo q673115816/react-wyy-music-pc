@@ -38,7 +38,6 @@ import Account from "./components/Account";
 import Control from "./components/Control";
 import Function from "./components/Function";
 import "./style.scss";
-import useDraggable from "@/hooks/useDraggable";
 
 const useInit = () => {
   const dispatch = useAppDispatch();

@@ -21,8 +21,9 @@ const createState = (size = initialSize) => ({
 const UploadAvatar = () => {
   const [getOriginState, setOriginState] = useGetSetState(createState());
   const { dialogUploadAvatarVisibility, avatar } = useAppSelector(maskSelector);
-  const coverRef = useRef(null);
-  const resizeRef = useRef(null);
+  const coverRef = useRef<HTMLDivElement>(null);
+  const resizeRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const image = new Image();
     image.src = avatar;
@@ -31,9 +32,7 @@ const UploadAvatar = () => {
       const max = Math.max(width, height);
       let min = Math.min(width, height);
       const rotate = wrapperSize / max;
-      if (rotate < 1) {
-        min *= rotate;
-      }
+      if (rotate < 1) min *= rotate;
       setOriginState(createState(min));
       // setOriginState((draft) => {
       //   draft.width = image.width;
@@ -136,14 +135,20 @@ const UploadAvatar = () => {
         },
       });
   };
+  // useEffect(() => {
+  //   const subscribedDrag = registerDrag();
+  //   const subscribedResize = registerResize();
+  //   return () => {
+  //     subscribedDrag.unsubscribe();
+  //     subscribedResize.unsubscribe();
+  //   };
+  // }, [dialogUploadAvatarVisibility]);
+
   useEffect(() => {
-    const subscribedDrag = registerDrag();
-    const subscribedResize = registerResize();
-    return () => {
-      subscribedDrag.unsubscribe();
-      subscribedResize.unsubscribe();
-    };
-  }, [dialogUploadAvatarVisibility]);
+    const el = canvasRef.current;
+    if (!el) return;
+    const ctx = el.getContext("2d");
+  }, []);
 
   if (!dialogUploadAvatarVisibility) return null;
   return (
@@ -162,7 +167,8 @@ const UploadAvatar = () => {
                 src={avatar}
                 alt=""
               />
-              <div
+              <canvas className={`absolute inset-0 w-full h-full`} />
+              {/*<div
                 ref={coverRef}
                 className={`border border-dashed absolute cursor-move`}
                 style={{ ...getOriginState() }}
@@ -170,8 +176,8 @@ const UploadAvatar = () => {
                 <div
                   ref={resizeRef}
                   className={`absolute bottom-0 right-0 w-2 h-2 cursor-se-resize border border-dashed`}
-                ></div>
-              </div>
+                />
+              </div>*/}
             </div>
           </div>
           <div className="ml-8">

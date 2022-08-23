@@ -35,7 +35,6 @@ const Drag: FC<iProps> = ({
     setIsDrag(true);
     onMouseDown(e);
   }, []);
-  const _onMouseMove: MouseEventHandler = useCallback(onMouseMove, []);
 
   const _onMouseUp: MouseEventHandler = useCallback((e) => {
     onMouseUp(e);
@@ -51,7 +50,7 @@ const Drag: FC<iProps> = ({
         createPortal(
           <div
             className="absolute inset-0 z-50"
-            onMouseMove={_onMouseMove}
+            onMouseMove={onMouseMove}
             onMouseUp={_onMouseUp}
           />,
           document.querySelector("#help-root") as HTMLDivElement

@@ -22,7 +22,8 @@ const srcList = [
   {
     width: 560,
     height: 560,
-    originUrl: "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/佐菲.jpg",
+    detail: "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/佐菲.jpg",
+    thumb: "https://cdn.jsdelivr.net/gh/q673115816/cdn/image/佐菲.jpg",
   },
 ];
 
@@ -38,8 +39,8 @@ interface PicsViewer {
   srcList: {
     width: number | string;
     height: number | string;
-    originUrl: string;
-    thumbUrl?: string;
+    detail: string;
+    thumb?: string;
   }[];
   className?: string;
   el?: string; // appendDOM default = document.body

@@ -51,7 +51,7 @@ const Friend = () => {
   return (
     <div className="h-full overflow-auto" ref={DomScroll}>
       <div className="flex divide-x min-h-full">
-        <div className="relative flex-auto">
+        <div className="relative flex-1 w-0">
           <div className="h-14 px-8 flex items-center sticky top-0 z-10 bg-white">
             <span className="h1">动态</span>
             <button

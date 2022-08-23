@@ -3,6 +3,7 @@ import { iProps } from "./types";
 import Detail from "./Detail";
 import Grid from "./Grid";
 import { useCounter } from "react-use";
+import { formatUnit } from "./utils";
 
 const PicsViewer: FC<iProps> = ({
   srcList = [],
@@ -38,11 +39,6 @@ const PicsViewer: FC<iProps> = ({
       width={width}
     />
   );
-};
-
-const formatUnit = (val: string | number): string => {
-  if (typeof val === "number") val = String(val) + "px";
-  return val;
 };
 
 export default memo(PicsViewer);

@@ -5,7 +5,6 @@ interface InsetState {
   POSITION: boolean;
   globalVisibility: boolean;
   globalDragger: boolean;
-  globalResizer: boolean;
   globalStartX: number;
   globalStartY: number;
   globalBeforeX: number;
@@ -13,7 +12,6 @@ interface InsetState {
   globalX: number;
   globalY: number;
 
-  GlobalRectLock: boolean;
   globalStartRectX: number;
   globalStartRectY: number;
   globalBeforeWidth: number;
@@ -44,7 +42,6 @@ const initialState: InsetState = {
   POSITION: true,
   globalVisibility: false,
   globalDragger: false,
-  globalResizer: false,
   globalStartX: 0,
   globalStartY: 0,
   globalBeforeX: globalX,
@@ -52,7 +49,6 @@ const initialState: InsetState = {
   globalX,
   globalY,
 
-  GlobalRectLock: false,
   globalStartRectX: 0,
   globalStartRectY: 0,
   globalBeforeWidth: globalWidth,
@@ -92,29 +88,19 @@ const slice = createSlice({
     setGlobalDragger(state, action) {
       state.globalDragger = action.payload;
     },
-    setGlobalResizer(state, action) {
-      state.globalResizer = action.payload;
-    },
-    setGlobalStartRectLock(state, action) {
-      state.GlobalRectLock = true;
-    },
     setGlobalStartRect(state, action) {
       state.globalStartRectX = action.payload.x;
       state.globalStartRectY = action.payload.y;
       state.globalBeforeWidth = state.globalWidth;
       state.globalBeforeHeight = state.globalHeight;
     },
-    setGlobalRect(state, action) {
+    setGlobalRect(state, { payload }) {
       const width =
-        action.payload.x - state.globalStartRectX + state.globalBeforeWidth;
+        payload.x - state.globalStartRectX + state.globalBeforeWidth;
       const height =
-        action.payload.y - state.globalStartRectY + state.globalBeforeHeight;
-
-      const nextwidth = width > MIN_WIDTH ? width : MIN_WIDTH;
-      const nextheight = height > MIN_HEIGHT ? height : MIN_HEIGHT;
-      state.globalWidth = nextwidth;
-      state.globalHeight = nextheight;
-      state.GlobalRectLock = false;
+        payload.y - state.globalStartRectY + state.globalBeforeHeight;
+      state.globalWidth = Math.max(width, MIN_WIDTH);
+      state.globalHeight = Math.max(height, MIN_HEIGHT);
     },
     togglePosition(state) {
       state.POSITION = !state.POSITION;
@@ -152,10 +138,8 @@ export const {
   setGlobalLrcInset,
   setGlobalLrcStartInset,
   setGlobalRect,
-  setGlobalResizer,
   setGlobalStartInset,
   setGlobalStartRect,
-  setGlobalStartRectLock,
   setPositionFalse,
   setPositionTrue,
 } = slice.actions;

@@ -67,7 +67,7 @@ export const api = createApi({
       }),
       invalidatesTags: (result, error) => [{ type: "user", id: "account" }],
     }),
-    getUserEvent: build.mutation<Evnets, { uid: string; lasttime: number }>({
+    getUserEvent: build.query<Evnets, { uid: string; lasttime: number }>({
       query: (body) => ({
         url: `user/event`,
         method: "POST",
@@ -127,7 +127,7 @@ export const {
   useGetUserDetailQuery,
   useGetUserAccountQuery,
   usePostUserUpdateMutation,
-  useGetUserEventMutation,
+  useLazyGetUserEventQuery,
   useGetSignInProgressQuery,
   useGetUserSubCountQuery,
   useGetUserBindingQuery,
