@@ -1,4 +1,11 @@
-import React, { memo, useEffect, useRef } from "react";
+import React, {
+  ChangeEventHandler,
+  FC,
+  memo,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import HOCDialog from "../Dialog";
 import "./style.scss";
 import { useAppSelector } from "@/modules/hooks";
@@ -6,39 +13,53 @@ import { maskSelector } from "@/modules/reducers/mask/slice";
 import { concatAll, filter, fromEvent, map, takeUntil } from "rxjs";
 import { useGetSetState } from "react-use";
 import { clamp } from "lodash";
+import Draw from "./Draw";
+import { iProps } from "@/features/Artist/layouts/types";
 
 const wrapperSize = 224;
 const initialSize = 100;
 
-const createState = (size = initialSize) => ({
-  max: size,
-  width: size,
-  height: size,
-  left: wrapperSize / 2 - size / 2,
-  top: wrapperSize / 2 - size / 2,
-});
+interface iProps {
+  handleUpload: ChangeEventHandler<HTMLInputElement>;
+}
 
-const UploadAvatar = () => {
+const UploadAvatar: FC<iProps> = ({ handleUpload }) => {
+  const [getMaskState, setMaskState] = useGetSetState({
+    width: wrapperSize,
+    height: wrapperSize,
+  });
+  const createState = (size = initialSize, ratio = 1) => {
+    return {
+      size,
+      ratio,
+      max: size,
+      width: size,
+      height: size,
+      left: getMaskState().width / 2 - size / 2,
+      top: getMaskState().height / 2 - size / 2,
+    };
+  };
   const [getOriginState, setOriginState] = useGetSetState(createState());
   const { dialogUploadAvatarVisibility, avatar } = useAppSelector(maskSelector);
   const coverRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
+  const imageRef = useMemo(() => {
     const image = new Image();
     image.src = avatar;
     image.onload = (event) => {
       const { width, height } = image;
       const max = Math.max(width, height);
       let min = Math.min(width, height);
-      const rotate = wrapperSize / max;
-      if (rotate < 1) min *= rotate;
-      setOriginState(createState(min));
-      // setOriginState((draft) => {
-      //   draft.width = image.width;
-      //   draft.height = image.height;
-      // });
+      const ratio = Math.min(1, wrapperSize / max);
+      if (ratio < 1) min *= ratio;
+      setMaskState({
+        width: ratio * width,
+        height: ratio * height,
+      });
+      setOriginState(createState(min, ratio));
     };
+    return image;
   }, [avatar]);
 
   const registerDrag = () => {
@@ -71,12 +92,12 @@ const UploadAvatar = () => {
               left: clamp(
                 left + moveEvent.clientX - startX,
                 0,
-                wrapperSize - getOriginState().width
+                getMaskState().width - getOriginState().width
               ),
               top: clamp(
                 top + moveEvent.clientY - startY,
                 0,
-                wrapperSize - getOriginState().height
+                getMaskState().height - getOriginState().height
               ),
             }))
           )
@@ -113,18 +134,23 @@ const UploadAvatar = () => {
         map(({ startX, startY, width, height }) =>
           mouseMove$.pipe(
             takeUntil(mouseUp$),
-            map((moveEvent) => ({
-              width: clamp(
+            map((moveEvent) => {
+              const nextWidth = clamp(
                 width + moveEvent.clientX - startX,
-                10,
-                wrapperSize - getOriginState().left
-              ),
-              height: clamp(
+                16,
+                getMaskState().width - getOriginState().left
+              );
+              const nextHeight = clamp(
                 height + moveEvent.clientY - startY,
-                10,
-                wrapperSize - getOriginState().top
-              ),
-            }))
+                16,
+                getMaskState().height - getOriginState().top
+              );
+              const min = Math.min(nextWidth, nextHeight);
+              return {
+                width: min,
+                height: min,
+              };
+            })
           )
         ),
         concatAll()
@@ -135,22 +161,15 @@ const UploadAvatar = () => {
         },
       });
   };
-  // useEffect(() => {
-  //   const subscribedDrag = registerDrag();
-  //   const subscribedResize = registerResize();
-  //   return () => {
-  //     subscribedDrag.unsubscribe();
-  //     subscribedResize.unsubscribe();
-  //   };
-  // }, [dialogUploadAvatarVisibility]);
-
   useEffect(() => {
-    const el = canvasRef.current;
-    if (!el) return;
-    const ctx = el.getContext("2d");
-  }, []);
+    const subscribedDrag = registerDrag();
+    const subscribedResize = registerResize();
+    return () => {
+      subscribedDrag.unsubscribe();
+      subscribedResize.unsubscribe();
+    };
+  }, [dialogUploadAvatarVisibility]);
 
-  if (!dialogUploadAvatarVisibility) return null;
   return (
     <HOCDialog id="dialogUploadAvatar" title="上传头像">
       <div className="">
@@ -167,38 +186,44 @@ const UploadAvatar = () => {
                 src={avatar}
                 alt=""
               />
-              <canvas className={`absolute inset-0 w-full h-full`} />
-              {/*<div
-                ref={coverRef}
-                className={`border border-dashed absolute cursor-move`}
-                style={{ ...getOriginState() }}
+              <div
+                className={`absolute inset-0 m-auto`}
+                style={{ ...getMaskState() }}
               >
                 <div
-                  ref={resizeRef}
-                  className={`absolute bottom-0 right-0 w-2 h-2 cursor-se-resize border border-dashed`}
-                />
-              </div>*/}
+                  ref={coverRef}
+                  className={`border border-dashed absolute cursor-move border-green-400`}
+                  style={{ ...getOriginState() }}
+                >
+                  <div
+                    ref={resizeRef}
+                    className={`absolute bottom-0 right-0 w-2 h-2 cursor-se-resize bg-black`}
+                  />
+                </div>
+              </div>
             </div>
           </div>
           <div className="ml-8">
-            <div
-              className="border rounded w-24 h-24 bg-cover"
-              style={{ backgroundImage: `url(${avatar})` }}
-            ></div>
+            <Draw {...getOriginState()} size={100} img={imageRef} />
             <div className="text-gray-400 mt-1">大尺寸封面</div>
-            <div className="border rounded w-16 h-16">
-              <img src={avatar} alt="" />
-            </div>
+            <Draw {...getOriginState()} size={64} img={imageRef} />
             <div className="text-gray-400 mt-1">小尺寸封面</div>
           </div>
         </div>
         <div className="pb-4 pt-6 gap-x-4 flex justify-center">
-          <button
-            type="button"
-            className="flex-center border px-3 h-8 rounded-full"
+          <label
+            htmlFor={`re_avatar`}
+            className="flex-center border px-3 h-8 rounded-full hover:bg-gray-50 cursor-pointer"
           >
             重新选择
-          </button>
+            <input
+              onChange={handleUpload}
+              type="file"
+              id="re_avatar"
+              hidden
+              accept="image/*"
+            />
+          </label>
           <button
             type="button"
             className="flex-center text-white ui_theme_bg_color px-3 h-8 rounded-full"

@@ -1,10 +1,14 @@
 import React, { ChangeEventHandler, memo } from "react";
 import DialogUploadAvatar from "@/components/Dialog/UploadAvatar";
-import { setDialogUploadAvatarShow } from "@/modules/reducers/mask/slice";
-import { useAppDispatch } from "@/modules/hooks";
+import {
+  maskSelector,
+  setDialogUploadAvatarShow,
+} from "@/modules/reducers/mask/slice";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const Upload = () => {
   const dispatch = useAppDispatch();
+  const { dialogUploadAvatarVisibility } = useAppSelector(maskSelector);
   const handleUpload: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     const reader = new FileReader();
     const file = target.files?.[0];
@@ -33,7 +37,9 @@ const Upload = () => {
         />
         修改头像
       </label>
-      <DialogUploadAvatar />
+      {dialogUploadAvatarVisibility && (
+        <DialogUploadAvatar handleUpload={handleUpload} />
+      )}
     </>
   );
 };

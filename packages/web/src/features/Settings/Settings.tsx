@@ -1,10 +1,17 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import "./style.scss";
 import { Elements, navs } from "./config";
+import { apiSetting } from "@/api";
 
 const Settings = () => {
+  // const handleInit = async () => {
+  //   await apiSetting();
+  // };
+  // useEffect(() => {
+  //   handleInit();
+  // });
   return (
-    <div className="domSetting flex flex-col h-full">
+    <div className="flex flex-col h-full">
       <div className="px-8 py-5">
         <div className="h1">设置</div>
         <div className="mt-8 flex gap-4">
