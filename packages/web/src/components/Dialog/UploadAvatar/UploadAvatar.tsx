@@ -5,29 +5,31 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 import HOCDialog from "../Dialog";
 import "./style.scss";
-import { useAppSelector } from "@/modules/hooks";
-import { maskSelector } from "@/modules/reducers/mask/slice";
 import { concatAll, filter, fromEvent, map, takeUntil } from "rxjs";
 import { useGetSetState } from "react-use";
 import { clamp } from "lodash";
 import Draw from "./Draw";
-import { iProps } from "@/features/Artist/layouts/types";
+import { usePostAvatarUploadMutation } from "@/modules/services/account";
 
 const wrapperSize = 224;
 const initialSize = 100;
 
 interface iProps {
   handleUpload: ChangeEventHandler<HTMLInputElement>;
+  file: File;
 }
 
-const UploadAvatar: FC<iProps> = ({ handleUpload }) => {
+const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
+  const [avatar, setAvatar] = useState();
   const [getMaskState, setMaskState] = useGetSetState({
     width: wrapperSize,
     height: wrapperSize,
   });
+  const [UploadPost, { isLoading }] = usePostAvatarUploadMutation();
   const createState = (size = initialSize, ratio = 1) => {
     return {
       size,
@@ -40,10 +42,8 @@ const UploadAvatar: FC<iProps> = ({ handleUpload }) => {
     };
   };
   const [getOriginState, setOriginState] = useGetSetState(createState());
-  const { dialogUploadAvatarVisibility, avatar } = useAppSelector(maskSelector);
   const coverRef = useRef<HTMLDivElement>(null);
   const resizeRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const imageRef = useMemo(() => {
     const image = new Image();
     image.src = avatar;
@@ -61,6 +61,29 @@ const UploadAvatar: FC<iProps> = ({ handleUpload }) => {
     };
     return image;
   }, [avatar]);
+
+  useEffect(() => {
+    const render = new FileReader();
+    render.readAsDataURL(file);
+    render.onload = (event) => {
+      setAvatar(event.target.result);
+    };
+  }, [file]);
+
+  const handleSubmit = async () => {
+    const param = new FormData();
+    const { ratio, width, left, top } = getOriginState();
+    param.append("imgFile", file);
+    param.append("imgSize", ratio * width);
+    param.append("imgX", ratio * left);
+    param.append("imgY", ratio * top);
+    try {
+      const { data } = await UploadPost(param);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const registerDrag = () => {
     const el = coverRef.current;
@@ -168,15 +191,16 @@ const UploadAvatar: FC<iProps> = ({ handleUpload }) => {
       subscribedDrag.unsubscribe();
       subscribedResize.unsubscribe();
     };
-  }, [dialogUploadAvatarVisibility]);
+  }, []);
 
   return (
     <HOCDialog id="dialogUploadAvatar" title="上传头像">
       <div className="">
         <div className="flex justify-center">
           <div className="bg-black rounded overflow-hidden">
-            {/* <span className="">请选择不超过5M的图片</span> */}
-            {/*<img className="w-full h-full object-contain" src={avatar} alt="" />*/}
+            {file.size > 1024 * 1024 * 5 && (
+              <span className="text-red-500">请选择不超过5M的图片</span>
+            )}
             <div
               className={`relative`}
               style={{ height: wrapperSize, width: wrapperSize }}
@@ -227,6 +251,7 @@ const UploadAvatar: FC<iProps> = ({ handleUpload }) => {
           <button
             type="button"
             className="flex-center text-white ui_theme_bg_color px-3 h-8 rounded-full"
+            onClick={handleSubmit}
           >
             保持并关闭
           </button>

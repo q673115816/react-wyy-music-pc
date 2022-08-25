@@ -1,4 +1,4 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@/modules/store";
 
 const visibilityState = {
@@ -11,12 +11,10 @@ const visibilityState = {
   dialogHomeOrderVisibility: false,
   dialogShareVisibility: false,
   dialogShareWXVisibility: false,
-  dialogUploadAvatarVisibility: false,
   dialogCreatePlaylistVisibility: false,
   dialogUnSubscriptionVisibility: false,
   artistId: 0,
   popupStatus: "false",
-  avatar: "",
 };
 
 const maskState = {
@@ -59,10 +57,6 @@ const slice = createSlice({
     setDialogShareWXShow(state) {
       // Object.assign(state, visibilityState, action.payload);
       state.dialogShareWXVisibility = true;
-    },
-    setDialogUploadAvatarShow(state, action) {
-      Object.assign(state, visibilityState, action.payload);
-      state.dialogUploadAvatarVisibility = true;
     },
     setDialogDownloadVideoShow(state, action) {
       Object.assign(state, visibilityState, action.payload);
@@ -108,7 +102,6 @@ export const {
   setDialogShareShow,
   setDialogShareWXShow,
   setDialogUnSubscriptionShow,
-  setDialogUploadAvatarShow,
   setPopupLetterToggle,
   setPopupPlaylistToggle,
   setSearchShow,

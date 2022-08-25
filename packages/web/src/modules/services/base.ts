@@ -21,6 +21,7 @@ const baseQuery = fetchBaseQuery({
   //   }
   //   return headers;
   // },
+  credentials: "include",
 });
 
 const _baseQueryWithIntercept: BaseQueryFn<
@@ -109,9 +110,3 @@ const baseQueryWithIntercept: BaseQueryFn<
 const baseQueryWithRetry = retry(baseQueryWithIntercept, { maxRetries: 2 });
 
 export default baseQueryWithRetry;
-
-export const base = createApi({
-  baseQuery: baseQueryWithRetry,
-  tagTypes: ["dailySignIn", "artist/detail", "user/followeds", "user/account"],
-  endpoints: (build) => ({}),
-});
