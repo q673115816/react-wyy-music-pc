@@ -31,7 +31,7 @@ export const api = createApi({
       query: (body) => ({
         url: `/avatar/upload`,
         method: "POST",
-        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type": "multipart/form-data" },
         body,
       }),
     }),

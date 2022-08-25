@@ -73,13 +73,13 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
   const handleSubmit = async () => {
     const param = new FormData();
     const { ratio, width, left, top } = getOriginState();
+
     param.append("imgFile", file);
-    param.append("imgSize", ratio * width);
-    param.append("imgX", ratio * left);
-    param.append("imgY", ratio * top);
+    param.append("imgSize", (width / ratio) | 0);
+    param.append("imgX", (left / ratio) | 0);
+    param.append("imgY", (top / ratio) | 0);
     try {
       const { data } = await UploadPost(param);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }

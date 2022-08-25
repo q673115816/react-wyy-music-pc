@@ -153,7 +153,7 @@ const Edit = () => {
         </div>
         <div>
           <div className="border rounded overflow-hidden w-40 h-40">
-            <img className="" src={edit.avatarUrl} alt="" />
+            <img className="w-full" src={edit.avatarUrl} alt="" />
           </div>
           <Upload />
         </div>
