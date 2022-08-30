@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { audioPattern } from "@/common/config";
+import { RootState } from "@/modules/store";
 
 interface State {
+  src: string;
   errorCount: number;
   running: boolean;
   dropping: boolean;
@@ -17,6 +19,7 @@ interface State {
 }
 
 const initialState: State = {
+  src: "",
   errorCount: 0,
   running: false,
   dropping: false,
@@ -187,7 +190,7 @@ const slice = createSlice({
   },
 });
 
-export const audioSelector = ({ audio }) => audio;
+export const audioSelector = (state: RootState) => state.audio;
 
 export default slice.reducer;
 

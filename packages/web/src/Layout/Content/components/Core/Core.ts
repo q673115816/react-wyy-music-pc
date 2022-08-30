@@ -2,20 +2,19 @@ export default class {
   private ctx: AudioContext = new AudioContext();
   private source = this.ctx.createBufferSource();
   analyser = this.ctx.createAnalyser();
-  duration: number;
+  duration = 0;
   constructor() {}
 
   start(buffer) {}
 
-  async asset(src) {
+  async asset(src: string) {
     const res = await fetch(src);
     const arrayBuffer = await res.arrayBuffer();
-    return await this.ctx.decodeAudioData(arrayBuffer, (decodedData) => {
-      this.source.buffer = decodedData;
-      this.duration = decodedData.duration;
-      this.source.connect(this.ctx.destination);
-      this.source.start(0);
-    });
+    const decodedData = await this.ctx.decodeAudioData(arrayBuffer);
+    this.source.buffer = decodedData;
+    this.duration = decodedData.duration;
+    this.source.connect(this.ctx.destination);
+    this.source.start(0);
   }
 
   async toggle() {

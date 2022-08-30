@@ -37,7 +37,7 @@ const audioPatternIcon = [
 
 const Center = () => {
   const dispatch = useAppDispatch();
-  const { running, pattern, src } = useAppSelector(audioSelector);
+  const { running, pattern } = useAppSelector(audioSelector);
   const { globalLrcVisibility } = useAppSelector(settingSelector);
   const handleToggle = () => {
     dispatch(setAudioRunning({ running: !running }));
@@ -126,7 +126,7 @@ const Center = () => {
         </button>
       </div>
       <div hidden>
-        <Audio src={src} />
+        <Audio />
       </div>
       <Timing />
     </div>

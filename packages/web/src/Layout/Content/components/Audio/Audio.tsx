@@ -1,10 +1,4 @@
-import React, {
-  FC,
-  memo,
-  MouseEventHandler,
-  ReactEventHandler,
-  useEffect,
-} from "react";
+import React, { FC, memo, ReactEventHandler, useEffect } from "react";
 import {
   audioSelector,
   setAudioBuffered,
@@ -17,13 +11,9 @@ import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useAudio, useBoolean } from "react-use";
 import { volumeSelector } from "@/modules/reducers/volume/slice";
 
-interface iProps {
-  src: string;
-}
-
-const Audio: FC<iProps> = ({ src }) => {
+const Audio: FC = () => {
   const dispatch = useAppDispatch();
-  const { running, dropping, currentTime, jumpTime, errorCount } =
+  const { running, dropping, currentTime, jumpTime, errorCount, src } =
     useAppSelector(audioSelector);
 
   const { volume } = useAppSelector(volumeSelector);
@@ -66,7 +56,7 @@ const Audio: FC<iProps> = ({ src }) => {
     setCanplay(true);
   };
 
-  const [audio, state, controls, ref] = useAudio({
+  const [audio, state, controls] = useAudio({
     src,
     onDurationChange,
     onLoadedMetadata,
