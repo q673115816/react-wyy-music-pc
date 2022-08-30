@@ -8,16 +8,14 @@ const Router = () => {
     {
       path: "/*",
       element: <Layout />,
-      children: [
-        {
-          index: true,
-          element: <Navigate to={elements[0][0]} replace={true} />,
-        },
-        ...elements.map(([path, Element]) => ({
-          path: `${path}/*`,
-          element: <Element />,
-        })),
-      ],
+      children: elements.map(([path, Element]) => ({
+        path: `${path}/*`,
+        element: <Element />,
+      })),
+    },
+    {
+      index: true,
+      element: <Navigate to={elements[0][0]} replace={true} />,
     },
   ]);
 };

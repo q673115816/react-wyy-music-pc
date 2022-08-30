@@ -4,6 +4,10 @@ import Rank from "@/components/Table/Rank";
 import Name from "@/components/Table/Name";
 import Artists from "@/components/Table/Artists";
 import dayjs from "dayjs";
+import "dayjs/locale/zh-cn";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+dayjs.locale("zh-cn");
 import React, { memo } from "react";
 import { useAppSelector } from "@/modules/hooks";
 import { audioSelector } from "@/modules/reducers/audio/slice";
@@ -36,7 +40,7 @@ const Content = () => {
             type="song"
             item={item}
             key={item.name + item.id}
-            tabIndex="2"
+            tabIndex={2}
             className={classNames(
               "grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template",
               { "bg-gray-50": index % 2 === 0 }

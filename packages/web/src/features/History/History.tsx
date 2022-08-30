@@ -1,11 +1,5 @@
 import React, { memo } from "react";
 import classNames from "classnames";
-import dayjs from "dayjs";
-import "dayjs/locale/zh-cn";
-import relativeTime from "dayjs/plugin/relativeTime";
-dayjs.extend(relativeTime);
-dayjs.locale("zh-cn");
-
 import useLoginStatus from "@/hooks/useLoginStatus";
 import GroupPlay from "@/components/GroupPlay";
 import { setAudioHistoryClear } from "@/modules/reducers/audio/slice";

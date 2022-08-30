@@ -17,11 +17,12 @@
     "email": "673115816@qq.com"
   },
   "scripts": {
+    "preinstall": "node ./scripts/preinstall.js",
     "ncu:all": "pnpm -r exec ncu -u",
     "build": "pnpm -r build",
     "update": "pnpm -r up --latest",
     "clean": "pnpm -r clean",
-    "rm": "pnpm -r exec rm -rf node_modules",
+    "rm": "rm -rf node_modules && pnpm -r exec rm -rf node_modules",
     "view": "pnpm -rc exec pnpm view $PNPM_PACKAGE_NAME",
     "web:dev": "npm run start -C packages/web",
     "web:build": "pnpm -r build --filter @wyy/web",
