@@ -1,8 +1,9 @@
-import React, { createElement, FC, memo, useState } from "react";
+import React, { createElement, FC, memo, PropsWithChildren } from "react";
 import { Mains } from "./config";
 
-interface iProps {
+interface iProps extends PropsWithChildren {
   list: [];
+  layout: string;
 }
 
 const Layout: FC<iProps> = ({ list = [], layout = "Grid", children }) => {

@@ -8,14 +8,11 @@ import { accountSelector } from "@/modules/reducers/account/slice";
 
 const Detail = () => {
   const { isLogin } = useAppSelector(accountSelector);
-  const { code } = useContext(context);
-  if (!isLogin) {
-    return <div>查看个人信息请先登录</div>;
-  }
-
-  if (code === 404) return <div className={`flex`}>用户不存在</div>;
+  const value = useContext(context);
+  if (!isLogin) return <div>查看个人信息请先登录</div>;
+  if (value.code === 404) return <div className={`flex`}>用户不存在</div>;
   return (
-    <div className="domUserDetail">
+    <div className="">
       <Header />
       <Content />
     </div>

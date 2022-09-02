@@ -1,10 +1,10 @@
 import React, { memo } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import DomGender from "@/components/Gender";
+import Gender from "@/components/Gender";
 
 const layouts = {
-  "--grid-template-columns": "60px 5fr 2fr",
+  "--grid-template-columns": "60px auto 1fr",
 };
 
 const UserProfiles = ({ userprofiles = [] }) => (
@@ -23,9 +23,13 @@ const UserProfiles = ({ userprofiles = [] }) => (
         <div className="name px-5">
           {item.nickname}
           &nbsp;
-          <DomGender size={16} gender={item.gender} />
+          <Gender size={16} gender={item.gender} />
         </div>
-        <div className="signature text-gray-400 ml-auto">{item.signature}</div>
+        <div className="flex">
+          <div className={`truncate text-gray-400 flex-1 w-0`}>
+            {item.signature}
+          </div>
+        </div>
       </Link>
     ))}
   </div>

@@ -1,12 +1,4 @@
-import React, {
-  useRef,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  useContext,
-} from "react";
+import React, { useRef, memo, useCallback, useMemo, useContext } from "react";
 import { apiUserDetail, apiUserFollows, apiFollow } from "@/api";
 import { Link, useParams } from "react-router-dom";
 
@@ -19,6 +11,7 @@ import { useImmer } from "use-immer";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useGetUserDetailQuery } from "@/modules/services/user";
 import { context } from "../context";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 const limit = 30;
 
@@ -27,7 +20,7 @@ const Follow = () => {
   const { uid } = useParams();
   const dispatch = useAppDispatch();
   const [data, setData] = useImmer([]);
-  const account = useAppSelector(({ account }) => account);
+  const account = useAppSelector(accountSelector);
   const isSelf = useMemo(() => account.profile.userId === Number(uid), [uid]);
   const DomScroll = useRef(null);
   const DomObserver = useRef(null);
@@ -78,8 +71,8 @@ const Follow = () => {
   useInfinite(handleAddData, DomScroll, DomObserver);
 
   return (
-    <div className="domUser_followlist h-full overflow-auto" ref={DomScroll}>
-      <div className="h1 domUser_subpage_header ui_header">
+    <div className="h-full overflow-auto" ref={DomScroll}>
+      <div className="h1 ui_header">
         <Link to="./">{profile?.nickname}</Link>
         的关注
       </div>

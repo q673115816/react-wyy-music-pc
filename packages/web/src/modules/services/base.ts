@@ -103,6 +103,8 @@ const baseQueryWithIntercept: BaseQueryFn<
         console.log(data.data.blockText);
       }
     }
+    if (status === 404) {
+    }
   }
   return result;
 };

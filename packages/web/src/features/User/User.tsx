@@ -10,6 +10,7 @@ const User = () => {
   const { data, isLoading } = useGetUserDetailQuery({
     uid: uid as string,
   });
+  console.log("data", data);
   if (isLoading) return <Loading />;
   return (
     <div className="overflow-auto h-full flex-auto">

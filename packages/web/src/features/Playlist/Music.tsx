@@ -30,7 +30,7 @@ const navs: [string, Paths][] = [
   ["收藏者", "Subscribers"],
 ];
 
-const Contents: { [key in Paths]: FC } = {
+const Contents: Record<Paths, FC<any>> = {
   Playlist,
   Comments,
   Subscribers,

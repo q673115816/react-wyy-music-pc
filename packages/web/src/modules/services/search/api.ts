@@ -16,6 +16,13 @@ export const api = createApi({
   reducerPath,
   baseQuery,
   endpoints: (build) => ({
+    getSearch: build.query<Searchs, ReqSearch>({
+      query: (body) => ({
+        url: `search`,
+        method: "POST",
+        body,
+      }),
+    }),
     getCloudSearch: build.mutation<Searchs, ReqSearch>({
       query: (body) => ({
         url: `cloudSearch`,
@@ -44,6 +51,7 @@ export const api = createApi({
 });
 
 export const {
+  useGetSearchQuery,
   useGetCloudSearchMutation,
   useGetSearchMultimatchQuery,
   useGetSearchSuggestQuery,

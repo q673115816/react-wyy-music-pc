@@ -24,7 +24,7 @@ const Content = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="domUserDetail_main">
+    <div className="">
       <div className={`flex px-8 pb-4`}>
         <div className={`text-base flex gap-4`}>
           {navs.map((nav) => (
