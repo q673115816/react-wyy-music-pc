@@ -11,7 +11,7 @@ import { accountSelector } from "@/modules/reducers/account/slice";
 const Header = () => {
   const { uid } = useParams();
   const [followPost] = usePostFollowMutation();
-  const { profile, code, bindings } = useContext(context);
+  const { profile, code, bindings, level } = useContext(context);
   const { isLogin } = useAppSelector(accountSelector);
   const account = useAppSelector(accountSelector);
   const isSelf = useMemo(() => {
@@ -19,7 +19,7 @@ const Header = () => {
     return String(account.profile.userId) === uid;
   }, [isLogin]);
 
-  const handleFollow = async (id) => {
+  const handleFollow = async (id: number) => {
     const { followed } = profile;
     try {
       await followPost({
@@ -72,7 +72,7 @@ const Header = () => {
               href="https://music.163.com/#/user/level"
             >
               Lv
-              {profile.level}
+              {level}
             </a>
             <Gender gender={profile?.gender} size={16} />
           </div>
@@ -118,17 +118,17 @@ const Header = () => {
           </div>
         </div>
         <hr />
-        <div className="text-center divide-x flex mt-5">
-          <Link to={`dynamic`} className={`w-20`}>
-            <div className="text-base">{profile?.eventCount}</div>
+        <div className="divide-x flex mt-5">
+          <Link to={`dynamic`} className={`pr-8 text-center`}>
+            <div className="text-lg">{profile?.eventCount}</div>
             <div>动态</div>
           </Link>
-          <Link to={`follow`} className={`w-20`}>
-            <div className="text-base">{profile?.follows}</div>
+          <Link to={`follow`} className={`px-8`}>
+            <div className="text-lg">{profile?.follows}</div>
             <div>关注</div>
           </Link>
-          <Link to={`fans`} className={`w-20`}>
-            <div className="text-base">{profile?.followeds}</div>
+          <Link to={`fans`} className={`pl-8`}>
+            <div className="text-lg">{profile?.followeds}</div>
             <div>粉丝</div>
           </Link>
         </div>

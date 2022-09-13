@@ -42,6 +42,7 @@ export const api = createApi({
 export const {
   useGetHotTopicQuery,
   useGetTopicDetailQuery,
+  useLazyGetTopicDetailQuery,
   useGetEventMutation,
   useGetTopicDetailEventHotQuery,
 } = api;

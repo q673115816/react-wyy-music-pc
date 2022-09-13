@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import formatLrc from "./format";
-import { Draft } from "immer";
+import { RootState } from "@/modules/store";
+
 interface LrcState {
   lyricVisibility: boolean;
   lyric: {};
@@ -64,7 +65,7 @@ const slice = createSlice({
   },
 });
 
-export const LrcSelector = <T = Draft<LrcState>>({ lrc }: { lrc: T }): T => lrc;
+export const LrcSelector = (state: RootState) => state.lrc;
 
 export default slice.reducer;
 

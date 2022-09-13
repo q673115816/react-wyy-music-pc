@@ -110,7 +110,7 @@ export const api = createApi({
       }),
       providesTags: (result, error, { uid }) => [{ type: "user", id: uid }],
     }),
-    postFollow: build.mutation<Followeds, { id: string; t: number }>({
+    postFollow: build.mutation<Followeds, { id: number; t: number }>({
       query: (body) => ({
         url: `follow`,
         method: "POST",

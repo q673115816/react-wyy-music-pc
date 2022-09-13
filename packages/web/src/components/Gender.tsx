@@ -30,6 +30,7 @@ export const Female = ({ size = 0 }) => (
 
 interface iProps {
   gender: number;
+  size?: number;
 }
 
 const Gender: FC<iProps> = ({ gender, ...props }) => {

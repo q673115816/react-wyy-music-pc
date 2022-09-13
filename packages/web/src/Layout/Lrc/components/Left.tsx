@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import classNames from "classnames";
 import { useAppSelector } from "@/modules/hooks";
 import { audioSelector } from "@/modules/reducers/audio/slice";
+import style from "./Left.module.scss";
 
 const Left = () => {
   const { currentSong, running } = useAppSelector(audioSelector);
@@ -10,7 +11,6 @@ const Left = () => {
     <div>
       <div className="relative">
         <div
-          id="stylus"
           className="mt-16 mb-10 relative m-auto w-min duration-500 transition-transform z-10"
           style={running ? { transform: "rotate(40deg)" } : {}}
         >
@@ -30,12 +30,15 @@ const Left = () => {
             </div>
           </div>
         </div>
-        <div className=" rounded-full bg-gray-300 p-2.5 w-64 h-64">
+        <div className="rounded-full bg-gray-300 p-2.5 w-64 h-64">
           <div
-            className={classNames("flex-center rounded-full p-9", {
-              on: running,
-            })}
-            id="record"
+            className={classNames(
+              style.record,
+              "flex-center rounded-full p-9",
+              {
+                on: running,
+              }
+            )}
           >
             <img
               className="rounded-full border-8 border-black"

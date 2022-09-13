@@ -1,13 +1,7 @@
-#lrc {
-  top: var(--HEADER);
-  bottom: var(--FOOTER);
-  background-image: linear-gradient(to bottom, #e4e5e6, #fff 50%);
-}
-
-#record {
+.record {
   background-color: #15161f;
   background-image: repeating-radial-gradient(rgba(100, 100, 100, 0.1) 0,
-      rgba(100, 100, 100, 0.2) 1%, transparent 1%, transparent 2.5%);
+    rgba(100, 100, 100, 0.2) 1%, transparent 1%, transparent 2.5%);
   animation: rollup infinite linear 60s;
   animation-play-state: paused;
   &.on {

@@ -7,7 +7,7 @@ const Hot: FC<iHot> = ({ hotComments = [], more, type }) => {
   if (hotComments?.length === 0) return null;
   return (
     <div className="mb-10">
-      <div className="subtitle font-bold">精彩评论</div>
+      <div className="subtitle font-bold text-sm">精彩评论</div>
       <div className="comments divide-y">
         {hotComments.slice(0, 10).map((item) => (
           <Comment item={item} key={item.commentId} />

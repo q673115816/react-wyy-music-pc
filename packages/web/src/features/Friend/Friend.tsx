@@ -7,7 +7,7 @@ import Aside from "./components/Aside";
 import { useGetEventMutation } from "@/modules/services/friend";
 import { useImmer } from "use-immer";
 
-const getArticleFromJson = (json) => {
+const getArticleFromJson = (json: string) => {
   const obj = JSON.parse(json);
   return (
     <>
