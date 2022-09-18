@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import HOCDialog from "../Dialog";
+import Dialog from "../Dialog";
 import "./style.scss";
 import { concatAll, filter, fromEvent, map, takeUntil } from "rxjs";
 import { useGetSetState } from "react-use";
@@ -194,7 +194,7 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
   }, []);
 
   return (
-    <HOCDialog id="dialogUploadAvatar" title="上传头像">
+    <Dialog id="dialogUploadAvatar" title="上传头像">
       <div className="">
         <div className="flex justify-center">
           <div className="bg-black rounded overflow-hidden">
@@ -257,7 +257,7 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
           </button>
         </div>
       </div>
-    </HOCDialog>
+    </Dialog>
   );
 };
 export default memo(UploadAvatar);

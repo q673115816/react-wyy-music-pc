@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+//    "rootDir": "src",
+    "sourceMap": true,
+    "jsx": "react",
+    "types": ["vitest/globals"]
+  },
+  "exclude": ["node_modules", "dist", "esm", "umd", "tests", "lib"]
+}

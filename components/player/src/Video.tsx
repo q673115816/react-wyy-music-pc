@@ -5,15 +5,9 @@ import React, {
   memo,
   FC,
   ReactEventHandler,
+  useReducer,
 } from "react";
-import { IconPlayerPlay, IconRefresh } from "@tabler/icons";
 import classNames from "classnames";
-import { useImmerReducer } from "use-immer";
-import {
-  setPositionFalse,
-  setPositionTrue,
-} from "@/modules/reducers/inset/slice";
-import { useDispatch } from "react-redux";
 import Control from "./Control";
 import Timing from "./Timing";
 
@@ -37,11 +31,9 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
   const [
     { play, duration, currentTime, jumpTime, buffered, full },
     videoDispatch,
-  ] = useImmerReducer(videoReducer, initialState);
+  ] = useReducer(videoReducer, initialState);
   const refVideo = useRef<HTMLVideoElement>(null);
-  const dispatch = useDispatch();
   const [isEnd, setIsEnd] = useState(false);
-  const [isAuto, setIsAuto] = useState(true);
   const handleChangePlay = () => {
     const call = play ? "pause" : "play";
     (refVideo.current as HTMLVideoElement)[call]();
@@ -57,11 +49,11 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
     if (full) {
       // 退出全屏
       await document.exitFullscreen();
-      dispatch(setPositionTrue());
+      // dispatch(setPositionTrue());
     } else {
       // 进入全屏
       await document.documentElement.requestFullscreen();
-      dispatch(setPositionFalse());
+      // dispatch(setPositionFalse());
     }
     videoDispatch(actionSetFull(!full));
   };
@@ -138,7 +130,7 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
               type="button"
               className="text-white bg-black bg-opacity-25 border border-gray-400 hover:border-white rounded-full absolute inset-0 m-auto w-16 h-16 flex-center"
             >
-              <IconPlayerPlay size={36} className="fill-current" />
+              {/*<IconPlayerPlay size={36} className="fill-current" />*/}
             </button>
           )}
           {/*<div className="absolute text-gray-300 inset-0 flex-center flex-col bg-black bg-opacity-60">

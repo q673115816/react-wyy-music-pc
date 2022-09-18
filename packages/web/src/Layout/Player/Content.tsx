@@ -1,5 +1,5 @@
 import React, { FC, memo, useCallback, useState } from "react";
-import Video from "@/Layout/Player/components/Video/Video";
+import Video from "@q673115816/player";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import {

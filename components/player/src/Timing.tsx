@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import dayjs from "dayjs";
 import { actionSetJumpTime } from "./reducer/actions";
-import Drag from "@/components/Drag";
 import { VideoContext } from "./reducer";
 
 const Timing = () => {
@@ -17,16 +16,6 @@ const Timing = () => {
   const [playerLengthRatio, setPlayerLengthRatio] = useState(0);
   const { duration, currentTime, buffered, videoDispatch } =
     useContext(VideoContext);
-
-  const onMouseMove = () => {};
-
-  const onMouseUp = () => {
-    setDragger(false);
-  };
-
-  const onMouseDown = () => {
-    setDragger(true);
-  };
 
   const handleProgressEnter: MouseEventHandler<HTMLProgressElement> = () => {
     setTimeTips(true);
@@ -97,14 +86,14 @@ const Timing = () => {
         title="播放进度"
         style={{ width: `${playerLengthRatio * 100}%` }}
       >
-        <Drag
+        <i className="rounded-full ui_theme_bg_color w-1 h-1" />
+        {/*<Drag
           className="absolute shadow right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full h-3 w-3 flex-center"
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}
         >
-          <i className="rounded-full ui_theme_bg_color w-1 h-1" />
-        </Drag>
+        </Drag>*/}
       </div>
       <progress
         onMouseEnter={handleProgressEnter}

@@ -34,6 +34,7 @@
   "dependencies": {
     "@q673115816/editor": "workspace:*",
     "@q673115816/pics-viewer": "workspace:*",
+    "@q673115816/player": "workspace:*",
     "@reduxjs/toolkit": "*",
     "@sentry/react": "^7.13.0",
     "@sentry/tracing": "^7.13.0",

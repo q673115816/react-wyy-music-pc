@@ -6,13 +6,9 @@ import MV from "./MV";
 const Router = () => {
   return useRoutes([
     {
-      path: "/",
+      path: "/*",
       element: <Layout />,
       children: [
-        {
-          index: true,
-          element: <Navigate to="视频" replace={true} />,
-        },
         {
           path: encodeURIComponent("视频"),
           element: <Video />,
@@ -22,6 +18,10 @@ const Router = () => {
           element: <MV />,
         },
       ],
+    },
+    {
+      index: true,
+      element: <Navigate to={encodeURIComponent("视频")} replace={true} />,
     },
   ]);
 };

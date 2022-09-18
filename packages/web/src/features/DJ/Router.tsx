@@ -1,12 +1,13 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { memo } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import DJ from "./DJ";
-const Router = () => {
-  return (
-    <Routes>
-      <Route index element={<DJ />} />
-    </Routes>
-  );
-};
+import TopList from "./TopList/TopList";
+import TopListLayout from "./TopList/TopListLayout";
 
-export default Router;
+const Router = () => (
+  <Routes>
+    <Route index element={<DJ />} />
+  </Routes>
+);
+
+export default memo(Router);

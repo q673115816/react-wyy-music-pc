@@ -12,10 +12,7 @@ import classNames from "classnames";
 import { useAppSelector } from "@/modules/hooks";
 import style from "./style.module.scss";
 import Playlist from "../Playlist";
-import {
-  accountSelector,
-  AccountState,
-} from "@/modules/reducers/account/slice";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 interface CustomLinkProps {
   name: string;
@@ -39,7 +36,7 @@ const options1: NavListProps[] = [
   },
   {
     name: "播客",
-    link: "/",
+    link: "/dj",
   },
   {
     name: "视频",
@@ -51,7 +48,7 @@ const options1: NavListProps[] = [
   },
   {
     name: "直播",
-    link: "/",
+    link: "/look",
   },
   {
     name: "私人FM",
@@ -78,7 +75,7 @@ const options2: NavListProps[] = [
   },
   {
     name: "我的播客",
-    link: "/dj",
+    link: "/dj-sublist",
     Ico: IconBrandTiktok,
     needLogin: true,
   },

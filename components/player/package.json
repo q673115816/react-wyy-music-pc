@@ -1,6 +1,6 @@
 {
-  "name": "@q673115816/pics-viewer",
-  "version": "0.3.8",
+  "name": "@q673115816/player",
+  "version": "0.0.1",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
   "exports": {
@@ -19,14 +19,14 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/q673115816/react-wyy-music-pc.git",
-    "directory": "components/pics-viewer"
+    "directory": "components/player"
   },
-  "homepage": "https://github.com/q673115816/react-wyy-music-pc/tree/master/components/pics-viewer",
+  "homepage": "https://github.com/q673115816/react-wyy-music-pc/tree/master/components/player",
   "bugs": "https://github.com/q673115816/react-wyy-music-pc/issues",
   "keywords": [
     "typescript",
     "react",
-    "image viewer"
+    "player"
   ],
   "files": [
     "dist",
@@ -40,12 +40,15 @@
     "build:ts": "npm run build:cjs && npm run build:es",
     "build": "tsup",
     "start": "tsup --watch",
-    "test": "jest",
+    "coverage": "vitest run --coverage",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
     "lint": "lint",
     "release": "npm run build && npm publish"
   },
   "dependencies": {
-    "js-file-downloader": "^1.1.24",
+    "classnames": "*",
+    "dayjs": "*",
     "react-use": "*",
     "styled-components": "^5.3.5"
   },
