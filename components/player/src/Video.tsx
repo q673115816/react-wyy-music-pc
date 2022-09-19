@@ -38,7 +38,6 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
     const call = play ? "pause" : "play";
     (refVideo.current as HTMLVideoElement)[call]();
     videoDispatch(actionSetPlay(!play));
-    // setPlay(!play);
   };
 
   const handleEnd = () => {
@@ -49,11 +48,9 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
     if (full) {
       // 退出全屏
       await document.exitFullscreen();
-      // dispatch(setPositionTrue());
     } else {
       // 进入全屏
       await document.documentElement.requestFullscreen();
-      // dispatch(setPositionFalse());
     }
     videoDispatch(actionSetFull(!full));
   };
@@ -61,19 +58,15 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
   const handleProgress: ReactEventHandler<HTMLVideoElement> = ({
     currentTarget,
   }) => {
-    // console.log(target.buffered.length);
     const buffered = [];
     for (let i = 0; i < currentTarget.buffered.length; i += 1) {
-      const onebuffered = [
+      buffered.push([
         currentTarget.buffered.start(i),
         currentTarget.buffered.end(i),
-      ];
-      buffered.push(onebuffered);
-      // console.log(onebuffered);
+      ]);
     }
     videoDispatch(actionSetBuffered(buffered));
     // setBuffered(target.buffered.end(0));
-    // console.log(refVideo.current.buffered.end(0));
   };
 
   const handleSetTime: ReactEventHandler<HTMLVideoElement> = ({

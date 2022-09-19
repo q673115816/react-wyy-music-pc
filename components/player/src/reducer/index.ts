@@ -12,6 +12,20 @@ export const VideoContext = createContext(null);
 
 export const { Provider } = VideoContext;
 
+interface State {
+  play: boolean;
+  full: boolean;
+  buffered: number[];
+  duration: number;
+  currentTime: number;
+  jumpTime: number;
+}
+
+interface Action {
+  type: string;
+  payload: any;
+}
+
 export const initialState = {
   play: false,
   full: false,
@@ -21,7 +35,7 @@ export const initialState = {
   jumpTime: 0,
 };
 
-export default (state, action) => {
+export default (state: State, action: Action) => {
   switch (action.type) {
     case SET_PLAY:
       return {

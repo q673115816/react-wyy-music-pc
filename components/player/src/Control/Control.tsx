@@ -1,19 +1,11 @@
 import React, { useContext, memo } from "react";
-import {
-  IconPlayerPlay,
-  IconPlayerPause,
-  IconArrowsMaximize,
-  IconArrowsMinimize,
-} from "@tabler/icons";
 import dayjs from "dayjs";
 import { VideoContext } from "../reducer";
 import Size from "./Size";
 
-const DomSpeed = () => <div className="relative w-20">{}</div>;
-
 const Control = () => {
   const {
-    handlechangeFull,
+    handleChangeFull,
     full,
     handleChangePlay,
     play,
@@ -26,13 +18,7 @@ const Control = () => {
         type="button"
         className="border rounded-full text-white border-current w-6 h-6 flex-center"
         onClick={handleChangePlay}
-      >
-        {play ? (
-          <IconPlayerPause className="fill-current" size={12} />
-        ) : (
-          <IconPlayerPlay className="fill-current" size={12} />
-        )}
-      </button>
+      ></button>
       <span className="text-gray-300 ml-2">
         {dayjs(currentTime * 1000).format("mm:ss")}
         &nbsp; / &nbsp;
@@ -43,19 +29,12 @@ const Control = () => {
           <button type="button">{}</button>
           <div>{}</div>
         </div>
-        {/* <DomSpeed /> */}
         <Size />
         <button
-          onClick={handlechangeFull}
+          onClick={handleChangeFull}
           type="button"
           className="flex-center w-10 text-gray-400 hover:text-white"
-        >
-          {full ? (
-            <IconArrowsMinimize size={20} stroke={1} />
-          ) : (
-            <IconArrowsMaximize size={20} stroke={1} />
-          )}
-        </button>
+        ></button>
       </div>
     </div>
   );

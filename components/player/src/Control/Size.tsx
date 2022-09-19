@@ -1,11 +1,10 @@
-import { IconDeviceDesktop } from "@tabler/icons";
 import React, { memo, useState } from "react";
 const sizes = ["标清", "高清", "超清", "1080P", "没这功能"];
 
 const Size = () => {
   const [sizeListShow, setSizeListShow] = useState(false);
   const [curr, setCurr] = useState("超清");
-  const handleCheck = (br) => {
+  const handleCheck = (br: string) => {
     setCurr(br);
     setSizeListShow(false);
   };
@@ -16,11 +15,6 @@ const Size = () => {
         type="button"
         className="flex-center w-full group"
       >
-        <IconDeviceDesktop
-          className="text-gray-600 group-hover:text-gray-400"
-          size={20}
-        />
-        &nbsp;
         <span className="text-gray-400">{curr}</span>
       </button>
       {sizeListShow && (
