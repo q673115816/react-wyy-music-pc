@@ -6,11 +6,7 @@ import {
   SET_CURRENTTIME,
   SET_JUMPTIME,
 } from "./actionTypes";
-import { createContext } from "react";
-
-export const VideoContext = createContext(null);
-
-export const { Provider } = VideoContext;
+import { createContext, Dispatch } from "react";
 
 interface State {
   play: boolean;
@@ -20,6 +16,17 @@ interface State {
   currentTime: number;
   jumpTime: number;
 }
+
+export const VideoContext = createContext<
+  Partial<
+    State & {
+      handleChangePlay: () => void;
+      handleChangeFull: () => void;
+      videoDispatch: Dispatch<any>;
+    }
+  >
+>({});
+export const { Provider } = VideoContext;
 
 interface Action {
   type: string;

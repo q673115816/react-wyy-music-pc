@@ -151,13 +151,13 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
         </div>
         <Provider
           value={{
-            handleChangePlay,
             play,
             duration,
             currentTime,
             buffered,
-            handleChangeFull,
             full,
+            handleChangePlay,
+            handleChangeFull,
             videoDispatch,
           }}
         >
