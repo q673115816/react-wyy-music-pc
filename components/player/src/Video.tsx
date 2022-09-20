@@ -20,6 +20,8 @@ import {
   actionSetDuration,
 } from "./reducer/actions";
 
+import IconPlayerPlay from "./assets/play.svg";
+
 interface iProps {
   url: string;
   detail: any;
@@ -123,7 +125,7 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
               type="button"
               className="text-white bg-black bg-opacity-25 border border-gray-400 hover:border-white rounded-full absolute inset-0 m-auto w-16 h-16 flex-center"
             >
-              {/*<IconPlayerPlay size={36} className="fill-current" />*/}
+              <IconPlayerPlay width={36} className="fill-current" />
             </button>
           )}
           {/*<div className="absolute text-gray-300 inset-0 flex-center flex-col bg-black bg-opacity-60">

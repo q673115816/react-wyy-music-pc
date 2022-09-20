@@ -1,5 +1,6 @@
 import React, { memo, useState } from "react";
 const sizes = ["标清", "高清", "超清", "1080P", "没这功能"];
+import IconMedia from "../assets/media.svg";
 
 const Size = () => {
   const [sizeListShow, setSizeListShow] = useState(false);
@@ -13,8 +14,9 @@ const Size = () => {
       <button
         onClick={() => setSizeListShow(!sizeListShow)}
         type="button"
-        className="flex-center w-full group"
+        className="flex-center w-full text-white gap-2"
       >
+        <IconMedia width={16} className="fill-current" />
         <span className="text-gray-400">{curr}</span>
       </button>
       {sizeListShow && (

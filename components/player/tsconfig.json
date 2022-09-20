@@ -4,7 +4,8 @@
 //    "rootDir": "src",
     "sourceMap": true,
     "jsx": "react",
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    "typeRoots": ["./type"]
   },
   "exclude": ["node_modules", "dist", "esm", "umd", "tests", "lib"]
 }
