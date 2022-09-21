@@ -2,16 +2,17 @@ import React, { useContext, memo } from "react";
 import dayjs from "dayjs";
 import { VideoContext } from "../reducer";
 import Size from "./Size";
+import Sound from "./Sound";
 import IconPlayerPlay from "../assets/play.svg";
 import IconPlayerPause from "../assets/pause.svg";
-import IconFullSreen from "../assets/fullsreen.svg";
+import IconFullScreen from "../assets/fullscreen.svg";
 import IconMinimize from "../assets/minimize.svg";
 
 const Control = () => {
   const {
     handleChangeFull,
-    full,
     handleChangePlay,
+    full,
     play,
     currentTime,
     duration,
@@ -35,10 +36,7 @@ const Control = () => {
         {dayjs(duration * 1000).format("mm:ss")}
       </span>
       <div className="ml-auto flex divide-x">
-        <div className="flex">
-          <button type="button">{}</button>
-          <div>{}</div>
-        </div>
+        <Sound />
         <Size />
         <button
           onClick={handleChangeFull}
@@ -48,7 +46,7 @@ const Control = () => {
           {full ? (
             <IconMinimize width={16} className="fill-current" />
           ) : (
-            <IconFullSreen width={16} className="fill-current" />
+            <IconFullScreen width={16} className="fill-current" />
           )}
         </button>
       </div>

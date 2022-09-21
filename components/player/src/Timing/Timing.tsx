@@ -6,8 +6,8 @@ import React, {
   MouseEventHandler,
 } from "react";
 import dayjs from "dayjs";
-import { actionSetJumpTime } from "./reducer/actions";
-import { VideoContext } from "./reducer";
+import { actionSetData } from "../reducer/actions";
+import { VideoContext } from "../reducer";
 
 const Timing = () => {
   const [timeTips, setTimeTips] = useState(false);
@@ -21,13 +21,11 @@ const Timing = () => {
     setTimeTips(true);
   };
 
-  const handleProgressMove: MouseEventHandler<HTMLProgressElement> = ({
-    clientX,
-    currentTarget,
-  }) => {
-    // console.log(e);
+  const handleProgressMove: MouseEventHandler<HTMLProgressElement> = (
+    event
+  ) => {
+    const { clientX, currentTarget } = event;
     const { left, width } = currentTarget.getBoundingClientRect();
-    // console.log((clientX - left) / width);
     setMousePosition((clientX - left) / width);
     if (dragger) {
       setPlayerLengthRatio((clientX - left) / width);
@@ -39,18 +37,15 @@ const Timing = () => {
   };
 
   const handleProgressDropUp: MouseEventHandler<HTMLProgressElement> = () => {
-    setDragger(false);
+    //
   };
 
-  const handleClick: MouseEventHandler<HTMLProgressElement> = ({
-    clientX,
-    currentTarget,
-  }) => {
-    // console.log('click');
+  const handleClick: MouseEventHandler<HTMLProgressElement> = (event) => {
+    const { clientX, currentTarget } = event;
     const { left, width } = currentTarget.getBoundingClientRect();
     const ratio = (clientX - left) / width;
     setPlayerLengthRatio(ratio);
-    videoDispatch(actionSetJumpTime(ratio * duration));
+    videoDispatch(actionSetData({ jumpTime: ratio * duration }));
   };
 
   useEffect(() => {
@@ -87,13 +82,6 @@ const Timing = () => {
         style={{ width: `${playerLengthRatio * 100}%` }}
       >
         <i className="rounded-full ui_theme_bg_color w-1 h-1" />
-        {/*<Drag
-          className="absolute shadow right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full h-3 w-3 flex-center"
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-        >
-        </Drag>*/}
       </div>
       <progress
         onMouseEnter={handleProgressEnter}
