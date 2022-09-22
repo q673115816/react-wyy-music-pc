@@ -1,6 +1,6 @@
 import React, { useContext, memo } from "react";
 import dayjs from "dayjs";
-import { VideoContext } from "../reducer";
+import { AppContext } from "../context";
 import Size from "./Size";
 import Sound from "./Sound";
 import IconPlayerPlay from "../assets/play.svg";
@@ -9,20 +9,13 @@ import IconFullScreen from "../assets/fullscreen.svg";
 import IconMinimize from "../assets/minimize.svg";
 
 const Control = () => {
-  const {
-    handleChangeFull,
-    handleChangePlay,
-    full,
-    play,
-    currentTime,
-    duration,
-  } = useContext(VideoContext);
+  const { state } = useContext(AppContext);
+  const { full, play, currentTime, duration } = state;
   return (
     <div className="h-10 flex-none bg-black flex items-center pl-2">
       <button
         type="button"
         className="border rounded-full text-white border-current w-6 h-6 flex-center"
-        onClick={handleChangePlay}
       >
         {play ? (
           <IconPlayerPause width={16} className="fill-current" />
@@ -39,7 +32,6 @@ const Control = () => {
         <Sound />
         <Size />
         <button
-          onClick={handleChangeFull}
           type="button"
           className="flex-center w-10 text-gray-400 hover:text-white"
         >

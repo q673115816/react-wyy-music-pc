@@ -4,93 +4,72 @@ import React, {
   useEffect,
   memo,
   MouseEventHandler,
+  useRef,
 } from "react";
-import dayjs from "dayjs";
-import { actionSetData } from "../reducer/actions";
-import { VideoContext } from "../reducer";
+import { AppContext } from "../context";
+import Buffer from "./Buffer";
+import { fromEvent, switchMap } from "rxjs";
+import Hover from "./Hover";
 
 const Timing = () => {
-  const [timeTips, setTimeTips] = useState(false);
-  const [dragger, setDragger] = useState(false);
-  const [mousePosition, setMousePosition] = useState(0);
-  const [playerLengthRatio, setPlayerLengthRatio] = useState(0);
-  const { duration, currentTime, buffered, videoDispatch } =
-    useContext(VideoContext);
+  const progress = useRef(null);
+  const [isHoverTime, setIsHoverTime] = useState(false);
+  const [hoverRatio, setHoverRatio] = useState(0);
+  const [playerRatio, setPlayerRatio] = useState(0);
+  const { state, dispatch } = useContext(AppContext);
+  const { duration, currentTime } = state;
 
-  const handleProgressEnter: MouseEventHandler<HTMLProgressElement> = () => {
-    setTimeTips(true);
-  };
-
-  const handleProgressMove: MouseEventHandler<HTMLProgressElement> = (
-    event
-  ) => {
+  const handleMouseMove: MouseEventHandler<HTMLProgressElement> = (event) => {
     const { clientX, currentTarget } = event;
     const { left, width } = currentTarget.getBoundingClientRect();
-    setMousePosition((clientX - left) / width);
-    if (dragger) {
-      setPlayerLengthRatio((clientX - left) / width);
-    }
-  };
-
-  const handleProgressLeave: MouseEventHandler<HTMLProgressElement> = () => {
-    setTimeTips(false);
-  };
-
-  const handleProgressDropUp: MouseEventHandler<HTMLProgressElement> = () => {
-    //
+    setHoverRatio((clientX - left) / width);
   };
 
   const handleClick: MouseEventHandler<HTMLProgressElement> = (event) => {
     const { clientX, currentTarget } = event;
     const { left, width } = currentTarget.getBoundingClientRect();
     const ratio = (clientX - left) / width;
-    setPlayerLengthRatio(ratio);
-    videoDispatch(actionSetData({ jumpTime: ratio * duration }));
+    setPlayerRatio(ratio);
   };
 
   useEffect(() => {
-    if (!dragger) {
-      setPlayerLengthRatio(currentTime / duration);
-    }
-  }, [currentTime]);
+    const ele = progress.current as HTMLProgressElement;
+    const mouseenter$ = fromEvent(ele, "mouseenter");
+    const mouseleave$ = fromEvent(ele, "mouseleave");
+    const subscription = mouseenter$
+      .pipe(
+        switchMap(() => {
+          setIsHoverTime(true);
+          return mouseleave$;
+        })
+      )
+      .subscribe({
+        next: () => {
+          setIsHoverTime(false);
+        },
+      });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    setPlayerRatio(currentTime / duration);
+  }, [currentTime, duration]);
 
   return (
     <div className="h-1 relative bg-black cursor-pointer">
-      {timeTips && (
-        <div
-          className="absolute bottom-0 text-white px-2 py-1 border border-gray-600 bg-black bg-opacity-80 transform -translate-y-4 -translate-x-1/2"
-          style={{ left: `${mousePosition * 100}%` }}
-        >
-          {dayjs(mousePosition * duration * 1000).format("mm:ss")}
-        </div>
-      )}
-      <div className="absolute inset-0" title="缓存">
-        {buffered.map(([start, end]) => (
-          <div
-            key={`${start}-${end}`}
-            className="absolute inset-y-0 bg-gray-400"
-            style={{
-              left: `${(start / duration) * 100}%`,
-              right: `${(1 - end / duration) * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+      {isHoverTime && <Hover hoverRatio={hoverRatio} />}
+      <Buffer />
       <div
         className="h-full relative w-0 ui_theme_bg_color"
         title="播放进度"
-        style={{ width: `${playerLengthRatio * 100}%` }}
+        style={{ width: `${playerRatio * 100}%` }}
       >
         <i className="rounded-full ui_theme_bg_color w-1 h-1" />
       </div>
       <progress
-        onMouseEnter={handleProgressEnter}
-        onMouseMove={handleProgressMove}
-        onMouseLeave={handleProgressLeave}
-        onMouseUp={handleProgressDropUp}
+        ref={progress}
+        onMouseMove={handleMouseMove}
         onClick={handleClick}
-        max={duration}
-        value={currentTime}
         className="absolute bottom-0 left-0 opacity-0 w-full"
       />
     </div>

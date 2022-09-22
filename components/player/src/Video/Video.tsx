@@ -7,21 +7,13 @@ import React, {
   useContext,
 } from "react";
 import classNames from "classnames";
-import { actionSetData } from "../reducer/actions";
-
 import IconPlayerPlay from "../assets/play.svg";
-import { VideoContext } from "../reducer";
+import { AppContext } from "../context";
+import type { PlayerProps } from "../types";
 
-interface iProps {
-  url: string;
-  detail: any;
-  brs: [];
-  fixed?: boolean;
-}
-
-const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
-  const { videoDispatch, full, jumpTime, play, currentTime, duration } =
-    useContext(VideoContext);
+const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
+  const { dispatch, state } = useContext(AppContext);
+  const { full, jumpTime, play, currentTime, duration } = state;
   const refVideo = useRef<HTMLVideoElement>(null);
   // const handleChangePlay = () => {
   //   const call = play ? "pause" : "play";
@@ -116,7 +108,6 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
           />
           {/*{!play && (
             <button
-              onClick={handleChangePlay}
               type="button"
               className="text-white bg-black bg-opacity-25 border border-gray-400 hover:border-white rounded-full absolute inset-0 m-auto w-16 h-16 flex-center"
             >
@@ -138,7 +129,7 @@ const Video: FC<iProps> = ({ url, detail, brs = [], fixed = false }) => {
                 <div className="border rounded-full flex-center">
                   <IconPlayerPlay size={36}/>
                 </div>
-                <button type="button" className="">取消自动播放</button>
+                <button type="button">取消自动播放</button>
                 <div>自动播放已暂停</div>
               </div>
             </div>

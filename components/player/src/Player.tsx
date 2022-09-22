@@ -1,29 +1,17 @@
-import React, { useReducer } from "react";
+import React, { FC, memo } from "react";
+import { AppProvider } from "./context";
+import Video from "./Video";
 import Control from "./Control";
-import videoReducer, { initialState, Provider } from "./reducer";
 import Timing from "./Timing";
+import type { PlayerProps } from "./types";
 
-const Player = () => {
-  const [
-    { play, duration, currentTime, jumpTime, buffered, full },
-    videoDispatch,
-  ] = useReducer(videoReducer, initialState);
+const Player: FC<PlayerProps> = (props) => {
   return (
-    <Provider
-      value={{
-        play,
-        duration,
-        currentTime,
-        buffered,
-        full,
-        handleChangePlay,
-        handleChangeFull,
-        videoDispatch,
-      }}
-    >
+    <AppProvider>
+      <Video {...props} />
       <Timing />
       <Control />
-    </Provider>
+    </AppProvider>
   );
 };
 
