@@ -14,4 +14,7 @@ export interface State {
   jumpTime: number;
 }
 
-export interface Action {}
+export interface Action {
+  type: string;
+  payload?: any;
+}

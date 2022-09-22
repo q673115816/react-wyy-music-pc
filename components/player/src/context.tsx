@@ -6,7 +6,7 @@ import React, {
   useReducer,
 } from "react";
 import { reducer } from "./reducers";
-import type { State } from "./types";
+import type { State, Action } from "./types";
 
 export const initialState: State = {
   play: false,
@@ -19,7 +19,7 @@ export const initialState: State = {
 
 const AppContext = createContext<{
   state: State;
-  dispatch: Dispatch<{}>;
+  dispatch: Dispatch<Action>;
 }>({
   state: initialState,
   dispatch: () => null,
