@@ -10,79 +10,86 @@ import classNames from "classnames";
 import IconPlayerPlay from "../assets/play.svg";
 import { AppContext } from "../context";
 import type { PlayerProps } from "../types";
+import styled from "styled-components";
+import { actionUpdate } from "../reducers";
+import { useUpdateEffect, useFullscreen, useToggle } from "react-use";
+
+const Pausing = styled.div`
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    border-color: #fff;
+  }
+`;
 
 const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
   const { dispatch, state } = useContext(AppContext);
   const { full, jumpTime, play, currentTime, duration } = state;
-  const refVideo = useRef<HTMLVideoElement>(null);
-  // const handleChangePlay = () => {
-  //   const call = play ? "pause" : "play";
-  //   (refVideo.current as HTMLVideoElement)[call]();
-  //   videoDispatch(
-  //     actionSetData({
-  //       play: !play,
-  //     })
-  //   );
-  // };
+  const video = useRef<HTMLVideoElement>(null);
+  const [fullStatus, toggleFull] = useToggle(false);
+  const isFullScreen = useFullscreen(video, fullStatus, {
+    onClose: () => toggleFull(false),
+  });
+  const handleTogglePlay = () => {
+    dispatch(actionUpdate({ play: !play }));
+  };
 
   const handleEnd = () => {
     //
   };
 
-  // const handleChangeFull = async () => {
-  //   if (full) {
-  //     // 退出全屏
-  //     await document.exitFullscreen();
-  //   } else {
-  //     // 进入全屏
-  //     await document.documentElement.requestFullscreen();
-  //   }
-  //   videoDispatch(
-  //     actionSetData({
-  //       full: !full,
-  //     })
-  //   );
-  // };
+  const handleDoubleClick = async () => {
+    dispatch(actionUpdate({ full: !full }));
+  };
 
-  // const handleProgress: ReactEventHandler<HTMLVideoElement> = ({
-  //   currentTarget,
-  // }) => {
-  //   const buffered = [];
-  //   for (let i = 0; i < currentTarget.buffered.length; i += 1) {
-  //     buffered.push([
-  //       currentTarget.buffered.start(i),
-  //       currentTarget.buffered.end(i),
-  //     ]);
-  //   }
-  //   videoDispatch(
-  //     actionSetData({
-  //       buffered,
-  //     })
-  //   );
-  // };
+  const handleProgress: ReactEventHandler<HTMLVideoElement> = ({
+    currentTarget,
+  }) => {
+    const buffered = [];
+    for (let i = 0; i < currentTarget.buffered.length; i += 1) {
+      buffered.push([
+        currentTarget.buffered.start(i),
+        currentTarget.buffered.end(i),
+      ]);
+    }
+    dispatch(actionUpdate({ buffered }));
+  };
 
-  // const handleSetTime: ReactEventHandler<HTMLVideoElement> = ({
-  //   currentTarget,
-  // }) => {
-  //   videoDispatch(
-  //     actionSetData({
-  //       currentTime: currentTarget.currentTime,
-  //     })
-  //   );
-  // };
+  const handleTimeUpdate: ReactEventHandler<HTMLVideoElement> = ({
+    currentTarget,
+  }) => {
+    const { currentTime } = currentTarget;
+    dispatch(actionUpdate({ currentTime }));
+  };
 
-  // const handlePreSetTime: ReactEventHandler<HTMLVideoElement> = ({
-  //   currentTarget,
-  // }) => {
-  //   videoDispatch(
-  //     actionSetData({
-  //       duration: currentTarget.duration,
-  //     })
-  //   );
-  // };
+  const handleLoadedMetadata: ReactEventHandler<HTMLVideoElement> = ({
+    currentTarget,
+  }) => {
+    const { duration } = currentTarget;
+    dispatch(actionUpdate({ duration }));
+  };
+
+  useUpdateEffect(() => {
+    if (play) video.current.play();
+    else video.current.pause();
+  }, [play]);
+  useUpdateEffect(() => {
+    toggleFull();
+  }, [full]);
 
   useEffect(() => {
-    (refVideo.current as HTMLVideoElement).currentTime = jumpTime;
+    (video.current as HTMLVideoElement).currentTime = jumpTime;
   }, [jumpTime]);
 
   return (
@@ -100,20 +107,22 @@ const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
       >
         <div className="bg-black flex-auto h-0 relative">
           <video
+            onClick={handleTogglePlay}
             src={url}
-            ref={refVideo}
-            className="h-full m-auto cursor-pointer"
+            ref={video}
+            onProgress={handleProgress}
+            onTimeUpdate={handleTimeUpdate}
+            onDoubleClick={handleDoubleClick}
+            onLoadedMetadata={handleLoadedMetadata}
+            className="h-full w-full m-auto cursor-pointer"
             playsInline
-            autoPlay={play}
+            autoPlay={true}
           />
-          {/*{!play && (
-            <button
-              type="button"
-              className="text-white bg-black bg-opacity-25 border border-gray-400 hover:border-white rounded-full absolute inset-0 m-auto w-16 h-16 flex-center"
-            >
-              <IconPlayerPlay width={36} className="fill-current" />
-            </button>
-          )}*/}
+          {!play && (
+            <Pausing onClick={handleTogglePlay}>
+              <IconPlayerPlay width={36} />
+            </Pausing>
+          )}
           {/*<div className="absolute text-gray-300 inset-0 flex-center flex-col bg-black bg-opacity-60">
             <div className="text-sm">
               即将自动为您播放：{next.title}

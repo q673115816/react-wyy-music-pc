@@ -28,6 +28,7 @@ export default ({ mode, command }: ConfigEnv) => {
       isAnalyze && visualizer(),
     ],
     server: {
+      host: true,
       port: 8080,
       strictPort: true,
     },

@@ -10,7 +10,7 @@ const Context = styled.div`
   padding: 4px 8px;
   border: 1px solid gainsboro;
   background-color: rgba(0, 0, 0, 0.8);
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -50%);
 `;
 
 const Hover: FC<{ hoverRatio: number }> = ({ hoverRatio }) => {

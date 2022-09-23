@@ -5,6 +5,7 @@ import styled from "styled-components";
 const Context = styled.div`
   position: absolute;
   inset: 0;
+  z-index: -1;
 `;
 
 const Item = styled.div`

@@ -12,6 +12,8 @@ export interface State {
   duration: number;
   currentTime: number;
   jumpTime: number;
+  volume: number;
+  muted: boolean;
 }
 
 export interface Action {

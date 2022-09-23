@@ -9,12 +9,14 @@ import { reducer } from "./reducers";
 import type { State, Action } from "./types";
 
 export const initialState: State = {
-  play: false,
+  play: true,
   full: false,
   buffered: [],
   duration: 0,
   currentTime: 0,
   jumpTime: 0,
+  volume: 100,
+  muted: false,
 };
 
 const AppContext = createContext<{
