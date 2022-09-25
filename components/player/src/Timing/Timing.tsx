@@ -8,15 +8,24 @@ import React, {
 } from "react";
 import { AppContext } from "../context";
 import Buffer from "./Buffer";
-import { concatAll, fromEvent, map, switchMap, takeUntil } from "rxjs";
+import {
+  concatAll,
+  fromEvent,
+  map,
+  merge,
+  switchMap,
+  takeUntil,
+  withLatestFrom,
+} from "rxjs";
 import Hover from "./Hover";
 import styled from "styled-components";
-import { diff } from "vitest/dist/global-e98f203b";
+import { actionUpdate } from "../reducers";
 
 const Context = styled.div`
   position: relative;
   background-color: #000;
   cursor: pointer;
+  z-index: 2;
 `;
 
 const Point = styled.div`
@@ -42,14 +51,14 @@ const Track = styled.div`
   --radius: 7px;
   --inner: 2px;
   padding-right: calc(var(--radius) * 2);
-  padding-top: 10px;
-  height: calc(var(--radius) * 2);
+  height: 4px;
 `;
 
 const Timing = () => {
   const track = useRef(null);
   const progress = useRef(null);
   const point = useRef(null);
+  const [draging, setDraging] = useState(false);
   const [isHoverTime, setIsHoverTime] = useState(false);
   const [hoverRatio, setHoverRatio] = useState(0);
   const [playerRatio, setPlayerRatio] = useState(0);
@@ -62,12 +71,31 @@ const Timing = () => {
     setHoverRatio((clientX - left) / width);
   };
 
-  const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
-    const { clientX, currentTarget } = event;
-    const { left, width } = currentTarget.getBoundingClientRect();
-    const ratio = (clientX - left) / width;
-    setPlayerRatio(ratio);
-  };
+  useEffect(() => {
+    const ele = track.current as HTMLDivElement;
+    const mousedown$ = fromEvent<MouseEvent>(ele, "mousedown");
+    const mouseup$ = fromEvent<MouseEvent>(document, "mouseup");
+    const subscription = mousedown$
+      .pipe(
+        withLatestFrom(mouseup$),
+        map(([{ currentTarget }, { clientX }]) => {
+          const rect = currentTarget.getBoundingClientRect();
+          const left =
+            rect.left > clientX
+              ? rect.left
+              : rect.left + rect.width < clientX
+              ? rect.left + rect.width
+              : clientX;
+          return (left - rect.left) / rect.width;
+        })
+      )
+      .subscribe({
+        next: (ratio) => {
+          dispatch(actionUpdate({ jumpTime: duration * ratio }));
+        },
+      });
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     const ele = track.current as HTMLDivElement;
@@ -96,13 +124,13 @@ const Timing = () => {
     const subscription = mousedown$
       .pipe(
         map(({ clientX, currentTarget, target }) => {
+          setDraging(true);
           return track.current.getBoundingClientRect();
         }),
         map((rect) =>
           mousemove$.pipe(
             takeUntil(mouseup$),
             map((mouseMoveEvent) => {
-              console.log(rect.left);
               const { clientX } = mouseMoveEvent;
               const diffX = clientX - rect.left;
               const left =
@@ -122,14 +150,14 @@ const Timing = () => {
   }, []);
 
   useEffect(() => {
-    setPlayerRatio(currentTime / duration);
-  }, [currentTime, duration]);
+    if (!draging) setPlayerRatio(currentTime / duration);
+  }, [currentTime, duration, draging]);
 
   return (
     <Context>
       {isHoverTime && <Hover hoverRatio={hoverRatio} />}
       <Buffer />
-      <Track ref={track} onMouseMove={handleMouseMove} onClick={handleClick}>
+      <Track ref={track} onMouseMove={handleMouseMove}>
         <Progress ref={progress} style={{ width: `${playerRatio * 100}%` }}>
           <Point ref={point} />
         </Progress>

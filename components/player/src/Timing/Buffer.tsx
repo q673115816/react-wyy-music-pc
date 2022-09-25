@@ -12,7 +12,7 @@ const Item = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  background-color: gainsboro;
+  background-color: #6e6e6e;
 `;
 
 const Buffer = () => {

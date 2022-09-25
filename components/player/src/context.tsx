@@ -15,7 +15,7 @@ export const initialState: State = {
   duration: 0,
   currentTime: 0,
   jumpTime: 0,
-  volume: 100,
+  volume: 1,
   muted: false,
 };
 

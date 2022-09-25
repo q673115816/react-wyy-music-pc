@@ -35,12 +35,9 @@ const Pausing = styled.div`
 
 const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
   const { dispatch, state } = useContext(AppContext);
-  const { full, jumpTime, play, currentTime, duration } = state;
+  const { full, jumpTime, play, currentTime, duration, volume, muted } = state;
   const video = useRef<HTMLVideoElement>(null);
-  const [fullStatus, toggleFull] = useToggle(false);
-  const isFullScreen = useFullscreen(video, fullStatus, {
-    onClose: () => toggleFull(false),
-  });
+
   const handleTogglePlay = () => {
     dispatch(actionUpdate({ play: !play }));
   };
@@ -84,13 +81,18 @@ const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
     if (play) video.current.play();
     else video.current.pause();
   }, [play]);
-  useUpdateEffect(() => {
-    toggleFull();
-  }, [full]);
 
   useEffect(() => {
     (video.current as HTMLVideoElement).currentTime = jumpTime;
   }, [jumpTime]);
+
+  useEffect(() => {
+    (video.current as HTMLVideoElement).volume = volume;
+  }, [volume]);
+
+  useEffect(() => {
+    (video.current as HTMLVideoElement).muted = muted;
+  }, [muted]);
 
   return (
     <div
