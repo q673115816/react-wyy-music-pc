@@ -102,9 +102,9 @@ const Sound = () => {
           mousemove$.pipe(
             takeUntil(mouseup$),
             map(({ clientX }) => {
-              const left = clientX - rect.left;
-              const _left = left < 0 ? 0 : left > rect.width ? 1 : left;
-              return _left / rect.width;
+              const diff = clientX - rect.left;
+              const left = diff < 0 ? 0 : diff > rect.width ? rect.width : diff;
+              return left / rect.width;
             })
           )
         ),
