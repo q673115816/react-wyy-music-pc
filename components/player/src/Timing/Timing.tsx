@@ -10,11 +10,14 @@ import { AppContext } from "../context";
 import Buffer from "./Buffer";
 import {
   concatAll,
+  concatMap,
   fromEvent,
   map,
   merge,
+  mergeMap,
   switchMap,
   takeUntil,
+  tap,
   withLatestFrom,
 } from "rxjs";
 import Hover from "./Hover";
@@ -71,31 +74,20 @@ const Timing = () => {
     setHoverRatio((clientX - left) / width);
   };
 
-  useEffect(() => {
-    const ele = track.current as HTMLDivElement;
-    const mousedown$ = fromEvent<MouseEvent>(ele, "mousedown");
-    const mouseup$ = fromEvent<MouseEvent>(document, "mouseup");
-    const subscription = mousedown$
-      .pipe(
-        withLatestFrom(mouseup$),
-        map(([{ currentTarget }, { clientX }]) => {
-          const rect = currentTarget.getBoundingClientRect();
-          const left =
-            rect.left > clientX
-              ? rect.left
-              : rect.left + rect.width < clientX
-              ? rect.left + rect.width
-              : clientX;
-          return (left - rect.left) / rect.width;
-        })
-      )
-      .subscribe({
-        next: (ratio) => {
-          dispatch(actionUpdate({ jumpTime: duration * ratio }));
-        },
-      });
-    return () => subscription.unsubscribe();
-  }, []);
+  const handleClick: MouseEventHandler<HTMLDivElement> = ({
+    currentTarget,
+    clientX,
+  }) => {
+    const rect = currentTarget.getBoundingClientRect();
+    const left =
+      rect.left > clientX
+        ? rect.left
+        : rect.left + rect.width < clientX
+        ? rect.left + rect.width
+        : clientX;
+    const ratio = (left - rect.left) / rect.width;
+    dispatch(actionUpdate({ jumpRatio: ratio }));
+  };
 
   useEffect(() => {
     const ele = track.current as HTMLDivElement;
@@ -129,7 +121,13 @@ const Timing = () => {
         }),
         map((rect) =>
           mousemove$.pipe(
-            takeUntil(mouseup$),
+            takeUntil(
+              mouseup$.pipe(
+                tap(() => {
+                  setDraging(false);
+                })
+              )
+            ),
             map((mouseMoveEvent) => {
               const { clientX } = mouseMoveEvent;
               const diffX = clientX - rect.left;
@@ -157,7 +155,7 @@ const Timing = () => {
     <Context>
       {isHoverTime && <Hover hoverRatio={hoverRatio} />}
       <Buffer />
-      <Track ref={track} onMouseMove={handleMouseMove}>
+      <Track ref={track} onMouseMove={handleMouseMove} onClick={handleClick}>
         <Progress ref={progress} style={{ width: `${playerRatio * 100}%` }}>
           <Point ref={point} />
         </Progress>

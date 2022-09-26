@@ -6,7 +6,7 @@ import React, {
   useReducer,
 } from "react";
 import { reducer } from "./reducers";
-import type { State, Action } from "./types";
+import { State, Action, VOLUME, MUTED } from "./types";
 
 export const initialState: State = {
   play: true,
@@ -15,6 +15,7 @@ export const initialState: State = {
   duration: 0,
   currentTime: 0,
   jumpTime: 0,
+  jumpRatio: 0,
   volume: 1,
   muted: false,
 };

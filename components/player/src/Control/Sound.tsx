@@ -12,6 +12,8 @@ import styled from "styled-components";
 import { concatAll, fromEvent, map, takeUntil } from "rxjs";
 import { AppContext } from "../context";
 import { actionUpdate } from "../reducers";
+import { MUTED, VOLUME } from "../types";
+import { useEffectOnce, useLocalStorage } from "react-use";
 
 const Content = styled.div`
   display: flex;
@@ -26,7 +28,7 @@ const Point = styled.div`
   opacity: 0;
   position: absolute;
   top: 50%;
-  right: 0;
+  left: 100%;
   transform: translate(0, -50%);
   width: 8px;
   height: 8px;
@@ -64,9 +66,15 @@ const Sound = () => {
   const { state, dispatch } = useContext(AppContext);
   const { volume, muted } = state;
   const [width, setWidth] = useState(() => (muted ? 0 : volume));
+  const track = useRef<HTMLDivElement>(null);
   const point = useRef<HTMLDivElement>(null);
-
+  const [initialVolume, SET_VOLUME] = useLocalStorage(VOLUME, 1);
+  const [initialMuted, SET_MUTED] = useLocalStorage(MUTED, false);
+  useEffectOnce(() => {
+    dispatch(actionUpdate({ muted: initialMuted, volume: initialVolume }));
+  });
   const handleToggleMute = () => {
+    SET_MUTED(!muted);
     dispatch(actionUpdate({ muted: !muted }));
   };
 
@@ -75,33 +83,38 @@ const Sound = () => {
     const rect = currentTarget.getBoundingClientRect();
     const left = clientX - rect.left;
     const volume = left / rect.width;
+    SET_MUTED(false);
+    SET_VOLUME(volume);
     dispatch(actionUpdate({ volume, muted: false }));
   };
 
   useEffect(() => {
-    const mousedown$ = fromEvent(point.current, "mousedown");
-    const mousemove$ = fromEvent(document, "mousemove");
-    const mouseup$ = fromEvent(document, "mouseup");
+    const mousedown$ = fromEvent<MouseEvent>(point.current, "mousedown");
+    const mousemove$ = fromEvent<MouseEvent>(document, "mousemove");
+    const mouseup$ = fromEvent<MouseEvent>(document, "mouseup");
 
     const subscription = mousedown$
       .pipe(
-        map((e) => {
-          console.log(e);
-          return e;
+        map(() => {
+          return track.current.getBoundingClientRect();
         }),
-        map((mouseDownEvent) =>
+        map((rect) =>
           mousemove$.pipe(
             takeUntil(mouseup$),
-            map((mouseMoveEvent) => {
-              return mouseMoveEvent;
+            map(({ clientX }) => {
+              const left = clientX - rect.left;
+              const _left = left < 0 ? 0 : left > rect.width ? 1 : left;
+              return _left / rect.width;
             })
           )
         ),
         concatAll()
       )
       .subscribe({
-        next: (data) => {
-          console.log(data);
+        next: (volume) => {
+          SET_MUTED(false);
+          SET_VOLUME(volume);
+          dispatch(actionUpdate({ volume, muted: false }));
         },
       });
     return () => subscription.unsubscribe();
@@ -120,7 +133,7 @@ const Sound = () => {
           <IconVoice width={16} />
         )}
       </Button>
-      <Background onClick={handleClick}>
+      <Background onClick={handleClick} ref={track}>
         <Inner width={width * 100}>
           <Point ref={point} />
         </Inner>

@@ -12,6 +12,7 @@ export interface State {
   duration: number;
   currentTime: number;
   jumpTime: number;
+  jumpRatio: number;
   volume: number;
   muted: boolean;
 }
@@ -20,3 +21,6 @@ export interface Action {
   type: string;
   payload?: any;
 }
+
+export const VOLUME = "REACT_PLAYER_VOLUME";
+export const MUTED = "REACT_PLAYER_MUTED";

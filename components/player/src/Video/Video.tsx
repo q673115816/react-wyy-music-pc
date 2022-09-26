@@ -35,7 +35,16 @@ const Pausing = styled.div`
 
 const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
   const { dispatch, state } = useContext(AppContext);
-  const { full, jumpTime, play, currentTime, duration, volume, muted } = state;
+  const {
+    full,
+    jumpTime,
+    play,
+    currentTime,
+    duration,
+    volume,
+    muted,
+    jumpRatio,
+  } = state;
   const video = useRef<HTMLVideoElement>(null);
 
   const handleTogglePlay = () => {
@@ -74,7 +83,7 @@ const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
     currentTarget,
   }) => {
     const { duration } = currentTarget;
-    dispatch(actionUpdate({ duration }));
+    dispatch(actionUpdate({ duration, play: true }));
   };
 
   useUpdateEffect(() => {
@@ -83,8 +92,8 @@ const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
   }, [play]);
 
   useEffect(() => {
-    (video.current as HTMLVideoElement).currentTime = jumpTime;
-  }, [jumpTime]);
+    (video.current as HTMLVideoElement).currentTime = jumpRatio * duration;
+  }, [jumpRatio]);
 
   useEffect(() => {
     (video.current as HTMLVideoElement).volume = volume;
