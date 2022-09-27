@@ -5,9 +5,11 @@ import React, {
   FC,
   ReactEventHandler,
   useContext,
+  useState,
 } from "react";
 import classNames from "classnames";
 import IconPlayerPlay from "../assets/play.svg";
+import IconRefresh from "../assets/refresh.svg";
 import { AppContext } from "../context";
 import type { PlayerProps } from "../types";
 import styled from "styled-components";
@@ -35,24 +37,15 @@ const Pausing = styled.div`
 
 const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
   const { dispatch, state } = useContext(AppContext);
-  const {
-    full,
-    jumpTime,
-    play,
-    currentTime,
-    duration,
-    volume,
-    muted,
-    jumpRatio,
-  } = state;
+  const { full, play, currentTime, duration, volume, muted, jumpRatio } = state;
   const video = useRef<HTMLVideoElement>(null);
-
+  const [isEnd, setIsEnd] = useState(false);
   const handleTogglePlay = () => {
     dispatch(actionUpdate({ play: !play }));
   };
 
-  const handleEnd = () => {
-    //
+  const handleEnded = () => {
+    setIsEnd(true);
   };
 
   const handleDoubleClick = async () => {
@@ -121,6 +114,7 @@ const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
             onClick={handleTogglePlay}
             src={url}
             ref={video}
+            onEnded={handleEnded}
             onProgress={handleProgress}
             onTimeUpdate={handleTimeUpdate}
             onDoubleClick={handleDoubleClick}
@@ -132,6 +126,11 @@ const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
           {!play && (
             <Pausing onClick={handleTogglePlay}>
               <IconPlayerPlay width={36} />
+            </Pausing>
+          )}
+          {isEnd && (
+            <Pausing>
+              <IconRefresh width={36} />
             </Pausing>
           )}
           {/*<div className="absolute text-gray-300 inset-0 flex-center flex-col bg-black bg-opacity-60">

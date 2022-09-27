@@ -3,7 +3,6 @@ import React, {
   useState,
   memo,
   useCallback,
-  ReactNode,
   createElement,
   FC,
 } from "react";
@@ -42,7 +41,6 @@ const Music = () => {
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
   const [data, setData] = useImmer({});
-  // const [privileges, setPrivileges] = useState([]);
   const [status, setStatus] = useState<Paths>(navs[0][1]);
   const handleInit = async () => {
     try {

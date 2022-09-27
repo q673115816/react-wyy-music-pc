@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import { apiCommentLike } from "@/api";
 import { IconThumbUp, IconScreenShare, IconMessageCircle } from "@tabler/icons";
-import { transTextEmoji } from "@/components/Emoji";
-
+import Parse from "./Parse";
 const enum Types {
   "歌曲",
   "MV",
@@ -30,7 +29,7 @@ const Comment: FC<iProps> = ({
 }) => {
   const handleClick = async (id, t) => {
     try {
-      const {} = await apiCommentLike({
+      await apiCommentLike({
         id,
         cid,
         t,
@@ -67,7 +66,7 @@ const Comment: FC<iProps> = ({
             {item.user.nickname}：
           </Link>
           <span className="select-text text-gray-500">
-            {transTextEmoji(item.content)}
+            <Parse>{item.content}</Parse>
           </span>
         </div>
         {item.beReplied.map((beReplied) => (
@@ -81,7 +80,7 @@ const Comment: FC<iProps> = ({
                   {beReplied.user.nickname}：
                 </Link>
                 <span className=" select-text text-gray-500">
-                  {transTextEmoji(beReplied.content)}
+                  <Parse>{beReplied.content}</Parse>
                 </span>
               </>
             ) : (
