@@ -2,11 +2,11 @@ import React, { FC, memo } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import { IconThumbUp, IconShare, IconMessage, IconDots } from "@tabler/icons";
-import { transTextEmoji } from "@/components/Emoji";
 import Song from "./Song";
 import PicsViewer from "@q673115816/pics-viewer";
 import Resource from "./Resource";
 import Popup from "@/components/Event/Popup";
+import Parse from "@/components/Comments/Parse";
 
 const types = {
   18: "分享单曲",
@@ -75,7 +75,7 @@ const Event: FC<iProps> = ({
         </div>
         <div className="article">
           <div className="text whitespace-pre-line text-sm mt-2.5">
-            {json.msg && transTextEmoji(json.msg)}
+            {json.msg && <Parse text={json.msg} />}
           </div>
           <Resource item={json.resource} />
           <Song item={json.song} />

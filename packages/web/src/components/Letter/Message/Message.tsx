@@ -1,6 +1,5 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
-import { transTextEmoji } from "@/components/Emoji";
 import { apiSendText, apiMsgPrivateHistory } from "@/api";
 import {
   letterSelector,
@@ -16,17 +15,17 @@ import Album from "./Album";
 import Circle from "./Circle";
 import Promotion from "./Promotion";
 import Image from "./Image";
-import Msg from "./Msg";
 import style from "./Message.module.scss";
 import classNames from "classnames";
 import { useToast } from "@/components/Toast";
+import Parse from "@/components/Comments/Parse";
 
 const Content = ({ msg = {} }) => {
   const { type } = msg;
   if (type === 16) return <Image msg={msg} />;
   return (
     <>
-      {transTextEmoji(msg.msg)}
+      <Parse text={msg.msg} />
       {type === 1 && <Song msg={msg} />}
       {type === 2 && <Album msg={msg} />}
     </>

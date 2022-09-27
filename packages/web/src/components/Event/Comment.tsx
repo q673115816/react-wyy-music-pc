@@ -1,9 +1,12 @@
-import React, { memo } from "react";
+import React, { FC, memo } from "react";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
-import { transTextEmoji } from "@/components/Emoji";
+import Parse from "@/components/Comments/Parse";
+interface iProps {
+  comment: any;
+}
 
-const Comment = ({ comment }) => (
+const Comment: FC<iProps> = ({ comment }) => (
   <div className="flex py-4 px-3" key={comment.commentId}>
     <Link
       to={`/user/${comment.user.userId}`}
@@ -20,7 +23,7 @@ const Comment = ({ comment }) => (
         <Link to={`/user/${comment.user.userId}`} className="ui_link">
           {`${comment.user.nickname}：`}
         </Link>
-        {transTextEmoji(comment.content)}
+        <Parse text={comment.content} />
       </div>
       {comment.beReplied.length > 0 && (
         <div className="bg-white px-2 py-1 mt-2 rounded">
@@ -31,7 +34,7 @@ const Comment = ({ comment }) => (
             @{comment.beReplied[0].user.nickname}：
           </Link>
           <span className={`text-gray-500`}>
-            {transTextEmoji(comment.beReplied[0].content)}
+            <Parse text={comment.beReplied[0].content} />
           </span>
         </div>
       )}

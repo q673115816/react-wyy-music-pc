@@ -66,7 +66,7 @@ const Comment: FC<iProps> = ({
             {item.user.nickname}：
           </Link>
           <span className="select-text text-gray-500">
-            <Parse>{item.content}</Parse>
+            <Parse text={item.content} />
           </span>
         </div>
         {item.beReplied.map((beReplied) => (
@@ -80,7 +80,7 @@ const Comment: FC<iProps> = ({
                   {beReplied.user.nickname}：
                 </Link>
                 <span className=" select-text text-gray-500">
-                  <Parse>{beReplied.content}</Parse>
+                  <Parse text={beReplied.content} />
                 </span>
               </>
             ) : (
