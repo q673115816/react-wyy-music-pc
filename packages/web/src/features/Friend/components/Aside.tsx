@@ -13,7 +13,7 @@ const Aside = () => {
     <div className="flex-none" style={{ width: 250 }}>
       <div className="">
         {profile.userId ? (
-          <div className="h-40 pt-8 bg-gray-100">
+          <div className="py-8 bg-gray-100">
             <div className="top flex gap-2 px-5 items-start">
               <Link
                 to={`/user/${profile.userId}`}
@@ -31,7 +31,7 @@ const Aside = () => {
                   &nbsp;
                   <Gender gender={profile.gender} size={14} />
                 </div>
-                <div className={`text-gray-500 truncate`}>
+                <div className={`break-all text-gray-500`}>
                   {profile.signature}
                 </div>
               </div>

@@ -10,28 +10,44 @@ const Parse: FC<iProps> = ({ text }) => {
   const result = useMemo(() => {
     const result = [];
     const decode = transTextEmoji(text);
-    const reg = /@(?<user>.{2,}?)(?=\s)|#(?<event>.+?)#/g;
+    const reg = /(?<user>@[^@\s]{2,}?(?=\s|$))|(?<event>#[^#]+?#)/g;
     let temp = null;
     let index = 0;
     while ((temp = reg.exec(decode))) {
-      const word = temp.slice(index, temp.index);
+      const word = decode.slice(index, temp.index);
       if (word) result.push(word);
       index = temp.index + temp[0].length;
       const { user, event } = temp.groups;
       if (user) {
         result.push(
-          createElement(Link, { to: `/user/redirect/${user}` }, user)
+          createElement(
+            Link,
+            {
+              to: `/user/redirect/${user.slice(1)}`,
+              className: `ui_link`,
+              key: temp.index,
+            },
+            user
+          )
         );
       }
       if (event) {
         result.push(
-          createElement(Link, { to: `/friend/redirect/${event}` }, event)
+          createElement(
+            Link,
+            {
+              to: `/friend/redirect/${event.slice(1, -1)}`,
+              className: `ui_link`,
+              key: temp.index,
+            },
+            event
+          )
         );
       }
     }
     return result;
   }, [text]);
-  return <span>{transTextEmoji(text)}</span>;
+  return <span>{result}</span>;
 };
 
 export default memo(Parse);

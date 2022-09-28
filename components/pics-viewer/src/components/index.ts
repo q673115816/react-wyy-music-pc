@@ -10,4 +10,3 @@ export { default as Controls } from "./Controls";
 export { default as DetailContainer } from "./DetailContainer";
 export { default as DetailBar } from "./DetailBar";
 export { default as DetailBarItem } from "./DetailBarItem";
-export { default as ArrowsExpandUpRight } from "./ArrowsExpandUpRight";

@@ -10,7 +10,6 @@ import {
   DetailBar,
   DetailContainer,
   Controls,
-  ArrowsExpandUpRight,
   DetailBarItem,
 } from "./components";
 import { createPortal } from "react-dom";
@@ -42,10 +41,7 @@ const Detail: FC<iProps & Active> = ({
           <Button onClick={() => control.reset()}>收起</Button>
         </DetailBarItem>
         <DetailBarItem>
-          <Button onClick={() => detailControl.set(value)}>
-            <ArrowsExpandUpRight />
-            查看大图
-          </Button>
+          <Button onClick={() => detailControl.set(value)}>查看大图</Button>
         </DetailBarItem>
         <DetailBarItem>
           <Button onClick={() => download(srcList[value].originUrl)}>

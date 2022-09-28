@@ -22,7 +22,7 @@ export const api = createApi({
         body,
       }),
     }),
-    getEvent: build.mutation<Events, { lasttime: number }>({
+    getEvent: build.query<Events, { lasttime: number }>({
       query: (body) => ({
         url: `event`,
         method: "POST",
@@ -43,6 +43,7 @@ export const {
   useGetHotTopicQuery,
   useGetTopicDetailQuery,
   useLazyGetTopicDetailQuery,
-  useGetEventMutation,
+  useGetEventQuery,
+  useLazyGetEventQuery,
   useGetTopicDetailEventHotQuery,
 } = api;

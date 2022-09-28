@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Friend from "./Friend";
 import Topic from "./Topic";

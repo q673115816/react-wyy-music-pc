@@ -1,10 +1,17 @@
 import styled from "styled-components";
 
 const DetailBarItem = styled.div`
-  display: flex;
-  gap: 1rem;
-  padding: 0.5rem;
-  border-right: 1px solid black;
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(0, -50%);
+    width: 1px;
+    height: 12px;
+    background-color: #dadadb;
+  }
 `;
 
 export default DetailBarItem;
