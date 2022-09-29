@@ -10,14 +10,11 @@ const Parse: FC<iProps> = ({ text }) => {
   const result = useMemo(() => {
     const result = [];
     const decode = transTextEmoji(text);
-    const reg = /(?<user>@[^@\s]{2,}?(?=\s|$))|(?<event>#[^#]+?#)/g;
+    const reg =
+      /(?<user>@[^@\s]{2,}?(?=\s|$))|(?<event>#[^#]+?#)|(?<other>.+?)/g;
     let temp = null;
-    let index = 0;
     while ((temp = reg.exec(decode))) {
-      const word = decode.slice(index, temp.index);
-      if (word) result.push(word);
-      index = temp.index + temp[0].length;
-      const { user, event } = temp.groups;
+      const { user, event, other } = temp.groups;
       if (user) {
         result.push(
           createElement(
@@ -43,6 +40,9 @@ const Parse: FC<iProps> = ({ text }) => {
             event
           )
         );
+      }
+      if (other) {
+        result.push(other);
       }
     }
     return result;
