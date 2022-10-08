@@ -1,12 +1,7 @@
 import { ResRelated } from "./types";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../base";
+import { baseApi } from "../base";
 
-export const reducerPath = "player/api";
-
-export const api = createApi({
-  reducerPath,
-  baseQuery,
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getRelatedAllVideo: build.query<ResRelated, { id: string }>({
       query: (body) => ({

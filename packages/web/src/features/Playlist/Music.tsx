@@ -16,10 +16,10 @@ import Header from "./components/Header";
 import Playlist from "./components/Playlist";
 import Comments from "./components/Comments";
 import Subscribers from "./components/Subscribers";
-import { useAppDispatch } from "@/modules/hooks";
 import { useParams } from "react-router-dom";
 import { useImmer } from "use-immer";
 import { useToast } from "@/components/Toast";
+import { useGetPlaylistDetailQuery } from "@/modules/services/playlist";
 
 type Paths = "Playlist" | "Comments" | "Subscribers";
 
@@ -42,6 +42,9 @@ const Music = () => {
   const [songs, setSongs] = useState([]);
   const [data, setData] = useImmer({});
   const [status, setStatus] = useState<Paths>(navs[0][1]);
+  // const {} = useGetPlaylistDetailQuery({
+  //   id
+  // })
   const handleInit = async () => {
     try {
       const data = await apiPlaylistDetail({

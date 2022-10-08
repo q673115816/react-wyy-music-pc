@@ -1,12 +1,7 @@
 import { SimiSongs } from "./types";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../base";
+import { baseApi } from "../base";
 
-export const reducerPath = "lrc/api";
-
-export const api = createApi({
-  reducerPath,
-  baseQuery,
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getSimiSong: build.query<SimiSongs, { id: number }>({
       query: (body) => ({

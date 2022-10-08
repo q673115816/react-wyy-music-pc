@@ -1,8 +1,4 @@
 import { MVAll } from "./types";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../base";
-
-export const reducerPath = "mv/api";
 
 export const filter = (arr = []) =>
   arr.map(({ id, playCount, cover, name, artists, briefDesc }) => ({
@@ -17,10 +13,9 @@ export const filter = (arr = []) =>
       userName,
     })),
   }));
+import { baseApi } from "../base";
 
-export const api = createApi({
-  reducerPath,
-  baseQuery,
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getMVAll: build.query<MVAll, { order: string; limit: number }>({
       query: (body) => ({

@@ -6,15 +6,9 @@ import {
   resComment,
   Comments,
 } from "./types";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../base";
+import { baseApi } from "../base";
 
-export const reducerPath = "comment/api";
-
-export const api = createApi({
-  reducerPath,
-  baseQuery,
-  tagTypes: ["comment/playlist"],
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getCommentVideo: build.query<ResCommentVideo, { id: string }>({
       query: (body) => ({

@@ -8,14 +8,9 @@ interface ReqArtists {
   offset: number;
 }
 
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../../base";
+import { baseApi } from "../../base";
 
-export const reducerPath = "discover/topList/api";
-
-export const api = createApi({
-  reducerPath,
-  baseQuery,
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getArtistList: build.mutation<Artists, ReqArtists>({
       query: (body) => ({

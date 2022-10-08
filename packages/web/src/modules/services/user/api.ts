@@ -10,15 +10,9 @@ import {
   Evnets,
   SignInProgressError,
 } from "./types";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../base";
+import { baseApi } from "../base";
 
-export const reducerPath = "user/api";
-
-export const api = createApi({
-  reducerPath,
-  baseQuery,
-  tagTypes: ["user"],
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getUserCloud: build.query<Clouds, { limit: number }>({
       query: (body) => ({

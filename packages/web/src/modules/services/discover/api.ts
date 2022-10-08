@@ -9,14 +9,9 @@ import {
   Highqualitys,
   Playlists,
 } from "./types";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../base";
+import { baseApi } from "../base";
 
-export const reducerPath = "discover/api";
-
-export const api = createApi({
-  reducerPath,
-  baseQuery,
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getRecommendResource: build.query<Resources, void>({
       query: () => ({

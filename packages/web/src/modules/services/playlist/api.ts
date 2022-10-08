@@ -1,12 +1,7 @@
 import { Details } from "./types";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../base";
+import { baseApi } from "../base";
 
-export const reducerPath = "playlist/api";
-
-export const api = createApi({
-  reducerPath,
-  baseQuery,
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getPlaylistDetail: build.query<Details, { id: number; limit?: number }>({
       query: (body) => ({
@@ -15,7 +10,14 @@ export const api = createApi({
         body,
       }),
     }),
+    getSongDetail: build.query<Details, { ids: string }>({
+      query: (body) => ({
+        url: `song/detail`,
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetPlaylistDetailQuery } = api;
+export const { useGetPlaylistDetailQuery, useGetSongDetailQuery } = api;

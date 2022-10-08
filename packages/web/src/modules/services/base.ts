@@ -8,7 +8,7 @@ import {
   retry,
 } from "@reduxjs/toolkit/query/react";
 import { QueryReturnValue } from "@reduxjs/toolkit/dist/query/baseQueryTypes";
-import { Get } from "@/modules/utils";
+import { REHYDRATE } from "redux-persist";
 
 // Create our baseQuery instance
 const baseQuery = fetchBaseQuery({
@@ -112,3 +112,21 @@ const baseQueryWithIntercept: BaseQueryFn<
 const baseQueryWithRetry = retry(baseQueryWithIntercept, { maxRetries: 2 });
 
 export default baseQueryWithRetry;
+
+export const baseApi = createApi({
+  reducerPath: "splitApi",
+  baseQuery: baseQueryWithRetry,
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === REHYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
+  tagTypes: ["user", "comment/playlist", "artist/detail"],
+  endpoints: () => ({}),
+});
+
+export const enhancedApi = baseApi.enhanceEndpoints({
+  endpoints: () => ({
+    getPost: () => "test",
+  }),
+});

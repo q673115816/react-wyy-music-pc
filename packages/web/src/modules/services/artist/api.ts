@@ -8,14 +8,9 @@ import {
   ArtistMV,
   Sub,
 } from "./types";
-import { createApi } from "@reduxjs/toolkit/query/react";
-import baseQuery from "../base";
+import { baseApi } from "../base";
 
-export const reducerPath = "artist/api";
-
-export const api = createApi({
-  reducerPath,
-  baseQuery,
+export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getArtistDetail: build.query<Detail, Req>({
       query: (body) => ({
