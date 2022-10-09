@@ -10,13 +10,11 @@ import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { IconBulb, IconMenu } from "@tabler/icons";
 import style from "./HomeOrder.module.scss";
 import HOCDialog from "../Dialog/Dialog";
-import classNames from "classnames";
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
-  ResponderProvided,
   DroppableProvided,
   DraggableProvided,
 } from "react-beautiful-dnd";

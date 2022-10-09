@@ -1,10 +1,10 @@
 import React, { FC, memo, MouseEventHandler, PropsWithChildren } from "react";
-import { useDispatch } from "react-redux";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
 import { IconX } from "@tabler/icons";
 import Mask from "@/components/Mask";
 import { useImmerReducer, Reducer } from "use-immer";
 import classNames from "classnames";
+import { useAppDispatch } from "@/modules/hooks";
 
 interface State {
   drag: boolean;
@@ -57,7 +57,7 @@ interface iProps extends PropsWithChildren {
 }
 
 const Dialog: FC<iProps> = ({ children, id, title, className = "" }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [dialogState, dialogDispatch] = useImmerReducer(reducer, initialState);
   const onMouseDown: MouseEventHandler = (e) => {
     dialogDispatch({
@@ -90,10 +90,14 @@ const Dialog: FC<iProps> = ({ children, id, title, className = "" }) => {
   return (
     <Mask onMouseMove={onMouseMove} onMouseUp={handleMouseUp}>
       <div
-        className={classNames("ui_dialog bg-white shadow rounded", className)}
+        className={classNames(
+          "ui_dialog bg-white shadow rounded absolute",
+          className
+        )}
         id={id}
         style={{
-          transform: `translate(${dialogState.moveX}px, ${dialogState.moveY}px)`,
+          top: dialogState.moveY,
+          left: dialogState.moveX,
         }}
       >
         <button
