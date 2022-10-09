@@ -10,6 +10,15 @@ export interface Details extends ResWithCode {
   privileges: [];
 }
 
+export interface Subscribe extends ResWithCode {
+  [key: string]: any;
+}
+
+export interface Subscriber extends ResWithCode {
+  total: number;
+  subscribers: [];
+}
+
 export interface Track {
   id: number;
   name: string;

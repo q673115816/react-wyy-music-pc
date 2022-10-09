@@ -34,7 +34,7 @@ const paths: { [key in Order]: string } = {
   主播电台: "/discover/dj",
 };
 
-const nodes: { [key in Order]: FC } = {
+const nodes: { [key in Order]: FC<any> } = {
   推荐歌单: playlist,
   独家放送: Privatecontent,
   最新音乐: NewSong,
@@ -71,7 +71,7 @@ const Recommend = () => {
     <div className="px-8 overflow-auto max-h-full flex-auto">
       <div className="ui_w1100">
         <Swiper banners={banners} />
-        {order.map((name) => {
+        {order.map((name: Order) => {
           return (
             <div className="mt-8" key={name}>
               <Link className="h1 inline-flex items-center" to={paths[name]}>

@@ -13,8 +13,8 @@ export const defaultOrder: Orders = [
   "推荐歌单",
   "独家放送",
   "最新音乐",
-  "推荐MV",
   "主播电台",
+  "推荐MV",
 ];
 
 interface State {
