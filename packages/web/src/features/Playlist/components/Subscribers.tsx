@@ -1,9 +1,9 @@
-import React, { memo, useEffect, useState } from "react";
-import { apiPlaylistSubscribers } from "@/api";
+import React, { memo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Gender from "@/components/Gender";
 import Page from "@/components/Page";
 import Loading from "@/components/Loading";
+import { useGetPlaylistSubscriberQuery } from "@/modules/services/playlist";
 
 interface iSubscribers {
   avatarUrl: string;
@@ -15,29 +15,15 @@ interface iSubscribers {
 
 const limit = 60;
 
-export default memo(function Subscribers() {
-  const { id } = useParams();
+const Subscribers = () => {
+  const { id = "" } = useParams();
   const [page, setPage] = useState(1);
-  const [data, setData] = useState({});
-  const [loading, setLoading] = useState(true);
-  const handleInit = async () => {
-    const { subscribers, total } = await apiPlaylistSubscribers({
-      id,
-      limit,
-      offset: (page - 1) * limit,
-    });
-    setData({
-      subscribers,
-      total,
-    });
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    handleInit();
-  }, []);
-
-  if (loading)
+  const { data, isLoading } = useGetPlaylistSubscriberQuery({
+    id,
+    limit,
+    offset: (page - 1) * limit,
+  });
+  if (isLoading)
     return (
       <div className={`flex-center pt-32`}>
         <Loading />
@@ -72,4 +58,6 @@ export default memo(function Subscribers() {
       <Page total={Math.ceil(data?.total / limit)} page={page} func={setPage} />
     </div>
   );
-});
+};
+
+export default memo(Subscribers);

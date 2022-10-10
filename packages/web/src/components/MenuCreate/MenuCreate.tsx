@@ -44,7 +44,7 @@ const MenuCreate: FC<iProps> = ({
           contextMenuTotal: total,
           contextMenuType: type,
           contextMenuItemId: item.id,
-          contextMenuSechma: schema,
+          contextMenuSchema: schema,
         })
       );
     } catch (error) {

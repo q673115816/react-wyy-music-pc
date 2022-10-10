@@ -10,6 +10,7 @@ import {
 } from "@/components/Symbol";
 import { IconBrandGithub } from "@tabler/icons";
 import {
+  maskSelector,
   setDialogReset,
   setDialogShareWXShow,
 } from "@/modules/reducers/mask/slice";
@@ -18,6 +19,8 @@ import "./style.scss";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useCopyToClipboard } from "react-use";
 import { useToast } from "@/components/Toast";
+import { commonSelector } from "@/modules/reducers/common/slice";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 const types = {
   songs: "单曲",
@@ -32,9 +35,9 @@ const Share = () => {
     contextMenuType,
     contextMenuItemId,
     contextMenuItem,
-  } = useAppSelector(({ mask }) => mask);
-  const { profile } = useAppSelector(({ account }) => account);
-  const { baseUrl, gitUrl } = useAppSelector(({ common }) => common);
+  } = useAppSelector(maskSelector);
+  const { profile } = useAppSelector(accountSelector);
+  const { baseUrl, gitUrl } = useAppSelector(commonSelector);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
   const type = "music";
   const shareGit = `${gitUrl}/share/${type}/${contextMenuItemId}`;
@@ -151,4 +154,3 @@ const Share = () => {
   );
 };
 export default memo(Share);
-// export default HOCDialog(Share, 'dialogShare', '分享');

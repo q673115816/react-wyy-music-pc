@@ -1,16 +1,16 @@
-import { Details, Subscribe, Subscriber } from "./types";
+import { Playlist, Song, Subscribe, Subscriber } from "./types";
 import { baseApi } from "../base";
 
 export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getPlaylistDetail: build.query<Details, { id: string; limit?: number }>({
+    getPlaylistDetail: build.query<Playlist, { id: string; limit?: number }>({
       query: (body) => ({
         url: `playlist/detail`,
         method: "POST",
         body,
       }),
     }),
-    getSongDetail: build.query<Details, { ids: string }>({
+    getSongDetail: build.query<Song, { ids: string }>({
       query: (body) => ({
         url: `song/detail`,
         method: "POST",

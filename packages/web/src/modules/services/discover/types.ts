@@ -5,7 +5,6 @@ import {
   ResWithCode,
   Newsong,
   Privatecontent,
-  Song,
 } from "../types";
 
 export interface Resources extends ResWithCode {

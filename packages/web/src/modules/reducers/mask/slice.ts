@@ -24,7 +24,7 @@ const maskState = {
   contextMenuType: "",
   contextMenuItemId: 0,
   contextMenuItem: {},
-  contextMenuSechma: [],
+  contextMenuSchema: [],
   contextMenuShareLink: "",
 };
 

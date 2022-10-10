@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from "react";
+import React, { useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,6 +20,7 @@ import {
   setDialogShareShow,
   setDialogCreatePlaylistShow,
   setContextMenuShareLink,
+  maskSelector,
 } from "@/modules/reducers/mask/slice";
 import { useToast } from "@/components/Toast";
 import {
@@ -27,14 +28,18 @@ import {
   setAudioImmediateNext,
 } from "@/modules/reducers/audio/slice";
 import { apiMVSub } from "@/api";
-import useCopyLink from "@/hooks/useCopyLink";
-import DomMask from "@/components/Mask";
+import Mask from "@/components/Mask";
 import "./Contextmenu.scss";
 import { useCopyToClipboard } from "react-use";
+import { insetSelector } from "@/modules/reducers/inset/slice";
+import { accountSelector } from "@/modules/reducers/account/slice";
+import { commonSelector } from "@/modules/reducers/common/slice";
+import List from "./List";
+import Item from "./Item";
 
 const initBuild = (functionClose) => ({
   评论: ({ contextMenuItem, contextMenuTotal, contextMenuType }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <Link
         to={`/comment/${contextMenuType}/${contextMenuItem.id}`}
         onClick={functionClose}
@@ -45,10 +50,10 @@ const initBuild = (functionClose) => ({
         </i>
         查看评论 ({contextMenuTotal})
       </Link>
-    </li>
+    </Item>
   ),
   播放: ({ handlePlay }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <button
         type="button"
         onClick={handlePlay}
@@ -59,10 +64,10 @@ const initBuild = (functionClose) => ({
         </i>
         播放(Enter)
       </button>
-    </li>
+    </Item>
   ),
   下一首播放: ({ handlePlayNext }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <button
         onClick={handlePlayNext}
         type="button"
@@ -73,10 +78,10 @@ const initBuild = (functionClose) => ({
         </i>
         下一首播放
       </button>
-    </li>
+    </Item>
   ),
   播放歌单: ({ handlePlayPlaylist }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <button
         type="button"
         onClick={handlePlayPlaylist}
@@ -87,10 +92,10 @@ const initBuild = (functionClose) => ({
         </i>
         播放(Enter)
       </button>
-    </li>
+    </Item>
   ),
   下一首播放歌单: ({ handlePlayNextPlaylist }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <button
         onClick={handlePlayNextPlaylist}
         type="button"
@@ -101,10 +106,10 @@ const initBuild = (functionClose) => ({
         </i>
         下一首播放
       </button>
-    </li>
+    </Item>
   ),
   查看歌单: ({ contextMenuItem }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <Link
         to={`/playlist/music/${contextMenuItem.id}`}
         onClick={functionClose}
@@ -115,10 +120,10 @@ const initBuild = (functionClose) => ({
         </i>
         查看歌单
       </Link>
-    </li>
+    </Item>
   ),
   播放MV: ({ contextMenuItem, contextMenuType }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <Link
         to={`/player/${contextMenuType}/${contextMenuItem.id}`}
         onClick={functionClose}
@@ -129,10 +134,10 @@ const initBuild = (functionClose) => ({
         </i>
         播放MV
       </Link>
-    </li>
+    </Item>
   ),
   收藏MV: ({ handleSubscribeMV }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <button
         onClick={handleSubscribeMV}
         type="button"
@@ -143,10 +148,10 @@ const initBuild = (functionClose) => ({
         </i>
         收藏MV
       </button>
-    </li>
+    </Item>
   ),
   收藏到歌单: ({ handleCreatePlaylist, ownPlaylist = [] }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <span className="ui_contextmenu_btn ">
         <i className="ico">
           <IconFolderPlus size={22} stroke={1} />
@@ -154,8 +159,8 @@ const initBuild = (functionClose) => ({
         收藏到歌单(Ctrl+S)
         <i className="arrow" />
       </span>
-      <ul className="ui_contextmenu sub">
-        <li className="ui_contextmenu_item">
+      <List className="sub">
+        <Item>
           <button
             type="button"
             onClick={handleCreatePlaylist}
@@ -166,10 +171,9 @@ const initBuild = (functionClose) => ({
             </i>
             创建新歌单
           </button>
-        </li>
-        <li className="hr" />
+        </Item>
         {ownPlaylist.map((item) => (
-          <li className="ui_contextmenu_item" key={item.id}>
+          <Item key={item.id}>
             <button type="button" className="ui_contextmenu_btn ">
               <i className="ico">
                 {item.privacy === 10 ? (
@@ -180,13 +184,13 @@ const initBuild = (functionClose) => ({
               </i>
               {item.name}
             </button>
-          </li>
+          </Item>
         ))}
-      </ul>
-    </li>
+      </List>
+    </Item>
   ),
   分享: ({ handleDialogShare }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <button
         onClick={handleDialogShare}
         type="button"
@@ -197,10 +201,10 @@ const initBuild = (functionClose) => ({
         </i>
         分享.....
       </button>
-    </li>
+    </Item>
   ),
   复制链接: ({ handleCopyLink }) => (
-    <li className="ui_contextmenu_item">
+    <Item>
       <button
         type="button"
         onClick={handleCopyLink}
@@ -211,10 +215,10 @@ const initBuild = (functionClose) => ({
         </i>
         复制链接
       </button>
-    </li>
+    </Item>
   ),
-  不感兴趣: ({}) => (
-    <li className="ui_contextmenu_item">
+  不感兴趣: () => (
+    <Item>
       <span className="ui_contextmenu_btn ">
         <i className="ico">
           <IconCircleX size={22} stroke={1} />
@@ -222,31 +226,30 @@ const initBuild = (functionClose) => ({
         不感兴趣
         <i className="arrow" />
       </span>
-      <ul className="ui_contextmenu sub">
-        <li className="ui_contextmenu_item">
+      <List className="sub">
+        <Item>
           <button type="button" className="ui_contextmenu_btn ">
             <i className="ico" />
             创建新歌单
           </button>
-        </li>
-        <li className="hr" />
-        <li className="ui_contextmenu_item">
+        </Item>
+        <Item>
           <button type="button" className="ui_contextmenu_btn ">
             <i className="ico" />
             创建新歌单
           </button>
-        </li>
-        <li className="ui_contextmenu_item">
+        </Item>
+        <Item>
           <button type="button" className="ui_contextmenu_btn ">
             <i className="ico" />
             创建新歌单
           </button>
-        </li>
-      </ul>
-    </li>
+        </Item>
+      </List>
+    </Item>
   ),
   下载: () => (
-    <li className="ui_contextmenu_item ">
+    <Item>
       <span className="ui_contextmenu_btn ">
         <i className="ico">
           <IconDownload size={22} stroke={1} />
@@ -254,34 +257,33 @@ const initBuild = (functionClose) => ({
         下载(L)
         <i className="arrow" />
       </span>
-      <ul className="ui_contextmenu sub">
-        <li className="ui_contextmenu_item">
+      <List className="sub">
+        <Item>
           <button type="button" className="ui_contextmenu_btn ">
             <i className="ico">
               <IconCirclePlus size={22} stroke={1} />
             </i>
             创建新歌单
           </button>
-        </li>
-        <li className="hr" />
-        <li className="ui_contextmenu_item">
+        </Item>
+        <Item>
           <button type="button" className="ui_contextmenu_btn ">
             <i className="ico">
               <IconMusic size={22} stroke={1} />
             </i>
             创建新歌单
           </button>
-        </li>
-        <li className="ui_contextmenu_item">
+        </Item>
+        <Item>
           <button type="button" className="ui_contextmenu_btn ">
             <i className="ico">
               <IconMusic size={22} stroke={1} />
             </i>
             创建新歌单
           </button>
-        </li>
-      </ul>
-    </li>
+        </Item>
+      </List>
+    </Item>
   ),
 });
 
@@ -289,21 +291,20 @@ const Contextmenu = () => {
   const dispatch = useDispatch();
   const [, copyToClipboard] = useCopyToClipboard();
   const toast = useToast();
-  const { baseUrl } = useSelector(({ common }) => common);
-  const { profile, playlist } = useSelector(({ account }) => account);
+  const { baseUrl } = useSelector(commonSelector);
+  const { profile, playlist } = useSelector(accountSelector);
   const {
     contextMenuVisibility,
     contextMenuX,
     contextMenuY,
     contextMenuItem,
     contextMenuTotal,
-    contextMenuSechma,
+    contextMenuSchema,
     contextMenuType,
     contextMenuItemId,
-  } = useSelector(({ mask }) => mask);
-  const { globalX, globalY } = useSelector(({ inset }) => inset);
-  // console.log(globalLastY, contextMenuY);
-  const ownPlaylist = playlist.filter((item) => item.subscribed === false);
+  } = useSelector(maskSelector);
+  const { globalX, globalY } = useSelector(insetSelector);
+  const ownPlaylist = playlist.filter((item) => !item.subscribed);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
   useEffect(() => {
     dispatch(
@@ -373,17 +374,15 @@ const Contextmenu = () => {
 
   const Build = useMemo(() => {
     const Dom = initBuild(() => dispatch(setDialogReset()));
-    return contextMenuSechma.map((block) => [
+    return contextMenuSchema.map((block) => [
       block.join(","),
       block.map((item) => [item, Dom[item]]),
     ]);
-  }, [contextMenuSechma]);
+  }, [contextMenuSchema]);
   if (!contextMenuVisibility) return null;
   return (
-    <DomMask>
-      <ul
-        id="contextmenu"
-        className="ui_contextmenu divide-y"
+    <Mask>
+      <List
         style={{ left: contextMenuX - globalX, top: contextMenuY - globalY }}
       >
         {Build.map(([wrapname, block]) => (
@@ -409,8 +408,8 @@ const Contextmenu = () => {
             ))}
           </div>
         ))}
-      </ul>
-    </DomMask>
+      </List>
+    </Mask>
   );
 };
 

@@ -1,43 +1,11 @@
 .ui_contextmenu {
-  position: absolute;
   width: 224px;
-  z-index: 50;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.33);
-  border: 1px solid #C7C7C7;
-  padding: 2px;
   &.sub {
     display: none;
     top: 0;
     left: 99%;
     &:hover {
       display: block;
-    }
-  }
-  &_item {
-    position: relative;
-  }
-
-  &_btn {
-    user-select: none;
-    display: flex;
-    height: 36px;
-    line-height: 36px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    &:hover {
-      background-color: #EDEDEF;
-    }
-
-    .ico {
-      width: 40px;
-      padding-left: 10px;
-    }
-    &:hover {
-      & + .sub {
-        display: block;
-      }
     }
   }
 
@@ -48,5 +16,26 @@
     border-width: 4px 8px;
     border-style: solid;
     border-left-color: #000;
+  }
+}
+
+.ui_contextmenu_btn {
+  display: flex;
+  height: 36px;
+  line-height: 36px;
+  align-items: center;
+  width: 100%;
+  &:hover {
+    background-color: #EDEDEF;
+  }
+
+  .ico {
+    width: 40px;
+    padding-left: 10px;
+  }
+  &:hover {
+    & + .sub {
+      display: block;
+    }
   }
 }

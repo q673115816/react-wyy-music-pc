@@ -1,12 +1,17 @@
 import { ResWithCode } from "../types";
 
-export interface Details extends ResWithCode {
+export interface Playlist extends ResWithCode {
   playlist: {
     id: number;
     updateTime: number;
     coverImgUrl: string;
     tracks: Track[];
   };
+  privileges: [];
+}
+
+export interface Song extends ResWithCode {
+  songs: [];
   privileges: [];
 }
 

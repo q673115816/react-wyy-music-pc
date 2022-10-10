@@ -1,13 +1,4 @@
-import React, {
-  useEffect,
-  useState,
-  memo,
-  useCallback,
-  createElement,
-  FC,
-} from "react";
-
-import { apiPlaylistDetail, apiPlaylistSubscribe, apiSongDetail } from "@/api";
+import React, { useEffect, useState, memo, createElement, FC } from "react";
 
 import classNames from "classnames";
 import Loading from "@/components/Loading";
@@ -17,9 +8,11 @@ import Playlist from "./components/Playlist";
 import Comments from "./components/Comments";
 import Subscribers from "./components/Subscribers";
 import { useParams } from "react-router-dom";
-import { useImmer } from "use-immer";
-import { useToast } from "@/components/Toast";
-import { useGetPlaylistDetailQuery } from "@/modules/services/playlist";
+import {
+  useLazyGetPlaylistDetailQuery,
+  useLazyGetSongDetailQuery,
+} from "@/modules/services/playlist";
+import GroupPlay from "@/components/GroupPlay";
 
 type Paths = "Playlist" | "Comments" | "Subscribers";
 
@@ -36,59 +29,23 @@ const Contents: Record<Paths, FC<any>> = {
 };
 
 const Music = () => {
-  const { id } = useParams();
-  const toast = useToast();
-  const [loading, setLoading] = useState(true);
-  const [songs, setSongs] = useState([]);
-  const [data, setData] = useImmer({});
-  const [status, setStatus] = useState<Paths>(navs[0][1]);
-  // const {} = useGetPlaylistDetailQuery({
-  //   id
-  // })
-  const handleInit = async () => {
-    try {
-      const data = await apiPlaylistDetail({
-        id,
-      });
-      setData(data);
-      if (data.playlist.trackCount > 0) {
-        const { songs } = await apiSongDetail({
-          ids: data.playlist.trackIds.map(({ id }) => id).join(","),
-        });
-        setSongs(songs);
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // TODO
-  const handleSub = useCallback(
-    async (isSub) => {
-      try {
-        const { code } = await apiPlaylistSubscribe({
-          t: isSub ? 2 : 1,
-          id,
-        });
-        if (code === 200) {
-          toast(isSub ? "取消收藏成功！" : "收藏成功！");
-          setData((draft) => {
-            draft.playlist.subscribed = !isSub;
-          });
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [id]
-  );
+  const { id = "" } = useParams();
+  const [status, setStatus] = useState(navs[0][1]);
+  const [playlistDetailGet, { data: playlistData }] =
+    useLazyGetPlaylistDetailQuery();
+  const [songDetailGet, { data: songsData, isSuccess }] =
+    useLazyGetSongDetailQuery();
 
   useEffect(() => {
-    handleInit();
+    (async () => {
+      const { data } = await playlistDetailGet({ id });
+      await songDetailGet({
+        ids: data.playlist.trackIds.map(({ id }) => id).join(","),
+      });
+    })();
   }, [id]);
 
-  if (loading)
+  if (!isSuccess)
     return (
       <div className="w-full h-full flex-center">
         <Loading />
@@ -96,7 +53,9 @@ const Music = () => {
     );
   return (
     <div className="overflow-auto h-full">
-      <Header data={data} handleSub={handleSub} songs={songs} />
+      <Header data={playlistData}>
+        <GroupPlay playlist={songsData.songs} />
+      </Header>
       <div className="mt-4">
         <div className="space-x-4 flex items-baseline px-8">
           {navs.map(([nav, code]) => (
@@ -110,11 +69,11 @@ const Music = () => {
               onClick={() => setStatus(code)}
             >
               {nav}
-              {nav === "评论" && `(${data.playlist.commentCount})`}
+              {nav === "评论" && `(${playlistData.playlist.commentCount})`}
             </button>
           ))}
         </div>
-        <div>{createElement(Contents[status], { songs })}</div>
+        <div>{createElement(Contents[status], { songs: songsData.songs })}</div>
       </div>
     </div>
   );
