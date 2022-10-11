@@ -1,6 +1,5 @@
 import React, { createElement, FC, memo } from "react";
 import { IconX } from "@tabler/icons";
-import { commonSelector } from "@/modules/reducers/common/slice";
 import { useImmerReducer } from "use-immer";
 import "./style.scss";
 import Scan from "./Scan";
@@ -14,11 +13,10 @@ import {
   LoginReducer,
   LoginContext,
   LoginType,
-  LoginState,
 } from "./Content";
 import { maskSelector, setLoginVisibilty } from "@/modules/reducers/mask/slice";
 
-const Build: { [key in LoginType]: FC } = {
+const Build: { [key in LoginType]: FC<any> } = {
   Scan,
   SignIn,
   SignUp,
@@ -38,11 +36,11 @@ const Login = () => {
   return (
     <div
       id="dialogLogin"
-      className="-translate-x-1/2 -translate-y-1/2 bg-white fixed left-1/2 rounded shadow top-1/2 transform ui_dialog"
+      className="-translate-x-1/2 -translate-y-1/2 bg-white fixed left-1/2 rounded shadow top-1/2 transform"
     >
       <button
         type="button"
-        className="ui_dialog_close close"
+        className="absolute top-2.5 right-2.5 text-2xl z-10 text-gray-500"
         onClick={() => dispatch(setLoginVisibilty())}
       >
         <IconX stroke={1.5} />

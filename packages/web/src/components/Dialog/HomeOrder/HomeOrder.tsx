@@ -8,7 +8,6 @@ import {
 } from "@/modules/reducers/settings/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { IconBulb, IconMenu } from "@tabler/icons";
-import style from "./HomeOrder.module.scss";
 import HOCDialog from "../Dialog/Dialog";
 import {
   DragDropContext,
@@ -52,11 +51,7 @@ const HomeOrder = () => {
 
   if (!dialogHomeOrderVisibility) return null;
   return (
-    <HOCDialog
-      id="dialogHomeOrder"
-      className={style.dialogHomeOrder}
-      title="调整栏目顺序"
-    >
+    <HOCDialog title="调整栏目顺序" width={388}>
       <div className="content">
         <div className="tips mx-10 text-gray-400 mb-6 flex items-center">
           <IconBulb size={14} />

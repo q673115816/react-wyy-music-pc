@@ -1,9 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setDialogReset } from "@/modules/reducers/mask/slice";
+import { maskSelector, setDialogReset } from "@/modules/reducers/mask/slice";
 import DomCheckbox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
-import "./style.scss";
 
 const list = [
   ["标清", true],
@@ -13,9 +12,7 @@ const list = [
 
 export default () => {
   const dispatch = useDispatch();
-  const { callback, dialogDownloadVideoVisibility } = useSelector(
-    ({ mask }) => mask
-  );
+  const { callback, dialogDownloadVideoVisibility } = useSelector(maskSelector);
   const handleConfirm = () => {
     callback();
     dispatch(setDialogReset());

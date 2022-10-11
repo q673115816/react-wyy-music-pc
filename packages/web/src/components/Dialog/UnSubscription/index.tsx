@@ -2,7 +2,6 @@ import React, { memo } from "react";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
 import { useToast } from "@/components/Toast";
 import HOCDialog from "../Dialog/Dialog";
-import "./style.scss";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { usePostArtistSubMutation } from "@/modules/services/artist";
 
@@ -26,7 +25,7 @@ const UnSubscription = () => {
   };
   if (!dialogUnSubscriptionVisibility) return null;
   return (
-    <HOCDialog id="dialogUnSubscription" title="">
+    <HOCDialog width={370} title="">
       <div className="main">
         <div className="content">
           <div className="text-center">确定要取消收藏该歌手？</div>

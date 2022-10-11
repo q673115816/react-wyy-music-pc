@@ -1,19 +1,18 @@
 import React from "react";
-import { setDialogReset } from "@/modules/reducers/mask/slice";
-import { useDispatch, useSelector } from "react-redux";
+import { maskSelector, setDialogReset } from "@/modules/reducers/mask/slice";
 import QRcode from "qrcode.react";
 import HOCDialog from "../Dialog/Dialog";
-import "./style.scss";
+import style from "./style.module.scss";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 export default () => {
-  const dispatch = useDispatch();
-  const { contextMenuShareLink, dialogShareWXVisibility } = useSelector(
-    ({ mask }) => mask
-  );
+  const dispatch = useAppDispatch();
+  const { contextMenuShareLink, dialogShareWXVisibility } =
+    useAppSelector(maskSelector);
   if (!dialogShareWXVisibility) return null;
   return (
-    <HOCDialog id="dialogShareWX" title="分享">
-      <div className="content">
+    <HOCDialog title="分享">
+      <div className={style.content}>
         <div className="qr">
           <QRcode
             size={110}
@@ -21,7 +20,7 @@ export default () => {
             value={contextMenuShareLink}
             title={contextMenuShareLink}
           />
-          <div className="tips">打开微信，扫一扫~</div>
+          <div className={style.tips}>打开微信，扫一扫~</div>
         </div>
         <button
           type="button"

@@ -8,7 +8,6 @@ import React, {
   useState,
 } from "react";
 import Dialog from "../Dialog";
-import "./style.scss";
 import { concatAll, filter, fromEvent, map, takeUntil } from "rxjs";
 import { useGetSetState } from "react-use";
 import { clamp } from "lodash";
@@ -194,7 +193,7 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
   }, []);
 
   return (
-    <Dialog id="dialogUploadAvatar" title="上传头像">
+    <Dialog title="上传头像">
       <div className="">
         <div className="flex justify-center">
           <div className="bg-black rounded overflow-hidden">

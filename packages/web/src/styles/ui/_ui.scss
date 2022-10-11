@@ -174,32 +174,6 @@
   align-items: center;
 }
 
-.ui_dialog {
-  width: min-content;
-  height: min-content;
-  z-index: 20;
-
-  &_close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 36px;
-    z-index: 2;
-    color: #999;
-
-  }
-
-  &_header {
-    height: 70px;
-    cursor: move;
-  }
-
-  &_title {
-    font-size: 16px;
-    font-weight: bold;
-  }
-}
-
 .ui_threes_ico {
   width: calc(var(--size) * 1px);
   height: calc(var(--size) * 1px);

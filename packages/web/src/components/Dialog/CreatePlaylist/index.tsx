@@ -3,11 +3,11 @@ import { apiPlaylistCreate } from "@/api";
 import classNames from "classnames";
 import DomCheckbox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
-import "./style.scss";
 import { useAppSelector } from "@/modules/hooks";
+import { maskSelector } from "@/modules/reducers/mask/slice";
 
 const CreatePlayList = () => {
-  const { dialogCreatePlaylistVisibility } = useAppSelector(({ mask }) => mask);
+  const { dialogCreatePlaylistVisibility } = useAppSelector(maskSelector);
   const [name, setName] = useState("");
   const privacy = useRef();
   const handleSubmit = async (e) => {
@@ -25,7 +25,7 @@ const CreatePlayList = () => {
   };
   if (!dialogCreatePlaylistVisibility) return null;
   return (
-    <HOCDialog id="dialogCreatePlaylist" title="新建歌单">
+    <HOCDialog title="新建歌单">
       <form className="content px-4 pb-8" onSubmit={handleSubmit}>
         <div>
           <input

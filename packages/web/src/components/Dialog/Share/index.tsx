@@ -15,12 +15,13 @@ import {
   setDialogShareWXShow,
 } from "@/modules/reducers/mask/slice";
 import HOCDialog from "../Dialog/Dialog";
-import "./style.scss";
+import style from "./style.module.scss";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useCopyToClipboard } from "react-use";
 import { useToast } from "@/components/Toast";
 import { commonSelector } from "@/modules/reducers/common/slice";
 import { accountSelector } from "@/modules/reducers/account/slice";
+import classNames from "classnames";
 
 const types = {
   songs: "单曲",
@@ -62,10 +63,13 @@ const Share = () => {
   };
   if (!dialogShareVisibility) return null;
   return (
-    <HOCDialog id="dialogShare" title="分享">
-      <div className="list divide-y">
+    <HOCDialog title="分享">
+      <div className={classNames(style.list, "divide-y")}>
         <div>
-          <button type="button" className="item flex items-center">
+          <button
+            type="button"
+            className={classNames(style.item, "flex items-center")}
+          >
             <i className="mr-2.5">
               <SymbolWYY active />
             </i>
@@ -73,7 +77,10 @@ const Share = () => {
           </button>
         </div>
         <div>
-          <button type="button" className="item flex items-center">
+          <button
+            type="button"
+            className={classNames(style.item, "flex items-center")}
+          >
             <i className="mr-2.5">
               <SymbolSX active />
             </i>
@@ -83,7 +90,7 @@ const Share = () => {
         <div>
           <button
             type="button"
-            className="item flex items-center"
+            className={classNames(style.item, "flex items-center")}
             onClick={handleShareWX}
           >
             <i className="mr-2.5">
@@ -102,7 +109,7 @@ const Share = () => {
               .slice(1)}&pics=${
               contextMenuItem.al.picUrl
             }?imageView&thumbnail=120y120`}
-            className="item flex items-center"
+            className={classNames(style.item, "flex items-center")}
           >
             <i className="mr-2.5">
               <SymbolQQ active />
@@ -111,7 +118,7 @@ const Share = () => {
           </a>
         </div>
         <div>
-          <a href="#" className="item flex items-center">
+          <a href="#" className={classNames(style.item, "flex items-center")}>
             <i className="mr-2.5">
               <SymbolQZ active />
             </i>
@@ -119,7 +126,7 @@ const Share = () => {
           </a>
         </div>
         <div>
-          <a href="#" className="item flex items-center">
+          <a href="#" className={classNames(style.item, "flex items-center")}>
             <i className="mr-2.5">
               <SymbolWB active />
             </i>
@@ -130,7 +137,7 @@ const Share = () => {
           <button
             onClick={handleCopyLink}
             type="button"
-            className="item flex items-center"
+            className={classNames(style.item, "flex items-center")}
           >
             <i className="mr-2.5">
               <SymbolLJ active />
@@ -140,7 +147,7 @@ const Share = () => {
         </div>
         <div>
           <button
-            className="item flex items-center"
+            className={classNames(style.item, "flex items-center")}
             onClick={handleCustomShare}
           >
             <i className="mr-2.5 flex-center w-10 h-10 border rounded-full">
