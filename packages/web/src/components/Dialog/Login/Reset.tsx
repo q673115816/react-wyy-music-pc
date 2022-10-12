@@ -10,7 +10,7 @@ import { apiRegisterCellphone } from "@/api";
 import {
   actionSwitchIdentify,
   actionSwitchSignUp,
-  LoginContext,
+  loginContext,
 } from "./Content";
 import DomSelect from "./components/Select";
 
@@ -19,9 +19,9 @@ const Reset = () => {
   const [password, setPassword] = useState("");
   const [warn, setWarn] = useState("");
   const {
-    loginReducer: { countrycode },
+    loginState: { countrycode },
     loginDispatch,
-  } = useContext(LoginContext);
+  } = useContext(loginContext);
 
   const handleFocus = () => {};
 

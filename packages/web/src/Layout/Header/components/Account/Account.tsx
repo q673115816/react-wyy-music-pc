@@ -1,7 +1,7 @@
 import React, { useState, memo, MouseEventHandler, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { IconUser, IconCaretDown } from "@tabler/icons";
-import { setLoginVisibilty } from "@/modules/reducers/mask/slice";
+import { toggleLoginVisibility } from "@/modules/reducers/mask/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Profile from "./Profile";
 import { accountSelector } from "@/modules/reducers/account/slice";
@@ -16,7 +16,7 @@ const Account = () => {
     []
   );
   const handleShowLogin = () => {
-    dispatch(setLoginVisibilty());
+    dispatch(toggleLoginVisibility());
   };
   return (
     <div className="ml-auto flex relative items-center space-x-2 mr-2 h-full">

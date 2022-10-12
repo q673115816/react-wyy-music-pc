@@ -1,6 +1,6 @@
 import React from "react";
 import { maskSelector, setDialogReset } from "@/modules/reducers/mask/slice";
-import QRcode from "qrcode.react";
+import QRCode from "qrcode.react";
 import HOCDialog from "../Dialog/Dialog";
 import style from "./style.module.scss";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
@@ -14,7 +14,7 @@ export default () => {
     <HOCDialog title="分享">
       <div className={style.content}>
         <div className="qr">
-          <QRcode
+          <QRCode
             size={110}
             level="H"
             value={contextMenuShareLink}

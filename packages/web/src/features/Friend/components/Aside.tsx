@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { Link } from "react-router-dom";
 import Gender from "@/components/Gender";
-import { setLoginVisibilty } from "@/modules/reducers/mask/slice";
+import { toggleLoginVisibility } from "@/modules/reducers/mask/slice";
 import TopicList from "./TopicList";
 import React, { memo } from "react";
 import { accountSelector } from "@/modules/reducers/account/slice";
@@ -69,7 +69,7 @@ const Aside = () => {
             <button
               type="button"
               className="ui_theme_bg_color text-white w-full h-10 mt-4 rounded-full"
-              onClick={() => dispatch(setLoginVisibilty())}
+              onClick={() => dispatch(toggleLoginVisibility())}
             >
               立即登录
             </button>

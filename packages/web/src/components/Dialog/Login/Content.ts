@@ -1,7 +1,17 @@
-import { createContext } from "react";
+import { createContext, Dispatch } from "react";
 import { Reducer } from "use-immer";
 
-export const LoginContext = createContext<any>(null);
+export interface Action {
+  type: string;
+  payload?: any;
+}
+
+interface Context {
+  loginState: LoginState;
+  loginDispatch: Dispatch<Action>;
+}
+
+export const loginContext = createContext<Context>({} as Context);
 
 export const SET_TYPE = "SET_TYPE";
 export const SET_SIGNIN_WARN = "SET_SIGNIN_WARN";

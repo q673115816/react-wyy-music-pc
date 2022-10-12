@@ -12,7 +12,7 @@ import { unstable_batchedUpdates as batchedUpdates } from "react-dom";
 import {
   actionSwitchSignIn,
   actionSwitchSignUp,
-  LoginContext,
+  loginContext,
 } from "../Content";
 import Refresh from "@/components/Dialog/Login/Scan/Refresh";
 import { apiLoginQrCreate, apiLoginQrKey } from "@/api";
@@ -23,7 +23,7 @@ import { useGetLoginQRCheckMutation } from "@/modules/services/account";
 interface iProps {}
 
 const Content: FC<iProps> = () => {
-  const { loginDispatch } = useContext(LoginContext);
+  const { loginDispatch } = useContext(loginContext);
   const handleChooseOtherSign = () => loginDispatch(actionSwitchSignIn());
   const [qrimg, setQrimg] = useState("");
   const [key, setKey] = useState("");

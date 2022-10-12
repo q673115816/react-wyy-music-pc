@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { Link } from "react-router-dom";
 import { commonSelector } from "@/modules/reducers/common/slice";
-import { setLoginVisibilty } from "@/modules/reducers/mask/slice";
+import { toggleLoginVisibility } from "@/modules/reducers/mask/slice";
 
 const BuildBinding = (item) => {};
 
@@ -39,7 +39,7 @@ const UnLogined = () => {
       <button
         type="button"
         className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full_small inline-flex items-center justify-center h-6 px-3 rounded-full"
-        onClick={() => dispatch(setLoginVisibilty())}
+        onClick={() => dispatch(toggleLoginVisibility())}
       >
         立即登录
       </button>

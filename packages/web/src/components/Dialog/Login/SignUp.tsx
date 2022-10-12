@@ -7,15 +7,15 @@ import Submit from "./components/Submit";
 import {
   actionSwitchSignIn,
   actionSwitchSignUp,
-  LoginContext,
+  loginContext,
 } from "./Content";
 
 const SignUp = () => {
   const [warn, setWarn] = useState("");
   const {
-    loginReducer: { countrycode },
+    loginState: { countrycode },
     loginDispatch,
-  } = useContext(LoginContext);
+  } = useContext(loginContext);
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();

@@ -82,7 +82,7 @@ const slice = createSlice({
       state.popupStatus =
         state.popupStatus === "playlist" ? "false" : "playlist";
     },
-    setLoginVisibilty(state) {
+    toggleLoginVisibility(state) {
       state.loginVisibility = !state.loginVisibility;
     },
   },
@@ -105,5 +105,5 @@ export const {
   setPopupLetterToggle,
   setPopupPlaylistToggle,
   setSearchShow,
-  setLoginVisibilty,
+  toggleLoginVisibility,
 } = slice.actions;

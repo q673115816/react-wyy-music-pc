@@ -4,15 +4,15 @@ import { apiCaptchaSent } from "@/api";
 import {
   actionSwitchSignIn,
   actionSwitchSignUp,
-  LoginContext,
+  loginContext,
 } from "./Content";
 
 const Identify = () => {
   const [warn, setWarn] = useState("");
   const {
-    loginReducer: {},
+    loginState: {},
     loginDispatch,
-  } = useContext(LoginContext);
+  } = useContext(loginContext);
   const handleSubmit = () => {};
 
   const handleSend = async () => {

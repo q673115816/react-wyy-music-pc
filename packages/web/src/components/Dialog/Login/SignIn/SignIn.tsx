@@ -12,7 +12,7 @@ import { IconFaceId, IconQrcode } from "@tabler/icons";
 import style from "./signin.module.scss";
 import classNames from "classnames";
 import Checkbox from "@/components/CheckBox";
-import { actionSwitchScan, actionSwitchSignUp, LoginContext } from "../Content";
+import { actionSwitchScan, actionSwitchSignUp, loginContext } from "../Content";
 
 import { Set } from "@/modules/utils";
 import Argument from "./Argument";
@@ -24,9 +24,9 @@ const SignIn = () => {
   const RefAgreement = useRef(null);
   const RefForm = useRef(null);
   const {
-    loginReducer: { countrycode },
+    loginState: { countrycode },
     loginDispatch,
-  } = useContext(LoginContext);
+  } = useContext(loginContext);
 
   const [warn, setWarn] = useState("");
 

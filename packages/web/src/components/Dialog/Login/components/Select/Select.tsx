@@ -2,16 +2,16 @@ import React, { memo, useContext, useState } from "react";
 import classNames from "classnames";
 import style from "./select.module.scss";
 import { IconCaretDown, IconDeviceMobile } from "@tabler/icons";
-import { SET_SIGNIN_COUNTRYCODE, LoginContext } from "../../Content";
+import { SET_SIGNIN_COUNTRYCODE, loginContext } from "../../Content";
 import { useGetCountriesCodeListQuery } from "@/modules/services/account";
 
 const Select = () => {
   const { data, isLoading } = useGetCountriesCodeListQuery();
   const countriesCodeList = data?.data || [];
   const {
-    loginReducer: { countrycode },
+    loginState: { countrycode },
     loginDispatch,
-  } = useContext(LoginContext);
+  } = useContext(loginContext);
 
   const [visibility, setVisibility] = useState(false);
   const handleChoose = (countrycode: string) => {

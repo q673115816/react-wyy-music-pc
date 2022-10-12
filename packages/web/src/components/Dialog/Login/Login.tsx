@@ -11,10 +11,13 @@ import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   LoginInitialState,
   LoginReducer,
-  LoginContext,
+  loginContext,
   LoginType,
 } from "./Content";
-import { maskSelector, setLoginVisibilty } from "@/modules/reducers/mask/slice";
+import {
+  maskSelector,
+  toggleLoginVisibility,
+} from "@/modules/reducers/mask/slice";
 
 const Build: { [key in LoginType]: FC<any> } = {
   Scan,
@@ -27,27 +30,24 @@ const Build: { [key in LoginType]: FC<any> } = {
 const Login = () => {
   const dispatch = useAppDispatch();
   const { loginVisibility } = useAppSelector(maskSelector);
-  const [loginReducer, loginDispatch] = useImmerReducer(
+  const [loginState, loginDispatch] = useImmerReducer(
     LoginReducer,
     LoginInitialState
   );
-  const { type } = loginReducer;
+  const { type } = loginState;
   if (!loginVisibility) return null;
   return (
-    <div
-      id="dialogLogin"
-      className="-translate-x-1/2 -translate-y-1/2 bg-white fixed left-1/2 rounded shadow top-1/2 transform"
-    >
+    <div className="-translate-x-1/2 -translate-y-1/2 bg-white fixed left-1/2 rounded shadow top-1/2 transform">
       <button
         type="button"
         className="absolute top-2.5 right-2.5 text-2xl z-10 text-gray-500"
-        onClick={() => dispatch(setLoginVisibilty())}
+        onClick={() => dispatch(toggleLoginVisibility())}
       >
         <IconX stroke={1.5} />
       </button>
-      <LoginContext.Provider value={{ loginReducer, loginDispatch }}>
+      <loginContext.Provider value={{ loginState, loginDispatch }}>
         {createElement(Build[type])}
-      </LoginContext.Provider>
+      </loginContext.Provider>
     </div>
   );
 };

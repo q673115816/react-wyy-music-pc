@@ -365,7 +365,7 @@ const Contextmenu = () => {
   const handleDialogShare = useCallback(
     () =>
       // if (!isLogin) {
-      //   dispatch(setLoginVisibilty());
+      //   dispatch(toggleLoginVisibility());
       //   return dispatch(setDialogReset());
       // }
       dispatch(setDialogShareShow()),
