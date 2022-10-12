@@ -10,10 +10,10 @@ import React, {
 } from "react";
 import { setDialogReset } from "@/modules/reducers/mask/slice";
 import { IconX } from "@tabler/icons";
-import { useImmerReducer } from "use-immer";
 import classNames from "classnames";
 import { useAppDispatch } from "@/modules/hooks";
 import { concatAll, fromEvent, map, takeUntil } from "rxjs";
+import { useGetSetState } from "react-use";
 
 interface iProps extends PropsWithChildren {
   title: string;
@@ -31,7 +31,15 @@ const Dialog: FC<iProps> = ({
   const inset = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const handle = useRef<HTMLDivElement>(null);
-  const [state, setState] = useState({
+  const [insetState, setInsetState] = useState({
+    width: 0,
+    height: 0,
+  });
+  const [contentState, setContentState] = useState({
+    width: 0,
+    height: 0,
+  });
+  const [state, setState] = useGetSetState({
     top: 0,
     left: 0,
   });
@@ -41,6 +49,14 @@ const Dialog: FC<iProps> = ({
   };
 
   useLayoutEffect(() => {
+    setContentState({
+      width: content.current!.clientWidth,
+      height: content.current!.clientHeight,
+    });
+    setInsetState({
+      width: inset.current!.clientWidth,
+      height: inset.current!.clientHeight,
+    });
     setState({
       top: inset.current!.clientHeight / 2 - content.current!.clientHeight / 2,
       left: inset.current!.clientWidth / 2 - content.current!.clientWidth / 2,
@@ -56,8 +72,8 @@ const Dialog: FC<iProps> = ({
       .pipe(
         map(({ clientX, clientY }) => {
           return {
-            top: state.top,
-            left: state.left,
+            top: state().top,
+            left: state().left,
             startX: clientX,
             startY: clientY,
           };
@@ -67,8 +83,14 @@ const Dialog: FC<iProps> = ({
             takeUntil(mouseup$),
             map(({ clientX, clientY }) => {
               return {
-                top: top + clientY - startY,
-                left: left + clientX - startX,
+                top: Math.min(
+                  insetState.height - contentState.height,
+                  Math.max(0, top + clientY - startY)
+                ),
+                left: Math.min(
+                  insetState.width - contentState.width,
+                  Math.max(0, left + clientX - startX)
+                ),
               };
             })
           )
@@ -94,7 +116,7 @@ const Dialog: FC<iProps> = ({
         className={classNames("bg-white shadow rounded absolute", className)}
         style={{
           width,
-          ...state,
+          ...state(),
         }}
       >
         <button
