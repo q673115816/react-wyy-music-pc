@@ -1,7 +1,5 @@
 import React, { useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-
 import {
   IconMessage,
   IconArrowForward,
@@ -15,6 +13,7 @@ import {
   IconMusic,
   IconLock,
 } from "@tabler/icons";
+
 import {
   setDialogReset,
   setDialogShareShow,
@@ -36,6 +35,7 @@ import { accountSelector } from "@/modules/reducers/account/slice";
 import { commonSelector } from "@/modules/reducers/common/slice";
 import List from "./List";
 import Item from "./Item";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const initBuild = (functionClose) => ({
   评论: ({ contextMenuItem, contextMenuTotal, contextMenuType }) => (
@@ -288,11 +288,11 @@ const initBuild = (functionClose) => ({
 });
 
 const Contextmenu = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [, copyToClipboard] = useCopyToClipboard();
   const toast = useToast();
-  const { baseUrl } = useSelector(commonSelector);
-  const { profile, playlist } = useSelector(accountSelector);
+  const { baseUrl } = useAppSelector(commonSelector);
+  const { profile, playlist } = useAppSelector(accountSelector);
   const {
     contextMenuVisibility,
     contextMenuX,
@@ -302,8 +302,8 @@ const Contextmenu = () => {
     contextMenuSchema,
     contextMenuType,
     contextMenuItemId,
-  } = useSelector(maskSelector);
-  const { globalX, globalY } = useSelector(insetSelector);
+  } = useAppSelector(maskSelector);
+  const { globalX, globalY } = useAppSelector(insetSelector);
   const ownPlaylist = playlist.filter((item) => !item.subscribed);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
   useEffect(() => {

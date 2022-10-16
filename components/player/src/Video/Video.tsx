@@ -26,7 +26,7 @@ const Pausing = styled.div`
   width: 64px;
   height: 64px;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.8);
   border-radius: 50%;
   cursor: pointer;
@@ -80,8 +80,8 @@ const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
   };
 
   useUpdateEffect(() => {
-    if (play) video.current.play();
-    else video.current.pause();
+    if (play) video.current!.play();
+    else video.current!.pause();
   }, [play]);
 
   useEffect(() => {
@@ -129,9 +129,12 @@ const Video: FC<PlayerProps> = ({ url, detail, brs = [], fixed = false }) => {
             </Pausing>
           )}
           {isEnd && (
-            <Pausing>
-              <IconRefresh width={36} />
-            </Pausing>
+            <div>
+              <Pausing>
+                <IconRefresh width={36} />
+              </Pausing>
+              <div>重新播放</div>
+            </div>
           )}
           {/*<div className="absolute text-gray-300 inset-0 flex-center flex-col bg-black bg-opacity-60">
             <div className="text-sm">

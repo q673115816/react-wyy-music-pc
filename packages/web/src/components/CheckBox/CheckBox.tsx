@@ -1,6 +1,6 @@
 import React, {
   DetailedHTMLProps,
-  FC,
+  ForwardedRef,
   forwardRef,
   InputHTMLAttributes,
   ReactNode,
@@ -13,7 +13,7 @@ type iProps = {
   label?: ReactNode | null;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-const CheckBox = (props: iProps, ref) => {
+const CheckBox = (props, ref) => {
   const { label, className, ...other } = props;
   return (
     <label className="inline-flex items-center">

@@ -1,8 +1,8 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { maskSelector, setDialogReset } from "@/modules/reducers/mask/slice";
-import DomCheckbox from "@/components/CheckBox";
+import CheckBox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
+import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
 const list = [
   ["标清", true],
@@ -11,21 +11,22 @@ const list = [
 ];
 
 export default () => {
-  const dispatch = useDispatch();
-  const { callback, dialogDownloadVideoVisibility } = useSelector(maskSelector);
+  const dispatch = useAppDispatch();
+  const { callback, dialogDownloadVideoVisibility } =
+    useAppSelector(maskSelector);
   const handleConfirm = () => {
     callback();
     dispatch(setDialogReset());
   };
   if (!dialogDownloadVideoVisibility) return null;
   return (
-    <HOCDialog id="dialogDownloadVideo" title="选择下载清晰度">
+    <HOCDialog title="选择下载清晰度">
       <div className="content px-12 py-8">
         <div className="">
           {list.map(([label, state]) => (
             <div className="flex items-center" key={label}>
               <label htmlFor="">
-                <DomCheckbox />
+                <CheckBox />
                 {label}
               </label>
             </div>

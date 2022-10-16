@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { apiLoginStatus } from "@/api";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "@/modules/hooks";
 
 const useIsLogin = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const handleCheck = async () => {
     try {
       const {

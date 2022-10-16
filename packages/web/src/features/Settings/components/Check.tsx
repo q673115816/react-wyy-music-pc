@@ -1,8 +1,6 @@
 import React, { FC, memo } from "react";
-import { IconCheck } from "@tabler/icons";
 import Checkbox from "@/components/CheckBox";
 import { useToast } from "@/components/Toast";
-import { useDispatch } from "react-redux";
 
 interface iSettingCheck {
   list: [string, boolean?, string?][];
@@ -15,7 +13,6 @@ const Check: FC<iSettingCheck> = ({
   name = "",
   handle = () => {},
 }) => {
-  const dispatch = useDispatch();
   const toast = useToast();
   return (
     <div className="domSetting_subBlock_content">
