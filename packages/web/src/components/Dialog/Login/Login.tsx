@@ -1,7 +1,7 @@
 import React, { createElement, FC, memo } from "react";
 import { IconX } from "@tabler/icons";
 import { useImmerReducer } from "use-immer";
-import "./style.scss";
+import style from "./style.module.scss";
 import Scan from "./Scan";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -18,6 +18,7 @@ import {
   maskSelector,
   toggleLoginVisibility,
 } from "@/modules/reducers/mask/slice";
+import classNames from "classnames";
 
 const Build: { [key in LoginType]: FC<any> } = {
   Scan,
@@ -37,7 +38,12 @@ const Login = () => {
   const { type } = loginState;
   if (!loginVisibility) return null;
   return (
-    <div className="-translate-x-1/2 -translate-y-1/2 bg-white fixed left-1/2 rounded shadow top-1/2 transform">
+    <div
+      className={classNames(
+        style.dialog,
+        "-translate-x-1/2 -translate-y-1/2 bg-white fixed left-1/2 rounded shadow top-1/2 transform"
+      )}
+    >
       <button
         type="button"
         className="absolute top-2.5 right-2.5 text-2xl z-10 text-gray-500"

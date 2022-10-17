@@ -1,20 +1,15 @@
-import React, { FC, forwardRef, memo, useRef } from "react";
+import React, { forwardRef } from "react";
 import Select from "../Select";
 import Input from "../Input";
 import style from "./table.module.scss";
 import classNames from "classnames";
 import { IconLock } from "@tabler/icons";
 
-interface iProps {
-  reset?: boolean;
-}
-
-const Table = ({ reset = false }: iProps, ref) => {
-  const RefPassword = useRef(null);
+const Table = forwardRef<HTMLTableElement>((props, ref) => {
   return (
     <table
       ref={ref}
-      className={classNames(style.table, `w-full table-fixed border rounded`)}
+      className={`w-full table-fixed border rounded border-collapse`}
     >
       <tbody>
         <tr>
@@ -38,25 +33,11 @@ const Table = ({ reset = false }: iProps, ref) => {
               <div className={`flex-1`}>
                 <Input
                   Prefix={<IconLock size={18} stroke={1} />}
-                  ref={RefPassword}
                   type="password"
                   name="password"
                   placeholder="请输入密码"
                   autoComplete={"false"}
                 />
-              </div>
-              <div className={style.minCell}>
-                {reset && (
-                  <button
-                    type="button"
-                    className={classNames(
-                      "w-full text-gray-400 whitespace-nowrap"
-                    )}
-                    onClick={() => (RefPassword.current.value = "")}
-                  >
-                    重设密码
-                  </button>
-                )}
               </div>
             </div>
           </td>
@@ -64,6 +45,6 @@ const Table = ({ reset = false }: iProps, ref) => {
       </tbody>
     </table>
   );
-};
+});
 
-export default memo(forwardRef(Table));
+export default Table;

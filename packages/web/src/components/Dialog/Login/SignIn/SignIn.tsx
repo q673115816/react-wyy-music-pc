@@ -1,8 +1,6 @@
 import React, {
-  ChangeEventHandler,
   FormEventHandler,
   memo,
-  useCallback,
   useContext,
   useRef,
   useState,
@@ -31,7 +29,7 @@ const SignIn = () => {
   const [warn, setWarn] = useState("");
 
   const isArgeement = () => {
-    if (!RefAgreement.current.checked) {
+    if (!RefAgreement.current!.checked) {
       alert("请先勾选同意《服务条款》《服务条款》《服务条款》");
       return false;
     }
@@ -39,16 +37,16 @@ const SignIn = () => {
   };
 
   const handleCheck = () => {
-    const phone = RefForm.current.phone.value;
-    const password = RefForm.current.password.value;
+    const phone = RefForm.current!.phone.value;
+    const password = RefForm.current!.password.value;
     if (!phone) {
-      setWarn("⚠️请输入手机号");
+      setWarn("请输入手机号");
       return false;
     } else if (!password) {
-      setWarn("⚠️请输入密码");
+      setWarn("请输入密码");
       return false;
     } else if (!/\d{11}/.test(phone)) {
-      setWarn("⚠️请输入11位数字的手机号");
+      setWarn("请输入11位数字的手机号");
       return false;
     }
     return true;
@@ -58,15 +56,15 @@ const SignIn = () => {
     try {
       const { data, code, msg, cookie, token, profile } =
         await apiLoginCellphone({
-          phone: RefForm.current.phone.value,
-          password: RefForm.current.password.value,
+          phone: RefForm.current!.phone.value,
+          password: RefForm.current!.password.value,
           countrycode,
         });
       if (code === 200) {
         Set({ key: "cookie", value: cookie });
         window.location.reload();
       }
-      if (code === 502) setWarn(`⚠️${msg}`);
+      if (code === 502) setWarn(`${msg}`);
     } catch (error) {
       console.log(error);
     }
@@ -103,12 +101,25 @@ const SignIn = () => {
         <IconFaceId size={100} stroke={1} />
       </div>
       <form ref={RefForm} onSubmit={handleSubmit}>
-        <Table reset={true} />
-        <div className="py-4 flex">
-          <Checkbox
-            label={<span className={`text-gray-500`}>&nbsp;自动登录</span>}
-          />
-          <div className="warn ml-auto text-red-500">{warn}</div>
+        <Table />
+        <div className={`relative`}>
+          {warn && (
+            <div className="warn text-red-500 mt-2 absolute">{warn}</div>
+          )}
+          <div className="pt-7 pb-3 flex items-center">
+            <Checkbox
+              label={<span className={`text-gray-500`}>&nbsp;自动登录</span>}
+            />
+            <div className={"ml-auto flex gap-2 text-gray-300"}>
+              <button type={`button`} className={`ui_link`}>
+                忘记密码
+              </button>
+              |
+              <button type={`button`} className={`ui_link`}>
+                验证码登录
+              </button>
+            </div>
+          </div>
         </div>
         <div className="actions">
           <Submit>登&nbsp;录</Submit>

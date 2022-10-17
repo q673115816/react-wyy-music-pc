@@ -6,7 +6,6 @@ import { SymbolToday } from "@/components/Symbol";
 import PlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
 import { useAppSelector } from "@/modules/hooks";
 import { Resource } from "@/modules/services/discover";
-import { commonSelector } from "@/modules/reducers/common/slice";
 import { accountSelector } from "@/modules/reducers/account/slice";
 
 interface iProps {

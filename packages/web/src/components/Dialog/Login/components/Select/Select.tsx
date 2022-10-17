@@ -32,7 +32,10 @@ const Select = () => {
         <IconCaretDown size={12} className="fill-current" />
       </button>
       <div
-        className={style.optionGroup}
+        className={classNames(
+          style.optionGroup,
+          "absolute top-full left-0 bg-white rounded-b overflow-auto border"
+        )}
         style={{ display: visibility ? "" : "none" }}
       >
         {countriesCodeList.map(({ countryList }) =>
@@ -40,9 +43,13 @@ const Select = () => {
             <button
               key={zh}
               type="button"
-              className={classNames(style.option, "flex w-full px-3 h-6", {
-                on: code === countrycode,
-              })}
+              className={classNames(
+                style.option,
+                "flex w-full px-3 leading-6",
+                {
+                  on: code === countrycode,
+                }
+              )}
               onClick={() => handleChoose(code)}
             >
               <div className="flag w-8">{}</div>

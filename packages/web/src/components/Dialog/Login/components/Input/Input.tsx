@@ -1,14 +1,14 @@
 import React, {
-  DetailedHTMLProps,
   forwardRef,
-  InputHTMLAttributes,
   ReactNode,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
 } from "react";
 type iProps = {
   Prefix?: ReactNode | any | null;
 } & DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
-const Input = (props: iProps, ref) => {
+const Input = forwardRef<HTMLInputElement, iProps>((props, ref) => {
   const { Prefix, type = "text", ...otherProps } = props;
   return (
     <div className={`flex-center px-2.5`}>
@@ -17,10 +17,10 @@ const Input = (props: iProps, ref) => {
         ref={ref}
         type={type}
         {...otherProps}
-        className={"w-full h-9 appearance-none bg-white"}
+        className={"w-full h-9 appearance-none bg-white appearance-none"}
       />
     </div>
   );
-};
+});
 
-export default forwardRef(Input);
+export default Input;

@@ -3,12 +3,13 @@ import { IconFaceId } from "@tabler/icons";
 import Threes from "./components/Threes";
 import Table from "./components/Table";
 import Submit from "./components/Submit";
-
+import style from "./style.module.scss";
 import {
   actionSwitchSignIn,
   actionSwitchSignUp,
   loginContext,
 } from "./Content";
+import classNames from "classnames";
 
 const SignUp = () => {
   const [warn, setWarn] = useState("");
@@ -51,7 +52,12 @@ const SignUp = () => {
         </div>
         <div className="actions">
           <Submit>注册</Submit>
-          <div className="hint flex items-center justify-between mt-8 mb-4">
+          <div
+            className={classNames(
+              style.hint,
+              "flex items-center justify-between mt-8 mb-4"
+            )}
+          >
             其他注册方式
           </div>
           <Threes />
