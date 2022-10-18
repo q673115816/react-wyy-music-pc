@@ -4,7 +4,7 @@ import CheckBox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 
-const list = [
+const list: [string, boolean][] = [
   ["标清", true],
   ["高清（需要2云贝）", false],
   ["超清（需要5云贝）", false],
@@ -25,10 +25,7 @@ export default () => {
         <div className="">
           {list.map(([label, state]) => (
             <div className="flex items-center" key={label}>
-              <label htmlFor="">
-                <CheckBox />
-                {label}
-              </label>
+              <CheckBox>{label}</CheckBox>
             </div>
           ))}
         </div>

@@ -1,7 +1,8 @@
 import React from "react";
+import Title from "./components/Title";
 
 export default () => (
   <>
-    <div className="domSetting_block_title">快捷键</div>
+    <Title>快捷键</Title>
   </>
 );

@@ -1,16 +1,17 @@
 import React, { memo } from "react";
-import Radio from "./components/Radio";
-import Check from "./components/Check";
+import Radio from "./components/RadioList";
+import Check from "./components/CheckList";
+import Title from "./components/Title";
 
 const Lyric = () => (
   <>
-    <div className="domSetting_block_title">歌词</div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">类型：</div>
+    <Title>歌词</Title>
+    <div className="mt-6">
+      <div className="mb-2.5">类型：</div>
       <Radio name="类型" list={["桌面歌词", "软件内词栏"]} checked="桌面歌词" />
     </div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">启用：</div>
+    <div className="mt-6">
+      <div className="mb-2.5">启用：</div>
       <Check
         list={[
           ["启用歌词", false],
@@ -20,12 +21,12 @@ const Lyric = () => (
         name="启用"
       />
     </div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">总在最前：</div>
+    <div className="mt-6">
+      <div className="mb-2.5">总在最前：</div>
       <Check list={[["启用总在最前", false]]} name="总在最前" />
     </div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">预览：</div>
+    <div className="mt-6">
+      <div className="mb-2.5">预览：</div>
     </div>
   </>
 );

@@ -1,0 +1,11 @@
+.input {
+   display: none;
+   &:checked+.ico {
+     color: var(--theme-color);
+     border-color: currentColor;
+   }
+ }
+
+.ico {
+
+}

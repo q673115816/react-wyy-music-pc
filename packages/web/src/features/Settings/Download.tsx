@@ -1,14 +1,15 @@
 import React, { memo } from "react";
-import SettingRadio from "./components/Radio";
+import Radio from "./components/RadioList";
+import Title from "./components/Title";
 
 const Download = () => (
   <>
-    <div className="domSetting_block_title">下载设置</div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">音质选择：</div>
+    <Title>下载设置</Title>
+    <div className="mt-6">
+      <div className="mb-2.5">音质选择：</div>
       <div className="flex items-center">
         <span className="mr-6">试听</span>
-        <SettingRadio
+        <Radio
           row
           list={["标准", "较高", "极高", "无损音质"]}
           checked="较高"
@@ -17,7 +18,7 @@ const Download = () => (
       </div>
       <div className="flex items-center">
         <span className="mr-6">下载</span>
-        <SettingRadio
+        <Radio
           row
           list={["标准", "较高", "极高", "无损音质"]}
           checked="较高"
@@ -25,17 +26,17 @@ const Download = () => (
         />
       </div>
     </div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">音乐命名格式：</div>
-      <SettingRadio
+    <div className="mt-6">
+      <div className="mb-2.5">音乐命名格式：</div>
+      <Radio
         list={["歌曲名", "歌手 - 歌曲名", "歌曲名 - 歌手"]}
         name="音乐命名格式"
         checked="歌手 - 歌曲名"
       />
     </div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">文件智能分类：</div>
-      <SettingRadio
+    <div className="mt-6">
+      <div className="mb-2.5">文件智能分类：</div>
+      <Radio
         list={["不分文件夹", "按歌手分文件夹", "按歌手\\专辑分文件夹"]}
         name="文件智能分类"
         checked="不分文件夹"

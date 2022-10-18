@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import Account from "./Account";
 import Normal from "./Normal";
 import Play from "./Play";
@@ -21,7 +21,7 @@ export const navs = [
   "关于网易云音乐",
 ];
 
-export const Nodes = [
+export const Nodes: FC[] = [
   Account,
   Normal,
   Play,
@@ -33,7 +33,7 @@ export const Nodes = [
   About,
 ];
 
-export const Elements: [string, ReactNode][] = navs.map((nav, index) => [
+export const Elements: [string, FC][] = navs.map((nav, index) => [
   nav,
   Nodes[index],
 ]);

@@ -1,7 +1,7 @@
-import React, { memo, useRef, useState } from "react";
+import React, { FormEventHandler, memo, useRef, useState } from "react";
 import { apiPlaylistCreate } from "@/api";
 import classNames from "classnames";
-import DomCheckbox from "@/components/CheckBox";
+import CheckBox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
 import { useAppSelector } from "@/modules/hooks";
 import { maskSelector } from "@/modules/reducers/mask/slice";
@@ -9,13 +9,13 @@ import { maskSelector } from "@/modules/reducers/mask/slice";
 const CreatePlayList = () => {
   const { dialogCreatePlaylistVisibility } = useAppSelector(maskSelector);
   const [name, setName] = useState("");
-  const privacy = useRef();
-  const handleSubmit = async (e) => {
+  const privacy = useRef(null);
+  const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     try {
       await apiPlaylistCreate({
         name,
-        privacy: privacy.current.value ? 10 : null,
+        privacy: privacy.current!.value ? 10 : null,
       });
     } catch (error) {
       console.log(error);
@@ -38,9 +38,9 @@ const CreatePlayList = () => {
         </div>
         <div className="mt-2">
           <label htmlFor="privacy" className="flex items-center">
-            <DomCheckbox name="privacy" ref={privacy} />
-            &nbsp;
-            <span>设置为隐私歌单</span>
+            <CheckBox name="privacy" ref={privacy}>
+              设置为隐私歌单
+            </CheckBox>
           </label>
         </div>
         <div className="flex-center">

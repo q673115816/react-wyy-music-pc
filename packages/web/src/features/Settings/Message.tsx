@@ -1,12 +1,13 @@
 import React, { memo } from "react";
-import SettingRadio from "./components/Radio";
-import DomCheckbox from "./components/Check";
+import SettingRadio from "./components/RadioList";
+import DomCheckbox from "./components/CheckList";
+import Title from "./components/Title";
 
 const Message = () => (
   <>
-    <div className="domSetting_block_title">消息与隐私</div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">
+    <Title>消息与隐私</Title>
+    <div className="mt-6">
+      <div className="mb-2.5">
         私信：
         <span className="text-gray-400">接收私信提醒</span>
       </div>
@@ -16,8 +17,8 @@ const Message = () => (
         checked="所有人"
       />
     </div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">通知：</div>
+    <div className="mt-6">
+      <div className="mb-2.5">通知：</div>
       <DomCheckbox
         name="通知"
         list={[
@@ -27,17 +28,17 @@ const Message = () => (
         ]}
       />
     </div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">我的听歌排行：</div>
+    <div className="mt-6">
+      <div className="mb-2.5">我的听歌排行：</div>
       <SettingRadio
         list={["所有人可见", "被关注的人可见", "仅自己可见"]}
         name="我的听歌排行"
         checked="所有人可见"
       />
     </div>
-    <div className="domSetting_subBlock">
-      <div className="domSetting_subBlock_title">黑名单设置：</div>
-      <div className="domSetting_subBlock_content">
+    <div className="mt-6">
+      <div className="mb-2.5">黑名单设置：</div>
+      <div className="mt-6_content">
         <div className="item">
           我的黑名单
           <button />

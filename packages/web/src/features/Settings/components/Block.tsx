@@ -1,14 +1,10 @@
-import React, { FC, memo, ReactNode } from "react";
+import React, { FC, memo, PropsWithChildren } from "react";
 
-type iProps = {
-  t: string;
-};
-
-const Block: FC<iProps> = ({ t, children }) => {
+const Block: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div>
       <div></div>
-      {{ children }}
+      {children}
     </div>
   );
 };

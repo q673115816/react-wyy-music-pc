@@ -1,5 +1,4 @@
-import React, { memo, useEffect } from "react";
-import "./style.scss";
+import React, { createElement, memo, useEffect } from "react";
 import { Elements, navs } from "./config";
 import { apiSetting } from "@/api";
 
@@ -24,8 +23,8 @@ const Settings = () => {
       </div>
       <div className="px-8 overflow-auto max-h-full flex-auto">
         {Elements.map(([nav, Element]) => (
-          <div id={nav} key={nav} className="pb-8 mb-8 border-b">
-            <Element />
+          <div id={nav} key={nav} className="py-7 border-b">
+            {createElement(Element)}
           </div>
         ))}
       </div>

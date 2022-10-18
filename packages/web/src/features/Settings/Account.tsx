@@ -3,11 +3,12 @@ import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { Link } from "react-router-dom";
 import { commonSelector } from "@/modules/reducers/common/slice";
 import { toggleLoginVisibility } from "@/modules/reducers/mask/slice";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
-const BuildBinding = (item) => {};
+const BuildBinding = (item: any) => null;
 
 const Logined = () => {
-  const { profile, bindings } = useAppSelector(({ account }) => account);
+  const { profile, bindings } = useAppSelector(accountSelector);
   return (
     <>
       <div className="">{bindings.map((item) => BuildBinding(item))}</div>
@@ -29,7 +30,7 @@ const Logined = () => {
   );
 };
 
-const UnLogined = () => {
+const UnLogin = () => {
   const dispatch = useAppDispatch();
   return (
     <>
@@ -38,7 +39,7 @@ const UnLogined = () => {
       </div>
       <button
         type="button"
-        className="ui_btn inline-flex items-center justify-center border px-3 h-8 rounded-full_small inline-flex items-center justify-center h-6 px-3 rounded-full"
+        className="flex-center h-6 px-3 rounded-full border"
         onClick={() => dispatch(toggleLoginVisibility())}
       >
         立即登录
@@ -49,7 +50,7 @@ const UnLogined = () => {
 
 const Account = () => {
   const { isLogin } = useAppSelector(commonSelector);
-  return isLogin ? <Logined /> : <UnLogined />;
+  return isLogin ? <Logined /> : <UnLogin />;
 };
 
 export default memo(Account);

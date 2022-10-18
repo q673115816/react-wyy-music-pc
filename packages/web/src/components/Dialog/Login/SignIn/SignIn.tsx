@@ -133,7 +133,9 @@ const SignIn = () => {
           <Threes />
         </div>
         <div className={`mt-9`}>
-          <Checkbox ref={RefAgreement} label={<Argument />} />
+          <Checkbox ref={RefAgreement}>
+            <Argument />
+          </Checkbox>
         </div>
       </form>
     </div>
