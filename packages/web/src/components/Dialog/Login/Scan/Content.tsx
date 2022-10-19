@@ -16,20 +16,19 @@ import {
 } from "../Content";
 import Refresh from "@/components/Dialog/Login/Scan/Refresh";
 import { apiLoginQrCreate, apiLoginQrKey } from "@/api";
-import { Set } from "@/modules/utils";
 import Success from "@/components/Dialog/Login/Scan/Success";
 import { useGetLoginQRCheckMutation } from "@/modules/services/account";
+import useToken from "@/hooks/useToken";
 
-interface iProps {}
-
-const Content: FC<iProps> = () => {
+const Content: FC = () => {
   const { loginDispatch } = useContext(loginContext);
   const handleChooseOtherSign = () => loginDispatch(actionSwitchSignIn());
+  const { setToken } = useToken();
   const [qrimg, setQrimg] = useState("");
   const [key, setKey] = useState("");
   const [status, setStatus] = useState(0);
   const timer = useRef<NodeJS.Timer>();
-  const [loginQRCheckGet, {}] = useGetLoginQRCheckMutation();
+  const [loginQRCheckGet] = useGetLoginQRCheckMutation();
   const handleInit = useCallback(async () => {
     try {
       const {
@@ -65,7 +64,7 @@ const Content: FC<iProps> = () => {
         setStatus(802);
         break;
       case 803:
-        Set({ key: "cookie", value: cookie });
+        setToken(cookie);
         window.location.reload();
         break;
     }

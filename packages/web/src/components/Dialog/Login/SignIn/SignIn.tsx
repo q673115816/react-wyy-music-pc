@@ -11,16 +11,16 @@ import style from "./signin.module.scss";
 import classNames from "classnames";
 import Checkbox from "@/components/CheckBox";
 import { actionSwitchScan, actionSwitchSignUp, loginContext } from "../Content";
-
-import { Set } from "@/modules/utils";
 import Argument from "./Argument";
 import Threes from "../components/Threes";
 import Table from "../components/Table";
 import Submit from "../components/Submit";
+import useToken from "@/hooks/useToken";
 
 const SignIn = () => {
   const RefAgreement = useRef(null);
   const RefForm = useRef(null);
+  const { setToken } = useToken();
   const {
     loginState: { countrycode },
     loginDispatch,
@@ -61,7 +61,7 @@ const SignIn = () => {
           countrycode,
         });
       if (code === 200) {
-        Set({ key: "cookie", value: cookie });
+        setToken(cookie);
         window.location.reload();
       }
       if (code === 502) setWarn(`${msg}`);

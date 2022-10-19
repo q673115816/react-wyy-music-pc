@@ -12,10 +12,10 @@ import {
 import Loading from "@/components/Loading";
 import { setLoginInfoUpdate, reset } from "@/modules/reducers/account/slice";
 import { useAppDispatch } from "@/modules/hooks";
-import { Remove } from "@/modules/utils";
 import { useGetLogoutMutation } from "@/modules/services/account";
 import { useToast } from "@/components/Toast";
 import SignIn from "./SignIn";
+import useToken from "@/hooks/useToken";
 
 interface iProps {
   uid: string;
@@ -24,6 +24,7 @@ interface iProps {
 
 const Content: FC<iProps> = ({ uid, handleHide }) => {
   const toast = useToast();
+  const { removeToken } = useToken();
   const { data, isLoading } = useGetUserDetailQuery({ uid });
   const [logoutGet] = useGetLogoutMutation();
   const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
         toast("退出失败");
         return;
       }
-      Remove({ key: "cookie" });
+      removeToken();
       dispatch(reset());
 
       window.location.reload();

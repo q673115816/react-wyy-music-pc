@@ -1,6 +1,5 @@
 import React, { createElement, memo, useEffect } from "react";
 import { Elements, navs } from "./config";
-import { apiSetting } from "@/api";
 
 const Settings = () => {
   // const handleInit = async () => {

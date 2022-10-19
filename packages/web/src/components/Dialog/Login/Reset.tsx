@@ -6,7 +6,6 @@ import React, {
   memo,
 } from "react";
 import { IconFaceId } from "@tabler/icons";
-import { apiRegisterCellphone } from "@/api";
 import {
   actionSwitchIdentify,
   actionSwitchSignUp,
@@ -34,9 +33,9 @@ const Reset = () => {
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (!phone) {
-      setWarn("⚠️请输入手机号码");
+      setWarn("请输入手机号码");
     } else if (!password) {
-      setWarn("⚠️请输入登录密码");
+      setWarn("请输入登录密码");
     } else {
       loginDispatch(actionSwitchIdentify());
     }

@@ -41,12 +41,6 @@ export const apiDjDetail = (params) => post("/dj/detail", params);
 // user - 登录
 export const apiLoginCellphone = (params) => post("/login/cellphone", params);
 /**
- * user - 注册
- * @param {captcha:验证码, phone, password, nickname} params
- */
-export const apiRegisterCellphone = (params) =>
-  post("/register/cellphone", params);
-/**
  * user - 发送验证码
  * @param {phone, ctcode?:国家}
  */
@@ -169,10 +163,3 @@ export const apiTopicSublist = () => post("/topic/sublist");
  * @param {area?: <全部|内地|港台|欧美|日本|韩国>, type?:<全部|官方版|原生|现场版|网易出品|>, order?:<上升最快|最热|最新>, limit?: 30, offset?:0} params
  */
 export const apiMVAll = (params) => post("/mv/all", params);
-
-// comment
-// 歌单评论 id, limit?, offset?, before?
-export const apiCommentPlaylist = (params: { id: string }) =>
-  post("/comment/playlist", params);
-
-export const apiSetting = () => get("/setting");

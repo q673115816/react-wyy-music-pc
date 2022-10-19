@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useEffect, useRef } from "react";
+import React, { memo, useCallback, useRef } from "react";
 import CommentsList from "@/components/Comments/CommentsList";
 import { Textarea } from "@/components/editor";
-import { apiCommentPlaylist } from "@/api";
 import Loading from "@/components/Loading";
 import { useParams } from "react-router-dom";
 import { useToast } from "@/components/Toast";

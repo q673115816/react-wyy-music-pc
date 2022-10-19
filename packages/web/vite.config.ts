@@ -25,7 +25,7 @@ export default ({ mode, command }: ConfigEnv) => {
         // additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
         // polyfills: true,
       }),
-      isAnalyze && visualizer(),
+      isAnalyze && visualizer?.(),
     ],
     server: {
       host: true,
@@ -76,7 +76,6 @@ export default ({ mode, command }: ConfigEnv) => {
             "@tabler/icons": ["@tabler/icons"],
             "react-slick": ["react-slick"],
             axios: ["axios"],
-            store: ["store2"],
             rxjs: ["rxjs"],
           },
         },
