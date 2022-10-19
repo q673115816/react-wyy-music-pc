@@ -1,10 +1,17 @@
 import { IconMoodSmile } from "@tabler/icons";
-import React, { FC, memo, MouseEventHandler } from "react";
+import React, {
+  FC,
+  memo,
+  MouseEventHandler,
+  ReactNode,
+  RefObject,
+} from "react";
 interface iProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  element: RefObject<HTMLElement>;
 }
 
-const EmojiSender: FC<iProps> = ({ onClick }) => {
+const EmojiSender: FC<iProps> = ({ onClick, element }) => {
   return (
     <button
       type="button"

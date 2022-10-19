@@ -37,15 +37,12 @@ const Textarea: ForwardRefRenderFunction<HTMLTextAreaElement, iProps> = (
 
   useEffect(() => () => setText(""), []);
   return (
-    <div className="ui_write relative">
+    <div className="relative">
       <textarea
         ref={ref}
         onChange={handleChange}
         value={text}
-        className={classNames(
-          style.textarea,
-          "textarea border rounded px-2 py-1"
-        )}
+        className={classNames(style.textarea, "border rounded px-2 py-1")}
         placeholder={placeholder}
       />
       <span

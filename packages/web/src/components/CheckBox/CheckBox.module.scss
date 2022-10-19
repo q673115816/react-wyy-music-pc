@@ -1,6 +1,6 @@
 .input {
   &:checked + i {
     border-color: transparent;
-    background-color: var(--themeColor);
+    background-color: var(--theme-color);
   }
 }
