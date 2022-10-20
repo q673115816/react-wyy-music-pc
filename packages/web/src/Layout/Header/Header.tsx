@@ -4,10 +4,9 @@ import React, {
   useCallback,
   MouseEvent,
   MouseEventHandler,
-  useRef,
 } from "react";
 import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { useAppDispatch } from "@/modules/hooks";
 
 import { setMsgPrivate } from "@/modules/reducers/common/slice";
 import { setLoginInfo } from "@/modules/reducers/account/slice";
@@ -74,24 +73,14 @@ const useInit = () => {
     }
   };
 
-  const handlePrivateLetterInit = async () => {
-    try {
-      const { msgs, newMsgCount } = await apiMsgPrivate();
-      dispatch(setMsgPrivate({ msgs, newMsgCount }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     void (async () => {
       await handleCookieInit();
-      await handlePrivateLetterInit();
     })();
   }, []);
 };
 
-const CustomDrag = memo(function CustomDrag() {
+const CustomDrag = memo(() => {
   const dispatch = useAppDispatch();
   const onMouseMove: MouseEventHandler = useCallback(
     ({ clientX: x, clientY: y }: MouseEvent) => {
@@ -129,21 +118,8 @@ const CustomDrag = memo(function CustomDrag() {
   );
 });
 
-export default memo(function Header() {
-  const dispatch = useAppDispatch();
+const Header = () => {
   useInit();
-  /*const Drag = useDraggable({
-    ele: <div className={`absolute inset-0 z-0 w-full`} title="长按拖拽" />,
-    offset: "#inset",
-    next: ({ x, y }) => {
-      dispatch(
-        setGlobalInset({
-          x,
-          y,
-        })
-      );
-    },
-  });*/
   return (
     <div className="domHeader ui_theme_bg_color relative flex flex-none items-center text-white">
       <CustomDrag />
@@ -166,4 +142,6 @@ export default memo(function Header() {
       <Control />
     </div>
   );
-});
+};
+
+export default memo(Header);

@@ -82,12 +82,6 @@ export const apiMsgPrivateHistory = (params) =>
   post("/msg/private/history", params);
 // 通知 - 私信
 export const apiMsgPrivate = () => post("/msg/private");
-// 通知 - 评论
-export const apiMsgComments = (params) => post("/msg/comments", params);
-// 通知 - @我
-export const apiMsgForwards = (params) => post("/msg/forwards", params);
-// 通知 - 通知
-export const apiMsgNotices = (params) => post("/msg/private", params);
 
 export const apiSendText = (params) => post("/send/text", params);
 

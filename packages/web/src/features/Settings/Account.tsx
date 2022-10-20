@@ -1,7 +1,6 @@
 import React, { memo } from "react";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { Link } from "react-router-dom";
-import { commonSelector } from "@/modules/reducers/common/slice";
 import { toggleLoginVisibility } from "@/modules/reducers/mask/slice";
 import { accountSelector } from "@/modules/reducers/account/slice";
 
@@ -49,7 +48,7 @@ const UnLogin = () => {
 };
 
 const Account = () => {
-  const { isLogin } = useAppSelector(commonSelector);
+  const { isLogin } = useAppSelector(accountSelector);
   return isLogin ? <Logined /> : <UnLogin />;
 };
 

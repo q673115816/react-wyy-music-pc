@@ -6,7 +6,7 @@ import {
   setMsgPrivateHistory,
 } from "@/modules/reducers/letter/slice";
 import { wordLength } from "@/components/editor";
-import { IconChevronLeft, IconPhoto, IconMoodSmile } from "@tabler/icons";
+import { IconChevronLeft } from "@tabler/icons";
 import Emoji from "@/components/Emoji";
 import { ImageSender, EmojiSender, Textarea } from "@/components/editor";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
