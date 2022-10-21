@@ -3,6 +3,7 @@ import { RootState } from "@/modules/store";
 import { Profile } from "@/modules/services/user";
 
 export interface AccountState {
+  uid: number | null;
   isLogin: boolean;
   profile: Profile;
   playlist: playlistState[];
@@ -22,6 +23,7 @@ export interface playlistState {
 }
 
 const initialState: AccountState = {
+  uid: null,
   isLogin: false,
   profile: {},
   playlist: [],
@@ -50,9 +52,11 @@ const slice = createSlice({
       // state.mvSublist = action.payload.mvSublist;
       Object.assign(state, payload);
       state.isLogin = true;
+      state.uid = payload.profile.userId;
     },
-    setLoginInfoUpdate(state, action) {
-      state.profile = action.payload.profile;
+    setLoginInfoUpdate(state, { payload }) {
+      state.profile = payload.profile;
+      state.uid = payload.profile.userId;
     },
     setLikelist(state, action) {
       state.likelist = action.payload.likelist;

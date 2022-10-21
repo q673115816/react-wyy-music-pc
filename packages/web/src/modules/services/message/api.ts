@@ -1,4 +1,4 @@
-import { Forwards, Private, Comments, Notices } from "./types";
+import { Forwards, Private, Comments, Notices, Recentcontact } from "./types";
 import { baseApi } from "../base";
 
 export const api = baseApi.injectEndpoints({
@@ -10,17 +10,24 @@ export const api = baseApi.injectEndpoints({
         body,
       }),
     }),
-    getMsgPrivate: build.query<Private, void>({
+    getMsgPrivate: build.query<Private, { limit?: number }>({
       query: (body) => ({
         url: `msg/private`,
+        method: "POST",
+        body,
+      }),
+    }),
+    getMsgRecentcontact: build.query<Recentcontact, void>({
+      query: (body) => ({
+        url: `msg/recentcontact`,
         method: "GET",
         body,
       }),
     }),
-    getMsgComments: build.query<Comments, void>({
+    getMsgComments: build.query<Comments, { uid: number }>({
       query: (body) => ({
         url: `msg/comments`,
-        method: "GET",
+        method: "POST",
         body,
       }),
     }),
@@ -35,6 +42,7 @@ export const api = baseApi.injectEndpoints({
 });
 
 export const {
+  useGetMsgRecentcontactQuery,
   useGetMsgForwardsQuery,
   useGetMsgPrivateQuery,
   useGetMsgCommentsQuery,

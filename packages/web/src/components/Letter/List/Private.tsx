@@ -1,4 +1,7 @@
-import { useGetMsgPrivateQuery } from "@/modules/services/message";
+import {
+  useGetMsgPrivateQuery,
+  useGetMsgRecentcontactQuery,
+} from "@/modules/services/message";
 import React, { memo } from "react";
 import Empty from "./Empty";
 import { Link } from "react-router-dom";
@@ -47,7 +50,9 @@ const BuildTransLastMsg = (msg = {}) => {
 
 const Private = () => {
   const dispatch = useAppDispatch();
-  const { data, isLoading, isSuccess } = useGetMsgPrivateQuery();
+  const { data, isLoading, isSuccess } = useGetMsgPrivateQuery({
+    limit: 14,
+  });
   const { msgs } = data || [];
   const handleSeeMsgPrivateHistory = async (uid: number, nickname: string) => {
     dispatch(
