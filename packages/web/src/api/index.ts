@@ -150,10 +150,3 @@ export const apiArtistSublist = () => post("/artist/sublist");
 export const apiMVSublist = () => post("/mv/sublist");
 // 我的收藏 - 专栏列表
 export const apiTopicSublist = () => post("/topic/sublist");
-
-// mv - 全部
-/**
- *
- * @param {area?: <全部|内地|港台|欧美|日本|韩国>, type?:<全部|官方版|原生|现场版|网易出品|>, order?:<上升最快|最热|最新>, limit?: 30, offset?:0} params
- */
-export const apiMVAll = (params) => post("/mv/all", params);

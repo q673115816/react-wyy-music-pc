@@ -17,7 +17,16 @@ import { baseApi } from "../base";
 
 export const api = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getMVAll: build.query<MVAll, { order: string; limit: number }>({
+    getMVAll: build.query<
+      MVAll,
+      {
+        area?: string;
+        type?: string;
+        order?: string;
+        limit?: number;
+        offset?: number;
+      }
+    >({
       query: (body) => ({
         url: `mv/all`,
         method: "POST",
@@ -50,6 +59,7 @@ export const api = baseApi.injectEndpoints({
 
 export const {
   useGetMVAllQuery,
+  useLazyGetMVAllQuery,
   useGetMVExclusiveRcmdQuery,
   useGetMVFirstQuery,
   useGetTopMVQuery,

@@ -7,7 +7,10 @@ import {
   apiMVSublist,
   apiResourceLike,
 } from "@/api";
-import { setMVSublist } from "@/modules/reducers/account/slice";
+import {
+  accountSelector,
+  setMVSublist,
+} from "@/modules/reducers/account/slice";
 import FNDownload from "./Download";
 
 import config from "./config";
@@ -21,7 +24,7 @@ interface iProps {
 const UseInit = ({ vid, type }: iProps) => {
   const toast = useToast();
   const dispatch = useAppDispatch();
-  const { mvSublist } = useAppSelector(({ account }) => account);
+  const { mvSublist } = useAppSelector(accountSelector);
 
   const isSub = useMemo(
     () => mvSublist.find((mv) => mv.vid === vid),

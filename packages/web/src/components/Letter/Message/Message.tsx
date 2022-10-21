@@ -19,6 +19,7 @@ import style from "./Message.module.scss";
 import classNames from "classnames";
 import { useToast } from "@/components/Toast";
 import Parse from "@/components/Comments/Parse";
+import { accountSelector } from "@/modules/reducers/account/slice";
 
 const Content = ({ msg = {} }) => {
   const { type } = msg;
@@ -59,7 +60,7 @@ const Message = () => {
 
   const { uid, hint, nickname, privatMsgs } = useAppSelector(letterSelector);
 
-  const { profile } = useAppSelector(({ account }) => account);
+  const { profile } = useAppSelector(accountSelector);
 
   const [visibility, setVisibility] = useState(false);
   const [value, setValue] = useState("");

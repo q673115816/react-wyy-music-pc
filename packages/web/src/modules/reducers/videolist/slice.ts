@@ -1,11 +1,10 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   apiVideoCategoryList,
   apiVideoGroup,
   apiVideoGroupList,
   apiVideoTimelineRecommend,
 } from "@/api";
-import { Draft } from "immer";
 import { RootState } from "@/modules/store";
 
 interface ItemProps {
