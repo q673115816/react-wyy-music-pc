@@ -10,6 +10,7 @@ import Edit from "./Edit";
 import Binding from "./Binding";
 import Layout from "./Layout";
 import Redirect from "./Redirect";
+import Empty from "./Empty";
 
 const Router = () => (
   <Routes>
@@ -24,6 +25,7 @@ const Router = () => (
       <Route path={`Binding`} element={<Binding />} />
     </Route>
     <Route path={`Edit`} element={<Edit />} />
+    <Route path={`Empty`} element={<Empty />} />
     <Route path={`redirect`}>
       <Route index element={<Navigate to={`/`} replace />}></Route>
       <Route path={`:keywords`} element={<Redirect />} />

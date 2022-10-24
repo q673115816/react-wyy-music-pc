@@ -13,7 +13,8 @@ const Redirect = () => {
   });
   if (isLoading) return <Loading />;
 
-  const userprofiles = data.result.userprofiles || [];
+  const userprofiles = data.result?.userprofiles || [];
+  if (userprofiles.length === 0) return <Navigate to={`/user/empty`} replace />;
   return <Navigate to={`/user/${userprofiles[0].userId}`} replace />;
 };
 

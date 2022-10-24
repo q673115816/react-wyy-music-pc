@@ -1,7 +1,6 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
-import { useImmer } from "use-immer";
 import { defaultSearch, filters, Keys } from "./config";
 import { useSearchParam } from "react-use";
 import List from "./List";
@@ -10,16 +9,12 @@ const MVAll = () => {
   const area = useSearchParam("area") || defaultSearch.area;
   const type = useSearchParam("type") || defaultSearch.type;
   const order = useSearchParam("order") || defaultSearch.order;
-  const search: Record<Keys, string | null> = { area, type, order };
-  const [data, setData] = useImmer<string[]>([]);
+  const search: Record<Keys, string> = { area, type, order };
+  const [data, setData] = useState<string[]>([]);
   const setHasMore = useCallback(() => {
-    setData((prev) => {
-      prev.push(area + type + order);
-      return prev;
-    });
+    setData((prev) => [...prev, area + type + order]);
   }, [area, type, order]);
   useEffect(() => {
-    console.log(area + type + order);
     setData([area + type + order]);
   }, [area, type, order]);
   return (
