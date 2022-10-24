@@ -60,6 +60,7 @@
     "redux-persist": "*",
     "redux-thunk": "*",
     "rxjs": "*",
+    "slick-carousel": "^1.8.1",
     "socket.io-client": "*",
     "use-immer": "*",
     "web-vitals": "*",

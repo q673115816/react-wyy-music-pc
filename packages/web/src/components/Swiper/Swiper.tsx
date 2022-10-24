@@ -1,5 +1,7 @@
 import React, { FC, memo, useRef } from "react";
 import Slider, { CustomArrowProps } from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
 import Arrow from "./Arrow";
 import Banner from "./Banner";

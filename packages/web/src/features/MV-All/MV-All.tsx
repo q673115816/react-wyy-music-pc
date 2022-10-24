@@ -7,19 +7,20 @@ import { useSearchParam } from "react-use";
 import List from "./List";
 
 const MVAll = () => {
-  const area = useSearchParam("area");
-  const type = useSearchParam("type");
-  const order = useSearchParam("order");
+  const area = useSearchParam("area") || defaultSearch.area;
+  const type = useSearchParam("type") || defaultSearch.type;
+  const order = useSearchParam("order") || defaultSearch.order;
   const search: Record<Keys, string | null> = { area, type, order };
-  search["area"] ??= defaultSearch.area;
-  search["type"] ??= defaultSearch.type;
-  search["order"] ??= defaultSearch.order;
-  const [data, setData] = useImmer<number[]>([]);
+  const [data, setData] = useImmer<string[]>([]);
   const setHasMore = useCallback(() => {
     setData((prev) => {
-      prev.push(0);
+      prev.push(area + type + order);
       return prev;
     });
+  }, [area, type, order]);
+  useEffect(() => {
+    console.log(area + type + order);
+    setData([area + type + order]);
   }, [area, type, order]);
   return (
     <div className="overflow-auto h-full">
@@ -34,7 +35,9 @@ const MVAll = () => {
               {filter[2].map((item) => (
                 <div className="w-20 flex-center" key={item}>
                   <Link
-                    to={`/mv-all?${new URLSearchParams(search)}`}
+                    to={`/mv-all?${new URLSearchParams(
+                      Object.assign({}, search, { [filter[0]]: item })
+                    )}`}
                     className={classNames(
                       "rounded-full leading-5 px-3 whitespace-nowrap",
                       item === search[filter[0]]
@@ -53,7 +56,7 @@ const MVAll = () => {
           {data.map((item, index) => (
             <List
               index={index}
-              key={index}
+              key={item + index}
               order={order}
               area={area}
               type={type}
