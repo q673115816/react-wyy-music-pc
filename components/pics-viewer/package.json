@@ -60,7 +60,7 @@
     "jsdom": "^20.0.1",
     "react-test-renderer": "^18.2.0",
     "ts-jest": "^29.0.3",
-    "tsup": "^6.2.3",
+    "tsup": "^6.3.0",
     "vitest": "^0.24.3"
   },
   "peerDependencies": {
