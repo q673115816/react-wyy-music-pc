@@ -7,31 +7,39 @@ import {
   Order,
 } from "@/modules/reducers/settings/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { IconBulb, IconMenu } from "@tabler/icons";
+import { IconBulb } from "@tabler/icons";
 import HOCDialog from "../Dialog/Dialog";
 import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-  DroppableProvided,
-  DraggableProvided,
-} from "react-beautiful-dnd";
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+  DragStartEvent,
+  DragOverlay,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import {
+  restrictToVerticalAxis,
+  restrictToWindowEdges,
+} from "@dnd-kit/modifiers";
 
-const reorder = (list: [], startIndex: number, endIndex: number) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
+import SortableItem from "./SortableItem";
+import Item from "./Item";
 
 const HomeOrder = () => {
   const dispatch = useAppDispatch();
   const { dialogHomeOrderVisibility } = useAppSelector(maskSelector);
   const { order } = useAppSelector(settingSelector);
   const [state, setState] = useState(order);
-
+  const [activeId, setActiveId] = useState(null);
   const handleReset = () => {
     setState(defaultOrder);
   };
@@ -41,12 +49,29 @@ const HomeOrder = () => {
     dispatch(setHomeOrder(state));
   };
 
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
 
-    if (result.destination.index === result.source.index) return;
+    setActiveId(active.id);
+  };
 
-    setState(reorder(state, result.source.index, result.destination.index));
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (active.id !== over.id) {
+      setState((items: Order[]) => {
+        const oldIndex = items.indexOf(active.id);
+        const newIndex = items.indexOf(over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+    setActiveId(null);
   };
 
   if (!dialogHomeOrderVisibility) return null;
@@ -59,36 +84,22 @@ const HomeOrder = () => {
             想调整首页栏目的顺序?按住右边的按钮拖动即可
           </span>
         </div>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId={"order"}>
-            {(droppableProvided: DroppableProvided) => (
-              <div
-                ref={droppableProvided.innerRef}
-                {...droppableProvided.droppableProps}
-              >
-                {state.map((order: Order, index: number) => (
-                  <Draggable key={order} index={index} draggableId={order}>
-                    {(draggableProvided: DraggableProvided) => (
-                      <div
-                        ref={draggableProvided.innerRef}
-                        {...draggableProvided.draggableProps}
-                        {...draggableProvided.dragHandleProps}
-                      >
-                        <div className="h-12 w-full text-base text-gray-500 bg-white hover:bg-gray-200 px-10">
-                          <div className="h-full flex items-center border-b">
-                            {order}
-                            <IconMenu className="ml-auto cursor-move" />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {droppableProvided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToVerticalAxis, restrictToWindowEdges]}
+        >
+          <SortableContext items={state} strategy={verticalListSortingStrategy}>
+            {state.map((order: Order) => (
+              <SortableItem key={order} order={order} />
+            ))}
+          </SortableContext>
+          <DragOverlay>
+            {activeId ? <Item order={activeId} /> : null}
+          </DragOverlay>
+        </DndContext>
         <div className="flex-center py-4">
           <button
             onClick={handleReset}

@@ -31,11 +31,11 @@ const Dialog: FC<iProps> = ({
   const inset = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const handle = useRef<HTMLDivElement>(null);
-  const [insetState, setInsetState] = useState({
+  const [insetState, setInsetState] = useGetSetState({
     width: 0,
     height: 0,
   });
-  const [contentState, setContentState] = useState({
+  const [contentState, setContentState] = useGetSetState({
     width: 0,
     height: 0,
   });
@@ -84,11 +84,11 @@ const Dialog: FC<iProps> = ({
             map(({ clientX, clientY }) => {
               return {
                 top: Math.min(
-                  insetState.height - contentState.height,
+                  insetState().height - contentState().height,
                   Math.max(0, top + clientY - startY)
                 ),
                 left: Math.min(
-                  insetState.width - contentState.width,
+                  insetState().width - contentState().width,
                   Math.max(0, left + clientX - startX)
                 ),
               };
