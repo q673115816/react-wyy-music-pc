@@ -82,17 +82,19 @@ const baseQueryWithIntercept: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
+  // const params = new URLSearchParams();
+  // params.set("timestamp", Date.now());
+  // params.set("cookie", localStorage.getItem("cookie"));
   if (typeof args !== "string") {
-    // args.body ??= {};
-    // args.body.cookie ??= Get({ key: "cookie" });
-    // args.body = { ...args.body, cookie: Get({ key: "cookie" }) };
-    // args.url += `?timestamp=${Date.now()}`;
-    const url = new URL(args.url);
-    const params = new URLSearchParams(args.url);
-    params.set("timestamp", Date.now());
-    params.set("cookie", localStorage.getItem("cookie"));
-    url.search = params.toString();
-    args.url = url.toString();
+    args.body ??= {};
+    // args.body.cookie ??= localStorage.getItem("cookie");
+    args.body = { ...args.body, cookie: localStorage.getItem("cookie") };
+    args.url = args.url.replace(/\?.+/, "");
+    args.url += `?timestamp=${Date.now()}`;
+    // args.url += `?${params.toString()}`;
+  } else {
+    // args = args.replace(/\?.+/, "");
+    // args += `?${params.toString()}`;
   }
   console.log("baseQueryWithIntercept", args, api, extraOptions);
   const result: QueryReturnValue<any, FetchBaseQueryError, FetchBaseQueryMeta> =

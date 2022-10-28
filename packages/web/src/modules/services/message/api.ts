@@ -6,7 +6,7 @@ export const api = baseApi.injectEndpoints({
     getMsgForwards: build.query<Forwards, void>({
       query: (body) => ({
         url: `msg/forwards`,
-        method: "GET",
+        method: "POST",
         body,
       }),
     }),
@@ -20,7 +20,7 @@ export const api = baseApi.injectEndpoints({
     getMsgRecentcontact: build.query<Recentcontact, void>({
       query: (body) => ({
         url: `msg/recentcontact`,
-        method: "GET",
+        method: "POST",
         body,
       }),
     }),
@@ -34,7 +34,7 @@ export const api = baseApi.injectEndpoints({
     getMsgNotices: build.query<Notices, void>({
       query: (body) => ({
         url: `msg/notices`,
-        method: "GET",
+        method: "POST",
         body,
       }),
     }),
