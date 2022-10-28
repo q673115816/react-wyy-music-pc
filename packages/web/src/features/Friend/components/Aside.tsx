@@ -31,7 +31,7 @@ const Aside = () => {
                   &nbsp;
                   <Gender gender={profile.gender} size={14} />
                 </div>
-                <div className={`break-all text-gray-500`}>
+                <div className={`break-all text-gray-500 truncate`}>
                   {profile.signature}
                 </div>
               </div>
