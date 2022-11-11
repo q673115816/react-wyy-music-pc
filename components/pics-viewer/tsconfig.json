@@ -2,11 +2,11 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "rootDir": "src",
-    "target": "es5",
-    "module": "commonjs",
+    // "target": "es5",
+    // "module": "commonjs",
     "sourceMap": true,
     "jsx": "react",
-    "outDir": "lib"
+    "types": ["vitest/globals"]
   },
   "exclude": ["node_modules", "dist", "esm", "umd", "tests", "lib"]
 }
