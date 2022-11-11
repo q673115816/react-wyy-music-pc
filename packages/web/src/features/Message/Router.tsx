@@ -1,22 +1,18 @@
 import React, { memo } from "react";
-import { useRoutes, Navigate } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
-import { navs } from "./Config";
+import Download from "./Download";
+import Local from "./Local";
 const Router = () => {
-  return useRoutes([
-    {
-      path: "/*",
-      element: <Layout />,
-      children: navs.map(({ path, Element }) => ({
-        path: `${encodeURIComponent(path)}/*`,
-        element: <Element />,
-      })),
-    },
-    {
-      index: true,
-      element: <Navigate to={navs[0].path} replace />,
-    },
-  ]);
+  return (
+    <Routes>
+      <Route index element={<Navigate to={`Download`} replace />} />
+      <Route path="/*" element={<Layout />}>
+        <Route path={"Download/*"} element={<Download />} />
+        <Route path={"Local/*"} element={<Local />} />
+      </Route>
+    </Routes>
+  );
 };
 
 export default memo(Router);
