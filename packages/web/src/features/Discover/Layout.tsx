@@ -7,15 +7,15 @@ const Layout = () => {
   return (
     <div className="flex flex-col h-full">
       <div className="ui_header text-base gap-x-5">
-        {navs.map((path) => (
+        {navs.map(([name, path]) => (
           <NavLink
             className={({ isActive }) =>
               classNames(isActive && "text-xl font-bold ui_underline")
             }
-            to={encodeURI(path)}
+            to={path}
             key={path}
           >
-            {path}
+            {name}
           </NavLink>
         ))}
       </div>

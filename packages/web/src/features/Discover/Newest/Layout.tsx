@@ -2,13 +2,16 @@ import React, { memo } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import classNames from "classnames";
 
-const navs = ["新歌速递", "新碟上架"];
+const navs = [
+  ["新歌速递", "song"],
+  ["新碟上架", "album"],
+];
 
 const Layout = () => {
   return (
     <div className="overflow-auto max-h-full flex-auto">
       <div className="flex border rounded-full mx-auto w-min">
-        {navs.map((path) => (
+        {navs.map(([name, path]) => (
           <NavLink
             key={path}
             className={({ isActive }) =>
@@ -18,9 +21,9 @@ const Layout = () => {
                 isActive && "text-white bg-gray-400"
               )
             }
-            to={encodeURIComponent(path)}
+            to={path}
           >
-            {path}
+            {name}
           </NavLink>
         ))}
       </div>

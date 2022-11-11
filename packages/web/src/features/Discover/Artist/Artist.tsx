@@ -17,7 +17,7 @@ const initialOptions = {
 
 const limit = 30;
 
-export default memo(function Artist() {
+const Artist = () => {
   const [option, setOption] = useImmer(() => initialOptions);
   const RefOption = useRef(option);
   const offset = useRef(0);
@@ -137,4 +137,6 @@ export default memo(function Artist() {
       </div>
     </div>
   );
-});
+};
+
+export default memo(Artist);

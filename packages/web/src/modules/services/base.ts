@@ -122,13 +122,13 @@ const baseQueryWithRetry = retry(baseQueryWithIntercept, { maxRetries: 2 });
 export default baseQueryWithRetry;
 
 export const baseApi = createApi({
-  reducerPath: "splitApi",
   baseQuery: baseQueryWithRetry,
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === REHYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
+  // extractRehydrationInfo(action, { reducerPath }) {
+  //   console.log(action, REHYDRATE);
+  //   if (action.type === REHYDRATE) {
+  //     return action.payload[reducerPath];
+  //   }
+  // },
   tagTypes: ["user", "comment/playlist", "artist/detail"],
   endpoints: () => ({}),
 });

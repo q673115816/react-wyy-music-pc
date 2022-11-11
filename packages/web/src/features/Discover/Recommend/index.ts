@@ -1,1 +1,1 @@
-export { default } from "./Recommend";
+export { default } from "./Router";
