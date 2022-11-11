@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import classNames from "classnames";
 
-import { areas } from "@/features/Discover/Newest/config";
+import { areas } from "../config";
 
 const Album = () => {
   return (

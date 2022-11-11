@@ -10,7 +10,7 @@ const Router = () => {
       element: <Layout />,
       children: [
         {
-          path: encodeURIComponent("视频"),
+          path: "Video",
           element: <Video />,
         },
         {
@@ -21,7 +21,7 @@ const Router = () => {
     },
     {
       index: true,
-      element: <Navigate to={encodeURIComponent("视频")} replace={true} />,
+      element: <Navigate to={"Video"} replace={true} />,
     },
   ]);
 };
