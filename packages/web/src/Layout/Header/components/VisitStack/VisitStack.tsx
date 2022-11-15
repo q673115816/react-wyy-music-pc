@@ -2,10 +2,10 @@ import React, { memo } from "react";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
 import { useNavigate } from "react-router-dom";
 
-export default memo(function VisitStack() {
+const VisitStack = () => {
   const navigate = useNavigate();
   return (
-    <div className="domHeader_page flex gap-2">
+    <div className="flex gap-2">
       <button
         type="button"
         onClick={() => navigate(-1)}
@@ -26,4 +26,6 @@ export default memo(function VisitStack() {
       </button>
     </div>
   );
-});
+};
+
+export default memo(VisitStack);
