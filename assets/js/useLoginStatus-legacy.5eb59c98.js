@@ -1,0 +1,1 @@
+System.register(["./index-legacy.dae7fa3f.js","./react-router-legacy.983234a4.js"],(function(e,t){"use strict";var s,c;return{setters:[e=>{s=e.Z},e=>{c=e.c}],execute:function(){e("u",(()=>{const{data:e,isSuccess:t,isFetching:r,isLoading:a}=s(),i=c();if(a)return;const n=e?.data?.profile;console.log("profile",n),n||i("/",{replace:!0})}))}}}));
