@@ -11,7 +11,6 @@ import React, {
   useState,
 } from "react";
 import classnames from "classnames";
-import useLoginStatus, { handleLoginStatus } from "@/hooks/useLoginStatus";
 
 import { set, get } from "lodash";
 

@@ -1,7 +1,5 @@
 import { get, post } from "./request";
 
-// 登录状态
-export const apiLoginStatus = () => post("/login/status");
 /**
  * 获取歌曲详情
  * @param {ids} params

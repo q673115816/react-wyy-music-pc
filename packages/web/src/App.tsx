@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import { createPortal } from "react-dom";
-import useIsLogin from "@/hooks/useIsLogin";
 import useKeyActions from "./hooks/useKeyActions";
 import "./styles/tailwind.scss";
 import "./styles/index.scss";
@@ -10,7 +9,6 @@ import Toast from "@/components/Toast";
 
 const App = () => {
   useKeyActions();
-  useIsLogin();
   return (
     <Toast.Provider>
       <Layout />

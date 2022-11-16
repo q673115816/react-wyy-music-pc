@@ -14,3 +14,8 @@ interface Countrie {
     code: string;
   }[];
 }
+
+export interface LoginStatus extends ResWithCode {
+  account: any;
+  profile: any;
+}

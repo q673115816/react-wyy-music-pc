@@ -14,10 +14,9 @@ import Drag from "@/components/Drag";
 import style from "./style.module.scss";
 import classNames from "classnames";
 
-export default memo(function Timing() {
+const Timing = () => {
   const dispatch = useAppDispatch();
   const { currentTime, currentSong, buffered } = useAppSelector(audioSelector);
-
   const RefProgress = useRef<HTMLDivElement>(null);
   const computedPosition = (e) => {
     if (!RefProgress.current) return;
@@ -91,4 +90,6 @@ export default memo(function Timing() {
       </span>
     </div>
   );
-});
+};
+
+export default memo(Timing);

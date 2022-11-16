@@ -1,4 +1,4 @@
-import { Countries } from "./types";
+import { Countries, LoginStatus } from "./types";
 import { baseApi } from "../base";
 
 export const api = baseApi.injectEndpoints({
@@ -30,6 +30,15 @@ export const api = baseApi.injectEndpoints({
         body,
       }),
     }),
+    getRegisterAnonimous: build.query({
+      query: () => "register/anonimous",
+    }),
+    getLoginStatus: build.query<LoginStatus, void>({
+      query: () => ({
+        url: "login/status",
+        method: "POST",
+      }),
+    }),
   }),
 });
 
@@ -38,4 +47,7 @@ export const {
   useGetLogoutMutation,
   useGetLoginQRCheckMutation,
   usePostAvatarUploadMutation,
+
+  useGetLoginStatusQuery,
+  useLazyGetRegisterAnonimousQuery,
 } = api;

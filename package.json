@@ -38,10 +38,10 @@
     "@types/react": "*",
     "@types/react-dom": "*",
     "@types/react-test-renderer": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
-    "@typescript-eslint/parser": "^5.42.1",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "@typescript-eslint/parser": "^5.43.0",
     "@vitejs/plugin-react": "2.2.0",
-    "@vitest/ui": "^0.25.1",
+    "@vitest/ui": "^0.25.2",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
@@ -57,12 +57,12 @@
     "prettier": "*",
     "react-test-renderer": "18.2.0",
     "rimraf": "^3.0.2",
-    "stylelint": "^14.14.1",
+    "stylelint": "^14.15.0",
     "stylelint-config-prettier": "^9.0.4",
     "stylelint-config-standard-scss": "^6.1.0",
     "stylelint-prettier": "^2.0.0",
     "typescript": "*",
-    "vitest": "^0.25.1"
+    "vitest": "^0.25.2"
   },
   "engines": {
     "node": ">=14",

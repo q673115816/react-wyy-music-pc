@@ -1,23 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { apiLoginStatus } from "@/api";
+import { useGetLoginStatusQuery } from "@/modules/services/account";
 
-export const handleLoginStatus = async (callback: any) => {
-  try {
-    const {
-      data: { profile },
-    } = await apiLoginStatus();
-    callback && callback(profile);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export default () => {
+const useLoginStatus = () => {
+  const { data, isSuccess, isFetching, isLoading } = useGetLoginStatusQuery();
   const navigate = useNavigate();
-  useEffect(() => {
-    handleLoginStatus((profile: any) => {
-      if (!profile) navigate("/", { replace: true });
-    });
-  }, []);
+  if (isLoading) return;
+  const profile = data?.data?.profile;
+  console.log("profile", profile);
+  if (!profile) navigate("/", { replace: true });
 };
+
+export default useLoginStatus;

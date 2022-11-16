@@ -19,6 +19,7 @@ import storage from "redux-persist/lib/storage";
 
 import reducers from "./reducers";
 import { services, middlewares } from "./services";
+import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 const preloadedState = {};
 
 if (window && window.__STATE__) {
@@ -35,6 +36,7 @@ const persistConfig = {
   version: 1.2,
   storage,
   debug: import.meta.env.DEV,
+  stateReconciler: autoMergeLevel2,
   whitelist: [
     "common",
     "account",
