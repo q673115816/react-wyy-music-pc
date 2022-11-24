@@ -1,1 +1,0 @@
-import{Z as r}from"./index.3d114a0e.js";import{c as a}from"./react-router.d1bb31aa.js";const g=()=>{var s;const{data:e,isSuccess:n,isFetching:c,isLoading:t}=r(),i=a();if(t)return;const o=(s=e==null?void 0:e.data)==null?void 0:s.profile;console.log("profile",o),o||i("/",{replace:!0})};export{g as u};
