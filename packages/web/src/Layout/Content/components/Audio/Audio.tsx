@@ -1,4 +1,4 @@
-import React, { FC, memo, ReactEventHandler, useEffect } from "react";
+import React, { FC, memo, ReactEventHandler, useEffect, useState } from "react";
 import {
   audioSelector,
   setAudioBuffered,
@@ -8,14 +8,16 @@ import {
   setRunErrorAdd,
 } from "@/modules/reducers/audio/slice";
 import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { useAudio, useBoolean } from "react-use";
+import { useAudio, useBoolean, useNetworkState } from "react-use";
 import { volumeSelector } from "@/modules/reducers/volume/slice";
 
 const Audio: FC = () => {
   const dispatch = useAppDispatch();
+  const { online } = useNetworkState();
   const { running, dropping, currentTime, jumpTime, errorCount, src } =
     useAppSelector(audioSelector);
 
+  const [usedSrc, setUsedSrc] = useState(src);
   const { volume } = useAppSelector(volumeSelector);
   const [canplay, setCanplay] = useBoolean(false);
 
@@ -55,6 +57,16 @@ const Audio: FC = () => {
   const onCanPlay = () => {
     setCanplay(true);
   };
+
+  useEffect(() => {
+    console.log("音频地址切换");
+    return;
+    if (online) {
+      setUsedSrc(src);
+    } else {
+      setUsedSrc(src);
+    }
+  }, [src, online]);
 
   const [audio, state, controls] = useAudio({
     src,
