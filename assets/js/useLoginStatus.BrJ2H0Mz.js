@@ -1,0 +1,1 @@
+import{a as e}from"./rolldown-runtime.BWaJ3C7D.js";import{i as t}from"./react.CpR_LQJQ.js";import{l as n}from"./router.CGn53s-1.js";import{Q as r}from"./index.BA8nmz6c.js";var i=e(t()),a=()=>{let{data:e,isSuccess:t}=r(),a=n(),o=e?.data?.profile;(0,i.useEffect)(()=>{t&&!o&&a(`/`,{replace:!0})},[o,t])};export{a as t};

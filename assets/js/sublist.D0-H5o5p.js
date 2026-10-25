@@ -1,0 +1,1 @@
+import{r as e}from"./rtk-compat.DUOldFCe.js";import{n as t}from"./client.BFz0WjFm.js";var n=()=>e([`mv/sublist`],()=>t(`mv/sublist`)),r=()=>e([`topic/sublist`],()=>t(`topic/sublist`)),i=()=>e([`artist/sublist`],()=>t(`artist/sublist`)),a=()=>e([`album/sublist`],()=>t(`album/sublist`)),o=()=>e([`dj/sublist`],()=>t(`dj/sublist`));export{r as a,n as i,i as n,o as r,a as t};

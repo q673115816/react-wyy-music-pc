@@ -1,0 +1,1 @@
+import"./rolldown-runtime.BWaJ3C7D.js";import{i as e,t}from"./react.CpR_LQJQ.js";import{it as n}from"./icons.Co7XM7QE.js";e();var r=t(),i=()=>(0,r.jsx)(`button`,{type:`button`,className:`ui_text_gray_hover`,children:(0,r.jsx)(n,{size:20,stroke:1})});export{i as t};

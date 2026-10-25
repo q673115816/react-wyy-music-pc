@@ -1,0 +1,1 @@
+import{a as e}from"./rolldown-runtime.BWaJ3C7D.js";import{i as t,t as n}from"./react.CpR_LQJQ.js";import{o as r,s as i}from"./router.CGn53s-1.js";var a=e(t()),o=n(),s=(0,a.memo)(()=>(0,o.jsx)(`div`,{})),c=()=>(0,o.jsx)(i,{children:(0,o.jsx)(r,{index:!0,element:(0,o.jsx)(s,{})})});export{c as default};
