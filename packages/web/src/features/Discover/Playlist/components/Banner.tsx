@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
-import { Link, useParams } from "react-router-dom";
-import { IconCrown } from "@tabler/icons";
+import { Link, useParams } from "react-router";
+import { IconCrown } from "@tabler/icons-react";
 import { Highquality } from "@/modules/services/discover";
 
 interface iBanner {

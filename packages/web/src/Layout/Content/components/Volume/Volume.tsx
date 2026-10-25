@@ -1,22 +1,20 @@
 import React, { useState, useEffect, memo, useMemo } from "react";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { IconVolume, IconVolume3 } from "@tabler/icons";
-import { setVolume, setBeforeMuted } from "@/modules/reducers/volume/slice";
+import { useVolumeStore } from "@/stores";
+import { IconVolume, IconVolume3 } from "@tabler/icons-react";
 import Panel from "./Panel";
 
 const Volume = () => {
-  const dispatch = useAppDispatch();
-  const { volume, beforeMuted } = useAppSelector(({ volume }) => volume);
+  const { volume, beforeMuted, setVolume, setBeforeMuted } = useVolumeStore();
   const [muted, setMuted] = useState(() => volume === 0);
 
   const [visible, setVisible] = useState(false);
 
   const handleMutedChange = () => {
     if (muted) {
-      dispatch(setVolume(beforeMuted));
+      setVolume(beforeMuted);
     } else {
-      dispatch(setVolume(0));
-      dispatch(setBeforeMuted(volume));
+      setVolume(0);
+      setBeforeMuted(volume);
     }
   };
 

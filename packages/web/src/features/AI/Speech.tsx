@@ -1,10 +1,8 @@
-import { useAppDispatch } from "@/modules/hooks";
 import { useToast } from "@/components/Toast";
-import { IconBrandGithub } from "@tabler/icons";
+import { IconBrandGithub } from "@tabler/icons-react";
 import React, { memo, useCallback, useState, useRef } from "react";
 
 const Speech = () => {
-  const dispatch = useAppDispatch();
   const toast = useToast();
   const [text, setText] = useState("");
   const active = useRef(false);

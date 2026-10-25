@@ -1,18 +1,17 @@
 import React, { memo } from "react";
-import { useAppDispatch } from "@/modules/hooks";
 import { useGetMsgPrivateQuery } from "@/modules/services/message";
-import { setPopupLetterToggle } from "@/modules/reducers/mask/slice";
-import { IconMail } from "@tabler/icons";
+
+import { IconMail } from "@tabler/icons-react";
+import { useMaskStore } from "@/stores";
 
 const Letter = () => {
-  const dispatch = useAppDispatch();
   const { data, isLoading, isSuccess } = useGetMsgPrivateQuery();
   const { newMsgCount } = data || 0;
   return (
     <button
       type="button"
-      className="focus:outline-none text-white text-opacity-90 hover:text-opacity-100 relative"
-      onClick={() => dispatch(setPopupLetterToggle())}
+      className="focus:outline-hidden text-white/90 hover:text-white relative"
+      onClick={() => useMaskStore.getState().setPopupLetterToggle()}
       title="私信"
     >
       <IconMail size={24} />

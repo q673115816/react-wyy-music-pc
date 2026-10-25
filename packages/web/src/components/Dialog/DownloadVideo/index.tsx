@@ -1,8 +1,8 @@
 import React from "react";
-import { maskSelector, setDialogReset } from "@/modules/reducers/mask/slice";
+
 import CheckBox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { useMaskStore } from "@/stores";
 
 const list: [string, boolean][] = [
   ["标清", true],
@@ -11,12 +11,11 @@ const list: [string, boolean][] = [
 ];
 
 export default () => {
-  const dispatch = useAppDispatch();
   const { callback, dialogDownloadVideoVisibility } =
-    useAppSelector(maskSelector);
+    useMaskStore();
   const handleConfirm = () => {
     callback();
-    dispatch(setDialogReset());
+    useMaskStore.getState().setDialogReset();
   };
   if (!dialogDownloadVideoVisibility) return null;
   return (
@@ -40,7 +39,7 @@ export default () => {
           <button
             type="button"
             className="w-20 h-8 rounded-full border hover:bg-gray-50"
-            onClick={() => dispatch(setDialogReset())}
+            onClick={() => useMaskStore.getState().setDialogReset()}
           >
             取消
           </button>

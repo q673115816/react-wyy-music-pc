@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import Layout from "./Layout";
 import Player from "./Player";
 import Content from "./Content";

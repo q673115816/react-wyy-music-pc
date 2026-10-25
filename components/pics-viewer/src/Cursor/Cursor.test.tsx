@@ -1,12 +1,11 @@
+import { renderToStaticMarkup } from "react-dom/server";
+import { describe, expect, it } from "vitest";
 import React from "react";
-import ReactDOM from "react-dom";
 import Cursor from "./Cursor";
 
-describe("it", () => {
-  it("renders without crashing", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<Cursor.Left />, div);
-    ReactDOM.render(<Cursor.Right />, div);
-    ReactDOM.unmountComponentAtNode(div);
+describe("Cursor", () => {
+  it("renders both arrows without crashing", () => {
+    expect(() => renderToStaticMarkup(<Cursor.Left />)).not.toThrow();
+    expect(() => renderToStaticMarkup(<Cursor.Right />)).not.toThrow();
   });
 });

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import classNames from "classnames";
 import Gender from "@/components/Gender";
 

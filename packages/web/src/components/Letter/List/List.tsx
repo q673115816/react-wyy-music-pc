@@ -1,12 +1,11 @@
 import React, { createElement, FC, memo, useState } from "react";
 import classNames from "classnames";
-import { commonSelector } from "@/modules/reducers/common/slice";
-import { useAppSelector } from "@/modules/hooks";
-import { accountSelector } from "@/modules/reducers/account/slice";
+
 import Private from "./Private";
 import Comments from "./Comments";
 import Forwards from "./Forwards";
 import Notices from "./Notices";
+import { useAccountStore, useCommonStore } from "@/stores";
 
 const Nodes: { [key: string]: FC } = {
   私信: Private,
@@ -18,8 +17,8 @@ const Nodes: { [key: string]: FC } = {
 const navs = Object.keys(Nodes);
 
 const List = () => {
-  const { isLogin } = useAppSelector(accountSelector);
-  const { newMsgCount } = useAppSelector(commonSelector);
+  const { isLogin } = useAccountStore();
+  const { newMsgCount } = useCommonStore();
   const [active, setActive] = useState("私信");
 
   const handleChangeNav = (active: string) => {

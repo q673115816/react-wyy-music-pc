@@ -3,7 +3,7 @@ import {
   IconLayoutList,
   IconList,
   TablerIcon,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 
 import Grid from "./components/Grid";
 import List from "./components/List";

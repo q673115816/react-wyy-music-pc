@@ -1,12 +1,7 @@
 import React, { useState, memo, useRef, FC } from "react";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { useSettingsStore } from "@/stores";
 import classNames from "classnames";
 
-import {
-  setTheme,
-  setCustom,
-  settingSelector,
-} from "@/modules/reducers/settings/slice";
 import style from "./style.module.scss";
 import { themes, colors } from "./config";
 
@@ -25,13 +20,12 @@ const Popup: FC<iProps> = ({ setVisibility }) => {
   useClickAway(ref, () => {
     setVisibility(false);
   });
-  const dispatch = useAppDispatch();
-  const { theme, custom } = useAppSelector(settingSelector);
+  const { theme, custom, setTheme, setCustom } = useSettingsStore();
   const [current, setCurrent] = useState(panels[0]);
 
-  const handleSelectTheme = (theme: string) => {
-    if (custom) dispatch(setCustom(false));
-    dispatch(setTheme(theme));
+  const handleSelectTheme = (nextTheme: string) => {
+    if (custom) setCustom(false);
+    setTheme(nextTheme);
   };
 
   return (

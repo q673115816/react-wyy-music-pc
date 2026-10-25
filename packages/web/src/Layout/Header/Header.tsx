@@ -5,11 +5,8 @@ import React, {
   MouseEvent,
   MouseEventHandler,
 } from "react";
-import { Link } from "react-router-dom";
-import { useAppDispatch } from "@/modules/hooks";
+import { Link } from "react-router";
 
-import { setMsgPrivate } from "@/modules/reducers/common/slice";
-import { setLoginInfo } from "@/modules/reducers/account/slice";
 import {
   apiUserAccount,
   apiMsgPrivate,
@@ -22,14 +19,9 @@ import {
   apiAlbumSublist,
   apiPlaylistMylike,
 } from "@/api";
-import {
-  setGlobalInset,
-  setGlobalDragger,
-  setGlobalStartInset,
-  insetSelector,
-} from "@/modules/reducers/inset/slice";
+
 import Drag from "@/components/Drag";
-import { IconMicrophone } from "@tabler/icons";
+import { IconMicrophone } from "@tabler/icons-react";
 
 import VisitStack from "./components/VisitStack";
 import Search from "./components/Search";
@@ -37,9 +29,9 @@ import Account from "./components/Account";
 import Control from "./components/Control";
 import Function from "./components/Function";
 import "./style.scss";
+import { useAccountStore, useInsetStore } from "@/stores";
 
 const useInit = () => {
-  const dispatch = useAppDispatch();
 
   const handleCookieInit = async () => {
     try {
@@ -55,8 +47,7 @@ const useInit = () => {
         const { data: mvSublist } = await apiMVSublist();
         const { data: topicSublist } = await apiTopicSublist();
         const { data: albumSublist } = await apiAlbumSublist();
-        dispatch(
-          setLoginInfo({
+        useAccountStore.getState().setLoginInfo({
             profile: { ...profile, ...accountDetail },
             playlist,
             bindings,
@@ -66,7 +57,7 @@ const useInit = () => {
             topicSublist,
             albumSublist,
           })
-        );
+        ;
       }
     } catch (error) {
       console.log(error);
@@ -81,31 +72,28 @@ const useInit = () => {
 };
 
 const CustomDrag = memo(() => {
-  const dispatch = useAppDispatch();
   const onMouseMove: MouseEventHandler = useCallback(
     ({ clientX: x, clientY: y }: MouseEvent) => {
-      dispatch(
-        setGlobalInset({
+      useInsetStore.getState().setGlobalInset({
           x,
           y,
         })
-      );
+      ;
     },
     []
   );
 
   const onMouseUp: MouseEventHandler = useCallback(() => {
-    // dispatch(setGlobalDragger(false));
+    // useInsetStore.getState().setGlobalDragger(false);
   }, []);
 
   const onMouseDown: MouseEventHandler = useCallback((e: MouseEvent) => {
-    // dispatch(setGlobalDragger(true));
-    dispatch(
-      setGlobalStartInset({
+    // useInsetStore.getState().setGlobalDragger(true);
+    useInsetStore.getState().setGlobalStartInset({
         x: e.clientX,
         y: e.clientY,
       })
-    );
+    ;
   }, []);
   return (
     <Drag
@@ -131,7 +119,7 @@ const Header = () => {
         <Search />
         <Link
           to="/ai"
-          className="bg-black bg-opacity-5 w-8 h-8 rounded-full text-white flex-center z-10"
+          className="bg-black/5 w-8 h-8 rounded-full text-white flex-center z-10"
         >
           <IconMicrophone size={18} />
         </Link>

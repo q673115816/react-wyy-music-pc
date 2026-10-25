@@ -1,14 +1,14 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { useGetLoginStatusQuery } from "@/modules/services/account";
 
 const useLoginStatus = () => {
-  const { data, isSuccess, isFetching, isLoading } = useGetLoginStatusQuery();
+  const { data, isSuccess } = useGetLoginStatusQuery();
   const navigate = useNavigate();
-  if (isLoading) return;
   const profile = data?.data?.profile;
-  console.log("profile", profile);
-  if (!profile) navigate("/", { replace: true });
+  useEffect(() => {
+    if (isSuccess && !profile) navigate("/", { replace: true });
+  }, [profile, isSuccess]);
 };
 
 export default useLoginStatus;

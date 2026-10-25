@@ -1,4 +1,4 @@
-import { IconPlayerPlay } from "@tabler/icons";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import React, { FC, memo } from "react";
 import SongAsyncReplace from "@/components/GroupPlay/SongAsyncReplace";
 

@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { IconChevronLeft, IconChevronRight } from "@tabler/icons";
-import { useNavigate } from "react-router-dom";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { useNavigate } from "react-router";
 
 const VisitStack = () => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const VisitStack = () => {
         type="button"
         onClick={() => navigate(-1)}
         className={
-          "bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white z-10"
+          "bg-black/5 w-6 h-6 rounded-full flex-center text-white z-10"
         }
       >
         <IconChevronLeft size={16} />
@@ -19,7 +19,7 @@ const VisitStack = () => {
         type="button"
         onClick={() => navigate(1)}
         className={
-          "bg-black bg-opacity-5 w-6 h-6 rounded-full flex-center text-white z-10"
+          "bg-black/5 w-6 h-6 rounded-full flex-center text-white z-10"
         }
       >
         <IconChevronRight size={16} />

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import Resizer from "./Resizer";
 import Header from "./Header";
 import Inset from "./Inset";

@@ -2,11 +2,11 @@ import React, { useRef, useEffect, RefObject } from "react";
 
 export default (
   scrollCallback: () => void,
-  domScroll: RefObject<HTMLElement> | null,
-  domObserver: RefObject<HTMLElement>,
+  domScroll: RefObject<HTMLElement | null> | null,
+  domObserver: RefObject<HTMLElement | null>,
   deps = []
 ) => {
-  const io = useRef<IntersectionObserver>(null);
+  const io = useRef<IntersectionObserver | null>(null);
 
   const handleIo = () => {
     io.current = new IntersectionObserver(
@@ -24,11 +24,12 @@ export default (
         // thresholds: [1],
       }
     );
+    if (!io.current || !domObserver.current) return;
     io.current.observe(domObserver.current);
   };
 
   const handleUnIo = () => {
-    io.current.disconnect();
+    io.current?.disconnect();
   };
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import {
   useGetDailySignInMutation,
   useGetSignInProgressQuery,
 } from "@/modules/services/user";
-import { IconCoin } from "@tabler/icons";
+import { IconCoin } from "@tabler/icons-react";
 import Loading from "@/components/Loading";
 
 const SignIn = () => {

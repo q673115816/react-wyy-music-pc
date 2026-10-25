@@ -9,11 +9,10 @@ import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
 dayjs.locale("zh-cn");
 import React, { memo } from "react";
-import { useAppSelector } from "@/modules/hooks";
-import { audioSelector } from "@/modules/reducers/audio/slice";
+import { useAudioStore } from "@/stores";
 
 const Content = () => {
-  const { history } = useAppSelector(audioSelector);
+  const { history } = useAudioStore();
   console.log(history);
   if (history.length === 0) {
     return (
@@ -42,7 +41,7 @@ const Content = () => {
             key={item.name + item.id}
             tabIndex={2}
             className={classNames(
-              "grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template",
+              "grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-hidden ui_grid_template",
               { "bg-gray-50": index % 2 === 0 }
             )}
           >

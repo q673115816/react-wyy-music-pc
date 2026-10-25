@@ -1,5 +1,4 @@
 import { useMemo, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   apiFollow,
   apiVideoSub,
@@ -7,14 +6,12 @@ import {
   apiMVSublist,
   apiResourceLike,
 } from "@/api";
-import {
-  accountSelector,
-  setMVSublist,
-} from "@/modules/reducers/account/slice";
+
 import FNDownload from "./Download";
 
 import config from "./config";
 import { useToast } from "@/components/Toast";
+import { useAccountStore } from "@/stores";
 
 interface iProps {
   vid: string;
@@ -23,37 +20,33 @@ interface iProps {
 
 const UseInit = ({ vid, type }: iProps) => {
   const toast = useToast();
-  const dispatch = useAppDispatch();
-  const { mvSublist } = useAppSelector(accountSelector);
+  const { mvSublist } = useAccountStore();
 
   const isSub = useMemo(
     () => mvSublist.find((mv) => mv.vid === vid),
     [vid, mvSublist]
   );
-  const isLike = useMemo(() => null, [vid]);
   const { pending, urls, detail, detailInfo, handleInit } = config[type].init();
+  const isLike = detailInfo?.liked;
 
   const handleGetMVSublist = async () => {
     try {
       const { data: mvSublist } = await apiMVSublist();
-      dispatch(
-        setMVSublist({
+      useAccountStore.getState().setMVSublist({
           mvSublist,
         })
-      );
+      ;
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleLike = () => {
-    dispatch(
-      apiResourceLike({
-        id: vid,
-        type: type === "mv" ? "1" : "5",
-        t: isLike ? 0 : 1,
-      })
-    );
+  const handleLike = async () => {
+    await apiResourceLike({
+      id: vid,
+      type: type === "mv" ? "1" : "5",
+      t: isLike ? 0 : 1,
+    });
   };
 
   const handleSub = async () => {

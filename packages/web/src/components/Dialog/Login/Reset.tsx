@@ -5,7 +5,7 @@ import React, {
   ChangeEventHandler,
   memo,
 } from "react";
-import { IconFaceId } from "@tabler/icons";
+import { IconFaceId } from "@tabler/icons-react";
 import {
   actionSwitchIdentify,
   actionSwitchSignUp,

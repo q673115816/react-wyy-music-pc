@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import {
   IconMessage,
   IconArrowForward,
@@ -12,30 +12,18 @@ import {
   IconCirclePlus,
   IconMusic,
   IconLock,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 
-import {
-  setDialogReset,
-  setDialogShareShow,
-  setDialogCreatePlaylistShow,
-  setContextMenuShareLink,
-  maskSelector,
-} from "@/modules/reducers/mask/slice";
 import { useToast } from "@/components/Toast";
-import {
-  setAudioImmediate,
-  setAudioImmediateNext,
-} from "@/modules/reducers/audio/slice";
+
 import { apiMVSub } from "@/api";
 import Mask from "@/components/Mask";
 import "./Contextmenu.scss";
 import { useCopyToClipboard } from "react-use";
-import { insetSelector } from "@/modules/reducers/inset/slice";
-import { accountSelector } from "@/modules/reducers/account/slice";
-import { commonSelector } from "@/modules/reducers/common/slice";
+
 import List from "./List";
 import Item from "./Item";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { useAccountStore, useAudioStore, useCommonStore, useInsetStore, useMaskStore } from "@/stores";
 
 const initBuild = (functionClose) => ({
   评论: ({ contextMenuItem, contextMenuTotal, contextMenuType }) => (
@@ -288,11 +276,10 @@ const initBuild = (functionClose) => ({
 });
 
 const Contextmenu = () => {
-  const dispatch = useAppDispatch();
   const [, copyToClipboard] = useCopyToClipboard();
   const toast = useToast();
-  const { baseUrl } = useAppSelector(commonSelector);
-  const { profile, playlist } = useAppSelector(accountSelector);
+  const { baseUrl } = useCommonStore();
+  const { profile, playlist } = useAccountStore();
   const {
     contextMenuVisibility,
     contextMenuX,
@@ -302,34 +289,31 @@ const Contextmenu = () => {
     contextMenuSchema,
     contextMenuType,
     contextMenuItemId,
-  } = useAppSelector(maskSelector);
-  const { globalX, globalY } = useAppSelector(insetSelector);
+  } = useMaskStore();
+  const { globalX, globalY } = useInsetStore();
   const ownPlaylist = playlist.filter((item) => !item.subscribed);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
   useEffect(() => {
-    dispatch(
-      setContextMenuShareLink({
+    useMaskStore.getState().setContextMenuShareLink({
         contextMenuShareLink: ShareUrl,
       })
-    );
+    ;
   }, []);
 
   const handlePlay = () => {
-    dispatch(
-      setAudioImmediate({
+    useAudioStore.getState().setAudioImmediate({
         currentSong: contextMenuItem,
       })
-    );
-    dispatch(setDialogReset());
+    ;
+    useMaskStore.getState().setDialogReset();
   };
 
   const handlePlayNext = () => {
-    dispatch(
-      setAudioImmediateNext({
+    useAudioStore.getState().setAudioImmediateNext({
         currentSong: contextMenuItem,
       })
-    );
-    dispatch(setDialogReset());
+    ;
+    useMaskStore.getState().setDialogReset();
   };
 
   const handlePlayPlaylist = () => {
@@ -345,7 +329,7 @@ const Contextmenu = () => {
         mvid: contextMenuItemId,
         t: 1,
       });
-      dispatch(setDialogReset());
+      useMaskStore.getState().setDialogReset();
       toast(message);
     } catch (error) {
       console.log(error);
@@ -355,25 +339,25 @@ const Contextmenu = () => {
   const handleCopyLink = () => {
     copyToClipboard(ShareUrl);
     toast("复制链接成功");
-    dispatch(setDialogReset());
+    useMaskStore.getState().setDialogReset();
   };
 
   const handleCreatePlaylist = () => {
-    dispatch(setDialogCreatePlaylistShow());
+    useMaskStore.getState().setDialogCreatePlaylistShow();
   };
 
   const handleDialogShare = useCallback(
     () =>
       // if (!isLogin) {
-      //   dispatch(toggleLoginVisibility());
-      //   return dispatch(setDialogReset());
+      //   useMaskStore.getState().toggleLoginVisibility();
+      //   return useMaskStore.getState().setDialogReset();
       // }
-      dispatch(setDialogShareShow()),
+      useMaskStore.getState().setDialogShareShow(),
     []
   );
 
   const Build = useMemo(() => {
-    const Dom = initBuild(() => dispatch(setDialogReset()));
+    const Dom = initBuild(() => useMaskStore.getState().setDialogReset());
     return contextMenuSchema.map((block) => [
       block.join(","),
       block.map((item) => [item, Dom[item]]),

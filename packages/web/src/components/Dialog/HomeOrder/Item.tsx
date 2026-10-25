@@ -3,7 +3,7 @@ import React, {
   ForwardRefRenderFunction,
   HTMLAttributes,
 } from "react";
-import { IconMenu } from "@tabler/icons";
+import { IconMenu } from "@tabler/icons-react";
 interface iProps extends HTMLAttributes<HTMLDivElement> {
   order: string;
 }

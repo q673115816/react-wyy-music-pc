@@ -1,5 +1,5 @@
 import React, { FC, memo } from "react";
-import { IconX, IconSearch } from "@tabler/icons";
+import { IconX, IconSearch } from "@tabler/icons-react";
 
 interface iProps {
   search: string;

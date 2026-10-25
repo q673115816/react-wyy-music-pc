@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { apiDJProgramTopList, apiDJTopList } from "@/api";
 import { unstable_batchedUpdates } from "react-dom";
 import Item from "./Item";

@@ -1,7 +1,7 @@
 import React, { memo, useContext, useState } from "react";
 import classNames from "classnames";
 import style from "./select.module.scss";
-import { IconCaretDown, IconDeviceMobile } from "@tabler/icons";
+import { IconCaretDown, IconDeviceMobile } from "@tabler/icons-react";
 import { SET_SIGNIN_COUNTRYCODE, loginContext } from "../../Content";
 import { useGetCountriesCodeListQuery } from "@/modules/services/account";
 

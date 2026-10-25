@@ -1,5 +1,5 @@
 import React, { lazy, memo, Suspense, createElement, Fragment } from "react";
-import { Navigate, Route, RouteObject, Routes } from "react-router-dom";
+import { Navigate, Route, RouteObject, Routes } from "react-router";
 import Loading from "@/components/Loading";
 
 const router: RouteObject[] = [];

@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
-import { IconPlayerPlay, IconLock } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlayerPlay, IconLock } from "@tabler/icons-react";
 import { transPlayCount } from "@/common/utils";
 import PlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
 import MenuCreate from "@/components/MenuCreate/MenuCreate";
@@ -54,7 +54,7 @@ const Item: FC<iProps> = ({ item = {} }) => (
       )}
       <PlaylistAsyncReplace
         id={item.id}
-        className="playArrow ui_themeColor absolute right-0 bottom-0 m-2 p-2 bg-white bg-opacity-90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        className="playArrow ui_themeColor absolute right-0 bottom-0 m-2 p-2 bg-white/90 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
       >
         <IconPlayerPlay size={22} className="fill-current" />
       </PlaylistAsyncReplace>

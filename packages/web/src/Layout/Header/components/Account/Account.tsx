@@ -1,14 +1,12 @@
 import React, { useState, memo, MouseEventHandler, useCallback } from "react";
-import { Link } from "react-router-dom";
-import { IconUser, IconCaretDown } from "@tabler/icons";
-import { toggleLoginVisibility } from "@/modules/reducers/mask/slice";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { Link } from "react-router";
+import { IconUser, IconCaretDown } from "@tabler/icons-react";
+
 import Profile from "./Profile";
-import { accountSelector } from "@/modules/reducers/account/slice";
+import { useAccountStore, useMaskStore } from "@/stores";
 
 const Account = () => {
-  const dispatch = useAppDispatch();
-  const { profile, isLogin } = useAppSelector(accountSelector);
+  const { profile, isLogin } = useAccountStore();
   const [visibility, setVisibility] = useState(false);
 
   const handleHide: MouseEventHandler = useCallback(
@@ -16,7 +14,7 @@ const Account = () => {
     []
   );
   const handleShowLogin = () => {
-    dispatch(toggleLoginVisibility());
+    useMaskStore.getState().toggleLoginVisibility();
   };
   return (
     <div className="ml-auto flex relative items-center space-x-2 mr-2 h-full">
@@ -31,7 +29,7 @@ const Account = () => {
           </Link>
           <button
             type="button"
-            className="flex items-center z-10 text-white text-opacity-90 hover:text-opacity-100"
+            className="flex items-center z-10 text-white/90 hover:text-white"
             onClick={() => setVisibility(!visibility)}
           >
             <span>{profile.nickname}</span>
@@ -42,7 +40,7 @@ const Account = () => {
       ) : (
         <button
           type="button"
-          className="flex items-center z-10 text-white text-opacity-90 hover:text-opacity-100"
+          className="flex items-center z-10 text-white/90 hover:text-white"
           onClick={handleShowLogin}
         >
           <span className="w-7 h-7 rounded-full flex-center mr-2 bg-gray-300">
@@ -54,7 +52,7 @@ const Account = () => {
       )}
       <button
         type="button"
-        className="vip text-white text-opacity-90 hover:text-opacity-100 z-10"
+        className="vip text-white/90 hover:text-white z-10"
       >
         开通VIP
       </button>

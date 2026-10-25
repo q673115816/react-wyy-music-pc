@@ -8,12 +8,12 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { setDialogReset } from "@/modules/reducers/mask/slice";
-import { IconX } from "@tabler/icons";
+
+import { IconX } from "@tabler/icons-react";
 import classNames from "classnames";
-import { useAppDispatch } from "@/modules/hooks";
 import { concatAll, fromEvent, map, takeUntil } from "rxjs";
 import { useGetSetState } from "react-use";
+import { useMaskStore } from "@/stores";
 
 interface iProps extends PropsWithChildren {
   title: string;
@@ -27,7 +27,6 @@ const Dialog: FC<iProps> = ({
   className = "",
   width = 470,
 }) => {
-  const dispatch = useAppDispatch();
   const inset = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const handle = useRef<HTMLDivElement>(null);
@@ -45,7 +44,7 @@ const Dialog: FC<iProps> = ({
   });
 
   const handleClick: MouseEventHandler = (e) => {
-    if (e.target === inset.current) dispatch(setDialogReset());
+    if (e.target === inset.current) useMaskStore.getState().setDialogReset();
   };
 
   useLayoutEffect(() => {
@@ -122,7 +121,7 @@ const Dialog: FC<iProps> = ({
         <button
           type="button"
           className="absolute top-2.5 right-2.5 text-2xl z-10 text-gray-500"
-          onClick={() => dispatch(setDialogReset())}
+          onClick={() => useMaskStore.getState().setDialogReset()}
         >
           <IconX stroke={1.5} />
         </button>

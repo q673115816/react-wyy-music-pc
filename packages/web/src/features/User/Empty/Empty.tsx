@@ -1,4 +1,4 @@
-import { IconAlien } from "@tabler/icons";
+import { IconAlien } from "@tabler/icons-react";
 import React, { memo } from "react";
 
 const Empty = () => {

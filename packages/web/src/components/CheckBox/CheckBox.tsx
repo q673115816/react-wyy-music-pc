@@ -1,7 +1,7 @@
 import React, { forwardRef, InputHTMLAttributes } from "react";
 import classNames from "classnames";
 import style from "./CheckBox.module.scss";
-import { IconCheck } from "@tabler/icons";
+import { IconCheck } from "@tabler/icons-react";
 
 const CheckBox = forwardRef<
   HTMLInputElement,

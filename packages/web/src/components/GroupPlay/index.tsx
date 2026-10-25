@@ -1,24 +1,20 @@
 import React, { FC, memo } from "react";
-import { IconPlayerPlay, IconPlus } from "@tabler/icons";
-import { useAppDispatch } from "@/modules/hooks";
-import {
-  setAudioPlaylist,
-  setAudioPlaylistAdd,
-} from "@/modules/reducers/audio/slice";
+import { IconPlayerPlay, IconPlus } from "@tabler/icons-react";
+
 import { PlayList } from "@/modules/services/types";
+import { useAudioStore } from "@/stores";
 
 interface iProps {
   playlist: PlayList[];
 }
 
 const GroupPlay: FC<iProps> = ({ playlist = [] }) => {
-  const dispatch = useAppDispatch();
 
   return (
     <span className="inline-flex h-8 rounded-full text-white overflow-hidden">
       <button
         type="button"
-        onClick={() => dispatch(setAudioPlaylist({ playlist }))}
+        onClick={() => useAudioStore.getState().setAudioPlaylist({ playlist })}
         className="flex-center ui_theme_bg_color w-24 hover:opacity-80"
       >
         <IconPlayerPlay size={16} className="fill-current" />
@@ -27,7 +23,7 @@ const GroupPlay: FC<iProps> = ({ playlist = [] }) => {
       <i className="w-px bg-white" />
       <button
         type="button"
-        onClick={() => dispatch(setAudioPlaylistAdd({ playlist }))}
+        onClick={() => useAudioStore.getState().setAudioPlaylistAdd({ playlist })}
         className="flex-center ui_theme_bg_color w-8 hover:opacity-80"
       >
         <IconPlus size={18} />

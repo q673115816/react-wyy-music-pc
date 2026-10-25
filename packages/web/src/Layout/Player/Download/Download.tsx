@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { setDialogDownloadVideoShow } from "@/modules/reducers/mask/slice";
+
 import DownloadWorker from "./download.worker?worker";
-import { useAppDispatch } from "@/modules/hooks";
+import { useMaskStore } from "@/stores";
 
 export default (url = "", title = "") => {
-  const dispatch = useAppDispatch();
-  const RefWorker = useRef<Worker | null | void>();
-  const downloadResponse = useRef();
+  const RefWorker = useRef<Worker | null>(null);
+  const downloadResponse = useRef<Blob | null>(null);
   const [downloadProcess, setDownloadProcess] = useState(0);
   const [downloadState, setDownloadState] = useState("下载");
   const handleInitDownload = () => {
@@ -22,6 +21,7 @@ export default (url = "", title = "") => {
   };
 
   const handleCreateFile = () => {
+    if (!downloadResponse.current) return;
     const { pathname } = new URL(url);
     const ext = pathname.substr(pathname.lastIndexOf("."));
     const href = window.URL.createObjectURL(downloadResponse.current);
@@ -61,11 +61,10 @@ export default (url = "", title = "") => {
       return;
     }
     if (downloadState !== "下载") return;
-    dispatch(
-      setDialogDownloadVideoShow({
+    useMaskStore.getState().setDialogDownloadVideoShow({
         callback,
       })
-    );
+    ;
   };
 
   return {

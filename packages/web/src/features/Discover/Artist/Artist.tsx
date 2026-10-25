@@ -111,7 +111,7 @@ const Artist = () => {
                     alt=""
                     style={{ filter: "blur(2px)" }}
                   />
-                  <div className="rankmask absolute inset-0 flex-center text-white text-3xl bg-purple-500 bg-opacity-90">
+                  <div className="rankmask absolute inset-0 flex-center text-white text-3xl bg-purple-500/90">
                     歌手榜
                   </div>
                 </Link>

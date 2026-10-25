@@ -1,24 +1,22 @@
 import React, { memo, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { LrcSelector, setLyricHide } from "@/modules/reducers/lrc/slice";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { useLocation } from "react-router";
+import { useLrcStore, useAudioStore } from "@/stores";
 import Left from "./components/Left";
 import Center from "./components/Center";
 import Right from "./components/Right";
 import Content from "./components/Content";
-import { audioSelector } from "@/modules/reducers/audio/slice";
+
 import style from "./Lrc.module.scss";
 import classNames from "classnames";
 
 const Lrc = () => {
-  const dispatch = useAppDispatch();
   const location = useLocation();
-  const { currentSong } = useAppSelector(audioSelector);
-  const { lyricVisibility } = useAppSelector(LrcSelector);
+  const { currentSong } = useAudioStore();
+  const { lyricVisibility, setLyricHide } = useLrcStore();
 
   useEffect(() => {
-    dispatch(setLyricHide());
-  }, [location]);
+    setLyricHide();
+  }, [location, setLyricHide]);
 
   if (!lyricVisibility) return null;
   return (

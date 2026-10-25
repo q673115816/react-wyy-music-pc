@@ -2,7 +2,7 @@ import React, { type Dispatch, FC, memo, useEffect, useRef } from "react";
 import Dynamic from "@/components/Dynamic";
 
 import { useLazyGetUserEventQuery } from "@/modules/services/user";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useIntersection } from "react-use";
 import Loading from "@/components/Loading";
 
@@ -15,8 +15,8 @@ const Item: FC<iProps> = ({ lasttime, setList }) => {
   const { uid = "" } = useParams();
   const [trigger, { isLoading, isSuccess, data, isUninitialized }] =
     useLazyGetUserEventQuery();
-  const intersectionRef = useRef(null);
-  const intersection = useIntersection(intersectionRef, {
+  const intersectionRef = useRef<HTMLDivElement>(null);
+  const intersection = useIntersection(intersectionRef as React.RefObject<HTMLElement>, {
     root: null,
     rootMargin: "0px",
     threshold: 1,
@@ -44,7 +44,7 @@ const Item: FC<iProps> = ({ lasttime, setList }) => {
           <Loading />
         </div>
       ) : (
-        <Dynamic list={data.events} />
+        <Dynamic list={(data?.events ?? []) as any} />
       )}
     </div>
   );

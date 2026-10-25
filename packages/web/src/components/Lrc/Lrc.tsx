@@ -1,36 +1,29 @@
 import classNames from "classnames";
 import React, { useState, memo, MouseEventHandler } from "react";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import {
-  insetSelector,
-  setGlobalLrcInset,
-  setGlobalLrcStartInset,
-} from "@/modules/reducers/inset/slice";
+
 import Drag from "@/components/Drag";
 import Control from "./Control";
-import { settingSelector } from "@/modules/reducers/settings/slice";
+import { useSettingsStore, useInsetStore } from "@/stores";
 import Content from "./Content";
 
 const Lrc = () => {
-  const dispatch = useAppDispatch();
   const {
     globalLrcX: x,
     globalLrcY: y,
     globalLrcWidth: width,
     globalLrcHeight: height,
-  } = useAppSelector(insetSelector);
-  const { globalLrcVisibility } = useAppSelector(settingSelector);
+  } = useInsetStore();
+  const { globalLrcVisibility } = useSettingsStore();
   const [dragger, setDragger] = useState(false);
   const [active, setActive] = useState(false);
 
   const onMouseMove: MouseEventHandler = (e) => {
     e.preventDefault();
-    return dispatch(
-      setGlobalLrcInset({
+    return useInsetStore.getState().setGlobalLrcInset({
         x: e.clientX,
         y: e.clientY,
       })
-    );
+    ;
   };
 
   const onMouseUp: MouseEventHandler = () => {
@@ -40,12 +33,11 @@ const Lrc = () => {
 
   const onMouseDown: MouseEventHandler = (e) => {
     setDragger(true);
-    dispatch(
-      setGlobalLrcStartInset({
+    useInsetStore.getState().setGlobalLrcStartInset({
         x: e.clientX,
         y: e.clientY,
       })
-    );
+    ;
   };
 
   if (!globalLrcVisibility) return null;
@@ -65,7 +57,7 @@ const Lrc = () => {
       {(active || dragger) && (
         <div
           onMouseLeave={() => setActive(false)}
-          className={`absolute w-full h-full bg-black bg-opacity-20 border border-gray-400 shadow pointer-events-${
+          className={`absolute w-full h-full bg-black/20 border border-gray-400 shadow pointer-events-${
             active || dragger ? "auto" : "none"
           }`}
         >

@@ -1,18 +1,17 @@
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router";
 import React, { memo, useEffect } from "react";
 import classNames from "classnames";
 import config, { navs } from "./config";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { searchSelector, setHistory } from "@/modules/reducers/search/slice";
+
 import Multimatch from "./Multimatch";
+import { useSearchStore } from "@/stores";
 
 const Layout = () => {
   const { keywords = "", type = "" } = useParams();
-  const dispatch = useAppDispatch();
 
-  const { count = 0 } = useAppSelector(searchSelector);
+  const { count = 0 } = useSearchStore();
   useEffect(() => {
-    dispatch(setHistory({ keywords }));
+    useSearchStore.getState().setHistory({ keywords });
   }, [keywords]);
 
   const unit = config[type]?.unit || "";

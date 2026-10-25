@@ -1,5 +1,5 @@
 import React, { memo, FC } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import Loading from "@/components/Loading";
 import { useGetSimiArtistQuery } from "@/modules/services/artist";
 

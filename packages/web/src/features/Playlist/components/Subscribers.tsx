@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import Gender from "@/components/Gender";
 import Page from "@/components/Page";
 import Loading from "@/components/Loading";

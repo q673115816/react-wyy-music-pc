@@ -1,11 +1,10 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-import { IconEdit } from "@tabler/icons";
+import { IconEdit } from "@tabler/icons-react";
 import Loading from "@/components/Loading";
 import Dynamic from "@/components/Dynamic";
 import Aside from "../components/Aside";
 import List from "./List";
-import { useAppSelector } from "@/modules/hooks";
-import { accountSelector } from "@/modules/reducers/account/slice";
+import { useAccountStore } from "@/stores";
 
 const getArticleFromJson = (json: string) => {
   const obj = JSON.parse(json);
@@ -23,7 +22,7 @@ const getArticleFromJson = (json: string) => {
 
 const Friend = () => {
   const [event, setEvent] = useState<number[]>([0]);
-  const { isLogin } = useAppSelector(accountSelector);
+  const { isLogin } = useAccountStore();
   const setLasttime = useCallback((lasttime: number) => {
     setEvent((prev) => [...prev, lasttime]);
   }, []);

@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Parse from "@/components/Comments/Parse";
 interface iProps {
   comment: any;

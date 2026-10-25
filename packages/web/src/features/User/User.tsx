@@ -1,5 +1,5 @@
 import React, { createContext, memo } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router";
 import "./style.scss";
 import { useGetUserDetailQuery } from "@/modules/services/user";
 import { Provider } from "./context";

@@ -1,7 +1,7 @@
 import React, { FC, memo, useEffect, useRef } from "react";
 import Comment from "@/components/Comments/Comment";
 import { useLazyGetCommentHotQuery } from "@/modules/services/comment";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useIntersection } from "react-use";
 import Loading from "@/components/Loading";
 
@@ -13,8 +13,8 @@ export interface iProps {
 const List: FC<iProps> = ({ index, setHasMore }) => {
   const { id } = useParams();
   const limit = 20;
-  const intersectionRef = useRef(null);
-  const intersection = useIntersection(intersectionRef, {
+  const intersectionRef = useRef<HTMLDivElement>(null);
+  const intersection = useIntersection(intersectionRef as React.RefObject<HTMLElement>, {
     root: null,
     rootMargin: "0px",
     threshold: 1,
@@ -64,7 +64,7 @@ const List: FC<iProps> = ({ index, setHasMore }) => {
           <Loading />
         </div>
       ) : (
-        data.hotComments.map((item) => (
+        data?.hotComments?.map((item) => (
           <Comment
             item={item}
             // handleLike={handleLike}

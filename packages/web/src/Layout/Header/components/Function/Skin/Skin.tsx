@@ -1,5 +1,5 @@
 import React, { memo, useState } from "react";
-import { IconPalette } from "@tabler/icons";
+import { IconPalette } from "@tabler/icons-react";
 import Popup from "./Popup";
 
 const Skin = () => {
@@ -9,7 +9,7 @@ const Skin = () => {
       <button
         onClick={() => setVisibility(!visibility)}
         type="button"
-        className="block focus:outline-none text-white text-opacity-90 hover:text-opacity-100"
+        className="block focus:outline-hidden text-white/90 hover:text-white"
         title="换肤"
       >
         <IconPalette size={24} />

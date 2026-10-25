@@ -1,5 +1,5 @@
 import React, { useState, useContext, memo } from "react";
-import { IconFaceId, IconKey } from "@tabler/icons";
+import { IconFaceId, IconKey } from "@tabler/icons-react";
 import { apiCaptchaSent } from "@/api";
 import {
   actionSwitchSignIn,

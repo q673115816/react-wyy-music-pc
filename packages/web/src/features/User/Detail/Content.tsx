@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import { useGetUserPlaylistQuery } from "@/modules/services/user";
 import Layout from "@/features/User/Detail/layout";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import Loading from "@/components/Loading";
 import classNames from "classnames";
 import { navs, layouts, layoutsBtn } from "./config";

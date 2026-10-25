@@ -1,14 +1,12 @@
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Gender from "@/components/Gender";
-import { toggleLoginVisibility } from "@/modules/reducers/mask/slice";
+
 import TopicList from "./TopicList";
 import React, { memo } from "react";
-import { accountSelector } from "@/modules/reducers/account/slice";
+import { useAccountStore, useMaskStore } from "@/stores";
 
 const Aside = () => {
-  const { profile } = useAppSelector(accountSelector);
-  const dispatch = useAppDispatch();
+  const { profile } = useAccountStore();
   return (
     <div className="flex-none" style={{ width: 250 }}>
       <div className="">
@@ -69,7 +67,7 @@ const Aside = () => {
             <button
               type="button"
               className="ui_theme_bg_color text-white w-full h-10 mt-4 rounded-full"
-              onClick={() => dispatch(toggleLoginVisibility())}
+              onClick={() => useMaskStore.getState().toggleLoginVisibility()}
             >
               立即登录
             </button>

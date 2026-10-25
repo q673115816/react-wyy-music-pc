@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { IconBrandGithub, IconX } from "@tabler/icons";
+import { IconBrandGithub, IconX } from "@tabler/icons-react";
 import "./style.scss";
 
 const issues =

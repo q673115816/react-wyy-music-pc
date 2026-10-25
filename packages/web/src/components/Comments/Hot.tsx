@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import Comment from "./Comment";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { iHot } from "./types";
 
 const Hot: FC<iHot> = ({ hotComments = [], more, type }) => {

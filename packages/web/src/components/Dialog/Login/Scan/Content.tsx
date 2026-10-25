@@ -1,4 +1,4 @@
-import { IconScan } from "@tabler/icons";
+import { IconScan } from "@tabler/icons-react";
 import React, {
   FC,
   memo,
@@ -27,7 +27,7 @@ const Content: FC = () => {
   const [qrimg, setQrimg] = useState("");
   const [key, setKey] = useState("");
   const [status, setStatus] = useState(0);
-  const timer = useRef<NodeJS.Timer>();
+  const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
   const [loginQRCheckGet] = useGetLoginQRCheckMutation();
   const handleInit = useCallback(async () => {
     try {

@@ -1,11 +1,11 @@
 import React, { memo } from "react";
-import { IconPlayerPlay } from "@tabler/icons";
+import { IconPlayerPlay } from "@tabler/icons-react";
 
 const Song = ({ msg = {} }) => (
   <button type="button" className="share w-56 flex rounded p-2 bg-gray-50 mt-2">
     <div className="avatar flex-none w-10 h-10 rounded relative overflow-hidden">
       <img src={`${msg.song.album.picUrl}?param=100y100`} alt="" />
-      <i className="absolute inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
+      <i className="absolute inset-0 m-auto w-6 h-6 bg-white/90 flex-center rounded-full ui_themeColor">
         <IconPlayerPlay size={14} className="fill-current" />
       </i>
     </div>

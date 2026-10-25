@@ -1,5 +1,5 @@
-import { IconPlayerPlay } from "@tabler/icons";
-import { Link, useParams } from "react-router-dom";
+import { IconPlayerPlay } from "@tabler/icons-react";
+import { Link, useParams } from "react-router";
 import React, { FC, memo, useEffect } from "react";
 import { useGetSongDetailQuery } from "@/modules/services/song";
 import Loading from "@/components/Loading";
@@ -29,7 +29,7 @@ const Header: FC = () => {
             src={detail.al.picUrl}
             alt=""
           />
-          <div className="ico absolute inset-0 m-auto flex-center w-8 h-8 ui_themeColor rounded-full bg-white bg-opacity-90">
+          <div className="ico absolute inset-0 m-auto flex-center w-8 h-8 ui_themeColor rounded-full bg-white/90">
             <IconPlayerPlay size={16} className="fill-current" />
           </div>
         </div>

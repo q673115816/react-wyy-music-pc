@@ -42,12 +42,11 @@ const Editor: ForwardRefRenderFunction<HTMLDivElement, iProps> = (
       ref={ref}
       contentEditable
       suppressContentEditableWarning
-      placeholder={placeholder}
       onInput={handleInput}
       onBlur={handleBlur}
       className={classNames(
         style.editor,
-        "border p-2 focus:outline-none relative z-10"
+        "border p-2 focus:outline-hidden relative z-10"
       )}
     >
       {atSelectVisibility && <AtSelect setVisibility={setAtSelectVisibility} />}

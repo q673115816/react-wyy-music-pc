@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface iProps {
   name: string;

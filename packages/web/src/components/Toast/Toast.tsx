@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import { IconCircleCheck } from "@tabler/icons";
+import { IconCircleCheck } from "@tabler/icons-react";
 import { CSSTransition } from "react-transition-group";
 import { Context, context } from "./Content";
 import style from "./toast.module.css";

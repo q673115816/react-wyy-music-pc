@@ -1,5 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import classNames from "classnames";
 import { defaultSearch, filters, Keys } from "./config";
 import { useSearchParam } from "react-use";

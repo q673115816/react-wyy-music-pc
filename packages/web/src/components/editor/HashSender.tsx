@@ -1,8 +1,8 @@
 import React, { FC, memo, MouseEventHandler, RefObject } from "react";
-import { IconHash } from "@tabler/icons";
+import { IconHash } from "@tabler/icons-react";
 interface iProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  element: RefObject<HTMLElement>;
+  element: RefObject<HTMLElement | null>;
 }
 const HashSender: FC<iProps> = () => {
   return (

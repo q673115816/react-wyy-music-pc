@@ -4,11 +4,10 @@ import {
 } from "@/modules/services/message";
 import React, { memo } from "react";
 import Empty from "./Empty";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import dayjs from "dayjs";
 import Loading from "@/components/Loading";
-import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
-import { useAppDispatch } from "@/modules/hooks";
+import { useLetterStore } from "@/stores";
 
 const BuildList = {
   song: (msg) => (
@@ -49,19 +48,17 @@ const BuildTransLastMsg = (msg = {}) => {
 };
 
 const Private = () => {
-  const dispatch = useAppDispatch();
   const { data, isLoading, isSuccess } = useGetMsgPrivateQuery({
     limit: 14,
   });
   const { msgs } = data || [];
   const handleSeeMsgPrivateHistory = async (uid: number, nickname: string) => {
-    dispatch(
-      setMsgPrivateHistory({
+    useLetterStore.getState().setMsgPrivateHistory({
         uid,
         nickname,
         showMsgPrivateHistory: true,
       })
-    );
+    ;
   };
 
   if (isLoading) return <Loading />;

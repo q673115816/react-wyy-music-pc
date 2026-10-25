@@ -1,6 +1,6 @@
 import React, { FC, memo, PropsWithChildren, ReactNode } from "react";
-import { Link } from "react-router-dom";
-import { IconChevronRight } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconChevronRight } from "@tabler/icons-react";
 
 interface iProps extends PropsWithChildren {
   url: string;

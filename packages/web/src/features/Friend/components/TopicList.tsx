@@ -1,6 +1,6 @@
 import { useGetHotTopicQuery } from "@/modules/services/friend";
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Loading from "@/components/Loading";
 
 interface iProps {

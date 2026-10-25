@@ -1,22 +1,17 @@
 import React, { memo } from "react";
 import classNames from "classnames";
-import { IconFolderPlus } from "@tabler/icons";
-import {
-  audioSelector,
-  setAudioPlaylistClear,
-} from "@/modules/reducers/audio/slice";
+import { IconFolderPlus } from "@tabler/icons-react";
+
 import "./style.scss";
 import List from "./List";
-import { maskSelector } from "@/modules/reducers/mask/slice";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { useAudioStore, useMaskStore } from "@/stores";
 
 const PlayList = () => {
-  const dispatch = useAppDispatch();
-  const { popupStatus } = useAppSelector(maskSelector);
-  const { playlist, currentSong } = useAppSelector(audioSelector);
+  const { popupStatus } = useMaskStore();
+  const { playlist, currentSong } = useAudioStore();
   const handleClear = () => {
     if (playlist.length === 0) return false;
-    return dispatch(setAudioPlaylistClear());
+    return useAudioStore.getState().setAudioPlaylistClear();
   };
   if (popupStatus !== "playlist") return null;
   return (

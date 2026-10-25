@@ -1,14 +1,20 @@
 import React, { FC, memo, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import {
   useGetMVSubListQuery,
   useGetTopicSubListQuery,
 } from "@/modules/services/sublist";
 import { useImmer } from "use-immer";
-import { rule } from "postcss";
 import Bar from "@/features/Sublist/components/Bar";
 import Loading from "@/components/Loading";
 import Empty from "@/features/Sublist/components/Empty";
+
+// 本地搜索过滤（原代码误从 "postcss" 引入 rule，Vite 8 下 postcss 不再被提升依赖）
+const rule = (data: any[], search: string, reg = new RegExp(search)) =>
+  data.filter(
+    ({ name, artists }) =>
+      reg.test(name) || artists.some(({ name }) => reg.test(name))
+  );
 
 const Content = ({ filter }) => {
   const navigate = useNavigate();

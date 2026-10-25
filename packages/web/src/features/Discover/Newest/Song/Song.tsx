@@ -3,9 +3,9 @@ import { useGetTopSongQuery } from "@/modules/services/discover/newest";
 import { songCode, SongConfigType } from "@/features/Discover/Newest/config";
 import Loading from "@/components/Loading";
 import classNames from "classnames";
-import { IconPlayerPlay } from "@tabler/icons";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import Tags from "@/components/Tags";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import dayjs from "dayjs";
 import Artists from "@/components/Table/Artists";
 
@@ -38,7 +38,7 @@ const Song: FC = () => {
               src={`${item.album.blurPicUrl}?param=100y100`}
               alt=""
             />
-            <i className="absolute w-6 h-6 m-auto flex-center inset-0 ui_themeColor bg-white bg-opacity-90 rounded-full">
+            <i className="absolute w-6 h-6 m-auto flex-center inset-0 ui_themeColor bg-white/90 rounded-full">
               <IconPlayerPlay size={14} className="fill-current" />
             </i>
           </button>

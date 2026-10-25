@@ -1,19 +1,18 @@
 import React, { memo, useContext, useMemo } from "react";
 import Gender from "@/components/Gender";
-import { Link, useParams } from "react-router-dom";
-import { IconCheck, IconEdit, IconMail, IconPlus } from "@tabler/icons";
+import { Link, useParams } from "react-router";
+import { IconCheck, IconEdit, IconMail, IconPlus } from "@tabler/icons-react";
 import { SymbolWB } from "@/components/Symbol";
 import { usePostFollowMutation } from "@/modules/services/user";
 import { context } from "@/features/User/context";
-import { useAppSelector } from "@/modules/hooks";
-import { accountSelector } from "@/modules/reducers/account/slice";
+import { useAccountStore } from "@/stores";
 
 const Header = () => {
   const { uid } = useParams();
   const [followPost] = usePostFollowMutation();
   const { profile, code, bindings, level } = useContext(context);
-  const { isLogin } = useAppSelector(accountSelector);
-  const account = useAppSelector(accountSelector);
+  const { isLogin } = useAccountStore();
+  const account = useAccountStore();
   const isSelf = useMemo(() => {
     if (!isLogin) return false;
     return String(account.profile.userId) === uid;

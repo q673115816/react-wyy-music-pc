@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router";
 import User from "./User";
 import Detail from "./Detail";
 import Dynamic from "./Dynamic";

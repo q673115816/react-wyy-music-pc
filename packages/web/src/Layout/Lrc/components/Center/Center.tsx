@@ -1,13 +1,13 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
-import { useAppSelector } from "@/modules/hooks";
+import { Link } from "react-router";
 import Lrc from "./Lrc";
-import { audioSelector } from "@/modules/reducers/audio/slice";
+
 import style from "./Center.module.scss";
 import classNames from "classnames";
+import { useAudioStore } from "@/stores";
 
 const Center = () => {
-  const { currentSong } = useAppSelector(audioSelector);
+  const { currentSong } = useAudioStore();
   return (
     <div className="center overflow-auto pt-5" style={{ width: 300 }}>
       <div className="text-2xl text-center">{currentSong.name}</div>

@@ -1,14 +1,9 @@
 import React, { FC, memo } from "react";
 import classNames from "classnames";
-import { IconHeart } from "@tabler/icons";
+import { IconHeart } from "@tabler/icons-react";
 import { apiLike } from "@/api";
 import { useToast } from "@/components/Toast";
-import {
-  accountSelector,
-  setLikelistAdd,
-  setLikelistDel,
-} from "@/modules/reducers/account/slice";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { useAccountStore } from "@/stores";
 
 interface IProps {
   id: number;
@@ -25,9 +20,8 @@ const Heart: FC<IProps> = ({
   stroke = 1,
   ...props
 }) => {
-  const dispatch = useAppDispatch();
   const toast = useToast();
-  const { likelist } = useAppSelector(accountSelector);
+  const { likelist } = useAccountStore();
   const handleLike = async () => {
     try {
       const { code, message } = await apiLike({
@@ -40,8 +34,8 @@ const Heart: FC<IProps> = ({
       }
       toast(likelist.includes(id) ? "取消喜欢成功" : "已添加到我喜欢的音乐");
       likelist.includes(id)
-        ? dispatch(setLikelistDel({ id }))
-        : dispatch(setLikelistAdd({ id }));
+        ? useAccountStore.getState().setLikelistDel({ id })
+        : useAccountStore.getState().setLikelistAdd({ id });
       // const { ids: newlikelist } = await apiLikelist({ uid: profile.userId });
       // dispatch(setLikelist({
       //   likelist: newlikelist,

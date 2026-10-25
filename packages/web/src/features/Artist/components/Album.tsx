@@ -4,12 +4,12 @@ import {
   IconList,
   IconLayout,
   TablerIcon,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import classNames from "classnames";
 import Grid from "../layouts/Grid";
 import List from "../layouts/List";
 import Column from "../layouts/Column";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useLocalStorage } from "react-use";
 import { useGetArtistAlbumQuery } from "@/modules/services/artist";
 import Loading from "@/components/Loading";

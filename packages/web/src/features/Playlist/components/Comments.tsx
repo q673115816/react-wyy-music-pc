@@ -2,7 +2,7 @@ import React, { memo, useCallback, useRef } from "react";
 import CommentsList from "@/components/Comments/CommentsList";
 import Editor, { AtSender, EmojiSender, HashSender } from "@/components/editor";
 import Loading from "@/components/Loading";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useToast } from "@/components/Toast";
 import {
   usePostCommentMutation,
@@ -12,7 +12,7 @@ import {
 const Comments = () => {
   const toast = useToast();
 
-  const textareaRef = useRef(null);
+  const textareaRef = useRef<HTMLDivElement>(null);
 
   const { id = 0 } = useParams();
   const { data, isLoading } = useGetCommentPlaylistQuery({

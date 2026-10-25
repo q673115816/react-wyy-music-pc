@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { IconFileImport } from "@tabler/icons";
+import { IconFileImport } from "@tabler/icons-react";
 import "./style.scss";
 import Speech from "./Speech";
 import { useToggle } from "react-use";

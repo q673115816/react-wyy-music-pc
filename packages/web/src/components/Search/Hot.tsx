@@ -1,5 +1,5 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import classNames from "classnames";
 import { useGetSearchHotDetailQuery } from "@/modules/services/search";
 import Loading from "@/components/Loading";

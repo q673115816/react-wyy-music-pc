@@ -1,7 +1,7 @@
 import React, { FC, memo } from "react";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
-import { IconThumbUp, IconShare, IconMessage, IconDots } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconThumbUp, IconShare, IconMessage, IconDots } from "@tabler/icons-react";
 import Song from "./Song";
 import PicsViewer from "@q673115816/pics-viewer";
 import Resource from "./Resource";
@@ -31,7 +31,7 @@ const Event: FC<iProps> = ({
       <div className="py-5 px-12">
         <div className="relative rounded-xl overflow-hidden">
           <img src={json.coverPCUrl} alt="" />
-          <div className="absolute border-b border-opacity-20 border-t border-white flex-center h-20 inset-0 m-auto text-center text-white w-min whitespace-nowrap">
+          <div className="absolute border-b border-t border-white/20 flex-center h-20 inset-0 m-auto text-center text-white w-min whitespace-nowrap">
             <div className="text-xl">{`#${json.title}#`}</div>
             <div className="-translate-y-1/2 absolute top-full transform">
               {`${json.participateCount}参与`}

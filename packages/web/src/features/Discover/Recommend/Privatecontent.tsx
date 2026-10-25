@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
-import { IconPlayerPlay } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import { Privatecontent as PrivatecontentProps } from "@/modules/services/types";
 interface iProps {
@@ -14,7 +14,7 @@ const Privatecontent: FC<iProps> = ({ privatecontent = [] }) => (
         <MenuCreate item={item} type="mv" schema={[["播放MV"]]}>
           <div className="cover relative rounded overflow-hidden">
             <Link to={`/player/mv/${item.id}`} className="">
-              <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black bg-opacity-40 flex-center border border-gray-200">
+              <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black/40 flex-center border border-gray-200">
                 <IconPlayerPlay size={14} className="fill-current" />
               </span>
               <img

@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { IconUser } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconUser } from "@tabler/icons-react";
 import React, { FC, memo } from "react";
 import { Artist } from "@/modules/services/discover";
 

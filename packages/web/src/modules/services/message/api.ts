@@ -1,50 +1,30 @@
 import { Forwards, Private, Comments, Notices, Recentcontact } from "./types";
-import { baseApi } from "../base";
+import { apiPost } from "@/shared/api/client";
+import { useRtkQuery } from "@/shared/query/rtk-compat";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getMsgForwards: build.query<Forwards, void>({
-      query: (body) => ({
-        url: `msg/forwards`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getMsgPrivate: build.query<Private, { limit?: number }>({
-      query: (body) => ({
-        url: `msg/private`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getMsgRecentcontact: build.query<Recentcontact, void>({
-      query: (body) => ({
-        url: `msg/recentcontact`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getMsgComments: build.query<Comments, { uid: number }>({
-      query: (body) => ({
-        url: `msg/comments`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getMsgNotices: build.query<Notices, void>({
-      query: (body) => ({
-        url: `msg/notices`,
-        method: "POST",
-        body,
-      }),
-    }),
-  }),
-});
+export const useGetMsgForwardsQuery = () =>
+  useRtkQuery<Forwards>(["msg/forwards"], () =>
+    apiPost<Forwards>("msg/forwards")
+  );
 
-export const {
-  useGetMsgRecentcontactQuery,
-  useGetMsgForwardsQuery,
-  useGetMsgPrivateQuery,
-  useGetMsgCommentsQuery,
-  useGetMsgNoticesQuery,
-} = api;
+export const useGetMsgPrivateQuery = (arg: { limit?: number }) =>
+  useRtkQuery<Private, { limit?: number }>(
+    (body) => ["msg/private", body],
+    (body) => apiPost<Private>("msg/private", body as any),
+    arg
+  );
+
+export const useGetMsgRecentcontactQuery = () =>
+  useRtkQuery<Recentcontact>(["msg/recentcontact"], () =>
+    apiPost<Recentcontact>("msg/recentcontact")
+  );
+
+export const useGetMsgCommentsQuery = (arg: { uid: number }) =>
+  useRtkQuery<Comments, { uid: number }>(
+    (body) => ["msg/comments", body],
+    (body) => apiPost<Comments>("msg/comments", body as any),
+    arg
+  );
+
+export const useGetMsgNoticesQuery = () =>
+  useRtkQuery<Notices>(["msg/notices"], () => apiPost<Notices>("msg/notices"));

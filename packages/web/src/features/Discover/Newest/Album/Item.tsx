@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const Item = ({ item }) => (
   <div className="item">

@@ -6,18 +6,16 @@ import React, {
   DOMAttributes,
   useRef,
 } from "react";
-import { setDialogReset } from "@/modules/reducers/mask/slice";
-import { useAppDispatch } from "@/modules/hooks";
+import { useMaskStore } from "@/stores";
 
 const Mask: FC<PropsWithChildren<DOMAttributes<HTMLDivElement>>> = ({
   children,
   ...props
 }) => {
-  const dispatch = useAppDispatch();
   const ref = useRef(null);
   const handleMaskClick: MouseEventHandler = (e) => {
     if (e.target === ref.current) {
-      dispatch(setDialogReset());
+      useMaskStore.getState().setDialogReset();
     }
   };
   return (

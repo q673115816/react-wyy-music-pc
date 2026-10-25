@@ -8,23 +8,13 @@ import {
   IconPlaylist,
   IconRotate,
   IconRefreshAlert,
-} from "@tabler/icons";
-import {
-  setAudioRunning,
-  setAudioPattern,
-  setAudioPrev,
-  setAudioNext,
-  audioSelector,
-} from "@/modules/reducers/audio/slice";
+} from "@tabler/icons-react";
+
 import { audioPattern } from "@/common/config";
 import classNames from "classnames";
 import Timing from "./Timing";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Audio from "./Audio";
-import {
-  settingSelector,
-  setGlobalLrcToggle,
-} from "@/modules/reducers/settings/slice";
+import { useSettingsStore, useAudioStore } from "@/stores";
 
 const iconSize = 16;
 
@@ -36,23 +26,22 @@ const audioPatternIcon = [
 ];
 
 const Center = () => {
-  const dispatch = useAppDispatch();
-  const { running, pattern } = useAppSelector(audioSelector);
-  const { globalLrcVisibility } = useAppSelector(settingSelector);
+  const { running, pattern } = useAudioStore();
+  const { globalLrcVisibility, setGlobalLrcToggle } = useSettingsStore();
   const handleToggle = () => {
-    dispatch(setAudioRunning({ running: !running }));
+    useAudioStore.getState().setAudioRunning({ running: !running });
   };
 
   const handleChangePattern = () => {
-    dispatch(setAudioPattern());
+    useAudioStore.getState().setAudioPattern();
   };
 
   const handlePrev = () => {
-    dispatch(setAudioPrev());
+    useAudioStore.getState().setAudioPrev();
   };
 
   const handleNext = () => {
-    dispatch(setAudioNext());
+    useAudioStore.getState().setAudioNext();
   };
 
   return (
@@ -117,7 +106,7 @@ const Center = () => {
             globalLrcVisibility && "ui_themeColor"
           )}
           title="打开歌词"
-          onClick={() => dispatch(setGlobalLrcToggle())}
+          onClick={() => setGlobalLrcToggle()}
         >
           词
           {globalLrcVisibility && (

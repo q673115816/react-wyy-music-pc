@@ -1,23 +1,26 @@
 import React, { useEffect, memo } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { IconChevronLeft } from "@tabler/icons";
-import { setAudioRunningPause } from "@/modules/reducers/audio/slice";
-import { useAppDispatch } from "@/modules/hooks";
+import { useNavigate, useParams } from "react-router";
+import { IconChevronLeft } from "@tabler/icons-react";
+
 import Content from "./Content";
 import Related from "./Related";
 import config from "./config";
+import { useAudioStore } from "@/stores";
 
 const Player = () => {
   const { type = "", vid = "" } = useParams();
   const navigate = useNavigate();
-  if (type === "" || vid === "") {
-    navigate("/", { replace: true });
-  }
-  const { name } = config[type];
-  const dispatch = useAppDispatch();
+  const configItem = config[type as keyof typeof config];
   useEffect(() => {
-    dispatch(setAudioRunningPause());
+    useAudioStore.getState().setAudioRunningPause();
   }, []);
+  useEffect(() => {
+    if (!configItem) navigate("/", { replace: true });
+  }, [configItem, navigate]);
+
+  if (!configItem) return null;
+
+  const { name } = configItem;
 
   return (
     <div className="overflow-auto h-full">

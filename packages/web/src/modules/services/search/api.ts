@@ -1,4 +1,6 @@
 import { Searchs, SearchHotDetails, Suggests, Multimatchs } from "./types";
+import { apiGet, apiPost } from "@/shared/api/client";
+import { useRtkMutation, useRtkQuery } from "@/shared/query/rtk-compat";
 
 interface ReqSearch {
   keywords: string;
@@ -7,48 +9,40 @@ interface ReqSearch {
   offset: number;
 }
 
-import { baseApi } from "../base";
+export const useGetSearchQuery = (arg: ReqSearch) =>
+  useRtkQuery<Searchs, ReqSearch>(
+    (body) => ["search", body],
+    (body) => apiPost<Searchs>("search", body as any),
+    arg
+  );
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getSearch: build.query<Searchs, ReqSearch>({
-      query: (body) => ({
-        url: `search`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getCloudSearch: build.mutation<Searchs, ReqSearch>({
-      query: (body) => ({
-        url: `cloudSearch`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getSearchMultimatch: build.query<Multimatchs, { keywords: string }>({
-      query: (body) => ({
-        url: `search/multimatch`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getSearchSuggest: build.query<Suggests, { keywords: string }>({
-      query: (body) => ({
-        url: `search/suggest`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getSearchHotDetail: build.query<SearchHotDetails, void>({
-      query: (body) => `search/hot/detail`,
-    }),
-  }),
-});
+export const useGetCloudSearchMutation = (options?: {
+  onSuccess?: (data: Searchs, variables: ReqSearch) => void;
+}) =>
+  useRtkMutation<Searchs, ReqSearch>(
+    (body) => apiPost<Searchs>("cloudSearch", body as any),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+      },
+    }
+  );
 
-export const {
-  useGetSearchQuery,
-  useGetCloudSearchMutation,
-  useGetSearchMultimatchQuery,
-  useGetSearchSuggestQuery,
-  useGetSearchHotDetailQuery,
-} = api;
+export const useGetSearchMultimatchQuery = (arg: { keywords: string }) =>
+  useRtkQuery<Multimatchs, { keywords: string }>(
+    (body) => ["search/multimatch", body],
+    (body) => apiPost<Multimatchs>("search/multimatch", body as any),
+    arg
+  );
+
+export const useGetSearchSuggestQuery = (arg: { keywords: string }) =>
+  useRtkQuery<Suggests, { keywords: string }>(
+    (body) => ["search/suggest", body],
+    (body) => apiPost<Suggests>("search/suggest", body as any),
+    arg
+  );
+
+export const useGetSearchHotDetailQuery = () =>
+  useRtkQuery<SearchHotDetails>(["search/hot/detail"], () =>
+    apiGet<SearchHotDetails>("search/hot/detail")
+  );

@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router";
 import classNames from "classnames";
 import { useGetAlbumSubListQuery } from "@/modules/services/sublist";
 import Bar from "./components/Bar";

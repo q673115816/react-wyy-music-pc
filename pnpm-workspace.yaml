@@ -4,3 +4,16 @@ packages:
   - 'components/**'
   # 不包括在 test 文件夹下的 package
   - '!**/test/**'
+
+# pnpm 10+ 默认阻止依赖的安装脚本
+allowBuilds:
+  # tsup（组件包构建）依赖 esbuild
+  esbuild: true
+  # sass 的可选原生文件监听
+  '@parcel/watcher': true
+
+# pnpm 11 起 package.json 里的 pnpm 字段不再生效，peer 规则需放在这里。
+# esbuild-plugin-svgr 3.1.1 声明的 peer 仍是 esbuild ^0.25.2，而本仓库统一使用 0.28.2。
+peerDependencyRules:
+  allowedVersions:
+    'esbuild-plugin-svgr>esbuild': '0.28.2'

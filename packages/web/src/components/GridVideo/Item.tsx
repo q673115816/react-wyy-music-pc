@@ -1,7 +1,7 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { transPlayCount } from "@/common/utils";
-import { IconPlayerPlay } from "@tabler/icons";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { playerTypes } from "@/common/config";
 import TagMV from "@/components/Tags/Box";

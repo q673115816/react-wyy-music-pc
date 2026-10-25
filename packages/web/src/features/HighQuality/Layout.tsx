@@ -1,6 +1,6 @@
 import React, { useState, memo, useCallback } from "react";
-import { useParams, Outlet } from "react-router-dom";
-import { IconFilter } from "@tabler/icons";
+import { useParams, Outlet } from "react-router";
+import { IconFilter } from "@tabler/icons-react";
 import { useGetPlaylistHighqualityTagsQuery } from "@/modules/services/discover";
 import Popup from "./Popup";
 

@@ -1,11 +1,11 @@
 import React, { memo } from "react";
 import classNames from "classnames";
-import { useAppSelector } from "@/modules/hooks";
-import { audioSelector } from "@/modules/reducers/audio/slice";
+
 import style from "./Left.module.scss";
+import { useAudioStore } from "@/stores";
 
 const Left = () => {
-  const { currentSong, running } = useAppSelector(audioSelector);
+  const { currentSong, running } = useAudioStore();
 
   return (
     <div>

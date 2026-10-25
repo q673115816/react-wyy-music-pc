@@ -1,5 +1,5 @@
 import React, { createElement, FC, memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { useGetSearchMultimatchQuery } from "@/modules/services/search";
 import Loading from "@/components/Loading";
 import { transSubscribeCount } from "@/common/utils";

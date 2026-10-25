@@ -14,8 +14,8 @@ interface iProps {
 }
 
 const List: FC<iProps> = ({ area, type, order, index, setHasMore }) => {
-  const intersectionRef = useRef(null);
-  const intersection = useIntersection(intersectionRef, {
+  const intersectionRef = useRef<HTMLDivElement>(null);
+  const intersection = useIntersection(intersectionRef as React.RefObject<HTMLElement>, {
     root: null,
     rootMargin: "0px",
     threshold: 1,

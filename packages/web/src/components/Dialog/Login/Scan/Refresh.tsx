@@ -6,7 +6,7 @@ interface iProps {
 
 const Refresh: FC<iProps> = ({ handleInit }) => {
   return (
-    <div className="absolute bg-black bg-opacity-60 flex-center flex-col inset-0 text-white">
+    <div className="absolute bg-black/60 flex-center flex-col inset-0 text-white">
       <div>二维码已失效</div>
       <button
         type="button"

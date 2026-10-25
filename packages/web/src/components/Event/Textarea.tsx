@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect, useRef, useState } from "react";
-import { IconMoodSmile, IconAt, IconHash } from "@tabler/icons";
+import { IconMoodSmile, IconAt, IconHash } from "@tabler/icons-react";
 import Emoji from "@/components/Emoji";
 
 const Face: FC<{ handleCheck: (emoji: string) => void }> = ({
@@ -30,7 +30,7 @@ const Face: FC<{ handleCheck: (emoji: string) => void }> = ({
 const Textarea = () => {
   const [data, setData] = useState("");
   const refSelection = useRef(window.getSelection());
-  const refRange = useRef();
+  const refRange = useRef<Range | null>(null);
   const refText = useRef(null);
   const handleSelect = () => {
     refRange.current = refSelection.current.getRangeAt(0);
@@ -56,7 +56,7 @@ const Textarea = () => {
       <div
         ref={refText}
         contentEditable="true"
-        className="h-20 border bg-white rounded focus:outline-none px-3 py-1"
+        className="h-20 border bg-white rounded focus:outline-hidden px-3 py-1"
         onSelect={handleSelect}
       >
         {}

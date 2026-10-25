@@ -1,5 +1,5 @@
 import React, { createElement, FC, memo } from "react";
-import { IconX } from "@tabler/icons";
+import { IconX } from "@tabler/icons-react";
 import { useImmerReducer } from "use-immer";
 import style from "./style.module.scss";
 import Scan from "./Scan";
@@ -7,18 +7,15 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Reset from "./Reset";
 import Identify from "./Identify";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   LoginInitialState,
   LoginReducer,
   loginContext,
   LoginType,
 } from "./Content";
-import {
-  maskSelector,
-  toggleLoginVisibility,
-} from "@/modules/reducers/mask/slice";
+
 import classNames from "classnames";
+import { useMaskStore } from "@/stores";
 
 const Build: { [key in LoginType]: FC<any> } = {
   Scan,
@@ -29,8 +26,7 @@ const Build: { [key in LoginType]: FC<any> } = {
 };
 
 const Login = () => {
-  const dispatch = useAppDispatch();
-  const { loginVisibility } = useAppSelector(maskSelector);
+  const { loginVisibility } = useMaskStore();
   const [loginState, loginDispatch] = useImmerReducer(
     LoginReducer,
     LoginInitialState
@@ -47,7 +43,7 @@ const Login = () => {
       <button
         type="button"
         className="absolute top-2.5 right-2.5 text-2xl z-10 text-gray-500"
-        onClick={() => dispatch(toggleLoginVisibility())}
+        onClick={() => useMaskStore.getState().toggleLoginVisibility()}
       >
         <IconX stroke={1.5} />
       </button>

@@ -1,10 +1,8 @@
 import React, { memo } from "react";
-import { useAppDispatch } from "@/modules/hooks";
-import { Link } from "react-router-dom";
-import { setPopupPlaylistToggle } from "@/modules/reducers/mask/slice";
+import { Link } from "react-router";
+import { useMaskStore } from "@/stores";
 
 const Empty = () => {
-  const dispatch = useAppDispatch();
   return (
     <div className="empty w-min m-auto pt-20 whitespace-nowrap">
       <div className="text-gray-400 text-sm text">您还没添加任何歌曲！</div>
@@ -13,7 +11,7 @@ const Empty = () => {
         <Link
           to="/"
           className="ui_text_black_hover underline"
-          onClick={() => dispatch(setPopupPlaylistToggle())}
+          onClick={() => useMaskStore.getState().setPopupPlaylistToggle()}
         >
           发现音乐
         </Link>

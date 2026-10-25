@@ -1,5 +1,5 @@
 import React, { FC, memo } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router";
 import classNames from "classnames";
 import type { Tag } from "@/modules/services/discover";
 

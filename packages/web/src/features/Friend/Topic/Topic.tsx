@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import TopicList from "../components/TopicList";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import Detail from "../components/Detail";
 import Content from "./Content";
 

@@ -1,5 +1,5 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { DJProgram as DJProgramProps } from "@/modules/services/types";
 
 interface iProps {

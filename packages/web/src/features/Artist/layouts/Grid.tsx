@@ -1,7 +1,7 @@
 import React, { FC, memo } from "react";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
-import { IconPlayerPlay } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import { iProps } from "./types";
 
 const Grid: FC<iProps> = ({ hotAlbums = [] }) => (
@@ -14,7 +14,7 @@ const Grid: FC<iProps> = ({ hotAlbums = [] }) => (
           </Link>
           <button
             type="button"
-            className="absolute inset-0 ui_themeColor flex-center m-auto w-10 h-10 rounded-full bg-white bg-opacity-90 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            className="absolute inset-0 ui_themeColor flex-center m-auto w-10 h-10 rounded-full bg-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           >
             <IconPlayerPlay size={20} className="fill-current" />
           </button>

@@ -1,6 +1,5 @@
 import React, { FC, memo } from "react";
-import { setLyricToggle } from "@/modules/reducers/lrc/slice";
-import { setGlobalLrcHide } from "@/modules/reducers/settings/slice";
+import { useLrcStore, useSettingsStore, useAudioStore } from "@/stores";
 import {
   IconMusic,
   IconPlayerPause,
@@ -8,24 +7,18 @@ import {
   IconPlayerSkipBack,
   IconPlayerSkipForward,
   IconX,
-} from "@tabler/icons";
-import {
-  audioSelector,
-  setAudioNext,
-  setAudioPrev,
-  setAudioRunningToggle,
-} from "@/modules/reducers/audio/slice";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+} from "@tabler/icons-react";
 
 const Control: FC = () => {
-  const dispatch = useAppDispatch();
-  const { running } = useAppSelector(audioSelector);
+  const { running } = useAudioStore();
+  const setLyricToggle = useLrcStore((state) => state.setLyricToggle);
+  const setGlobalLrcHide = useSettingsStore((state) => state.setGlobalLrcHide);
   return (
     <div className="absolute top-0 left-0 right-0 mx-auto flex-center space-x-4 w-min z-10 text-white my-2">
       <button
         type="button"
         className="relative z-10"
-        onClick={() => dispatch(setLyricToggle())}
+        onClick={() => setLyricToggle()}
       >
         <IconMusic size={16} stroke={2} />
       </button>
@@ -38,14 +31,14 @@ const Control: FC = () => {
       <button
         type="button"
         className="relative z-10"
-        onClick={() => dispatch(setAudioPrev())}
+        onClick={() => useAudioStore.getState().setAudioPrev()}
       >
         <IconPlayerSkipBack size={16} className="fill-current" stroke={2} />
       </button>
       <button
         type="button"
         className="relative z-10"
-        onClick={() => dispatch(setAudioRunningToggle())}
+        onClick={() => useAudioStore.getState().setAudioRunningToggle()}
       >
         {running ? (
           <IconPlayerPause size={16} className="fill-current" stroke={2} />
@@ -56,14 +49,14 @@ const Control: FC = () => {
       <button
         type="button"
         className="relative z-10"
-        onClick={() => dispatch(setAudioNext())}
+        onClick={() => useAudioStore.getState().setAudioNext()}
       >
         <IconPlayerSkipForward size={16} className="fill-current" stroke={2} />
       </button>
       <button
         type="button"
         className="relative z-10"
-        onClick={() => dispatch(setGlobalLrcHide())}
+        onClick={() => setGlobalLrcHide()}
       >
         <IconX size={16} stroke={2} />
       </button>

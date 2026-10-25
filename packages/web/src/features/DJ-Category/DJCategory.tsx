@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useRef, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { apiDjRadioHot } from "@/api";
 import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";

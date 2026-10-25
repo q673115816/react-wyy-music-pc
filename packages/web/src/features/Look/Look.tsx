@@ -1,8 +1,7 @@
 import React, { memo, useEffect, createContext } from "react";
 import { useImmerReducer } from "use-immer";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router";
 import adapter from "webrtc-adapter";
-import { useAppDispatch } from "@/modules/hooks";
 import {
   LookInitialState,
   LookReducer,
@@ -14,7 +13,6 @@ import getIP from "./getIP";
 export const LookContent = createContext<any>(null);
 
 export default memo(function Base() {
-  const dispatch = useAppDispatch();
   const [lookReducer, lookDispatch] = useImmerReducer(
     LookReducer,
     LookInitialState

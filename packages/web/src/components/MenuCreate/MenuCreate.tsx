@@ -1,9 +1,7 @@
 import React, { FC, memo, PropsWithChildren } from "react";
-import { setAudioImmediate } from "@/modules/reducers/audio/slice";
-import { setContextMenuShow } from "@/modules/reducers/mask/slice";
 
 import config from "./config";
-import { useAppDispatch } from "@/modules/hooks";
+import { useAudioStore, useMaskStore } from "@/stores";
 
 const defaultSchema = [
   ["评论", "播放", "下一首播放"],
@@ -23,21 +21,18 @@ const MenuCreate: FC<iProps> = ({
   schema = defaultSchema,
   ...props
 }) => {
-  const dispatch = useAppDispatch();
   const handleDoubleClick = (item) => {
-    dispatch(
-      setAudioImmediate({
+    useAudioStore.getState().setAudioImmediate({
         currentSong: item,
       })
-    );
+    ;
   };
   const handleRightClick = async (e, item, type) => {
     try {
       const { total } = await config[type]?.comment({
         id: item.id,
       });
-      dispatch(
-        setContextMenuShow({
+      useMaskStore.getState().setContextMenuShow({
           contextMenuX: e.clientX,
           contextMenuY: e.clientY,
           contextMenuItem: item,
@@ -46,7 +41,7 @@ const MenuCreate: FC<iProps> = ({
           contextMenuItemId: item.id,
           contextMenuSchema: schema,
         })
-      );
+      ;
     } catch (error) {
       console.log(error);
     }

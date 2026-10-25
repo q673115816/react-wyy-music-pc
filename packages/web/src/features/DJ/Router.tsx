@@ -1,8 +1,6 @@
 import React, { memo } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router";
 import DJ from "./DJ";
-import TopList from "./TopList/TopList";
-import TopListLayout from "./TopList/TopListLayout";
 
 const Router = () => (
   <Routes>

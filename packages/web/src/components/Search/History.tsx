@@ -6,30 +6,24 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Link } from "react-router-dom";
-import { IconTrash, IconX } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconTrash, IconX } from "@tabler/icons-react";
 import classNames from "classnames";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import {
-  searchSelector,
-  delHistory,
-  clearHistory,
-} from "@/modules/reducers/search/slice";
+import { useSearchStore } from "@/stores";
 
 const History = () => {
   const [isHidden, setIsHidden] = useState(false);
-  const dispatch = useAppDispatch();
   const refHistory = useRef<HTMLDivElement>(null);
-  const { history } = useAppSelector(searchSelector);
+  const { history } = useSearchStore();
   const handleDeleteSearchHistory =
     (keywords: string): MouseEventHandler<HTMLButtonElement> =>
     (e) => {
       e.preventDefault();
       e.stopPropagation();
-      dispatch(delHistory({ keywords }));
+      useSearchStore.getState().delHistory({ keywords });
     };
   const handleClearHistory = () => {
-    dispatch(clearHistory());
+    useSearchStore.getState().clearHistory();
   };
   useLayoutEffect(() => {
     if (refHistory.current && refHistory.current.clientHeight > 64) {

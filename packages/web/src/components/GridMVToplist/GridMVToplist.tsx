@@ -4,8 +4,8 @@ import {
   IconArrowDown,
   IconArrowUp,
   IconMinus,
-} from "@tabler/icons";
-import { Link } from "react-router-dom";
+} from "@tabler/icons-react";
+import { Link } from "react-router";
 import "./style.scss";
 
 const BuildLastRank = (lastRank: number, currentRank: number): ReactNode => {

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { IconBrandApple } from "@tabler/icons";
+import { IconBrandApple } from "@tabler/icons-react";
 import SettingRadio from "./components/RadioList";
 import Title from "./components/Title";
 

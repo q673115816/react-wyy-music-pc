@@ -1,7 +1,7 @@
 import React, { useRef, memo } from "react";
 import useInfinite from "@/hooks/useInfinite";
 import GridVideo from "@/components/GridVideo";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useGetArtistMVMutation } from "@/modules/services/artist";
 import { useImmer } from "use-immer";
 import Loading from "@/components/Loading";

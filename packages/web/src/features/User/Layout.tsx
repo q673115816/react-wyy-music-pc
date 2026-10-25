@@ -1,10 +1,10 @@
 import React, { memo } from "react";
-import { useAppSelector } from "@/modules/hooks";
-import { accountSelector } from "@/modules/reducers/account/slice";
-import { Navigate } from "react-router-dom";
+
+import { Navigate } from "react-router";
+import { useAccountStore } from "@/stores";
 
 const Layout = () => {
-  const { isLogin, profile } = useAppSelector(accountSelector);
+  const { isLogin, profile } = useAccountStore();
   if (isLogin) {
     return <Navigate to={profile.userId} replace />;
   }

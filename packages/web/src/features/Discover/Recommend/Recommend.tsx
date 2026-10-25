@@ -1,8 +1,8 @@
 import React, { createElement, FC, memo } from "react";
-import { Link } from "react-router-dom";
-import { setDialogHomeOrderShow } from "@/modules/reducers/mask/slice";
+import { Link } from "react-router";
+
 import Swiper from "@/components/Swiper";
-import { IconChevronRight } from "@tabler/icons";
+import { IconChevronRight } from "@tabler/icons-react";
 import DialogHomeOrder from "@/components/Dialog/HomeOrder";
 
 import Loading from "@/components/Loading";
@@ -11,7 +11,6 @@ import Privatecontent from "./Privatecontent";
 import NewSong from "./NewSong";
 import DJProgram from "./DJProgram";
 import MV from "./MV";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   useGetBannerQuery,
   useGetPersonalizedDJProgramQuery,
@@ -20,11 +19,8 @@ import {
   useGetPersonalizedPrivatecontentQuery,
   useGetRecommendResourceQuery,
 } from "@/modules/services/discover";
-import {
-  Order,
-  Orders,
-  settingSelector,
-} from "@/modules/reducers/settings/slice";
+import { useSettingsStore, useMaskStore } from "@/stores";
+import type { Order } from "@/stores";
 
 const paths: { [key in Order]: string } = {
   推荐歌单: "/discover/playlist",
@@ -58,8 +54,7 @@ const Recommend = () => {
   const mv = resMV?.result || [];
   const djprogram = resDJProgram?.result || [];
 
-  const { order } = useAppSelector(settingSelector);
-  const dispatch = useAppDispatch();
+  const { order } = useSettingsStore();
   if (isLoading) {
     return (
       <div className="flex-center w-full h-full">
@@ -95,7 +90,7 @@ const Recommend = () => {
           <button
             type="button"
             className="ui_themeColor border rounded border-current w-32 h-8"
-            onClick={() => dispatch(setDialogHomeOrderShow())}
+            onClick={() => useMaskStore.getState().setDialogHomeOrderShow()}
           >
             调整栏目顺序
           </button>

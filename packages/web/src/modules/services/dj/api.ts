@@ -1,44 +1,30 @@
 import { Banners, DJs } from "./types";
-import { baseApi } from "../base";
+import { apiGet, apiPost } from "@/shared/api/client";
+import { useRtkQuery } from "@/shared/query/rtk-compat";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getDJBanner: build.query<Banners, void>({
-      query: () => `dj/banner`,
-    }),
-    getDJCategoryRecommend: build.query<Banners, void>({
-      query: () => `dj/category/recommend`,
-    }),
-    getDJCateList: build.query<Banners, void>({
-      query: () => `dj/cateList`,
-    }),
-    getDJPersonalizeRecommend: build.query<Banners, void>({
-      query: () => `dj/personalize/recommend`,
-    }),
-    getDJRadioHot: build.query<
-      DJs,
-      { cateId: number; limit: number; offset?: number }
-    >({
-      query: (body) => ({
-        url: `dj/radio/hot`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getRecommendSongs: build.query<DJs, void>({
-      query: (body) => ({
-        url: `recommend/songs`,
-        method: "POST",
-        body,
-      }),
-    }),
-  }),
-});
+export const useGetDJBannerQuery = () =>
+  useRtkQuery<Banners>(["dj/banner"], () => apiGet<Banners>("dj/banner"));
 
-export const {
-  useGetDJBannerQuery,
-  useGetDJCategoryRecommendQuery,
-  useGetDJCateListQuery,
-  useGetDJRadioHotQuery,
-  useGetDJPersonalizeRecommendQuery,
-} = api;
+export const useGetDJCategoryRecommendQuery = () =>
+  useRtkQuery<Banners>(["dj/category/recommend"], () =>
+    apiGet<Banners>("dj/category/recommend")
+  );
+
+export const useGetDJCateListQuery = () =>
+  useRtkQuery<Banners>(["dj/cateList"], () => apiGet<Banners>("dj/cateList"));
+
+export const useGetDJPersonalizeRecommendQuery = () =>
+  useRtkQuery<Banners>(["dj/personalize/recommend"], () =>
+    apiGet<Banners>("dj/personalize/recommend")
+  );
+
+export const useGetDJRadioHotQuery = (arg: {
+  cateId: number;
+  limit: number;
+  offset?: number;
+}) =>
+  useRtkQuery<DJs, { cateId: number; limit: number; offset?: number }>(
+    (body) => ["dj/radio/hot", body],
+    (body) => apiPost<DJs>("dj/radio/hot", body as any),
+    arg
+  );

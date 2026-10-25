@@ -39,7 +39,7 @@ const Content: FC<iProps> = ({ dailySongs = [] }) => {
           key={dailySong.name + dailySong.id}
           tabIndex="2"
           className={classNames(
-            "grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none ui_grid_template",
+            "grid h-9 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-hidden ui_grid_template",
             { "bg-gray-50": index % 2 === 0 }
           )}
         >

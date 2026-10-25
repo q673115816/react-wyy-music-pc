@@ -5,25 +5,22 @@ import {
   IconFolderPlus,
   IconCloudDownload,
   IconShare,
-} from "@tabler/icons";
-import { setLyricText, setLyricToggle } from "@/modules/reducers/lrc/slice";
+} from "@tabler/icons-react";
+import { useLrcStore, useAudioStore } from "@/stores";
 import Heart from "@/components/Table/Heart";
 import Artists from "@/components/Table/Artists";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import {
   useGetLyricMutation,
   useGetSongUrlMutation,
 } from "@/modules/services/song";
-import { audioSelector, setAudioSrc } from "@/modules/reducers/audio/slice";
 
 const Left = () => {
-  const dispatch = useAppDispatch();
-  const { currentSong, playlist } = useAppSelector(audioSelector);
-  const { lyricVisibility } = useAppSelector(({ lrc }) => lrc);
+  const { lyricVisibility, setLyricText, setLyricToggle } = useLrcStore();
+  const { currentSong, playlist } = useAudioStore();
   const [songUrlGet, {}] = useGetSongUrlMutation();
   const [LyricGet, {}] = useGetLyricMutation();
   const handleLyric = () => {
-    dispatch(setLyricToggle());
+    setLyricToggle();
   };
 
   const handleGetUrl = async () => {
@@ -37,11 +34,11 @@ const Left = () => {
       const src =
         url?.data?.[0]?.url ||
         `https://music.163.com/song/media/outer/url?id=${id}.mp3`;
-      dispatch(setAudioSrc({ src }));
+      useAudioStore.getState().setAudioSrc({ src });
       const lyric = await LyricGet({
         id,
       });
-      dispatch(setLyricText({ lyric: lyric.data }));
+      setLyricText(lyric.data);
     } catch (error) {
       console.log(error);
     }

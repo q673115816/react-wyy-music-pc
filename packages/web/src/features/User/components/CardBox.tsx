@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
-import { IconPlus } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlus } from "@tabler/icons-react";
 
 const BuildAction = ({
   handleLetter,

@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { NavLink, Outlet } from "react-router-dom";
-import { IconPlayerPlay, IconFolderPlus } from "@tabler/icons";
+import { NavLink, Outlet } from "react-router";
+import { IconPlayerPlay, IconFolderPlus } from "@tabler/icons-react";
 import classNames from "classnames";
 import { songNavs } from "../config";
 

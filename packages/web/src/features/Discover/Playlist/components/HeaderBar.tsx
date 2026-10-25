@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router";
 import classNames from "classnames";
-import { IconChevronRight } from "@tabler/icons";
+import { IconChevronRight } from "@tabler/icons-react";
 import {
   useGetPlaylistHotQuery,
   useGetPlaylistCatListQuery,
@@ -24,7 +24,7 @@ const HeaderBar = () => {
       <div className="relative">
         <button
           type="button"
-          className="border flex items-center justify-center h-8 w-24 rounded-full hover:bg-gray-100 focus:outline-none text-sm"
+          className="border flex items-center justify-center h-8 w-24 rounded-full hover:bg-gray-100 focus:outline-hidden text-sm"
           onClick={() => setPopup(!popup)}
         >
           {decodeURIComponent(cat)}

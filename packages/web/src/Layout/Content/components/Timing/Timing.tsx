@@ -1,22 +1,14 @@
 import React, { useRef, memo, MouseEventHandler } from "react";
 import dayjs from "dayjs";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import {
-  setJumpToAudioCurrentTime,
-  setAudioCurrentTime,
-  setAudioDropping,
-  setAudioRunning,
-  setAudioPattern,
-  audioSelector,
-} from "@/modules/reducers/audio/slice";
+
 import { computedPositionPercentage } from "@/common/utils";
 import Drag from "@/components/Drag";
 import style from "./style.module.scss";
 import classNames from "classnames";
+import { useAudioStore } from "@/stores";
 
 const Timing = () => {
-  const dispatch = useAppDispatch();
-  const { currentTime, currentSong, buffered } = useAppSelector(audioSelector);
+  const { currentTime, currentSong, buffered } = useAudioStore();
   const RefProgress = useRef<HTMLDivElement>(null);
   const computedPosition = (e) => {
     if (!RefProgress.current) return;
@@ -25,21 +17,21 @@ const Timing = () => {
   };
 
   const onMouseMove: MouseEventHandler = (e) => {
-    dispatch(setAudioCurrentTime(computedPosition(e)));
+    useAudioStore.getState().setAudioCurrentTime(computedPosition(e));
   };
 
   const onMouseUp: MouseEventHandler = (e) => {
-    dispatch(setAudioDropping({ dropping: false }));
-    dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
+    useAudioStore.getState().setAudioDropping({ dropping: false });
+    useAudioStore.getState().setJumpToAudioCurrentTime(computedPosition(e));
   };
 
   const onMouseDown = () => {
-    dispatch(setAudioDropping({ dropping: true }));
+    useAudioStore.getState().setAudioDropping({ dropping: true });
   };
 
   const handleClick: MouseEventHandler = (e) => {
-    dispatch(setAudioCurrentTime(computedPosition(e)));
-    dispatch(setJumpToAudioCurrentTime(computedPosition(e)));
+    useAudioStore.getState().setAudioCurrentTime(computedPosition(e));
+    useAudioStore.getState().setJumpToAudioCurrentTime(computedPosition(e));
   };
 
   return (

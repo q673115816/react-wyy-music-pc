@@ -1,4 +1,4 @@
-import { IconCheck } from "@tabler/icons";
+import { IconCheck } from "@tabler/icons-react";
 import React, { FC, memo } from "react";
 
 const Check: FC = () => (

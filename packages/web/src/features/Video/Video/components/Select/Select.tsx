@@ -1,19 +1,15 @@
 import classNames from "classnames";
-import {
-  setVideoListId,
-  VideoListSelector,
-} from "@/modules/reducers/videolist/slice";
+
 import React, { memo, FC } from "react";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import "./style.scss";
+import { useVideoListStore } from "@/stores";
 
 interface iProps {
   id: number;
 }
 
 const Select: FC<iProps> = ({ id }) => {
-  const dispatch = useAppDispatch();
-  const { groupList } = useAppSelector(VideoListSelector);
+  const { groupList } = useVideoListStore();
   return (
     <div className="group_select_box absolute top-100 p-5 bg-white overflow-auto shadow">
       <div className="border-b pb-2">
@@ -23,7 +19,7 @@ const Select: FC<iProps> = ({ id }) => {
             "group_select_check text-center rounded-full h-8 flex-center hover:ui_themeColor",
             id === 0 ? "text-red-500 bg-red-50" : ""
           )}
-          onClick={() => dispatch(setVideoListId({ id: 0 }))}
+          onClick={() => useVideoListStore.getState().setVideoListId({ id: 0 })}
         >
           全部视频
         </button>
@@ -37,7 +33,7 @@ const Select: FC<iProps> = ({ id }) => {
               item.id === id ? "text-red-500 bg-red-50" : ""
             )}
             key={item.id}
-            onClick={() => dispatch(setVideoListId({ id: item.id }))}
+            onClick={() => useVideoListStore.getState().setVideoListId({ id: item.id })}
           >
             {item.name}
           </button>

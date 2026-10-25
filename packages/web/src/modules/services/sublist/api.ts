@@ -1,50 +1,20 @@
 import { MVs, Albums, Topics, Artists, DJs } from "./types";
-import { baseApi } from "../base";
+import { apiPost } from "@/shared/api/client";
+import { useRtkQuery } from "@/shared/query/rtk-compat";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getMVSubList: build.query<MVs, void>({
-      query: (body) => ({
-        url: `mv/sublist`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getTopicSubList: build.query<Topics, void>({
-      query: (body) => ({
-        url: `topic/sublist`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getArtistSubList: build.query<Artists, void>({
-      query: (body) => ({
-        url: `artist/sublist`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getAlbumSubList: build.query<Albums, void>({
-      query: (body) => ({
-        url: `album/sublist`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getDJSublist: build.query<DJs, void>({
-      query: (body) => ({
-        url: `dj/sublist`,
-        method: "POST",
-        body,
-      }),
-    }),
-  }),
-});
+export const useGetMVSubListQuery = () =>
+  useRtkQuery<MVs>(["mv/sublist"], () => apiPost<MVs>("mv/sublist"));
 
-export const {
-  useGetAlbumSubListQuery,
-  useGetArtistSubListQuery,
-  useGetMVSubListQuery,
-  useGetTopicSubListQuery,
-  useGetDJSublistQuery,
-} = api;
+export const useGetTopicSubListQuery = () =>
+  useRtkQuery<Topics>(["topic/sublist"], () => apiPost<Topics>("topic/sublist"));
+
+export const useGetArtistSubListQuery = () =>
+  useRtkQuery<Artists>(["artist/sublist"], () =>
+    apiPost<Artists>("artist/sublist")
+  );
+
+export const useGetAlbumSubListQuery = () =>
+  useRtkQuery<Albums>(["album/sublist"], () => apiPost<Albums>("album/sublist"));
+
+export const useGetDJSublistQuery = () =>
+  useRtkQuery<DJs>(["dj/sublist"], () => apiPost<DJs>("dj/sublist"));

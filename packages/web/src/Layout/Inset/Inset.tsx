@@ -1,17 +1,16 @@
 import React, { FC, memo, PropsWithChildren } from "react";
-import { useAppSelector } from "@/modules/hooks";
 import "./style.scss";
 import { useCss } from "react-use";
 import classNames from "classnames";
-import { insetSelector } from "@/modules/reducers/inset/slice";
-import { settingSelector } from "@/modules/reducers/settings/slice";
+
+import { useSettingsStore, useInsetStore } from "@/stores";
 
 type iInset = PropsWithChildren;
 
 const Inset: FC<iInset> = ({ children }) => {
   const { globalX, globalY, globalDragger, globalWidth, globalHeight } =
-    useAppSelector(insetSelector);
-  const { theme, font } = useAppSelector(settingSelector);
+    useInsetStore();
+  const { theme, font } = useSettingsStore();
 
   const themeStyle = useCss({
     fontFamily: font,

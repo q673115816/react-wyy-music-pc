@@ -5,8 +5,8 @@ import {
   IconScreenShare,
   IconCloudDownload,
   IconCheckbox,
-} from "@tabler/icons";
-import { Link, useParams } from "react-router-dom";
+} from "@tabler/icons-react";
+import { Link, useParams } from "react-router";
 import dayjs from "dayjs";
 
 import Tags from "./Tags";

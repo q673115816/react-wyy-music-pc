@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import Loading from "@/components/Loading";
 import classNames from "classnames";
 import { useGetDJSublistQuery } from "@/modules/services/sublist";

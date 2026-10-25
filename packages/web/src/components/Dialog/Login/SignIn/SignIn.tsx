@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { apiLoginCellphone } from "@/api";
-import { IconFaceId, IconQrcode } from "@tabler/icons";
+import { IconFaceId, IconQrcode } from "@tabler/icons-react";
 import style from "./signin.module.scss";
 import classNames from "classnames";
 import Checkbox from "@/components/CheckBox";

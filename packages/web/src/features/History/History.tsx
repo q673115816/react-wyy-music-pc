@@ -2,17 +2,17 @@ import React, { memo } from "react";
 import classNames from "classnames";
 import useLoginStatus from "@/hooks/useLoginStatus";
 import GroupPlay from "@/components/GroupPlay";
-import { setAudioHistoryClear } from "@/modules/reducers/audio/slice";
-import { useAppDispatch } from "@/modules/hooks";
+
 import Content from "./Content";
+import { useAudioStore } from "@/stores";
 
 const History = () => {
   useLoginStatus();
-  const dispatch = useAppDispatch();
+  const { history } = useAudioStore();
 
   const handleClear = () => {
     if (history.length === 0) return false;
-    dispatch(setAudioHistoryClear());
+    useAudioStore.getState().setAudioHistoryClear();
   };
   return (
     <div className="w-full overflow-auto max-h-full flex-auto">

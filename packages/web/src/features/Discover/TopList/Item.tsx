@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
-import { IconPlayerPlay } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import { transPlayCount } from "@/common/utils";
 
 interface iProps {
@@ -26,7 +26,7 @@ const Item: FC<iProps> = ({ item }) => {
         />
         <button
           type="button"
-          className="opacity-0 group-hover:opacity-100 absolute inset-0 m-auto bg-white text-red-500 w-10 h-10 rounded-full flex-center bg-opacity-95"
+          className="opacity-0 group-hover:opacity-100 absolute inset-0 m-auto bg-white/95 text-red-500 w-10 h-10 rounded-full flex-center"
         >
           <IconPlayerPlay size={20} className="fill-current" />
         </button>

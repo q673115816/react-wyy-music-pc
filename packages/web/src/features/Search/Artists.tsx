@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import classNames from "classnames";
-import { IconUser } from "@tabler/icons";
+import { IconUser } from "@tabler/icons-react";
 
 const layouts = {
   "--grid-template-columns": "60px 6fr min-content",

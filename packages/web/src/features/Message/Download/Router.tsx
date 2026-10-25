@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigate, useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router";
 import { navs } from "./config";
 import Layout from "./Layout";
 

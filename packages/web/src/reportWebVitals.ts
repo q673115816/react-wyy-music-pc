@@ -1,19 +1,12 @@
-import {
-  getCLS,
-  getFCP,
-  getFID,
-  getLCP,
-  getTTFB,
-  ReportHandler,
-} from "web-vitals";
+import { onCLS, onFCP, onINP, onLCP, onTTFB, type Metric } from "web-vitals";
 
-const logDelta: ReportHandler = ({ name, id, delta }) => {
+const logDelta = ({ name, id, delta }: Metric) => {
   console.log(`${name} matching ID ${id} changed by ${delta}`);
 };
 export default () => {
-  getCLS(logDelta);
-  getFID(logDelta);
-  getLCP(logDelta);
-  getFCP(logDelta);
-  getTTFB(logDelta);
+  onCLS(logDelta);
+  onINP(logDelta);
+  onLCP(logDelta);
+  onFCP(logDelta);
+  onTTFB(logDelta);
 };

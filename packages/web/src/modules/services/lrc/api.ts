@@ -1,16 +1,10 @@
 import { SimiSongs } from "./types";
-import { baseApi } from "../base";
+import { apiPost } from "@/shared/api/client";
+import { useRtkQuery } from "@/shared/query/rtk-compat";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getSimiSong: build.query<SimiSongs, { id: number }>({
-      query: (body) => ({
-        url: `simi/song`,
-        method: "POST",
-        body,
-      }),
-    }),
-  }),
-});
-
-export const { useGetSimiSongQuery } = api;
+export const useGetSimiSongQuery = (arg: { id: number }) =>
+  useRtkQuery<SimiSongs, { id: number }>(
+    (body) => ["simi/song", body],
+    (body) => apiPost<SimiSongs>("simi/song", body as any),
+    arg
+  );

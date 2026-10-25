@@ -59,7 +59,7 @@ const Playlist: FC<iProps> = ({ songs = [] }) => {
           <div
             tabIndex={2}
             className={classNames(
-              "grid items-center focus:outline-none focus:bg-gray-200 hover:bg-gray-100 ui_grid_template pl-8",
+              "grid items-center focus:outline-hidden focus:bg-gray-200 hover:bg-gray-100 ui_grid_template pl-8",
               index % 2 === 0 && "bg-gray-50"
             )}
           >

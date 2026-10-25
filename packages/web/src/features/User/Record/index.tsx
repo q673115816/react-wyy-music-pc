@@ -1,5 +1,5 @@
 import React, { useState, memo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import classNames from "classnames";
 import Content from "./Content";
 

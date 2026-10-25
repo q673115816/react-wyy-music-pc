@@ -1,5 +1,4 @@
 import React from "react";
-import {} from "@/api";
 
 export default () => {
   const handleInit = async () => {

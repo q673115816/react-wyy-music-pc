@@ -1,5 +1,5 @@
 import React from "react";
-import { IconDownload } from "@tabler/icons";
+import { IconDownload } from "@tabler/icons-react";
 
 export default () => (
   <button type="button" className="ui_text_gray_hover">

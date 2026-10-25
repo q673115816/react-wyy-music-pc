@@ -1,39 +1,53 @@
 import { Songs, Lyrics } from "./types";
-import { baseApi } from "../base";
+import { apiGet, apiPost } from "@/shared/api/client";
+import {
+  useRtkLazyQuery,
+  useRtkMutation,
+  useRtkQuery,
+} from "@/shared/query/rtk-compat";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getSongUrl: build.mutation<Songs, { id: number }>({
-      query: (body) => ({
-        url: `song/url`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getSongDetail: build.query<Songs, { ids: string }>({
-      query: (body) => ({
-        url: `song/detail`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getLyric: build.mutation<Lyrics, { id: number }>({
-      query: (body) => ({
-        url: `lyric`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getPersonalFM: build.mutation<Lyrics, void>({
-      query: () => `personal_fm`,
-    }),
-  }),
-});
+export const useGetSongUrlMutation = (options?: {
+  onSuccess?: (data: Songs, variables: { id: number }) => void;
+}) =>
+  useRtkMutation<Songs, { id: number }>(
+    (body) => apiPost<Songs>("song/url", body as any),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+      },
+    }
+  );
 
-export const {
-  useGetSongUrlMutation,
-  useGetLyricMutation,
-  useGetSongDetailQuery,
-  useLazyGetSongDetailQuery,
-  useGetPersonalFMMutation,
-} = api;
+export const useGetSongDetailQuery = (arg: { ids: string }) =>
+  useRtkQuery<Songs, { ids: string }>(
+    (body) => ["song/detail", body],
+    (body) => apiPost<Songs>("song/detail", body as any),
+    arg
+  );
+
+export const useLazyGetSongDetailQuery = () =>
+  useRtkLazyQuery<Songs, { ids: string }>(
+    (body) => ["song/detail", body],
+    (body) => apiPost<Songs>("song/detail", body as any)
+  );
+
+export const useGetLyricMutation = (options?: {
+  onSuccess?: (data: Lyrics, variables: { id: number }) => void;
+}) =>
+  useRtkMutation<Lyrics, { id: number }>(
+    (body) => apiPost<Lyrics>("lyric", body as any),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+      },
+    }
+  );
+
+export const useGetPersonalFMMutation = (options?: {
+  onSuccess?: (data: Lyrics, variables: void) => void;
+}) =>
+  useRtkMutation<Lyrics, void>(() => apiGet<Lyrics>("personal_fm"), {
+    onSuccess: (data, variables) => {
+      options?.onSuccess?.(data, variables);
+    },
+  });

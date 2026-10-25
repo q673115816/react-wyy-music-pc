@@ -1,26 +1,21 @@
 import React, { useEffect, memo } from "react";
-import {
-  letterSelector,
-  setMsgPrivateHistory,
-} from "@/modules/reducers/letter/slice";
+
 import List from "./List";
 import Message from "./Message";
 import style from "./Letter.module.scss";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import classNames from "classnames";
+import { useLetterStore, useMaskStore } from "@/stores";
 
 const Letter = () => {
-  const { showMsgPrivateHistory } = useAppSelector(letterSelector);
-  const { popupStatus } = useAppSelector(({ mask }) => mask);
-  const dispatch = useAppDispatch();
+  const { showMsgPrivateHistory } = useLetterStore();
+  const { popupStatus } = useMaskStore();
 
   useEffect(
     () => () => {
-      dispatch(
-        setMsgPrivateHistory({
+      useLetterStore.getState().setMsgPrivateHistory({
           showMsgPrivateHistory: false,
         })
-      );
+      ;
     },
     []
   );

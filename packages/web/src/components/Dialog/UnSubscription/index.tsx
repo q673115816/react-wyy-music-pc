@@ -1,23 +1,20 @@
 import React, { memo } from "react";
-import { setDialogReset } from "@/modules/reducers/mask/slice";
+
 import { useToast } from "@/components/Toast";
 import HOCDialog from "../Dialog/Dialog";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { usePostArtistSubMutation } from "@/modules/services/artist";
+import { useMaskStore } from "@/stores";
 
 const UnSubscription = () => {
-  const dispatch = useAppDispatch();
   const toast = useToast();
   const [subPost, { isLoading: isSubbing }] = usePostArtistSubMutation();
-  const { artistId, dialogUnSubscriptionVisibility } = useAppSelector(
-    ({ mask }) => mask
-  );
+  const { artistId, dialogUnSubscriptionVisibility } = useMaskStore();
   const handleUnSubscription = async () => {
     try {
       await subPost({
         id: artistId,
       });
-      dispatch(setDialogReset());
+      useMaskStore.getState().setDialogReset();
       toast("取消收藏！");
     } catch (error) {
       console.log(error);

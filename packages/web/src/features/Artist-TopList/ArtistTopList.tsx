@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link } from "react-router";
 import dayjs from "dayjs";
 import classNames from "classnames";
 import { apiToplistArtist } from "@/api";

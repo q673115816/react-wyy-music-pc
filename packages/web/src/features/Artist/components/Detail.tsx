@@ -1,28 +1,26 @@
 import React, { memo } from "react";
-import { IconFolderPlus, IconCheckbox } from "@tabler/icons";
-import { Link, useParams } from "react-router-dom";
-import { setDialogUnSubscriptionShow } from "@/modules/reducers/mask/slice";
-import { useAppDispatch } from "@/modules/hooks";
+import { IconFolderPlus, IconCheckbox } from "@tabler/icons-react";
+import { Link, useParams } from "react-router";
+
 import {
   useGetArtistDetailQuery,
   usePostArtistSubMutation,
 } from "@/modules/services/artist";
 import { useToast } from "@/components/Toast";
+import { useMaskStore } from "@/stores";
 
 const Detail = () => {
   const { id = "" } = useParams();
   const toast = useToast();
-  const dispatch = useAppDispatch();
   const [subPost, { isLoading: isSubbing }] = usePostArtistSubMutation();
   const { data } = useGetArtistDetailQuery({ id });
   const detail = data?.data || {};
   const isFollowed = detail?.user?.followed || false;
   const handleUnSubscription = () => {
-    dispatch(
-      setDialogUnSubscriptionShow({
+    useMaskStore.getState().setDialogUnSubscriptionShow({
         artistId: id,
       })
-    );
+    ;
   };
 
   const handleSubscription = async () => {

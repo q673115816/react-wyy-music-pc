@@ -7,7 +7,7 @@ import Header from "./components/Header";
 import Playlist from "./components/Playlist";
 import Comments from "./components/Comments";
 import Subscribers from "./components/Subscribers";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import {
   useLazyGetPlaylistDetailQuery,
   useLazyGetSongDetailQuery,
@@ -54,7 +54,7 @@ const Music = () => {
   return (
     <div className="overflow-auto h-full">
       <Header data={playlistData}>
-        <GroupPlay playlist={songsData.songs} />
+        <GroupPlay playlist={songsData?.songs ?? []} />
       </Header>
       <div className="mt-4">
         <div className="space-x-4 flex items-baseline px-8">
@@ -73,7 +73,7 @@ const Music = () => {
             </button>
           ))}
         </div>
-        <div>{createElement(Contents[status], { songs: songsData.songs })}</div>
+        <div>{createElement(Contents[status], { songs: songsData?.songs })}</div>
       </div>
     </div>
   );

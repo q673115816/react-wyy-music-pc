@@ -1,14 +1,13 @@
 import React, { memo, useEffect, useState } from "react";
-import { useAppSelector } from "@/modules/hooks";
-import { LrcSelector } from "@/modules/reducers/lrc/slice";
-import { audioSelector } from "@/modules/reducers/audio/slice";
+import { useLrcStore, useAudioStore } from "@/stores";
+
 import { useCss } from "react-use";
 import classNames from "classnames";
 import style from "./style.module.scss";
 
 const Word = () => {
-  const { currentTime } = useAppSelector(audioSelector);
-  const { lrcList } = useAppSelector(LrcSelector);
+  const { currentTime } = useAudioStore();
+  const lrcList = useLrcStore((state) => state.lrcList);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [percentage, setPercentage] = useState(0);
   const className = useCss({ "--p": `${percentage}%` });

@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import classNames from "classnames";
 import { iProps } from "./types";
 

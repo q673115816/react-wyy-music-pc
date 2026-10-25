@@ -3,15 +3,16 @@ import {
   IconCaretRight,
   IconLock,
   IconMusic,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import React, { FC, memo, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { playlistState } from "@/modules/reducers/account/slice";
+import { NavLink } from "react-router";
+
 import classNames from "classnames";
+import type { PlaylistState } from "@/stores";
 
 interface PlaylistProps {
   name: string;
-  playlist: playlistState[];
+  playlist: PlaylistState[];
 }
 
 const Playlist: FC<PlaylistProps> = ({ name, playlist }) => {

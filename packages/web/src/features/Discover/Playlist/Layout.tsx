@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, memo } from "react";
-import { useParams, Outlet } from "react-router-dom";
+import { useParams, Outlet } from "react-router";
 import "./style.scss";
 
 import Loading from "@/components/Loading";

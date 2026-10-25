@@ -3,11 +3,10 @@ import { apiPlaylistCreate } from "@/api";
 import classNames from "classnames";
 import CheckBox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
-import { useAppSelector } from "@/modules/hooks";
-import { maskSelector } from "@/modules/reducers/mask/slice";
+import { useMaskStore } from "@/stores";
 
 const CreatePlayList = () => {
-  const { dialogCreatePlaylistVisibility } = useAppSelector(maskSelector);
+  const { dialogCreatePlaylistVisibility } = useMaskStore();
   const [name, setName] = useState("");
   const privacy = useRef(null);
   const handleSubmit: FormEventHandler = async (e) => {
@@ -21,7 +20,7 @@ const CreatePlayList = () => {
       console.log(error);
     }
     return false;
-    // dispatch(setDialogReset()
+    // useMaskStore.getState().setDialogReset()
   };
   if (!dialogCreatePlaylistVisibility) return null;
   return (

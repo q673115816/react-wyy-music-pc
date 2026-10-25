@@ -1,4 +1,4 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router";
 import React, { memo } from "react";
 import { useGetSearchQuery } from "@/modules/services/search";
 import Loading from "@/components/Loading";

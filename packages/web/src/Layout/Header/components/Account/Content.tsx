@@ -1,6 +1,6 @@
 import React, { FC, memo, useEffect } from "react";
 import { useGetUserDetailQuery } from "@/modules/services/user";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import {
   IconBrandVimeo,
   IconCircleSquare,
@@ -8,14 +8,14 @@ import {
   IconMedal,
   IconShoppingCart,
   IconUser,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import Loading from "@/components/Loading";
-import { setLoginInfoUpdate, reset } from "@/modules/reducers/account/slice";
-import { useAppDispatch } from "@/modules/hooks";
+
 import { useGetLogoutMutation } from "@/modules/services/account";
 import { useToast } from "@/components/Toast";
 import SignIn from "./SignIn";
 import useToken from "@/hooks/useToken";
+import { useAccountStore } from "@/stores";
 
 interface iProps {
   uid: string;
@@ -27,7 +27,6 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
   const { removeToken } = useToken();
   const { data, isLoading } = useGetUserDetailQuery({ uid });
   const [logoutGet] = useGetLogoutMutation();
-  const dispatch = useAppDispatch();
   const profile = data?.profile || {};
   const handleLogout = async () => {
     try {
@@ -37,7 +36,7 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
         return;
       }
       removeToken();
-      dispatch(reset());
+      useAccountStore.getState().reset();
 
       window.location.reload();
     } catch (error) {
@@ -47,7 +46,7 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
 
   useEffect(() => {
     if (!isLoading) {
-      dispatch(setLoginInfoUpdate({ profile }));
+      useAccountStore.getState().setLoginInfoUpdate({ profile });
     }
   }, [isLoading]);
   if (isLoading) return <Loading />;

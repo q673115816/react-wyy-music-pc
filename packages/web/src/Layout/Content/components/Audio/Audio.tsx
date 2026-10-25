@@ -1,24 +1,15 @@
 import React, { FC, memo, ReactEventHandler, useEffect, useState } from "react";
-import {
-  audioSelector,
-  setAudioBuffered,
-  setAudioCurrentTime,
-  setAudioNext,
-  setAudioRunningPause,
-  setRunErrorAdd,
-} from "@/modules/reducers/audio/slice";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+
 import { useAudio, useBoolean, useNetworkState } from "react-use";
-import { volumeSelector } from "@/modules/reducers/volume/slice";
+import { useVolumeStore, useAudioStore } from "@/stores";
 
 const Audio: FC = () => {
-  const dispatch = useAppDispatch();
   const { online } = useNetworkState();
   const { running, dropping, currentTime, jumpTime, errorCount, src } =
-    useAppSelector(audioSelector);
+    useAudioStore();
 
   const [usedSrc, setUsedSrc] = useState(src);
-  const { volume } = useAppSelector(volumeSelector);
+  const volume = useVolumeStore((state) => state.volume);
   const [canplay, setCanplay] = useBoolean(false);
 
   const onDurationChange: ReactEventHandler<HTMLAudioElement> = (e) => {};
@@ -27,11 +18,11 @@ const Audio: FC = () => {
 
   const onProgress: ReactEventHandler<HTMLAudioElement> = () => {
     const buffered = state.buffered.map(({ start, end }) => [start, end]);
-    dispatch(setAudioBuffered(buffered));
+    useAudioStore.getState().setAudioBuffered(buffered);
   };
 
   const onEnded = () => {
-    dispatch(setAudioNext());
+    useAudioStore.getState().setAudioNext();
   };
 
   const onError: ReactEventHandler = (e) => {
@@ -44,14 +35,14 @@ const Audio: FC = () => {
       // TODO
       console.log("出错过多");
     }
-    dispatch(setAudioNext());
-    dispatch(setRunErrorAdd());
+    useAudioStore.getState().setAudioNext();
+    useAudioStore.getState().setRunErrorAdd();
   };
 
   const onTimeUpdate: ReactEventHandler<HTMLAudioElement> = (e) => {
     if (dropping) return;
     if (!state.playing) return;
-    dispatch(setAudioCurrentTime({ currentTime: state.time }));
+    useAudioStore.getState().setAudioCurrentTime({ currentTime: state.time });
   };
 
   const onCanPlay = () => {
@@ -89,14 +80,14 @@ const Audio: FC = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(setAudioRunningPause());
+      useAudioStore.getState().setAudioRunningPause();
     };
   }, []);
 
   useEffect(() => {
     if (!jumpTime) return;
     controls.seek(jumpTime);
-    dispatch(setAudioCurrentTime({ currentTime: jumpTime }));
+    useAudioStore.getState().setAudioCurrentTime({ currentTime: jumpTime });
   }, [jumpTime]);
 
   useEffect(() => {

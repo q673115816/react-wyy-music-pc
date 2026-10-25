@@ -1,16 +1,16 @@
 import React, { memo } from "react";
 import Empty from "./Empty";
-import { useSelector } from "react-redux";
 import MenuCreate from "@/components/MenuCreate";
 import classNames from "classnames";
-import { IconLink, IconPlayerPause, IconPlayerPlay } from "@tabler/icons";
+import { IconLink, IconPlayerPause, IconPlayerPlay } from "@tabler/icons-react";
 import Name from "@/components/Table/Name";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import dayjs from "dayjs";
+import { useAudioStore } from "@/stores";
 
 const List = ({ list = [], currentId }) => {
   if (list.length === 0) return <Empty />;
-  const { running } = useSelector(({ audio }) => audio);
+  const { running } = useAudioStore();
   return (
     <div>
       {list.map((item, index) => (
@@ -24,7 +24,7 @@ const List = ({ list = [], currentId }) => {
           key={item.id}
           tabIndex={2}
           className={classNames(
-            "flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none h-9 group ",
+            "flex items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-hidden h-9 group ",
             {
               "bg-gray-50": index % 2 === 1,
               ui_themeColor: item.id === currentId,

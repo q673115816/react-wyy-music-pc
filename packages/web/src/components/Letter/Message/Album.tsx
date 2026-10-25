@@ -1,6 +1,6 @@
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
-import { IconPlayerPlay } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlayerPlay } from "@tabler/icons-react";
 
 const Album = ({ msg = {} }) => (
   <Link
@@ -12,7 +12,7 @@ const Album = ({ msg = {} }) => (
       className="avatar flex-none w-10 h-10 rounded relative overflow-hidden group"
     >
       <img src={`${msg.album.picUrl}?param=100y100`} alt="" />
-      <i className="absolute opacity-0 group-hover:opacity-100 inset-0 m-auto w-6 h-6 bg-white bg-opacity-90 flex-center rounded-full ui_themeColor">
+      <i className="absolute opacity-0 group-hover:opacity-100 inset-0 m-auto w-6 h-6 bg-white/90 flex-center rounded-full ui_themeColor">
         <IconPlayerPlay size={14} className="fill-current" />
       </i>
     </button>

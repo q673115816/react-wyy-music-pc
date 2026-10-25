@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const layouts = {
   "--grid-template-columns": "60px 6fr 2fr 5fr",

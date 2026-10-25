@@ -1,5 +1,5 @@
 import React, { FormEventHandler, memo, useContext, useState } from "react";
-import { IconFaceId } from "@tabler/icons";
+import { IconFaceId } from "@tabler/icons-react";
 import Threes from "./components/Threes";
 import Table from "./components/Table";
 import Submit from "./components/Submit";

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { createElement, memo } from "react";
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { NavLink, Outlet, useParams } from "react-router";
 import { navs, nodes } from "./config";
 
 const Layout = () => {

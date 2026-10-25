@@ -39,7 +39,7 @@ const Lyrics = ({ songs: lyrics = [] }) => (
           <div
             tabIndex={2}
             className={classNames(
-              "item grid items-center hover:bg-gray-100 focus:outline-none focus:bg-gray-200 ui_grid_template_song",
+              "item grid items-center hover:bg-gray-100 focus:outline-hidden focus:bg-gray-200 ui_grid_template_song",
               { "bg-gray-50": index % 2 === 0 }
             )}
           >

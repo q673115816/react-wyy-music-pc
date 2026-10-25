@@ -1,49 +1,64 @@
 import { Playlist, Song, Subscribe, Subscriber } from "./types";
-import { baseApi } from "../base";
+import { apiPost } from "@/shared/api/client";
+import {
+  useRtkLazyQuery,
+  useRtkMutation,
+  useRtkQuery,
+} from "@/shared/query/rtk-compat";
+import { queryClient } from "@/shared/query/client";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getPlaylistDetail: build.query<Playlist, { id: string; limit?: number }>({
-      query: (body) => ({
-        url: `playlist/detail`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getSongDetail: build.query<Song, { ids: string }>({
-      query: (body) => ({
-        url: `song/detail`,
-        method: "POST",
-        body,
-      }),
-    }),
-    postPlaylistSubscribe: build.mutation<Subscribe, { id: string; t: number }>(
-      {
-        query: (body) => ({
-          url: `playlist/subscribe`,
-          method: "POST",
-          body,
-        }),
-      }
-    ),
-    getPlaylistSubscriber: build.query<
-      Subscriber,
-      { id: string; limit: number; offset: number }
-    >({
-      query: (body) => ({
-        url: `playlist/subscribers`,
-        method: "POST",
-        body,
-      }),
-    }),
-  }),
-});
+export const useGetPlaylistDetailQuery = (arg: {
+  id: string;
+  limit?: number;
+}) =>
+  useRtkQuery<Playlist, { id: string; limit?: number }>(
+    (body) => ["playlist/detail", body],
+    (body) => apiPost<Playlist>("playlist/detail", body as any),
+    arg
+  );
 
-export const {
-  useGetPlaylistDetailQuery,
-  useLazyGetPlaylistDetailQuery,
-  useGetSongDetailQuery,
-  useLazyGetSongDetailQuery,
-  usePostPlaylistSubscribeMutation,
-  useGetPlaylistSubscriberQuery,
-} = api;
+export const useLazyGetPlaylistDetailQuery = () =>
+  useRtkLazyQuery<Playlist, { id: string; limit?: number }>(
+    (body) => ["playlist/detail", body],
+    (body) => apiPost<Playlist>("playlist/detail", body as any)
+  );
+
+export const useGetSongDetailQuery = (arg: { ids: string }) =>
+  useRtkQuery<Song, { ids: string }>(
+    (body) => ["song/detail", body],
+    (body) => apiPost<Song>("song/detail", body as any),
+    arg
+  );
+
+export const useLazyGetSongDetailQuery = () =>
+  useRtkLazyQuery<Song, { ids: string }>(
+    (body) => ["song/detail", body],
+    (body) => apiPost<Song>("song/detail", body as any)
+  );
+
+export const usePostPlaylistSubscribeMutation = (options?: {
+  onSuccess?: (data: Subscribe, variables: { id: string; t: number }) => void;
+}) =>
+  useRtkMutation<Subscribe, { id: string; t: number }>(
+    (body) => apiPost<Subscribe>("playlist/subscribe", body as any),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+        queryClient.invalidateQueries();
+      },
+    }
+  );
+
+export const useGetPlaylistSubscriberQuery = (arg: {
+  id: string;
+  limit: number;
+  offset: number;
+}) =>
+  useRtkQuery<
+    Subscriber,
+    { id: string; limit: number; offset: number }
+  >(
+    (body) => ["playlist/subscribers", body],
+    (body) => apiPost<Subscriber>("playlist/subscribers", body as any),
+    arg
+  );

@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { IconFaceId } from "@tabler/icons";
+import { IconFaceId } from "@tabler/icons-react";
 
 const Success = () => {
   return (

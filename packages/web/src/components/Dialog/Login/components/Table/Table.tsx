@@ -3,7 +3,7 @@ import Select from "../Select";
 import Input from "../Input";
 import style from "./table.module.scss";
 import classNames from "classnames";
-import { IconLock } from "@tabler/icons";
+import { IconLock } from "@tabler/icons-react";
 
 const Table = forwardRef<HTMLTableElement>((props, ref) => {
   return (

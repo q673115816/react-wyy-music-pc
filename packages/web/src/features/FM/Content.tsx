@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import { useGetCommentMusicQuery } from "@/modules/services/comment/api";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import CommentsList from "@/components/Comments/CommentsList";
 import Loading from "@/components/Loading";
 

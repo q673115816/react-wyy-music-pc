@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router";
 import Layout from "./Layout";
 import Search from "./Search";
 

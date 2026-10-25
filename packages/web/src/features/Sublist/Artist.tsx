@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import classNames from "classnames";
 import { useGetArtistSubListQuery } from "@/modules/services/sublist";
 import { useImmer } from "use-immer";

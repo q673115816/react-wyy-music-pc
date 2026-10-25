@@ -1,13 +1,11 @@
 import React, { memo } from "react";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { Link } from "react-router-dom";
-import { toggleLoginVisibility } from "@/modules/reducers/mask/slice";
-import { accountSelector } from "@/modules/reducers/account/slice";
+import { Link } from "react-router";
+import { useAccountStore, useMaskStore } from "@/stores";
 
 const BuildBinding = (item: any) => null;
 
 const Logined = () => {
-  const { profile, bindings } = useAppSelector(accountSelector);
+  const { profile, bindings } = useAccountStore();
   return (
     <>
       <div className="">{bindings.map((item) => BuildBinding(item))}</div>
@@ -30,7 +28,6 @@ const Logined = () => {
 };
 
 const UnLogin = () => {
-  const dispatch = useAppDispatch();
   return (
     <>
       <div className="text-gray-400 mb-3">
@@ -39,7 +36,7 @@ const UnLogin = () => {
       <button
         type="button"
         className="flex-center h-6 px-3 rounded-full border"
-        onClick={() => dispatch(toggleLoginVisibility())}
+        onClick={() => useMaskStore.getState().toggleLoginVisibility()}
       >
         立即登录
       </button>
@@ -48,7 +45,7 @@ const UnLogin = () => {
 };
 
 const Account = () => {
-  const { isLogin } = useAppSelector(accountSelector);
+  const { isLogin } = useAccountStore();
   return isLogin ? <Logined /> : <UnLogin />;
 };
 

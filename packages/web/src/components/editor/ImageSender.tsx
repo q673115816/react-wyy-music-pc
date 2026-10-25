@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { IconPhoto } from "@tabler/icons";
+import { IconPhoto } from "@tabler/icons-react";
 
 const ImageSender = () => {
   return (

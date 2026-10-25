@@ -1,5 +1,5 @@
 import React, { createElement, FC, memo, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { transTextEmoji } from "@/components/Emoji";
 
 interface iProps {

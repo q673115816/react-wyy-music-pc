@@ -1,17 +1,16 @@
 import React, { memo, useState } from "react";
-import { IconEar, IconList, IconUsers } from "@tabler/icons";
-import { setPopupPlaylistToggle } from "@/modules/reducers/mask/slice";
+import { IconEar, IconList, IconUsers } from "@tabler/icons-react";
+
 import Volume from "./Volume";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import ToneQuality from "./ToneQuality";
+import { useAudioStore, useMaskStore } from "@/stores";
 
 export default memo(function Right() {
-  const dispatch = useAppDispatch();
-  const { playlist } = useAppSelector(({ audio }) => audio);
+  const { playlist } = useAudioStore();
   const [visibility, setVisibility] = useState(false);
 
   const handleTogglePlaylist = () => {
-    dispatch(setPopupPlaylistToggle());
+    useMaskStore.getState().setPopupPlaylistToggle();
   };
 
   // if (playlist.length === 0) return null;

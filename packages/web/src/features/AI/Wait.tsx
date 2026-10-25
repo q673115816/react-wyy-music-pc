@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect, useState } from "react";
-import { IconMicrophone } from "@tabler/icons";
+import { IconMicrophone } from "@tabler/icons-react";
 import { interval, scan, startWith, takeWhile } from "rxjs";
 
 const countdown$ = interval(1000).pipe(

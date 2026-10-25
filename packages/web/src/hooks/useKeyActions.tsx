@@ -1,36 +1,26 @@
 import React, { MouseEventHandler, useEffect } from "react";
-import {
-  setAudioRunningToggle,
-  setAudioNext,
-  setAudioPrev,
-} from "@/modules/reducers/audio/slice";
-import {
-  setVolumePlusTen,
-  setVolumeSubTen,
-} from "@/modules/reducers/volume/slice";
-import { useAppDispatch } from "@/modules/hooks";
+
+import { useVolumeStore, useAudioStore } from "@/stores";
 
 const useKeyActions = () => {
-  console.log("action");
-  const dispatch = useAppDispatch();
-  // console.log('keyActions');
+  const setVolumePlusTen = useVolumeStore((state) => state.setVolumePlusTen);
+  const setVolumeSubTen = useVolumeStore((state) => state.setVolumeSubTen);
   const keyDown = (e: KeyboardEvent) => {
     const { ctrlKey, keyCode, key } = e;
-    console.log(key);
 
     if (ctrlKey) {
       switch (key) {
         case "ArrowUp": // 音量
-          return dispatch(setVolumePlusTen());
+          return setVolumePlusTen();
         case "ArrowDown": // 音量
-          return dispatch(setVolumeSubTen());
+          return setVolumeSubTen();
         case "ArrowLeft":
-          return dispatch(setAudioPrev());
+          return useAudioStore.getState().setAudioPrev();
         case "ArrowRight":
-          return dispatch(setAudioNext());
+          return useAudioStore.getState().setAudioNext();
         case "p":
           e.preventDefault(); // 原为打印
-          return dispatch(setAudioRunningToggle());
+          return useAudioStore.getState().setAudioRunningToggle();
         default:
           break;
       }

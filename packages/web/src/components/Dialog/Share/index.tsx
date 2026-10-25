@@ -8,20 +8,15 @@ import {
   SymbolWB,
   SymbolLJ,
 } from "@/components/Symbol";
-import { IconBrandGithub } from "@tabler/icons";
-import {
-  maskSelector,
-  setDialogReset,
-  setDialogShareWXShow,
-} from "@/modules/reducers/mask/slice";
+import { IconBrandGithub } from "@tabler/icons-react";
+
 import HOCDialog from "../Dialog/Dialog";
 import style from "./style.module.scss";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useCopyToClipboard } from "react-use";
 import { useToast } from "@/components/Toast";
-import { commonSelector } from "@/modules/reducers/common/slice";
-import { accountSelector } from "@/modules/reducers/account/slice";
+
 import classNames from "classnames";
+import { useAccountStore, useCommonStore, useMaskStore } from "@/stores";
 
 const types = {
   songs: "单曲",
@@ -30,15 +25,14 @@ const types = {
 const Share = () => {
   const [state, copyToClipboard] = useCopyToClipboard();
   const toast = useToast();
-  const dispatch = useAppDispatch();
   const {
     dialogShareVisibility,
     contextMenuType,
     contextMenuItemId,
     contextMenuItem,
-  } = useAppSelector(maskSelector);
-  const { profile } = useAppSelector(accountSelector);
-  const { baseUrl, gitUrl } = useAppSelector(commonSelector);
+  } = useMaskStore();
+  const { profile } = useAccountStore();
+  const { baseUrl, gitUrl } = useCommonStore();
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
   const type = "music";
   const shareGit = `${gitUrl}/share/${type}/${contextMenuItemId}`;
@@ -47,19 +41,19 @@ const Share = () => {
     copyToClipboard(ShareUrl);
     if (state.error) return;
     toast("复制链接成功");
-    dispatch(setDialogReset());
+    useMaskStore.getState().setDialogReset();
   };
 
   const handleCustomShare = () => {
     copyToClipboard(shareGit);
     if (state.error) return;
     toast("复制链接成功");
-    dispatch(setDialogReset());
+    useMaskStore.getState().setDialogReset();
   };
 
   const handleShareWX = () => {
-    // dispatch(setDialogReset());
-    dispatch(setDialogShareWXShow());
+    // useMaskStore.getState().setDialogReset();
+    useMaskStore.getState().setDialogShareWXShow();
   };
   if (!dialogShareVisibility) return null;
   return (

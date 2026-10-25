@@ -1,5 +1,5 @@
 import React, { FC, memo, useMemo, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 import {
   IconCloudDownload,
   IconCloud,
@@ -7,12 +7,11 @@ import {
   IconStar,
   IconHistory,
   TablerIcon,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import classNames from "classnames";
-import { useAppSelector } from "@/modules/hooks";
 import style from "./style.module.scss";
 import Playlist from "../Playlist";
-import { accountSelector } from "@/modules/reducers/account/slice";
+import { useAccountStore } from "@/stores";
 
 interface CustomLinkProps {
   name: string;
@@ -108,7 +107,7 @@ const CustomLink: FC<CustomLinkProps> = ({
 );
 
 const Nav = () => {
-  const { playlist, isLogin } = useAppSelector(accountSelector);
+  const { playlist, isLogin } = useAccountStore();
 
   const ownPlaylist = useMemo(
     () => playlist.filter((item) => !item.subscribed),

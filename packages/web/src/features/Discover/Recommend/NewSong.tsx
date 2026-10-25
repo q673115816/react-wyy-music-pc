@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
-import { IconPlayerPlay } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import Tags from "@/components/Tags";
 import MenuCreate from "@/components/MenuCreate/MenuCreate";
 import { Newsong as NewsongProps } from "@/modules/services/types";
@@ -31,7 +31,7 @@ const NewSong: FC<iProps> = ({ newsong = [] }) => (
           id={item.id}
           className="cover flex-none relative rounded overflow-hidden"
         >
-          <span className="ico absolute text-red-500 bg-white rounded-full bg-opacity-90 inset-0 m-auto flex-center w-6 h-6">
+          <span className="ico absolute text-red-500 bg-white/90 rounded-full inset-0 m-auto flex-center w-6 h-6">
             <IconPlayerPlay size={16} className="fill-current" />
           </span>
           <img

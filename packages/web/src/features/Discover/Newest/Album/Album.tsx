@@ -4,7 +4,7 @@ import { useGetTopAlbumQuery } from "@/modules/services/discover";
 import { limit } from "@/common/config";
 import { albumCode, albumTypes } from "../config";
 import Loading from "@/components/Loading";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 const Album: FC = () => {
   const { area = "", type = "" } = useParams();

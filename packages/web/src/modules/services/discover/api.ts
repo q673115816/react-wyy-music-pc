@@ -9,83 +9,81 @@ import {
   Highqualitys,
   Playlists,
 } from "./types";
-import { baseApi } from "../base";
+import { apiGet, apiPost } from "@/shared/api/client";
+import { useRtkMutation, useRtkQuery } from "@/shared/query/rtk-compat";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getRecommendResource: build.query<Resources, void>({
-      query: () => ({
-        url: `recommend/resource`,
-        method: "POST",
-      }),
-    }),
-    getBanner: build.query<Banners, void>({
-      query: () => `banner`,
-    }),
-    getPersonalizedPrivatecontent: build.query<Privatecontents, void>({
-      query: () => `personalized/privatecontent`,
-    }),
-    getPersonalizedNewsong: build.query<Newsongs, { limit: number }>({
-      query: (body) => ({
-        url: `personalized/newsong`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getPersonalizedMV: build.query<MVs, void>({
-      query: () => `personalized/mv`,
-    }),
-    getPersonalizedDJProgram: build.query<DJPrograms, void>({
-      query: () => `personalized/djprogram`,
-    }),
+export const useGetRecommendResourceQuery = () =>
+  useRtkQuery<Resources>(["recommend/resource"], () =>
+    apiPost<Resources>("recommend/resource")
+  );
 
-    getPlaylistHighqualityTags: build.query<Tags, void>({
-      query: () => `playlist/highquality/tags`,
-    }),
-    getPlaylistHot: build.query<Tags, void>({
-      query: () => `playlist/hot`,
-    }),
-    getPlaylistCatList: build.query<Tags, void>({
-      query: () => `playlist/catlist`,
-    }),
+export const useGetBannerQuery = () =>
+  useRtkQuery<Banners>(["banner"], () => apiGet<Banners>("banner"));
 
-    getTopPlaylistHighquality: build.mutation<
-      Highqualitys,
-      { cat: string; limit?: number; before?: number }
-    >({
-      query: (body) => ({
-        url: `top/playlist/highquality`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getTopPlaylist: build.query<
-      Playlists,
-      { order: string; cat: string; limit: number; offset: number }
-    >({
-      query: (body) => ({
-        url: `top/playlist`,
-        method: "POST",
-        body,
-      }),
-    }),
-  }),
-});
+export const useGetPersonalizedPrivatecontentQuery = () =>
+  useRtkQuery<Privatecontents>(["personalized/privatecontent"], () =>
+    apiGet<Privatecontents>("personalized/privatecontent")
+  );
 
-export const {
-  useGetBannerQuery,
-  useGetRecommendResourceQuery,
-  useGetPersonalizedPrivatecontentQuery,
-  useGetPersonalizedNewsongQuery,
-  useGetPersonalizedMVQuery,
-  useGetPersonalizedDJProgramQuery,
+export const useGetPersonalizedNewsongQuery = (arg: { limit: number }) =>
+  useRtkQuery<Newsongs, { limit: number }>(
+    (body) => ["personalized/newsong", body],
+    (body) => apiPost<Newsongs>("personalized/newsong", body as any),
+    arg
+  );
 
-  useGetPlaylistHotQuery,
-  useGetPlaylistCatListQuery,
-  useGetTopPlaylistQuery,
-  useGetPlaylistHighqualityTagsQuery,
-  useGetTopPlaylistHighqualityMutation,
-} = api;
+export const useGetPersonalizedMVQuery = () =>
+  useRtkQuery<MVs>(["personalized/mv"], () =>
+    apiGet<MVs>("personalized/mv")
+  );
+
+export const useGetPersonalizedDJProgramQuery = () =>
+  useRtkQuery<DJPrograms>(["personalized/djprogram"], () =>
+    apiGet<DJPrograms>("personalized/djprogram")
+  );
+
+export const useGetPlaylistHighqualityTagsQuery = () =>
+  useRtkQuery<Tags>(["playlist/highquality/tags"], () =>
+    apiGet<Tags>("playlist/highquality/tags")
+  );
+
+export const useGetPlaylistHotQuery = () =>
+  useRtkQuery<Tags>(["playlist/hot"], () => apiGet<Tags>("playlist/hot"));
+
+export const useGetPlaylistCatListQuery = () =>
+  useRtkQuery<Tags>(["playlist/catlist"], () =>
+    apiGet<Tags>("playlist/catlist")
+  );
+
+export const useGetTopPlaylistHighqualityMutation = (options?: {
+  onSuccess?: (
+    data: Highqualitys,
+    variables: { cat: string; limit?: number; before?: number }
+  ) => void;
+}) =>
+  useRtkMutation<
+    Highqualitys,
+    { cat: string; limit?: number; before?: number }
+  >((body) => apiPost<Highqualitys>("top/playlist/highquality", body as any), {
+    onSuccess: (data, variables) => {
+      options?.onSuccess?.(data, variables);
+    },
+  });
+
+export const useGetTopPlaylistQuery = (arg: {
+  order: string;
+  cat: string;
+  limit: number;
+  offset: number;
+}) =>
+  useRtkQuery<
+    Playlists,
+    { order: string; cat: string; limit: number; offset: number }
+  >(
+    (body) => ["top/playlist", body],
+    (body) => apiPost<Playlists>("top/playlist", body as any),
+    arg
+  );
 
 export * from "./toplist";
 export * from "./newest";

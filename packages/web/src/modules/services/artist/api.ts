@@ -8,75 +8,69 @@ import {
   ArtistMV,
   Sub,
 } from "./types";
-import { baseApi } from "../base";
+import { apiPost } from "@/shared/api/client";
+import { useRtkMutation, useRtkQuery } from "@/shared/query/rtk-compat";
+import { queryClient } from "@/shared/query/client";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getArtistDetail: build.query<Detail, Req>({
-      query: (body) => ({
-        url: `artist/detail`,
-        method: "POST",
-        body,
-      }),
-      providesTags: (result, error, { id }) => [{ type: "artist/detail", id }],
-    }),
-    getSimiArtist: build.query<Artists, Req>({
-      query: (body) => ({
-        url: `simi/artist`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getArtistAlbum: build.query<Albums, Req>({
-      query: (body) => ({
-        url: `artist/album`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getArtistTopSong: build.query<TopSongs, Req>({
-      query: (body) => ({
-        url: `artist/top/song`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getArtistDesc: build.query<Desc, Req>({
-      query: (body) => ({
-        url: `artist/desc`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getArtistMV: build.mutation<
-      ArtistMV,
-      Req & { limit: number; offset: number }
-    >({
-      query: (body) => ({
-        url: `artist/mv`,
-        method: "POST",
-        body,
-      }),
-    }),
-    postArtistSub: build.mutation<Sub, Req & { t?: number }>({
-      query: (body) => ({
-        url: `artist/sub`,
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: (result, error, { id }) => [
-        { type: "artist/detail", id },
-      ],
-    }),
-  }),
-});
+export const useGetArtistDetailQuery = (arg: Req) =>
+  useRtkQuery<Detail, Req>(
+    (body) => ["artist/detail", body],
+    (body) => apiPost<Detail>("artist/detail", body as any),
+    arg
+  );
 
-export const {
-  useGetArtistDetailQuery,
-  useGetSimiArtistQuery,
-  useGetArtistAlbumQuery,
-  useGetArtistTopSongQuery,
-  useGetArtistDescQuery,
-  useGetArtistMVMutation,
-  usePostArtistSubMutation,
-} = api;
+export const useGetSimiArtistQuery = (arg: Req) =>
+  useRtkQuery<Artists, Req>(
+    (body) => ["simi/artist", body],
+    (body) => apiPost<Artists>("simi/artist", body as any),
+    arg
+  );
+
+export const useGetArtistAlbumQuery = (arg: Req) =>
+  useRtkQuery<Albums, Req>(
+    (body) => ["artist/album", body],
+    (body) => apiPost<Albums>("artist/album", body as any),
+    arg
+  );
+
+export const useGetArtistTopSongQuery = (arg: Req) =>
+  useRtkQuery<TopSongs, Req>(
+    (body) => ["artist/top/song", body],
+    (body) => apiPost<TopSongs>("artist/top/song", body as any),
+    arg
+  );
+
+export const useGetArtistDescQuery = (arg: Req) =>
+  useRtkQuery<Desc, Req>(
+    (body) => ["artist/desc", body],
+    (body) => apiPost<Desc>("artist/desc", body as any),
+    arg
+  );
+
+export const useGetArtistMVMutation = (options?: {
+  onSuccess?: (
+    data: ArtistMV,
+    variables: Req & { limit: number; offset: number }
+  ) => void;
+}) =>
+  useRtkMutation<ArtistMV, Req & { limit: number; offset: number }>(
+    (body) => apiPost<ArtistMV>("artist/mv", body as any),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+      },
+    }
+  );
+
+export const usePostArtistSubMutation = (options?: {
+  onSuccess?: (data: Sub, variables: Req & { t?: number }) => void;
+}) =>
+  useRtkMutation<Sub, Req & { t?: number }>(
+    (body) => apiPost<Sub>("artist/sub", body as any),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+        queryClient.invalidateQueries();
+      },
+    }
+  );

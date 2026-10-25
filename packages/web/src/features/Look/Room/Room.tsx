@@ -1,5 +1,5 @@
 import React, { memo, useContext, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { LookContent } from "../Look";
 import RTC from "../RTC";
 

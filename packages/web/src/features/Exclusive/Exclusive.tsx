@@ -1,25 +1,19 @@
 import React, { memo, useRef } from "react";
-import { Link } from "react-router-dom";
-import { IconPlayerPlay } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import useInfinite from "@/hooks/useInfinite";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import {
-  ResultProps,
-  setExclusiveResultAdd,
-  setExclusiveResultEmpty,
-  setExclusiveScrollTop,
-  handleGetData,
-} from "@/modules/reducers/exclusive/slice";
+
 import Resize from "@/components/Resize";
+import type { ExclusiveItem as ResultProps } from "@/stores";
+import { useExclusiveStore } from "@/stores";
 
 const limit = 60;
 
 export default memo(function Exclusive() {
-  const dispatch = useAppDispatch();
-  const { result, scrollTop } = useAppSelector(({ exclusive }) => exclusive);
+  const { result, scrollTop } = useExclusiveStore();
   const offset = useRef(0);
   const handleInit = () => {
-    dispatch(handleGetData({ limit, offset: offset.current }));
+    useExclusiveStore.getState().fetchExclusive({ limit, offset: offset.current });
     offset.current += limit;
   };
   const DomScroll = useRef<HTMLDivElement>(null);
@@ -47,7 +41,7 @@ export default memo(function Exclusive() {
                   className="w-full h-full object-cover ui_aspect-ratio-24/9"
                   alt=""
                 />
-                <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black bg-opacity-40 flex-center border border-gray-200">
+                <span className="ico absolute top-2 left-2 rounded-full text-white w-6 h-6 bg-black/40 flex-center border border-gray-200">
                   <IconPlayerPlay size={14} className="fill-current" />
                 </span>
               </Link>

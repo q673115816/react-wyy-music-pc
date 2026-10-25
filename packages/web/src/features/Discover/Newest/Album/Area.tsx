@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { types } from "../config";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router";
 import classNames from "classnames";
 
 const Area = () => {

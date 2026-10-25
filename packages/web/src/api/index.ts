@@ -1,4 +1,7 @@
-import { get, post } from "./request";
+import { apiGet, apiPost } from "@/shared/api/client";
+
+const get = (url: string) => apiGet(url);
+const post = (url: string, params?: any) => apiPost(url, params);
 
 /**
  * 获取歌曲详情

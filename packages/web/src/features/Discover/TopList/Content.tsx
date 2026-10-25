@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import React, { FC, memo } from "react";
 import { Track } from "@/modules/services/playlist";
 
@@ -13,7 +13,7 @@ const Content: FC<iProps> = ({ tracks = [] }) => (
       <div
         tabIndex={2}
         className={classNames(
-          "item flex flex-1 px-2.5 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-none",
+          "item flex flex-1 px-2.5 items-center hover:bg-gray-100 focus:bg-gray-200 focus:outline-hidden",
           { "bg-gray-50": index % 2 === 0 }
         )}
         key={track.name}

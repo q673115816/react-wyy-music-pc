@@ -5,7 +5,13 @@ import { useImmer } from "use-immer";
 import Bar from "@/features/Sublist/components/Bar";
 import Loading from "@/components/Loading";
 import Empty from "@/features/Sublist/components/Empty";
-import { rule } from "postcss";
+
+// 本地搜索过滤（原代码误从 "postcss" 引入 rule，Vite 8 下 postcss 不再被提升依赖）
+const rule = (data: any[], search: string, reg = new RegExp(search)) =>
+  data.filter(
+    ({ title, creator }) =>
+      reg.test(title) || reg.test(creator?.nickname ?? "")
+  );
 
 const Content = ({ filter }) => {
   const memoFilter = useMemo(

@@ -38,7 +38,7 @@ const Content: FC<iProps> = ({ type, uid }) => {
             <div
               tabIndex={2}
               className={classNames(
-                "domUser_record_item focus:outline-none focus:bg-gray-200 items-center hover:bg-gray-100 ui_grid_template px-8 grid",
+                "domUser_record_item focus:outline-hidden focus:bg-gray-200 items-center hover:bg-gray-100 ui_grid_template px-8 grid",
                 index % 2 === 1 && "bg-gray-50"
               )}
             >

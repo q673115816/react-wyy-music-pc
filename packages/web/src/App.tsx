@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { createPortal } from "react-dom";
 import useKeyActions from "./hooks/useKeyActions";
-import "./styles/tailwind.scss";
+import "./styles/tailwind.css";
 import "./styles/index.scss";
 import Layout from "./Layout";
 import Coffee from "./author/Coffee";

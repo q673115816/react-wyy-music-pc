@@ -22,8 +22,8 @@ const Range: FC<iProps> = ({
   style,
 }) => {
   value = clamp(value, min, max);
-  const ref = useRef(null);
-  const { value: pos, isSliding } = useSlider(ref);
+  const ref = useRef<HTMLDivElement>(null);
+  const { value: pos, isSliding } = useSlider(ref as React.RefObject<HTMLElement>);
   useUpdateEffect(() => {
     onChange(Math.round(pos * max) + min);
   }, [pos]);

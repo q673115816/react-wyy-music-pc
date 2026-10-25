@@ -1,16 +1,8 @@
 import { Daily } from "./types";
-import { baseApi } from "../base";
+import { apiPost } from "@/shared/api/client";
+import { useRtkQuery } from "@/shared/query/rtk-compat";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getRecommendSongs: build.query<Daily, void>({
-      query: (body) => ({
-        url: `recommend/songs`,
-        method: "POST",
-        body,
-      }),
-    }),
-  }),
-});
-
-export const { useGetRecommendSongsQuery } = api;
+export const useGetRecommendSongsQuery = () =>
+  useRtkQuery<Daily>(["recommend/songs"], () =>
+    apiPost<Daily>("recommend/songs")
+  );

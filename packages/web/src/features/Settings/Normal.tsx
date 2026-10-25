@@ -1,21 +1,19 @@
 import React, { ChangeEventHandler, memo, useState } from "react";
 import Checkbox from "@/components/CheckBox";
-import { setFont, settingSelector } from "@/modules/reducers/settings/slice";
+import { useSettingsStore } from "@/stores";
 import RadioList from "./components/RadioList";
 import CheckList from "./components/CheckList";
 import { useToast } from "@/components/Toast";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { fonts } from "./config";
 import Row from "./components/Row";
 import Title from "./components/Title";
 import Select from "./components/Select";
 
 const Normal = () => {
-  const dispatch = useAppDispatch();
   const toast = useToast();
-  const { font } = useAppSelector(settingSelector);
+  const { font, setFont } = useSettingsStore();
   const handleSelect: ChangeEventHandler<HTMLSelectElement> = (e) => {
-    dispatch(setFont(e.target.value));
+    setFont(e.target.value);
     toast("设置已更新");
   };
 

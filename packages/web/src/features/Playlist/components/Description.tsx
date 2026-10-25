@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { IconCaretDown, IconCaretUp } from "@tabler/icons";
+import { IconCaretDown, IconCaretUp } from "@tabler/icons-react";
 import React, { FC, memo, useState } from "react";
 
 interface iDescription {

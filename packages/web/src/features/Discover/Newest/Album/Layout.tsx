@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router";
 import classNames from "classnames";
 
 import { areas } from "../config";

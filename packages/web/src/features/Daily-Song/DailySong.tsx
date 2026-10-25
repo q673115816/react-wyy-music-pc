@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { IconFolderPlus } from "@tabler/icons";
+import { IconFolderPlus } from "@tabler/icons-react";
 import { SymbolToday } from "@/components/Symbol";
 import useLoginStatus from "@/hooks/useLoginStatus";
 import GroupPlay from "@/components/GroupPlay";

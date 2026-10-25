@@ -1,7 +1,7 @@
 import React, { memo, useRef, useContext, useState } from "react";
 import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { context } from "@/features/User/context";
 import Item from "./Item";
 

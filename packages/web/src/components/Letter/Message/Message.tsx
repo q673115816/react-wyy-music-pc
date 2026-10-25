@@ -1,15 +1,11 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { apiSendText, apiMsgPrivateHistory } from "@/api";
-import {
-  letterSelector,
-  setMsgPrivateHistory,
-} from "@/modules/reducers/letter/slice";
+
 import { wordLength } from "@/components/editor";
-import { IconChevronLeft } from "@tabler/icons";
+import { IconChevronLeft } from "@tabler/icons-react";
 import Emoji from "@/components/Emoji";
 import { ImageSender, EmojiSender, Textarea } from "@/components/editor";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import Song from "./Song";
 import Album from "./Album";
 import Circle from "./Circle";
@@ -19,7 +15,7 @@ import style from "./Message.module.scss";
 import classNames from "classnames";
 import { useToast } from "@/components/Toast";
 import Parse from "@/components/Comments/Parse";
-import { accountSelector } from "@/modules/reducers/account/slice";
+import { useAccountStore, useLetterStore } from "@/stores";
 
 const Content = ({ msg = {} }) => {
   const { type } = msg;
@@ -54,13 +50,12 @@ const MsgRight = ({ msg = {} }) => (
 );
 
 const Message = () => {
-  const dispatch = useAppDispatch();
   const toast = useToast();
   const history = useRef(null);
 
-  const { uid, hint, nickname, privatMsgs } = useAppSelector(letterSelector);
+  const { uid, hint, nickname, privatMsgs } = useLetterStore();
 
-  const { profile } = useAppSelector(accountSelector);
+  const { profile } = useAccountStore();
 
   const [visibility, setVisibility] = useState(false);
   const [value, setValue] = useState("");
@@ -76,12 +71,11 @@ const Message = () => {
     try {
       const { hint, msgs = [] } = await apiMsgPrivateHistory({ uid });
       // setPrivateMsgs(msgs.reverse());
-      dispatch(
-        setMsgPrivateHistory({
+      useLetterStore.getState().setMsgPrivateHistory({
           hint,
           privatMsgs: msgs.reverse(),
         })
-      );
+      ;
       history.current.scrollTo(0, history.current.scrollHeight);
     } catch (error) {
       console.log(error);
@@ -102,11 +96,10 @@ const Message = () => {
         toast(message);
         return;
       }
-      dispatch(
-        setMsgPrivateHistory({
+      useLetterStore.getState().setMsgPrivateHistory({
           privatMsgs: newMsgs.reverse(),
         })
-      );
+      ;
     } catch (error) {
       console.log(error);
     }
@@ -136,7 +129,7 @@ const Message = () => {
           type="button"
           className="back absolute inset-y-0 left-0 p-2.5 flex-center ui_text_gray_hover"
           onClick={() =>
-            dispatch(setMsgPrivateHistory({ showMsgPrivateHistory: false }))
+            useLetterStore.getState().setMsgPrivateHistory({ showMsgPrivateHistory: false })
           }
         >
           <IconChevronLeft size={22} />

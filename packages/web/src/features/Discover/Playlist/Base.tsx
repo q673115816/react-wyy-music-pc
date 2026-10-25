@@ -3,7 +3,7 @@ import Resize from "@/components/Resize";
 import Item from "@/components/GridPlaylist/Item";
 import Page from "@/components/Page/Page";
 import { useGetTopPlaylistQuery } from "@/modules/services/discover";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import Loading from "@/components/Loading";
 
 const Base = () => {

@@ -10,124 +10,117 @@ import {
   Evnets,
   SignInProgressError,
 } from "./types";
-import { baseApi } from "../base";
+import { apiPost } from "@/shared/api/client";
+import {
+  useRtkLazyQuery,
+  useRtkMutation,
+  useRtkQuery,
+} from "@/shared/query/rtk-compat";
+import { queryClient } from "@/shared/query/client";
 
-export const api = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getUserCloud: build.query<Clouds, { limit: number }>({
-      query: (body) => ({
-        url: `user/cloud`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getDailySignIn: build.mutation<{ code: number; point: number }, void>({
-      query: () => ({
-        url: `daily_signin`,
-        method: "POST",
-      }),
-      invalidatesTags: [{ type: "user", id: "dailySignIn" }],
-    }),
-    getSignInProgress: build.query<
-      SignInProgress | SignInProgressError,
-      { moduleId?: string }
-    >({
-      query: (body) => ({
-        url: `signin/progress`,
-        method: "POST",
-        body,
-      }),
-      providesTags: [{ type: "user", id: "dailySignIn" }],
-    }),
-    getUserDetail: build.query<Details, { uid: string }>({
-      query: (body) => ({
-        url: `user/detail`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getUserAccount: build.query<Accounts, void>({
-      query: () => ({
-        url: `user/account`,
-        method: "POST",
-      }),
-      providesTags: (result, error) => [{ type: "user", id: "account" }],
-    }),
-    postUserUpdate: build.mutation<{ code: number }, ReqUpdate>({
-      query: (body) => ({
-        url: `user/update`,
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: (result, error) => [{ type: "user", id: "account" }],
-    }),
-    getUserEvent: build.query<Evnets, { uid: string; lasttime: number }>({
-      query: (body) => ({
-        url: `user/event`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getUserSubCount: build.query<Clouds, void>({
-      query: (body) => ({
-        url: `user/subcount`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getUserPlaylist: build.query<Clouds, { uid: string }>({
-      query: (body) => ({
-        url: `user/playlist`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getUserBinding: build.query<Bindings, { uid: string }>({
-      query: (body) => ({
-        url: `user/binding`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getUserRecord: build.query<Records, { uid: number; type: number }>({
-      query: (body) => ({
-        url: `user/record`,
-        method: "POST",
-        body,
-      }),
-    }),
-    getUserFolloweds: build.query<Followeds, { uid: string }>({
-      query: (body) => ({
-        url: `user/followeds`,
-        method: "POST",
-        body,
-      }),
-      providesTags: (result, error, { uid }) => [{ type: "user", id: uid }],
-    }),
-    postFollow: build.mutation<Followeds, { id: number; t: number }>({
-      query: (body) => ({
-        url: `follow`,
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: (result, error, { id }) => [{ type: "user", id }],
-    }),
-  }),
-});
+export const useGetUserCloudQuery = (arg: { limit: number }) =>
+  useRtkQuery<Clouds, { limit: number }>(
+    (body) => ["user/cloud", body],
+    (body) => apiPost<Clouds>("user/cloud", body as any),
+    arg
+  );
 
-export const {
-  useGetDailySignInMutation,
-  useGetUserCloudQuery,
-  useGetUserDetailQuery,
-  useGetUserAccountQuery,
-  usePostUserUpdateMutation,
-  useLazyGetUserEventQuery,
-  useGetSignInProgressQuery,
-  useGetUserSubCountQuery,
-  useGetUserBindingQuery,
-  useGetUserRecordQuery,
-  useGetUserPlaylistQuery,
-  useGetUserFollowedsQuery,
+export const useGetDailySignInMutation = (options?: {
+  onSuccess?: (
+    data: { code: number; point: number },
+    variables: void
+  ) => void;
+}) =>
+  useRtkMutation<{ code: number; point: number }, void>(
+    () => apiPost<{ code: number; point: number }>("daily_signin"),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+        queryClient.invalidateQueries();
+      },
+    }
+  );
 
-  usePostFollowMutation,
-} = api;
+export const useGetSignInProgressQuery = (arg: { moduleId?: string }) =>
+  useRtkQuery<SignInProgress | SignInProgressError, { moduleId?: string }>(
+    (body) => ["signin/progress", body],
+    (body) => apiPost<SignInProgress | SignInProgressError>("signin/progress", body as any),
+    arg
+  );
+
+export const useGetUserDetailQuery = (arg: { uid: string }) =>
+  useRtkQuery<Details, { uid: string }>(
+    (body) => ["user/detail", body],
+    (body) => apiPost<Details>("user/detail", body as any),
+    arg
+  );
+
+export const useGetUserAccountQuery = () =>
+  useRtkQuery<Accounts>(["user/account"], () =>
+    apiPost<Accounts>("user/account")
+  );
+
+export const usePostUserUpdateMutation = (options?: {
+  onSuccess?: (data: { code: number }, variables: ReqUpdate) => void;
+}) =>
+  useRtkMutation<{ code: number }, ReqUpdate>(
+    (body) => apiPost<{ code: number }>("user/update", body as any),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+        queryClient.invalidateQueries();
+      },
+    }
+  );
+
+export const useLazyGetUserEventQuery = () =>
+  useRtkLazyQuery<Evnets, { uid: string; lasttime: number }>(
+    (body) => ["user/event", body],
+    (body) => apiPost<Evnets>("user/event", body as any)
+  );
+
+export const useGetUserSubCountQuery = () =>
+  useRtkQuery<Clouds>(["user/subcount"], () =>
+    apiPost<Clouds>("user/subcount")
+  );
+
+export const useGetUserPlaylistQuery = (arg: { uid: string }) =>
+  useRtkQuery<Clouds, { uid: string }>(
+    (body) => ["user/playlist", body],
+    (body) => apiPost<Clouds>("user/playlist", body as any),
+    arg
+  );
+
+export const useGetUserBindingQuery = (arg: { uid: string }) =>
+  useRtkQuery<Bindings, { uid: string }>(
+    (body) => ["user/binding", body],
+    (body) => apiPost<Bindings>("user/binding", body as any),
+    arg
+  );
+
+export const useGetUserRecordQuery = (arg: { uid: number; type: number }) =>
+  useRtkQuery<Records, { uid: number; type: number }>(
+    (body) => ["user/record", body],
+    (body) => apiPost<Records>("user/record", body as any),
+    arg
+  );
+
+export const useGetUserFollowedsQuery = (arg: { uid: string }) =>
+  useRtkQuery<Followeds, { uid: string }>(
+    (body) => ["user/followeds", body],
+    (body) => apiPost<Followeds>("user/followeds", body as any),
+    arg
+  );
+
+export const usePostFollowMutation = (options?: {
+  onSuccess?: (data: Followeds, variables: { id: number; t: number }) => void;
+}) =>
+  useRtkMutation<Followeds, { id: number; t: number }>(
+    (body) => apiPost<Followeds>("follow", body as any),
+    {
+      onSuccess: (data, variables) => {
+        options?.onSuccess?.(data, variables);
+        queryClient.invalidateQueries();
+      },
+    }
+  );

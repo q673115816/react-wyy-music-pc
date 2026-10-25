@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
-import { IconCrown, IconPlayerPlay } from "@tabler/icons";
+import { Link, useParams } from "react-router";
+import { IconCrown, IconPlayerPlay } from "@tabler/icons-react";
 import { transPlayCount } from "@/common/utils";
 import PlaylistAsyncReplace from "@/components/GroupPlay/PlaylistAsyncReplace";
 import TagsBox from "@/components/Tags/Box";
@@ -66,7 +66,7 @@ const HighQuality = () => {
             </Link>
             <PlaylistAsyncReplace
               id={item.id}
-              className="playArrow opacity-0 group-hover:opacity-100 ui_themeColor absolute right-0 bottom-0 m-2 p-2 bg-white bg-opacity-90 rounded-full"
+              className="playArrow opacity-0 group-hover:opacity-100 ui_themeColor absolute right-0 bottom-0 m-2 p-2 bg-white/90 rounded-full"
             >
               <IconPlayerPlay size={16} className="fill-current" />
             </PlaylistAsyncReplace>

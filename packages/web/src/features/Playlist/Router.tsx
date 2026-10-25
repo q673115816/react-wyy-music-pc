@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import Music from "./Music";
 import DJ from "./DJ";
 import Album from "./Album";

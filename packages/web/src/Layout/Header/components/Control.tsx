@@ -5,28 +5,24 @@ import {
   IconSquare,
   IconSquareOff,
   IconX,
-} from "@tabler/icons";
-import {
-  setPositionFalse,
-  setPositionTrue,
-} from "@/modules/reducers/inset/slice";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+} from "@tabler/icons-react";
+
 import { useMedia } from "react-use";
 import button from "@/components/Page/Button";
+import { useInsetStore } from "@/stores";
 
-const className = `relative text-white text-opacity-90 hover:text-opacity-100 z-10`;
+const className = `relative text-white/90 hover:text-white z-10`;
 
 const Control = () => {
-  const dispatch = useAppDispatch();
   const isFullScreen = useMedia(`(display-mode: fullscreen)`);
   const handleFullScreen = async () => {
     await document.documentElement.requestFullscreen();
-    dispatch(setPositionFalse());
+    useInsetStore.getState().setPositionFalse();
   };
 
   const handleExitFullScreen = async () => {
     await document.exitFullscreen();
-    dispatch(setPositionTrue());
+    useInsetStore.getState().setPositionTrue();
   };
   return (
     <div className="flex gap-3 pr-5">

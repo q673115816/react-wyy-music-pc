@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from "react";
 import classNames from "classnames";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Search from "@/components/HeaderBarSearch";
 
 import MenuCreate from "@/components/MenuCreate/MenuCreate";
@@ -20,7 +20,7 @@ import {
   IconCloudDownload,
   IconPlus,
   IconPlayerPlay,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import { useGetUserCloudQuery } from "@/modules/services/user";
 
 const defaultSort = (a, b, sort) =>
@@ -194,7 +194,7 @@ const Cloud = () => {
               >
                 <div
                   className={classNames(
-                    "tr grid ui_grid_template items-center hover:bg-gray-100 focus:outline-none focus:bg-gray-200",
+                    "tr grid ui_grid_template items-center hover:bg-gray-100 focus:outline-hidden focus:bg-gray-200",
                     index % 2 === 0 && "bg-gray-50"
                   )}
                   tabIndex={2}

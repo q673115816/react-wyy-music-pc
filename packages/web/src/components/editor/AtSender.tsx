@@ -1,8 +1,8 @@
 import React, { FC, memo, MouseEventHandler, RefObject } from "react";
-import { IconAt } from "@tabler/icons";
+import { IconAt } from "@tabler/icons-react";
 interface iProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
-  element: RefObject<HTMLElement>;
+  element: RefObject<HTMLElement | null>;
 }
 const AtSender: FC<iProps> = ({ element, onClick }) => {
   const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {

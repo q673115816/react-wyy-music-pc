@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { memo } from "react";
-import { Link } from "react-router-dom";
-import { IconPlayerPlay, IconFolderPlus } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconPlayerPlay, IconFolderPlus } from "@tabler/icons-react";
 import { transPlayCount } from "@/common/utils";
 
 const List = ({ list = [] }) => (
@@ -20,7 +20,7 @@ const List = ({ list = [] }) => (
           <img src={`${item.coverImgUrl}?param=60y60`} alt="" />
           <button
             type="button"
-            className="absolute rounded-full bg-white bg-opacity-90 inset-0 flex-center m-auto w-6 h-6 ui_themeColor opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            className="absolute rounded-full bg-white/90 inset-0 flex-center m-auto w-6 h-6 ui_themeColor opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           >
             <IconPlayerPlay size={16} className="fill-current" />
           </button>

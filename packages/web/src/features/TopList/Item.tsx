@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import { IconArrowDown, IconArrowUp, IconMinus, IconPlayerPlay } from "@tabler/icons";
-import { Link } from "react-router-dom";
+import { IconArrowDown, IconArrowUp, IconMinus, IconPlayerPlay } from "@tabler/icons-react";
+import { Link } from "react-router";
 import React, { memo } from "react";
 
 const TransRank = memo(({ lastRank, rank }) => {
@@ -36,7 +36,7 @@ const Item = ({ item, index, maxScore }) => (
   <div
     tabIndex={2}
     className={classNames(
-      "item h-20 flex items-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-none",
+      "item h-20 flex items-center hover:bg-gray-100 focus:bg-gray-100 focus:outline-hidden",
       { "bg-gray-50": index % 2 === 0 }
     )}
     key={item.id}
@@ -56,7 +56,7 @@ const Item = ({ item, index, maxScore }) => (
     </div>
     <button type="button" className="w-14 -14 relative">
       <img src={`${item.coverUrl}?param=60y60`} className={`rounded`} alt="" />
-      <i className="ico ui_themeColor absolute inset-0 flex-center rounded-full w-6 h-6 m-auto bg-white bg-opacity-90">
+      <i className="ico ui_themeColor absolute inset-0 flex-center rounded-full w-6 h-6 m-auto bg-white/90">
         <IconPlayerPlay size={16} className="fill-current" />
       </i>
     </button>

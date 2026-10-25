@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
 import { useGetSearchSuggestQuery } from "@/modules/services/search";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Loading from "@/components/Loading";
 
 interface iProps {

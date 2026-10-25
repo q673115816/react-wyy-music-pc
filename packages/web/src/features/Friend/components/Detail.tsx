@@ -1,13 +1,13 @@
-import { IconPencil, IconShare, IconRefresh, IconEdit } from "@tabler/icons";
+import { IconPencil, IconShare, IconRefresh, IconEdit } from "@tabler/icons-react";
 import React, { memo, useRef } from "react";
 import { useGetTopicDetailQuery } from "@/modules/services/friend";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useIntersection } from "react-use";
 
 const Detail = () => {
   const { id = "" } = useParams();
-  const intersectionRef = useRef(null);
-  const intersection = useIntersection(intersectionRef, {
+  const intersectionRef = useRef<HTMLDivElement>(null);
+  const intersection = useIntersection(intersectionRef as React.RefObject<HTMLElement>, {
     root: undefined,
     rootMargin: "0px",
     threshold: 1,
@@ -58,11 +58,11 @@ const Detail = () => {
             alt=""
           />
           <div
-            className={`absolute inset-0 bg-black bg-opacity-20 flex-center flex-col`}
+            className={`absolute inset-0 bg-black/20 flex-center flex-col`}
           >
             <div
               style={{ minWidth: 210 }}
-              className="relative max-w-sm min-w- border-t border-b border-white border-opacity-60 py-6 text-white text-xl flex-center text-center flex-col "
+              className="relative max-w-sm min-w- border-t border-b border-white/60 py-6 text-white text-xl flex-center text-center flex-col "
             >
               <div className={`flex`}>
                 #<span className="truncate">{act.title}</span>#
@@ -73,7 +73,7 @@ const Detail = () => {
             </div>
             <button
               type="button"
-              className="bg-white flex-center h-9 mt-4 w-52 rounded text-red-500 bg-opacity-90 hover:bg-opacity-100"
+              className="bg-white/90 flex-center h-9 mt-4 w-52 rounded text-red-500 hover:bg-white"
             >
               <IconPencil size={16} />
               立即参与
@@ -81,7 +81,7 @@ const Detail = () => {
           </div>
           <button
             type="button"
-            className="absolute m-4 w-8 h-8 flex-center top-0 right-0 border text-white border-gray-500 rounded-full bg-black bg-opacity-50"
+            className="absolute m-4 w-8 h-8 flex-center top-0 right-0 border text-white border-gray-500 rounded-full bg-black/50"
           >
             <IconShare size={24} stroke={1} />
           </button>

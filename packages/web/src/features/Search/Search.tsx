@@ -1,41 +1,34 @@
 import React, { createElement, memo, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import {
-  setSearchCount,
-  setKeywords,
-  searchSelector,
-} from "@/modules/reducers/search/slice";
+import { useParams } from "react-router";
+
 import "./style.scss";
 import Loading from "@/components/Loading";
 import Page from "@/components/Page";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useGetCloudSearchMutation } from "@/modules/services/search";
 import config, { Types } from "./config";
-import { setDialogReset } from "@/modules/reducers/mask/slice";
+import { useMaskStore, useSearchStore } from "@/stores";
 
 const Search = () => {
   console.log("entry search");
   const { keywords = "", type = "" } = useParams();
-  const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
   const [result, setResult] = useState({});
   const [count, setCount] = useState(0);
   const { code, limit, Node, countName } = config[type as Types];
 
-  const { keywords: searchValue } = useAppSelector(searchSelector);
+  const { keywords: searchValue } = useSearchStore();
   const [cloudSearchGet, { isLoading }] = useGetCloudSearchMutation();
 
   useEffect(() => {
-    dispatch(setSearchCount({ count }));
+    useSearchStore.getState().setSearchCount({ count });
   }, [count]);
 
   useEffect(() => {
     if (!searchValue) {
-      dispatch(
-        setKeywords({
+      useSearchStore.getState().setKeywords({
           keywords,
         })
-      );
+      ;
     }
   }, [keywords]);
 
@@ -57,7 +50,7 @@ const Search = () => {
   };
 
   useEffect(() => {
-    dispatch(setDialogReset());
+    useMaskStore.getState().setDialogReset();
     handleChangePage(1);
   }, [keywords, type]);
   if (isLoading) {

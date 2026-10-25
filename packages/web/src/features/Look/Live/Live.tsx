@@ -152,7 +152,7 @@ export default memo(function Live() {
     mixin: null,
   });
 
-  const userSettings = useRef<MediaTrackSettings>();
+  const userSettings = useRef<MediaTrackSettings | undefined>(undefined);
   const RefMixin = useRef<HTMLCanvasElement>(null);
   const RefCtx = useRef<CanvasRenderingContext2D>(null);
   const RefMixinCtx = useRef<CanvasRenderingContext2D>(null);
@@ -179,9 +179,10 @@ export default memo(function Live() {
     ({
       current: ref,
     }: {
-      current: HTMLCanvasElement;
+      current: HTMLCanvasElement | null;
     }): ReactEventHandler<HTMLVideoElement> =>
     ({ target }) => {
+      if (!ref) return;
       const width = target.clientWidth;
       const height = target.clientHeight;
       ref.width = width;
@@ -236,7 +237,7 @@ export default memo(function Live() {
       0,
       0,
       -width,
-      width / userSettings.current.aspectRatio
+      width / userSettings.current!.aspectRatio
     );
     ctx.restore();
   };

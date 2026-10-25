@@ -1,7 +1,7 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import MenuCreate from "@/components/MenuCreate/MenuCreate";
-import { IconPlayerPlay } from "@tabler/icons";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import { MV as MVProps } from "@/modules/services/types";
 interface iProps {
   mv: MVProps[];

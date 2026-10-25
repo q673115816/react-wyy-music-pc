@@ -1,7 +1,7 @@
 import React, { FC, memo, PropsWithChildren } from "react";
-import { setAudioPlaylist } from "@/modules/reducers/audio/slice";
+
 import { apiPlaylistDetail, apiSongDetail } from "@/api";
-import { useAppDispatch } from "@/modules/hooks";
+import { useAudioStore } from "@/stores";
 
 interface iProps extends PropsWithChildren {
   id: number;
@@ -9,7 +9,6 @@ interface iProps extends PropsWithChildren {
 }
 
 const PlaylistAsyncReplace: FC<iProps> = ({ children, id, className = "" }) => {
-  const dispatch = useAppDispatch();
   const handleAllPlay = async () => {
     const data = await apiPlaylistDetail({
       id,
@@ -18,7 +17,7 @@ const PlaylistAsyncReplace: FC<iProps> = ({ children, id, className = "" }) => {
     const { songs: playlist } = await apiSongDetail({
       ids: data.playlist.trackIds.map(({ id }) => id).join(","),
     });
-    return dispatch(setAudioPlaylist({ playlist }));
+    return useAudioStore.getState().setAudioPlaylist({ playlist });
   };
   return (
     <button type="button" onClick={handleAllPlay} className={className}>

@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import RainbowCat from "@/features/User/Detail/components/RainbowCat";
-import { IconPlayerPlay } from "@tabler/icons";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import React, { memo } from "react";
 
 const Rank = () => (
@@ -12,7 +12,7 @@ const Rank = () => (
         </div>
         <button
           type="button"
-          className="playArrow opacity-0 group-hover:opacity-100 transition-opacity duration-500 ui_themeColor absolute right-0 bottom-0 m-2 bg-white bg-opacity-90 rounded-full p-2"
+          className="playArrow opacity-0 group-hover:opacity-100 transition-opacity duration-500 ui_themeColor absolute right-0 bottom-0 m-2 bg-white/90 rounded-full p-2"
         >
           <IconPlayerPlay size={22} className="fill-current" />
         </button>

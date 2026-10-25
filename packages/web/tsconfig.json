@@ -1,15 +1,19 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
     "jsx": "react",
-    "target": "ESNext",
-    "module": "esnext",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "declaration": false,
     "esModuleInterop": true,
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     "paths": {
-      "@/*":["./*"],
-      "@img/*": ["./assets/images/*"]
+      "@/*": ["./src/*"],
+      "@img/*": ["./src/assets/images/*"]
     }
-  }
+  },
+  "include": ["src", "vite.config.mts", "vite/**/*.ts"],
+  "exclude": ["node_modules", "dist", "src/entry.server.tsx", "src/sw.ts"]
 }

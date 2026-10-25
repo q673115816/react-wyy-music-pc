@@ -1,6 +1,6 @@
 import React, { FC, memo } from "react";
-import { IconVolume, IconVolume3 } from "@tabler/icons";
-import { useAppSelector } from "@/modules/hooks";
+import { IconVolume, IconVolume3 } from "@tabler/icons-react";
+import { useAudioStore } from "@/stores";
 
 interface IProps {
   id: number;
@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const Rank: FC<IProps> = ({ id, index }) => {
-  const { currentSong, running } = useAppSelector(({ audio }) => audio);
+  const { currentSong, running } = useAudioStore();
   if (currentSong.id === id) {
     return (
       <div className="ui_themeColor flex justify-end">

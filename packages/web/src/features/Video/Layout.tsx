@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router";
 
 const navs = [
   ["视频", "video"],

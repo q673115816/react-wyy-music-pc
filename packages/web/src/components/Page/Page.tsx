@@ -1,5 +1,5 @@
 import React, { FC, memo, MouseEventHandler, useCallback } from "react";
-import { IconChevronRight, IconChevronLeft } from "@tabler/icons";
+import { IconChevronRight, IconChevronLeft } from "@tabler/icons-react";
 import classNames from "classnames";
 import Button from "./Button";
 import { pageProps } from "./types";

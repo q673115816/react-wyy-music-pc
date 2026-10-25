@@ -1,13 +1,8 @@
 import React, { useState, memo } from "react";
-import { maskSelector, setDialogReset } from "@/modules/reducers/mask/slice";
-import {
-  setHomeOrder,
-  defaultOrder,
-  settingSelector,
-  Order,
-} from "@/modules/reducers/settings/slice";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
-import { IconBulb } from "@tabler/icons";
+
+import { defaultOrder, useSettingsStore, useMaskStore } from "@/stores";
+import type { Order } from "@/stores";
+import { IconBulb } from "@tabler/icons-react";
 import HOCDialog from "../Dialog/Dialog";
 import {
   DndContext,
@@ -35,9 +30,8 @@ import SortableItem from "./SortableItem";
 import Item from "./Item";
 
 const HomeOrder = () => {
-  const dispatch = useAppDispatch();
-  const { dialogHomeOrderVisibility } = useAppSelector(maskSelector);
-  const { order } = useAppSelector(settingSelector);
+  const { dialogHomeOrderVisibility } = useMaskStore();
+  const { order, setHomeOrder } = useSettingsStore();
   const [state, setState] = useState(order);
   const [activeId, setActiveId] = useState(null);
   const handleReset = () => {
@@ -45,8 +39,8 @@ const HomeOrder = () => {
   };
 
   const handleConfirm = () => {
-    dispatch(setDialogReset());
-    dispatch(setHomeOrder(state));
+    useMaskStore.getState().setDialogReset();
+    setHomeOrder(state);
   };
 
   const sensors = useSensors(
@@ -120,7 +114,7 @@ const HomeOrder = () => {
           <button
             type="button"
             className="border rounded-full h-8 w-20"
-            onClick={() => dispatch(setDialogReset())}
+            onClick={() => useMaskStore.getState().setDialogReset()}
           >
             取消
           </button>

@@ -1,37 +1,31 @@
 import React, { FC, memo, useCallback, useMemo } from "react";
-import {
-  setCustom,
-  setTheme,
-  settingSelector,
-} from "@/modules/reducers/settings/slice";
+import { useSettingsStore } from "@/stores";
 import Color from "color";
-import style from "./style.module.scss";
 import Check from "./Check";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import classNames from "classnames";
+import style from "./style.module.scss";
 import Range from "./Range";
 
 const Custom: FC = () => {
-  const dispatch = useAppDispatch();
-  const { theme, custom } = useAppSelector(settingSelector);
+  const { theme, custom, setCustom, setTheme } = useSettingsStore();
   const color = useMemo(() => Color(theme), [theme]);
   const [h, s, l] = useMemo(() => color.hsl().array(), [color]);
   const handleRGB = useCallback(
     (val: number) => {
-      if (!custom) dispatch(setCustom(true));
-      const theme = color.hue(val).hex();
-      dispatch(setTheme(theme));
+      if (!custom) setCustom(true);
+      const nextTheme = color.hue(val).hex();
+      setTheme(nextTheme);
     },
-    [color]
+    [color, custom, setCustom, setTheme]
   );
 
   const handleHSL = useCallback(
     (val: number) => {
-      if (!custom) dispatch(setCustom(true));
-      const theme = color.lightness(val).hex();
-      dispatch(setTheme(theme));
+      if (!custom) setCustom(true);
+      const nextTheme = color.lightness(val).hex();
+      setTheme(nextTheme);
     },
-    [color]
+    [color, custom, setCustom, setTheme]
   );
 
   return (
@@ -42,7 +36,7 @@ const Custom: FC = () => {
           style.colour,
           "relative flex-none w-10 h-10 rounded"
         )}
-        onClick={() => dispatch(setCustom(true))}
+        onClick={() => setCustom(true)}
       >
         {custom && <Check />}
       </button>

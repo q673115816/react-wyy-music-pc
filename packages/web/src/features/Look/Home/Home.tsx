@@ -8,9 +8,8 @@ import React, {
   useContext,
 } from "react";
 import useInfinite from "@/hooks/useInfinite";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import Loading from "@/components/Loading";
-import Rea from "react-error-boundary";
 import socket from "../socket";
 import { iList } from "./types";
 import LiveList from "./List";

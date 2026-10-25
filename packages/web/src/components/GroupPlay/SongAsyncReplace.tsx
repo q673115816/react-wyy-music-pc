@@ -1,8 +1,8 @@
 import React, { FC, memo, PropsWithChildren } from "react";
-import { setAudioImmediate } from "@/modules/reducers/audio/slice";
-import { useAppDispatch } from "@/modules/hooks";
+
 import { useLazyGetSongDetailQuery } from "@/modules/services/song";
 import { useToast } from "@/components/Toast";
+import { useAudioStore } from "@/stores";
 
 interface iProps extends PropsWithChildren {
   id: number;
@@ -10,7 +10,6 @@ interface iProps extends PropsWithChildren {
 }
 
 const SongAsyncReplace: FC<iProps> = ({ children, id, className = "" }) => {
-  const dispatch = useAppDispatch();
   const toast = useToast();
   const [SongDetailGet, { data }] = useLazyGetSongDetailQuery();
   const handleAllPlay = async () => {
@@ -22,7 +21,7 @@ const SongAsyncReplace: FC<iProps> = ({ children, id, className = "" }) => {
       return;
     }
     const currentSong = data?.data?.songs?.[0] || {};
-    dispatch(setAudioImmediate({ currentSong }));
+    useAudioStore.getState().setAudioImmediate({ currentSong });
   };
   return (
     <button type="button" onClick={handleAllPlay} className={className}>

@@ -1,29 +1,27 @@
 import React, { memo, FormEventHandler, ChangeEventHandler } from "react";
-import { IconSearch } from "@tabler/icons";
-import { searchSelector, setKeywords } from "@/modules/reducers/search/slice";
-import { setSearchShow, setDialogReset } from "@/modules/reducers/mask/slice";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
+import { IconSearch } from "@tabler/icons-react";
+
+import { useNavigate } from "react-router";
+import { useMaskStore, useSearchStore } from "@/stores";
 
 const Search = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { searchVisibility } = useAppSelector(({ mask }) => mask);
-  const { keywords } = useAppSelector(searchSelector);
+  const { searchVisibility } = useMaskStore();
+  const { keywords } = useSearchStore();
   const handleSearchInit = async () => {
-    dispatch(setSearchShow());
+    useMaskStore.getState().setSearchShow();
   };
 
   const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const keywords = e.target.value;
-    dispatch(setKeywords({ keywords }));
+    useSearchStore.getState().setKeywords({ keywords });
   };
 
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     if (keywords) {
       navigate(`/search/${keywords}`);
-      dispatch(setDialogReset()); // temp
+      useMaskStore.getState().setDialogReset(); // temp
     }
     return false;
   };
@@ -41,7 +39,7 @@ const Search = () => {
       <input
         type="text"
         placeholder="搜索"
-        className="h-7 w-40 pl-9 placeholder-white placeholder-opacity-40 rounded-full bg-black bg-opacity-5 text-white"
+        className="h-7 w-40 pl-9 placeholder-white/40 rounded-full bg-black/5 text-white"
         value={keywords}
         onChange={handleSearchChange}
         onFocus={handleSearchInit}

@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState, useMemo, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import {
   apiCommentMusic,
   apiSongDetail,

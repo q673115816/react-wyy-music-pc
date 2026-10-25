@@ -7,7 +7,7 @@ import {
   SymbolQQ,
   SymbolWB,
 } from "@/components/Symbol";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import Loading from "@/components/Loading";
 import { useGetUserBindingQuery } from "@/modules/services/user";
 

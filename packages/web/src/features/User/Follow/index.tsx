@@ -1,26 +1,22 @@
 import React, { useRef, memo, useCallback, useMemo, useContext } from "react";
 import { apiUserDetail, apiUserFollows, apiFollow } from "@/api";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 
-import { setPopupLetterToggle } from "@/modules/reducers/mask/slice";
-import { setMsgPrivateHistory } from "@/modules/reducers/letter/slice";
 import Loading from "@/components/Loading";
 import useInfinite from "@/hooks/useInfinite";
 import CardList from "../components/CardList";
 import { useImmer } from "use-immer";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import { useGetUserDetailQuery } from "@/modules/services/user";
 import { context } from "../context";
-import { accountSelector } from "@/modules/reducers/account/slice";
+import { useAccountStore, useLetterStore, useMaskStore } from "@/stores";
 
 const limit = 30;
 
 const Follow = () => {
   const { profile } = useContext(context);
   const { uid } = useParams();
-  const dispatch = useAppDispatch();
   const [data, setData] = useImmer([]);
-  const account = useAppSelector(accountSelector);
+  const account = useAccountStore();
   const isSelf = useMemo(() => account.profile.userId === Number(uid), [uid]);
   const DomScroll = useRef(null);
   const DomObserver = useRef(null);
@@ -58,14 +54,13 @@ const Follow = () => {
   }, []);
 
   const handleLetter = (uid, nickname) => {
-    dispatch(setPopupLetterToggle());
-    dispatch(
-      setMsgPrivateHistory({
+    useMaskStore.getState().setPopupLetterToggle();
+    useLetterStore.getState().setMsgPrivateHistory({
         uid,
         nickname,
         showMsgPrivateHistory: true,
       })
-    );
+    ;
   };
 
   useInfinite(handleAddData, DomScroll, DomObserver);

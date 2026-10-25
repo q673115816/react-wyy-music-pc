@@ -1,12 +1,11 @@
-import { useAppSelector } from "@/modules/hooks";
 import classnames from "classnames";
 import React, { memo, useEffect, useRef, useState } from "react";
-import { audioSelector } from "@/modules/reducers/audio/slice";
-import { LrcSelector } from "@/modules/reducers/lrc/slice";
+
+import { useLrcStore, useAudioStore } from "@/stores";
 
 const Lrc = () => {
-  const { currentTime } = useAppSelector(audioSelector);
-  const { lrcList } = useAppSelector(LrcSelector);
+  const { currentTime } = useAudioStore();
+  const lrcList = useLrcStore((state) => state.lrcList);
   const RefScroll = useRef(null);
   const RefCurrentLine = useRef(null);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);

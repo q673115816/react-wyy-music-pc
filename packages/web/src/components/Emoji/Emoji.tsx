@@ -5,7 +5,7 @@ import React, {
   useState,
   WheelEventHandler,
 } from "react";
-import { IconX } from "@tabler/icons";
+import { IconX } from "@tabler/icons-react";
 import faces from "./faces";
 import style from "./emoji.module.scss";
 import classNames from "classnames";

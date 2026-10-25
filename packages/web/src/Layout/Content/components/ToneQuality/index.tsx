@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import classNames from "classnames";
-import { useAppSelector } from "@/modules/hooks";
 import style from "./style.module.scss";
+import { useAudioStore } from "@/stores";
 
 type Rate = 128000 | 192000 | 320000 | 999000;
 
@@ -13,7 +13,7 @@ const rates = {
 };
 
 export default memo(function ToneQuality() {
-  const { currentSong } = useAppSelector(({ audio }) => audio);
+  const { currentSong } = useAudioStore();
   return (
     <div
       className={classNames(

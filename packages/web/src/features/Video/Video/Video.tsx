@@ -2,22 +2,15 @@ import React, { memo, useEffect, useState, useRef, useMemo } from "react";
 import classNames from "classnames";
 import useInfinite from "@/hooks/useInfinite";
 import GridVideo from "@/components/GridVideo";
-import {
-  handleAddList,
-  handlePrevInit,
-  setVideoListId,
-  setVideoListInit,
-  Category,
-  VideoListSelector,
-} from "@/modules/reducers/videolist/slice";
-import { useAppSelector, useAppDispatch } from "@/modules/hooks";
+
 import Loading from "@/components/Loading";
 import Select from "./components/Select";
+import type { VideoItem as Category } from "@/stores";
+import { useVideoListStore } from "@/stores";
 
 const VideoList = () => {
-  const dispatch = useAppDispatch();
   const { id, initStatus, groupList, categoryList, videoList } =
-    useAppSelector(VideoListSelector);
+    useVideoListStore();
   const [groupListVisibility, setGroupListVisibility] = useState(false);
   const currentNav = useMemo(
     () =>
@@ -28,17 +21,17 @@ const VideoList = () => {
   const domScroll = useRef<HTMLDivElement>(null);
   const domObserver = useRef<HTMLDivElement>(null);
 
-  useInfinite(() => dispatch(handleAddList(id)), domScroll, domObserver);
+  useInfinite(() => useVideoListStore.getState().addList(id), domScroll, domObserver);
 
   useEffect(() => {
-    dispatch(handlePrevInit());
+    useVideoListStore.getState().init();
     return () => {
-      dispatch(setVideoListInit());
+      useVideoListStore.getState().setVideoListInit();
     };
   }, []);
 
   useEffect(() => {
-    dispatch(setVideoListInit());
+    useVideoListStore.getState().setVideoListInit();
   }, [id]);
 
   return (
@@ -66,7 +59,7 @@ const VideoList = () => {
                     ? "bg-red-50 text-red-500"
                     : "ui_text_black_hover"
                 )}
-                onClick={() => dispatch(setVideoListId({ id: item.id }))}
+                onClick={() => useVideoListStore.getState().setVideoListId({ id: item.id })}
               >
                 {item.name}
               </button>

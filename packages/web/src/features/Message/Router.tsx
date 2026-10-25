@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Navigate, Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router";
 import Layout from "./Layout";
 import Download from "./Download";
 import Local from "./Local";

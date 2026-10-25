@@ -1,8 +1,8 @@
 import React, { FC, memo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import dayjs from "dayjs";
 import { transPlayCount } from "@/common/utils";
-import { IconPlayerPlay } from "@tabler/icons";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import { playerTypes, PlayerTypes } from "@/common/config";
 import TagMV from "@/components/Tags/Box";
 import { useGetRelatedAllVideoQuery } from "@/modules/services/player";

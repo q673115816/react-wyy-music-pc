@@ -1,34 +1,28 @@
 import React, { memo, useEffect, useRef } from "react";
-import { useAppDispatch } from "@/modules/hooks";
-import { IconChevronDownRight } from "@tabler/icons";
-import {
-  setGlobalRect,
-  setGlobalStartRect,
-} from "@/modules/reducers/inset/slice";
+import { IconChevronDownRight } from "@tabler/icons-react";
+
 import classNames from "classnames";
 import style from "./Resizer.module.scss";
 import useDraggable from "@/hooks/useDraggable";
+import { useInsetStore } from "@/stores";
 
 const Resizer = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { startX, startY, moveX, moveY } = useDraggable(ref.current);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(
-      setGlobalStartRect({
+    useInsetStore.getState().setGlobalStartRect({
         x: startX,
         y: startY,
       })
-    );
+    ;
   }, [startX, startY]);
   useEffect(() => {
-    dispatch(
-      setGlobalRect({
+    useInsetStore.getState().setGlobalRect({
         x: moveX,
         y: moveY,
       })
-    );
+    ;
   }, [moveX, moveY]);
   return (
     <div

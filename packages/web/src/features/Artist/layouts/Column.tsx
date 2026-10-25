@@ -1,12 +1,12 @@
 import React, { FC, memo, useEffect, useState } from "react";
-import { IconPlayerPlay, IconFolderPlus, IconDownload } from "@tabler/icons";
+import { IconPlayerPlay, IconFolderPlus, IconDownload } from "@tabler/icons-react";
 
 import dayjs from "dayjs";
 import classNames from "classnames";
 import DomTags from "@/components/Tags";
 import DomHeart from "@/components/Table/Heart";
 import { useGetArtistTopSongQuery } from "@/modules/services/artist";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 interface iProps {}
 
@@ -20,7 +20,7 @@ const Column: FC<iProps> = () => {
     <div className="column p-8">
       <div className="column_item">
         <div className="cover">
-          <div className="Top50 flex-none bg-black bg-opacity-50 flex-center flex-col font-bold rounded w-full h-full text-white">
+          <div className="Top50 flex-none bg-black/50 flex-center flex-col font-bold rounded w-full h-full text-white">
             <div className="text-4xl">TOP</div>
             <div className="text-6xl">50</div>
           </div>
@@ -45,7 +45,7 @@ const Column: FC<iProps> = () => {
             {top50.slice(0, limit).map((item, index) => (
               <div
                 className={classNames(
-                  "item hover:bg-gray-100 focus:outline-none focus:bg-gray-200",
+                  "item hover:bg-gray-100 focus:outline-hidden focus:bg-gray-200",
                   { "bg-gray-50": index % 2 === 0 }
                 )}
                 tabIndex={2}

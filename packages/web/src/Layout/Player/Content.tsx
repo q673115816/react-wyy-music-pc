@@ -1,6 +1,6 @@
 import React, { FC, memo, useCallback, useState } from "react";
 import Video from "@q673115816/player";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import classNames from "classnames";
 import {
   IconCaretDown,
@@ -10,24 +10,23 @@ import {
   IconFolderPlus,
   IconScreenShare,
   IconThumbUp,
-} from "@tabler/icons";
+} from "@tabler/icons-react";
 import dayjs from "dayjs";
 import { transPlayCount } from "@/common/utils";
-import { setVideoListId } from "@/modules/reducers/videolist/slice";
+
 import DownloadVideo from "@/components/Dialog/DownloadVideo";
 import { Textarea } from "@/components/editor";
-import { useAppDispatch } from "@/modules/hooks";
 import useInit from "@/Layout/Player/useInit";
 import Comment from "./Comment";
 import { usePostFollowMutation } from "@/modules/services/user";
+import { useVideoListStore } from "@/stores";
 const Group = ({ list = [] }) => {
-  const dispatch = useAppDispatch();
   return (
     <div className="mt-3 space-x-1">
       {list.map((group) => (
         <Link
           className="group bg-gray-50 rounded-full px-2 py-1"
-          onClick={() => dispatch(setVideoListId({ id: group.id }))}
+          onClick={() => useVideoListStore.getState().setVideoListId({ id: group.id })}
           to="/video/list"
           key={group.id}
         >
@@ -72,7 +71,7 @@ const Content: FC<iProps> = ({ type, vid }) => {
     try {
       const {} = await followPost({
         id: detail.creator.userId,
-        t: followed ? 0 : 1,
+        t: detail?.creator?.followed ? 0 : 1,
       });
     } catch (error) {
       console.log(error);

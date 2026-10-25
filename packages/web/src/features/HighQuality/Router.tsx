@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Navigate, useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router";
 import Layout from "./Layout";
 import HighQuality from "./HighQuality";
 

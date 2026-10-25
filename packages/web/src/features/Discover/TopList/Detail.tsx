@@ -1,8 +1,8 @@
 import React, { FC, memo } from "react";
 import { useGetPlaylistDetailQuery } from "@/modules/services/playlist";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import dayjs from "dayjs";
-import { IconPlayerPlay } from "@tabler/icons";
+import { IconPlayerPlay } from "@tabler/icons-react";
 import Content from "./Content";
 import Loading from "@/components/Loading";
 
@@ -33,7 +33,7 @@ const Detail: FC<iProps> = ({ id }) => {
         </div>
         <button
           type="button"
-          className="opacity-0 group-hover:opacity-100 absolute inset-0 m-auto flex-center rounded-full w-10 h-10 text-red-500 bg-white bg-opacity-50"
+          className="opacity-0 group-hover:opacity-100 absolute inset-0 m-auto flex-center rounded-full w-10 h-10 text-red-500 bg-white/50"
         >
           <IconPlayerPlay size={22} className="fill-current" />
         </button>

@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import classNames from "classnames";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router";
 const navs = [
   ["节目榜", "program"],
   ["新晋电台榜", "now"],

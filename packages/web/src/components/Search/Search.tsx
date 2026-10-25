@@ -1,20 +1,19 @@
 import React, { ChangeEventHandler, memo } from "react";
-import { useAppDispatch, useAppSelector } from "@/modules/hooks";
 import classNames from "classnames";
-import { searchSelector, setKeywords } from "@/modules/reducers/search/slice";
+
 import Mask from "../Mask";
 import History from "./History";
 import Hot from "./Hot";
 import style from "./style.module.scss";
 import Suggest from "./Suggest";
+import { useMaskStore, useSearchStore } from "@/stores";
 
 const Search = () => {
-  const { keywords } = useAppSelector(searchSelector);
-  const dispatch = useAppDispatch();
-  const { searchVisibility } = useAppSelector(({ mask }) => mask);
+  const { keywords } = useSearchStore();
+  const { searchVisibility } = useMaskStore();
   const handleSearchChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const keywords = e.target.value;
-    dispatch(setKeywords({ keywords }));
+    useSearchStore.getState().setKeywords({ keywords });
   };
   if (!searchVisibility) return null;
 

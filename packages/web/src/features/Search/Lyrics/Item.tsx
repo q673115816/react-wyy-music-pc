@@ -2,7 +2,7 @@ import React, { memo, useEffect, useRef, useState } from "react";
 import style from "./Lyrics.module.scss";
 import classNames from "classnames";
 const Item = ({ lyrics = [] }) => {
-  const content = useRef();
+  const content = useRef<string>("");
   const [status, SetStatus] = useState(false);
   useEffect(() => {
     content.current = lyrics.join("\n").replace(/<b>|<\/b>/gm, "");

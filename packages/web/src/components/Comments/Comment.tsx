@@ -1,8 +1,8 @@
 import React, { FC, memo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import dayjs from "dayjs";
 import { apiCommentLike } from "@/api";
-import { IconThumbUp, IconScreenShare, IconMessageCircle } from "@tabler/icons";
+import { IconThumbUp, IconScreenShare, IconMessageCircle } from "@tabler/icons-react";
 import Parse from "./Parse";
 const enum Types {
   "歌曲",
@@ -16,22 +16,17 @@ const enum Types {
 
 interface iProps {
   item: any;
-  handleLike: () => void;
-  type: string;
-  threadId: number;
+  handleLike?: (cid?: number, t?: boolean) => void;
+  type?: string;
+  threadId?: number;
 }
 
-const Comment: FC<iProps> = ({
-  item = {},
-  handleLike = () => null,
-  type = "0",
-  threadId,
-}) => {
+const Comment: FC<iProps> = ({ item = {}, handleLike, type = "0", threadId }) => {
   const handleClick = async (id, t) => {
     try {
       await apiCommentLike({
         id,
-        cid,
+        cid: item.commentId,
         t,
         type: Types[type],
       });
@@ -69,7 +64,7 @@ const Comment: FC<iProps> = ({
             <Parse text={item.content} />
           </span>
         </div>
-        {item.beReplied.map((beReplied) => (
+        {(item.beReplied ?? []).map((beReplied) => (
           <div
             className=" p-2 bg-gray-100 mt-2"
             key={beReplied.beRepliedCommentId}
@@ -104,7 +99,11 @@ const Comment: FC<iProps> = ({
               <button
                 type="button"
                 className="flex-center ui_text_black_hover"
-                onClick={() => handleLike(item.commentId, item.liked)}
+                onClick={() =>
+                  handleLike
+                    ? handleLike(item.commentId, item.liked)
+                    : handleClick(item.commentId, item.liked)
+                }
               >
                 {item.liked ? (
                   <IconThumbUp size={16} stroke={0} fill="var(--theme-color)" />

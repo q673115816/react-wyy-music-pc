@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { useGetDJCateListQuery } from "@/modules/services/dj";
-import { Link } from "react-router-dom";
-import { IconChartBar } from "@tabler/icons";
+import { Link } from "react-router";
+import { IconChartBar } from "@tabler/icons-react";
 import Loading from "@/components/Loading";
 
 const Category = () => {
