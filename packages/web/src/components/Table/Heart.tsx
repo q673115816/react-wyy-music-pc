@@ -1,7 +1,7 @@
 import React, { FC, memo } from "react";
 import classNames from "classnames";
 import { IconHeart } from "@tabler/icons-react";
-import { apiLike } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import { useToast } from "@/components/Toast";
 import { useAccountStore } from "@/stores";
 
@@ -13,18 +13,12 @@ interface IProps {
   title?: string;
 }
 
-const Heart: FC<IProps> = ({
-  id = "",
-  size = 20,
-  className = "",
-  stroke = 1,
-  ...props
-}) => {
+const Heart: FC<IProps> = ({ id = "", size = 20, className = "", stroke = 1, ...props }) => {
   const toast = useToast();
   const { likelist } = useAccountStore();
   const handleLike = async () => {
     try {
-      const { code, message } = await apiLike({
+      const { code, message } = await apiPost("/like", {
         id,
         like: !likelist.includes(id),
       });
@@ -33,9 +27,7 @@ const Heart: FC<IProps> = ({
         return;
       }
       toast(likelist.includes(id) ? "取消喜欢成功" : "已添加到我喜欢的音乐");
-      likelist.includes(id)
-        ? useAccountStore.getState().setLikelistDel({ id })
-        : useAccountStore.getState().setLikelistAdd({ id });
+      likelist.includes(id) ? useAccountStore.getState().setLikelistDel({ id }) : useAccountStore.getState().setLikelistAdd({ id });
       // const { ids: newlikelist } = await apiLikelist({ uid: profile.userId });
       // dispatch(setLikelist({
       //   likelist: newlikelist,
@@ -45,22 +37,8 @@ const Heart: FC<IProps> = ({
     }
   };
   return (
-    <button
-      type="button"
-      className={classNames(
-        className,
-        likelist.includes(id)
-          ? "text-red-500 hover:text-red-700"
-          : "ui_text_gray_hover"
-      )}
-      onClick={handleLike}
-      {...props}
-    >
-      <IconHeart
-        size={size}
-        className={classNames({ "fill-current": likelist.includes(id) })}
-        stroke={stroke}
-      />
+    <button type="button" className={classNames(className, likelist.includes(id) ? "text-red-500 hover:text-red-700" : "ui_text_gray_hover")} onClick={handleLike} {...props}>
+      <IconHeart size={size} className={classNames({ "fill-current": likelist.includes(id) })} stroke={stroke} />
     </button>
   );
 };

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import React, { memo, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router";
-import { apiDJProgramTopList, apiDJTopList } from "@/api";
+import { apiGet, apiPost } from "@/shared/api/client";
 import { unstable_batchedUpdates } from "react-dom";
 import Item from "./Item";
 
@@ -29,16 +29,7 @@ const formatMap = {
       category,
     };
   },
-  true({
-    id,
-    name,
-    lastRank,
-    rank,
-    picUrl: coverUrl,
-    score,
-    dj: { nickname: userName, userId },
-    category,
-  }) {
+  true({ id, name, lastRank, rank, picUrl: coverUrl, score, dj: { nickname: userName, userId }, category }) {
     return {
       id,
       name,
@@ -60,9 +51,7 @@ const TopList = () => {
   const hasParams = useMemo(() => type !== "program", [type]);
   const handleInit = async (hasParams: boolean) => {
     try {
-      const { toplist, updateTime } = hasParams
-        ? await apiDJTopList({ type })
-        : await apiDJProgramTopList();
+      const { toplist, updateTime } = hasParams ? await apiPost("/dj/toplist", { type }) : await apiGet("/dj/program/toplist");
       unstable_batchedUpdates(() => {
         setData(toplist.map(formatMap[hasParams]));
         setUpdateTime(updateTime);
@@ -83,12 +72,8 @@ const TopList = () => {
         最近更新：
         {updateTime && dayjs(updateTime).format("MM月DD日")}
         <div className="relative ui_group">
-          <span className="block flex-center  border rounded-full w-4 h-4 flex-none">
-            ?
-          </span>
-          <div className="absolute text-gray-500 top-6 right-0 shadow rounded p-4 w-48 border hidden ui_group-hover:block bg-white">
-            选取云音乐中7天内发布的热度最高的节目，热度由节目播放、赞、分享数量总和计算
-          </div>
+          <span className="block flex-center  border rounded-full w-4 h-4 flex-none">?</span>
+          <div className="absolute text-gray-500 top-6 right-0 shadow rounded p-4 w-48 border hidden ui_group-hover:block bg-white">选取云音乐中7天内发布的热度最高的节目，热度由节目播放、赞、分享数量总和计算</div>
         </div>
       </div>
       <div className="list">

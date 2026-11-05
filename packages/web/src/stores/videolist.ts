@@ -1,10 +1,5 @@
 import { create } from "zustand";
-import {
-  apiVideoCategoryList,
-  apiVideoGroup,
-  apiVideoGroupList,
-  apiVideoTimelineRecommend,
-} from "@/api";
+import { apiGet, apiPost } from "@/shared/api/client";
 
 export interface VideoItem {
   id: number;
@@ -41,14 +36,11 @@ export const useVideoListStore = create<VideoListState>()((set) => ({
   setVideoListInit: () => set({ videoList: [] }),
   setVideoListId: ({ id }) => set({ id }),
   init: async () => {
-    const [{ data: groupList }, { data: categoryList = [] }] =
-      await Promise.all([apiVideoGroupList(), apiVideoCategoryList()]);
+    const [{ data: groupList }, { data: categoryList = [] }] = await Promise.all([apiGet("/video/group/list"), apiPost("/video/category/list")]);
     set({ groupList, categoryList, initStatus: true });
   },
   addList: async (id) => {
-    const { datas = [] } = await (id
-      ? apiVideoGroup({ id })
-      : apiVideoTimelineRecommend());
+    const { datas = [] } = await (id ? apiPost("/video/group", { id }) : apiPost("/video/timeline/recommend"));
     set((state) => ({
       videoList: [...state.videoList, ...datas.map(mapVideo)],
     }));

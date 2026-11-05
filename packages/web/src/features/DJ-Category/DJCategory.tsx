@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
-import { apiDjRadioHot } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import useInfinite from "@/hooks/useInfinite";
 import Loading from "@/components/Loading";
 
@@ -14,7 +14,7 @@ const DJCategory = () => {
 
   const handleInit = async () => {
     try {
-      const { djRadios } = await apiDjRadioHot({
+      const { djRadios } = await apiPost("/dj/radio/hot", {
         cateId: rid,
         limit,
         offset: offset.current,
@@ -38,12 +38,7 @@ const DJCategory = () => {
         {data.map((item) => (
           <Link key={item.id} to={`/playlist/dj/${item.id}`} className="flex">
             <div className="w-32 rounded overflow-hidden border">
-              <img
-                loading={`lazy`}
-                className={`aspect-square`}
-                src={`${item.picUrl}?param=200y200`}
-                alt=""
-              />
+              <img loading={`lazy`} className={`aspect-square`} src={`${item.picUrl}?param=200y200`} alt="" />
             </div>
             <div className="flex-auto w-0 px-2 pt-8">
               <div className="ui_text_black_hover text-sm">{item.name}</div>

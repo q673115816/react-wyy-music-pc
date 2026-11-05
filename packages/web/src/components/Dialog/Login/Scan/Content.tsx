@@ -1,21 +1,9 @@
 import { IconScan } from "@tabler/icons-react";
-import React, {
-  FC,
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, memo, useCallback, useContext, useEffect, useRef, useState } from "react";
 import { unstable_batchedUpdates as batchedUpdates } from "react-dom";
-import {
-  actionSwitchSignIn,
-  actionSwitchSignUp,
-  loginContext,
-} from "../Content";
+import { actionSwitchSignIn, actionSwitchSignUp, loginContext } from "../Content";
 import Refresh from "@/components/Dialog/Login/Scan/Refresh";
-import { apiLoginQrCreate, apiLoginQrKey } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import Success from "@/components/Dialog/Login/Scan/Success";
 import { useGetLoginQRCheckMutation } from "@/modules/services/account";
 import useToken from "@/hooks/useToken";
@@ -33,10 +21,10 @@ const Content: FC = () => {
     try {
       const {
         data: { unikey },
-      } = await apiLoginQrKey();
+      } = await apiPost("/login/qr/key");
       const {
         data: { qrimg },
-      } = await apiLoginQrCreate({
+      } = await apiPost("/login/qr/create", {
         key: unikey,
         qrimg: true,
       });
@@ -52,9 +40,7 @@ const Content: FC = () => {
   const handleLoop = async () => {
     const data = (await loginQRCheckGet({
       key,
-    }).catch((error: Error) => console.log(error))) as
-      | { code: number; cookie?: string }
-      | undefined;
+    }).catch((error: Error) => console.log(error))) as { code: number; cookie?: string } | undefined;
     if (!data) return;
     const cookie = data.cookie;
     const code = data.code;

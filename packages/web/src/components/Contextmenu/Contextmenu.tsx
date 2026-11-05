@@ -1,22 +1,10 @@
 import React, { useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router";
-import {
-  IconMessage,
-  IconArrowForward,
-  IconPlayerPlay,
-  IconFolderPlus,
-  IconShare,
-  IconLink,
-  IconCircleX,
-  IconDownload,
-  IconCirclePlus,
-  IconMusic,
-  IconLock,
-} from "@tabler/icons-react";
+import { IconMessage, IconArrowForward, IconPlayerPlay, IconFolderPlus, IconShare, IconLink, IconCircleX, IconDownload, IconCirclePlus, IconMusic, IconLock } from "@tabler/icons-react";
 
 import { useToast } from "@/components/Toast";
 
-import { apiMVSub } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import Mask from "@/components/Mask";
 import "./Contextmenu.scss";
 import { useCopyToClipboard } from "react-use";
@@ -28,11 +16,7 @@ import { useAccountStore, useAudioStore, useCommonStore, useInsetStore, useMaskS
 const initBuild = (functionClose) => ({
   评论: ({ contextMenuItem, contextMenuTotal, contextMenuType }) => (
     <Item>
-      <Link
-        to={`/comment/${contextMenuType}/${contextMenuItem.id}`}
-        onClick={functionClose}
-        className="ui_contextmenu_btn "
-      >
+      <Link to={`/comment/${contextMenuType}/${contextMenuItem.id}`} onClick={functionClose} className="ui_contextmenu_btn ">
         <i className="ico">
           <IconMessage size={22} stroke={1} />
         </i>
@@ -42,11 +26,7 @@ const initBuild = (functionClose) => ({
   ),
   播放: ({ handlePlay }) => (
     <Item>
-      <button
-        type="button"
-        onClick={handlePlay}
-        className="ui_contextmenu_btn "
-      >
+      <button type="button" onClick={handlePlay} className="ui_contextmenu_btn ">
         <i className="ico">
           <IconPlayerPlay size={22} stroke={1} />
         </i>
@@ -56,11 +36,7 @@ const initBuild = (functionClose) => ({
   ),
   下一首播放: ({ handlePlayNext }) => (
     <Item>
-      <button
-        onClick={handlePlayNext}
-        type="button"
-        className="ui_contextmenu_btn "
-      >
+      <button onClick={handlePlayNext} type="button" className="ui_contextmenu_btn ">
         <i className="ico">
           <IconArrowForward size={22} stroke={1} />
         </i>
@@ -70,11 +46,7 @@ const initBuild = (functionClose) => ({
   ),
   播放歌单: ({ handlePlayPlaylist }) => (
     <Item>
-      <button
-        type="button"
-        onClick={handlePlayPlaylist}
-        className="ui_contextmenu_btn "
-      >
+      <button type="button" onClick={handlePlayPlaylist} className="ui_contextmenu_btn ">
         <i className="ico">
           <IconPlayerPlay size={22} stroke={1} />
         </i>
@@ -84,11 +56,7 @@ const initBuild = (functionClose) => ({
   ),
   下一首播放歌单: ({ handlePlayNextPlaylist }) => (
     <Item>
-      <button
-        onClick={handlePlayNextPlaylist}
-        type="button"
-        className="ui_contextmenu_btn "
-      >
+      <button onClick={handlePlayNextPlaylist} type="button" className="ui_contextmenu_btn ">
         <i className="ico">
           <IconArrowForward size={22} stroke={1} />
         </i>
@@ -98,11 +66,7 @@ const initBuild = (functionClose) => ({
   ),
   查看歌单: ({ contextMenuItem }) => (
     <Item>
-      <Link
-        to={`/playlist/music/${contextMenuItem.id}`}
-        onClick={functionClose}
-        className="ui_contextmenu_btn "
-      >
+      <Link to={`/playlist/music/${contextMenuItem.id}`} onClick={functionClose} className="ui_contextmenu_btn ">
         <i className="ico">
           <IconPlayerPlay size={22} stroke={1} />
         </i>
@@ -112,11 +76,7 @@ const initBuild = (functionClose) => ({
   ),
   播放MV: ({ contextMenuItem, contextMenuType }) => (
     <Item>
-      <Link
-        to={`/player/${contextMenuType}/${contextMenuItem.id}`}
-        onClick={functionClose}
-        className="ui_contextmenu_btn "
-      >
+      <Link to={`/player/${contextMenuType}/${contextMenuItem.id}`} onClick={functionClose} className="ui_contextmenu_btn ">
         <i className="ico">
           <IconPlayerPlay size={22} stroke={1} />
         </i>
@@ -126,11 +86,7 @@ const initBuild = (functionClose) => ({
   ),
   收藏MV: ({ handleSubscribeMV }) => (
     <Item>
-      <button
-        onClick={handleSubscribeMV}
-        type="button"
-        className="ui_contextmenu_btn "
-      >
+      <button onClick={handleSubscribeMV} type="button" className="ui_contextmenu_btn ">
         <i className="ico">
           <IconFolderPlus size={22} stroke={1} />
         </i>
@@ -149,11 +105,7 @@ const initBuild = (functionClose) => ({
       </span>
       <List className="sub">
         <Item>
-          <button
-            type="button"
-            onClick={handleCreatePlaylist}
-            className="ui_contextmenu_btn "
-          >
+          <button type="button" onClick={handleCreatePlaylist} className="ui_contextmenu_btn ">
             <i className="ico">
               <IconCirclePlus size={22} stroke={1} />
             </i>
@@ -163,13 +115,7 @@ const initBuild = (functionClose) => ({
         {ownPlaylist.map((item) => (
           <Item key={item.id}>
             <button type="button" className="ui_contextmenu_btn ">
-              <i className="ico">
-                {item.privacy === 10 ? (
-                  <IconLock size={22} stroke={1} />
-                ) : (
-                  <IconMusic size={22} stroke={1} />
-                )}
-              </i>
+              <i className="ico">{item.privacy === 10 ? <IconLock size={22} stroke={1} /> : <IconMusic size={22} stroke={1} />}</i>
               {item.name}
             </button>
           </Item>
@@ -179,11 +125,7 @@ const initBuild = (functionClose) => ({
   ),
   分享: ({ handleDialogShare }) => (
     <Item>
-      <button
-        onClick={handleDialogShare}
-        type="button"
-        className="ui_contextmenu_btn "
-      >
+      <button onClick={handleDialogShare} type="button" className="ui_contextmenu_btn ">
         <i className="ico">
           <IconShare size={22} stroke={1} />
         </i>
@@ -193,11 +135,7 @@ const initBuild = (functionClose) => ({
   ),
   复制链接: ({ handleCopyLink }) => (
     <Item>
-      <button
-        type="button"
-        onClick={handleCopyLink}
-        className="ui_contextmenu_btn "
-      >
+      <button type="button" onClick={handleCopyLink} className="ui_contextmenu_btn ">
         <i className="ico">
           <IconLink size={22} stroke={1} />
         </i>
@@ -280,39 +218,27 @@ const Contextmenu = () => {
   const toast = useToast();
   const { baseUrl } = useCommonStore();
   const { profile, playlist } = useAccountStore();
-  const {
-    contextMenuVisibility,
-    contextMenuX,
-    contextMenuY,
-    contextMenuItem,
-    contextMenuTotal,
-    contextMenuSchema,
-    contextMenuType,
-    contextMenuItemId,
-  } = useMaskStore();
+  const { contextMenuVisibility, contextMenuX, contextMenuY, contextMenuItem, contextMenuTotal, contextMenuSchema, contextMenuType, contextMenuItemId } = useMaskStore();
   const { globalX, globalY } = useInsetStore();
   const ownPlaylist = playlist.filter((item) => !item.subscribed);
   const ShareUrl = `${baseUrl}/${contextMenuType}?id=${contextMenuItemId}&userId=${profile.userId}`;
   useEffect(() => {
     useMaskStore.getState().setContextMenuShareLink({
-        contextMenuShareLink: ShareUrl,
-      })
-    ;
+      contextMenuShareLink: ShareUrl,
+    });
   }, []);
 
   const handlePlay = () => {
     useAudioStore.getState().setAudioImmediate({
-        currentSong: contextMenuItem,
-      })
-    ;
+      currentSong: contextMenuItem,
+    });
     useMaskStore.getState().setDialogReset();
   };
 
   const handlePlayNext = () => {
     useAudioStore.getState().setAudioImmediateNext({
-        currentSong: contextMenuItem,
-      })
-    ;
+      currentSong: contextMenuItem,
+    });
     useMaskStore.getState().setDialogReset();
   };
 
@@ -325,7 +251,7 @@ const Contextmenu = () => {
 
   const handleSubscribeMV = async () => {
     try {
-      const { message } = await apiMVSub({
+      const { message } = await apiPost("/mv/sub", {
         mvid: contextMenuItemId,
         t: 1,
       });
@@ -353,22 +279,17 @@ const Contextmenu = () => {
       //   return useMaskStore.getState().setDialogReset();
       // }
       useMaskStore.getState().setDialogShareShow(),
-    []
+    [],
   );
 
   const Build = useMemo(() => {
     const Dom = initBuild(() => useMaskStore.getState().setDialogReset());
-    return contextMenuSchema.map((block) => [
-      block.join(","),
-      block.map((item) => [item, Dom[item]]),
-    ]);
+    return contextMenuSchema.map((block) => [block.join(","), block.map((item) => [item, Dom[item]])]);
   }, [contextMenuSchema]);
   if (!contextMenuVisibility) return null;
   return (
     <Mask>
-      <List
-        style={{ left: contextMenuX - globalX, top: contextMenuY - globalY }}
-      >
+      <List style={{ left: contextMenuX - globalX, top: contextMenuY - globalY }}>
         {Build.map(([wrapname, block]) => (
           <div key={wrapname}>
             {block.map(([item, Dom]) => (

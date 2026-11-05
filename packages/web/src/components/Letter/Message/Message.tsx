@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
-import { apiSendText, apiMsgPrivateHistory } from "@/api";
+import { apiPost } from "@/shared/api/client";
 
 import { wordLength } from "@/components/editor";
 import { IconChevronLeft } from "@tabler/icons-react";
@@ -69,13 +69,12 @@ const Message = () => {
 
   const handleGetMsgPrivateHistory = async () => {
     try {
-      const { hint, msgs = [] } = await apiMsgPrivateHistory({ uid });
+      const { hint, msgs = [] } = await apiPost("/msg/private/history", { uid });
       // setPrivateMsgs(msgs.reverse());
       useLetterStore.getState().setMsgPrivateHistory({
-          hint,
-          privatMsgs: msgs.reverse(),
-        })
-      ;
+        hint,
+        privatMsgs: msgs.reverse(),
+      });
       history.current.scrollTo(0, history.current.scrollHeight);
     } catch (error) {
       console.log(error);
@@ -88,7 +87,7 @@ const Message = () => {
         newMsgs = [],
         code,
         message,
-      } = await apiSendText({
+      } = await apiPost("/send/text", {
         user_ids: uid,
         msg: value,
       });
@@ -97,9 +96,8 @@ const Message = () => {
         return;
       }
       useLetterStore.getState().setMsgPrivateHistory({
-          privatMsgs: newMsgs.reverse(),
-        })
-      ;
+        privatMsgs: newMsgs.reverse(),
+      });
     } catch (error) {
       console.log(error);
     }
@@ -121,30 +119,16 @@ const Message = () => {
 
   return (
     <>
-      <div
-        className="relative text-center text-sm flex-center"
-        style={{ height: 50 }}
-      >
-        <button
-          type="button"
-          className="back absolute inset-y-0 left-0 p-2.5 flex-center ui_text_gray_hover"
-          onClick={() =>
-            useLetterStore.getState().setMsgPrivateHistory({ showMsgPrivateHistory: false })
-          }
-        >
+      <div className="relative text-center text-sm flex-center" style={{ height: 50 }}>
+        <button type="button" className="back absolute inset-y-0 left-0 p-2.5 flex-center ui_text_gray_hover" onClick={() => useLetterStore.getState().setMsgPrivateHistory({ showMsgPrivateHistory: false })}>
           <IconChevronLeft size={22} />
         </button>
         <span>{nickname}</span>
       </div>
-      <div
-        className="flex-1 overflow-auto max-h-full flex-auto px-5"
-        ref={history}
-      >
+      <div className="flex-1 overflow-auto max-h-full flex-auto px-5" ref={history}>
         {privatMsgs.map((item) => (
           <div className="item mt-5" key={item.id}>
-            <div className={classNames(style.time, "text-gray-400")}>
-              {dayjs(item.time).format("YYYY年MM月DD日 HH:mm")}
-            </div>
+            <div className={classNames(style.time, "text-gray-400")}>{dayjs(item.time).format("YYYY年MM月DD日 HH:mm")}</div>
             {item.toUser.userId === profile.userId ? (
               <div className="msg flex justify-start">
                 <div className="avatar flex-none mr-4 rounded-full overflow-hidden w-8 h-8">
@@ -160,29 +144,18 @@ const Message = () => {
         {hint && <div className={style.hint}>{hint}</div>}
       </div>
       <div className="feedback p-3">
-        <Textarea
-          placeholder={`回复 ${nickname}`}
-          max={200}
-          onChange={handleChange}
-        />
+        <Textarea placeholder={`回复 ${nickname}`} max={200} onChange={handleChange} />
         <div className="actions flex mt-2.5">
           <div className="left relative">
             {visibility && (
               <div className="-translate-x-3 -translate-y-1/2 absolute faces right-full top-1/2 transform">
-                <Emoji
-                  handleHide={() => setVisibility(false)}
-                  handleCheck={handleCheck}
-                />
+                <Emoji handleHide={() => setVisibility(false)} handleCheck={handleCheck} />
               </div>
             )}
             <EmojiSender onClick={() => setVisibility(!visibility)} />
             <ImageSender />
           </div>
-          <button
-            type="button"
-            className="ml-auto border px-4 h-8 rounded-full"
-            onClick={handleSubmit}
-          >
+          <button type="button" className="ml-auto border px-4 h-8 rounded-full" onClick={handleSubmit}>
             发送
           </button>
         </div>

@@ -1,5 +1,5 @@
 import React, { useRef, memo, useCallback, useMemo, useContext } from "react";
-import { apiUserDetail, apiUserFollows, apiFollow } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import { Link, useParams } from "react-router";
 
 import Loading from "@/components/Loading";
@@ -25,7 +25,7 @@ const Follow = () => {
   const handleAddData = async () => {
     if (!hasMore.current) return;
     try {
-      const { follow, more } = await apiUserFollows({
+      const { follow, more } = await apiPost("/user/follows", {
         uid,
         limit,
         offset: offset.current,
@@ -40,7 +40,7 @@ const Follow = () => {
 
   const handleClick = useCallback(async (id) => {
     try {
-      const {} = await apiFollow({
+      const {} = await apiPost("/follow", {
         id,
         t: 1,
       });
@@ -55,11 +55,10 @@ const Follow = () => {
   const handleLetter = (uid, nickname) => {
     useMaskStore.getState().setPopupLetterToggle();
     useLetterStore.getState().setMsgPrivateHistory({
-        uid,
-        nickname,
-        showMsgPrivateHistory: true,
-      })
-    ;
+      uid,
+      nickname,
+      showMsgPrivateHistory: true,
+    });
   };
 
   const { ref } = useInfinite(handleAddData, DomScroll);
@@ -71,12 +70,7 @@ const Follow = () => {
         的关注
       </div>
       <div className="">
-        <CardList
-          isSelf={isSelf}
-          list={data}
-          handleClick={handleClick}
-          handleLetter={handleLetter}
-        >
+        <CardList isSelf={isSelf} list={data} handleClick={handleClick} handleLetter={handleLetter}>
           <div className="empty">还没有关注</div>
         </CardList>
         <div ref={ref} />

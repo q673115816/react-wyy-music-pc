@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState } from "react";
 import { NavLink, Link } from "react-router";
 import dayjs from "dayjs";
 import classNames from "classnames";
-import { apiToplistArtist } from "@/api";
+import { apiGet } from "@/shared/api/client";
 import "./style.scss";
 
 const navs = [
@@ -17,7 +17,7 @@ export default memo(({ type = 1 }) => {
   const [updateTime, setUpdateTime] = useState(0);
   const handleGetArtist = async () => {
     try {
-      const { list } = await apiToplistArtist(type);
+      const { list } = await apiGet(`/toplist/artist?type=${type}`);
       setArtist(list.artists);
       setUpdateTime(list.updateTime);
     } catch (error) {
@@ -37,13 +37,7 @@ export default memo(({ type = 1 }) => {
         <div className="flex items-baseline justify-between mt-6">
           <div className="domtoplistartist_nav flex space-x-6">
             {navs.map(([name, link]) => (
-              <NavLink
-                key={name}
-                className={({ isActive }) =>
-                  classNames("text-sm", isActive && "font-bold")
-                }
-                to={link}
-              >
+              <NavLink key={name} className={({ isActive }) => classNames("text-sm", isActive && "font-bold")} to={link}>
                 {name}
               </NavLink>
             ))}
@@ -57,12 +51,7 @@ export default memo(({ type = 1 }) => {
       <div className="overflow-auto h-full pb-10">
         <div className="domtoplistartist_top3_list py-5 px-8 grid grid-cols-3 gap-x-5">
           {top3.map((item, index) => (
-            <Link
-              className="domtoplistartist_top3_link rounded-lg overflow-hidden bg-gray-50 hover:bg-gray-100 flex relative"
-              to={`/artist/${item.id}`}
-              key={item.id}
-              style={{ height: 100 }}
-            >
+            <Link className="domtoplistartist_top3_link rounded-lg overflow-hidden bg-gray-50 hover:bg-gray-100 flex relative" to={`/artist/${item.id}`} key={item.id} style={{ height: 100 }}>
               <div className="absolute text-red-300 text-4xl">{index + 1}</div>
               <div className="flex-auto flex flex-col justify-center pl-8">
                 <div className="text-sm">{item.name}</div>
@@ -79,14 +68,7 @@ export default memo(({ type = 1 }) => {
         </div>
         <div className="domtoplistartist_other_list">
           {other.map((item, index) => (
-            <Link
-              className={classNames(
-                "domtoplistartist_other_link flex items-center h-20 hover:bg-gray-100",
-                { "bg-gray-50": index % 2 === 0 }
-              )}
-              to={`/artist/${item.id}`}
-              key={item.id}
-            >
+            <Link className={classNames("domtoplistartist_other_link flex items-center h-20 hover:bg-gray-100", { "bg-gray-50": index % 2 === 0 })} to={`/artist/${item.id}`} key={item.id}>
               <div className="index flex flex-col items-center justify-center w-16 text-gray-400">
                 <div className="text-sm">{index + 4}</div>
                 <div>

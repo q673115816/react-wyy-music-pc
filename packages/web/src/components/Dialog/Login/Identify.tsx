@@ -1,11 +1,7 @@
 import React, { useState, useContext, memo } from "react";
 import { IconFaceId, IconKey } from "@tabler/icons-react";
-import { apiCaptchaSent } from "@/api";
-import {
-  actionSwitchSignIn,
-  actionSwitchSignUp,
-  loginContext,
-} from "./Content";
+import { apiPost } from "@/shared/api/client";
+import { actionSwitchSignIn, actionSwitchSignUp, loginContext } from "./Content";
 
 const Identify = () => {
   const [warn, setWarn] = useState("");
@@ -17,7 +13,7 @@ const Identify = () => {
 
   const handleSend = async () => {
     try {
-      const {} = apiCaptchaSent({
+      const {} = apiPost("/captcha/sent", {
         phone: "",
         captcha: "",
       });
@@ -29,18 +25,11 @@ const Identify = () => {
   return (
     <div className="form">
       <div className="angle">
-        <button
-          className="mt-2.5"
-          type="button"
-          onClick={() => loginDispatch(actionSwitchSignIn())}
-        >
+        <button className="mt-2.5" type="button" onClick={() => loginDispatch(actionSwitchSignIn())}>
           &lt; 返回登录
         </button>
       </div>
-      <div
-        style={{ height: 200, color: "var(--theme-color)" }}
-        className="flex-center"
-      >
+      <div style={{ height: 200, color: "var(--theme-color)" }} className="flex-center">
         <IconFaceId size={100} stroke={1} />
       </div>
       <div>为了安全，我们会向您的手机发送短信检验码</div>
@@ -50,11 +39,7 @@ const Identify = () => {
             <i className="absolute inset-y-0 flex">
               <IconKey size={16} className="m-auto w-6" />
             </i>
-            <input
-              type="text"
-              className="border h-full pl-6 rounded"
-              placeholder="填写验证码"
-            />
+            <input type="text" className="border h-full pl-6 rounded" placeholder="填写验证码" />
           </div>
           <div className="flex-1">
             <button type="button" className="submit">

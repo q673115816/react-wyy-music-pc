@@ -1,6 +1,6 @@
 import React, { FC, memo, PropsWithChildren } from "react";
 
-import { apiPlaylistDetail, apiSongDetail } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import { useAudioStore } from "@/stores";
 
 interface iProps extends PropsWithChildren {
@@ -10,11 +10,11 @@ interface iProps extends PropsWithChildren {
 
 const PlaylistAsyncReplace: FC<iProps> = ({ children, id, className = "" }) => {
   const handleAllPlay = async () => {
-    const data = await apiPlaylistDetail({
+    const data = await apiPost("/playlist/detail", {
       id,
     });
     if (data.playlist.trackCount === 0) return false;
-    const { songs: playlist } = await apiSongDetail({
+    const { songs: playlist } = await apiPost("/song/detail", {
       ids: data.playlist.trackIds.map(({ id }) => id).join(","),
     });
     return useAudioStore.getState().setAudioPlaylist({ playlist });

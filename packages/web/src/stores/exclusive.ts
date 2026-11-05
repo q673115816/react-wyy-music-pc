@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { apiPersonalizedPrivatecontentList } from "@/api";
+import { apiPost } from "@/shared/api/client";
 
 export interface ExclusiveItem {
   picUrl: string;
@@ -20,12 +20,11 @@ export interface ExclusiveState {
 export const useExclusiveStore = create<ExclusiveState>()((set) => ({
   result: [],
   scrollTop: 0,
-  setExclusiveResultAdd: ({ result }) =>
-    set((state) => ({ result: [...state.result, ...result] })),
+  setExclusiveResultAdd: ({ result }) => set((state) => ({ result: [...state.result, ...result] })),
   setExclusiveResultEmpty: () => set({ result: [] }),
   setExclusiveScrollTop: ({ scrollTop }) => set({ scrollTop }),
   fetchExclusive: async (params) => {
-    const res = await apiPersonalizedPrivatecontentList(params);
+    const res = await apiPost("/personalized/privatecontent/list", params);
     set((state) => ({
       result: [...state.result, ...(res?.result ?? [])],
     }));

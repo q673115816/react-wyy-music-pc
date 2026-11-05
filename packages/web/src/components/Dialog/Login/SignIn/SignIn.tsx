@@ -1,11 +1,5 @@
-import React, {
-  FormEventHandler,
-  memo,
-  useContext,
-  useRef,
-  useState,
-} from "react";
-import { apiLoginCellphone } from "@/api";
+import React, { FormEventHandler, memo, useContext, useRef, useState } from "react";
+import { apiPost } from "@/shared/api/client";
 import { IconFaceId, IconQrcode } from "@tabler/icons-react";
 import style from "./signin.module.scss";
 import classNames from "classnames";
@@ -54,12 +48,11 @@ const SignIn = () => {
 
   const handleLogin = async () => {
     try {
-      const { data, code, msg, cookie, token, profile } =
-        await apiLoginCellphone({
-          phone: RefForm.current!.phone.value,
-          password: RefForm.current!.password.value,
-          countrycode,
-        });
+      const { data, code, msg, cookie, token, profile } = await apiPost("/login/cellphone", {
+        phone: RefForm.current!.phone.value,
+        password: RefForm.current!.password.value,
+        countrycode,
+      });
       if (code === 200) {
         setToken(cookie);
         window.location.reload();
@@ -88,14 +81,7 @@ const SignIn = () => {
         <button type="button" onClick={() => loginDispatch(actionSwitchScan())}>
           <IconQrcode size={36} />
         </button>
-        <span
-          className={classNames(
-            style.tips,
-            "absolute top-3 left-12 pr-3 pl-4 py-1.5 text-white whitespace-nowrap bg-gray-400"
-          )}
-        >
-          扫码登录更安全
-        </span>
+        <span className={classNames(style.tips, "absolute top-3 left-12 pr-3 pl-4 py-1.5 text-white whitespace-nowrap bg-gray-400")}>扫码登录更安全</span>
       </div>
       <div style={{ height: 200 }} className="flex-center ui_themeColor">
         <IconFaceId size={100} stroke={1} />
@@ -103,19 +89,13 @@ const SignIn = () => {
       <form ref={RefForm} onSubmit={handleSubmit}>
         <Table />
         <div className={`relative`}>
-          {warn && (
-            <div className="warn text-red-500 mt-2 absolute">{warn}</div>
-          )}
+          {warn && <div className="warn text-red-500 mt-2 absolute">{warn}</div>}
           <div className="pt-7 pb-3 flex items-center">
-            <Checkbox
-              label={<span className={`text-gray-500`}>&nbsp;自动登录</span>}
-            />
+            <Checkbox label={<span className={`text-gray-500`}>&nbsp;自动登录</span>} />
             <div className={"ml-auto flex gap-2 text-gray-300"}>
               <button type={`button`} className={`ui_link`}>
                 忘记密码
-              </button>
-              |
-              <button type={`button`} className={`ui_link`}>
+              </button>|<button type={`button`} className={`ui_link`}>
                 验证码登录
               </button>
             </div>
@@ -123,11 +103,7 @@ const SignIn = () => {
         </div>
         <div className="actions">
           <Submit>登&nbsp;录</Submit>
-          <button
-            type="button"
-            className="signup underline my-2 mx-auto text-sm block w-min whitespace-nowrap"
-            onClick={handleToSignUp}
-          >
+          <button type="button" className="signup underline my-2 mx-auto text-sm block w-min whitespace-nowrap" onClick={handleToSignUp}>
             注册
           </button>
           <Threes />

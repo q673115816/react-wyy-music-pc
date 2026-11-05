@@ -1,5 +1,5 @@
 import React, { FormEventHandler, memo, useRef, useState } from "react";
-import { apiPlaylistCreate } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import classNames from "classnames";
 import CheckBox from "@/components/CheckBox";
 import HOCDialog from "../Dialog/Dialog";
@@ -12,7 +12,7 @@ const CreatePlayList = () => {
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     try {
-      await apiPlaylistCreate({
+      await apiPost("/playlist/create", {
         name,
         privacy: privacy.current!.value ? 10 : null,
       });
@@ -27,13 +27,7 @@ const CreatePlayList = () => {
     <HOCDialog title="新建歌单">
       <form className="content px-4 pb-8" onSubmit={handleSubmit}>
         <div>
-          <input
-            type="text"
-            name="name"
-            className="border w-full h-8 p-2 rounded placeholder-gray-300"
-            placeholder="请输入新歌单标题"
-            onChange={(e) => setName(e.target.value)}
-          />
+          <input type="text" name="name" className="border w-full h-8 p-2 rounded placeholder-gray-300" placeholder="请输入新歌单标题" onChange={(e) => setName(e.target.value)} />
         </div>
         <div className="mt-2">
           <label htmlFor="privacy" className="flex items-center">
@@ -43,13 +37,7 @@ const CreatePlayList = () => {
           </label>
         </div>
         <div className="flex-center">
-          <button
-            type="submit"
-            className={classNames(
-              "inline-flex items-center justify-center border px-3 h-8 rounded-full red",
-              { disabled: name.length === 0 }
-            )}
-          >
+          <button type="submit" className={classNames("inline-flex items-center justify-center border px-3 h-8 rounded-full red", { disabled: name.length === 0 })}>
             创建
           </button>
         </div>

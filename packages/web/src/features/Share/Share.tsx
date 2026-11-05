@@ -1,7 +1,7 @@
 import React, { memo, useEffect } from "react";
 import { Navigate, useParams } from "react-router";
 
-import { apiSongDetail } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import Songs from "../Search/Songs";
 import { useAudioStore } from "@/stores";
 
@@ -11,11 +11,10 @@ export default memo(function Share() {
     music: async () => {
       const {
         songs: [song],
-      } = await apiSongDetail({ ids: id });
+      } = await apiPost("/song/detail", { ids: id });
       useAudioStore.getState().setAudioImmediate({
-          currentSong: song,
-        })
-      ;
+        currentSong: song,
+      });
     },
   };
   useEffect(() => {

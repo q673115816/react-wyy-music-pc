@@ -1,34 +1,17 @@
 import React, { memo, useEffect, useState, useMemo, useCallback } from "react";
 import { useParams } from "react-router";
-import {
-  apiCommentMusic,
-  apiSongDetail,
-  apiCommentMV,
-  apiMVDetail,
-  apiCommentVideo,
-  apiVideoDetail,
-} from "@/api";
+import { apiPost } from "@/shared/api/client";
 import { commentLimit as limit } from "@/common/config";
-import {
-  AtSender,
-  EmojiSender,
-  HashSender,
-  Textarea,
-  Editor,
-} from "@/components/editor";
+import { AtSender, EmojiSender, HashSender, Textarea, Editor } from "@/components/editor";
 import CommentsList from "@/components/Comments/CommentsList";
 import Loading from "@/components/Loading";
 import Page from "@/components/Page";
 import Header from "./Header";
-import {
-  useGetCommentMusicQuery,
-  useGetCommentMVQuery,
-  useGetCommentVideoQuery,
-} from "@/modules/services/comment";
+import { useGetCommentMusicQuery, useGetCommentMVQuery, useGetCommentVideoQuery } from "@/modules/services/comment";
 
 const apis = {
   song: {
-    apiDetail: ({ id }) => apiSongDetail({ ids: id }),
+    apiDetail: ({ id }) => apiPost("/song/detail", { ids: id }),
     comment: useGetCommentMusicQuery,
   },
   mv: {
@@ -70,21 +53,14 @@ const Comment = () => {
             <AtSender />
             <HashSender />
           </div>
-          <button
-            type="button"
-            className="flex-center border px-4 h-8 text-sm hover:bg-gray-100 rounded-full ml-auto"
-          >
+          <button type="button" className="flex-center border px-4 h-8 text-sm hover:bg-gray-100 rounded-full ml-auto">
             评论
           </button>
         </div>
       </div>
       <div className="mt-8">
         <CommentsList comments={data} more={id} type={type} />
-        <Page
-          total={Math.ceil(data.total / limit)}
-          page={page}
-          func={setPage}
-        />
+        <Page total={Math.ceil(data.total / limit)} page={page} func={setPage} />
       </div>
     </div>
   );

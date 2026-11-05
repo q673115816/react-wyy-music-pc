@@ -1,11 +1,5 @@
 import { useMemo, useEffect } from "react";
-import {
-  apiFollow,
-  apiVideoSub,
-  apiMVSub,
-  apiMVSublist,
-  apiResourceLike,
-} from "@/api";
+import { apiPost } from "@/shared/api/client";
 
 import FNDownload from "./Download";
 
@@ -22,27 +16,23 @@ const UseInit = ({ vid, type }: iProps) => {
   const toast = useToast();
   const { mvSublist } = useAccountStore();
 
-  const isSub = useMemo(
-    () => mvSublist.find((mv) => mv.vid === vid),
-    [vid, mvSublist]
-  );
+  const isSub = useMemo(() => mvSublist.find((mv) => mv.vid === vid), [vid, mvSublist]);
   const { pending, urls, detail, detailInfo, handleInit } = config[type].init();
   const isLike = detailInfo?.liked;
 
   const handleGetMVSublist = async () => {
     try {
-      const { data: mvSublist } = await apiMVSublist();
+      const { data: mvSublist } = await apiPost("/mv/sublist");
       useAccountStore.getState().setMVSublist({
-          mvSublist,
-        })
-      ;
+        mvSublist,
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleLike = async () => {
-    await apiResourceLike({
+    await apiPost("/resource/like", {
       id: vid,
       type: type === "mv" ? "1" : "5",
       t: isLike ? 0 : 1,
@@ -53,11 +43,11 @@ const UseInit = ({ vid, type }: iProps) => {
     try {
       const { code } =
         type === "video"
-          ? await apiVideoSub({
+          ? await apiPost("/video/sub", {
               id: vid,
               t: isSub ? 0 : 1,
             })
-          : await apiMVSub({
+          : await apiPost("/mv/sub", {
               mvid: vid,
               t: isSub ? 0 : 1,
             });
@@ -70,13 +60,7 @@ const UseInit = ({ vid, type }: iProps) => {
 
   const params = useMemo(() => ({ type, vid }), [type, vid]);
 
-  const {
-    downloadProcess,
-    downloadState,
-    handleInitDownload,
-    handleUnLoadDownload,
-    handleDownload,
-  } = FNDownload(urls?.url, detail?.title);
+  const { downloadProcess, downloadState, handleInitDownload, handleUnLoadDownload, handleDownload } = FNDownload(urls?.url, detail?.title);
 
   useEffect(() => {
     handleInit(vid);

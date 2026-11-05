@@ -1,4 +1,4 @@
-import { apiCommentMusic, apiCommentMV, apiCommentVideo } from "@/api";
+import { apiPost } from "@/shared/api/client";
 
 export type Type = "song" | "mv" | "video";
 

@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { unstable_batchedUpdates } from "react-dom";
-import {
-  apiRelatedAllvideo,
-  apiVideoUrl,
-  apiVideoDetail,
-  apiVideoDetailInfo,
-} from "@/api";
+import { apiPost } from "@/shared/api/client";
 
 export default () => {
   const [pending, setPending] = useState(false);
@@ -15,18 +10,14 @@ export default () => {
 
   const handleInit = async (vid: string) => {
     try {
-      const [
-        { urls },
-        { data: detail = {} },
-        detailInfo = {},
-      ] = await Promise.all([
-        apiVideoUrl({
+      const [{ urls }, { data: detail = {} }, detailInfo = {}] = await Promise.all([
+        apiPost("/video/url", {
           id: vid,
         }),
-        apiVideoDetail({
+        apiPost("/video/detail", {
           id: vid,
         }),
-        apiVideoDetailInfo({
+        apiPost("/video/detail/info", {
           vid,
         }),
       ]);

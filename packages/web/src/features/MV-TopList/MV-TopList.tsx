@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { apiTopMV } from "@/api";
+import { apiPost } from "@/shared/api/client";
 import GridMVToplist from "@/components/GridMVToplist";
 
 const navs = ["内地", "港台", "欧美", "日本", "韩国"];
@@ -9,7 +9,7 @@ const MVTopList = () => {
   const [area, setArea] = useState();
   const handleInit = async () => {
     try {
-      const { data } = await apiTopMV({
+      const { data } = await apiPost("/top/mv", {
         limit: 50,
       });
       setData(data);
