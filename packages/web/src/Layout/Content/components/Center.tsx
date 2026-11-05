@@ -26,7 +26,8 @@ const audioPatternIcon = [
 ];
 
 const Center = () => {
-  const { running, pattern } = useAudioStore();
+  const running = useAudioStore((s) => s.running);
+  const pattern = useAudioStore((s) => s.pattern);
   const { globalLrcVisibility, setGlobalLrcToggle } = useSettingsStore();
   const handleToggle = () => {
     useAudioStore.getState().setAudioRunning({ running: !running });

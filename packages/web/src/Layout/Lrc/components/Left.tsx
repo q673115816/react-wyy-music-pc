@@ -5,7 +5,8 @@ import style from "./Left.module.scss";
 import { useAudioStore } from "@/stores";
 
 const Left = () => {
-  const { currentSong, running } = useAudioStore();
+  const currentSong = useAudioStore((s) => s.currentSong);
+  const running = useAudioStore((s) => s.running);
 
   return (
     <div>

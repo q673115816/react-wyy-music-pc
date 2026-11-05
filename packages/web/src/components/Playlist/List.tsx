@@ -10,7 +10,7 @@ import { useAudioStore } from "@/stores";
 
 const List = ({ list = [], currentId }) => {
   if (list.length === 0) return <Empty />;
-  const { running } = useAudioStore();
+  const running = useAudioStore((s) => s.running);
   return (
     <div>
       {list.map((item, index) => (

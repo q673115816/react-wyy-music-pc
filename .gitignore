@@ -114,3 +114,7 @@ dll
 
 
 __snapshots__
+
+.tmp/
+.home/
+.pnpm-store/

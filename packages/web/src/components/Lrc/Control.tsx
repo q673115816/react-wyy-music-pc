@@ -10,7 +10,7 @@ import {
 } from "@tabler/icons-react";
 
 const Control: FC = () => {
-  const { running } = useAudioStore();
+  const running = useAudioStore((s) => s.running);
   const setLyricToggle = useLrcStore((state) => state.setLyricToggle);
   const setGlobalLrcHide = useSettingsStore((state) => state.setGlobalLrcHide);
   return (

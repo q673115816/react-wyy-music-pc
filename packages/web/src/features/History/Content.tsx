@@ -12,7 +12,7 @@ import React, { memo } from "react";
 import { useAudioStore } from "@/stores";
 
 const Content = () => {
-  const { history } = useAudioStore();
+  const history = useAudioStore((s) => s.history);
   console.log(history);
   if (history.length === 0) {
     return (

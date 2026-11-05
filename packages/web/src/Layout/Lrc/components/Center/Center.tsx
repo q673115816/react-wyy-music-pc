@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { useAudioStore } from "@/stores";
 
 const Center = () => {
-  const { currentSong } = useAudioStore();
+  const currentSong = useAudioStore((s) => s.currentSong);
   return (
     <div className="center overflow-auto pt-5" style={{ width: 300 }}>
       <div className="text-2xl text-center">{currentSong.name}</div>

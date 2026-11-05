@@ -31,7 +31,6 @@
     "@dnd-kit/modifiers": "^9.0.0",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
-    "@q673115816/editor": "workspace:*",
     "@q673115816/pics-viewer": "workspace:*",
     "@q673115816/player": "workspace:*",
     "@sentry/react": "^11.9.0",

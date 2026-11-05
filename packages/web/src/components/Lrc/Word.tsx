@@ -6,7 +6,7 @@ import classNames from "classnames";
 import style from "./style.module.scss";
 
 const Word = () => {
-  const { currentTime } = useAudioStore();
+  const currentTime = useAudioStore((s) => s.currentTime);
   const lrcList = useLrcStore((state) => state.lrcList);
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [percentage, setPercentage] = useState(0);

@@ -4,7 +4,7 @@ import React, { memo, useEffect, useRef, useState } from "react";
 import { useLrcStore, useAudioStore } from "@/stores";
 
 const Lrc = () => {
-  const { currentTime } = useAudioStore();
+  const currentTime = useAudioStore((s) => s.currentTime);
   const lrcList = useLrcStore((state) => state.lrcList);
   const RefScroll = useRef(null);
   const RefCurrentLine = useRef(null);

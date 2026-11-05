@@ -6,7 +6,7 @@ import { useGetCommentMusicQuery } from "@/modules/services/comment/api";
 import { useAudioStore } from "@/stores";
 
 const Content = () => {
-  const { currentSong } = useAudioStore();
+  const currentSong = useAudioStore((s) => s.currentSong);
   const [page, setPage] = useState(1);
   const limit = 20;
   const { data, isLoading } = useGetCommentMusicQuery({

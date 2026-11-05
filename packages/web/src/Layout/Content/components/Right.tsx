@@ -6,7 +6,7 @@ import ToneQuality from "./ToneQuality";
 import { useAudioStore, useMaskStore } from "@/stores";
 
 export default memo(function Right() {
-  const { playlist } = useAudioStore();
+  const playlist = useAudioStore((s) => s.playlist);
   const [visibility, setVisibility] = useState(false);
 
   const handleTogglePlaylist = () => {

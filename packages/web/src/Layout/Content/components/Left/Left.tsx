@@ -16,7 +16,8 @@ import {
 
 const Left = () => {
   const { lyricVisibility, setLyricText, setLyricToggle } = useLrcStore();
-  const { currentSong, playlist } = useAudioStore();
+  const currentSong = useAudioStore((s) => s.currentSong);
+  const playlist = useAudioStore((s) => s.playlist);
   const [songUrlGet, {}] = useGetSongUrlMutation();
   const [LyricGet, {}] = useGetLyricMutation();
   const handleLyric = () => {

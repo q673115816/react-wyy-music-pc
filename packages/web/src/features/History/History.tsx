@@ -8,7 +8,7 @@ import { useAudioStore } from "@/stores";
 
 const History = () => {
   useLoginStatus();
-  const { history } = useAudioStore();
+  const history = useAudioStore((s) => s.history);
 
   const handleClear = () => {
     if (history.length === 0) return false;

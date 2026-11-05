@@ -8,7 +8,8 @@ interface IProps {
 }
 
 const Rank: FC<IProps> = ({ id, index }) => {
-  const { currentSong, running } = useAudioStore();
+  const currentSong = useAudioStore((s) => s.currentSong);
+  const running = useAudioStore((s) => s.running);
   if (currentSong.id === id) {
     return (
       <div className="ui_themeColor flex justify-end">

@@ -11,8 +11,9 @@ import classNames from "classnames";
 
 const Lrc = () => {
   const location = useLocation();
-  const { currentSong } = useAudioStore();
-  const { lyricVisibility, setLyricHide } = useLrcStore();
+  const currentSong = useAudioStore((s) => s.currentSong);
+  const lyricVisibility = useLrcStore((s) => s.lyricVisibility);
+  const setLyricHide = useLrcStore((s) => s.setLyricHide);
 
   useEffect(() => {
     setLyricHide();

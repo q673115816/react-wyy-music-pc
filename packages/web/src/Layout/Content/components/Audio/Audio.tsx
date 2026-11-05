@@ -5,8 +5,12 @@ import { useVolumeStore, useAudioStore } from "@/stores";
 
 const Audio: FC = () => {
   const { online } = useNetworkState();
-  const { running, dropping, currentTime, jumpTime, errorCount, src } =
-    useAudioStore();
+  const running = useAudioStore((s) => s.running);
+  const dropping = useAudioStore((s) => s.dropping);
+  const currentTime = useAudioStore((s) => s.currentTime);
+  const jumpTime = useAudioStore((s) => s.jumpTime);
+  const errorCount = useAudioStore((s) => s.errorCount);
+  const src = useAudioStore((s) => s.src);
 
   const [usedSrc, setUsedSrc] = useState(src);
   const volume = useVolumeStore((state) => state.volume);

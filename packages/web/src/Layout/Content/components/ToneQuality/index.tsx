@@ -13,7 +13,7 @@ const rates = {
 };
 
 export default memo(function ToneQuality() {
-  const { currentSong } = useAudioStore();
+  const currentSong = useAudioStore((s) => s.currentSong);
   return (
     <div
       className={classNames(

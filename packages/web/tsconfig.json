@@ -15,5 +15,5 @@
     }
   },
   "include": ["src", "vite.config.mts", "vite/**/*.ts"],
-  "exclude": ["node_modules", "dist", "src/entry.server.tsx", "src/sw.ts"]
+  "exclude": ["node_modules", "dist"]
 }

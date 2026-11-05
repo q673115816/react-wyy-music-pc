@@ -8,7 +8,9 @@ import classNames from "classnames";
 import { useAudioStore } from "@/stores";
 
 const Timing = () => {
-  const { currentTime, currentSong, buffered } = useAudioStore();
+  const currentTime = useAudioStore((s) => s.currentTime);
+  const currentSong = useAudioStore((s) => s.currentSong);
+  const buffered = useAudioStore((s) => s.buffered);
   const RefProgress = useRef<HTMLDivElement>(null);
   const computedPosition = (e) => {
     if (!RefProgress.current) return;

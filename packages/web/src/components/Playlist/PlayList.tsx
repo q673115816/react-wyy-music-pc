@@ -8,7 +8,8 @@ import { useAudioStore, useMaskStore } from "@/stores";
 
 const PlayList = () => {
   const { popupStatus } = useMaskStore();
-  const { playlist, currentSong } = useAudioStore();
+  const playlist = useAudioStore((s) => s.playlist);
+  const currentSong = useAudioStore((s) => s.currentSong);
   const handleClear = () => {
     if (playlist.length === 0) return false;
     return useAudioStore.getState().setAudioPlaylistClear();
