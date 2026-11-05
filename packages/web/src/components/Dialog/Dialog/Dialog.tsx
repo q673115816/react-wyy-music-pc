@@ -3,15 +3,13 @@ import React, {
   memo,
   MouseEventHandler,
   PropsWithChildren,
-  useEffect,
   useLayoutEffect,
   useRef,
-  useState,
 } from "react";
 
 import { IconX } from "@tabler/icons-react";
 import classNames from "classnames";
-import { concatAll, fromEvent, map, takeUntil } from "rxjs";
+import { useDrag } from "@use-gesture/react";
 import { useGetSetState } from "react-use";
 import { useMaskStore } from "@/stores";
 
@@ -29,7 +27,6 @@ const Dialog: FC<iProps> = ({
 }) => {
   const inset = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
-  const handle = useRef<HTMLDivElement>(null);
   const [insetState, setInsetState] = useGetSetState({
     width: 0,
     height: 0,
@@ -62,47 +59,22 @@ const Dialog: FC<iProps> = ({
     });
   }, []);
 
-  useEffect(() => {
-    const ele = handle.current as HTMLDivElement;
-    const mousedown$ = fromEvent<MouseEvent>(ele, "mousedown");
-    const mousemove$ = fromEvent<MouseEvent>(document, "mousemove");
-    const mouseup$ = fromEvent<MouseEvent>(document, "mouseup");
-    const subscription = mousedown$
-      .pipe(
-        map(({ clientX, clientY }) => {
-          return {
-            top: state().top,
-            left: state().left,
-            startX: clientX,
-            startY: clientY,
-          };
-        }),
-        map(({ startX, startY, top, left }) =>
-          mousemove$.pipe(
-            takeUntil(mouseup$),
-            map(({ clientX, clientY }) => {
-              return {
-                top: Math.min(
-                  insetState().height - contentState().height,
-                  Math.max(0, top + clientY - startY)
-                ),
-                left: Math.min(
-                  insetState().width - contentState().width,
-                  Math.max(0, left + clientX - startX)
-                ),
-              };
-            })
-          )
+  const bind = useDrag(({ first, movement: [mx, my], memo }) => {
+    const start = memo ?? { top: state().top, left: state().left };
+    if (!first) {
+      setState({
+        top: Math.min(
+          insetState().height - contentState().height,
+          Math.max(0, start.top + my)
         ),
-        concatAll()
-      )
-      .subscribe({
-        next: (data) => {
-          setState(data);
-        },
+        left: Math.min(
+          insetState().width - contentState().width,
+          Math.max(0, start.left + mx)
+        ),
       });
-    return () => subscription.unsubscribe();
-  }, []);
+    }
+    return start;
+  });
 
   return (
     <div
@@ -126,7 +98,7 @@ const Dialog: FC<iProps> = ({
           <IconX stroke={1.5} />
         </button>
         <div
-          ref={handle}
+          {...bind()}
           className="flex-center font-bold text-base cursor-move h-20"
         >
           {title}

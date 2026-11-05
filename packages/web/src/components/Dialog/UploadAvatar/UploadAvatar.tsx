@@ -4,11 +4,10 @@ import React, {
   memo,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 import Dialog from "../Dialog";
-import { concatAll, filter, fromEvent, map, takeUntil } from "rxjs";
+import { useDrag } from "@use-gesture/react";
 import { useGetSetState } from "react-use";
 import Draw from "./Draw";
 import { usePostAvatarUploadMutation } from "@/modules/services/account";
@@ -40,8 +39,6 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
     };
   };
   const [getOriginState, setOriginState] = useGetSetState(createState());
-  const coverRef = useRef<HTMLDivElement>(null);
-  const resizeRef = useRef<HTMLDivElement>(null);
   const imageRef = useMemo(() => {
     const image = new Image();
     image.src = avatar;
@@ -83,112 +80,46 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
     }
   };
 
-  const registerDrag = () => {
-    const el = coverRef.current;
-    if (!el)
-      return {
-        unsubscribe: () => void 0,
-      };
-    const mouseDown$ = fromEvent<MouseEvent>(el, "mousedown");
-    const mouseMove$ = fromEvent<MouseEvent>(document, "mousemove");
-    const mouseUp$ = fromEvent<MouseEvent>(document, "mouseup");
-
-    return mouseDown$
-      .pipe(
-        filter((e) => {
-          return e.target === el;
-        }),
-        map((e) => {
-          return {
-            startX: e.clientX,
-            startY: e.clientY,
-            left: getOriginState().left,
-            top: getOriginState().top,
-          };
-        }),
-        map(({ startX, startY, left, top }) =>
-          mouseMove$.pipe(
-            takeUntil(mouseUp$),
-            map((moveEvent) => ({
-              left: Math.min(
-                Math.max(
-                  left + moveEvent.clientX - startX,
-                  0
-                ),
-                getMaskState().width - getOriginState().width
-              ),
-              top: Math.min(
-                Math.max(top + moveEvent.clientY - startY, 0),
-                getMaskState().height - getOriginState().height
-              ),
-            }))
-          )
-        ),
-        concatAll()
-      )
-      .subscribe({
-        next: (data) => {
-          setOriginState(data);
-        },
-      });
-  };
-  const registerResize = () => {
-    const el = resizeRef.current;
-    if (!el) {
-      return {
-        unsubscribe: () => null,
-      };
-    }
-    const mouseDown$ = fromEvent<MouseEvent>(el, "mousedown");
-    const mouseMove$ = fromEvent<MouseEvent>(document, "mousemove");
-    const mouseUp$ = fromEvent<MouseEvent>(document, "mouseup");
-
-    return mouseDown$
-      .pipe(
-        map((e) => {
-          return {
-            startX: e.clientX,
-            startY: e.clientY,
-            width: getOriginState().width,
-            height: getOriginState().height,
-          };
-        }),
-        map(({ startX, startY, width, height }) =>
-          mouseMove$.pipe(
-            takeUntil(mouseUp$),
-            map((moveEvent) => {
-              const nextWidth = Math.min(
-                Math.max(width + moveEvent.clientX - startX, 16),
-                getMaskState().width - getOriginState().left
-              );
-              const nextHeight = Math.min(
-                Math.max(height + moveEvent.clientY - startY, 16),
-                getMaskState().height - getOriginState().top
-              );
-              const min = Math.min(nextWidth, nextHeight);
-              return {
-                width: min,
-                height: min,
-              };
-            })
-          )
-        ),
-        concatAll()
-      )
-      .subscribe({
-        next: (data) => {
-          setOriginState(data);
-        },
-      });
-  };
-  useEffect(() => {
-    const subscribedDrag = registerDrag();
-    const subscribedResize = registerResize();
-    return () => {
-      subscribedDrag.unsubscribe();
-      subscribedResize.unsubscribe();
+  const bindCover = useDrag(({ first, movement: [mx, my], memo, event }) => {
+    if ((event.target as HTMLElement).closest("[data-resize]")) return;
+    const start = memo ?? {
+      left: getOriginState().left,
+      top: getOriginState().top,
     };
-  }, []);
+    if (!first) {
+      setOriginState({
+        left: Math.min(
+          Math.max(start.left + mx, 0),
+          getMaskState().width - getOriginState().width
+        ),
+        top: Math.min(
+          Math.max(start.top + my, 0),
+          getMaskState().height - getOriginState().height
+        ),
+      });
+    }
+    return start;
+  });
+
+  const bindResize = useDrag(({ first, movement: [mx, my], memo }) => {
+    const start = memo ?? {
+      width: getOriginState().width,
+      height: getOriginState().height,
+    };
+    if (!first) {
+      const nextWidth = Math.min(
+        Math.max(start.width + mx, 16),
+        getMaskState().width - getOriginState().left
+      );
+      const nextHeight = Math.min(
+        Math.max(start.height + my, 16),
+        getMaskState().height - getOriginState().top
+      );
+      const min = Math.min(nextWidth, nextHeight);
+      setOriginState({ width: min, height: min });
+    }
+    return start;
+  });
 
   return (
     <Dialog title="上传头像">
@@ -212,12 +143,13 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
                 style={{ ...getMaskState() }}
               >
                 <div
-                  ref={coverRef}
+                  {...bindCover()}
                   className={`border border-dashed absolute cursor-move border-green-400`}
                   style={{ ...getOriginState() }}
                 >
                   <div
-                    ref={resizeRef}
+                    {...bindResize()}
+                    data-resize
                     className={`absolute bottom-0 right-0 w-2 h-2 cursor-se-resize bg-black`}
                   />
                 </div>

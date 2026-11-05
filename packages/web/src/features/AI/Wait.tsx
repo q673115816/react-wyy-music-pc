@@ -1,12 +1,5 @@
 import React, { FC, memo, useEffect, useState } from "react";
 import { IconMicrophone } from "@tabler/icons-react";
-import { interval, scan, startWith, takeWhile } from "rxjs";
-
-const countdown$ = interval(1000).pipe(
-  startWith(15),
-  scan((time) => time - 1),
-  takeWhile((time) => time > 0)
-);
 
 interface iProps {
   handleCallback: () => void;
@@ -15,12 +8,12 @@ interface iProps {
 const Wait: FC<iProps> = ({ handleCallback }) => {
   const [time, setTime] = useState(15);
   useEffect(() => {
-    const sub = countdown$.subscribe({
-      next: setTime,
-      complete: handleCallback,
-    });
-    return () => sub.unsubscribe();
+    const timer = setInterval(() => setTime((t) => Math.max(0, t - 1)), 1000);
+    return () => clearInterval(timer);
   }, []);
+  useEffect(() => {
+    if (time === 0) handleCallback();
+  }, [time]);
 
   return (
     <div className="flex flex-col items-center">
