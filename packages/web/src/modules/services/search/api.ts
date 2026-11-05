@@ -1,6 +1,7 @@
 import { Searchs, SearchHotDetails, Suggests, Multimatchs } from "./types";
 import { apiGet, apiPost } from "@/shared/api/client";
-import { useRtkMutation, useRtkQuery } from "@/shared/query/rtk-compat";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { searchKeys } from "@/shared/query/keys";
 
 interface ReqSearch {
   keywords: string;
@@ -10,39 +11,36 @@ interface ReqSearch {
 }
 
 export const useGetSearchQuery = (arg: ReqSearch) =>
-  useRtkQuery<Searchs, ReqSearch>(
-    (body) => ["search", body],
-    (body) => apiPost<Searchs>("search", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: searchKeys.search(arg),
+    queryFn: () => apiPost<Searchs>("search", arg as any),
+  });
 
 export const useGetCloudSearchMutation = (options?: {
   onSuccess?: (data: Searchs, variables: ReqSearch) => void;
 }) =>
-  useRtkMutation<Searchs, ReqSearch>(
-    (body) => apiPost<Searchs>("cloudSearch", body as any),
-    {
-      onSuccess: (data, variables) => {
-        options?.onSuccess?.(data, variables);
-      },
-    }
-  );
+  useMutation({
+    mutationFn: (body: ReqSearch) =>
+      apiPost<Searchs>("cloudSearch", body as any),
+    onSuccess: (data, variables) => {
+      options?.onSuccess?.(data, variables);
+    },
+  });
 
 export const useGetSearchMultimatchQuery = (arg: { keywords: string }) =>
-  useRtkQuery<Multimatchs, { keywords: string }>(
-    (body) => ["search/multimatch", body],
-    (body) => apiPost<Multimatchs>("search/multimatch", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: searchKeys.multimatch(arg.keywords),
+    queryFn: () => apiPost<Multimatchs>("search/multimatch", arg as any),
+  });
 
 export const useGetSearchSuggestQuery = (arg: { keywords: string }) =>
-  useRtkQuery<Suggests, { keywords: string }>(
-    (body) => ["search/suggest", body],
-    (body) => apiPost<Suggests>("search/suggest", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: searchKeys.suggest(arg.keywords),
+    queryFn: () => apiPost<Suggests>("search/suggest", arg as any),
+  });
 
 export const useGetSearchHotDetailQuery = () =>
-  useRtkQuery<SearchHotDetails>(["search/hot/detail"], () =>
-    apiGet<SearchHotDetails>("search/hot/detail")
-  );
+  useQuery({
+    queryKey: searchKeys.hotDetail,
+    queryFn: () => apiGet<SearchHotDetails>("search/hot/detail"),
+  });

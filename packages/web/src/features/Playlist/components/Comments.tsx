@@ -19,7 +19,7 @@ const Comments = () => {
     id,
   });
 
-  const [commentPost, { isLoading: commentIsLoading }] =
+  const { mutateAsync: commentPost, isPending: commentIsLoading } =
     usePostCommentMutation();
 
   const onclick = useCallback(async () => {

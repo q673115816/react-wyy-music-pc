@@ -96,6 +96,60 @@ export const playerKeys = {
   mvDetail: (ids: string) => ["player", "mv-detail", ids] as const,
 };
 
+export const searchKeys = {
+  all: ["search"] as const,
+  search: (params: {
+    keywords: string;
+    limit: number;
+    type: number;
+    offset: number;
+  }) => ["search", params] as const,
+  cloudSearch: (params: {
+    keywords: string;
+    limit: number;
+    type: number;
+    offset: number;
+  }) => ["search", "cloud", params] as const,
+  multimatch: (keywords: string) => ["search", "multimatch", keywords] as const,
+  suggest: (keywords: string) => ["search", "suggest", keywords] as const,
+  hotDetail: ["search", "hot-detail"] as const,
+};
+
+export const mvKeys = {
+  all: ["mv"] as const,
+  allList: (params: {
+    area?: string;
+    type?: string;
+    order?: string;
+    limit?: number;
+    offset?: number;
+  }) => ["mv", "all", params] as const,
+  exclusiveRcmd: (limit: number) => ["mv", "exclusive-rcmd", limit] as const,
+  first: (area: string, limit: number) => ["mv", "first", area, limit] as const,
+  topMV: (area: string, limit: number) => ["mv", "top", area, limit] as const,
+};
+
+export const friendKeys = {
+  all: ["friend"] as const,
+  hotTopic: (limit: number) => ["friend", "hot-topic", limit] as const,
+  topicDetail: (actid: string) => ["friend", "topic-detail", actid] as const,
+  event: (lasttime: number) => ["friend", "event", lasttime] as const,
+  userEvent: (actid: number) => ["friend", "user-event", actid] as const,
+};
+
+export const commentKeys = {
+  all: ["comment"] as const,
+  video: (id: string) => ["comment", "video", id] as const,
+  music: (params: { id: number; limit: number; offset: number }) =>
+    ["comment", "music", params] as const,
+  mv: (id: string) => ["comment", "mv", id] as const,
+  event: (threadId: number) => ["comment", "event", threadId] as const,
+  playlist: (id: number) => ["comment", "playlist", id] as const,
+  hot: (params: { id: number; type: number; offset: number; limit: number }) =>
+    ["comment", "hot", params] as const,
+  commentList: ["comment", "comment-list"] as const,
+};
+
 export const sublistKeys = {
   all: ["sublist"] as const,
   mv: ["sublist", "mv"] as const,

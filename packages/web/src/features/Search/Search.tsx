@@ -17,7 +17,8 @@ const Search = () => {
   const { code, limit, Node, countName } = config[type as Types];
 
   const { keywords: searchValue } = useSearchStore();
-  const [cloudSearchGet, { isLoading }] = useGetCloudSearchMutation();
+  const { mutateAsync: cloudSearchGet, isPending: isLoading } =
+    useGetCloudSearchMutation();
 
   useEffect(() => {
     useSearchStore.getState().setSearchCount({ count });
@@ -39,7 +40,7 @@ const Search = () => {
       type: code,
       offset: (page - 1) * limit,
     });
-    const result = data?.data?.result || {};
+    const result = (data as any)?.result || {};
     setResult(result);
     setCount(result[countName]);
   };

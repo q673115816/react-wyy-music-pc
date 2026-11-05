@@ -1,43 +1,41 @@
 import { Tops, Topics, TopicDetails, Events } from "./types";
 import { apiPost } from "@/shared/api/client";
-import { useRtkLazyQuery, useRtkQuery } from "@/shared/query/rtk-compat";
+import { useQuery } from "@tanstack/react-query";
+import { useLazyQuery } from "@/shared/query/useLazyQuery";
+import { friendKeys } from "@/shared/query/keys";
 
 export const useGetHotTopicQuery = (arg: { limit: number }) =>
-  useRtkQuery<Topics, { limit: number }>(
-    (body) => ["hot/topic", body],
-    (body) => apiPost<Topics>("hot/topic", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: friendKeys.hotTopic(arg.limit),
+    queryFn: () => apiPost<Topics>("hot/topic", arg as any),
+  });
 
 export const useGetTopicDetailQuery = (arg: { actid: string }) =>
-  useRtkQuery<TopicDetails, { actid: string }>(
-    (body) => ["topic/detail", body],
-    (body) => apiPost<TopicDetails>("topic/detail", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: friendKeys.topicDetail(arg.actid),
+    queryFn: () => apiPost<TopicDetails>("topic/detail", arg as any),
+  });
 
 export const useLazyGetTopicDetailQuery = () =>
-  useRtkLazyQuery<TopicDetails, { actid: string }>(
-    (body) => ["topic/detail", body],
+  useLazyQuery<TopicDetails, { actid: string }>(
+    (body) => friendKeys.topicDetail(body.actid),
     (body) => apiPost<TopicDetails>("topic/detail", body as any)
   );
 
 export const useGetEventQuery = (arg: { lasttime: number }) =>
-  useRtkQuery<Events, { lasttime: number }>(
-    (body) => ["event", body],
-    (body) => apiPost<Events>("event", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: friendKeys.event(arg.lasttime),
+    queryFn: () => apiPost<Events>("event", arg as any),
+  });
 
 export const useLazyGetEventQuery = () =>
-  useRtkLazyQuery<Events, { lasttime: number }>(
-    (body) => ["event", body],
+  useLazyQuery<Events, { lasttime: number }>(
+    (body) => friendKeys.event(body.lasttime),
     (body) => apiPost<Events>("event", body as any)
   );
 
 export const useGetTopicDetailEventHotQuery = (arg: { actid: number }) =>
-  useRtkQuery<Events, { actid: number }>(
-    (body) => ["topic/detail/event/hot", body],
-    (body) => apiPost<Events>("topic/detail/event/hot", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: friendKeys.userEvent(arg.actid),
+    queryFn: () => apiPost<Events>("topic/detail/event/hot", arg as any),
+  });

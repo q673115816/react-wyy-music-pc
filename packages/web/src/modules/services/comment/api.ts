@@ -7,54 +7,44 @@ import {
   Comments,
 } from "./types";
 import { apiPost } from "@/shared/api/client";
-import {
-  useRtkLazyQuery,
-  useRtkMutation,
-  useRtkQuery,
-} from "@/shared/query/rtk-compat";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useLazyQuery } from "@/shared/query/useLazyQuery";
+import { commentKeys } from "@/shared/query/keys";
 import { queryClient } from "@/shared/query/client";
 
 export const useGetCommentVideoQuery = (arg: { id: string }) =>
-  useRtkQuery<ResCommentVideo, { id: string }>(
-    (body) => ["comment/video", body],
-    (body) => apiPost<ResCommentVideo>("comment/video", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: commentKeys.video(arg.id),
+    queryFn: () => apiPost<ResCommentVideo>("comment/video", arg as any),
+  });
 
 export const useGetCommentMusicQuery = (arg: {
   id: number;
   limit: number;
   offset: number;
 }) =>
-  useRtkQuery<
-    ResCommentVideo,
-    { id: number; limit: number; offset: number }
-  >(
-    (body) => ["comment/music", body],
-    (body) => apiPost<ResCommentVideo>("comment/music", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: commentKeys.music(arg),
+    queryFn: () => apiPost<ResCommentVideo>("comment/music", arg as any),
+  });
 
 export const useGetCommentMVQuery = (arg: { id: string }) =>
-  useRtkQuery<ResCommentMV, { id: string }>(
-    (body) => ["comment/mv", body],
-    (body) => apiPost<ResCommentMV>("comment/mv", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: commentKeys.mv(arg.id),
+    queryFn: () => apiPost<ResCommentMV>("comment/mv", arg as any),
+  });
 
 export const useGetCommentEventQuery = (arg: { threadId: number }) =>
-  useRtkQuery<Events, { threadId: number }>(
-    (body) => ["comment/event", body],
-    (body) => apiPost<Events>("comment/event", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: commentKeys.event(arg.threadId),
+    queryFn: () => apiPost<Events>("comment/event", arg as any),
+  });
 
 export const useGetCommentPlaylistQuery = (arg: { id: number }) =>
-  useRtkQuery<Comments, { id: number }>(
-    (body) => ["comment/playlist", body],
-    (body) => apiPost<Comments>("comment/playlist", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: commentKeys.playlist(arg.id),
+    queryFn: () => apiPost<Comments>("comment/playlist", arg as any),
+  });
 
 export const useGetCommentHotQuery = (arg: {
   id: number;
@@ -62,33 +52,27 @@ export const useGetCommentHotQuery = (arg: {
   offset: number;
   limit: number;
 }) =>
-  useRtkQuery<
-    Comments,
-    { id: number; type: number; offset: number; limit: number }
-  >(
-    (body) => ["comment/hot", body],
-    (body) => apiPost<Comments>("comment/hot", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: commentKeys.hot(arg),
+    queryFn: () => apiPost<Comments>("comment/hot", arg as any),
+  });
 
 export const useLazyGetCommentHotQuery = () =>
-  useRtkLazyQuery<
+  useLazyQuery<
     Comments,
     { id: number; type: number; offset: number; limit: number }
   >(
-    (body) => ["comment/hot", body],
+    (body) => commentKeys.hot(body),
     (body) => apiPost<Comments>("comment/hot", body as any)
   );
 
 export const usePostCommentMutation = (options?: {
   onSuccess?: (data: resComment, variables: reqComment) => void;
 }) =>
-  useRtkMutation<resComment, reqComment>(
-    (body) => apiPost<resComment>("comment", body as any),
-    {
-      onSuccess: (data, variables) => {
-        options?.onSuccess?.(data, variables);
-        queryClient.invalidateQueries();
-      },
-    }
-  );
+  useMutation({
+    mutationFn: (body: reqComment) => apiPost<resComment>("comment", body as any),
+    onSuccess: async (data, variables) => {
+      options?.onSuccess?.(data, variables);
+      await queryClient.invalidateQueries();
+    },
+  });

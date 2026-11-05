@@ -1,6 +1,8 @@
 import { MVAll } from "./types";
 import { apiPost } from "@/shared/api/client";
-import { useRtkLazyQuery, useRtkQuery } from "@/shared/query/rtk-compat";
+import { useQuery } from "@tanstack/react-query";
+import { useLazyQuery } from "@/shared/query/useLazyQuery";
+import { mvKeys } from "@/shared/query/keys";
 
 export const filter = (arr: any[] = []) =>
   arr.map(({ id, playCount, cover, name, artists, briefDesc }: any) => ({
@@ -25,35 +27,31 @@ interface ReqMVAll {
 }
 
 export const useGetMVAllQuery = (arg: ReqMVAll) =>
-  useRtkQuery<MVAll, ReqMVAll>(
-    (body) => ["mv/all", body],
-    (body) => apiPost<MVAll>("mv/all", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: mvKeys.allList(arg),
+    queryFn: () => apiPost<MVAll>("mv/all", arg as any),
+  });
 
 export const useLazyGetMVAllQuery = () =>
-  useRtkLazyQuery<MVAll, ReqMVAll>(
-    (body) => ["mv/all", body],
+  useLazyQuery<MVAll, ReqMVAll>(
+    (body) => mvKeys.allList(body),
     (body) => apiPost<MVAll>("mv/all", body as any)
   );
 
 export const useGetMVExclusiveRcmdQuery = (arg: { limit: number }) =>
-  useRtkQuery<MVAll, { limit: number }>(
-    (body) => ["mv/exclusive/rcmd", body],
-    (body) => apiPost<MVAll>("mv/exclusive/rcmd", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: mvKeys.exclusiveRcmd(arg.limit),
+    queryFn: () => apiPost<MVAll>("mv/exclusive/rcmd", arg as any),
+  });
 
 export const useGetMVFirstQuery = (arg: { area: string; limit: number }) =>
-  useRtkQuery<MVAll, { area: string; limit: number }>(
-    (body) => ["mv/first", body],
-    (body) => apiPost<MVAll>("mv/first", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: mvKeys.first(arg.area, arg.limit),
+    queryFn: () => apiPost<MVAll>("mv/first", arg as any),
+  });
 
 export const useGetTopMVQuery = (arg: { area: string; limit: number }) =>
-  useRtkQuery<MVAll, { area: string; limit: number }>(
-    (body) => ["top/mv", body],
-    (body) => apiPost<MVAll>("top/mv", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: mvKeys.topMV(arg.area, arg.limit),
+    queryFn: () => apiPost<MVAll>("top/mv", arg as any),
+  });
