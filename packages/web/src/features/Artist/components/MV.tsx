@@ -12,7 +12,7 @@ const limit = 24;
 export default memo(function MV() {
   const { id = "" } = useParams();
   const [MVs, setMVs] = useImmer([]);
-  const [MVGet, { isLoading }] = useGetArtistMVMutation();
+  const { mutateAsync, isPending } = useGetArtistMVMutation();
   // const [hasMore, setHasMore] = useState(true);
   const more = useRef(true);
   const offset = useRef(0);
@@ -20,7 +20,7 @@ export default memo(function MV() {
   const handleInit = async () => {
     if (!more.current) return;
     try {
-      const { data } = await MVGet({
+      const data = await mutateAsync({
         id,
         limit,
         offset: offset.current,
@@ -51,7 +51,7 @@ export default memo(function MV() {
     <div className="domArtist_section p-8">
       <GridVideo list={MVs} />
       <div ref={ref} className="flex-center">
-        {isLoading && <Loading />}
+        {isPending && <Loading />}
       </div>
     </div>
   );

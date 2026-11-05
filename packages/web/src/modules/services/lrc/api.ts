@@ -1,10 +1,10 @@
 import { SimiSongs } from "./types";
 import { apiPost } from "@/shared/api/client";
-import { useRtkQuery } from "@/shared/query/rtk-compat";
+import { useQuery } from "@tanstack/react-query";
+import { lrcKeys } from "@/shared/query/keys";
 
 export const useGetSimiSongQuery = (arg: { id: number }) =>
-  useRtkQuery<SimiSongs, { id: number }>(
-    (body) => ["simi/song", body],
-    (body) => apiPost<SimiSongs>("simi/song", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: lrcKeys.simiSong(arg.id),
+    queryFn: () => apiPost<SimiSongs>("simi/song", arg as any),
+  });

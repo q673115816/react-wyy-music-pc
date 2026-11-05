@@ -1,30 +1,38 @@
 import { Banners, DJs } from "./types";
 import { apiGet, apiPost } from "@/shared/api/client";
-import { useRtkQuery } from "@/shared/query/rtk-compat";
+import { useQuery } from "@tanstack/react-query";
+import { djKeys } from "@/shared/query/keys";
 
 export const useGetDJBannerQuery = () =>
-  useRtkQuery<Banners>(["dj/banner"], () => apiGet<Banners>("dj/banner"));
+  useQuery({
+    queryKey: djKeys.banner,
+    queryFn: () => apiGet<Banners>("dj/banner"),
+  });
 
 export const useGetDJCategoryRecommendQuery = () =>
-  useRtkQuery<Banners>(["dj/category/recommend"], () =>
-    apiGet<Banners>("dj/category/recommend")
-  );
+  useQuery({
+    queryKey: djKeys.categoryRecommend,
+    queryFn: () => apiGet<Banners>("dj/category/recommend"),
+  });
 
 export const useGetDJCateListQuery = () =>
-  useRtkQuery<Banners>(["dj/cateList"], () => apiGet<Banners>("dj/cateList"));
+  useQuery({
+    queryKey: djKeys.cateList,
+    queryFn: () => apiGet<Banners>("dj/cateList"),
+  });
 
 export const useGetDJPersonalizeRecommendQuery = () =>
-  useRtkQuery<Banners>(["dj/personalize/recommend"], () =>
-    apiGet<Banners>("dj/personalize/recommend")
-  );
+  useQuery({
+    queryKey: djKeys.personalizeRecommend,
+    queryFn: () => apiGet<Banners>("dj/personalize/recommend"),
+  });
 
 export const useGetDJRadioHotQuery = (arg: {
   cateId: number;
   limit: number;
   offset?: number;
 }) =>
-  useRtkQuery<DJs, { cateId: number; limit: number; offset?: number }>(
-    (body) => ["dj/radio/hot", body],
-    (body) => apiPost<DJs>("dj/radio/hot", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: djKeys.radioHot(arg),
+    queryFn: () => apiPost<DJs>("dj/radio/hot", arg as any),
+  });

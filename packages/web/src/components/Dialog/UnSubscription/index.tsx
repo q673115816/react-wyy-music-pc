@@ -7,11 +7,11 @@ import { useMaskStore } from "@/stores";
 
 const UnSubscription = () => {
   const toast = useToast();
-  const [subPost, { isLoading: isSubbing }] = usePostArtistSubMutation();
+  const { mutateAsync, isPending: isSubbing } = usePostArtistSubMutation();
   const { artistId, dialogUnSubscriptionVisibility } = useMaskStore();
   const handleUnSubscription = async () => {
     try {
-      await subPost({
+      await mutateAsync({
         id: artistId,
       });
       useMaskStore.getState().setDialogReset();

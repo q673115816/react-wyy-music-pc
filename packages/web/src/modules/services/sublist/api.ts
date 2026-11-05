@@ -1,20 +1,34 @@
 import { MVs, Albums, Topics, Artists, DJs } from "./types";
 import { apiPost } from "@/shared/api/client";
-import { useRtkQuery } from "@/shared/query/rtk-compat";
+import { useQuery } from "@tanstack/react-query";
+import { sublistKeys } from "@/shared/query/keys";
 
 export const useGetMVSubListQuery = () =>
-  useRtkQuery<MVs>(["mv/sublist"], () => apiPost<MVs>("mv/sublist"));
+  useQuery({
+    queryKey: sublistKeys.mv,
+    queryFn: () => apiPost<MVs>("mv/sublist"),
+  });
 
 export const useGetTopicSubListQuery = () =>
-  useRtkQuery<Topics>(["topic/sublist"], () => apiPost<Topics>("topic/sublist"));
+  useQuery({
+    queryKey: sublistKeys.topic,
+    queryFn: () => apiPost<Topics>("topic/sublist"),
+  });
 
 export const useGetArtistSubListQuery = () =>
-  useRtkQuery<Artists>(["artist/sublist"], () =>
-    apiPost<Artists>("artist/sublist")
-  );
+  useQuery({
+    queryKey: sublistKeys.artist,
+    queryFn: () => apiPost<Artists>("artist/sublist"),
+  });
 
 export const useGetAlbumSubListQuery = () =>
-  useRtkQuery<Albums>(["album/sublist"], () => apiPost<Albums>("album/sublist"));
+  useQuery({
+    queryKey: sublistKeys.album,
+    queryFn: () => apiPost<Albums>("album/sublist"),
+  });
 
 export const useGetDJSublistQuery = () =>
-  useRtkQuery<DJs>(["dj/sublist"], () => apiPost<DJs>("dj/sublist"));
+  useQuery({
+    queryKey: sublistKeys.dj,
+    queryFn: () => apiPost<DJs>("dj/sublist"),
+  });

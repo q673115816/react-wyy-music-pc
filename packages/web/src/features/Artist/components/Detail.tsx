@@ -12,7 +12,7 @@ import { useMaskStore } from "@/stores";
 const Detail = () => {
   const { id = "" } = useParams();
   const toast = useToast();
-  const [subPost, { isLoading: isSubbing }] = usePostArtistSubMutation();
+  const { mutateAsync, isPending: isSubbing } = usePostArtistSubMutation();
   const { data } = useGetArtistDetailQuery({ id });
   const detail = data?.data || {};
   const isFollowed = detail?.user?.followed || false;
@@ -25,7 +25,7 @@ const Detail = () => {
 
   const handleSubscription = async () => {
     try {
-      await subPost({
+      await mutateAsync({
         id,
         t: 1,
       });

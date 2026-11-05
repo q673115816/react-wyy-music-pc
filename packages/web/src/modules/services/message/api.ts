@@ -1,30 +1,34 @@
 import { Forwards, Private, Comments, Notices, Recentcontact } from "./types";
 import { apiPost } from "@/shared/api/client";
-import { useRtkQuery } from "@/shared/query/rtk-compat";
+import { useQuery } from "@tanstack/react-query";
+import { messageKeys } from "@/shared/query/keys";
 
 export const useGetMsgForwardsQuery = () =>
-  useRtkQuery<Forwards>(["msg/forwards"], () =>
-    apiPost<Forwards>("msg/forwards")
-  );
+  useQuery({
+    queryKey: messageKeys.forwards,
+    queryFn: () => apiPost<Forwards>("msg/forwards"),
+  });
 
 export const useGetMsgPrivateQuery = (arg: { limit?: number }) =>
-  useRtkQuery<Private, { limit?: number }>(
-    (body) => ["msg/private", body],
-    (body) => apiPost<Private>("msg/private", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: messageKeys.private(arg.limit),
+    queryFn: () => apiPost<Private>("msg/private", arg as any),
+  });
 
 export const useGetMsgRecentcontactQuery = () =>
-  useRtkQuery<Recentcontact>(["msg/recentcontact"], () =>
-    apiPost<Recentcontact>("msg/recentcontact")
-  );
+  useQuery({
+    queryKey: messageKeys.recentContact,
+    queryFn: () => apiPost<Recentcontact>("msg/recentcontact"),
+  });
 
 export const useGetMsgCommentsQuery = (arg: { uid: number }) =>
-  useRtkQuery<Comments, { uid: number }>(
-    (body) => ["msg/comments", body],
-    (body) => apiPost<Comments>("msg/comments", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: messageKeys.comments(arg.uid),
+    queryFn: () => apiPost<Comments>("msg/comments", arg as any),
+  });
 
 export const useGetMsgNoticesQuery = () =>
-  useRtkQuery<Notices>(["msg/notices"], () => apiPost<Notices>("msg/notices"));
+  useQuery({
+    queryKey: messageKeys.notices,
+    queryFn: () => apiPost<Notices>("msg/notices"),
+  });
