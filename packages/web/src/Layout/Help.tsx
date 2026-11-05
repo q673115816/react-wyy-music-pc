@@ -6,7 +6,6 @@ import DialogCreatePlaylist from "@/components/Dialog/CreatePlaylist";
 import DialogUnSubscription from "@/components/Dialog/UnSubscription";
 import Playlist from "@/components/Playlist";
 import Letter from "@/components/Letter";
-import Toast from "@/components/Toast";
 import Contextmenu from "@/components/Contextmenu";
 import HeaderSearch from "@/components/Search";
 
@@ -22,7 +21,6 @@ const Help = () => (
     <Letter />
     <HeaderSearch />
     <Contextmenu />
-    <Toast />
     <DialogLogin />
   </>
 );

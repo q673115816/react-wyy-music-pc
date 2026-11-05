@@ -10,7 +10,6 @@ const DJCategory = () => {
   const { type, rid } = useParams();
   const [data, setData] = useState([]);
   const DomScroll = useRef(null);
-  const DomObserver = useRef(null);
   const offset = useRef(0);
 
   const handleInit = async () => {
@@ -31,7 +30,7 @@ const DJCategory = () => {
     offset.current = 0;
     // handleInit();
   }, [rid]);
-  useInfinite(handleInit, DomScroll, DomObserver);
+  const { ref } = useInfinite(handleInit, DomScroll);
   return (
     <div className="overflow-auto h-full" ref={DomScroll}>
       <div className="ui_header h1">{type}</div>
@@ -59,7 +58,7 @@ const DJCategory = () => {
           </Link>
         ))}
       </div>
-      <div ref={DomObserver} className="flex-center">
+      <div ref={ref} className="flex-center">
         <Loading />
       </div>
     </div>

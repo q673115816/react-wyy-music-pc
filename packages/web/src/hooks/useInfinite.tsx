@@ -1,47 +1,17 @@
-import React, { useRef, useEffect, RefObject } from "react";
+import { useEffect, RefObject } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default (
   scrollCallback: () => void,
   domScroll: RefObject<HTMLElement | null> | null,
-  domObserver: RefObject<HTMLElement | null>,
-  deps = []
+  deps: any[] = []
 ) => {
-  const io = useRef<IntersectionObserver | null>(null);
-
-  const handleIo = () => {
-    io.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            console.log("isIntersecting");
-            scrollCallback();
-          }
-        });
-      },
-      {
-        root: domScroll?.current || null,
-        // rootMargin: '100px 0px 0px 0px',
-        // thresholds: [1],
-      }
-    );
-    if (!io.current || !domObserver.current) return;
-    io.current.observe(domObserver.current);
-  };
-
-  const handleUnIo = () => {
-    io.current?.disconnect();
-  };
-
+  const { ref, inView } = useInView({
+    root: domScroll?.current ?? null,
+    rootMargin: "0px",
+  });
   useEffect(() => {
-    // handleInit();
-    handleIo();
-    return () => {
-      handleUnIo();
-    };
-  }, deps);
-
-  return {
-    handleIo,
-    handleUnIo,
-  };
+    if (inView) scrollCallback();
+  }, [inView, ...deps]);
+  return { ref, inView };
 };

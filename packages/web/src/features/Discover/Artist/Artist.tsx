@@ -22,7 +22,6 @@ const Artist = () => {
   const RefOption = useRef(option);
   const offset = useRef(0);
   const DomScroll = useRef(null);
-  const DomObserver = useRef(null);
   const [artists, setArtists] = useImmer([]);
   const [artistListGet, {}] = useGetArtistListMutation();
   const handleChangeOption = (newoption) => {
@@ -58,7 +57,7 @@ const Artist = () => {
     RefOption.current = option;
   }, [option]);
 
-  useInfinite(handleInit, DomScroll, DomObserver);
+  const { ref } = useInfinite(handleInit, DomScroll);
 
   return (
     <div className="px-8 pb-8 overflow-auto h-full flex-auto" ref={DomScroll}>
@@ -132,7 +131,7 @@ const Artist = () => {
           ))}
         </Resize>
       </div>
-      <div className="flex-center" ref={DomObserver}>
+      <div className="flex-center" ref={ref}>
         <Loading />
       </div>
     </div>

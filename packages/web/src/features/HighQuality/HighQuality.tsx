@@ -15,7 +15,6 @@ const HighQuality = () => {
   const [data, setData] = useImmer<iHighquality[]>([]);
   const [highQualityGet, { isLoading }] =
     useGetTopPlaylistHighqualityMutation();
-  const domObserver = useRef(null);
   const domScroll = useRef(null);
   const handleInit = async () => {
     try {
@@ -35,7 +34,7 @@ const HighQuality = () => {
     }
   };
 
-  useInfinite(handleInit, null, domObserver);
+  const { ref } = useInfinite(handleInit, null);
   useEffect(() => {
     setData([]);
     // handleInit()
@@ -98,7 +97,7 @@ const HighQuality = () => {
           </div>
         </div>
       ))}
-      <div ref={domObserver}>
+      <div ref={ref}>
         <Loading />
       </div>
     </div>

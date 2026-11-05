@@ -23,10 +23,9 @@ export default memo(function Home() {
   } = useContext(LookContent);
 
   const DomScroll = useRef(null);
-  const DomObserver = useRef(null);
   const [list, setList] = useState<iList>([]);
   const [data, setData] = useState([]);
-  // useInfinite(() => { setSize((prev) => prev + 20); }, DomScroll, DomObserver);
+  // const { ref } = useInfinite(() => { setSize((prev) => prev + 20); }, DomScroll);
   const handleInit = async () => {
     const { data } = await fetch(`${LIVE_URL}/list`).then((res) => res.json());
     setData(data);
@@ -53,7 +52,7 @@ export default memo(function Home() {
       </div>
       <div className="px-8">
         <LiveList list={data} />
-        <div ref={DomObserver} />
+        <div />
       </div>
     </div>
   );

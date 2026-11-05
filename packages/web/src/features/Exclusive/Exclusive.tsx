@@ -17,8 +17,7 @@ export default memo(function Exclusive() {
     offset.current += limit;
   };
   const DomScroll = useRef<HTMLDivElement>(null);
-  const DomObserver = useRef<HTMLDivElement>(null);
-  useInfinite(handleInit, DomScroll, DomObserver);
+  const { ref } = useInfinite(handleInit, DomScroll);
 
   return (
     <div className="overflow-auto p-8 h-full" ref={DomScroll}>
@@ -55,7 +54,7 @@ export default memo(function Exclusive() {
               </div>
             </div>
           ))}
-          <div ref={DomObserver} />
+          <div ref={ref} />
         </Resize>
       </div>
     </div>

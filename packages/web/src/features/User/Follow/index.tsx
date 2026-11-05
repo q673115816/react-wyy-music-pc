@@ -19,7 +19,6 @@ const Follow = () => {
   const account = useAccountStore();
   const isSelf = useMemo(() => account.profile.userId === Number(uid), [uid]);
   const DomScroll = useRef(null);
-  const DomObserver = useRef(null);
   const offset = useRef(0);
   const hasMore = useRef(true);
 
@@ -63,7 +62,7 @@ const Follow = () => {
     ;
   };
 
-  useInfinite(handleAddData, DomScroll, DomObserver);
+  const { ref } = useInfinite(handleAddData, DomScroll);
 
   return (
     <div className="h-full overflow-auto" ref={DomScroll}>
@@ -80,7 +79,7 @@ const Follow = () => {
         >
           <div className="empty">还没有关注</div>
         </CardList>
-        <div ref={DomObserver} />
+        <div ref={ref} />
         {hasMore.current && (
           <div className="flex-center">
             <Loading />

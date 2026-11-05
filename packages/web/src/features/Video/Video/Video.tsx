@@ -19,9 +19,11 @@ const VideoList = () => {
   );
 
   const domScroll = useRef<HTMLDivElement>(null);
-  const domObserver = useRef<HTMLDivElement>(null);
 
-  useInfinite(() => useVideoListStore.getState().addList(id), domScroll, domObserver);
+  const { ref } = useInfinite(
+    () => useVideoListStore.getState().addList(id),
+    domScroll
+  );
 
   useEffect(() => {
     useVideoListStore.getState().init();
@@ -69,7 +71,7 @@ const VideoList = () => {
       </div>
       <div className="my-4">
         <GridVideo list={videoList} />
-        <div ref={domObserver} className="flex-center">
+        <div ref={ref} className="flex-center">
           <Loading />
         </div>
       </div>

@@ -12,12 +12,21 @@ import React, {
 } from "react";
 import classnames from "classnames";
 
-import { set, get } from "lodash";
-
 import { LookContent } from "@/features/Look/Look";
 import useGetInput, { iUseGetInput } from "@/features/Look/Live/useGetInput";
 import { useImmer } from "use-immer";
 import RTC from "../RTC";
+
+const getPath = (obj: any, path: string) =>
+  path.split(".").reduce((acc, key) => acc?.[key], obj);
+const setPath = (obj: any, path: string, value: any) => {
+  const keys = path.split(".");
+  let target = obj;
+  keys.slice(0, -1).forEach((key) => {
+    target = target[key];
+  });
+  target[keys[keys.length - 1]] = value;
+};
 
 interface iButtonProps extends PropsWithChildren {
   onClick: MouseEventHandler;
@@ -378,8 +387,8 @@ export default memo(function Live() {
 
   const handleChangeStatus = useCallback((key: initialSourceKey) => {
     setStatus((draft) => {
-      const value = get(draft, key);
-      set(draft, key, !value);
+      const value = getPath(draft, key);
+      setPath(draft, key, !value);
       // draft[key] = !draft[key];
     });
   }, []);

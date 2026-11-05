@@ -10,7 +10,6 @@ import React, {
 import Dialog from "../Dialog";
 import { concatAll, filter, fromEvent, map, takeUntil } from "rxjs";
 import { useGetSetState } from "react-use";
-import { clamp } from "lodash";
 import Draw from "./Draw";
 import { usePostAvatarUploadMutation } from "@/modules/services/account";
 
@@ -111,14 +110,15 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
           mouseMove$.pipe(
             takeUntil(mouseUp$),
             map((moveEvent) => ({
-              left: clamp(
-                left + moveEvent.clientX - startX,
-                0,
+              left: Math.min(
+                Math.max(
+                  left + moveEvent.clientX - startX,
+                  0
+                ),
                 getMaskState().width - getOriginState().width
               ),
-              top: clamp(
-                top + moveEvent.clientY - startY,
-                0,
+              top: Math.min(
+                Math.max(top + moveEvent.clientY - startY, 0),
                 getMaskState().height - getOriginState().height
               ),
             }))
@@ -157,14 +157,12 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
           mouseMove$.pipe(
             takeUntil(mouseUp$),
             map((moveEvent) => {
-              const nextWidth = clamp(
-                width + moveEvent.clientX - startX,
-                16,
+              const nextWidth = Math.min(
+                Math.max(width + moveEvent.clientX - startX, 16),
                 getMaskState().width - getOriginState().left
               );
-              const nextHeight = clamp(
-                height + moveEvent.clientY - startY,
-                16,
+              const nextHeight = Math.min(
+                Math.max(height + moveEvent.clientY - startY, 16),
                 getMaskState().height - getOriginState().top
               );
               const min = Math.min(nextWidth, nextHeight);

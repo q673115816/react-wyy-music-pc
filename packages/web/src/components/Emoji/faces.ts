@@ -1,5 +1,3 @@
-import { toPairs } from "lodash";
-
 const kv_face: { [key in string]: string }[] = [
   {
     大笑: "😃",
@@ -69,7 +67,7 @@ const kv_face: { [key in string]: string }[] = [
 // 做成一个kv对象
 const hash = Object.assign({}, ...kv_face);
 // 导出做map循环
-const faces = kv_face.map(toPairs);
+const faces = kv_face.map((item) => Object.entries(item));
 
 const reg = Object.keys(hash).join("|");
 

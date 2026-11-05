@@ -10,13 +10,14 @@ import Toast from "@/components/Toast";
 const App = () => {
   useKeyActions();
   return (
-    <Toast.Provider>
+    <>
+      <Toast />
       <Layout />
       {createPortal(
         <Coffee />,
         document.querySelector("#author-root") as HTMLDivElement
       )}
-    </Toast.Provider>
+    </>
   );
 };
 

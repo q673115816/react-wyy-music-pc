@@ -17,7 +17,6 @@ export default memo(function MV() {
   const more = useRef(true);
   const offset = useRef(0);
   const domScroll = useRef<HTMLDivElement>(null);
-  const domObserver = useRef<HTMLDivElement>(null);
   const handleInit = async () => {
     if (!more.current) return;
     try {
@@ -46,12 +45,12 @@ export default memo(function MV() {
       console.log(error);
     }
   };
-  useInfinite(handleInit, domScroll, domObserver);
+  const { ref } = useInfinite(handleInit, domScroll);
 
   return (
     <div className="domArtist_section p-8">
       <GridVideo list={MVs} />
-      <div ref={domObserver} className="flex-center">
+      <div ref={ref} className="flex-center">
         {isLoading && <Loading />}
       </div>
     </div>

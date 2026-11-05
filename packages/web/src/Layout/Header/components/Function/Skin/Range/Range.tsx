@@ -2,7 +2,6 @@ import React, { CSSProperties, FC, memo, useRef } from "react";
 import scopeStyle from "./Range.module.scss";
 import classNames from "classnames";
 import { useSlider, useUpdateEffect } from "react-use";
-import { clamp } from "lodash";
 
 interface iProps {
   min: number;
@@ -21,7 +20,7 @@ const Range: FC<iProps> = ({
   className = "",
   style,
 }) => {
-  value = clamp(value, min, max);
+  value = Math.min(Math.max(value, min), max);
   const ref = useRef<HTMLDivElement>(null);
   const { value: pos, isSliding } = useSlider(ref as React.RefObject<HTMLElement>);
   useUpdateEffect(() => {

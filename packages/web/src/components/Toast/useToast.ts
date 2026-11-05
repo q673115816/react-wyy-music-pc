@@ -1,22 +1,8 @@
-import { useContext } from "react";
-import { setToast, context, hideToast } from "./Content";
+import { toast } from "sonner";
 
-interface Props {
-  delay: number;
-}
-
-const defaultConfig: Props = {
-  delay: 2000,
-};
-
-const useToast = (config?: Props) => {
-  const { delay } = Object.assign(defaultConfig, config);
-  const { state, dispatch } = useContext(context);
-  return (text: string) => {
-    if (state.id) clearTimeout(state.id);
-    const id = setTimeout(() => dispatch(hideToast()), delay);
-    dispatch(setToast({ text, id }));
-  };
+const useToast = (config?: { delay?: number }) => {
+  const duration = config?.delay ?? 2000;
+  return (text: string) => toast(text, { duration });
 };
 
 export default useToast;
