@@ -1,12 +1,6 @@
-import React, {
-  FC,
-  memo,
-  MouseEventHandler,
-  PropsWithChildren,
-  useLayoutEffect,
-  useRef,
-} from "react";
+import React, { FC, memo, PropsWithChildren, useLayoutEffect, useRef } from "react";
 
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { IconX } from "@tabler/icons-react";
 import classNames from "classnames";
 import { useDrag } from "@use-gesture/react";
@@ -19,13 +13,7 @@ interface iProps extends PropsWithChildren {
   width?: number;
 }
 
-const Dialog: FC<iProps> = ({
-  children,
-  title,
-  className = "",
-  width = 470,
-}) => {
-  const inset = useRef<HTMLDivElement>(null);
+const Dialog: FC<iProps> = ({ children, title, className = "", width = 470 }) => {
   const content = useRef<HTMLDivElement>(null);
   const [insetState, setInsetState] = useGetSetState({
     width: 0,
@@ -40,22 +28,21 @@ const Dialog: FC<iProps> = ({
     left: 0,
   });
 
-  const handleClick: MouseEventHandler = (e) => {
-    if (e.target === inset.current) useMaskStore.getState().setDialogReset();
-  };
-
   useLayoutEffect(() => {
+    const inset = document.getElementById("inset");
+    const contentDom = content.current;
+    if (!inset || !contentDom) return;
     setContentState({
-      width: content.current!.clientWidth,
-      height: content.current!.clientHeight,
+      width: contentDom.clientWidth,
+      height: contentDom.clientHeight,
     });
     setInsetState({
-      width: inset.current!.clientWidth,
-      height: inset.current!.clientHeight,
+      width: inset.clientWidth,
+      height: inset.clientHeight,
     });
     setState({
-      top: inset.current!.clientHeight / 2 - content.current!.clientHeight / 2,
-      left: inset.current!.clientWidth / 2 - content.current!.clientWidth / 2,
+      top: inset.clientHeight / 2 - contentDom.clientHeight / 2,
+      left: inset.clientWidth / 2 - contentDom.clientWidth / 2,
     });
   }, []);
 
@@ -63,49 +50,57 @@ const Dialog: FC<iProps> = ({
     const start = memo ?? { top: state().top, left: state().left };
     if (!first) {
       setState({
-        top: Math.min(
-          insetState().height - contentState().height,
-          Math.max(0, start.top + my)
-        ),
-        left: Math.min(
-          insetState().width - contentState().width,
-          Math.max(0, start.left + mx)
-        ),
+        top: Math.min(insetState().height - contentState().height, Math.max(0, start.top + my)),
+        left: Math.min(insetState().width - contentState().width, Math.max(0, start.left + mx)),
       });
     }
     return start;
   });
 
+  const portalContainer = typeof document === "undefined" ? undefined : (document.getElementById("inset") ?? undefined);
+
   return (
-    <div
-      ref={inset}
-      onClick={handleClick}
-      className={`absolute inset-0 flex-center z-50`}
+    <DialogPrimitive.Root
+      open
+      onOpenChange={(open) => {
+        if (!open) useMaskStore.getState().setDialogReset();
+      }}
     >
-      <div
-        ref={content}
-        className={classNames("bg-white shadow rounded absolute", className)}
-        style={{
-          width,
-          ...state(),
-        }}
-      >
-        <button
-          type="button"
-          className="absolute top-2.5 right-2.5 text-2xl z-10 text-gray-500"
-          onClick={() => useMaskStore.getState().setDialogReset()}
+      <DialogPrimitive.Portal container={portalContainer}>
+        <DialogPrimitive.Overlay className="absolute inset-0 z-50" />
+        <DialogPrimitive.Content
+          ref={content}
+          aria-describedby={undefined}
+          className={classNames("bg-white shadow rounded absolute z-50", className)}
+          style={{
+            width,
+            ...state(),
+          }}
+          onPointerDownOutside={(event) => {
+            const originalEvent = event.detail.originalEvent;
+            const isRightClick = originalEvent.button === 2 || (originalEvent.button === 0 && originalEvent.ctrlKey);
+            if (isRightClick) return;
+            // 保持原来的遮罩边界：只在 #inset 内点击时关闭，避免点到窗口外也关闭
+            if (portalContainer && !(originalEvent.target instanceof Node && portalContainer.contains(originalEvent.target))) {
+              event.preventDefault();
+              return;
+            }
+            event.preventDefault();
+            useMaskStore.getState().setDialogReset();
+          }}
         >
-          <IconX stroke={1.5} />
-        </button>
-        <div
-          {...bind()}
-          className="flex-center font-bold text-base cursor-move h-20"
-        >
-          {title}
-        </div>
-        <div>{children}</div>
-      </div>
-    </div>
+          <DialogPrimitive.Close asChild>
+            <button type="button" className="absolute top-2.5 right-2.5 text-2xl z-10 text-gray-500">
+              <IconX stroke={1.5} />
+            </button>
+          </DialogPrimitive.Close>
+          <DialogPrimitive.Title {...bind()} className="flex-center font-bold text-base cursor-move h-20 m-0">
+            {title}
+          </DialogPrimitive.Title>
+          <div>{children}</div>
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   );
 };
 
