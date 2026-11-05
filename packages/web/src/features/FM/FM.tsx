@@ -6,11 +6,12 @@ import { useGetPersonalFMMutation } from "@/modules/services/song";
 const FM = () => {
   console.log("fm");
   const [data, setData] = useState([{}]);
-  const [PersonalFMGet, { isLoading }] = useGetPersonalFMMutation();
+  const { mutateAsync: PersonalFMGet, isPending: isLoading } =
+    useGetPersonalFMMutation();
   const handleInit = async () => {
     try {
       const data = await PersonalFMGet();
-      setData(data.data.data);
+      setData(data.data);
     } catch (error) {
       console.log(error);
     }

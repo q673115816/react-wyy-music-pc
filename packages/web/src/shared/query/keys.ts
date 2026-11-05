@@ -150,6 +150,54 @@ export const commentKeys = {
   commentList: ["comment", "comment-list"] as const,
 };
 
+export const songKeys = {
+  all: ["song"] as const,
+  songUrl: (id: number) => ["song", "url", id] as const,
+  detail: (ids: string) => ["song", "detail", ids] as const,
+  lyric: (id: number) => ["song", "lyric", id] as const,
+  personalFM: ["song", "personal-fm"] as const,
+};
+
+export const playlistKeys = {
+  all: ["playlist"] as const,
+  detail: (params: { id: string; limit?: number }) =>
+    ["playlist", "detail", params] as const,
+  songs: (ids: string) => ["playlist", "songs", ids] as const,
+  subscribers: (params: { id: string; limit: number; offset: number }) =>
+    ["playlist", "subscribers", params] as const,
+  subscribe: ["playlist", "subscribe"] as const,
+};
+
+export const accountKeys = {
+  all: ["account"] as const,
+  countries: ["account", "countries"] as const,
+  loginStatus: ["account", "login-status"] as const,
+  logout: ["account", "logout"] as const,
+  loginQRKey: ["account", "login-qr-key"] as const,
+  loginQRCheck: (key: number) => ["account", "login-qr-check", key] as const,
+  avatar: ["account", "avatar"] as const,
+  registerAnonymous: ["account", "register-anonymous"] as const,
+};
+
+export const userKeys = {
+  all: ["user"] as const,
+  cloud: (params: { limit: number }) => ["user", "cloud", params] as const,
+  signInProgress: (params: { moduleId?: string }) =>
+    ["user", "signin-progress", params] as const,
+  module: ["user", "signin-module"] as const,
+  userDetail: (uid: string) => ["user", "detail", uid] as const,
+  userAccount: ["user", "account"] as const,
+  updateUser: ["user", "update"] as const,
+  userEvent: (uid: string, lasttime: number) =>
+    ["user", "event", uid, lasttime] as const,
+  subcount: ["user", "subcount"] as const,
+  userPlaylist: (uid: string) => ["user", "playlist", uid] as const,
+  binding: (uid: string) => ["user", "binding", uid] as const,
+  record: (uid: number, type: number) => ["user", "record", uid, type] as const,
+  followeds: (uid: string) => ["user", "followeds", uid] as const,
+  follow: (id: number, t: number) => ["user", "follow", id, t] as const,
+};
+
 export const sublistKeys = {
   all: ["sublist"] as const,
   mv: ["sublist", "mv"] as const,

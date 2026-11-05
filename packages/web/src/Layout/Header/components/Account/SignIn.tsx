@@ -8,7 +8,7 @@ import Loading from "@/components/Loading";
 
 const SignIn = () => {
   const { data, isLoading } = useGetSignInProgressQuery({});
-  const [dailySignInGet] = useGetDailySignInMutation();
+  const { mutateAsync: dailySignInGet } = useGetDailySignInMutation();
 
   const handleCheckIn = async () => {
     try {

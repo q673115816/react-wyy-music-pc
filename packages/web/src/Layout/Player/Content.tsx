@@ -58,7 +58,7 @@ const Content: FC<iProps> = ({ type, vid }) => {
     downloadState,
     handleDownload,
   } = useInit({ type, vid });
-  const [followPost, { isLoading }] = usePostFollowMutation();
+  const { mutateAsync: followPost } = usePostFollowMutation();
   // const { type, vid } = params;
 
   const [descriptionVisibility, setDescriptionVisibility] = useState(false);

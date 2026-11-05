@@ -9,7 +9,7 @@ import { useAccountStore } from "@/stores";
 
 const Header = () => {
   const { uid } = useParams();
-  const [followPost] = usePostFollowMutation();
+  const { mutateAsync: followPost } = usePostFollowMutation();
   const { profile, code, bindings, level } = useContext(context);
   const { isLogin } = useAccountStore();
   const account = useAccountStore();

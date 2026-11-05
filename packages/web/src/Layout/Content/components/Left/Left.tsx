@@ -18,8 +18,8 @@ const Left = () => {
   const { lyricVisibility, setLyricText, setLyricToggle } = useLrcStore();
   const currentSong = useAudioStore((s) => s.currentSong);
   const playlist = useAudioStore((s) => s.playlist);
-  const [songUrlGet, {}] = useGetSongUrlMutation();
-  const [LyricGet, {}] = useGetLyricMutation();
+  const { mutateAsync: songUrlGet } = useGetSongUrlMutation();
+  const { mutateAsync: LyricGet } = useGetLyricMutation();
   const handleLyric = () => {
     setLyricToggle();
   };
@@ -39,7 +39,7 @@ const Left = () => {
       const lyric = await LyricGet({
         id,
       });
-      setLyricText(lyric.data);
+      setLyricText(lyric);
     } catch (error) {
       console.log(error);
     }

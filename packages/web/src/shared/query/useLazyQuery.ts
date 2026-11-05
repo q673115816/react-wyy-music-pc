@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { useQuery, useQueryClient, type QueryKey } from "@tanstack/react-query";
 
 /**
- * 按需查询：使用 TanStack Query 实现，替代 useRtkLazyQuery。
+ * 按需查询：使用 TanStack Query 实现，替代旧的 RTK 兼容层。
  * trigger 返回 { data }，并保留 isUninitialized 供现有调用点判断。
  */
 export function useLazyQuery<T, TArg = void>(

@@ -28,7 +28,7 @@ const Content: FC = () => {
   const [key, setKey] = useState("");
   const [status, setStatus] = useState(0);
   const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
-  const [loginQRCheckGet] = useGetLoginQRCheckMutation();
+  const { mutateAsync: loginQRCheckGet } = useGetLoginQRCheckMutation();
   const handleInit = useCallback(async () => {
     try {
       const {
@@ -50,11 +50,14 @@ const Content: FC = () => {
     }
   }, []);
   const handleLoop = async () => {
-    const data = await loginQRCheckGet({
+    const data = (await loginQRCheckGet({
       key,
-    }).catch((error: Error) => console.log(error));
-    const cookie = data.data.cookie;
-    const code = data.data.code;
+    }).catch((error: Error) => console.log(error))) as
+      | { code: number; cookie?: string }
+      | undefined;
+    if (!data) return;
+    const cookie = data.cookie;
+    const code = data.code;
     switch (code) {
       case 800:
         if (timer.current) clearInterval(timer.current);

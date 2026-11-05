@@ -26,7 +26,8 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
     width: wrapperSize,
     height: wrapperSize,
   });
-  const [UploadPost, { isLoading }] = usePostAvatarUploadMutation();
+  const { mutateAsync: UploadPost, isPending: isLoading } =
+    usePostAvatarUploadMutation();
   const createState = (size = initialSize, ratio = 1) => {
     return {
       size,
@@ -74,7 +75,7 @@ const UploadAvatar: FC<iProps> = ({ handleUpload, file }) => {
     param.append("imgX", (left / ratio) | 0);
     param.append("imgY", (top / ratio) | 0);
     try {
-      const { data } = await UploadPost(param);
+      await UploadPost(param);
     } catch (error) {
       console.log(error);
     }

@@ -10,7 +10,7 @@ import {
 const Fans = () => {
   const { uid } = useParams();
   const { profile } = useContext(context);
-  const [followPost] = usePostFollowMutation();
+  const { mutateAsync: followPost } = usePostFollowMutation();
   const { data, isLoading } = useGetUserFollowedsQuery({
     uid: uid as string,
   });

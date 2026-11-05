@@ -21,7 +21,8 @@ interface iHeader {
 const Header: FC<PropsWithChildren<iHeader>> = ({ data = {}, children }) => {
   const toast = useToast();
   const { id = "" } = useParams();
-  const [playlistSbuscribePost] = usePostPlaylistSubscribeMutation();
+  const { mutateAsync: playlistSbuscribePost } =
+    usePostPlaylistSubscribeMutation();
   // TODO
   const handleSub = async (isSub: boolean) => {
     try {

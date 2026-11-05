@@ -26,12 +26,12 @@ const Content: FC<iProps> = ({ uid, handleHide }) => {
   const toast = useToast();
   const { removeToken } = useToken();
   const { data, isLoading } = useGetUserDetailQuery({ uid });
-  const [logoutGet] = useGetLogoutMutation();
+  const { mutateAsync: logoutGet } = useGetLogoutMutation();
   const profile = data?.profile || {};
   const handleLogout = async () => {
     try {
       const data = await logoutGet();
-      if (data?.data?.code !== 200) {
+      if (data?.code !== 200) {
         toast("退出失败");
         return;
       }

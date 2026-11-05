@@ -20,7 +20,8 @@ const Edit = () => {
   const toast = useToast();
   const { data, isLoading, isSuccess } = useGetUserAccountQuery();
 
-  const [updatePost, { isLoading: isUpdating }] = usePostUserUpdateMutation();
+  const { mutateAsync: updatePost, isPending: isUpdating } =
+    usePostUserUpdateMutation();
   const profile: Profile = data?.profile || {};
   const [edit, setEdit] = useImmer({
     nickname: "",
@@ -45,7 +46,7 @@ const Edit = () => {
         city: edit.city,
         signature: edit.signature,
       };
-      const { data } = await updatePost(params);
+      const data = await updatePost(params);
       if (data.code === 200) {
         setDisabled(true);
         toast("修改个人资料成功");
