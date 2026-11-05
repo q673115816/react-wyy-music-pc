@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import React, { useState, memo, MouseEventHandler } from "react";
+import React, { useState, memo } from "react";
+import { useDrag } from "@use-gesture/react";
 
-import Drag from "@/components/Drag";
 import Control from "./Control";
 import { useSettingsStore, useInsetStore } from "@/stores";
 import Content from "./Content";
@@ -17,28 +17,17 @@ const Lrc = () => {
   const [dragger, setDragger] = useState(false);
   const [active, setActive] = useState(false);
 
-  const onMouseMove: MouseEventHandler = (e) => {
-    e.preventDefault();
-    return useInsetStore.getState().setGlobalLrcInset({
-        x: e.clientX,
-        y: e.clientY,
-      })
-    ;
-  };
-
-  const onMouseUp: MouseEventHandler = () => {
-    setDragger(false);
-    setActive(true);
-  };
-
-  const onMouseDown: MouseEventHandler = (e) => {
-    setDragger(true);
-    useInsetStore.getState().setGlobalLrcStartInset({
-        x: e.clientX,
-        y: e.clientY,
-      })
-    ;
-  };
+  const bind = useDrag(({ first, last, xy: [x, y] }) => {
+    if (first) {
+      setDragger(true);
+      useInsetStore.getState().setGlobalLrcStartInset({ x, y });
+    }
+    if (!last) useInsetStore.getState().setGlobalLrcInset({ x, y });
+    if (last) {
+      setDragger(false);
+      setActive(true);
+    }
+  });
 
   if (!globalLrcVisibility) return null;
   return (
@@ -61,14 +50,9 @@ const Lrc = () => {
             active || dragger ? "auto" : "none"
           }`}
         >
-          <Drag
-            className="w-full h-full"
-            onMouseDown={onMouseDown}
-            onMouseMove={onMouseMove}
-            onMouseUp={onMouseUp}
-          >
+          <div {...bind()} className="w-full h-full">
             <Control />
-          </Drag>
+          </div>
         </div>
       )}
     </div>

@@ -1,11 +1,6 @@
-import React, {
-  useEffect,
-  memo,
-  useCallback,
-  MouseEvent,
-  MouseEventHandler,
-} from "react";
+import React, { useEffect, memo } from "react";
 import { Link } from "react-router";
+import { useDrag } from "@use-gesture/react";
 
 import {
   apiUserAccount,
@@ -20,7 +15,6 @@ import {
   apiPlaylistMylike,
 } from "@/api";
 
-import Drag from "@/components/Drag";
 import { IconMicrophone } from "@tabler/icons-react";
 
 import VisitStack from "./components/VisitStack";
@@ -72,36 +66,16 @@ const useInit = () => {
 };
 
 const CustomDrag = memo(() => {
-  const onMouseMove: MouseEventHandler = useCallback(
-    ({ clientX: x, clientY: y }: MouseEvent) => {
-      useInsetStore.getState().setGlobalInset({
-          x,
-          y,
-        })
-      ;
-    },
-    []
-  );
+  const bind = useDrag(({ first, xy: [x, y] }) => {
+    if (first) useInsetStore.getState().setGlobalStartInset({ x, y });
+    useInsetStore.getState().setGlobalInset({ x, y });
+  });
 
-  const onMouseUp: MouseEventHandler = useCallback(() => {
-    // useInsetStore.getState().setGlobalDragger(false);
-  }, []);
-
-  const onMouseDown: MouseEventHandler = useCallback((e: MouseEvent) => {
-    // useInsetStore.getState().setGlobalDragger(true);
-    useInsetStore.getState().setGlobalStartInset({
-        x: e.clientX,
-        y: e.clientY,
-      })
-    ;
-  }, []);
   return (
-    <Drag
-      className="absolute inset-0 z-0 w-full"
+    <div
+      {...bind()}
       title="长按拖拽"
-      onMouseDown={onMouseDown}
-      onMouseMove={onMouseMove}
-      onMouseUp={onMouseUp}
+      className="absolute inset-0 z-0 w-full"
     />
   );
 });

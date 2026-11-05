@@ -1,8 +1,7 @@
-import React, { useRef, memo, MouseEventHandler } from "react";
+import React, { memo } from "react";
 import dayjs from "dayjs";
+import * as SliderPrimitive from "@radix-ui/react-slider";
 
-import { computedPositionPercentage } from "@/common/utils";
-import Drag from "@/components/Drag";
 import style from "./style.module.scss";
 import classNames from "classnames";
 import { useAudioStore } from "@/stores";
@@ -11,29 +10,15 @@ const Timing = () => {
   const currentTime = useAudioStore((s) => s.currentTime);
   const currentSong = useAudioStore((s) => s.currentSong);
   const buffered = useAudioStore((s) => s.buffered);
-  const RefProgress = useRef<HTMLDivElement>(null);
-  const computedPosition = (e) => {
-    if (!RefProgress.current) return;
-    const percentage = computedPositionPercentage(e, RefProgress.current);
-    return percentage * (currentSong.dt / 1000);
+  const duration = currentSong.dt ? currentSong.dt / 1000 : 0;
+
+  const handleValueChange = ([value]: number[]) => {
+    useAudioStore.getState().setAudioCurrentTime({ currentTime: value });
   };
 
-  const onMouseMove: MouseEventHandler = (e) => {
-    useAudioStore.getState().setAudioCurrentTime(computedPosition(e));
-  };
-
-  const onMouseUp: MouseEventHandler = (e) => {
+  const handleValueCommit = ([value]: number[]) => {
     useAudioStore.getState().setAudioDropping({ dropping: false });
-    useAudioStore.getState().setJumpToAudioCurrentTime(computedPosition(e));
-  };
-
-  const onMouseDown = () => {
-    useAudioStore.getState().setAudioDropping({ dropping: true });
-  };
-
-  const handleClick: MouseEventHandler = (e) => {
-    useAudioStore.getState().setAudioCurrentTime(computedPosition(e));
-    useAudioStore.getState().setJumpToAudioCurrentTime(computedPosition(e));
+    useAudioStore.getState().setJumpToAudioCurrentTime(value);
   };
 
   return (
@@ -41,44 +26,42 @@ const Timing = () => {
       <span className="text-gray-400">
         {currentTime ? dayjs(currentTime * 1000).format("mm:ss") : "00:00"}
       </span>
-      <div
+      <SliderPrimitive.Root
         className={classNames(
           style.playTimerShaft,
-          "group mx-1 relative rounded-full overflow-hidden"
+          "group relative mx-1 flex items-center rounded-full touch-none select-none cursor-pointer"
         )}
-        onClick={handleClick}
-        ref={RefProgress}
+        value={[currentTime]}
+        max={duration || 1}
+        step={1}
+        disabled={!duration}
+        onPointerDown={() =>
+          useAudioStore.getState().setAudioDropping({ dropping: true })
+        }
+        onValueChange={handleValueChange}
+        onValueCommit={handleValueCommit}
       >
-        <div className="absolute inset-0">
-          {currentSong.dt &&
-            buffered.map(([start, end]) => (
-              <div
-                key={`${start}-${end}`}
-                className="absolute inset-y-0 bg-gray-400"
-                style={{
-                  left: `${(start / (currentSong.dt / 1000)) * 100}%`,
-                  right: `${(1 - end / (currentSong.dt / 1000)) * 100}%`,
-                }}
-              />
-            ))}
-        </div>
-        <div
-          className="played relative h-full ui_theme_bg_color"
-          style={{
-            width: `${
-              currentSong.dt ? (currentTime / (currentSong.dt / 1000)) * 100 : 0
-            }%`,
-          }}
-        >
-          <Drag
-            className="absolute opacity-0 group-hover:opacity-100 inset-y-0 -right-1 m-auto ui_theme_bg_color rounded-full w-2 h-2 overflow-hidden shadow"
-            onMouseDown={onMouseDown}
-            onMouseMove={onMouseMove}
-            onMouseUp={onMouseUp}
-            title="长按拖拽"
-          />
-        </div>
-      </div>
+        <SliderPrimitive.Track className="relative h-[3px] w-full grow overflow-hidden rounded-full bg-[#E6E6E8] group-hover:h-1">
+          <div className="absolute inset-0">
+            {currentSong.dt &&
+              buffered.map(([start, end]) => (
+                <div
+                  key={`${start}-${end}`}
+                  className="absolute inset-y-0 bg-gray-400"
+                  style={{
+                    left: `${(start / duration) * 100}%`,
+                    right: `${(1 - end / duration) * 100}%`,
+                  }}
+                />
+              ))}
+          </div>
+          <SliderPrimitive.Range className="absolute inset-y-0 ui_theme_bg_color" />
+        </SliderPrimitive.Track>
+        <SliderPrimitive.Thumb
+          title="长按拖拽"
+          className="block h-2 w-2 rounded-full ui_theme_bg_color opacity-0 shadow group-hover:opacity-100 focus:outline-hidden"
+        />
+      </SliderPrimitive.Root>
       <span className="text-gray-400">
         {currentSong.dt ? dayjs(currentSong.dt).format("mm:ss") : "00:00"}
       </span>
