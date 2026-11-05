@@ -10,50 +10,62 @@ import {
   Playlists,
 } from "./types";
 import { apiGet, apiPost } from "@/shared/api/client";
-import { useRtkMutation, useRtkQuery } from "@/shared/query/rtk-compat";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { discoverKeys } from "@/shared/query/keys";
 
 export const useGetRecommendResourceQuery = () =>
-  useRtkQuery<Resources>(["recommend/resource"], () =>
-    apiPost<Resources>("recommend/resource")
-  );
+  useQuery({
+    queryKey: discoverKeys.recommendResource,
+    queryFn: () => apiPost<Resources>("recommend/resource"),
+  });
 
 export const useGetBannerQuery = () =>
-  useRtkQuery<Banners>(["banner"], () => apiGet<Banners>("banner"));
+  useQuery({
+    queryKey: discoverKeys.banner,
+    queryFn: () => apiGet<Banners>("banner"),
+  });
 
 export const useGetPersonalizedPrivatecontentQuery = () =>
-  useRtkQuery<Privatecontents>(["personalized/privatecontent"], () =>
-    apiGet<Privatecontents>("personalized/privatecontent")
-  );
+  useQuery({
+    queryKey: discoverKeys.privatecontent,
+    queryFn: () => apiGet<Privatecontents>("personalized/privatecontent"),
+  });
 
 export const useGetPersonalizedNewsongQuery = (arg: { limit: number }) =>
-  useRtkQuery<Newsongs, { limit: number }>(
-    (body) => ["personalized/newsong", body],
-    (body) => apiPost<Newsongs>("personalized/newsong", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: discoverKeys.newsong(arg.limit),
+    queryFn: () => apiPost<Newsongs>("personalized/newsong", arg as any),
+  });
 
 export const useGetPersonalizedMVQuery = () =>
-  useRtkQuery<MVs>(["personalized/mv"], () =>
-    apiGet<MVs>("personalized/mv")
-  );
+  useQuery({
+    queryKey: discoverKeys.mv,
+    queryFn: () => apiGet<MVs>("personalized/mv"),
+  });
 
 export const useGetPersonalizedDJProgramQuery = () =>
-  useRtkQuery<DJPrograms>(["personalized/djprogram"], () =>
-    apiGet<DJPrograms>("personalized/djprogram")
-  );
+  useQuery({
+    queryKey: discoverKeys.djprogram,
+    queryFn: () => apiGet<DJPrograms>("personalized/djprogram"),
+  });
 
 export const useGetPlaylistHighqualityTagsQuery = () =>
-  useRtkQuery<Tags>(["playlist/highquality/tags"], () =>
-    apiGet<Tags>("playlist/highquality/tags")
-  );
+  useQuery({
+    queryKey: discoverKeys.playlistHighqualityTags,
+    queryFn: () => apiGet<Tags>("playlist/highquality/tags"),
+  });
 
 export const useGetPlaylistHotQuery = () =>
-  useRtkQuery<Tags>(["playlist/hot"], () => apiGet<Tags>("playlist/hot"));
+  useQuery({
+    queryKey: discoverKeys.playlistHot,
+    queryFn: () => apiGet<Tags>("playlist/hot"),
+  });
 
 export const useGetPlaylistCatListQuery = () =>
-  useRtkQuery<Tags>(["playlist/catlist"], () =>
-    apiGet<Tags>("playlist/catlist")
-  );
+  useQuery({
+    queryKey: discoverKeys.playlistCatList,
+    queryFn: () => apiGet<Tags>("playlist/catlist"),
+  });
 
 export const useGetTopPlaylistHighqualityMutation = (options?: {
   onSuccess?: (
@@ -61,10 +73,9 @@ export const useGetTopPlaylistHighqualityMutation = (options?: {
     variables: { cat: string; limit?: number; before?: number }
   ) => void;
 }) =>
-  useRtkMutation<
-    Highqualitys,
-    { cat: string; limit?: number; before?: number }
-  >((body) => apiPost<Highqualitys>("top/playlist/highquality", body as any), {
+  useMutation({
+    mutationFn: (body: { cat: string; limit?: number; before?: number }) =>
+      apiPost<Highqualitys>("top/playlist/highquality", body as any),
     onSuccess: (data, variables) => {
       options?.onSuccess?.(data, variables);
     },
@@ -76,14 +87,10 @@ export const useGetTopPlaylistQuery = (arg: {
   limit: number;
   offset: number;
 }) =>
-  useRtkQuery<
-    Playlists,
-    { order: string; cat: string; limit: number; offset: number }
-  >(
-    (body) => ["top/playlist", body],
-    (body) => apiPost<Playlists>("top/playlist", body as any),
-    arg
-  );
+  useQuery({
+    queryKey: discoverKeys.topPlaylist(arg),
+    queryFn: () => apiPost<Playlists>("top/playlist", arg as any),
+  });
 
 export * from "./toplist";
 export * from "./newest";

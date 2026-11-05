@@ -1,6 +1,7 @@
 import { Artists, Details } from "./types";
 import { apiGet, apiPost } from "@/shared/api/client";
-import { useRtkMutation, useRtkQuery } from "@/shared/query/rtk-compat";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { discoverKeys } from "@/shared/query/keys";
 
 interface ReqArtists {
   type: number;
@@ -13,16 +14,16 @@ interface ReqArtists {
 export const useGetArtistListMutation = (options?: {
   onSuccess?: (data: Artists, variables: ReqArtists) => void;
 }) =>
-  useRtkMutation<Artists, ReqArtists>(
-    (body) => apiPost<Artists>("artist/list", body as any),
-    {
-      onSuccess: (data, variables) => {
-        options?.onSuccess?.(data, variables);
-      },
-    }
-  );
+  useMutation({
+    mutationFn: (body: ReqArtists) =>
+      apiPost<Artists>("artist/list", body as any),
+    onSuccess: (data, variables) => {
+      options?.onSuccess?.(data, variables);
+    },
+  });
 
 export const useGetTopListDetailQuery = () =>
-  useRtkQuery<Details>(["topList/detail"], () =>
-    apiGet<Details>("topList/detail")
-  );
+  useQuery({
+    queryKey: discoverKeys.topListDetail,
+    queryFn: () => apiGet<Details>("topList/detail"),
+  });

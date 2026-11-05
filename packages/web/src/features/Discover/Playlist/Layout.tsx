@@ -10,16 +10,15 @@ import { useGetTopPlaylistHighqualityMutation } from "@/modules/services/discove
 const Layout = () => {
   const { cat = "" } = useParams();
   const [highquality, setHighquality] = useState({});
-  const [highqualityGet, { isLoading }] =
-    useGetTopPlaylistHighqualityMutation();
+  const { mutateAsync, isPending } = useGetTopPlaylistHighqualityMutation();
   useEffect(() => {
     (async () => {
-      const data = await highqualityGet({ cat, limit: 1 });
-      setHighquality(data.data);
+      const data = await mutateAsync({ cat, limit: 1 });
+      setHighquality(data);
     })();
   }, [cat]);
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="flex-center w-full h-full">
         <Loading />

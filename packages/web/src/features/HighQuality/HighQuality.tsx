@@ -13,18 +13,17 @@ const HighQuality = () => {
   const { cat = "" } = useParams();
   const before = useRef(0);
   const [data, setData] = useImmer<iHighquality[]>([]);
-  const [highQualityGet, { isLoading }] =
-    useGetTopPlaylistHighqualityMutation();
+  const { mutateAsync } = useGetTopPlaylistHighqualityMutation();
   const domScroll = useRef(null);
   const handleInit = async () => {
     try {
-      const data = await highQualityGet({
+      const data = await mutateAsync({
         cat,
         limit: 20,
         before: before.current,
       });
-      const playlists = data?.data?.playlists || [];
-      const lasttime = data?.data?.lasttime;
+      const playlists = data?.playlists || [];
+      const lasttime = data?.lasttime;
       before.current = lasttime;
       setData((draft) => {
         draft.push(...playlists);

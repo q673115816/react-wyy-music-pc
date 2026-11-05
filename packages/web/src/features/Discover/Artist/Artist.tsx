@@ -23,7 +23,7 @@ const Artist = () => {
   const offset = useRef(0);
   const DomScroll = useRef(null);
   const [artists, setArtists] = useImmer([]);
-  const [artistListGet, {}] = useGetArtistListMutation();
+  const { mutateAsync } = useGetArtistListMutation();
   const handleChangeOption = (newoption) => {
     setOption((prev) => ({
       ...prev,
@@ -36,7 +36,7 @@ const Artist = () => {
   const handleInit = async () => {
     try {
       const { type, area, initial } = RefOption.current;
-      const data = await artistListGet({
+      const data = await mutateAsync({
         type,
         area,
         initial,
@@ -45,7 +45,7 @@ const Artist = () => {
       });
       offset.current += limit;
       setArtists((draft) => {
-        draft.push(...data.data.artists);
+        draft.push(...data.artists);
       });
       // dispatch(addHomeTopArtists(artists));
     } catch (error) {
