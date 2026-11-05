@@ -1,0 +1,1 @@
+import{n as e}from"./client.BFz0WjFm.js";import{pt as t}from"./index.B6mkc4oJ.js";var n=()=>t([`mv/sublist`],()=>e(`mv/sublist`)),r=()=>t([`topic/sublist`],()=>e(`topic/sublist`)),i=()=>t([`artist/sublist`],()=>e(`artist/sublist`)),a=()=>t([`album/sublist`],()=>e(`album/sublist`)),o=()=>t([`dj/sublist`],()=>e(`dj/sublist`));export{r as a,n as i,i as n,o as r,a as t};
